@@ -1,0 +1,13 @@
+{
+    "plugins": [
+        "@nrwl/nx",
+        "@nrwl/nx/javascript",
+        "@nrwl/nx/typescript"
+    ],
+    "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+            "error",
+            {}
+        ]
+    }
+}
