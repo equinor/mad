@@ -1,9 +1,15 @@
 {
-  "name": "api-maintenance-api",
+  "name": "maintenance-api",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/api/maintenance-api/src",
   "projectType": "library",
   "targets": {
+    "codegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "openapi -i /Users/haakon.svane/Downloads/maintenance-api.yaml -o ./packages/api/maintenance-api/src/lib/generated -c axios --exportCore true --useUnionTypes true"
+      }
+    },
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
@@ -12,12 +18,13 @@
         "main": "packages/api/maintenance-api/src/index.ts",
         "tsConfig": "packages/api/maintenance-api/tsconfig.lib.json",
         "assets": ["packages/api/maintenance-api/*.md"]
-      }
+      },
+      "dependsOn": ["generate"]
     },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs api-maintenance-api {args.ver} {args.tag}"
+        "command": "node tools/scripts/publish.mjs maintenance-api {args.ver} {args.tag}"
       },
       "dependsOn": ["build"]
     },

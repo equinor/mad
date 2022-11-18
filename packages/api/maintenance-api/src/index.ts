@@ -1,1 +1,1 @@
-export * from './lib/api-maintenance-api';
+export * from './lib/maintenance-api';

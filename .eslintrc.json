@@ -1,13 +1,17 @@
 {
+    "root": true,
+    "ignorePatterns": ["**/*"],
+    "parser": "@typescript-eslint/parser",
     "plugins": [
         "@nrwl/nx",
-        "@nrwl/nx/javascript",
-        "@nrwl/nx/typescript"
+        "@typescript-eslint"
     ],
     "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
             "error",
-            {}
+            {
+
+            }
         ]
     }
 }
