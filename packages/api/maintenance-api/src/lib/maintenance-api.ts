@@ -1,4 +1,9 @@
 import {
+  ActivityReportsService,
+  FailureReportsService,
+  MasterDataForPlantsService,
+  ModificationProposalsService,
+  TagEquipmentService,
   CertificationReportsService,
   CorrectiveWorkOrdersService,
   MaintenanceConceptsService,
@@ -18,56 +23,40 @@ import {
   TechnicalInformationUpdateRequestsService,
   WorkOrderOperationsService,
   WorkOrderRelationshipsService,
-  WorkOrdersService
-} from "./generated";
-
-const { 
-  ActivityReportsService,
-  FailureReportsService,
-  MasterDataForPlantsService,
-  ModificationProposalsService,
-  TagEquipmentService,
-} = await import( "./generated");
-
-
-export function apiMaintenanceApi(): string {
-  return 'api-maintenance-api';
-}
-
+  WorkOrdersService,
+} from './generated';
 
 export class Plants {
-  public static TagAndEquipment = TagEquipmentService
-  public static MasterData = MasterDataForPlantsService
+  public static TagAndEquipment = TagEquipmentService;
+  public static MasterData = MasterDataForPlantsService;
 }
 
 export class MaintenanceRecords {
-  public static ActivityReports = ActivityReportsService
-  public static FailureReports = FailureReportsService
-  public static ModificationProposals = ModificationProposalsService
-  public static CertificationReports = CertificationReportsService
-  public static TechnicalInformation = TechnicalInformationUpdateRequestsService
-  public static TechnicalClarifications = TechnicalClarificationsService
-  public static MaintenanceRecords = MaintenanceRecordsService
-  public static MaintenanceRecordRelationships = MaintenanceRecordRelationshipsService
-  public static MasterDataForMaintenanceRecords = MasterDataForMaintenanceRecordsService
-  public static MasterDataForWorkOrders = MasterDataForWorkOrdersService
+  public static ActivityReports = ActivityReportsService;
+  public static FailureReports = FailureReportsService;
+  public static ModificationProposals = ModificationProposalsService;
+  public static CertificationReports = CertificationReportsService;
+  public static TechnicalInformation = TechnicalInformationUpdateRequestsService;
+  public static TechnicalClarifications = TechnicalClarificationsService;
+  public static MaintenanceRecords = MaintenanceRecordsService;
+  public static MaintenanceRecordRelationships = MaintenanceRecordRelationshipsService;
+  public static MasterDataForMaintenanceRecords = MasterDataForMaintenanceRecordsService;
+  public static MasterDataForWorkOrders = MasterDataForWorkOrdersService;
 }
 
 export class WorkOrders {
-  public static WorkOrders = WorkOrdersService
-  public static WorkOrderOperations = WorkOrderOperationsService
-  public static WorkOrderRelationships = WorkOrderRelationshipsService
-  public static CorrectiveWorkOrders = CorrectiveWorkOrdersService
-  public static PreventiveWorkOrders = PreventiveWorkOrdersService
-  public static SASChangeWorkOrders = SasChangeWorkOrdersService
-  public static ProjectWorkOrders = ProjectWorkOrdersService
-  public static ModificationWorkOrders = ModificationWorkOrdersService
-  public static SubseaWorkOrders = SubseaWorkOrdersService
+  public static WorkOrders = WorkOrdersService;
+  public static WorkOrderOperations = WorkOrderOperationsService;
+  public static WorkOrderRelationships = WorkOrderRelationshipsService;
+  public static CorrectiveWorkOrders = CorrectiveWorkOrdersService;
+  public static PreventiveWorkOrders = PreventiveWorkOrdersService;
+  public static SASChangeWorkOrders = SasChangeWorkOrdersService;
+  public static ProjectWorkOrders = ProjectWorkOrdersService;
+  public static ModificationWorkOrders = ModificationWorkOrdersService;
+  public static SubseaWorkOrders = SubseaWorkOrdersService;
 }
 
-export class MeasuringPoints {
-  public static MeasuringPoints = MeasuringPointsService
-}
+export const MeasuringPoints = MeasuringPointsService;
 
 export class MaintenanceProgram {
   public static MaintenancePlans = MaintenancePlansService;
