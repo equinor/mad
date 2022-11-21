@@ -7,7 +7,7 @@
     "codegen": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "openapi -i /Users/haakon.svane/Downloads/maintenance-api.yaml -o ./packages/api/maintenance-api/src/lib/generated -c axios --exportCore true --useUnionTypes true"
+        "command": "openapi -i /Users/haakon.svane/Downloads/maintenance-api.yaml -o ./packages/api/maintenance-api/src/lib/generated -c axios --useUnionTypes true"
       }
     },
     "build": {
@@ -17,9 +17,10 @@
         "outputPath": "dist/packages/api/maintenance-api",
         "main": "packages/api/maintenance-api/src/index.ts",
         "tsConfig": "packages/api/maintenance-api/tsconfig.lib.json",
-        "assets": ["packages/api/maintenance-api/*.md"]
+        "assets": ["packages/api/maintenance-api/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       },
-      "dependsOn": ["generate"]
+      "dependsOn": ["lint", "test"]
     },
     "publish": {
       "executor": "nx:run-commands",
