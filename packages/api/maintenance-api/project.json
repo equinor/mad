@@ -7,7 +7,7 @@
     "codegen": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "openapi -i /Users/haakon.svane/Downloads/maintenance-api.yaml -o ./packages/api/maintenance-api/src/lib/generated -c axios --useUnionTypes true"
+        "command": "openapi -i /Users/haakon.svane/Downloads/openapi.json -o ./packages/api/maintenance-api/src/lib/generated -c axios --useUnionTypes --useOptions --exportCore false"
       }
     },
     "build": {

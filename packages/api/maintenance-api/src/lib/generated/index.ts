@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+
 export { ApiError } from './core/ApiError';
 export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
@@ -36,6 +37,7 @@ export type { DetectionMethod } from './models/DetectionMethod';
 export type { DetectionMethodGroup } from './models/DetectionMethodGroup';
 export type { Equipment } from './models/Equipment';
 export type { EquipmentAddClass } from './models/EquipmentAddClass';
+export type { EquipmentAttachment } from './models/EquipmentAttachment';
 export type { EquipmentBasic } from './models/EquipmentBasic';
 export type { EquipmentBasicV2 } from './models/EquipmentBasicV2';
 export type { EquipmentChangeLogs } from './models/EquipmentChangeLogs';
@@ -73,6 +75,7 @@ export type { MaintenancePlanItem } from './models/MaintenancePlanItem';
 export type { MaintenancePlanItemBasic } from './models/MaintenancePlanItemBasic';
 export type { MaintenancePlanItemCall } from './models/MaintenancePlanItemCall';
 export type { MaintenancePlanItemJsonPatch } from './models/MaintenancePlanItemJsonPatch';
+export type { MaintenancePlanItemPartial } from './models/MaintenancePlanItemPartial';
 export type { MaintenancePlanItemStatusJsonPatch } from './models/MaintenancePlanItemStatusJsonPatch';
 export type { MaintenancePlanItemTask } from './models/MaintenancePlanItemTask';
 export type { MaintenancePlanItemTaskListJsonPatch } from './models/MaintenancePlanItemTaskListJsonPatch';
