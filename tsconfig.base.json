@@ -22,7 +22,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@mad/maintenance-api": ["packages/api/maintenance-api/src/index.ts"]
+      "maintenance-api": ["packages/api/maintenance-api/src/index.ts"],
+      "components": ["packages/components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
