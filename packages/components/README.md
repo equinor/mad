@@ -1,6 +1,6 @@
-# components
+# MAD Components
 
-This library was generated with [Nx](https://nx.dev).
+MAD Components is a React Native / Expo component library implementing [EDS](https://github.com/equinor/design-system) in a mobile-friendly way.
 
 ## Running unit tests
 
