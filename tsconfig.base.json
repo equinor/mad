@@ -10,6 +10,7 @@
     "esModuleInterop": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "rootDir": ".",
     "sourceMap": false,
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -18,7 +19,13 @@
     "importHelpers": true,
     "lib": ["DOM", "ESNext"],
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@equinor/mad-react-native-image-markup": ["packages/react-native-image-markup/src/index.ts"],
+      "@equinor/mad-components": ["packages/components/src/index.ts"],
+      "@equinor/mad-maintenance-api-ts-wrapper": ["packages/api/maintenance-api/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

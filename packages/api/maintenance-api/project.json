@@ -1,0 +1,49 @@
+{
+  "name": "maintenance-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/api/maintenance-api/src",
+  "projectType": "library",
+  "targets": {
+    "codegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "openapi -i /Users/haakon.svane/Downloads/openapi.json -o ./packages/api/maintenance-api/src/lib/generated -c axios --useUnionTypes --useOptions --exportCore false"
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/api/maintenance-api",
+        "main": "packages/api/maintenance-api/src/index.ts",
+        "tsConfig": "packages/api/maintenance-api/tsconfig.lib.json",
+        "assets": ["packages/api/maintenance-api/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      },
+      "dependsOn": ["lint", "test"]
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs maintenance-api {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/api/maintenance-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/api/maintenance-api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
