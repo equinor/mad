@@ -1,0 +1,10 @@
+export type Status = {
+    statusId: string;
+    status: string;
+    /**
+     * Some status may be ordered in a sequence and this indicates the position
+     */
+    statusOrder: number | null;
+    isActive: boolean;
+    activatedDateTime: string | null;
+};

@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/**/*"
   ],
   "scripts": {
     "build": "turbo run build",
@@ -13,13 +14,24 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.13.0",
+    "esbuild": "0.17.8",
     "eslint-config-custom": "workspace:*",
+    "jest": "^29.4.2",
     "prettier": "latest",
-    "turbo": "latest"
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "tsconfig": "workspace:*",
+    "tslib": "^2.5.0",
+    "turbo": "latest",
+    "typescript": "^4.7.4"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
-  "packageManager": "pnpm@7.26.3"
+  "packageManager": "pnpm@7.26.3",
+  "dependencies": {
+    "changesets": "^1.0.2"
+  }
 }

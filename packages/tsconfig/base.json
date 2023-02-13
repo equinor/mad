@@ -11,14 +11,12 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": false,
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "allowUnreachableCode": false,
     "importHelpers": true,
     "lib": ["DOM", "ESNext"],
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "tmp"]
 }
