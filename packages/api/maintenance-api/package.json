@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "generate": "openapi -i <INPUT_DIR> -o ./packages/api/maintenance-api/src/lib/generated -c axios --useUnionTypes --useOptions --exportCore false",
-    "build": "tsc --build tsconfig.lib.json"
+    "typecheck": "tsc tsconfig.lib.json --noEmit",
+    "build": "esbuild esbuild.config.mjs"
   },
   "repository": {
     "type": "git",

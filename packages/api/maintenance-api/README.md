@@ -6,14 +6,14 @@ It inclides everything needed for establishing a secure connection to the mainte
 ## How to use
 
 ```ts
-import { initializeMaintenanceApi, Plants } from '@mad/maintenance-api';
+import { initializeMaintenanceApi, Plants } from "@mad/maintenance-api";
 
 const getMaintenanceApiToken = async () => {
-  return 'SomeToken';
+  return "SomeToken";
 };
 
 initializeMaintenanceApi({
-  baseUrl: 'https://someUrlHere.com',
+  baseUrl: "https://someUrlHere.com",
   tokenFetcher: getMaintenanceApiToken,
 });
 ```
