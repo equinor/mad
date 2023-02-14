@@ -1,17 +1,17 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { GenericWorkOrderJsonPatch } from '../models/GenericWorkOrderJsonPatch';
-import type { ModificationWorkOrder } from '../models/ModificationWorkOrder';
-import type { ModificationWorkOrderBasic } from '../models/ModificationWorkOrderBasic';
-import type { ModificationWorkOrderCreate } from '../models/ModificationWorkOrderCreate';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { StatusUpdate } from '../models/StatusUpdate';
-import type { WorkOrderOperationTimeTicketAdd } from '../models/WorkOrderOperationTimeTicketAdd';
+import type { GenericWorkOrderJsonPatch } from "../models/GenericWorkOrderJsonPatch";
+import type { ModificationWorkOrder } from "../models/ModificationWorkOrder";
+import type { ModificationWorkOrderBasic } from "../models/ModificationWorkOrderBasic";
+import type { ModificationWorkOrderCreate } from "../models/ModificationWorkOrderCreate";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { StatusUpdate } from "../models/StatusUpdate";
+import type { WorkOrderOperationTimeTicketAdd } from "../models/WorkOrderOperationTimeTicketAdd";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class ModificationWorkOrdersService {
   /**
@@ -39,10 +39,10 @@ export class ModificationWorkOrdersService {
     requestBody: ModificationWorkOrderCreate;
   }): CancelablePromise<ProblemDetails | ModificationWorkOrderBasic> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/work-orders/modification-work-orders',
+      method: "POST",
+      url: "/work-orders/modification-work-orders",
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `The request body is invalid`,
         403: `User does not have sufficient rights to create a Project Work order`,
@@ -72,14 +72,14 @@ export class ModificationWorkOrdersService {
     requestBody: WorkOrderOperationTimeTicketAdd;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/work-orders/modification-work-orders/{work-order-id}/operations/{operation}/time-tickets',
+      method: "POST",
+      url: "/work-orders/modification-work-orders/{work-order-id}/operations/{operation}/time-tickets",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
         operation: operation,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `The request body is invalid`,
         403: `User does not have sufficient rights to add operations to work order`,
@@ -161,19 +161,19 @@ export class ModificationWorkOrdersService {
     includeRelatedTags?: boolean;
   }): CancelablePromise<ModificationWorkOrder | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/work-orders/modification-work-orders/{work-order-id}',
+      method: "GET",
+      url: "/work-orders/modification-work-orders/{work-order-id}",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
       },
       query: {
-        'include-operations': includeOperations,
-        'include-materials': includeMaterials,
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-attachments': includeAttachments,
-        'include-status-details': includeStatusDetails,
-        'include-tag-details': includeTagDetails,
-        'include-related-tags': includeRelatedTags,
+        "include-operations": includeOperations,
+        "include-materials": includeMaterials,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-attachments": includeAttachments,
+        "include-status-details": includeStatusDetails,
+        "include-tag-details": includeTagDetails,
+        "include-related-tags": includeRelatedTags,
       },
       errors: {
         301: `If work-order-id exist, but is not a \`modificationWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -229,13 +229,13 @@ export class ModificationWorkOrdersService {
     requestBody: GenericWorkOrderJsonPatch;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/work-orders/modification-work-orders/{work-order-id}',
+      method: "PATCH",
+      url: "/work-orders/modification-work-orders/{work-order-id}",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to update work order operation`,
@@ -307,17 +307,18 @@ export class ModificationWorkOrdersService {
     completeOutstandingMaintenanceRecords?: boolean;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/work-orders/modification-work-orders/{work-order-id}/statuses/{status-id}',
+      method: "PATCH",
+      url: "/work-orders/modification-work-orders/{work-order-id}/statuses/{status-id}",
       path: {
-        'work-order-id': workOrderId,
-        'status-id': statusId,
+        "work-order-id": workOrderId,
+        "status-id": statusId,
       },
       query: {
-        'complete-outstanding-maintenance-records': completeOutstandingMaintenanceRecords,
+        "complete-outstanding-maintenance-records":
+          completeOutstandingMaintenanceRecords,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         403: `User does not have sufficient rights to update Work order`,
         404: `The specified resource was not found`,

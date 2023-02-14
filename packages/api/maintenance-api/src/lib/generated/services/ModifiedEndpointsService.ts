@@ -1,19 +1,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Equipment } from '../models/Equipment';
-import type { MaintenancePlan } from '../models/MaintenancePlan';
-import type { MaintenancePlanItem } from '../models/MaintenancePlanItem';
-import type { Plant } from '../models/Plant';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { Tag } from '../models/Tag';
-import type { TaskListOperationBasic } from '../models/TaskListOperationBasic';
-import type { TaskWorkOrderOperationCreate } from '../models/TaskWorkOrderOperationCreate';
-import type { TaskWorkOrderOperationJsonPatch } from '../models/TaskWorkOrderOperationJsonPatch';
+import type { Equipment } from "../models/Equipment";
+import type { MaintenancePlan } from "../models/MaintenancePlan";
+import type { MaintenancePlanItem } from "../models/MaintenancePlanItem";
+import type { Plant } from "../models/Plant";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { Tag } from "../models/Tag";
+import type { TaskListOperationBasic } from "../models/TaskListOperationBasic";
+import type { TaskWorkOrderOperationCreate } from "../models/TaskWorkOrderOperationCreate";
+import type { TaskWorkOrderOperationJsonPatch } from "../models/TaskWorkOrderOperationJsonPatch";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class ModifiedEndpointsService {
   /**
@@ -88,12 +88,12 @@ export class ModifiedEndpointsService {
      * Include which types of maintenance records
      */
     includeMaintenanceRecordTypes?: Array<
-      | 'modification-proposal'
-      | 'failure-report'
-      | 'activity-report'
-      | 'certification-report'
-      | 'technical-information-update-request'
-      | 'technical-clarification'
+      | "modification-proposal"
+      | "failure-report"
+      | "activity-report"
+      | "certification-report"
+      | "technical-information-update-request"
+      | "technical-clarification"
     >;
     /**
      * Limit include-maintenance-records to only open maintenance records
@@ -107,12 +107,12 @@ export class ModifiedEndpointsService {
      * Include which types of work orders. Use comma-separated list of entries.
      */
     includeWorkOrderTypes?: Array<
-      | 'correctiveWorkOrders'
-      | 'preventiveWorkOrders'
-      | 'modificationWorkOrders'
-      | 'sasChangeWorkOrders'
-      | 'projectWorkOrders'
-      | 'subseaWorkOrders'
+      | "correctiveWorkOrders"
+      | "preventiveWorkOrders"
+      | "modificationWorkOrders"
+      | "sasChangeWorkOrders"
+      | "projectWorkOrders"
+      | "subseaWorkOrders"
     >;
     /**
      * Limit include-work-orders to only open work order
@@ -144,24 +144,25 @@ export class ModifiedEndpointsService {
     includeStatusDetails?: boolean;
   }): CancelablePromise<Equipment | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/equipment/{equipment-id}',
+      method: "GET",
+      url: "/equipment/{equipment-id}",
       path: {
-        'equipment-id': equipmentId,
+        "equipment-id": equipmentId,
       },
       query: {
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-maintenance-record-types': includeMaintenanceRecordTypes,
-        'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-        'include-work-orders': includeWorkOrders,
-        'include-work-order-types': includeWorkOrderTypes,
-        'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-        'include-catalog-profile-details': includeCatalogProfileDetails,
-        'include-characteristics': includeCharacteristics,
-        'include-attachments': includeAttachments,
-        'include-measuring-points': includeMeasuringPoints,
-        'include-last-measurement': includeLastMeasurement,
-        'include-status-details': includeStatusDetails,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-maintenance-record-types": includeMaintenanceRecordTypes,
+        "include-only-open-maintenance-records":
+          includeOnlyOpenMaintenanceRecords,
+        "include-work-orders": includeWorkOrders,
+        "include-work-order-types": includeWorkOrderTypes,
+        "include-only-open-work-orders": includeOnlyOpenWorkOrders,
+        "include-catalog-profile-details": includeCatalogProfileDetails,
+        "include-characteristics": includeCharacteristics,
+        "include-attachments": includeAttachments,
+        "include-measuring-points": includeMeasuringPoints,
+        "include-last-measurement": includeLastMeasurement,
+        "include-status-details": includeStatusDetails,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -244,21 +245,22 @@ export class ModifiedEndpointsService {
     includeSystems?: boolean;
   }): CancelablePromise<Plant | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/plants/{plant-id}',
+      method: "GET",
+      url: "/plants/{plant-id}",
       path: {
-        'plant-id': plantId,
+        "plant-id": plantId,
       },
       query: {
-        'include-locations': includeLocations,
-        'include-work-centers': includeWorkCenters,
-        'include-planner-groups': includePlannerGroups,
-        'include-tag-catalog-profiles': includeTagCatalogProfiles,
-        'include-equipment-catalog-profiles': includeEquipmentCatalogProfiles,
-        'include-only-default-catalog-profiles': includeOnlyDefaultCatalogProfiles,
-        'include-surface-degradation-factors': includeSurfaceDegradationFactors,
-        'include-revisions': includeRevisions,
-        'include-systems': includeSystems,
+        "include-locations": includeLocations,
+        "include-work-centers": includeWorkCenters,
+        "include-planner-groups": includePlannerGroups,
+        "include-tag-catalog-profiles": includeTagCatalogProfiles,
+        "include-equipment-catalog-profiles": includeEquipmentCatalogProfiles,
+        "include-only-default-catalog-profiles":
+          includeOnlyDefaultCatalogProfiles,
+        "include-surface-degradation-factors": includeSurfaceDegradationFactors,
+        "include-revisions": includeRevisions,
+        "include-systems": includeSystems,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -302,7 +304,7 @@ export class ModifiedEndpointsService {
    */
   public static searchTags({
     plantId,
-    filter = 'by-tag-prefix',
+    filter = "by-tag-prefix",
     tagPrefix,
     tagIdsAnyOf,
     includeMaintenanceRecords = false,
@@ -320,7 +322,7 @@ export class ModifiedEndpointsService {
     page = 1,
   }: {
     plantId: string;
-    filter?: 'by-tag-ids' | 'by-tag-prefix' | null;
+    filter?: "by-tag-ids" | "by-tag-prefix" | null;
     /**
      * The first few characters of the tag, required if filter is empty or `by-tag-prefix`
      */
@@ -337,11 +339,11 @@ export class ModifiedEndpointsService {
      * Include which types of maintenance records
      */
     includeMaintenanceRecordTypes?: Array<
-      | 'failure-report'
-      | 'activity-report'
-      | 'certification-report'
-      | 'technical-information-update-request'
-      | 'technical-clarification'
+      | "failure-report"
+      | "activity-report"
+      | "certification-report"
+      | "technical-information-update-request"
+      | "technical-clarification"
     >;
     /**
      * Include work orders. If include-work-order-types is not supplied, all support types are returned
@@ -351,12 +353,12 @@ export class ModifiedEndpointsService {
      * Include which types of work orders. Use comma-separated list of entries.
      */
     includeWorkOrderTypes?: Array<
-      | 'correctiveWorkOrders'
-      | 'preventiveWorkOrders'
-      | 'modificationWorkOrders'
-      | 'sasChangeWorkOrders'
-      | 'projectWorkOrders'
-      | 'subseaWorkOrders'
+      | "correctiveWorkOrders"
+      | "preventiveWorkOrders"
+      | "modificationWorkOrders"
+      | "sasChangeWorkOrders"
+      | "projectWorkOrders"
+      | "subseaWorkOrders"
     >;
     /**
      * Include installed equipment
@@ -396,27 +398,27 @@ export class ModifiedEndpointsService {
     page?: number;
   }): CancelablePromise<Array<Tag> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/plants/{plant-id}/tags',
+      method: "GET",
+      url: "/plants/{plant-id}/tags",
       path: {
-        'plant-id': plantId,
+        "plant-id": plantId,
       },
       query: {
         filter: filter,
-        'tag-prefix': tagPrefix,
-        'tag-ids-any-of': tagIdsAnyOf,
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-maintenance-record-types': includeMaintenanceRecordTypes,
-        'include-work-orders': includeWorkOrders,
-        'include-work-order-types': includeWorkOrderTypes,
-        'include-installed-equipment': includeInstalledEquipment,
-        'include-catalog-profile-details': includeCatalogProfileDetails,
-        'include-maintenance-plan-items': includeMaintenancePlanItems,
-        'include-measuring-points': includeMeasuringPoints,
-        'include-last-measurement': includeLastMeasurement,
-        'include-characteristics': includeCharacteristics,
-        'include-bill-of-materials': includeBillOfMaterials,
-        'per-page': perPage,
+        "tag-prefix": tagPrefix,
+        "tag-ids-any-of": tagIdsAnyOf,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-maintenance-record-types": includeMaintenanceRecordTypes,
+        "include-work-orders": includeWorkOrders,
+        "include-work-order-types": includeWorkOrderTypes,
+        "include-installed-equipment": includeInstalledEquipment,
+        "include-catalog-profile-details": includeCatalogProfileDetails,
+        "include-maintenance-plan-items": includeMaintenancePlanItems,
+        "include-measuring-points": includeMeasuringPoints,
+        "include-last-measurement": includeLastMeasurement,
+        "include-characteristics": includeCharacteristics,
+        "include-bill-of-materials": includeBillOfMaterials,
+        "per-page": perPage,
         page: page,
       },
       errors: {
@@ -459,14 +461,14 @@ export class ModifiedEndpointsService {
     includeItemCalls?: boolean;
   }): CancelablePromise<MaintenancePlan | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-plans/{plan-id}',
+      method: "GET",
+      url: "/maintenance-plans/{plan-id}",
       path: {
-        'plan-id': planId,
+        "plan-id": planId,
       },
       query: {
-        'include-items': includeItems,
-        'include-item-calls': includeItemCalls,
+        "include-items": includeItems,
+        "include-item-calls": includeItemCalls,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -543,17 +545,17 @@ export class ModifiedEndpointsService {
     includeItemTaskList?: boolean;
   }): CancelablePromise<MaintenancePlanItem | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}',
+      method: "GET",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
+        "plan-id": planId,
+        "item-id": itemId,
       },
       query: {
-        'include-item-calls': includeItemCalls,
-        'include-item-object-list': includeItemObjectList,
-        'include-object-list-linkage': includeObjectListLinkage,
-        'include-item-task-list': includeItemTaskList,
+        "include-item-calls": includeItemCalls,
+        "include-item-object-list": includeItemObjectList,
+        "include-object-list-linkage": includeObjectListLinkage,
+        "include-item-task-list": includeItemTaskList,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -615,16 +617,16 @@ export class ModifiedEndpointsService {
     requestBody: Array<TaskWorkOrderOperationJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}',
+      method: "PATCH",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -682,15 +684,15 @@ export class ModifiedEndpointsService {
     requestBody: TaskWorkOrderOperationCreate;
   }): CancelablePromise<ProblemDetails | TaskListOperationBasic> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations',
+      method: "POST",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },

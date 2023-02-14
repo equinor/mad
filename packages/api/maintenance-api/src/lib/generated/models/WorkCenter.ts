@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type WorkCenter = {
-    workCenterId: string;
-    workCenter: string;
+  workCenterId: string;
+  workCenter: string;
 };
-

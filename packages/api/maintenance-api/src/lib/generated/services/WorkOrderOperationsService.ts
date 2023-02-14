@@ -1,16 +1,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { SubseaWorkOrderMaterial } from '../models/SubseaWorkOrderMaterial';
-import type { TechnicalFeedbackJsonPatch } from '../models/TechnicalFeedbackJsonPatch';
-import type { WorkOrderMaterial } from '../models/WorkOrderMaterial';
-import type { WorkOrderMaterialAdd } from '../models/WorkOrderMaterialAdd';
-import type { WorkOrderOperationJsonPatch } from '../models/WorkOrderOperationJsonPatch';
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { SubseaWorkOrderMaterial } from "../models/SubseaWorkOrderMaterial";
+import type { TechnicalFeedbackJsonPatch } from "../models/TechnicalFeedbackJsonPatch";
+import type { WorkOrderMaterial } from "../models/WorkOrderMaterial";
+import type { WorkOrderMaterialAdd } from "../models/WorkOrderMaterialAdd";
+import type { WorkOrderOperationJsonPatch } from "../models/WorkOrderOperationJsonPatch";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class WorkOrderOperationsService {
   /**
@@ -41,13 +41,13 @@ export class WorkOrderOperationsService {
     requestBody: Array<WorkOrderOperationJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/work-order-operations/{operation-id}',
+      method: "PATCH",
+      url: "/work-order-operations/{operation-id}",
       path: {
-        'operation-id': operationId,
+        "operation-id": operationId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to update operation`,
@@ -87,14 +87,14 @@ export class WorkOrderOperationsService {
     requestBody: Array<TechnicalFeedbackJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/work-order-operations/{operation-id}/technical-feedback/{technical-feedback-id}',
+      method: "PATCH",
+      url: "/work-order-operations/{operation-id}/technical-feedback/{technical-feedback-id}",
       path: {
-        'operation-id': operationId,
-        'technical-feedback-id': technicalFeedbackId,
+        "operation-id": operationId,
+        "technical-feedback-id": technicalFeedbackId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to update operation`,
@@ -129,15 +129,17 @@ export class WorkOrderOperationsService {
      * Add material details
      */
     requestBody: Array<WorkOrderMaterialAdd>;
-  }): CancelablePromise<ProblemDetails | Array<WorkOrderMaterial | SubseaWorkOrderMaterial>> {
+  }): CancelablePromise<
+    ProblemDetails | Array<WorkOrderMaterial | SubseaWorkOrderMaterial>
+  > {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/work-order-operations/{operation-id}/materials',
+      method: "POST",
+      url: "/work-order-operations/{operation-id}/materials",
       path: {
-        'operation-id': operationId,
+        "operation-id": operationId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters or is otherwise inconsistent`,
         403: `User does not have sufficient rights to update operation`,
@@ -169,11 +171,11 @@ export class WorkOrderOperationsService {
     reservationId: string;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'DELETE',
-      url: '/work-order-operations/{operation-id}/materials/{reservation-id}',
+      method: "DELETE",
+      url: "/work-order-operations/{operation-id}/materials/{reservation-id}",
       path: {
-        'operation-id': operationId,
-        'reservation-id': reservationId,
+        "operation-id": operationId,
+        "reservation-id": reservationId,
       },
       errors: {
         400: `Request is missing required parameters`,

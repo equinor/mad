@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenancePlanItemBasic } from './MaintenancePlanItemBasic';
-import type { MaintenancePlanItemCall } from './MaintenancePlanItemCall';
+import type { MaintenancePlanItemBasic } from "./MaintenancePlanItemBasic";
+import type { MaintenancePlanItemCall } from "./MaintenancePlanItemCall";
 
 export type MaintenancePlanItemPartial = MaintenancePlanItemBasic & {
   /**

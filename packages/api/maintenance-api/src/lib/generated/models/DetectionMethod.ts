@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type DetectionMethod = {
-    detectionMethodId: string;
-    detectionMethod: string;
+  detectionMethodId: string;
+  detectionMethod: string;
 };
-

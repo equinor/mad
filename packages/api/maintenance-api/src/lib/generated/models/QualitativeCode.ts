@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type QualitativeCode = {
-    qualitativeCodeId: string;
-    qualitativeCode: string;
+  qualitativeCodeId: string;
+  qualitativeCode: string;
 };
-

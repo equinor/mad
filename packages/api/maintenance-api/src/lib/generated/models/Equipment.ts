@@ -2,24 +2,24 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ActivityReportSimple } from './ActivityReportSimple';
-import type { CatalogProfileDetails } from './CatalogProfileDetails';
-import type { CertificationReportSimple } from './CertificationReportSimple';
-import type { CorrectiveWorkOrderSimpleWithRelationship } from './CorrectiveWorkOrderSimpleWithRelationship';
-import type { EquipmentAttachment } from './EquipmentAttachment';
-import type { EquipmentBasicV2 } from './EquipmentBasicV2';
-import type { EquipmentCharacteristic } from './EquipmentCharacteristic';
-import type { FailureReportSimple } from './FailureReportSimple';
-import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
-import type { ModificationProposalSimple } from './ModificationProposalSimple';
-import type { ModificationWorkOrderSimpleWithRelationship } from './ModificationWorkOrderSimpleWithRelationship';
-import type { PreventiveWorkOrderSimpleWithRelationship } from './PreventiveWorkOrderSimpleWithRelationship';
-import type { ProjectWorkOrderSimpleWithRelationship } from './ProjectWorkOrderSimpleWithRelationship';
-import type { SASChangeWorkOrderSimpleWithRelationship } from './SASChangeWorkOrderSimpleWithRelationship';
-import type { Status } from './Status';
-import type { SubseaWorkOrderSimpleWithRelationship } from './SubseaWorkOrderSimpleWithRelationship';
-import type { TechnicalClarificationSimple } from './TechnicalClarificationSimple';
-import type { TechnicalInformationUpdateRequestSimple } from './TechnicalInformationUpdateRequestSimple';
+import type { ActivityReportSimple } from "./ActivityReportSimple";
+import type { CatalogProfileDetails } from "./CatalogProfileDetails";
+import type { CertificationReportSimple } from "./CertificationReportSimple";
+import type { CorrectiveWorkOrderSimpleWithRelationship } from "./CorrectiveWorkOrderSimpleWithRelationship";
+import type { EquipmentAttachment } from "./EquipmentAttachment";
+import type { EquipmentBasicV2 } from "./EquipmentBasicV2";
+import type { EquipmentCharacteristic } from "./EquipmentCharacteristic";
+import type { FailureReportSimple } from "./FailureReportSimple";
+import type { MeasuringPointFromTagLookup } from "./MeasuringPointFromTagLookup";
+import type { ModificationProposalSimple } from "./ModificationProposalSimple";
+import type { ModificationWorkOrderSimpleWithRelationship } from "./ModificationWorkOrderSimpleWithRelationship";
+import type { PreventiveWorkOrderSimpleWithRelationship } from "./PreventiveWorkOrderSimpleWithRelationship";
+import type { ProjectWorkOrderSimpleWithRelationship } from "./ProjectWorkOrderSimpleWithRelationship";
+import type { SASChangeWorkOrderSimpleWithRelationship } from "./SASChangeWorkOrderSimpleWithRelationship";
+import type { Status } from "./Status";
+import type { SubseaWorkOrderSimpleWithRelationship } from "./SubseaWorkOrderSimpleWithRelationship";
+import type { TechnicalClarificationSimple } from "./TechnicalClarificationSimple";
+import type { TechnicalInformationUpdateRequestSimple } from "./TechnicalInformationUpdateRequestSimple";
 
 export type Equipment = EquipmentBasicV2 & {
   /**

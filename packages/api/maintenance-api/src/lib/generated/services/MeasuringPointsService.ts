@@ -1,18 +1,18 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Measurement } from '../models/Measurement';
-import type { MeasurementCreate } from '../models/MeasurementCreate';
-import type { MeasuringPoint } from '../models/MeasuringPoint';
-import type { MeasuringPointAddClass } from '../models/MeasuringPointAddClass';
-import type { MeasuringPointBasic } from '../models/MeasuringPointBasic';
-import type { MeasuringPointCreate } from '../models/MeasuringPointCreate';
-import type { MeasuringPointJsonPatch } from '../models/MeasuringPointJsonPatch';
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { Measurement } from "../models/Measurement";
+import type { MeasurementCreate } from "../models/MeasurementCreate";
+import type { MeasuringPoint } from "../models/MeasuringPoint";
+import type { MeasuringPointAddClass } from "../models/MeasuringPointAddClass";
+import type { MeasuringPointBasic } from "../models/MeasuringPointBasic";
+import type { MeasuringPointCreate } from "../models/MeasuringPointCreate";
+import type { MeasuringPointJsonPatch } from "../models/MeasuringPointJsonPatch";
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MeasuringPointsService {
   /**
@@ -73,17 +73,18 @@ export class MeasuringPointsService {
     includeCharacteristicsWithoutValue?: boolean;
   }): CancelablePromise<MeasuringPoint | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/measuring-points/{point-id}',
+      method: "GET",
+      url: "/measuring-points/{point-id}",
       path: {
-        'point-id': pointId,
+        "point-id": pointId,
       },
       query: {
-        'include-last-measurement': includeLastMeasurement,
-        'include-measurements': includeMeasurements,
-        'include-qualitative-code-group': includeQualitativeCodeGroup,
-        'include-characteristics': includeCharacteristics,
-        'include-characteristics-without-value': includeCharacteristicsWithoutValue,
+        "include-last-measurement": includeLastMeasurement,
+        "include-measurements": includeMeasurements,
+        "include-qualitative-code-group": includeQualitativeCodeGroup,
+        "include-characteristics": includeCharacteristics,
+        "include-characteristics-without-value":
+          includeCharacteristicsWithoutValue,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -113,13 +114,13 @@ export class MeasuringPointsService {
     requestBody: Array<MeasuringPointJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/measuring-points/{point-id}',
+      method: "PATCH",
+      url: "/measuring-points/{point-id}",
       path: {
-        'point-id': pointId,
+        "point-id": pointId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to update measuring point`,
@@ -176,7 +177,7 @@ export class MeasuringPointsService {
     /**
      * Filter to limit the measuring points by
      */
-    filter: 'by-plant';
+    filter: "by-plant";
     /**
      * Plant the tag-prefix belongs to
      */
@@ -223,21 +224,22 @@ export class MeasuringPointsService {
     includeCharacteristicsWithoutValue?: boolean;
   }): CancelablePromise<Array<MeasuringPoint> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/measuring-points',
+      method: "GET",
+      url: "/measuring-points",
       query: {
         filter: filter,
-        'plant-id': plantId,
-        'tag-prefix': tagPrefix,
-        'measuring-position': measuringPosition,
-        'quantitative-characteristic': quantitativeCharacteristic,
-        'qualitative-code-group': qualitativeCodeGroup,
-        'measuring-point-name': measuringPointName,
-        'include-last-measurement': includeLastMeasurement,
-        'include-measurements': includeMeasurements,
-        'include-qualitative-code-group': includeQualitativeCodeGroup,
-        'include-characteristics': includeCharacteristics,
-        'include-characteristics-without-value': includeCharacteristicsWithoutValue,
+        "plant-id": plantId,
+        "tag-prefix": tagPrefix,
+        "measuring-position": measuringPosition,
+        "quantitative-characteristic": quantitativeCharacteristic,
+        "qualitative-code-group": qualitativeCodeGroup,
+        "measuring-point-name": measuringPointName,
+        "include-last-measurement": includeLastMeasurement,
+        "include-measurements": includeMeasurements,
+        "include-qualitative-code-group": includeQualitativeCodeGroup,
+        "include-characteristics": includeCharacteristics,
+        "include-characteristics-without-value":
+          includeCharacteristicsWithoutValue,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -270,10 +272,10 @@ export class MeasuringPointsService {
     requestBody: MeasuringPointCreate;
   }): CancelablePromise<ProblemDetails | MeasuringPointBasic> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/measuring-points',
+      method: "POST",
+      url: "/measuring-points",
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Bad Request - The resource provided in the body is not according to specification`,
         403: `User does not have sufficient rights to create a measuring point`,
@@ -310,13 +312,13 @@ export class MeasuringPointsService {
     requestBody: MeasurementCreate;
   }): CancelablePromise<ProblemDetails | Measurement> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/measuring-points/{point-id}/measurements',
+      method: "POST",
+      url: "/measuring-points/{point-id}/measurements",
       path: {
-        'point-id': pointId,
+        "point-id": pointId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Bad request - Can occur if quantitative and qualitative measurements provided are not supported by measuring point`,
         403: `User does not have sufficient rights to create a measurement of measuring point`,
@@ -356,14 +358,14 @@ export class MeasuringPointsService {
     requestBody: Array<MeasuringPointAddClass>;
   }): CancelablePromise<ProblemDetails | string> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/measuring-points/{point-id}/characteristics',
+      method: "POST",
+      url: "/measuring-points/{point-id}/characteristics",
       path: {
-        'point-id': pointId,
+        "point-id": pointId,
       },
       body: requestBody,
-      mediaType: 'application/json',
-      responseHeader: 'Location',
+      mediaType: "application/json",
+      responseHeader: "Location",
       errors: {
         400: `Request is missing required parameters or characteristicId is not part of class`,
         403: `User does not have sufficient rights to add characteristics to measuring point`,

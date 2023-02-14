@@ -1,20 +1,20 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CorrectiveWorkOrder } from '../models/CorrectiveWorkOrder';
-import type { CorrectiveWorkOrderBasic } from '../models/CorrectiveWorkOrderBasic';
-import type { CorrectiveWorkOrderCreate } from '../models/CorrectiveWorkOrderCreate';
-import type { CorrectiveWorkOrderSimple } from '../models/CorrectiveWorkOrderSimple';
-import type { GenericWorkOrderJsonPatch } from '../models/GenericWorkOrderJsonPatch';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { StatusUpdate } from '../models/StatusUpdate';
-import type { WorkOrderOperationCreate } from '../models/WorkOrderOperationCreate';
-import type { WorkOrderOperationJsonPatchDeprecated } from '../models/WorkOrderOperationJsonPatchDeprecated';
-import type { WorkOrderOperationTimeTicketAdd } from '../models/WorkOrderOperationTimeTicketAdd';
+import type { CorrectiveWorkOrder } from "../models/CorrectiveWorkOrder";
+import type { CorrectiveWorkOrderBasic } from "../models/CorrectiveWorkOrderBasic";
+import type { CorrectiveWorkOrderCreate } from "../models/CorrectiveWorkOrderCreate";
+import type { CorrectiveWorkOrderSimple } from "../models/CorrectiveWorkOrderSimple";
+import type { GenericWorkOrderJsonPatch } from "../models/GenericWorkOrderJsonPatch";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { StatusUpdate } from "../models/StatusUpdate";
+import type { WorkOrderOperationCreate } from "../models/WorkOrderOperationCreate";
+import type { WorkOrderOperationJsonPatchDeprecated } from "../models/WorkOrderOperationJsonPatchDeprecated";
+import type { WorkOrderOperationTimeTicketAdd } from "../models/WorkOrderOperationTimeTicketAdd";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class CorrectiveWorkOrdersService {
   /**
@@ -124,20 +124,20 @@ export class CorrectiveWorkOrdersService {
     includeRelatedTags?: boolean;
   }): CancelablePromise<CorrectiveWorkOrder | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/work-orders/corrective-work-orders/{work-order-id}',
+      method: "GET",
+      url: "/work-orders/corrective-work-orders/{work-order-id}",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
       },
       query: {
-        'include-operations': includeOperations,
-        'include-technical-feedback': includeTechnicalFeedback,
-        'include-materials': includeMaterials,
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-attachments': includeAttachments,
-        'include-status-details': includeStatusDetails,
-        'include-tag-details': includeTagDetails,
-        'include-related-tags': includeRelatedTags,
+        "include-operations": includeOperations,
+        "include-technical-feedback": includeTechnicalFeedback,
+        "include-materials": includeMaterials,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-attachments": includeAttachments,
+        "include-status-details": includeStatusDetails,
+        "include-tag-details": includeTagDetails,
+        "include-related-tags": includeRelatedTags,
       },
       errors: {
         301: `If work-order-id exist, but is not a \`correctiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -193,13 +193,13 @@ export class CorrectiveWorkOrdersService {
     requestBody: GenericWorkOrderJsonPatch;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/work-orders/corrective-work-orders/{work-order-id}',
+      method: "PATCH",
+      url: "/work-orders/corrective-work-orders/{work-order-id}",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to update work order operation`,
@@ -230,14 +230,14 @@ export class CorrectiveWorkOrdersService {
     requestBody: Array<WorkOrderOperationCreate>;
   }): CancelablePromise<ProblemDetails | string> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/work-orders/corrective-work-orders/{work-order-id}/operations',
+      method: "POST",
+      url: "/work-orders/corrective-work-orders/{work-order-id}/operations",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
       },
       body: requestBody,
-      mediaType: 'application/json',
-      responseHeader: 'Location',
+      mediaType: "application/json",
+      responseHeader: "Location",
       errors: {
         400: `The request body is invalid`,
         403: `User does not have sufficient rights to add operations to work order`,
@@ -277,14 +277,14 @@ export class CorrectiveWorkOrdersService {
     requestBody: WorkOrderOperationJsonPatchDeprecated;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}',
+      method: "PATCH",
+      url: "/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
         operation: operation,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to update work order operation`,
@@ -318,14 +318,14 @@ export class CorrectiveWorkOrdersService {
     requestBody: WorkOrderOperationTimeTicketAdd;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}/time-tickets',
+      method: "POST",
+      url: "/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}/time-tickets",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
         operation: operation,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `The request body is invalid`,
         403: `User does not have sufficient rights to add operations to work order`,
@@ -350,11 +350,11 @@ export class CorrectiveWorkOrdersService {
     attachmentId: string;
   }): CancelablePromise<Blob | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/work-orders/corrective-work-orders/{work-order-id}/attachments/{attachment-id}',
+      method: "GET",
+      url: "/work-orders/corrective-work-orders/{work-order-id}/attachments/{attachment-id}",
       path: {
-        'work-order-id': workOrderId,
-        'attachment-id': attachmentId,
+        "work-order-id": workOrderId,
+        "attachment-id": attachmentId,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -427,17 +427,18 @@ export class CorrectiveWorkOrdersService {
     completeOutstandingMaintenanceRecords?: boolean;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/work-orders/corrective-work-orders/{work-order-id}/statuses/{status-id}',
+      method: "PATCH",
+      url: "/work-orders/corrective-work-orders/{work-order-id}/statuses/{status-id}",
       path: {
-        'work-order-id': workOrderId,
-        'status-id': statusId,
+        "work-order-id": workOrderId,
+        "status-id": statusId,
       },
       query: {
-        'complete-outstanding-maintenance-records': completeOutstandingMaintenanceRecords,
+        "complete-outstanding-maintenance-records":
+          completeOutstandingMaintenanceRecords,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         403: `User does not have sufficient rights to update Work order`,
         404: `The specified resource was not found`,
@@ -511,10 +512,10 @@ export class CorrectiveWorkOrdersService {
      * Filter to limit the Corrective work order by
      */
     filter:
-      | 'recent-status-activations'
-      | 'same-maintenance-plan'
-      | 'before-required-end-date'
-      | 'by-maintenance-type-id';
+      | "recent-status-activations"
+      | "same-maintenance-plan"
+      | "before-required-end-date"
+      | "by-maintenance-type-id";
     /**
      * Status
      */
@@ -555,19 +556,19 @@ export class CorrectiveWorkOrdersService {
     maintenanceTypeId?: string;
   }): CancelablePromise<Array<CorrectiveWorkOrderSimple> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/work-orders/corrective-work-orders',
+      method: "GET",
+      url: "/work-orders/corrective-work-orders",
       query: {
         filter: filter,
-        'status-id': statusId,
-        'plant-id': plantId,
-        'max-days-since-activation': maxDaysSinceActivation,
-        'max-work-orders': maxWorkOrders,
-        'area-id': areaId,
-        'location-id': locationId,
-        'required-end-date': requiredEndDate,
-        'system-id': systemId,
-        'maintenance-type-id': maintenanceTypeId,
+        "status-id": statusId,
+        "plant-id": plantId,
+        "max-days-since-activation": maxDaysSinceActivation,
+        "max-work-orders": maxWorkOrders,
+        "area-id": areaId,
+        "location-id": locationId,
+        "required-end-date": requiredEndDate,
+        "system-id": systemId,
+        "maintenance-type-id": maintenanceTypeId,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -608,10 +609,10 @@ export class CorrectiveWorkOrdersService {
     requestBody: CorrectiveWorkOrderCreate;
   }): CancelablePromise<ProblemDetails | CorrectiveWorkOrderBasic> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/work-orders/corrective-work-orders',
+      method: "POST",
+      url: "/work-orders/corrective-work-orders",
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `The request body is invalid`,
         403: `User does not have sufficient rights to create a Project Work order`,

@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type PlannerGroup = {
-    plannerGroupId: string;
-    plannerGroup: string;
+  plannerGroupId: string;
+  plannerGroup: string;
 };
-

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { PreventiveWorkOrderSimple } from './PreventiveWorkOrderSimple';
+import type { PreventiveWorkOrderSimple } from "./PreventiveWorkOrderSimple";
 
 export type PreventiveWorkOrderBasic = PreventiveWorkOrderSimple & {
   workCenter: string;
@@ -11,5 +11,5 @@ export type PreventiveWorkOrderBasic = PreventiveWorkOrderSimple & {
   /**
    * The type of work order it is an instance of
    */
-  workOrderTypeId: 'preventiveWorkOrder';
+  workOrderTypeId: "preventiveWorkOrder";
 };

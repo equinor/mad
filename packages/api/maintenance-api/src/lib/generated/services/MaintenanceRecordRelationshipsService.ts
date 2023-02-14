@@ -1,12 +1,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { RelationshipURLReferencesAdd } from '../models/RelationshipURLReferencesAdd';
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { RelationshipURLReferencesAdd } from "../models/RelationshipURLReferencesAdd";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MaintenanceRecordRelationshipsService {
   /**
@@ -44,13 +44,13 @@ export class MaintenanceRecordRelationshipsService {
     requestBody: RelationshipURLReferencesAdd;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-record-relationships/{record-id}/url-references',
+      method: "POST",
+      url: "/maintenance-record-relationships/{record-id}/url-references",
       path: {
-        'record-id': recordId,
+        "record-id": recordId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights for updating maintenance record`,
@@ -84,11 +84,11 @@ export class MaintenanceRecordRelationshipsService {
     urlReferenceId: string;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'DELETE',
-      url: '/maintenance-record-relationships/{record-id}/url-references/{url-reference-id}',
+      method: "DELETE",
+      url: "/maintenance-record-relationships/{record-id}/url-references/{url-reference-id}",
       path: {
-        'record-id': recordId,
-        'url-reference-id': urlReferenceId,
+        "record-id": recordId,
+        "url-reference-id": urlReferenceId,
       },
       errors: {
         400: `Request is missing required parameters`,
