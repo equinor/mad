@@ -1,8 +1,21 @@
 import * as esbuild from "esbuild"
 
-await esbuild.build({
+const sharedOptions = {
   entryPoints: ["./src/index.ts"],
   bundle: true,
-  outfile: "../../../dist/maintenace-api",
+  minify: true,
+  packages: "external",
+  tsconfig: "./tsconfig.lib.json",
+}
+
+await esbuild.build({
+  ...sharedOptions,
   platform: "node",
+  outfile: "../../../dist/maintenance-api/index.js",
+});
+await esbuild.build({
+  ...sharedOptions,
+  platform: "neutral",
+  format: "esm",
+  outfile: "../../../dist/maintenance-api/index.esm.js",
 });
