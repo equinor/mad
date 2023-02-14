@@ -1,4 +1,4 @@
-import { OpenAPI } from "./generated";
+import { OpenAPI } from "./generated/core/OpenAPI";
 
 type ApiConfig = {
   baseUrl: string;

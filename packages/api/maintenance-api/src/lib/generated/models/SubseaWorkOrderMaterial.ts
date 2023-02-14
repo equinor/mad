@@ -2,10 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderMaterial } from "./WorkOrderMaterial";
+import type { WorkOrderMaterial } from './WorkOrderMaterial';
 
-export type SubseaWorkOrderMaterial = WorkOrderMaterial & {
-  equipmentId: string;
-  equipment: string;
-  supplyingPlantId: string;
-};
+export type SubseaWorkOrderMaterial = (WorkOrderMaterial & {
+    equipmentId: string;
+    equipment: string;
+    supplyingPlantId: string;
+});
+

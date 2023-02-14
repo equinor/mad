@@ -2,10 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { DetectionMethod } from "./DetectionMethod";
+import type { DetectionMethod } from './DetectionMethod';
 
 export type DetectionMethodGroup = {
-  detectionMethodGroupId: string;
-  detectionMethodGroup: string;
-  items: Array<DetectionMethod>;
+    detectionMethodGroupId: string;
+    detectionMethodGroup: string;
+    items: Array<DetectionMethod>;
 };
+

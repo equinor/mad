@@ -2,63 +2,71 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ActivityReportSimple } from "./ActivityReportSimple";
-import type { BillOfMaterialItem } from "./BillOfMaterialItem";
-import type { CatalogProfileDetails } from "./CatalogProfileDetails";
-import type { CertificationReportSimple } from "./CertificationReportSimple";
-import type { CorrectiveWorkOrderSimple } from "./CorrectiveWorkOrderSimple";
-import type { EquipmentBasic } from "./EquipmentBasic";
-import type { FailureReportSimple } from "./FailureReportSimple";
-import type { GenericWorkOrderSimple } from "./GenericWorkOrderSimple";
-import type { MaintenancePlanItemBasic } from "./MaintenancePlanItemBasic";
-import type { MeasuringPointFromTagLookup } from "./MeasuringPointFromTagLookup";
-import type { ModificationWorkOrderSimple } from "./ModificationWorkOrderSimple";
-import type { PreventiveWorkOrderSimple } from "./PreventiveWorkOrderSimple";
-import type { ProjectWorkOrderSimple } from "./ProjectWorkOrderSimple";
-import type { SASChangeWorkOrderSimple } from "./SASChangeWorkOrderSimple";
-import type { TagBasic } from "./TagBasic";
-import type { TagCharacteristic } from "./TagCharacteristic";
-import type { TechnicalClarificationSimple } from "./TechnicalClarificationSimple";
-import type { TechnicalInformationUpdateRequestSimple } from "./TechnicalInformationUpdateRequestSimple";
+import type { BillOfMaterialItem } from './BillOfMaterialItem';
+import type { CatalogProfileDetails } from './CatalogProfileDetails';
+import type { CorrectiveWorkOrderSimple } from './CorrectiveWorkOrderSimple';
+import type { EquipmentBasic } from './EquipmentBasic';
+import type { GenericWorkOrderSimple } from './GenericWorkOrderSimple';
+import type { LinearData } from './LinearData';
+import type { MaintenancePlanItemBasic } from './MaintenancePlanItemBasic';
+import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
+import type { ModificationWorkOrderSimple } from './ModificationWorkOrderSimple';
+import type { PreventiveWorkOrderSimple } from './PreventiveWorkOrderSimple';
+import type { ProjectWorkOrderSimple } from './ProjectWorkOrderSimple';
+import type { SASChangeWorkOrderSimple } from './SASChangeWorkOrderSimple';
+import type { SimpleMaintenanceRecordsList } from './SimpleMaintenanceRecordsList';
+import type { Status } from './Status';
+import type { TagBasic } from './TagBasic';
+import type { TagCharacteristic } from './TagCharacteristic';
 
-export type Tag = TagBasic & {
-  /**
-   * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
-   */
-  maintenanceConceptId: string;
-  /**
-   * Class the tag belongs to
-   */
-  classId: string;
-  workCenterId?: string;
-  workCenter?: string;
-  workCenterPlantId?: string;
-  planningPlantId?: string;
-  plannerGroupId?: string;
-  plannerGroup?: string;
-  costWBSId?: string;
-  characteristics?: Array<TagCharacteristic>;
-  maintenanceRecords?: {
-    failureReports?: Array<FailureReportSimple>;
-    activityReports?: Array<ActivityReportSimple>;
-    certificationReports?: Array<CertificationReportSimple>;
-    technicalInformationUpdateRequests?: Array<TechnicalInformationUpdateRequestSimple>;
-    technicalClarifications?: Array<TechnicalClarificationSimple>;
-  };
-  workOrders?: {
-    correctiveWorkOrders?: Array<CorrectiveWorkOrderSimple>;
-    preventiveWorkOrders?: Array<PreventiveWorkOrderSimple>;
-    modificationWorkOrders?: Array<ModificationWorkOrderSimple>;
-    sasChangeWorkOrders?: Array<SASChangeWorkOrderSimple>;
-    projectWorkOrders?: Array<ProjectWorkOrderSimple>;
-    subseaWorkOrders?: Array<GenericWorkOrderSimple>;
-  };
-  installedEquipment?: Array<EquipmentBasic>;
-  maintenancePlanItems?: Array<MaintenancePlanItemBasic>;
-  catalogProfileDetails?: CatalogProfileDetails;
-  measuringPoints?: Array<MeasuringPointFromTagLookup>;
-  /**
-   * The bill of materials is a hierarchical structure. The top-level of the hierarchy is either connected to the tag or the installed equipment.
-   */
-  billOfMaterials?: Array<BillOfMaterialItem>;
-};
+export type Tag = (TagBasic & {
+    /**
+     * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
+     */
+    maintenanceConceptId: string;
+    /**
+     * The category the tag belongs to. Values: `A` = Hose Assembly,`C` = Cable,`D` = Circuit and Starter,`E` = Electric Field-equipment,`F` = Fire & Gas,`H` = Heat tracing,`I` = Instrument,`J` = Junction Box,`K` = Vehicle,`M` = Main equipment,`N` = Penetration,`O` = Surface Protection,`P` = Piping,`Q` = Pipe Support,`R` = Civil engineering facility,`S` = Special Item,`T` = Telecommunication,`U` = Pipeline,`V` = Manual Valve,`W` = Software Tag,`X` = Package and `Z` = Dummy Functional Location
+     */
+    tagCategoryId?: string;
+    /**
+     * Class the tag belongs to
+     */
+    classId: string;
+    workCenterId?: string;
+    workCenter?: string;
+    workCenterPlantId?: string;
+    planningPlantId?: string;
+    plannerGroupId?: string;
+    plannerGroup?: string;
+    /**
+     * Active statuses for the tag with space as separating character
+     */
+    activeStatusIds?: string;
+    startUpDate?: string | null;
+    endOfUseDate?: string | null;
+    costWBSId?: string;
+    characteristics?: Array<TagCharacteristic>;
+    maintenanceRecords?: SimpleMaintenanceRecordsList;
+    workOrders?: {
+        correctiveWorkOrders?: Array<CorrectiveWorkOrderSimple>;
+        preventiveWorkOrders?: Array<PreventiveWorkOrderSimple>;
+        modificationWorkOrders?: Array<ModificationWorkOrderSimple>;
+        sasChangeWorkOrders?: Array<SASChangeWorkOrderSimple>;
+        projectWorkOrders?: Array<ProjectWorkOrderSimple>;
+        subseaWorkOrders?: Array<GenericWorkOrderSimple>;
+    };
+    installedEquipment?: Array<EquipmentBasic>;
+    maintenancePlanItems?: Array<MaintenancePlanItemBasic>;
+    catalogProfileDetails?: CatalogProfileDetails;
+    measuringPoints?: Array<MeasuringPointFromTagLookup>;
+    /**
+     * The bill of materials is a hierarchical structure. The top-level of the hierarchy is either connected to the tag or the installed equipment.
+     */
+    billOfMaterials?: Array<BillOfMaterialItem>;
+    linearData?: LinearData;
+    /**
+     * All statuses possible for tag
+     */
+    statuses?: Array<Status>;
+});
+

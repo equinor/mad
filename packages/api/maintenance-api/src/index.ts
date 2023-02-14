@@ -5,10 +5,12 @@ import {
   WorkOrders,
   MeasuringPoints,
   MaintenanceProgram,
+  filterMaintenanceApiProblem
 } from "./lib/maintenance-api";
 
 export {
   initializeMaintenanceApi,
+  filterMaintenanceApiProblem,
   Plants,
   MaintenanceRecords,
   WorkOrders,

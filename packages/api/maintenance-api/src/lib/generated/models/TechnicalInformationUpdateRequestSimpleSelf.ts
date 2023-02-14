@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TechnicalInformationUpdateRequestSimple } from "./TechnicalInformationUpdateRequestSimple";
+import type { TechnicalInformationUpdateRequestSimple } from './TechnicalInformationUpdateRequestSimple';
 
-export type TechnicalInformationUpdateRequestSimpleSelf =
-  TechnicalInformationUpdateRequestSimple & {
-    maintenanceRecordTypeId: "technicalInformationUpdateRequest";
+export type TechnicalInformationUpdateRequestSimpleSelf = (TechnicalInformationUpdateRequestSimple & {
+    maintenanceRecordTypeId: 'technicalInformationUpdateRequest';
     _links: {
-      self?: string;
+        self?: string;
     };
-  };
+});
+

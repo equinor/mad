@@ -24,6 +24,7 @@ import {
   WorkOrderOperationsService,
   WorkOrderRelationshipsService,
   WorkOrdersService,
+  ProblemDetails,
 } from "./generated";
 
 export class Plants {
@@ -66,3 +67,9 @@ export class MaintenanceProgram {
   public static MaintenanceConcepts = MaintenanceConceptsService;
   public static MaintenanceStrategies = MaintenanceStrategiesService;
 }
+
+export const filterMaintenanceApiProblem = <T>(result: T | ProblemDetails): T => {
+  const isProblemDetailsObject = (obj: any): obj is ProblemDetails => !!obj?.errors;
+  if (isProblemDetailsObject(result)) throw result;
+  return result as T;
+};

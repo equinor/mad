@@ -1,3 +1,4 @@
+import { ProblemDetails } from "../generated";
 import * as mApi from "../maintenance-api";
 
 describe("Maintenance Program", () => {
@@ -90,3 +91,22 @@ describe("Work Orders", () => {
     expect(mApi.WorkOrders["WorkOrders"]).toBeTruthy();
   });
 });
+
+describe("Maintenance api problem filter", () => {
+  it("should throw on problem details result", () => {
+    const apiResponse: ProblemDetails = {
+      type: "Some error",
+      title: "Error title",
+      status: 404,
+      errors: {
+        first: ["Things went south", "All hell broke loose"],
+        second: ["Shit happens"]
+      }
+    };
+    expect(() => mApi.filterMaintenanceApiProblem(apiResponse)).toThrow();
+  });
+  it("should not throw on void results", () => {
+    const apiResponse = undefined;
+    expect(() => mApi.filterMaintenanceApiProblem(apiResponse)).not.toThrow();
+  });
+})

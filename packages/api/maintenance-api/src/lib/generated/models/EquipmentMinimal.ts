@@ -3,7 +3,8 @@
 /* eslint-disable */
 
 export type EquipmentMinimal = {
-  equipmentId: string;
-  equipment: string;
-  materialId: string;
+    equipmentId: string;
+    equipment: string;
+    materialId: string;
 };
+

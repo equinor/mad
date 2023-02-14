@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 export type FailureMode = {
-  failureModeId: string;
-  failureMode: string;
+    failureModeId: string;
+    failureMode: string;
 };
+
