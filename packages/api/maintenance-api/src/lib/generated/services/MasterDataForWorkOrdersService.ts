@@ -1,12 +1,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { StandardTextTemplate } from '../models/StandardTextTemplate';
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { StandardTextTemplate } from "../models/StandardTextTemplate";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MasterDataForWorkOrdersService {
   /**
@@ -42,18 +42,18 @@ export class MasterDataForWorkOrdersService {
     /**
      * Filter to limit the failure reports by
      */
-    filter: 'by-plant' | 'all';
+    filter: "by-plant" | "all";
     /**
      * Plant
      */
     plantId?: string;
   }): CancelablePromise<Array<StandardTextTemplate> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/work-orders/standard-text-templates',
+      method: "GET",
+      url: "/work-orders/standard-text-templates",
       query: {
         filter: filter,
-        'plant-id': plantId,
+        "plant-id": plantId,
       },
       errors: {
         400: `Request is missing required parameters`,

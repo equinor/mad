@@ -3,12 +3,11 @@
 /* eslint-disable */
 
 export type MaintenancePlanSimple = {
-    maintenancePlanId: string;
-    maintenancePlanItemId: string;
-    planDate: string | null;
-    /**
-     * The maintenance plan is active if it is not deactivated or deleted
-     */
-    isActive: boolean;
+  maintenancePlanId: string;
+  maintenancePlanItemId: string;
+  planDate: string | null;
+  /**
+   * The maintenance plan is active if it is not deactivated or deleted
+   */
+  isActive: boolean;
 };
-

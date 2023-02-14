@@ -1,22 +1,22 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Equipment } from '../models/Equipment';
-import type { EquipmentAddClass } from '../models/EquipmentAddClass';
-import type { EquipmentBasicV2 } from '../models/EquipmentBasicV2';
-import type { EquipmentChangeLogs } from '../models/EquipmentChangeLogs';
-import type { EquipmentCreate } from '../models/EquipmentCreate';
-import type { EquipmentJsonPatch } from '../models/EquipmentJsonPatch';
-import type { EquipmentListItem } from '../models/EquipmentListItem';
-import type { EquipmentSearchItem } from '../models/EquipmentSearchItem';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { Tag } from '../models/Tag';
-import type { TagHierachyItem } from '../models/TagHierachyItem';
-import type { TagHierachyItemDeprecated } from '../models/TagHierachyItemDeprecated';
+import type { Equipment } from "../models/Equipment";
+import type { EquipmentAddClass } from "../models/EquipmentAddClass";
+import type { EquipmentBasicV2 } from "../models/EquipmentBasicV2";
+import type { EquipmentChangeLogs } from "../models/EquipmentChangeLogs";
+import type { EquipmentCreate } from "../models/EquipmentCreate";
+import type { EquipmentJsonPatch } from "../models/EquipmentJsonPatch";
+import type { EquipmentListItem } from "../models/EquipmentListItem";
+import type { EquipmentSearchItem } from "../models/EquipmentSearchItem";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { Tag } from "../models/Tag";
+import type { TagHierachyItem } from "../models/TagHierachyItem";
+import type { TagHierachyItemDeprecated } from "../models/TagHierachyItemDeprecated";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class TagEquipmentService {
   /**
@@ -87,11 +87,11 @@ export class TagEquipmentService {
      * Include which types of maintenance records
      */
     includeMaintenanceRecordTypes?: Array<
-      | 'failure-report'
-      | 'activity-report'
-      | 'certification-report'
-      | 'technical-information-update-request'
-      | 'technical-clarification'
+      | "failure-report"
+      | "activity-report"
+      | "certification-report"
+      | "technical-information-update-request"
+      | "technical-clarification"
     >;
     /**
      * Include work orders. If include-work-order-types is not supplied, all support types are returned
@@ -101,12 +101,12 @@ export class TagEquipmentService {
      * Include which types of work orders. Use comma-separated list of entries.
      */
     includeWorkOrderTypes?: Array<
-      | 'correctiveWorkOrders'
-      | 'preventiveWorkOrders'
-      | 'modificationWorkOrders'
-      | 'sasChangeWorkOrders'
-      | 'projectWorkOrders'
-      | 'subseaWorkOrders'
+      | "correctiveWorkOrders"
+      | "preventiveWorkOrders"
+      | "modificationWorkOrders"
+      | "sasChangeWorkOrders"
+      | "projectWorkOrders"
+      | "subseaWorkOrders"
     >;
     /**
      * Include installed equipment
@@ -138,24 +138,24 @@ export class TagEquipmentService {
     includeBillOfMaterials?: boolean;
   }): CancelablePromise<Tag | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/plants/{plant-id}/tags/{tag-id}',
+      method: "GET",
+      url: "/plants/{plant-id}/tags/{tag-id}",
       path: {
-        'plant-id': plantId,
-        'tag-id': tagId,
+        "plant-id": plantId,
+        "tag-id": tagId,
       },
       query: {
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-maintenance-record-types': includeMaintenanceRecordTypes,
-        'include-work-orders': includeWorkOrders,
-        'include-work-order-types': includeWorkOrderTypes,
-        'include-installed-equipment': includeInstalledEquipment,
-        'include-catalog-profile-details': includeCatalogProfileDetails,
-        'include-maintenance-plan-items': includeMaintenancePlanItems,
-        'include-measuring-points': includeMeasuringPoints,
-        'include-last-measurement': includeLastMeasurement,
-        'include-characteristics': includeCharacteristics,
-        'include-bill-of-materials': includeBillOfMaterials,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-maintenance-record-types": includeMaintenanceRecordTypes,
+        "include-work-orders": includeWorkOrders,
+        "include-work-order-types": includeWorkOrderTypes,
+        "include-installed-equipment": includeInstalledEquipment,
+        "include-catalog-profile-details": includeCatalogProfileDetails,
+        "include-maintenance-plan-items": includeMaintenancePlanItems,
+        "include-measuring-points": includeMeasuringPoints,
+        "include-last-measurement": includeLastMeasurement,
+        "include-characteristics": includeCharacteristics,
+        "include-bill-of-materials": includeBillOfMaterials,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -199,21 +199,21 @@ export class TagEquipmentService {
     /**
      * Filter to limit the tag hierachy by
      */
-    filter?: 'filter-by-root-tags';
+    filter?: "filter-by-root-tags";
     /**
      * Comma-separated list of tags (without tagPlantId prefix)
      */
     rootTags?: string;
   }): CancelablePromise<Array<TagHierachyItemDeprecated> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/plants/{plant-id}/tag-hierachy',
+      method: "GET",
+      url: "/plants/{plant-id}/tag-hierachy",
       path: {
-        'plant-id': plantId,
+        "plant-id": plantId,
       },
       query: {
         filter: filter,
-        'root-tags': rootTags,
+        "root-tags": rootTags,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -249,21 +249,21 @@ export class TagEquipmentService {
     /**
      * Filter to limit the tag hierachy by
      */
-    filter?: 'by-root-tags';
+    filter?: "by-root-tags";
     /**
      * Comma-separated list of tags (without tagPlantId prefix)
      */
     rootTagIdAnyOf?: string;
   }): CancelablePromise<Array<TagHierachyItem> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/plants/{plant-id}/tag-hierarchy',
+      method: "GET",
+      url: "/plants/{plant-id}/tag-hierarchy",
       path: {
-        'plant-id': plantId,
+        "plant-id": plantId,
       },
       query: {
         filter: filter,
-        'root-tag-id-any-of': rootTagIdAnyOf,
+        "root-tag-id-any-of": rootTagIdAnyOf,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -298,21 +298,21 @@ export class TagEquipmentService {
     /**
      * Filter to limit the equipment list by
      */
-    filter?: 'filter-by-equipment-category';
+    filter?: "filter-by-equipment-category";
     /**
      * Comma-separated list of equipment categories. `G` = Tank Customer equipment, `M` = Machines/Equipment, `P` = Production resources/tools, `Q` = Test/measurement equipment, `R` = Process Equipment, `S` = Customer equipment, `T` = IT Equipment, `U` = Subsea Equipment, `W` = Wind Operation Certified Equip, `Y` = Tool Crib
      */
     equipmentCategoryIdAnyOf?: string;
   }): CancelablePromise<Array<EquipmentListItem> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/plants/{plant-id}/equipment-list',
+      method: "GET",
+      url: "/plants/{plant-id}/equipment-list",
       path: {
-        'plant-id': plantId,
+        "plant-id": plantId,
       },
       query: {
         filter: filter,
-        'equipment-category-id-any-of': equipmentCategoryIdAnyOf,
+        "equipment-category-id-any-of": equipmentCategoryIdAnyOf,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -392,12 +392,12 @@ export class TagEquipmentService {
      * Include which types of maintenance records
      */
     includeMaintenanceRecordTypes?: Array<
-      | 'modification-proposal'
-      | 'failure-report'
-      | 'activity-report'
-      | 'certification-report'
-      | 'technical-information-update-request'
-      | 'technical-clarification'
+      | "modification-proposal"
+      | "failure-report"
+      | "activity-report"
+      | "certification-report"
+      | "technical-information-update-request"
+      | "technical-clarification"
     >;
     /**
      * Limit include-maintenance-records to only open maintenance records
@@ -411,12 +411,12 @@ export class TagEquipmentService {
      * Include which types of work orders. Use comma-separated list of entries.
      */
     includeWorkOrderTypes?: Array<
-      | 'correctiveWorkOrders'
-      | 'preventiveWorkOrders'
-      | 'modificationWorkOrders'
-      | 'sasChangeWorkOrders'
-      | 'projectWorkOrders'
-      | 'subseaWorkOrders'
+      | "correctiveWorkOrders"
+      | "preventiveWorkOrders"
+      | "modificationWorkOrders"
+      | "sasChangeWorkOrders"
+      | "projectWorkOrders"
+      | "subseaWorkOrders"
     >;
     /**
      * Limit include-work-orders to only open work order
@@ -448,24 +448,25 @@ export class TagEquipmentService {
     includeStatusDetails?: boolean;
   }): CancelablePromise<Equipment | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/equipment/{equipment-id}',
+      method: "GET",
+      url: "/equipment/{equipment-id}",
       path: {
-        'equipment-id': equipmentId,
+        "equipment-id": equipmentId,
       },
       query: {
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-maintenance-record-types': includeMaintenanceRecordTypes,
-        'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-        'include-work-orders': includeWorkOrders,
-        'include-work-order-types': includeWorkOrderTypes,
-        'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-        'include-catalog-profile-details': includeCatalogProfileDetails,
-        'include-characteristics': includeCharacteristics,
-        'include-attachments': includeAttachments,
-        'include-measuring-points': includeMeasuringPoints,
-        'include-last-measurement': includeLastMeasurement,
-        'include-status-details': includeStatusDetails,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-maintenance-record-types": includeMaintenanceRecordTypes,
+        "include-only-open-maintenance-records":
+          includeOnlyOpenMaintenanceRecords,
+        "include-work-orders": includeWorkOrders,
+        "include-work-order-types": includeWorkOrderTypes,
+        "include-only-open-work-orders": includeOnlyOpenWorkOrders,
+        "include-catalog-profile-details": includeCatalogProfileDetails,
+        "include-characteristics": includeCharacteristics,
+        "include-attachments": includeAttachments,
+        "include-measuring-points": includeMeasuringPoints,
+        "include-last-measurement": includeLastMeasurement,
+        "include-status-details": includeStatusDetails,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -495,13 +496,13 @@ export class TagEquipmentService {
     requestBody: Array<EquipmentJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/equipment/{equipment-id}',
+      method: "PATCH",
+      url: "/equipment/{equipment-id}",
       path: {
-        'equipment-id': equipmentId,
+        "equipment-id": equipmentId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to update equipment`,
@@ -543,14 +544,14 @@ export class TagEquipmentService {
     requestBody: Array<EquipmentAddClass>;
   }): CancelablePromise<ProblemDetails | string> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/equipment/{equipment-id}/characteristics',
+      method: "POST",
+      url: "/equipment/{equipment-id}/characteristics",
       path: {
-        'equipment-id': equipmentId,
+        "equipment-id": equipmentId,
       },
       body: requestBody,
-      mediaType: 'application/json',
-      responseHeader: 'Location',
+      mediaType: "application/json",
+      responseHeader: "Location",
       errors: {
         400: `Request is missing required parameters or characteristicId is not part of class`,
         403: `User does not have sufficient rights to add characteristics to equipment`,
@@ -577,11 +578,11 @@ export class TagEquipmentService {
     attachmentId: string;
   }): CancelablePromise<Blob | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/equipment/{equipment-id}/attachments/{attachment-id}',
+      method: "GET",
+      url: "/equipment/{equipment-id}/attachments/{attachment-id}",
       path: {
-        'equipment-id': equipmentId,
-        'attachment-id': attachmentId,
+        "equipment-id": equipmentId,
+        "attachment-id": attachmentId,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -614,10 +615,10 @@ export class TagEquipmentService {
     requestBody: EquipmentCreate;
   }): CancelablePromise<ProblemDetails | EquipmentBasicV2> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/equipment',
+      method: "POST",
+      url: "/equipment",
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Bad request, for example if missing required properties, \`equipmentCategoryId\` is not \`R\` or if \`installedAtTag\` is invalid or is not in service.`,
         403: `User does not have sufficient rights to create an equipment.`,
@@ -715,12 +716,12 @@ export class TagEquipmentService {
      * Include which types of maintenance records
      */
     includeMaintenanceRecordTypes?: Array<
-      | 'modification-proposal'
-      | 'failure-report'
-      | 'activity-report'
-      | 'certification-report'
-      | 'technical-information-update-request'
-      | 'technical-clarification'
+      | "modification-proposal"
+      | "failure-report"
+      | "activity-report"
+      | "certification-report"
+      | "technical-information-update-request"
+      | "technical-clarification"
     >;
     /**
      * Limit include-maintenance-records to only open maintenance records. Recommend using `true` in order to improve performance.
@@ -734,12 +735,12 @@ export class TagEquipmentService {
      * Include which types of work orders. Use comma-separated list of entries.
      */
     includeWorkOrderTypes?: Array<
-      | 'correctiveWorkOrders'
-      | 'preventiveWorkOrders'
-      | 'modificationWorkOrders'
-      | 'sasChangeWorkOrders'
-      | 'projectWorkOrders'
-      | 'subseaWorkOrders'
+      | "correctiveWorkOrders"
+      | "preventiveWorkOrders"
+      | "modificationWorkOrders"
+      | "sasChangeWorkOrders"
+      | "projectWorkOrders"
+      | "subseaWorkOrders"
     >;
     /**
      * Limit include-work-orders to only open work order. Recommend using `true` in order to improve performance.
@@ -759,21 +760,22 @@ export class TagEquipmentService {
     page?: number;
   }): CancelablePromise<Array<EquipmentSearchItem> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/equipment',
+      method: "GET",
+      url: "/equipment",
       query: {
-        'equipment-id-any-of': equipmentIdAnyOf,
-        'serial-number-any-of': serialNumberAnyOf,
-        'vendor-part-number-any-of': vendorPartNumberAnyOf,
-        'material-id-any-of': materialIdAnyOf,
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-maintenance-record-types': includeMaintenanceRecordTypes,
-        'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-        'include-work-orders': includeWorkOrders,
-        'include-work-order-types': includeWorkOrderTypes,
-        'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-        'include-characteristics': includeCharacteristics,
-        'per-page': perPage,
+        "equipment-id-any-of": equipmentIdAnyOf,
+        "serial-number-any-of": serialNumberAnyOf,
+        "vendor-part-number-any-of": vendorPartNumberAnyOf,
+        "material-id-any-of": materialIdAnyOf,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-maintenance-record-types": includeMaintenanceRecordTypes,
+        "include-only-open-maintenance-records":
+          includeOnlyOpenMaintenanceRecords,
+        "include-work-orders": includeWorkOrders,
+        "include-work-order-types": includeWorkOrderTypes,
+        "include-only-open-work-orders": includeOnlyOpenWorkOrders,
+        "include-characteristics": includeCharacteristics,
+        "per-page": perPage,
         page: page,
       },
       errors: {
@@ -822,7 +824,9 @@ export class TagEquipmentService {
     /**
      * Filter to limit the work order by
      */
-    filter: 'recently-changed-reserved-equipment' | 'recently-changed-equipment';
+    filter:
+      | "recently-changed-reserved-equipment"
+      | "recently-changed-equipment";
     /**
      * The subsea work order to check if any reserved equipment has been changed recently
      */
@@ -837,13 +841,13 @@ export class TagEquipmentService {
     changedSinceDate?: string;
   }): CancelablePromise<EquipmentChangeLogs | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/equipment-change-log',
+      method: "GET",
+      url: "/equipment-change-log",
       query: {
         filter: filter,
-        'subsea-work-order-id': subseaWorkOrderId,
-        'equipment-ids': equipmentIds,
-        'changed-since-date': changedSinceDate,
+        "subsea-work-order-id": subseaWorkOrderId,
+        "equipment-ids": equipmentIds,
+        "changed-since-date": changedSinceDate,
       },
       errors: {
         400: `Request is missing required parameters`,
@@ -888,7 +892,7 @@ export class TagEquipmentService {
    */
   public static searchTags({
     plantId,
-    filter = 'by-tag-prefix',
+    filter = "by-tag-prefix",
     tagPrefix,
     tagIdsAnyOf,
     includeMaintenanceRecords = false,
@@ -906,7 +910,7 @@ export class TagEquipmentService {
     page = 1,
   }: {
     plantId: string;
-    filter?: 'by-tag-ids' | 'by-tag-prefix' | null;
+    filter?: "by-tag-ids" | "by-tag-prefix" | null;
     /**
      * The first few characters of the tag, required if filter is empty or `by-tag-prefix`
      */
@@ -923,11 +927,11 @@ export class TagEquipmentService {
      * Include which types of maintenance records
      */
     includeMaintenanceRecordTypes?: Array<
-      | 'failure-report'
-      | 'activity-report'
-      | 'certification-report'
-      | 'technical-information-update-request'
-      | 'technical-clarification'
+      | "failure-report"
+      | "activity-report"
+      | "certification-report"
+      | "technical-information-update-request"
+      | "technical-clarification"
     >;
     /**
      * Include work orders. If include-work-order-types is not supplied, all support types are returned
@@ -937,12 +941,12 @@ export class TagEquipmentService {
      * Include which types of work orders. Use comma-separated list of entries.
      */
     includeWorkOrderTypes?: Array<
-      | 'correctiveWorkOrders'
-      | 'preventiveWorkOrders'
-      | 'modificationWorkOrders'
-      | 'sasChangeWorkOrders'
-      | 'projectWorkOrders'
-      | 'subseaWorkOrders'
+      | "correctiveWorkOrders"
+      | "preventiveWorkOrders"
+      | "modificationWorkOrders"
+      | "sasChangeWorkOrders"
+      | "projectWorkOrders"
+      | "subseaWorkOrders"
     >;
     /**
      * Include installed equipment
@@ -982,27 +986,27 @@ export class TagEquipmentService {
     page?: number;
   }): CancelablePromise<Array<Tag> | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/plants/{plant-id}/tags',
+      method: "GET",
+      url: "/plants/{plant-id}/tags",
       path: {
-        'plant-id': plantId,
+        "plant-id": plantId,
       },
       query: {
         filter: filter,
-        'tag-prefix': tagPrefix,
-        'tag-ids-any-of': tagIdsAnyOf,
-        'include-maintenance-records': includeMaintenanceRecords,
-        'include-maintenance-record-types': includeMaintenanceRecordTypes,
-        'include-work-orders': includeWorkOrders,
-        'include-work-order-types': includeWorkOrderTypes,
-        'include-installed-equipment': includeInstalledEquipment,
-        'include-catalog-profile-details': includeCatalogProfileDetails,
-        'include-maintenance-plan-items': includeMaintenancePlanItems,
-        'include-measuring-points': includeMeasuringPoints,
-        'include-last-measurement': includeLastMeasurement,
-        'include-characteristics': includeCharacteristics,
-        'include-bill-of-materials': includeBillOfMaterials,
-        'per-page': perPage,
+        "tag-prefix": tagPrefix,
+        "tag-ids-any-of": tagIdsAnyOf,
+        "include-maintenance-records": includeMaintenanceRecords,
+        "include-maintenance-record-types": includeMaintenanceRecordTypes,
+        "include-work-orders": includeWorkOrders,
+        "include-work-order-types": includeWorkOrderTypes,
+        "include-installed-equipment": includeInstalledEquipment,
+        "include-catalog-profile-details": includeCatalogProfileDetails,
+        "include-maintenance-plan-items": includeMaintenancePlanItems,
+        "include-measuring-points": includeMeasuringPoints,
+        "include-last-measurement": includeLastMeasurement,
+        "include-characteristics": includeCharacteristics,
+        "include-bill-of-materials": includeBillOfMaterials,
+        "per-page": perPage,
         page: page,
       },
       errors: {

@@ -1,19 +1,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MaintenanceRecordTask } from '../models/MaintenanceRecordTask';
-import type { MaintenanceRecordTaskCreate } from '../models/MaintenanceRecordTaskCreate';
-import type { MaintenanceRecordTaskUpdateJsonPatch } from '../models/MaintenanceRecordTaskUpdateJsonPatch';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { StatusUpdateJsonPatch } from '../models/StatusUpdateJsonPatch';
-import type { TechnicalInformationUpdateRequest } from '../models/TechnicalInformationUpdateRequest';
-import type { TechnicalInformationUpdateRequestBasic } from '../models/TechnicalInformationUpdateRequestBasic';
-import type { TechnicalInformationUpdateRequestCreate } from '../models/TechnicalInformationUpdateRequestCreate';
-import type { TechnicalInformationUpdateRequestJsonPatch } from '../models/TechnicalInformationUpdateRequestJsonPatch';
+import type { MaintenanceRecordTask } from "../models/MaintenanceRecordTask";
+import type { MaintenanceRecordTaskCreate } from "../models/MaintenanceRecordTaskCreate";
+import type { MaintenanceRecordTaskUpdateJsonPatch } from "../models/MaintenanceRecordTaskUpdateJsonPatch";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { StatusUpdateJsonPatch } from "../models/StatusUpdateJsonPatch";
+import type { TechnicalInformationUpdateRequest } from "../models/TechnicalInformationUpdateRequest";
+import type { TechnicalInformationUpdateRequestBasic } from "../models/TechnicalInformationUpdateRequestBasic";
+import type { TechnicalInformationUpdateRequestCreate } from "../models/TechnicalInformationUpdateRequestCreate";
+import type { TechnicalInformationUpdateRequestJsonPatch } from "../models/TechnicalInformationUpdateRequestJsonPatch";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class TechnicalInformationUpdateRequestsService {
   /**
@@ -88,18 +88,18 @@ export class TechnicalInformationUpdateRequestsService {
     includeCreatedByDetails?: boolean;
   }): CancelablePromise<TechnicalInformationUpdateRequest | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-records/technical-information-update-requests/{record-id}',
+      method: "GET",
+      url: "/maintenance-records/technical-information-update-requests/{record-id}",
       path: {
-        'record-id': recordId,
+        "record-id": recordId,
       },
       query: {
-        'include-status-details': includeStatusDetails,
-        'include-tasks': includeTasks,
-        'include-attachments': includeAttachments,
-        'include-tag-details': includeTagDetails,
-        'include-person-responsible': includePersonResponsible,
-        'include-created-by-details': includeCreatedByDetails,
+        "include-status-details": includeStatusDetails,
+        "include-tasks": includeTasks,
+        "include-attachments": includeAttachments,
+        "include-tag-details": includeTagDetails,
+        "include-person-responsible": includePersonResponsible,
+        "include-created-by-details": includeCreatedByDetails,
       },
       errors: {
         301: `The specified resource exists in another location
@@ -137,15 +137,17 @@ export class TechnicalInformationUpdateRequestsService {
      * Details on how to update technical information update request
      */
     requestBody: Array<TechnicalInformationUpdateRequestJsonPatch>;
-  }): CancelablePromise<TechnicalInformationUpdateRequestBasic | ProblemDetails> {
+  }): CancelablePromise<
+    TechnicalInformationUpdateRequestBasic | ProblemDetails
+  > {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-records/technical-information-update-requests/{record-id}',
+      method: "PATCH",
+      url: "/maintenance-records/technical-information-update-requests/{record-id}",
       path: {
-        'record-id': recordId,
+        "record-id": recordId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Bad request. For example that an empty text property was supplied`,
         403: `User does not have sufficient rights to update the technical information update request`,
@@ -174,11 +176,11 @@ export class TechnicalInformationUpdateRequestsService {
     attachmentId: string;
   }): CancelablePromise<Blob | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-records/technical-information-update-requests/{record-id}/attachments/{attachment-id}',
+      method: "GET",
+      url: "/maintenance-records/technical-information-update-requests/{record-id}/attachments/{attachment-id}",
       path: {
-        'record-id': recordId,
-        'attachment-id': attachmentId,
+        "record-id": recordId,
+        "attachment-id": attachmentId,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -205,13 +207,13 @@ export class TechnicalInformationUpdateRequestsService {
     };
   }): CancelablePromise<any | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-records/technical-information-update-requests/{record-id}/attachments',
+      method: "POST",
+      url: "/maintenance-records/technical-information-update-requests/{record-id}/attachments",
       path: {
-        'record-id': recordId,
+        "record-id": recordId,
       },
       formData: formData,
-      mediaType: 'multipart/form-data',
+      mediaType: "multipart/form-data",
       errors: {
         403: `User does not have sufficient rights to upload attachment`,
         404: `The specified resource was not found`,
@@ -303,7 +305,11 @@ export class TechnicalInformationUpdateRequestsService {
     /**
      * Filter to limit the technical information update requests by
      */
-    filter: 'recent-status-activations' | 'open-by-plant' | 'by-tag' | 'by-person-responsible';
+    filter:
+      | "recent-status-activations"
+      | "open-by-plant"
+      | "by-tag"
+      | "by-person-responsible";
     /**
      * Include person responsible information in response
      */
@@ -353,25 +359,27 @@ export class TechnicalInformationUpdateRequestsService {
      * Email of the person responsible in urlencoded format
      */
     personResponsibleEmail?: string;
-  }): CancelablePromise<Array<TechnicalInformationUpdateRequestBasic> | ProblemDetails> {
+  }): CancelablePromise<
+    Array<TechnicalInformationUpdateRequestBasic> | ProblemDetails
+  > {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-records/technical-information-update-requests',
+      method: "GET",
+      url: "/maintenance-records/technical-information-update-requests",
       query: {
-        'include-person-responsible': includePersonResponsible,
+        "include-person-responsible": includePersonResponsible,
         filter: filter,
-        'status-id': statusId,
-        'plant-id': plantId,
-        'location-id': locationId,
-        'system-id': systemId,
-        'tag-id': tagId,
-        'planning-plant-id': planningPlantId,
-        'planner-group-id': plannerGroupId,
-        'max-days-since-activation': maxDaysSinceActivation,
-        'has-person-responsible': hasPersonResponsible,
-        'created-after-datetime': createdAfterDatetime,
-        'include-completed': includeCompleted,
-        'person-responsible-email': personResponsibleEmail,
+        "status-id": statusId,
+        "plant-id": plantId,
+        "location-id": locationId,
+        "system-id": systemId,
+        "tag-id": tagId,
+        "planning-plant-id": planningPlantId,
+        "planner-group-id": plannerGroupId,
+        "max-days-since-activation": maxDaysSinceActivation,
+        "has-person-responsible": hasPersonResponsible,
+        "created-after-datetime": createdAfterDatetime,
+        "include-completed": includeCompleted,
+        "person-responsible-email": personResponsibleEmail,
       },
       errors: {
         400: `Request is missing required parameters`,
@@ -397,12 +405,14 @@ export class TechnicalInformationUpdateRequestsService {
      * Technical information update request to create
      */
     requestBody: TechnicalInformationUpdateRequestCreate;
-  }): CancelablePromise<ProblemDetails | TechnicalInformationUpdateRequestBasic> {
+  }): CancelablePromise<
+    ProblemDetails | TechnicalInformationUpdateRequestBasic
+  > {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-records/technical-information-update-requests',
+      method: "POST",
+      url: "/maintenance-records/technical-information-update-requests",
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         403: `User does not have sufficient rights to create a failure report`,
       },
@@ -439,13 +449,13 @@ export class TechnicalInformationUpdateRequestsService {
     requestBody: Array<MaintenanceRecordTaskCreate>;
   }): CancelablePromise<ProblemDetails | Array<MaintenanceRecordTask>> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-records/technical-information-update-requests/{record-id}/tasks',
+      method: "POST",
+      url: "/maintenance-records/technical-information-update-requests/{record-id}/tasks",
       path: {
-        'record-id': recordId,
+        "record-id": recordId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `The request body is invalid. May occur if taskResponsibleEmail is not an Equinor email address.`,
         403: `User does not have sufficient rights to add tasks technical information update request`,
@@ -489,14 +499,14 @@ export class TechnicalInformationUpdateRequestsService {
     requestBody: Array<MaintenanceRecordTaskUpdateJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-records/technical-information-update-requests/{record-id}/tasks/{task-id}',
+      method: "PATCH",
+      url: "/maintenance-records/technical-information-update-requests/{record-id}/tasks/{task-id}",
       path: {
-        'record-id': recordId,
-        'task-id': taskId,
+        "record-id": recordId,
+        "task-id": taskId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `The request body is invalid. May occur if taskResponsibleEmail is not an Equinor email address.`,
         403: `User does not have sufficient rights to update failure report task`,
@@ -543,15 +553,15 @@ export class TechnicalInformationUpdateRequestsService {
     requestBody: Array<StatusUpdateJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-records/technical-information-update-requests/{record-id}/tasks/{task-id}/statuses/{status-id}',
+      method: "PATCH",
+      url: "/maintenance-records/technical-information-update-requests/{record-id}/tasks/{task-id}/statuses/{status-id}",
       path: {
-        'record-id': recordId,
-        'task-id': taskId,
-        'status-id': statusId,
+        "record-id": recordId,
+        "task-id": taskId,
+        "status-id": statusId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         403: `User does not have sufficient rights to update technical information update request`,
         404: `The specified resource was not found`,

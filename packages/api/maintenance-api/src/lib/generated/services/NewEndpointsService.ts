@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class NewEndpointsService {
   /**
@@ -27,11 +27,11 @@ export class NewEndpointsService {
     attachmentId: string;
   }): CancelablePromise<Blob | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/equipment/{equipment-id}/attachments/{attachment-id}',
+      method: "GET",
+      url: "/equipment/{equipment-id}/attachments/{attachment-id}",
       path: {
-        'equipment-id': equipmentId,
-        'attachment-id': attachmentId,
+        "equipment-id": equipmentId,
+        "attachment-id": attachmentId,
       },
       errors: {
         404: `The specified resource was not found`,

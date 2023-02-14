@@ -3,10 +3,9 @@
 /* eslint-disable */
 
 export type StandardTextTemplate = {
-    /**
-     * Standard text template identifier
-     */
-    standardTextTemplateId: string;
-    standardTextTemplate: string;
+  /**
+   * Standard text template identifier
+   */
+  standardTextTemplateId: string;
+  standardTextTemplate: string;
 };
-

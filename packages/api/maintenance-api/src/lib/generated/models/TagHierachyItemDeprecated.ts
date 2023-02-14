@@ -3,8 +3,7 @@
 /* eslint-disable */
 
 export type TagHierachyItemDeprecated = {
-    tagId: string;
-    parentTagId: string;
-    catalogProfileId: string;
+  tagId: string;
+  parentTagId: string;
+  catalogProfileId: string;
 };
-

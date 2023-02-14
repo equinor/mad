@@ -3,8 +3,7 @@
 /* eslint-disable */
 
 export type TagMinimal = {
-    tagId: string | null;
-    tagPlantId: string;
-    tag: string;
+  tagId: string | null;
+  tagPlantId: string;
+  tag: string;
 };
-

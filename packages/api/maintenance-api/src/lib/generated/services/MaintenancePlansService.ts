@@ -1,24 +1,24 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MaintenancePackagePut } from '../models/MaintenancePackagePut';
-import type { MaintenancePlan } from '../models/MaintenancePlan';
-import type { MaintenancePlanForSearchByTask } from '../models/MaintenancePlanForSearchByTask';
-import type { MaintenancePlanItem } from '../models/MaintenancePlanItem';
-import type { MaintenancePlanItemJsonPatch } from '../models/MaintenancePlanItemJsonPatch';
-import type { MaintenancePlanItemStatusJsonPatch } from '../models/MaintenancePlanItemStatusJsonPatch';
-import type { MaintenancePlanItemTaskListJsonPatch } from '../models/MaintenancePlanItemTaskListJsonPatch';
-import type { ObjectLinkageCreate } from '../models/ObjectLinkageCreate';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { TaskListOperationBasic } from '../models/TaskListOperationBasic';
-import type { TaskWorkOrderOperationCreate } from '../models/TaskWorkOrderOperationCreate';
-import type { TaskWorkOrderOperationJsonPatch } from '../models/TaskWorkOrderOperationJsonPatch';
-import type { TaskWorkOrderOperationMaterialNeedsJsonPatch } from '../models/TaskWorkOrderOperationMaterialNeedsJsonPatch';
-import type { WorkOrderOperationMaterialNeedsCreate } from '../models/WorkOrderOperationMaterialNeedsCreate';
+import type { MaintenancePackagePut } from "../models/MaintenancePackagePut";
+import type { MaintenancePlan } from "../models/MaintenancePlan";
+import type { MaintenancePlanForSearchByTask } from "../models/MaintenancePlanForSearchByTask";
+import type { MaintenancePlanItem } from "../models/MaintenancePlanItem";
+import type { MaintenancePlanItemJsonPatch } from "../models/MaintenancePlanItemJsonPatch";
+import type { MaintenancePlanItemStatusJsonPatch } from "../models/MaintenancePlanItemStatusJsonPatch";
+import type { MaintenancePlanItemTaskListJsonPatch } from "../models/MaintenancePlanItemTaskListJsonPatch";
+import type { ObjectLinkageCreate } from "../models/ObjectLinkageCreate";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { TaskListOperationBasic } from "../models/TaskListOperationBasic";
+import type { TaskWorkOrderOperationCreate } from "../models/TaskWorkOrderOperationCreate";
+import type { TaskWorkOrderOperationJsonPatch } from "../models/TaskWorkOrderOperationJsonPatch";
+import type { TaskWorkOrderOperationMaterialNeedsJsonPatch } from "../models/TaskWorkOrderOperationMaterialNeedsJsonPatch";
+import type { WorkOrderOperationMaterialNeedsCreate } from "../models/WorkOrderOperationMaterialNeedsCreate";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MaintenancePlansService {
   /**
@@ -55,14 +55,14 @@ export class MaintenancePlansService {
     includeItemCalls?: boolean;
   }): CancelablePromise<MaintenancePlan | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-plans/{plan-id}',
+      method: "GET",
+      url: "/maintenance-plans/{plan-id}",
       path: {
-        'plan-id': planId,
+        "plan-id": planId,
       },
       query: {
-        'include-items': includeItems,
-        'include-item-calls': includeItemCalls,
+        "include-items": includeItems,
+        "include-item-calls": includeItemCalls,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -139,17 +139,17 @@ export class MaintenancePlansService {
     includeItemTaskList?: boolean;
   }): CancelablePromise<MaintenancePlanItem | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}',
+      method: "GET",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
+        "plan-id": planId,
+        "item-id": itemId,
       },
       query: {
-        'include-item-calls': includeItemCalls,
-        'include-item-object-list': includeItemObjectList,
-        'include-object-list-linkage': includeObjectListLinkage,
-        'include-item-task-list': includeItemTaskList,
+        "include-item-calls": includeItemCalls,
+        "include-item-object-list": includeItemObjectList,
+        "include-object-list-linkage": includeObjectListLinkage,
+        "include-item-task-list": includeItemTaskList,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -202,14 +202,14 @@ export class MaintenancePlansService {
     requestBody: Array<MaintenancePlanItemJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}',
+      method: "PATCH",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
+        "plan-id": planId,
+        "item-id": itemId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -253,15 +253,15 @@ export class MaintenancePlansService {
     requestBody: Array<MaintenancePlanItemStatusJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/statuses/{status-id}',
+      method: "PATCH",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/statuses/{status-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'status-id': statusId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "status-id": statusId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -303,15 +303,15 @@ export class MaintenancePlansService {
     requestBody: Array<MaintenancePlanItemTaskListJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}',
+      method: "PATCH",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -355,14 +355,14 @@ export class MaintenancePlansService {
     objectListLinkageId: string;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'DELETE',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/object-list-linkage/{object-list-linkage-id}',
+      method: "DELETE",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/object-list-linkage/{object-list-linkage-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
-        'object-list-linkage-id': objectListLinkageId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
+        "object-list-linkage-id": objectListLinkageId,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -408,17 +408,17 @@ export class MaintenancePlansService {
     requestBody: ObjectLinkageCreate;
   }): CancelablePromise<ProblemDetails | string> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/object-list-linkage',
+      method: "POST",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/object-list-linkage",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
       },
       body: requestBody,
-      mediaType: 'application/json',
-      responseHeader: 'Location',
+      mediaType: "application/json",
+      responseHeader: "Location",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -452,18 +452,20 @@ export class MaintenancePlansService {
     /**
      * Filter to limit maintenance plans by
      */
-    filter: 'by-task-id';
+    filter: "by-task-id";
     /**
      * The id of the task within the maintenance plant item
      */
     taskId: string;
-  }): CancelablePromise<Array<MaintenancePlanForSearchByTask> | ProblemDetails> {
+  }): CancelablePromise<
+    Array<MaintenancePlanForSearchByTask> | ProblemDetails
+  > {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-plans',
+      method: "GET",
+      url: "/maintenance-plans",
       query: {
         filter: filter,
-        'task-id': taskId,
+        "task-id": taskId,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -518,16 +520,16 @@ export class MaintenancePlansService {
     requestBody: MaintenancePackagePut;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PUT',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/maintenance-packages',
+      method: "PUT",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/maintenance-packages",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -588,16 +590,16 @@ export class MaintenancePlansService {
     requestBody: Array<TaskWorkOrderOperationJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}',
+      method: "PATCH",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -643,13 +645,13 @@ export class MaintenancePlansService {
     operationId: string;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'DELETE',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}',
+      method: "DELETE",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
       },
       errors: {
         404: `The specified resource was not found`,
@@ -709,15 +711,15 @@ export class MaintenancePlansService {
     requestBody: TaskWorkOrderOperationCreate;
   }): CancelablePromise<ProblemDetails | TaskListOperationBasic> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations',
+      method: "POST",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -769,17 +771,17 @@ export class MaintenancePlansService {
     requestBody: WorkOrderOperationMaterialNeedsCreate;
   }): CancelablePromise<ProblemDetails | string> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/material-needs',
+      method: "POST",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/material-needs",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
       },
       body: requestBody,
-      mediaType: 'application/json',
-      responseHeader: 'Location',
+      mediaType: "application/json",
+      responseHeader: "Location",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -833,17 +835,17 @@ export class MaintenancePlansService {
     requestBody: Array<TaskWorkOrderOperationMaterialNeedsJsonPatch>;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'PATCH',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/material-needs/{material-id}',
+      method: "PATCH",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/material-needs/{material-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
-        'material-id': materialId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
+        "material-id": materialId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         404: `The specified resource was not found`,
       },
@@ -892,14 +894,14 @@ export class MaintenancePlansService {
     materialId: string;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'DELETE',
-      url: '/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/material-needs/{material-id}',
+      method: "DELETE",
+      url: "/maintenance-plans/{plan-id}/items/{item-id}/tasks/{task-id}/operations/{operation-id}/material-needs/{material-id}",
       path: {
-        'plan-id': planId,
-        'item-id': itemId,
-        'task-id': taskId,
-        'operation-id': operationId,
-        'material-id': materialId,
+        "plan-id": planId,
+        "item-id": itemId,
+        "task-id": taskId,
+        "operation-id": operationId,
+        "material-id": materialId,
       },
       errors: {
         404: `The specified resource was not found`,

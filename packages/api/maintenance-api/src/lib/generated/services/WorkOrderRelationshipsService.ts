@@ -1,12 +1,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { RelationshipToMaintenanceRecordAdd } from '../models/RelationshipToMaintenanceRecordAdd';
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { RelationshipToMaintenanceRecordAdd } from "../models/RelationshipToMaintenanceRecordAdd";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class WorkOrderRelationshipsService {
   /**
@@ -44,13 +44,13 @@ export class WorkOrderRelationshipsService {
     requestBody: RelationshipToMaintenanceRecordAdd;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'POST',
-      url: '/work-order-relationships/{work-order-id}/related-maintenance-records',
+      method: "POST",
+      url: "/work-order-relationships/{work-order-id}/related-maintenance-records",
       path: {
-        'work-order-id': workOrderId,
+        "work-order-id": workOrderId,
       },
       body: requestBody,
-      mediaType: 'application/json',
+      mediaType: "application/json",
       errors: {
         400: `Request is missing required parameters`,
         403: `User does not have sufficient rights to work order`,
@@ -89,11 +89,11 @@ export class WorkOrderRelationshipsService {
     recordId: string;
   }): CancelablePromise<ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'DELETE',
-      url: '/work-order-relationships/{work-order-id}/related-maintenance-records/{record-id}',
+      method: "DELETE",
+      url: "/work-order-relationships/{work-order-id}/related-maintenance-records/{record-id}",
       path: {
-        'work-order-id': workOrderId,
-        'record-id': recordId,
+        "work-order-id": workOrderId,
+        "record-id": recordId,
       },
       errors: {
         400: `Request is missing required parameters`,

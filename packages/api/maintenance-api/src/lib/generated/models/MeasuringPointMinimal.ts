@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type MeasuringPointMinimal = {
-    measuringPointId: string;
-    measuringPoint: string;
+  measuringPointId: string;
+  measuringPoint: string;
 };
-

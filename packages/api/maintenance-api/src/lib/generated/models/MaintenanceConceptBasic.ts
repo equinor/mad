@@ -3,8 +3,7 @@
 /* eslint-disable */
 
 export type MaintenanceConceptBasic = {
-    conceptId: string;
-    catalogProfileId: string;
-    responsibleDisciplineId: string;
+  conceptId: string;
+  catalogProfileId: string;
+  responsibleDisciplineId: string;
 };
-

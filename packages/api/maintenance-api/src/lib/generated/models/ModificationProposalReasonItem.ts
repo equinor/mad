@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type ModificationProposalReasonItem = {
-    reasonId: string;
-    reason: string;
+  reasonId: string;
+  reason: string;
 };
-

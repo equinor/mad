@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type FunctionalSystem = {
-    systemId: string;
-    system: string;
+  systemId: string;
+  system: string;
 };
-

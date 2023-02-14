@@ -1,12 +1,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MaintenanceRecordList } from '../models/MaintenanceRecordList';
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { MaintenanceRecordList } from "../models/MaintenanceRecordList";
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MaintenanceRecordsService {
   /**
@@ -70,7 +70,10 @@ export class MaintenanceRecordsService {
     /**
      * Filter to limit the failure reports by
      */
-    filter: 'by-external-partner-record-id' | 'my-recent-maintenance-records' | 'recently-changed';
+    filter:
+      | "by-external-partner-record-id"
+      | "my-recent-maintenance-records"
+      | "recently-changed";
     /**
      * If failure report was initially created in an external system, this represent the unique id of it
      */
@@ -95,25 +98,25 @@ export class MaintenanceRecordsService {
      * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
      */
     includeMaintenanceRecordTypes?: Array<
-      | 'modification-proposal'
-      | 'failure-report'
-      | 'activity-report'
-      | 'certification-report'
-      | 'technical-information-update-request'
-      | 'technical-clarification'
+      | "modification-proposal"
+      | "failure-report"
+      | "activity-report"
+      | "certification-report"
+      | "technical-information-update-request"
+      | "technical-clarification"
     >;
   }): CancelablePromise<MaintenanceRecordList | ProblemDetails> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/maintenance-records',
+      method: "GET",
+      url: "/maintenance-records",
       query: {
         filter: filter,
-        'external-partner-record-id': externalPartnerRecordId,
-        'created-after-datetime': createdAfterDatetime,
-        'plant-id': plantId,
-        'changed-since-datetime': changedSinceDatetime,
-        'before-datetime': beforeDatetime,
-        'include-maintenance-record-types': includeMaintenanceRecordTypes,
+        "external-partner-record-id": externalPartnerRecordId,
+        "created-after-datetime": createdAfterDatetime,
+        "plant-id": plantId,
+        "changed-since-datetime": changedSinceDatetime,
+        "before-datetime": beforeDatetime,
+        "include-maintenance-record-types": includeMaintenanceRecordTypes,
       },
       errors: {
         400: `Bad request, for example if \`before-datetime\` is before \`changed-since-datetime\``,

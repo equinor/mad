@@ -3,8 +3,7 @@
 /* eslint-disable */
 
 export type ActivityCode = {
-    activityCodeId: string;
-    activityCode: string;
-    activityCodeHelpText: string;
+  activityCodeId: string;
+  activityCode: string;
+  activityCodeHelpText: string;
 };
-
