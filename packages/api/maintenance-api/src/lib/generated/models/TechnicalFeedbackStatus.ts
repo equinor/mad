@@ -2,10 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TechnicalFeedbackReason } from "./TechnicalFeedbackReason";
+import type { TechnicalFeedbackReason } from './TechnicalFeedbackReason';
 
 export type TechnicalFeedbackStatus = {
-  feedbackStatusId: string;
-  feedbackStatus: string;
-  reasons: Array<TechnicalFeedbackReason> | null;
+    feedbackStatusId: string;
+    feedbackStatus: string;
+    reasons: Array<TechnicalFeedbackReason> | null;
 };
+

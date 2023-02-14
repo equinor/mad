@@ -2,13 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { SubseaWorkOrderSimple } from "./SubseaWorkOrderSimple";
-import type { WorkOrderOperationSimple } from "./WorkOrderOperationSimple";
+import type { SubseaWorkOrderSimple } from './SubseaWorkOrderSimple';
+import type { WorkOrderOperationSimple } from './WorkOrderOperationSimple';
 
-export type SubseaWorkOrderWithOperationSelf = SubseaWorkOrderSimple & {
-  text?: string | null;
-  _links: {
-    self?: string;
-  };
-  operations: Array<WorkOrderOperationSimple>;
-};
+export type SubseaWorkOrderWithOperationSelf = (SubseaWorkOrderSimple & {
+    text?: string | null;
+    _links: {
+        self?: string;
+    };
+    operations: Array<WorkOrderOperationSimple>;
+});
+

@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 export type StatusUpdate = {
-  isActive: boolean;
-  activatedDateTime?: string | null;
+    isActive: boolean;
+    activatedDateTime?: string | null;
 };
+

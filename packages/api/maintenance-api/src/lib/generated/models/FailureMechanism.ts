@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 export type FailureMechanism = {
-  failureMechanismId: string;
-  failureMechanism: string;
+    failureMechanismId: string;
+    failureMechanism: string;
 };
+

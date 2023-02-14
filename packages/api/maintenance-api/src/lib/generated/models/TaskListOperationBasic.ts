@@ -3,50 +3,46 @@
 /* eslint-disable */
 
 export type TaskListOperationBasic = {
-  /**
-   * Operation
-   */
-  operationId: string;
-  /**
-   * Sub operation numbering (often empty)
-   */
-  subOperationId: string;
-  /**
-   * Unique identifier for operation
-   */
-  uniqueIndex: string;
-  title: string;
-  workCenterId: string;
-  workCenterPlantId: string;
-  text: string;
-  /**
-   * Calculation key defines which of the fields plannedWorkHours,capacityCount and plannedDuration are derived based on the values of the two others. If calculation key is `CALC_KEY_MANUAL`, all fields are filled in manually.
-   */
-  calculationKey:
-    | "CALC_KEY_MANUAL"
-    | "CALC_KEY_DURATION"
-    | "CALC_KEY_PLANNED_HOURS"
-    | "CALC_KEY_CAPACITY"
-    | null;
-  /**
-   * Duration as defined in ISO8601
-   */
-  plannedWorkHours: string | null;
-  /**
-   * Number of capacity from work center required for the operation
-   */
-  capacityCount: number;
-  /**
-   * Planned duration for operation is based on plannedManHours and capacityCount. Property format is as defined in ISO8601
-   */
-  plannedDuration: string | null;
-  /**
-   * Number of times the processing of operation is repeated during order processing
-   */
-  executionFactor: number;
-  standardTextTemplate: string;
-  /**
-   * Used to the describe the activity type produced by the related cost center
-   */
-  activityTypeId: string;
+    /**
+     * Operation
+     */
+    operationId: string;
+    /**
+     * Sub operation numbering (often empty)
+     */
+    subOperationId: string;
+    /**
+     * Unique identifier for operation
+     */
+    uniqueIndex: string;
+    title: string;
+    workCenterId: string;
+    workCenterPlantId: string;
+    text: string;
+    /**
+     * Calculation key defines which of the fields plannedWorkHours,capacityCount and plannedDuration are derived based on the values of the two others. If calculation key is `CALC_KEY_MANUAL`, all fields are filled in manually.
+     */
+    calculationKey: 'CALC_KEY_MANUAL' | 'CALC_KEY_DURATION' | 'CALC_KEY_PLANNED_HOURS' | 'CALC_KEY_CAPACITY' | null;
+    /**
+     * Duration as defined in ISO8601
+     */
+    plannedWorkHours: string | null;
+    /**
+     * Number of capacity from work center required for the operation
+     */
+    capacityCount: number;
+    /**
+     * Planned duration for operation is based on plannedManHours and capacityCount. Property format is as defined in ISO8601
+     */
+    plannedDuration: string | null;
+    /**
+     * Number of times the processing of operation is repeated during order processing
+     */
+    executionFactor: number;
+    standardTextTemplate: string;
+    /**
+     * Used to the describe the activity type produced by the related cost center
+     */
+    activityTypeId: string;
 };
+
