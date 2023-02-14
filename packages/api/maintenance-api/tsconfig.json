@@ -6,7 +6,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "outDir": "../../../dist/maintenance-api"
+    "outDir": "./dist"
   },
   "files": [],
   "include": [],

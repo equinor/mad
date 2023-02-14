@@ -11,11 +11,11 @@ const sharedOptions = {
 await esbuild.build({
   ...sharedOptions,
   platform: "node",
-  outfile: "../../../dist/maintenance-api/index.js",
+  outfile: "./dist/index.js",
 });
 await esbuild.build({
   ...sharedOptions,
   platform: "neutral",
   format: "esm",
-  outfile: "../../../dist/maintenance-api/index.esm.js",
+  outfile: "./dist/index.esm.js",
 });
