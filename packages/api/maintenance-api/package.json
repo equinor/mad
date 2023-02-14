@@ -4,7 +4,7 @@
   "version": "1.14.0",
   "scripts": {
     "test": "jest",
-    "generate": "openapi -i <INPUT_DIR> -o ./packages/api/maintenance-api/src/lib/generated -c axios --useUnionTypes --useOptions --exportCore false",
+    "generate": "openapi -i $npm_config_input -o ./packages/api/maintenance-api/src/lib/generated -c axios --useUnionTypes --useOptions --exportCore false",
     "typecheck": "tsc --project tsconfig.lib.json --emitDeclarationOnly",
     "build": "node esbuild.config.mjs"
   },
