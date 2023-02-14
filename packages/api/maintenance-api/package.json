@@ -34,5 +34,5 @@
   "files": ["../../../CODE_OF_CONDUCT.md", "../../../LICENCE", "../../../dist/maintenance-api"],
   "module": "../../../dist/maintenance-api/index.esm.js",
   "main": "../../../dist/maintenance-api/index.js",
-  "typings": "../../../dist/index.d.ts"
+  "typings": "../../../dist/maintenance-api/index.d.ts"
 }
