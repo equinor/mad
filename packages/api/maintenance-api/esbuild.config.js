@@ -11,6 +11,7 @@ const sharedOptions = {
 await esbuild.build({
   ...sharedOptions,
   platform: "node",
+  target: "node16",
   outfile: "./dist/index.js",
 });
 await esbuild.build({
