@@ -7,7 +7,7 @@
     "test": "jest",
     "generate": "openapi -o ./src/lib/generated -c axios --useUnionTypes --useOptions --exportCore false -i",
     "typecheck": "tsc --project tsconfig.lib.json --emitDeclarationOnly",
-    "build": "node esbuild.config.mjs"
+    "build": "node esbuild.config.js"
   },
   "repository": {
     "type": "git",
