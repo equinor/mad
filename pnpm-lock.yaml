@@ -35,9 +35,11 @@ importers:
   packages/api/maintenance-api:
     specifiers:
       axios: ^1.3.2
+      form-data: 4.x
       openapi-typescript-codegen: ^0.23.0
     dependencies:
       axios: 1.3.2
+      form-data: 4.0.0
     devDependencies:
       openapi-typescript-codegen: 0.23.0
 
