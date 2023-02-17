@@ -18,10 +18,10 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
-    "@types/jest": "^29.4.0",
+    "@types/jest": "^26.0.14",
     "@types/node": "^18.13.0",
     "eslint-config-custom": "workspace:*",
-    "jest": "^29.4.2",
+    "jest": "^26.6.3",
     "prettier": "latest",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
