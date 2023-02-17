@@ -1,8 +1,7 @@
 {
   "name": "@equinor/mad-maintenance-api-ts-wrapper",
   "description": "Typescript wrapper for the Equinor Maintenance API",
-  "version": "1.15.1",
-  "type": "module",
+  "version": "1.15.2",
   "scripts": {
     "test": "jest",
     "generate": "openapi -o ./src/lib/generated -c axios --useUnionTypes --useOptions --exportCore false -i",

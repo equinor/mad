@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.15.2
+
+### Patch Changes
+
+- Change package type to commonjs
+
 ## 1.15.1
 
 ### Patch Changes
