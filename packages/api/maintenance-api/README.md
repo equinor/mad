@@ -10,7 +10,7 @@ import {
   initializeMaintenanceApi,
   filterMaintenanceApiProblem,
   Plants,
-} from "@equinor/mad-maintenance-api-rs-wrapper";
+} from "@equinor/mad-maintenance-api-ts-wrapper";
 
 // Example token fetcher. Get this from your auth provider
 const getMaintenanceApiToken = async () => {
