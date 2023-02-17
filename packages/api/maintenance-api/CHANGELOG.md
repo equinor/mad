@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.15.3
+
+### Patch Changes
+
+- 6ae795c: Build system does not bundle and minify anymore... Fixed typo in readme
+
 ## 1.15.2
 
 ### Patch Changes
