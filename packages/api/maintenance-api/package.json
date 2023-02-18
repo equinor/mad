@@ -18,7 +18,7 @@
     "wrapper"
   ],
   "author": {
-    "name": "Mobile App Delivery team"
+    "name": "Equinor Mobile App Delivery team (MAD)",
   },
   "license": "MIT",
   "bugs": {
@@ -38,7 +38,6 @@
     "CHANGELOG.md",
     "dist"
   ],
-  "module": "./dist/index.esm.js",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts"
 }

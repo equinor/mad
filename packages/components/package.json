@@ -1,12 +1,29 @@
 {
-  "name": "components",
+  "name": "@equinor/mad-components",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A React Native component library implementing the Equinor Design System.",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --project tsconfig.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "react native",
+    "ui",
+    "typescript"
+  ],
+  "author": {
+    "name": "Equinor Mobile App Delivery team (MAD)"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/equinor/mad/issues"
+  },
+  "homepage": "https://github.com/equinor/mad/",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-dom": ">=16.8",
+    "react-native": ">=0.68"
+  }
 }
