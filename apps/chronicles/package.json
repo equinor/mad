@@ -7,7 +7,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "build": "pnpm dlx expo prebuild --platform ios"
+    "build": "npx expo prebuild --platform ios"
   },
   "jest": {
     "preset": "jest-expo",
@@ -41,13 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@storybook/addon-actions": "^5.3.21",
-    "@storybook/addon-knobs": "^5.3.21",
-    "@storybook/addon-links": "^5.3.21",
-    "@storybook/addon-ondevice-actions": "^5.3.23",
-    "@storybook/addon-ondevice-knobs": "^5.3.26",
-    "@storybook/react-native": "^5.3.27",
-    "@storybook/react-native-server": "^5.3.23",
+    "@storybook/cli": "^6.5.16",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
     "babel-loader": "^8.3.0",
