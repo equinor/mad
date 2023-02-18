@@ -1,0 +1,15 @@
+{
+    "extends": "tsconfig/base.json",
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true,
+      "noImplicitOverride": true,
+      "noPropertyAccessFromIndexSignature": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "outDir": "./dist"
+    },
+    "files": [],
+    "include": ["/.src"],
+    "exclude": ["dist", "node_modules"],
+  }
+  
