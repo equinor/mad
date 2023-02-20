@@ -8,6 +8,10 @@
     "packages/**/*"
   ],
   "scripts": {
+    "test:components": "turbo run test --filter @equinor/mad-components --",
+    "build:components": "turbo run build --filter @equinor/mad-components",
+    "run:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
+    "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
     "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
     "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper -- $npm_config_input",
     "test:maintenance-api": "turbo run test --filter @equinor/mad-maintenance-api-ts-wrapper",
@@ -21,7 +25,7 @@
     "@types/jest": "^26.0.14",
     "@types/node": "^18.13.0",
     "eslint-config-mad-custom": "workspace:*",
-    "jest": "^26.6.3",
+    "jest": "^29.4.3",
     "prettier": "latest",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
