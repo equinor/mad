@@ -61,6 +61,7 @@ function BottomTabNavigator() {
       initialRouteName="Discover"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        headerTitleAllowFontScaling: true,
       }}>
       <BottomTab.Screen
         name="Discover"
