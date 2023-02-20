@@ -15,14 +15,14 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Discover: {
             screens: {
-              TabOneScreen: 'one',
+              DiscoverScreen: 'discover',
             },
           },
-          TabTwo: {
+          Icons: {
             screens: {
-              TabTwoScreen: 'two',
+              Icons: 'icons',
             },
           },
         },
