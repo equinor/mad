@@ -16,8 +16,9 @@ import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import IconsScreen from '../screens/IconsScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { RootStackParamList, RootTabParamList,  } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { DrawScreen } from '../screens/DrawScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -76,6 +77,14 @@ function BottomTabNavigator() {
         options={{
           title: 'Icons',
           tabBarIcon: ({ color }) => <TabBarIcon name="th" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Draw"
+        component={DrawScreen}
+        options={{
+          title: 'Draw',
+          tabBarIcon: ({ color }) => <TabBarIcon name="pencil-square-o" color={color} />,
         }}
       />
     </BottomTab.Navigator>
