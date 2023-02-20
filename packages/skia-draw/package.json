@@ -1,0 +1,31 @@
+{
+  "name": "@equinor/react-native-skia-draw",
+  "version": "0.0.1",
+  "description": "A React Native drawing library running on SKIA",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
+  "keywords": [
+    "react native",
+    "drawing",
+    "typescript"
+  ],
+  "author": {
+    "name": "Equinor Mobile App Delivery team (MAD)"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/equinor/mad/issues"
+  },
+  "homepage": "https://github.com/equinor/mad/",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "@shopify/react-native-skia": "^0.1.175",
+    "react": ">=18.0",
+    "react-native": ">=0.64"
+  }
+}
