@@ -40,7 +40,7 @@ importers:
       '@react-navigation/bottom-tabs': ^6.0.5
       '@react-navigation/native': ^6.0.2
       '@react-navigation/native-stack': ^6.1.0
-      '@shopify/react-native-skia': ^0.1.175
+      '@shopify/react-native-skia': ^0.1.157
       '@types/react': ~18.0.24
       '@types/react-native': ~0.70.6
       babel-loader: ^8.3.0
@@ -71,7 +71,7 @@ importers:
       '@react-navigation/bottom-tabs': 6.5.5_mzpnoyhirmxo3ci6ibredhimgm
       '@react-navigation/native': 6.1.4_tj3nonr5gneraukzjkxpsiy7yu
       '@react-navigation/native-stack': 6.9.10_mzpnoyhirmxo3ci6ibredhimgm
-      '@shopify/react-native-skia': 0.1.175_tj3nonr5gneraukzjkxpsiy7yu
+      '@shopify/react-native-skia': 0.1.157_mvrt5vo44hdi3gmxgieophka6i
       expo: 47.0.13_@babel+core@7.20.12
       expo-asset: 8.7.0_expo@47.0.13
       expo-constants: 14.0.2_expo@47.0.13
@@ -132,7 +132,10 @@ importers:
       typescript: 4.9.5
 
   packages/skia-draw:
-    specifiers: {}
+    specifiers:
+      '@equinor/mad-components': workspace:*
+    dependencies:
+      '@equinor/mad-components': link:../components
 
   packages/tsconfig:
     specifiers: {}
@@ -3114,8 +3117,8 @@ packages:
       join-component: 1.1.0
     dev: false
 
-  /@shopify/react-native-skia/0.1.175_tj3nonr5gneraukzjkxpsiy7yu:
-    resolution: {integrity: sha512-vA5YPGu7GmBi5qliLyMzbpkH9mmCWAZoaoGhM9/g5o9zX8xAmUYcGgg3MOqxtnxCnfTmqFFBj43s+QGgMRTpqg==}
+  /@shopify/react-native-skia/0.1.157_mvrt5vo44hdi3gmxgieophka6i:
+    resolution: {integrity: sha512-dqOUn2SQ94WJRUAd+LufOyQlNvmCjKFlvVljbi/UjPK47to9Q1zd5amUxPa5acvOrolKsEaNHgiFzOBMyRf0nA==}
     hasBin: true
     requiresBuild: true
     peerDependencies:
@@ -3126,19 +3129,13 @@ packages:
       react-native-reanimated:
         optional: true
     dependencies:
-      '@types/pixelmatch': 5.2.4
-      '@types/pngjs': 6.0.1
-      '@types/ws': 8.5.4
-      canvaskit-wasm: 0.38.0
-      pixelmatch: 5.3.0
-      pngjs: 6.0.0
+      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6_@babel+core@7.20.12
+      canvaskit-wasm: 0.36.1
       react: 18.1.0
       react-native: 0.70.5_7vw2fevm7cxfkwynop5qx4c5l4
       react-reconciler: 0.27.0_react@18.1.0
-      ws: 8.12.1
     transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
+      - '@babel/core'
     dev: false
 
   /@sideway/address/4.1.4:
@@ -3376,18 +3373,6 @@ packages:
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
     dev: true
-
-  /@types/pixelmatch/5.2.4:
-    resolution: {integrity: sha512-HDaSHIAv9kwpMN7zlmwfTv6gax0PiporJOipcrGsVNF3Ba+kryOZc0Pio5pn6NhisgWr7TaajlPEKTbTAypIBQ==}
-    dependencies:
-      '@types/node': 18.13.0
-    dev: false
-
-  /@types/pngjs/6.0.1:
-    resolution: {integrity: sha512-J39njbdW1U/6YyVXvC9+1iflZghP8jgRf2ndYghdJb5xL49LYDB+1EuAxfbuJ2IBbWIL3AjHPQhgaTxT3YaYeg==}
-    dependencies:
-      '@types/node': 18.13.0
-    dev: false
 
   /@types/prettier/2.7.2:
     resolution: {integrity: sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg==}
@@ -4640,8 +4625,8 @@ packages:
   /caniuse-lite/1.0.30001451:
     resolution: {integrity: sha512-XY7UbUpGRatZzoRft//5xOa69/1iGJRBlrieH6QYrkKLIFn3m7OVEJ81dSrKoy2BnKsdbX5cLrOispZNYo9v2w==}
 
-  /canvaskit-wasm/0.38.0:
-    resolution: {integrity: sha512-ZEG6lucpbQ4Ld+mY8C1Ng+PMLVP+/AX02jS0Sdl28NyMxuKSa9uKB8oGd1BYp1XWPyO2Jgr7U8pdyjJ/F3xR5Q==}
+  /canvaskit-wasm/0.36.1:
+    resolution: {integrity: sha512-6IHlBBc9zDQBTHiGuz4Rf0j/P/ulW24q/yW+QY517e7jwQoM0nJ1+L3h4wUpfC4eQrcpVPQY8ZFbqMbUCzDxTw==}
     dev: false
 
   /capture-exit/2.0.0:
@@ -10528,13 +10513,6 @@ packages:
     resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
     engines: {node: '>= 6'}
 
-  /pixelmatch/5.3.0:
-    resolution: {integrity: sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==}
-    hasBin: true
-    dependencies:
-      pngjs: 6.0.0
-    dev: false
-
   /pkg-dir/3.0.0:
     resolution: {integrity: sha512-/E57AYkoeQ25qkxMj5PBOVgF8Kiu/h7cYS30Z5+R7WaiCCBfLq58ZI/dSeaEKb9WVJV5n/03QwrN3IeWIFllvw==}
     engines: {node: '>=6'}
@@ -10570,11 +10548,6 @@ packages:
   /pngjs/5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
-    dev: false
-
-  /pngjs/6.0.0:
-    resolution: {integrity: sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==}
-    engines: {node: '>=12.13.0'}
     dev: false
 
   /posix-character-classes/0.1.1:

@@ -1,9 +1,9 @@
 import { View, Text } from "react-native";
-import {Canvas} from "@equinor/react-native-skia-draw/dist/Canvas";
+import { DFWCanvas } from "@equinor/react-native-skia-draw/dist/premades";
 
 
 export const DrawScreen = () => {
     return (
-     <Canvas />
+     <DFWCanvas />
     );
 }
