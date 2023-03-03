@@ -1,4 +1,4 @@
-import { tokens,} from "@equinor/eds-tokens";
+import { tokens } from "@equinor/eds-tokens";
 import type { ComponentToken, Elevations } from "@equinor/eds-tokens";
 
 const {
