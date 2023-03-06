@@ -1,22 +1,26 @@
-import { Color, Skia, SkiaMutableValue, useTouchHandler, useValue } from "@shopify/react-native-skia";
-import { useState } from "react";
-import { IdentifiablePathData, PathData } from "../types";
+import { Color, Skia, useTouchHandler, useValue } from "@shopify/react-native-skia";
+import {ForwardedRef } from "react";
+import { PathData, SkiaDrawHandle} from "../types";
 import { useRerender } from "./useRerender";
+import {useDrawHandle} from "./useDrawHandle";
 
 type CanvasSetup = {
     initialDrawColor: Color,
     initialStrokeWidth: number,
+    ref: ForwardedRef<SkiaDrawHandle>
 };
 
-export const useCanvasTouch = (setup: CanvasSetup) => {
+export const useCanvasDraw = (setup: CanvasSetup) => {
 
-    const [drawColor, setDrawColor] = useState<Color>(setup.initialDrawColor);
-    const [strokeWeight, setStrokeWeight] = useState<number>(setup.initialStrokeWidth);
+    const drawColor = useValue<Color>(setup.initialDrawColor);
+    const strokeWeight = useValue<number>(setup.initialStrokeWidth);
   
     const pathHistory = useValue<PathData[]>([]);
     const currentPaths = useValue<Record<string, PathData>>({});
 
     const rerender = useRerender();
+
+    useDrawHandle(setup.ref, {drawColor, strokeWeight, pathHistory})
     
     const touchHandler = useTouchHandler({
         onStart: ({x, y, id}) => {
@@ -24,8 +28,8 @@ export const useCanvasTouch = (setup: CanvasSetup) => {
             newPath.moveTo(x, y);
             currentPaths.current[id] = {
                 path: newPath,
-                color: drawColor,
-                strokeWidth: strokeWeight
+                color: drawColor.current,
+                strokeWidth: strokeWeight.current
             };
             rerender();
         },
@@ -45,23 +49,9 @@ export const useCanvasTouch = (setup: CanvasSetup) => {
         }
     });
 
-    const undo = () => {
-        pathHistory.current.pop();
-        rerender();
-    };
-
-    const clear = () => {
-        pathHistory.current = [];
-        rerender();
-    };
-
     return {
         currentPaths,
         pathHistory,
         touchHandler,
-        setStrokeWeight,
-        setDrawColor,
-        undo,
-        clear,
     }
 }

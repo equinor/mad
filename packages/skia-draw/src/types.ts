@@ -1,7 +1,14 @@
 import {
     Color,
-    SkPath
+    SkPath,
 } from "@shopify/react-native-skia";
+
+export type SkiaDrawHandle = {
+    setColor: (color:Color) => void,
+    setStrokeWeight: (weight: number) => void,
+    undo: () => void,
+    clear: () => void,
+}
 
 export type CanvasProps = { 
     /**
