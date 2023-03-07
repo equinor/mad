@@ -1,14 +1,43 @@
-import { View, StyleSheet } from "react-native";
-import { Paper } from "@equinor/mad-components"
+import { StyleSheet, Pressable} from "react-native";
+import {Paper, Typography} from "@equinor/mad-components"
+import {SkiaDrawHandle} from "../types";
+import {MutableRefObject} from "react";
 
 
-export const EDSControlPanel = () => {
+export const EDSControlPanel = (props: {canvasRef: MutableRefObject<SkiaDrawHandle | null>}) => {
     const colors = ["red", "blue", "orange", "yellow", "green"];
+    const buttonSize = 20;
+    const onPressColor = (c:string) => {
+        props.canvasRef.current?.setColor(c);
+    }
+
+    const onPressUndo = () => {
+        props.canvasRef.current?.undo()
+    };
+
+    const onPressClear = () => {
+        props.canvasRef.current?.clear()
+    };
+
+    const onPressStrokeWidth = () => {
+        props.canvasRef.current?.setStrokeWeight(3)
+    };
+
     return (
         <Paper
             elevation="sticky"
             style={styles.container}>
-                {colors.map((c, index) => <View key={index} style={{height: 20, width: 20, backgroundColor: c}}/>)}
+                {colors.map((c, index) => <Pressable onPress={() => onPressColor(c)} key={index} style={{height: buttonSize, width: buttonSize, backgroundColor: c}}/>)}
+                {/* For testing undo, clear, and setStrokeWeight */}
+                <Pressable onPress={() => onPressUndo()} key={"undo-button"} style={{height: buttonSize, width: buttonSize, backgroundColor: "white", justifyContent: "center", alignItems: "center"}}>
+                    <Typography>U</Typography>
+                </Pressable>
+                <Pressable onPress={() => onPressClear()} key={"clear-button"} style={{height: buttonSize, width: buttonSize, backgroundColor: "white", justifyContent: "center", alignItems: "center"}}>
+                    <Typography>C</Typography>
+                </Pressable>
+                <Pressable onPress={() => onPressStrokeWidth()} key={"stroke-width-button"} style={{height: buttonSize, width: buttonSize, backgroundColor: "white", justifyContent: "center", alignItems: "center"}}>
+                    <Typography>SW</Typography>
+                </Pressable>
         </Paper>
     );
 };
