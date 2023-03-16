@@ -1,36 +1,39 @@
-import { tokens } from '@equinor/eds-tokens';
-import { Pressable, StyleSheet, View, Text } from 'react-native';
+import { tokens } from "@equinor/eds-tokens";
+import React from "react";
+import { Pressable, StyleSheet, View, Text, ViewProps } from "react-native";
 
-export interface ButtonProps {
-  title: string;
-  fuiRef?: any;
-  onPress: any;
-}
+export type ButtonProps = {
+  onPress?: any;
+  style?: StyleSheet;
+};
 
-export function Button(props: ButtonProps) {
-  return (
-    <Pressable collapsable={false} ref={props.fuiRef} style={({ pressed }) => {
-      return pressed ? styles.containerPressed : styles.containerResting
-    }} onPress={props.onPress}>
-      <View>
-        <Text style={styles.text}>{props.title}</Text>
+export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
+  (props: ButtonProps & ViewProps, ref) => {
+    return (
+      <View style={props.style} ref={ref} collapsable={false}>
+        <Pressable
+          style={({ pressed }) => {
+            return pressed ? styles.containerPressed : styles.containerResting;
+          }}
+          onPress={props.onPress}
+        >
+          {props.children}
+        </Pressable>
       </View>
-    </Pressable>
-  );
-}
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   containerResting: {
     backgroundColor: tokens.colors.interactive.primary__resting.hex,
     borderRadius: 2,
-    padding: 8
+    padding: 8,
   },
   containerPressed: {
     backgroundColor: tokens.colors.interactive.pressed_overlay_dark.hex,
     borderRadius: 2,
-    padding: 8
+    padding: 8,
   },
-  text: {
-    color: "white"
-  }
 });
+

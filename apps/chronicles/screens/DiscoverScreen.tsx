@@ -1,14 +1,15 @@
-import { Button, ScrollView, StyleSheet } from "react-native";
-
-import EditScreenInfo from "../components/EditScreenInfo";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
-import { Paper, Typography, PopoverContainer } from "@equinor/mad-components";
+import { Paper, Typography, Button, Popover } from "@equinor/mad-components";
+import { useRef, useState } from "react";
 
 export default function DiscoverScreen({
   navigation,
 }: RootTabScreenProps<"Discover">) {
+  const buttonRef = useRef(null);
+  const [open, setOpen] = useState(false);
   return (
     <ScrollView
       style={{ backgroundColor: "white" }}
@@ -56,11 +57,14 @@ export default function DiscoverScreen({
       </View>
 
       <Typography variant="h1_bold">Popover</Typography>
-      <PopoverContainer
-        popoverText="This is a test"
-        buttonTitle="Press Me!"
-        style={{ margin: 10 }}
-      />
+      <Button ref={buttonRef} onPress={()=>{
+        setOpen(!open);
+      }} style={{margin: 5}}>
+        <Typography color="white">Hello</Typography>
+      </Button>
+      <Popover open={open} anchorEl={buttonRef.current}>
+        <Typography>What is this</Typography>
+      </Popover>
     </ScrollView>
   );
 }
