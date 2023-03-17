@@ -57,13 +57,13 @@ export default function DiscoverScreen({
       </View>
 
       <Typography variant="h1_bold">Popover</Typography>
-      <Button ref={buttonRef} onPress={()=>{
+      <Button ref={buttonRef} onPress={() => {
         setOpen(!open);
-      }} style={{margin: 5}}>
-        <Typography color="white">Hello</Typography>
+      }} style={{ margin: 5 }}>
+        <Typography color="white">Press Me!</Typography>
       </Button>
       <Popover open={open} anchorEl={buttonRef.current}>
-        <Typography>What is this</Typography>
+        <Typography>This is a popover</Typography>
       </Popover>
     </ScrollView>
   );

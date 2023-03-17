@@ -4,7 +4,6 @@ import { Pressable, StyleSheet, View, Text, ViewProps } from "react-native";
 
 export type ButtonProps = {
   onPress?: any;
-  style?: StyleSheet;
 };
 
 export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
