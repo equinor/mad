@@ -27,7 +27,7 @@
     "@types/node": "^18.13.0",
     "eslint-config-mad-custom": "workspace:*",
     "jest": "^29.4.3",
-    "prettier": "latest",
+    "prettier": "2.8.4",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
