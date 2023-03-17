@@ -4,3 +4,4 @@ export * from "./components/Paper"
 export * from "./components/Typography"
 
 export * from "./hooks/useEDS"
+export * from './components/MADLegacyComponents'

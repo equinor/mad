@@ -19,6 +19,7 @@ import IconsScreen from '../screens/IconsScreen';
 import { RootStackParamList, RootTabParamList,  } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { DrawScreen } from '../screens/DrawScreen';
+import {SignatureScreen} from "../screens/SignatureTest";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -87,6 +88,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="pencil-square-o" color={color} />,
         }}
       />
+        <BottomTab.Screen
+            name="Sign"
+            component={SignatureScreen}
+            options={{
+                title: 'Sign',
+                tabBarIcon: ({ color }) => <TabBarIcon name="pencil-square-o" color={color} />,
+            }}
+        />
     </BottomTab.Navigator>
   );
 }
