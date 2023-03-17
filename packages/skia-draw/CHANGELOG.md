@@ -1,5 +1,8 @@
-# @equinor/mad-maintenance-api-ts-wrapper
+# @equinor/react-native-skia-draw
 
-## 0.5.0
+## 0.0.1
 
-First version
+### Patch Changes
+
+-   Updated dependencies [1a1a27c]
+    -   @equinor/mad-components@0.0.1
