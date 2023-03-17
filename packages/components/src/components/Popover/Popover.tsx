@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ViewProps } from "react-native";
 import { tokens } from "@equinor/eds-tokens";
 import React, { Ref } from "react";
 import { Placement, shift, useFloating } from "@floating-ui/react-native";
+import { convertToUnitlessNumber } from "../../translations/units";
 
 export type PopoverProps = {
   open: boolean;
@@ -31,8 +32,8 @@ export const Popover = (props: PopoverProps & ViewProps) => {
 const styles = StyleSheet.create({
   innerContainer: {
     backgroundColor: tokens.colors.ui.background__light.hex,
-    padding: 8,
-    minWidth: 32,
-    minHeight: 32
+    padding: convertToUnitlessNumber(tokens.spacings.comfortable.medium),
+    minWidth: convertToUnitlessNumber(tokens.shape.button.minWidth),
+    minHeight: convertToUnitlessNumber(tokens.shape.button.minHeight)
   }
 });

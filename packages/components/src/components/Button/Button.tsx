@@ -1,6 +1,7 @@
 import { tokens } from "@equinor/eds-tokens";
 import React from "react";
 import { Pressable, StyleSheet, View, Text, ViewProps } from "react-native";
+import { convertToUnitlessNumber } from "../../translations/units";
 
 export type ButtonProps = {
   onPress?: any;
@@ -26,13 +27,13 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
 const styles = StyleSheet.create({
   containerResting: {
     backgroundColor: tokens.colors.interactive.primary__resting.hex,
-    borderRadius: 2,
-    padding: 8,
+    borderRadius: convertToUnitlessNumber(tokens.shape.button.borderRadius),
+    padding: convertToUnitlessNumber(tokens.spacings.comfortable.small),
   },
   containerPressed: {
     backgroundColor: tokens.colors.interactive.pressed_overlay_dark.hex,
-    borderRadius: 2,
-    padding: 8,
+    borderRadius: convertToUnitlessNumber(tokens.shape.button.borderRadius),
+    padding: convertToUnitlessNumber(tokens.spacings.comfortable.small),
   },
 });
 
