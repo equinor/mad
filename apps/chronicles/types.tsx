@@ -28,6 +28,7 @@ export type RootTabParamList = {
   Discover: undefined;
   Icons: undefined;
   Draw: undefined;
+  Sign: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
