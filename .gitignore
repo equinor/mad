@@ -38,3 +38,6 @@ dist
 # expo build
 .expo
 ios
+
+# Snyk cache
+.dccache
