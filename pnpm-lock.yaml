@@ -111,8 +111,10 @@ importers:
   packages/components:
     specifiers:
       '@equinor/eds-tokens': ^0.9.0
+      '@floating-ui/react-native': ^0.9.0
     dependencies:
       '@equinor/eds-tokens': 0.9.0
+      '@floating-ui/react-native': 0.9.0
 
   packages/eslint-config-mad-custom:
     specifiers:
@@ -2182,6 +2184,19 @@ packages:
       chalk: 4.1.2
       find-up: 5.0.0
       js-yaml: 4.1.0
+    dev: false
+
+  /@floating-ui/core/1.2.2:
+    resolution: {integrity: sha512-FaO9KVLFnxknZaGWGmNtjD2CVFuc0u4yeGEofoyXO2wgRA7fLtkngT6UB0vtWQWuhH3iMTZZ/Y89CMeyGfn8pA==}
+    dev: false
+
+  /@floating-ui/react-native/0.9.0:
+    resolution: {integrity: sha512-0Q73XJZabyJEOhee2PdBunD6eDkXyEF1OzxVrzAWC3RJcymSLv5L4nrZtZ7j5Wy4bCt1BYweEJMNwEkgopEyGw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-native: '>=0.64.0'
+    dependencies:
+      '@floating-ui/core': 1.2.2
     dev: false
 
   /@gar/promisify/1.1.3:

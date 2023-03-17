@@ -29,6 +29,7 @@
         "react-native": ">=0.68"
     },
     "dependencies": {
-        "@equinor/eds-tokens": "^0.9.0"
+        "@equinor/eds-tokens": "^0.9.0",
+	"@floating-ui/react-native": "^0.9.0"
     }
 }
