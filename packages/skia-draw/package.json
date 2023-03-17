@@ -1,6 +1,6 @@
 {
   "name": "@equinor/react-native-skia-draw",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "A React Native drawing library running on SKIA",
   "type": "module",
   "scripts": {
@@ -9,6 +9,8 @@
   "keywords": [
     "react native",
     "drawing",
+    "signature",
+    "markup",
     "typescript"
   ],
   "author": {
@@ -25,8 +27,14 @@
     "@equinor/mad-components": "workspace:*"
   },
   "peerDependencies": {
-    "@shopify/react-native-skia": "^0.1.157",
+    "@shopify/react-native-skia": "^0.1.141",
     "react": ">=18.0",
     "react-native": ">=0.64"
-  }
+  },
+  "files": [
+    "CODE_OF_CONDUCT.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "dist"
+  ]
 }
