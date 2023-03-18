@@ -1,70 +1,21 @@
-import { ScrollView, StyleSheet, Text } from "react-native";
-import { View } from "../components/Themed";
-import { RootTabScreenProps } from "../types";
+import { ScrollView, StyleSheet } from "react-native";
+import { DiscoverStackParamList } from "../types";
 
-import { Paper, Typography, Button, Popover } from "@equinor/mad-components";
-import { useRef, useState } from "react";
+import { NavigationCell, NavigationCellList } from "@equinor/mad-components";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export default function DiscoverScreen({
   navigation,
-}: RootTabScreenProps<"Discover">) {
-  const buttonRef = useRef(null);
-  const [open, setOpen] = useState(false);
+}: NativeStackScreenProps<DiscoverStackParamList>) {
   return (
     <ScrollView
-      style={{ backgroundColor: "white" }}
-      contentContainerStyle={styles.container}
+      contentInsetAdjustmentBehavior="automatic"
     >
-      <Typography variant="h1_bold">Paper</Typography>
-      <View
-        style={{
-          backgroundColor: "#D0D0D0",
-          padding: 10,
-          flex: 1,
-          alignItems: "stretch",
-          width: "100%",
-          justifyContent: "space-evenly",
-          height: 2000,
-        }}
-      >
-        <Paper elevation="none" style={{ width: "auto", height: 50 }}>
-          <Typography>none</Typography>
-        </Paper>
-        <Paper elevation="raised" style={{ width: "auto", height: 50 }}>
-          <Typography style={{ flex: 1 }}>raised</Typography>
-        </Paper>
-        <Paper
-          elevation="overlay"
-          style={{ width: "auto", height: 50 }}
-        >
-          <Typography>overlay</Typography>
-        </Paper>
-        <Paper elevation="sticky" style={{ width: "auto", height: 50 }}>
-          <Typography>sticky</Typography>
-        </Paper>
-        <Paper
-          elevation="temporary_nav"
-          style={{ width: "auto", height: 50 }}
-        >
-          <Typography>temporary_nav</Typography>
-        </Paper>
-        <Paper
-          elevation="above_scrim"
-          style={{ width: "auto", height: 50 }}
-        >
-          <Typography>above_scrim</Typography>
-        </Paper>
-      </View>
-
-      <Typography variant="h1_bold">Popover</Typography>
-      <Button ref={buttonRef} onPress={() => {
-        setOpen(!open);
-      }} style={{ margin: 5 }}>
-        <Typography color="white">Press Me!</Typography>
-      </Button>
-      <Popover open={open} anchorEl={buttonRef.current}>
-        <Typography>This is a popover</Typography>
-      </Popover>
+      <NavigationCellList>
+        <NavigationCell title="Paper" description="Multiple elevations and shadows" onPress={() => navigation.navigate("Paper")} />
+        <NavigationCell title="Button" description="Buttons, buttons, buttons!" onPress={() => navigation.navigate("Button")} />
+        <NavigationCell title="Popover" description="Contaner floating over some reference element" onPress={() => navigation.navigate("Popover")} />
+      </NavigationCellList>
     </ScrollView>
   );
 }

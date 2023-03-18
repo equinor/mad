@@ -1,7 +1,8 @@
 import { tokens } from "@equinor/eds-tokens";
 import React from "react";
-import { Pressable, StyleSheet, View, Text, ViewProps } from "react-native";
+import { Pressable, StyleSheet, View, ViewProps } from "react-native";
 import { convertToUnitlessNumber } from "../../translations/units";
+import { Typography } from "../Typography";
 
 export type ButtonProps = {
   onPress?: any;
@@ -9,6 +10,7 @@ export type ButtonProps = {
 
 export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
   (props: ButtonProps & ViewProps, ref) => {
+    const children = React.Children.toArray(props.children);
     return (
       <View style={props.style} ref={ref} collapsable={false}>
         <Pressable
@@ -17,7 +19,17 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
           }}
           onPress={props.onPress}
         >
-          {props.children}
+          {children.map(child => {
+            if (typeof (child) === "string")
+              return <Typography
+                group="navigation"
+                variant="button"
+                color="white"
+              >
+                {child}
+              </Typography>
+            return child
+          })}
         </Pressable>
       </View>
     );
@@ -26,14 +38,14 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
 
 const styles = StyleSheet.create({
   containerResting: {
-    backgroundColor: tokens.colors.interactive.primary__resting.hex,
+    backgroundColor: tokens.colors.interactive.primary__resting.rgba,
     borderRadius: convertToUnitlessNumber(tokens.shape.button.borderRadius),
-    padding: convertToUnitlessNumber(tokens.spacings.comfortable.small),
+    padding: convertToUnitlessNumber(tokens.spacings.comfortable.medium_small),
   },
   containerPressed: {
-    backgroundColor: tokens.colors.interactive.pressed_overlay_dark.hex,
+    backgroundColor: tokens.colors.interactive.pressed_overlay_dark.rgba,
     borderRadius: convertToUnitlessNumber(tokens.shape.button.borderRadius),
-    padding: convertToUnitlessNumber(tokens.spacings.comfortable.small),
+    padding: convertToUnitlessNumber(tokens.spacings.comfortable.medium_small),
   },
 });
 

@@ -19,6 +19,18 @@ export type RootStackParamList = {
   NotFound: undefined;
 };
 
+export type DiscoverStackParamList = {
+  Discoverer: undefined;
+  Paper: undefined;
+  Button: undefined;
+  Popover: undefined;
+}
+
+export type DiscoverStackScreenProps<Screen extends keyof DiscoverStackParamList> = NativeStackScreenProps<
+  DiscoverStackParamList,
+  Screen
+>;
+
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
   RootStackParamList,
   Screen
@@ -33,5 +45,8 @@ export type RootTabParamList = {
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
-  NativeStackScreenProps<RootStackParamList>
+  CompositeScreenProps<
+    NativeStackScreenProps<RootStackParamList>,
+    NativeStackScreenProps<DiscoverStackParamList>
+  >
 >;
