@@ -29,25 +29,14 @@ export const Popover = (props: PopoverProps & ViewProps) => {
     refs.setReference(props.anchorEl);
   }, [props.anchorEl])
   return (
-    <Modal
-      style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
-      visible={props.open}
-      transparent
+    <Paper
+      style={{ position: "absolute", left: x ?? 0, top: y ?? 0 }}
+      elevation="overlay"
+      ref={refs.setFloating}
     >
-      <Pressable
-        style={{ flex: 1 }}
-        onPress={props.onClose}
-      >
-        <Paper
-          style={{ position: "absolute", left: x ?? 0, top: y ?? 0 }}
-          elevation="overlay"
-          ref={refs.setFloating}
-        >
-          <View style={styles.innerContainer}>{props.children}</View>
+      <View style={styles.innerContainer}>{props.children}</View>
 
-        </Paper>
-      </Pressable>
-    </Modal>
+    </Paper>
   );
 };
 
