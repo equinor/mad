@@ -1,31 +1,53 @@
-import { View, Text, StyleSheet, ViewProps } from "react-native";
+import { View, Text, StyleSheet, ViewProps, Modal, Pressable } from "react-native";
 import { tokens } from "@equinor/eds-tokens";
-import React, { Ref } from "react";
-import { Placement, shift, useFloating } from "@floating-ui/react-native";
+import React, { Ref, useEffect } from "react";
+import { flip, offset, Placement, shift, useFloating } from "@floating-ui/react-native";
 import { convertToUnitlessNumber } from "../../translations/units";
+import { Paper } from "../Paper";
 
 export type PopoverProps = {
   open: boolean;
-  anchorEl: any;
+  onClose: () => void;
+  anchorEl: React.RefObject<View>;
   placement?: string;
 };
 
 export const Popover = (props: PopoverProps & ViewProps) => {
   if (!props.open) return <View />;
-  let { x, y, refs } = useFloating({
-    middleware: [shift()],
-    placement: props.placement as Placement ?? "top"
+  const {
+    x,
+    y,
+    refs,
+  } = useFloating({
+    middleware: [offset(0),
+    flip(),
+    shift({ padding: 8 }),
+    ],
+    placement: props.placement as Placement ?? "top",
   });
-  refs.setReference(props.anchorEl);
+  useEffect(() => {
+    refs.setReference(props.anchorEl);
+  }, [props.anchorEl])
   return (
-    <View
-      collapsable={false}
-      style={{ position: "absolute", left: x as number, top: y as number }}
-      ref={refs.setFloating}
+    <Modal
+      style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
+      visible={props.open}
+      transparent
     >
-      <View style={styles.innerContainer}>{props.children}</View>
+      <Pressable
+        style={{ flex: 1 }}
+        onPress={props.onClose}
+      >
+        <Paper
+          style={{ position: "absolute", left: x ?? 0, top: y ?? 0 }}
+          elevation="overlay"
+          ref={refs.setFloating}
+        >
+          <View style={styles.innerContainer}>{props.children}</View>
 
-    </View>
+        </Paper>
+      </Pressable>
+    </Modal>
   );
 };
 
