@@ -8,7 +8,7 @@ import { Paper } from "../Paper";
 export type PopoverProps = {
   open: boolean;
   onClose: () => void;
-  anchorEl: React.RefObject<View>;
+  anchorEl: React.MutableRefObject<View>;
   placement?: string;
 };
 
