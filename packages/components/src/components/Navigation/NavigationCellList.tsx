@@ -23,9 +23,9 @@ export const NavigationCellList = (props: NavigationCellListProps) => {
             {navs.map((child, index) => (
                 <View key={index}>
                     {child}
-                    <View style={{ paddingHorizontal: 12 }}>
-                        {index !== navs.length - 1 && <View style={styles.divider} />}
-                    </View>
+                    {index !== 0 && <View style={styles.dividerOuter}>
+                        <View style={styles.dividerInner} />
+                    </View>}
                 </View>
             ))
             }
@@ -33,9 +33,16 @@ export const NavigationCellList = (props: NavigationCellListProps) => {
     );
 }
 const styles = StyleSheet.create({
-    divider: {
-        height: 1,
-        width: "100%",
+    dividerOuter: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        paddingHorizontal: 12,
+        width: "100%"
+    },
+    dividerInner: {
         backgroundColor: (navigationToken.border as Border).color,
+        width: "100%",
+        height: 1
     }
 })

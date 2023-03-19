@@ -20,7 +20,7 @@ export type RootStackParamList = {
 };
 
 export type DiscoverStackParamList = {
-  Discoverer: undefined;
+  Discover: undefined;
   Paper: undefined;
   Button: undefined;
   Popover: undefined;

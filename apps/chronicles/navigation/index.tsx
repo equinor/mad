@@ -58,8 +58,13 @@ function DiscoverNavigator() {
     <DiscoverStack.Navigator
       screenOptions={{
         headerLargeTitle: true,
+        headerLargeTitleShadowVisible: true,
+        headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
+        headerTitleStyle: { fontFamily: "Equinor-Regular", color: "#243746" },
+        headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+        headerTintColor: "#007079"
       }}>
-      <DiscoverStack.Screen name="Discoverer" component={DiscoverScreen} />
+      <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
       <DiscoverStack.Screen name="Paper" component={PaperScreen} />
       <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
       <DiscoverStack.Screen name="Button" component={ButtonScreen} />
@@ -80,8 +85,8 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Discover"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-        headerTitleAllowFontScaling: true,
+        tabBarActiveTintColor: "#007079",
+        tabBarLabelStyle: { fontFamily: "Equinor-Bold" }
       }}>
       <BottomTab.Screen
         name="Discover"

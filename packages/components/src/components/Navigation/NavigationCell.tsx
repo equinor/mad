@@ -17,7 +17,6 @@ export type NavigationProps = {
 }
 
 export const NavigationCell = (props: React.PropsWithChildren<NavigationProps>) => {
-    console.log("RERENDER")
     const borderEdges: NavigationBorderEdges = {
         top: props?.borderEdges?.top ?? true,
         bottom: props?.borderEdges?.bottom ?? true,
@@ -41,11 +40,11 @@ export const NavigationCell = (props: React.PropsWithChildren<NavigationProps>) 
                         <Typography>{"?"}</Typography>
                     </View>
                     <View style={{ flex: 1, alignSelf: "stretch", justifyContent: "center" }}>
-                        {props.title && <Typography group="navigation" variant="menu_title">{props.title}</Typography>}
+                        {props.title && <Typography style={{ paddingBottom: 5 }} group="navigation" variant="menu_title">{props.title}</Typography>}
                         {props.description && <Typography group="navigation" variant="label">{props.description}</Typography>}
                         {props.children}
                     </View>
-                    <View style={styles.cellIconContainer}>
+                    <View style={styles.disclosureContainer}>
                         <Typography>{">"}</Typography>
                     </View>
                 </View>
@@ -64,8 +63,16 @@ const styles = StyleSheet.create({
         backgroundColor: navigationToken.states?.pressed?.background,
     },
     cellIconContainer: {
-        backgroundColor: "cyan",
-        flexBasis: 40,
+        backgroundColor: "#ff1243",
+        marginRight: 10,
+        flexBasis: 46,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    disclosureContainer: {
+        backgroundColor: "#ff1243",
+        marginLeft: 10,
+        flexBasis: 46,
         justifyContent: "center",
         alignItems: "center",
     }

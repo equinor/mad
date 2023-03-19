@@ -12,7 +12,7 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
   (props: ButtonProps & ViewProps, ref) => {
     const children = React.Children.toArray(props.children);
     return (
-      <View style={props.style} ref={ref} collapsable={false}>
+      <View style={props.style} ref={ref}>
         <Pressable
           style={({ pressed }) => {
             return pressed ? styles.containerPressed : styles.containerResting;
