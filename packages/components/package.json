@@ -31,5 +31,11 @@
     "dependencies": {
         "@equinor/eds-tokens": "^0.9.0",
         "@floating-ui/react-native": "^0.9.0"
-    }
+    },
+    "files": [
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "dist"
+    ]
 }
