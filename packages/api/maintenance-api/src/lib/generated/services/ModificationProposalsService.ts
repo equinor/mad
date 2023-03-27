@@ -35,6 +35,9 @@ export class ModificationProposalsService {
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
+     * ### Update release v1.16.0
+     * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
      * @returns ModificationProposal Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

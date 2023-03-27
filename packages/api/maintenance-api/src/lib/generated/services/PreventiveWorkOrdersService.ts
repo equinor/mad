@@ -39,6 +39,17 @@ export class PreventiveWorkOrdersService {
      *
      * If you want to include the maintenance records of a technical feedback, one needs to apply both `include-technical-feedback=True`, and `include-maintenance-records=True`.
      *
+     * ### Production Resources/Tool (PRT)
+     * Production resources/tools (PRT) are used for materials, tools and equipment that are needed to carry out the task and are to be returned after use.
+     *
+     * In Equinor, this is normally added as part of maintenance program.
+     * Maintenance API supports the following PRT resources:
+     * - Attachments (through query parameter `include-attachments=true`)
+     * - Measuring points (through query parameter `include-measuring-points=true`)
+     * - URL references (through query parameter `include-url-references=true`)
+     *
+     * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
+     *
      * ### Important information
      * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
      *
@@ -86,6 +97,9 @@ export class PreventiveWorkOrdersService {
      * ### Update release v1.15.0
      * Added new query parameter `include-measurements`
      *
+     * ### Update release v1.16.0
+     * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -101,6 +115,9 @@ export class PreventiveWorkOrdersService {
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
+        includeUrlReferences = false,
+        includeMeasuringPoints = false,
+        includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
         workOrderId: string,
@@ -125,7 +142,7 @@ export class PreventiveWorkOrdersService {
          */
         includeMaintenancePlanDetails?: boolean,
         /**
-         * Include Work order attachments (on header and for operation)
+         * Include Work order attachments (including PRT attachments)
          */
         includeAttachments?: boolean,
         /**
@@ -140,6 +157,18 @@ export class PreventiveWorkOrdersService {
          * Include related tags (from object list)
          */
         includeRelatedTags?: boolean,
+        /**
+         * Include URL references from PRT
+         */
+        includeUrlReferences?: boolean,
+        /**
+         * Include related measuring points from PRT
+         */
+        includeMeasuringPoints?: boolean,
+        /**
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
+         */
+        includeLastMeasurement?: boolean,
         /**
          * Include related measurements
          */
@@ -161,6 +190,9 @@ export class PreventiveWorkOrdersService {
                 'include-status-details': includeStatusDetails,
                 'include-tag-details': includeTagDetails,
                 'include-related-tags': includeRelatedTags,
+                'include-url-references': includeUrlReferences,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-last-measurement': includeLastMeasurement,
                 'include-measurements': includeMeasurements,
             },
             errors: {

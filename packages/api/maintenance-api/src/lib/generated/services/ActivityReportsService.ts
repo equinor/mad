@@ -37,7 +37,10 @@ export class ActivityReportsService {
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
      * ### Update release v1.15.0
-     * Added property `documentTitle` to urlReferences.
+     * Added property `documentTitle` to `urlReferences`.
+     *
+     * ### Update release v1.16.0
+     * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes

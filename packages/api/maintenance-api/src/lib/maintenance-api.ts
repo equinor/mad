@@ -3,7 +3,8 @@ import {
   FailureReportsService,
   MasterDataForPlantsService,
   ModificationProposalsService,
-  TagEquipmentService,
+  TagService,
+  EquipmentService,
   CertificationReportsService,
   CorrectiveWorkOrdersService,
   MaintenanceConceptsService,
@@ -28,7 +29,8 @@ import {
 } from "./generated";
 
 export class Plants {
-  public static TagAndEquipment = TagEquipmentService;
+  public static Tag = TagService;
+  public static Equipment = EquipmentService;
   public static MasterData = MasterDataForPlantsService;
 }
 
