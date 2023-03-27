@@ -20,7 +20,7 @@ export const PopoverScreen = () => {
             }}>
                 Trigger popover
             </Button>
-            <Popover open={open} anchorEl={buttonRef.current} onClose={() => setOpen(false)}>
+            <Popover open={open} anchorEl={buttonRef} onClose={() => setOpen(false)}>
                 <Typography>This is a popover</Typography>
             </Popover>
         </ScrollView>
