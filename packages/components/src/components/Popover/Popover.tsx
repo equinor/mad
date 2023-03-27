@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, ViewProps, Modal, Pressable } from "react-native";
+import { View, StyleSheet, ViewProps, Modal, Pressable } from "react-native";
 import { tokens } from "@equinor/eds-tokens";
-import React, { Ref, useEffect } from "react";
+import React from "react";
 import { flip, offset, Placement, shift, useFloating } from "@floating-ui/react-native";
 import { convertToUnitlessNumber } from "../../translations/units";
 import { Paper } from "../Paper";
@@ -17,26 +17,31 @@ export const Popover = (props: PopoverProps & ViewProps) => {
   const {
     x,
     y,
-    refs,
+    refs, scrollProps
   } = useFloating({
+    sameScrollView: false,
     middleware: [offset(0),
     flip(),
     shift({ padding: 8 }),
     ],
     placement: props.placement as Placement ?? "top",
   });
-  useEffect(() => {
-    refs.setReference(props.anchorEl);
-  }, [props.anchorEl])
+  refs.setReference(props.anchorEl);
   return (
-    <Paper
-      style={{ position: "absolute", left: x ?? 0, top: y ?? 0 }}
-      elevation="overlay"
-      ref={refs.setFloating}
-    >
-      <View style={styles.innerContainer}>{props.children}</View>
+    <Modal visible transparent={true} presentationStyle="overFullScreen">
+      <Pressable onPress={() => {
+        props.onClose && props.onClose();
+      }}>
+        <Paper
+          style={{ position: "absolute", left: x ?? 0, top: y ?? 0 }}
+          elevation="overlay"
+          ref={refs.setFloating}
+        >
+          <View style={styles.innerContainer}>{props.children}</View>
+        </Paper>
+      </Pressable>
+    </Modal>
 
-    </Paper>
   );
 };
 
