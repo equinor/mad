@@ -19,5 +19,13 @@ export type URLReference = {
      * Document title providing additional information to the URL reference
      */
     documentTitle?: string;
+    /**
+     * Internal type id of the document
+     */
+    documentType?: string;
+    /**
+     * Internal document number
+     */
+    documentNumber?: string;
 };
 

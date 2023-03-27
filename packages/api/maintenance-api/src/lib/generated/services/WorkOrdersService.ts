@@ -177,6 +177,9 @@ export class WorkOrdersService {
      * ### Update release v1.12.0
      * Added query parameter `include-maintenance-record`.
      *
+     * ### Update release v1.16.0
+     * Added property `workCenterId` to `maintenanceRecords.failureReports`
+     *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

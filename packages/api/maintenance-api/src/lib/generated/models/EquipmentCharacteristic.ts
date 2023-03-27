@@ -7,5 +7,6 @@ export type EquipmentCharacteristic = {
     characteristic: string;
     valueId: string;
     value: string;
+    classId: string;
 };
 

@@ -16,8 +16,10 @@ import type { ProjectWorkOrderSimple } from './ProjectWorkOrderSimple';
 import type { SASChangeWorkOrderSimple } from './SASChangeWorkOrderSimple';
 import type { SimpleMaintenanceRecordsList } from './SimpleMaintenanceRecordsList';
 import type { Status } from './Status';
+import type { TagAttachment } from './TagAttachment';
 import type { TagBasic } from './TagBasic';
 import type { TagCharacteristic } from './TagCharacteristic';
+import type { URLReference } from './URLReference';
 
 export type Tag = (TagBasic & {
     /**
@@ -68,5 +70,13 @@ export type Tag = (TagBasic & {
      * All statuses possible for tag
      */
     statuses?: Array<Status>;
+    /**
+     * All URLReferences saved at this tag
+     */
+    urlReferences?: Array<URLReference>;
+    /**
+     * All Attachments saved at this tag
+     */
+    attachments?: Array<TagAttachment>;
 });
 

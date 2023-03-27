@@ -2,11 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TagCharacteristic = {
+export type TagCharacteristicAdd = {
     characteristicId: string;
-    characteristic: string;
     valueId: string;
-    value: string;
-    classId: string;
 };
 

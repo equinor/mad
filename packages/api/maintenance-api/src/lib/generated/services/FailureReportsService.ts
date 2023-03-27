@@ -62,7 +62,10 @@ export class FailureReportsService {
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
      * ### Update release v1.15.0
-     * Added property `documentTitle` to urlReferences.
+     * Added property `documentTitle` to `urlReferences`.
+     *
+     * ### Update release v1.16.0
+     * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -341,6 +344,7 @@ export class FailureReportsService {
      * - status-id
      * - plant-id
      * - max-days-since-activation
+     * - work-center-ids (optional)
      *
      * ### Filter: open-by-plant
      * Find open failure reports by plant
@@ -348,12 +352,18 @@ export class FailureReportsService {
      * - plant-id
      * - location-id (optional)
      * - system-id (optional)
+     * - work-center-ids (optional)
      *
      * ### Update release v1.1.0
      * Added open-by-plant filter and properties systemId and locationId.
      *
      * ### Update release v1.8.0
      * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus.
+     *
+     * ### Update release v1.16.0
+     * Added property `work-center-ids` to filters `recent-status-activations` and `open-by-plant`
+     *
+     * Added property `workCenterId`
      *
      * @returns FailureReportSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -366,6 +376,7 @@ export class FailureReportsService {
         locationId,
         systemId,
         maxDaysSinceActivation,
+        workCenterIds,
     }: {
         /**
          * Filter to limit the failure reports by
@@ -391,6 +402,10 @@ export class FailureReportsService {
          * Define how many days from the current day to include results for. 0 if only include for today
          */
         maxDaysSinceActivation?: number,
+        /**
+         * Comma separated list of work center IDs to filter by
+         */
+        workCenterIds?: Array<string>,
     }): CancelablePromise<Array<FailureReportSimple> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -402,6 +417,7 @@ export class FailureReportsService {
                 'location-id': locationId,
                 'system-id': systemId,
                 'max-days-since-activation': maxDaysSinceActivation,
+                'work-center-ids': workCenterIds,
             },
         });
     }

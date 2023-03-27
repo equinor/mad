@@ -2,28 +2,138 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ActivityReport } from '../models/ActivityReport';
+import type { CertificationReport } from '../models/CertificationReport';
 import type { CorrectiveWorkOrder } from '../models/CorrectiveWorkOrder';
 import type { Equipment } from '../models/Equipment';
 import type { EquipmentSearchItem } from '../models/EquipmentSearchItem';
 import type { FailureReport } from '../models/FailureReport';
 import type { FailureReportBasic } from '../models/FailureReportBasic';
 import type { FailureReportCreate } from '../models/FailureReportCreate';
-import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
-import type { MaintenanceRecordActivityCreate } from '../models/MaintenanceRecordActivityCreate';
-import type { MaintenanceRecordExtendRequiredEnd } from '../models/MaintenanceRecordExtendRequiredEnd';
-import type { Measurement } from '../models/Measurement';
-import type { MeasurementCreate } from '../models/MeasurementCreate';
-import type { MeasuringPoint } from '../models/MeasuringPoint';
+import type { FailureReportSimple } from '../models/FailureReportSimple';
+import type { MaintenanceRecordList } from '../models/MaintenanceRecordList';
+import type { ModificationProposal } from '../models/ModificationProposal';
 import type { PreventiveWorkOrder } from '../models/PreventiveWorkOrder';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { RelationshipToMaintenanceRecordAdd } from '../models/RelationshipToMaintenanceRecordAdd';
 import type { Tag } from '../models/Tag';
+import type { TechnicalClarification } from '../models/TechnicalClarification';
+import type { TechnicalInformationUpdateRequest } from '../models/TechnicalInformationUpdateRequest';
+import type { WorkOrderOptimizedForQuery } from '../models/WorkOrderOptimizedForQuery';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class ModifiedEndpointsService {
+
+    /**
+     * Maintenance records - Search
+     * ### Overview
+     * Search for Maintenance records regardless of type through predefined filters.
+     * Each filter has a defined action and a set of parameters as described below.
+     *
+     * ### Response
+     * The response does not include all details for each Maintenance record.
+     * This can be found by subsequent call to lookup for the respective maintenance record resource type
+     *
+     * ### Filter: by-external-partner-record-id
+     * Find open Maintenance records for an id in an external partner system. Note: In theory different external system could have the same `external-partner-record-id` but it's very unlikely. Clients are recommended to filter the response based on the plants they are intersted in to avoid any issues.
+     *
+     * Parameters:
+     * - external-partner-record-id
+     *
+     * ### Filter: my-recent-maintenance-records
+     * Find maintenance record created by the logged in user.
+     *
+     * Parameters:
+     * - created-after-datetime (optional)
+     *
+     * ### Filter: recently-changed
+     * Find maintenance records which have been recently changed (created or updated) for a given plant. Normally, clients will provide parameters changed-since-datetime and plant-id and in this case the endpoint will return any changed maintenance record from changed-since-datetime and to now. It is also possible to add before-datetime query parameter and the endpoint will then return any changed maintenance between changed-since-datetime and before-datetime.
+     *
+     * Parameters:
+     * - plant-id
+     * - changed-since-datetime
+     * - before-datetime (optional)
+     *
+     * ### Update release v1.2.0
+     * Added filter `my-recent-maintenance-records`.
+     *
+     * ### Update release v1.5.0
+     * Added filter `recently-changed` and maintenance record types `modification-proposal`, `certification-report`,`technical-information-update-request` and `technical-clarification`.
+     *
+     * ### Update release v1.8.0
+     * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus for failure reports.
+     *
+     * ### Update release v1.9.0
+     * Renamed property plannerGroupPlantId to planningPlantId.
+     *
+     * ### Update release v1.12.0
+     * Added property `maintenanceRecordTypeId`.
+     *
+     * ### Update release v1.16.0
+     * Added property `workCenterId` to `maintenanceRecords.failureReports`
+     *
+     * @returns MaintenanceRecordList Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static searchMaintenanceRecords({
+        filter,
+        externalPartnerRecordId,
+        createdAfterDatetime,
+        plantId,
+        changedSinceDatetime,
+        beforeDatetime,
+        includeMaintenanceRecordTypes,
+    }: {
+        /**
+         * Filter to limit the failure reports by
+         */
+        filter: 'by-external-partner-record-id' | 'my-recent-maintenance-records' | 'recently-changed',
+        /**
+         * If failure report was initially created in an external system, this represent the unique id of it
+         */
+        externalPartnerRecordId?: string,
+        /**
+         * Optional parameter to limit the response to only maintenance records changed after changed-since-datetime but before this datetime
+         */
+        createdAfterDatetime?: string,
+        /**
+         * Plant
+         */
+        plantId?: string,
+        /**
+         * Earliest datetime to returned changed work orders for
+         */
+        changedSinceDatetime?: string,
+        /**
+         * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
+         */
+        beforeDatetime?: string,
+        /**
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
+         */
+        includeMaintenanceRecordTypes?: Array<'modification-proposal' | 'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification'>,
+    }): CancelablePromise<MaintenanceRecordList | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/maintenance-records',
+            query: {
+                'filter': filter,
+                'external-partner-record-id': externalPartnerRecordId,
+                'created-after-datetime': createdAfterDatetime,
+                'plant-id': plantId,
+                'changed-since-datetime': changedSinceDatetime,
+                'before-datetime': beforeDatetime,
+                'include-maintenance-record-types': includeMaintenanceRecordTypes,
+            },
+            errors: {
+                400: `Bad request, for example if \`before-datetime\` is before \`changed-since-datetime\``,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
 
     /**
      * Tag - Lookup
@@ -73,6 +183,13 @@ export class ModifiedEndpointsService {
      *
      * Added `modification-proposal` as a maintenance record type to include with `include-maintenance-record-types` parameter.
      *
+     * ### Update release v1.16.0
+     * Added property `classId` to characteristics.
+     *
+     * Added query parameters `include-attachments` and `include-url-references`.
+     *
+     * Added property `workCenterId`
+     *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -91,6 +208,8 @@ export class ModifiedEndpointsService {
         includeLastMeasurement = false,
         includeCharacteristics = false,
         includeBillOfMaterials = false,
+        includeAttachments = false,
+        includeUrlReferences = false,
         includeStatusDetails = false,
         includeLinearData = false,
     }: {
@@ -141,6 +260,14 @@ export class ModifiedEndpointsService {
          */
         includeBillOfMaterials?: boolean,
         /**
+         * Include equipment or tag attachments
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include URL references for equipment or tag
+         */
+        includeUrlReferences?: boolean,
+        /**
          * Include detailed information for statuses (both active and non-active)
          */
         includeStatusDetails?: boolean,
@@ -168,6 +295,8 @@ export class ModifiedEndpointsService {
                 'include-last-measurement': includeLastMeasurement,
                 'include-characteristics': includeCharacteristics,
                 'include-bill-of-materials': includeBillOfMaterials,
+                'include-attachments': includeAttachments,
+                'include-url-references': includeUrlReferences,
                 'include-status-details': includeStatusDetails,
                 'include-linear-data': includeLinearData,
             },
@@ -221,6 +350,15 @@ export class ModifiedEndpointsService {
      * Added query parameter `include-url-references`.
      *
      * `modification-proposal` in `include-maintenance-record-types` now includes modification proposals in the response.
+     *
+     * ### Update release v1.16.0
+     * Added property `classId` to characteristics.
+     *
+     * Added properties `manufacturer` and `modelNumber`.
+     *
+     * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -279,11 +417,11 @@ export class ModifiedEndpointsService {
          */
         includeCharacteristics?: boolean,
         /**
-         * Include equipment attachments
+         * Include equipment or tag attachments
          */
         includeAttachments?: boolean,
         /**
-         * Include URL references for equipment
+         * Include URL references for equipment or tag
          */
         includeUrlReferences?: boolean,
         /**
@@ -375,6 +513,11 @@ export class ModifiedEndpointsService {
      *
      * ### Update release v1.15.0
      * `modification-proposal` in `include-maintenance-record-types` now includes modification proposals in the response.
+     *
+     * ### Update release v1.16.0
+     * Added property `classId` to characteristics.
+     *
+     * Added properties `manufacturer` and `modelNumber`.
      *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -474,250 +617,6 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Measuring point - Lookup
-     * ### Overview
-     * Lookup a single measuring point.
-     *
-     * A measuring point represents the physical or virtual location at which process values, events or conditions are described. For instance a temperature reader, pressure sensor, or a spot on a pipe where thickness is measured.
-     *
-     * Measuring points indicate where measurements (or derived/calculated values) occur.
-     *
-     * A measuring point is normally connected to a tag or equipment, facilitating the monitoring of its state and performance.
-     *
-     * ### Important information
-     * Measuring points support quantitative (example 3mm), qualitative (example YES) or combination of the two when creating measurements for the measuring point.
-     *
-     * Quantitative measurements are defined by quantitativeCharacteristicId and have a unit of measure.
-     *
-     * Qualitative measurement codes are defined by qualitativeCodeGroupId.
-     *
-     * ### Update release v1.10.0
-     * Added property `maintenanceRecordId` to measurements.
-     *
-     * Added `include-characteristics` and `include-characteristics-without-value` query parameter.
-     *
-     * ### Update release v1.15.0
-     * Added `workOrderId` to response.
-     *
-     * @returns MeasuringPoint Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static lookupMeasuringPoint({
-        pointId,
-        includeLastMeasurement = false,
-        includeMeasurements = false,
-        includeQualitativeCodeGroup = false,
-        includeCharacteristics = false,
-        includeCharacteristicsWithoutValue = false,
-    }: {
-        pointId: string,
-        /**
-         * Include the last measurement of the measuring point
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include measurements of the measuring point
-         */
-        includeMeasurements?: boolean,
-        /**
-         * Include possible codes for qualitative measurements if qualitativeCodeGroupId is set
-         */
-        includeQualitativeCodeGroup?: boolean,
-        /**
-         * Include characteristics with defined value for the measuring point. Use `include-characteristics-without-value` to retrieve all characteristics available for the measuring point.
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include all characteristics available for the measuring point regardless if they have a defined value or not. Use `include-characteristics` to only include characteristics with defined value for the measuring point.
-         */
-        includeCharacteristicsWithoutValue?: boolean,
-    }): CancelablePromise<MeasuringPoint | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/measuring-points/{point-id}',
-            path: {
-                'point-id': pointId,
-            },
-            query: {
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
-                'include-qualitative-code-group': includeQualitativeCodeGroup,
-                'include-characteristics': includeCharacteristics,
-                'include-characteristics-without-value': includeCharacteristicsWithoutValue,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Measuring point - Search
-     * ### Overview
-     * Search measuring point.
-     *
-     * ### Filter: by-plant
-     * Search measuring points based on plant and one other property of the measuring point.
-     * Parameters:
-     * - plant-id
-     * - tag-prefix (optional)
-     * - measuring-position (optional)
-     * - quantitative-characteristic (optional)
-     * - qualitative-code-group (optional)
-     * - measuring-point-name (optional)
-     *
-     * ### Examples
-     * `/measuring-points?filter=by-plant&plant-id=1180&tag-prefix=18HV10&api-version=v1`
-     * `/measuring-points?filter=by-plant&plant-id=1102&quantitative-characteristic=SURFACE_MAINTEANC&api-version=v1`
-     *
-     * `/measuring-points?filter=by-plant&plant-id=1180&tag-prefix=18HV10&position=VALVE%20STATUS&include-last-measurement=true&api-version=v1`
-     *
-     * ### Update release v1.10.0
-     * Added property `maintenanceRecordId` to measurements.
-     *
-     * Added `include-characteristics` and `include-characteristics-without-value` query parameter.
-     *
-     * ### Update release v1.15.0
-     * Added `workOrderId` to response.
-     *
-     * @returns MeasuringPoint Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchMeasuringPoints({
-        filter,
-        plantId,
-        tagPrefix,
-        measuringPosition,
-        quantitativeCharacteristic,
-        qualitativeCodeGroup,
-        measuringPointName,
-        includeLastMeasurement = false,
-        includeMeasurements = false,
-        includeQualitativeCodeGroup = false,
-        includeCharacteristics = false,
-        includeCharacteristicsWithoutValue = false,
-    }: {
-        /**
-         * Filter to limit the measuring points by
-         */
-        filter: 'by-plant',
-        /**
-         * Plant the tag-prefix belongs to
-         */
-        plantId?: string,
-        /**
-         * The first few characters of the tag
-         */
-        tagPrefix?: string,
-        /**
-         * Limit result based on a specific measuring position value
-         */
-        measuringPosition?: string,
-        /**
-         * Limit result based on a specific quantitative characteristic value
-         */
-        quantitativeCharacteristic?: string,
-        /**
-         * Limit result based on a specific qualitative code group value
-         */
-        qualitativeCodeGroup?: string,
-        /**
-         * Limit result based on a specific measuring point name value
-         */
-        measuringPointName?: string,
-        /**
-         * Include the last measurement of the measuring points
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include measurements of the measuring points
-         */
-        includeMeasurements?: boolean,
-        /**
-         * Include possible codes for qualitative measurements if qualitativeCodeGroupId is set
-         */
-        includeQualitativeCodeGroup?: boolean,
-        /**
-         * Include characteristics with defined value for the measuring points. Use `include-characteristics-without-value` to retrieve all characteristics available for the measuring points.
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include all characteristics available for the measuring points regardless if they have a defined value or not. Use `include-characteristics` to only include characteristics with defined value for the measuring points.
-         */
-        includeCharacteristicsWithoutValue?: boolean,
-    }): CancelablePromise<Array<MeasuringPoint> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/measuring-points',
-            query: {
-                'filter': filter,
-                'plant-id': plantId,
-                'tag-prefix': tagPrefix,
-                'measuring-position': measuringPosition,
-                'quantitative-characteristic': quantitativeCharacteristic,
-                'qualitative-code-group': qualitativeCodeGroup,
-                'measuring-point-name': measuringPointName,
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
-                'include-qualitative-code-group': includeQualitativeCodeGroup,
-                'include-characteristics': includeCharacteristics,
-                'include-characteristics-without-value': includeCharacteristicsWithoutValue,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Measurement - Create
-     * Create new measurement for measuring point.
-     *
-     * ### Important information
-     * Measuring points support quantitative (example 3mm), qualitative (example YES) or combination of the two when creating measurements for the measuring point.
-     *
-     * Quantitative measurements are defined by quantitativeCharacteristicId property of the measuring point. Make sure the quantitativeReading is in the reading unit of the measuring point.
-     *
-     * Qualitative measurement codes are defined by qualitativeCodeGroupId property of the measuring point.
-     *
-     * ### Update release v1.10.0
-     * Added `maintenanceRecordId` to request.
-     *
-     * ### Update release v1.15.0
-     * Added `workOrderId` to request and response.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns Measurement Created
-     * @throws ApiError
-     */
-    public static createMeasurement({
-        pointId,
-        requestBody,
-    }: {
-        pointId: string,
-        /**
-         * Measurement of measuring point to create
-         */
-        requestBody: MeasurementCreate,
-    }): CancelablePromise<ProblemDetails | Measurement> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/measuring-points/{point-id}/measurements',
-            path: {
-                'point-id': pointId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad request - Can occur if quantitative and qualitative measurements provided are not supported by measuring point`,
-                403: `User does not have sufficient rights to create a measurement of measuring point`,
-            },
-        });
-    }
-
-    /**
      * Preventive Work order - Lookup
      * ### Overview
      * Lookup single Preventive Work order with related information.
@@ -739,6 +638,17 @@ export class ModifiedEndpointsService {
      * * `hasRequiredMaintenanceRecord: true` As no maintenance record is required, the technical feedback is completed using the endpoint `PATCH /work-order-operations/{operation-id}/technical-feedback/{feedback-id}`
      *
      * If you want to include the maintenance records of a technical feedback, one needs to apply both `include-technical-feedback=True`, and `include-maintenance-records=True`.
+     *
+     * ### Production Resources/Tool (PRT)
+     * Production resources/tools (PRT) are used for materials, tools and equipment that are needed to carry out the task and are to be returned after use.
+     *
+     * In Equinor, this is normally added as part of maintenance program.
+     * Maintenance API supports the following PRT resources:
+     * - Attachments (through query parameter `include-attachments=true`)
+     * - Measuring points (through query parameter `include-measuring-points=true`)
+     * - URL references (through query parameter `include-url-references=true`)
+     *
+     * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
      *
      * ### Important information
      * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
@@ -787,6 +697,9 @@ export class ModifiedEndpointsService {
      * ### Update release v1.15.0
      * Added new query parameter `include-measurements`
      *
+     * ### Update release v1.16.0
+     * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -802,6 +715,9 @@ export class ModifiedEndpointsService {
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
+        includeUrlReferences = false,
+        includeMeasuringPoints = false,
+        includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
         workOrderId: string,
@@ -826,7 +742,7 @@ export class ModifiedEndpointsService {
          */
         includeMaintenancePlanDetails?: boolean,
         /**
-         * Include Work order attachments (on header and for operation)
+         * Include Work order attachments (including PRT attachments)
          */
         includeAttachments?: boolean,
         /**
@@ -841,6 +757,18 @@ export class ModifiedEndpointsService {
          * Include related tags (from object list)
          */
         includeRelatedTags?: boolean,
+        /**
+         * Include URL references from PRT
+         */
+        includeUrlReferences?: boolean,
+        /**
+         * Include related measuring points from PRT
+         */
+        includeMeasuringPoints?: boolean,
+        /**
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
+         */
+        includeLastMeasurement?: boolean,
         /**
          * Include related measurements
          */
@@ -862,6 +790,9 @@ export class ModifiedEndpointsService {
                 'include-status-details': includeStatusDetails,
                 'include-tag-details': includeTagDetails,
                 'include-related-tags': includeRelatedTags,
+                'include-url-references': includeUrlReferences,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-last-measurement': includeLastMeasurement,
                 'include-measurements': includeMeasurements,
             },
             errors: {
@@ -894,6 +825,17 @@ export class ModifiedEndpointsService {
      * * `hasRequiredMaintenanceRecord: false` As no maintenance record is required, the technical feedback is completed using the endpoint `PATCH /work-order-operations/{operation-id}/technical-feedback/{feedback-id}`
      *
      * If you want to include the maintenance records of a technical feedback, one needs to apply both `include-technical-feedback=True`, and `include-maintenance-records=True`.
+     *
+     * ### Production Resources/Tool (PRT)
+     * Production resources/tools (PRT) are used for materials, tools and equipment that are needed to carry out the task and are to be returned after use.
+     *
+     * In Equinor, this is normally added as part of maintenance program.
+     * Maintenance API supports the following PRT resources:
+     * - Attachments (through query parameter `include-attachments=true`)
+     * - Measuring points (through query parameter `include-measuring-points=true`)
+     * - URL references (through query parameter `include-url-references=true`)
+     *
+     * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
      *
      * ### Important information
      * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
@@ -930,7 +872,10 @@ export class ModifiedEndpointsService {
      * Introduced property `detectionMethodGroupId` and `detectionMethodId` for technical feedback.
      *
      * ### Update release v1.15.0
-     * Added new query parameter `include-measurements`
+     * Added new query parameter `include-measurements`.
+     *
+     * ### Update release v1.16.0
+     * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
      * @returns CorrectiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -946,6 +891,9 @@ export class ModifiedEndpointsService {
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
+        includeUrlReferences = false,
+        includeMeasuringPoints = false,
+        includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
         workOrderId: string,
@@ -966,7 +914,7 @@ export class ModifiedEndpointsService {
          */
         includeMaintenanceRecords?: boolean,
         /**
-         * Include Work order attachments (on header and for operation)
+         * Include Work order attachments (including PRT attachments)
          */
         includeAttachments?: boolean,
         /**
@@ -981,6 +929,18 @@ export class ModifiedEndpointsService {
          * Include related tags (from object list)
          */
         includeRelatedTags?: boolean,
+        /**
+         * Include URL references from PRT
+         */
+        includeUrlReferences?: boolean,
+        /**
+         * Include related measuring points from PRT
+         */
+        includeMeasuringPoints?: boolean,
+        /**
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
+         */
+        includeLastMeasurement?: boolean,
         /**
          * Include related measurements
          */
@@ -1001,6 +961,9 @@ export class ModifiedEndpointsService {
                 'include-status-details': includeStatusDetails,
                 'include-tag-details': includeTagDetails,
                 'include-related-tags': includeRelatedTags,
+                'include-url-references': includeUrlReferences,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-last-measurement': includeLastMeasurement,
                 'include-measurements': includeMeasurements,
             },
             errors: {
@@ -1045,6 +1008,9 @@ export class ModifiedEndpointsService {
      * Added `include-linear-data` and `include-status-details` query parameters.
      *
      * Added properties `tagCategoryId`, `activeStatusIds`, `startUpDate` and `endOfUseDate`.
+     *
+     * ### Update release v1.16.0
+     * Added property `classId` to characteristics
      *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1175,6 +1141,223 @@ export class ModifiedEndpointsService {
     }
 
     /**
+     * Work orders - Optimized for query
+     * ### Overview
+     * Query work orders for potentially complicated patterns where speed is of the essence.
+     *
+     * `planning-plants` is the only mandatory fields, but clients should normally provide at least one more query criteria.
+     *
+     * A normal use case would be to first provide an initial query criteria based on user input. Then allow the end-users based on the resulting data select unwanted results based on specific attributes. The unwanted results should then be added to the exclusion list (for example `keywords-not` or `work-centers-not)` and the API call repeated.
+     *
+     * `max-results` have a default value of 1000 and is necessary to provide a quick response.
+     *
+     * The multi-line `text` property is not included by default, but can included by setting `include-text=true` in the request. This will influence performance significantly.
+     *
+     * ### Response
+     * The response schema differs slightly from the other work order endpoints as a result of the optimization for speed.
+     *
+     * ### Examples
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&tags-all-of=10B9` - Return work orders where tag is 10B9
+     *
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&tags-all-of=AA15*&tags-not=AA15002` - Return work orders where tag has pattern `AA15*` but is not AA15002
+     *
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&keywords-all-of=heli,male` - Return work orders where the title contains both `heli` and `male`
+     *
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&status-any-of=PREP,RDEX&created-after-date=2021-06-01` - Return work orders with status PREP or RDEX and created after a certain date
+     *
+     * ### Update release v1.5.0
+     * Added revisionId to work order response (represents shutdown or campaign work).
+     *
+     * ### Update release v1.12.0
+     * Added query parameter `include-maintenance-record`.
+     *
+     * ### Update release v1.16.0
+     * Added property `workCenterId` to `maintenanceRecords.failureReports`
+     *
+     * @returns WorkOrderOptimizedForQuery Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static queryWorkOrdersOptimized({
+        planningPlants,
+        keywordsAllOf,
+        keywordsAnyOf,
+        keywordsNot,
+        tagsAllOf,
+        tagsAnyOf,
+        tagsNot,
+        workCentersAnyOf,
+        workCentersNot,
+        systemsAnyOf,
+        systemsNot,
+        locationsAnyOf,
+        locationsNot,
+        sortFieldAnyOf,
+        sortFieldNot,
+        revisionCodeAnyOf,
+        revisionCodeNot,
+        statusAllOf,
+        statusAnyOf,
+        statusNot,
+        isOpen,
+        createdAfterDate,
+        createdBeforeDate,
+        workOrderTypes,
+        sortBy,
+        includeText = false,
+        includeMaintenanceRecord = false,
+        maxResults,
+    }: {
+        /**
+         * Query based on planningPlantIds (any-of)
+         */
+        planningPlants: Array<string>,
+        /**
+         * Query based on keywords in title (case insensitive)
+         */
+        keywordsAllOf?: Array<string>,
+        /**
+         * Query based on keywords in title (case insensitive)
+         */
+        keywordsAnyOf?: Array<string>,
+        /**
+         * Query based on keywords in title (case insensitive)
+         */
+        keywordsNot?: Array<string>,
+        /**
+         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
+         */
+        tagsAllOf?: Array<string>,
+        /**
+         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
+         */
+        tagsAnyOf?: Array<string>,
+        /**
+         * Query based on tagIds. Expressions with wildcards can be used for example `AE55*`. Ensure the tagIds are url-encoded in order to handle special characters
+         */
+        tagsNot?: Array<string>,
+        /**
+         * Query based on workCenterIds
+         */
+        workCentersAnyOf?: Array<string>,
+        /**
+         * Query based on workCenterIds
+         */
+        workCentersNot?: Array<string>,
+        /**
+         * Query based on systemIds
+         */
+        systemsAnyOf?: Array<string>,
+        /**
+         * Query based on systemIds
+         */
+        systemsNot?: Array<string>,
+        /**
+         * Query based on locationIds
+         */
+        locationsAnyOf?: Array<string>,
+        /**
+         * Query based on locationIds
+         */
+        locationsNot?: Array<string>,
+        /**
+         * Query based on sortField ()used for grouping work orders)
+         */
+        sortFieldAnyOf?: Array<string>,
+        /**
+         * Query based on sortField (used for grouping work orders)
+         */
+        sortFieldNot?: Array<string>,
+        /**
+         * Query based on revisionCode
+         */
+        revisionCodeAnyOf?: Array<string>,
+        /**
+         * Query based on sortField (often used for revision codes)
+         */
+        revisionCodeNot?: Array<string>,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusAllOf?: Array<string>,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusAnyOf?: Array<string>,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusNot?: Array<string>,
+        /**
+         * Include only open work orders or only closed work orders. By default, all work orders are included.
+         */
+        isOpen?: boolean,
+        /**
+         * Earliest creation date to include
+         */
+        createdAfterDate?: string,
+        /**
+         * Latest creation date to include
+         */
+        createdBeforeDate?: string,
+        /**
+         * Limit to specific work order types (one-of)
+         */
+        workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        /**
+         * Property to sort the results by
+         */
+        sortBy?: Array<'createdDateTime desc' | 'createdDateTime asc' | 'workOrderId desc' | 'workOrderId asc' | 'systemId desc' | 'systemId asc' | 'locationId desc' | 'locationId asc' | 'sortField desc' | 'sortField asc' | 'title desc' | 'title asc'>,
+        /**
+         * Include the multi-line text of the work order (will cause the endpoint to go significantly slower)
+         */
+        includeText?: boolean,
+        /**
+         * Include the main maintenance record linked to the work order (if any)
+         */
+        includeMaintenanceRecord?: boolean,
+        /**
+         * Maximum number of results to include. Default is 1000.
+         */
+        maxResults?: number,
+    }): CancelablePromise<Array<WorkOrderOptimizedForQuery> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/work-orders-optimized-for-query',
+            query: {
+                'planning-plants': planningPlants,
+                'keywords-all-of': keywordsAllOf,
+                'keywords-any-of': keywordsAnyOf,
+                'keywords-not': keywordsNot,
+                'tags-all-of': tagsAllOf,
+                'tags-any-of': tagsAnyOf,
+                'tags-not': tagsNot,
+                'work-centers-any-of': workCentersAnyOf,
+                'work-centers-not': workCentersNot,
+                'systems-any-of': systemsAnyOf,
+                'systems-not': systemsNot,
+                'locations-any-of': locationsAnyOf,
+                'locations-not': locationsNot,
+                'sort-field-any-of': sortFieldAnyOf,
+                'sort-field-not': sortFieldNot,
+                'revision-code-any-of': revisionCodeAnyOf,
+                'revision-code-not': revisionCodeNot,
+                'status-all-of': statusAllOf,
+                'status-any-of': statusAnyOf,
+                'status-not': statusNot,
+                'is-open': isOpen,
+                'created-after-date': createdAfterDate,
+                'created-before-date': createdBeforeDate,
+                'work-order-types': workOrderTypes,
+                'sort-by': sortBy,
+                'include-text': includeText,
+                'include-maintenance-record': includeMaintenanceRecord,
+                'max-results': maxResults,
+            },
+        });
+    }
+
+    /**
      * Work order relationships - Add related maintenance record
      * ### Overview
      * Add new relationship between a work order and a maintenance record.
@@ -1266,7 +1449,10 @@ export class ModifiedEndpointsService {
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
      * ### Update release v1.15.0
-     * Added property `documentTitle` to urlReferences.
+     * Added property `documentTitle` to `urlReferences`.
+     *
+     * ### Update release v1.16.0
+     * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1348,6 +1534,101 @@ export class ModifiedEndpointsService {
     }
 
     /**
+     * Failure report - Search
+     * ### Overview
+     * Search for failure reports through predefined filters.
+     * Each filter has a defined action and a set of parameters as described below.
+     *
+     * ### Response
+     * The response does not include status details for each failure report.
+     * This can be found by subsequent call to lookup failure-reports
+     *
+     *
+     * ### Filter: recent-status-activations
+     * Failure reports based on recent status activations for the failure reports.
+     * Parameters:
+     * - status-id
+     * - plant-id
+     * - max-days-since-activation
+     * - work-center-ids (optional)
+     *
+     * ### Filter: open-by-plant
+     * Find open failure reports by plant
+     * Parameters:
+     * - plant-id
+     * - location-id (optional)
+     * - system-id (optional)
+     * - work-center-ids (optional)
+     *
+     * ### Update release v1.1.0
+     * Added open-by-plant filter and properties systemId and locationId.
+     *
+     * ### Update release v1.8.0
+     * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus.
+     *
+     * ### Update release v1.16.0
+     * Added property `work-center-ids` to filters `recent-status-activations` and `open-by-plant`
+     *
+     * Added property `workCenterId`
+     *
+     * @returns FailureReportSimple Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static searchFailureReports({
+        filter,
+        statusId,
+        plantId,
+        locationId,
+        systemId,
+        maxDaysSinceActivation,
+        workCenterIds,
+    }: {
+        /**
+         * Filter to limit the failure reports by
+         */
+        filter: 'recent-status-activations' | 'open-by-plant',
+        /**
+         * Status
+         */
+        statusId?: string,
+        /**
+         * Plant
+         */
+        plantId?: string,
+        /**
+         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
+         */
+        locationId?: string,
+        /**
+         * System id to filter by
+         */
+        systemId?: string,
+        /**
+         * Define how many days from the current day to include results for. 0 if only include for today
+         */
+        maxDaysSinceActivation?: number,
+        /**
+         * Comma separated list of work center IDs to filter by
+         */
+        workCenterIds?: Array<string>,
+    }): CancelablePromise<Array<FailureReportSimple> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/maintenance-records/failure-reports',
+            query: {
+                'filter': filter,
+                'status-id': statusId,
+                'plant-id': plantId,
+                'location-id': locationId,
+                'system-id': systemId,
+                'max-days-since-activation': maxDaysSinceActivation,
+                'work-center-ids': workCenterIds,
+            },
+        });
+    }
+
+    /**
      * Failure report - Create
      * Create new failure report
      *
@@ -1405,112 +1686,6 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Failure report - Add activities
-     * ### Overview
-     * Add activities for failure report.
-     *
-     * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
-     *
-     * ### Update release v0.8.0
-     * activityCodeId and activityCodeGroupId are no longer required properties. Client's are still recommended to provide them if possible.
-     *
-     * ### Update release v1.15.0
-     * Added response body for 201 response
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns MaintenanceRecordActivity Success
-     * @throws ApiError
-     */
-    public static addFailureReportActivities({
-        recordId,
-        requestBody,
-    }: {
-        /**
-         * id of the failure report
-         */
-        recordId: string,
-        /**
-         * Activities to add to existing failure report
-         */
-        requestBody: Array<MaintenanceRecordActivityCreate>,
-    }): CancelablePromise<ProblemDetails | Array<MaintenanceRecordActivity>> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/failure-reports/{record-id}/activities',
-            path: {
-                'record-id': recordId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to add activities to failure report`,
-                404: `The specified resource was not found`,
-                409: `Failure report is locked by other user`,
-            },
-        });
-    }
-
-    /**
-     * Failure report - Extend required end date
-     * ### Overview
-     * Extend the required end date of the failure report.
-     * This endpoint should only be executed by persons which have access to the 'action box' in Equinor's ERP system.
-     *
-     * Client applications should take special care in ensuring the business process of Equinor is followed in advance of calling this endpoint.
-     *
-     * The activityCodeId defines the reason for the extension
-     * - `A121`= Lack of resources
-     * - `A122`= Lack of spares
-     * - `A123`=Maintenance access
-     * - `A124`=Failure development time
-     *
-     * An activity for the failure report will be created by this call and the status `Date Extension Required ('EXTR')` will be set.
-     *
-     * ### Important information
-     * Most users will not have sufficient authorizations to execute this endpoint. If a request fails due to missing authorizations, the response code will be HTTP 403.
-     *
-     * ### Update release 1.12.0
-     * Bugfix - Created activity text and activity code must be read-only.
-     *
-     * ### Update release v1.15.0
-     * Added response schema for 201 success
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns MaintenanceRecordActivity Success
-     * @throws ApiError
-     */
-    public static extendFailureReportRequiredEnd({
-        recordId,
-        requestBody,
-    }: {
-        /**
-         * id of the failure report
-         */
-        recordId: string,
-        /**
-         * Extended end date-activity to be created on the failure report.
-         */
-        requestBody: MaintenanceRecordExtendRequiredEnd,
-    }): CancelablePromise<ProblemDetails | MaintenanceRecordActivity> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/failure-reports/{record-id}/required-end-extensions',
-            path: {
-                'record-id': recordId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to add activities to failure report`,
-                404: `The specified resource was not found`,
-                409: `Failure report is locked by other user`,
-            },
-        });
-    }
-
-    /**
      * Activity report - Lookup
      * ### Overview
      * Lookup a single activity report. The activity report represents work performed for a maintenance activity against a tag or an equipment.
@@ -1531,7 +1706,10 @@ export class ModifiedEndpointsService {
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
      * ### Update release v1.15.0
-     * Added property `documentTitle` to urlReferences.
+     * Added property `documentTitle` to `urlReferences`.
+     *
+     * ### Update release v1.16.0
+     * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1589,6 +1767,365 @@ export class ModifiedEndpointsService {
 
                 Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
                 `,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Modification Proposal - Lookup
+     * ### Overview
+     * Modification proposal initiates the processing of a modification, replacement or maintenance project.
+     * In Equinor for upstream offshore, a modification proposal initiates the business processes 'OM103.01 - Initiate projects on plants in operation' or 'OM103.70.01 - Propose simple modifications in safety and automatiion systems'.
+     * This request looks up a single Modification proposal.
+     *
+     * ### Update release v1.5.0
+     * Added createdDateTime for attachments.
+     *
+     * ### Update release 1.6.0
+     * Added `301` response.
+     *
+     * ### Update release v1.9.0
+     * Renamed property plannerGroupPlantId to planningPlantId.
+     *
+     * ### Update release v1.11.0
+     * Added `quantity` for tasks.
+     *
+     * Added properties `createdById`,`createdBy` and `createdByEmail`.
+     * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
+     *
+     * ### Update release v1.16.0
+     * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * @returns ModificationProposal Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getModificationProposal({
+        recordId,
+        includeTasks = true,
+        includeStatusDetails = false,
+        includeAttachments = false,
+        includeCreatedByDetails = false,
+    }: {
+        recordId: string,
+        /**
+         * Include detailed information for tasks
+         */
+        includeTasks?: boolean,
+        /**
+         * Include detailed information for statuses (both active and non-active)
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Include attachments
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
+         */
+        includeCreatedByDetails?: boolean,
+    }): CancelablePromise<ModificationProposal | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/maintenance-records/modification-proposals/{record-id}',
+            path: {
+                'record-id': recordId,
+            },
+            query: {
+                'include-tasks': includeTasks,
+                'include-status-details': includeStatusDetails,
+                'include-attachments': includeAttachments,
+                'include-created-by-details': includeCreatedByDetails,
+            },
+            errors: {
+                301: `The specified resource exists in another location
+                This can occur when requesting a resource which type does not match the route you are using.
+
+                Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
+                `,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Certification report - Lookup
+     * ### Overview
+     * Lookup a single certification report.
+     *
+     * The certification report represents the results of PSV or lifting certification.
+     *
+     * For PSV certification, details are reported as measurements for 33 predefined measuring points.
+     * For lifting certification, details are stored in attachment and possibly as characteristics on the tag/equipment.
+     *
+     * ### Update release v1.5.0
+     * Added createdDateTime for attachments.
+     *
+     * ### Update release v1.6.0
+     * Added `301` response.
+     *
+     * ### Update release v1.11.0
+     * Added properties `createdById`,`createdBy` and `createdByEmail`.
+     * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
+     *
+     * ### Update release v1.16.0
+     * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * @returns CertificationReport Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static lookupCertification({
+        recordId,
+        includeStatusDetails = false,
+        includeTagDetails = false,
+        includeAttachments = false,
+        includeMeasuringPoints = false,
+        includeLastMeasurement = false,
+        includeCreatedByDetails = false,
+    }: {
+        /**
+         * The recordId of the certification report
+         */
+        recordId: string,
+        /**
+         * Include detailed information for statuses (both active and non-active)
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Include details about tag for failure report
+         */
+        includeTagDetails?: boolean,
+        /**
+         * Include attachments
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include measuring points related to tagId/equipmentId
+         */
+        includeMeasuringPoints?: boolean,
+        /**
+         * Include last measurement for the measuring points
+         */
+        includeLastMeasurement?: boolean,
+        /**
+         * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
+         */
+        includeCreatedByDetails?: boolean,
+    }): CancelablePromise<CertificationReport | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/maintenance-records/certification-reports/{record-id}',
+            path: {
+                'record-id': recordId,
+            },
+            query: {
+                'include-status-details': includeStatusDetails,
+                'include-tag-details': includeTagDetails,
+                'include-attachments': includeAttachments,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-last-measurement': includeLastMeasurement,
+                'include-created-by-details': includeCreatedByDetails,
+            },
+            errors: {
+                301: `The specified resource exists in another location
+                This can occur when requesting a resource which type does not match the route you are using.
+
+                Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
+                `,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Technical information update request - Lookup
+     * ### Overview
+     * Lookup a single technical information update request.
+     *
+     * A technical information update request represents a notice of change to initiate, distribute and follow up work to update technical information.
+     *
+     * Examples of usage:
+     * - Updating blueprints or other technical documentation
+     * - Changing spare parts lists (BOM- Bill of Materials) and storage management information
+     * - Updating maintenance program
+     * - Updating classification such as criticality, containment, selected safety critical equipment, etc.
+     * - Updating master data/management information in SAP, e.g. Equipment details, work centre, Planner Group, WBS, measuring points, etc.
+     * - Updating maintenance concept
+     *
+     * Equinor's governing document [GL1561 - Work orders and notifications types](https://docmap.equinor.com/Docmap/page/doc/dmDocAll.html?DOCVIEW=FALSE?DOCKEYID=525791) provides additional information for this maintenance record type.
+     *
+     * ### Update release v1.5.0
+     * Added `createdDateTime` for attachments.
+     *
+     * ### Update release v1.6.0
+     * Added `301` response.
+     *
+     * ### Update release 1.11.0
+     * Added `quantity` for tasks.
+     *
+     * Added properties `createdById`,`createdBy` and `createdByEmail`.
+     * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
+     *
+     * ### Update release v1.16.0
+     * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * @returns TechnicalInformationUpdateRequest Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static lookupTechnicalInformationUpdateRequest({
+        recordId,
+        includeStatusDetails = false,
+        includeTasks = false,
+        includeAttachments = false,
+        includeTagDetails = false,
+        includePersonResponsible = false,
+        includeCreatedByDetails = false,
+    }: {
+        /**
+         * The recordId of the technical information update request
+         */
+        recordId: string,
+        /**
+         * Include detailed information for statuses (both active and non-active)
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Include detailed information for tasks
+         */
+        includeTasks?: boolean,
+        /**
+         * Include attachments
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include details about tag for failure report
+         */
+        includeTagDetails?: boolean,
+        /**
+         * Include person responsible information in response. If user does not have significant rights, this will return a `403` response
+         */
+        includePersonResponsible?: boolean,
+        /**
+         * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
+         */
+        includeCreatedByDetails?: boolean,
+    }): CancelablePromise<TechnicalInformationUpdateRequest | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/maintenance-records/technical-information-update-requests/{record-id}',
+            path: {
+                'record-id': recordId,
+            },
+            query: {
+                'include-status-details': includeStatusDetails,
+                'include-tasks': includeTasks,
+                'include-attachments': includeAttachments,
+                'include-tag-details': includeTagDetails,
+                'include-person-responsible': includePersonResponsible,
+                'include-created-by-details': includeCreatedByDetails,
+            },
+            errors: {
+                301: `The specified resource exists in another location
+                This can occur when requesting a resource which type does not match the route you are using.
+
+                Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
+                `,
+                403: `User does not have sufficient rights to read technical information update request`,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Technical clarifications - Lookup
+     * ### Overview
+     * Lookup a single technical clarification.
+     *
+     * Represents a request for technical clarification when not covered by other maintenance records (such as failure-reports and corrective-work-orders).
+     *
+     * Equinor's governing document [GL1561 - Work orders and notifications types](https://docmap.equinor.com/Docmap/page/doc/dmDocAll.html?DOCVIEW=FALSE?DOCKEYID=525791) provides additional information for this maintenance record type.
+     *
+     * ### Update release v1.5.0
+     * Added createdDateTime for attachments.
+     *
+     * ### Update release v1.6.0
+     * Added `301` response.
+     *
+     * ### Update release v1.11.0
+     * Added `quantity` for tasks.
+     *
+     * Added properties `createdById`,`createdBy` and `createdByEmail`.
+     * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
+     *
+     * ### Update release v1.16.0
+     * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * @returns TechnicalClarification Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static lookupTechnicalClarification({
+        recordId,
+        includeStatusDetails = false,
+        includeTasks = false,
+        includeAttachments = false,
+        includeTagDetails = false,
+        includePersonResponsible = false,
+        includeCreatedByDetails = false,
+    }: {
+        /**
+         * The recordId of the technical clarification
+         */
+        recordId: string,
+        /**
+         * Include detailed information for statuses (both active and non-active)
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Include detailed information for tasks
+         */
+        includeTasks?: boolean,
+        /**
+         * Include attachments
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include details about tag for technical clarification
+         */
+        includeTagDetails?: boolean,
+        /**
+         * Include person responsible information in response. If user does not have significant rights, this will return a `403` response
+         */
+        includePersonResponsible?: boolean,
+        /**
+         * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
+         */
+        includeCreatedByDetails?: boolean,
+    }): CancelablePromise<TechnicalClarification | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/maintenance-records/technical-clarifications/{record-id}',
+            path: {
+                'record-id': recordId,
+            },
+            query: {
+                'include-status-details': includeStatusDetails,
+                'include-tasks': includeTasks,
+                'include-attachments': includeAttachments,
+                'include-tag-details': includeTagDetails,
+                'include-person-responsible': includePersonResponsible,
+                'include-created-by-details': includeCreatedByDetails,
+            },
+            errors: {
+                301: `The specified resource exists in another location
+                This can occur when requesting a resource which type does not match the route you are using.
+
+                Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
+                `,
+                403: `User does not have sufficient rights to read technical clarification`,
                 404: `The specified resource was not found`,
             },
         });

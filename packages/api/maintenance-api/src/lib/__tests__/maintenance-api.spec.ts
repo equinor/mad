@@ -57,8 +57,11 @@ describe("Measuring Points", () => {
 });
 
 describe("Plants", () => {
-  it("should have Tag and Equipment endpoints", () => {
-    expect(mApi.Plants["TagAndEquipment"]).toBeTruthy();
+  it("should have Tag endpoints", () => {
+    expect(mApi.Plants["Tag"]).toBeTruthy();
+  });
+  it("should have Equipment endpoints", () => {
+    expect(mApi.Plants["Equipment"]).toBeTruthy();
   });
   it("should have Master Data endpoints", () => {
     expect(mApi.Plants["MasterData"]).toBeTruthy();

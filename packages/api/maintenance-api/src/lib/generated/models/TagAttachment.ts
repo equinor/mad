@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EquipmentAttachment = {
+export type TagAttachment = {
     attachmentId: string;
     fileName: string;
     fileSize: string;

@@ -56,5 +56,6 @@ export type FailureReportSimple = {
      * The point in time where the failure resolved
      */
     failureEndDateTime: string | null;
+    workCenterId: string | null;
 };
 
