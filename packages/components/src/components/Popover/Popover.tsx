@@ -1,7 +1,7 @@
-import { View, StyleSheet, ViewProps, Modal, Pressable } from "react-native";
 import { tokens } from "@equinor/eds-tokens";
-import React from "react";
 import { flip, offset, Placement, shift, useFloating } from "@floating-ui/react-native";
+import React from "react";
+import { Modal, Pressable, StyleSheet, View, ViewProps } from "react-native";
 import { convertToUnitlessNumber } from "../../translations/units";
 import { Paper } from "../Paper";
 
@@ -31,7 +31,7 @@ export const Popover = (props: PopoverProps & ViewProps) => {
     <Modal visible transparent={true} presentationStyle="overFullScreen">
       <Pressable onPress={() => {
         props.onClose && props.onClose();
-      }}>
+      }} style={{ width: "100%", height: "100%", position: "absolute" }}>
         <Paper
           style={{ position: "absolute", left: x ?? 0, top: y ?? 0 }}
           elevation="overlay"
@@ -41,7 +41,6 @@ export const Popover = (props: PopoverProps & ViewProps) => {
         </Paper>
       </Pressable>
     </Modal>
-
   );
 };
 
