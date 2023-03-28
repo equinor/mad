@@ -1,6 +1,6 @@
 import {ForwardedRef, RefObject, useImperativeHandle} from "react";
 import {PathData, SkiaDrawHandle} from "../types";
-import {Color, SkiaMutableValue, SkiaView, SkImage, SkRect} from "@shopify/react-native-skia";
+import {Color, SkiaDomView, SkiaMutableValue, SkRect} from "@shopify/react-native-skia";
 import {useRerender} from "./useRerender";
 
 type MutableDrawValues = {
@@ -13,7 +13,7 @@ type MutableDrawValues = {
  * @param ref ForwardedRef<SkiaDrawHandle>
  * @param values MutableDrawValues
  */
-export const useDrawHandle = (ref: ForwardedRef<SkiaDrawHandle>, skiaCanvasRef: RefObject<SkiaView>,  values: MutableDrawValues) => {
+export const useDrawHandle = (ref: ForwardedRef<SkiaDrawHandle>, skiaCanvasRef: RefObject<SkiaDomView>,  values: MutableDrawValues) => {
     const rerender = useRerender();
     useImperativeHandle(ref, () => ({
         setColor,

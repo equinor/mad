@@ -2,13 +2,14 @@ import {useEffect, useRef, useState} from "react";
 import {StyleSheet, View, Image, Text} from "react-native";
 import { MADLegacyButton, Typography} from "@equinor/mad-components";
 import {SignaturePadHandle, SkiaDrawSnapshot} from "@equinor/react-native-skia-draw/dist/types";
-import {SignaturePad} from "@equinor/react-native-skia-draw/dist/premades/SignaturePad/SignaturePad";
+import {SignaturePad} from "@equinor/react-native-skia-draw";
 import {Circle} from "@shopify/react-native-skia";
 
 export const SignatureScreen = () => {
     const [image, setImage] = useState<SkiaDrawSnapshot>()
     const [height, setHeight] = useState(0);
-    const [width, setWidth] = useState(0)
+    const [width, setWidth] = useState(0);
+    const [metadata, setMetadata] = useState({width:0, height:0})
     useEffect(() => {
         if (!image) return;
         Image.getSize(image.uri, (newWidth, newHeight) => {
@@ -16,7 +17,6 @@ export const SignatureScreen = () => {
             setWidth(newWidth/2)
         })
     }, [image])
-
     const drawRef = useRef<SignaturePadHandle>(null)
     return <View style={{flex:1}}>
         <View style={styles.resultsContainer}>
@@ -25,13 +25,21 @@ export const SignatureScreen = () => {
         </View>
         <View style={styles.padContainer}>
             <View style={styles.canvasContainer}>
-                <SignaturePad ref={drawRef} withLabel height={200}>
+                <SignaturePad ref={drawRef} withLabel height={200} onLayout={(e) => {
+                    console.log()
+                    setMetadata({
+                        height: e.nativeEvent.layout.height,
+                        width: e.nativeEvent.layout.width
+                    })
+                }}>
                     <Circle cx={128} cy={128} r={128} color="lightblue" />
                 </SignaturePad>
             </View>
             <View style={styles.buttonContainer}>
                 <MADLegacyButton title={"Snapshot"} disabled={false} busy={false} viewStyle={{}} textStyle={{}} onPress={() => drawRef.current?.makeImageSnapshot && setImage(drawRef.current?.makeImageSnapshot())}/>
             </View>
+            <Typography>{metadata.height}</Typography>
+            <Typography>{metadata.width}</Typography>
         </View>
     </View>
 }

@@ -31,7 +31,10 @@ const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildre
 
 
     return (
-        <SkiaCanvas ref={skiaCanvasRef} style={StyleSheet.flatten([{ flex: 1, backgroundColor: "black" }, style])} onTouch={touchHandler} onLayout={onLayout}>
+        <SkiaCanvas ref={skiaCanvasRef} style={StyleSheet.flatten([{ flex: 1, backgroundColor: "black" }, style])} onTouch={touchHandler} onLayout={(e) => {
+            onLayout && onLayout(e);
+            console.log("ONLAYOUT")
+        }}>
             {!renderChildrenOnTop && children}
             {pathHistory.current.concat(Object.values(currentPaths.current)).map((pathData, index) => (
                 <Path
