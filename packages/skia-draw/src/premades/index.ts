@@ -1,1 +1,1 @@
-export { DFWCanvas } from "./DFWCanvas";
+export { DFWCanvas } from "./ImageMarkup/DFWCanvas";

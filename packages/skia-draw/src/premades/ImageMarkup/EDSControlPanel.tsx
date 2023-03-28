@@ -1,6 +1,6 @@
-import { StyleSheet, Pressable, View } from "react-native";
-import { Paper, Popover, Typography } from "@equinor/mad-components"
-import { SkiaDrawHandle } from "../types";
+import { StyleSheet, View, ColorValue } from "react-native";
+import { Paper, Popover, PressableHighlight, Typography } from "@equinor/mad-components"
+import { SkiaDrawHandle } from "../../types";
 import { MutableRefObject, useRef, useState } from "react";
 import React from "react";
 
@@ -35,32 +35,28 @@ export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHan
   };
 
   const onPressStrokeWidth = (sw: number) => {
+    setCurrentStrokeWeight(sw);
+    setIsSelectingStrokeWeight(false);
     props.canvasRef.current?.setStrokeWeight(sw);
   };
 
-
-  type CircleButtonProps = {
-    onPress: () => void;
-    color?: string;
-    radius?: number;
-  }
-
-  const CircleButton = (props: CircleButtonProps) => (
-    <Pressable
-      onPress={props.onPress}
-      style={({ pressed }) => pressed && { backgroundColor: "rgba(0,0,0,0.15)" }}>
-      <View style={[
-        styles.circle,
-        { backgroundColor: props.color ?? "#007079" },
-        !!props.color && { borderColor: "gray" },
-        {
-          margin: 20,
-          height: props.radius ?? BUTTON_SIZE,
-          width: props.radius ?? BUTTON_SIZE,
-          borderWidth: 1, borderRadius: (props.radius ?? BUTTON_SIZE) / 2
-        }]} />
-    </Pressable>
-
+  const Circle = ({
+    diameter = BUTTON_SIZE,
+    color = "#007079",
+    showBorder = false,
+  }: {
+    diameter?: number,
+    color?: ColorValue,
+    showBorder?: boolean,
+  }) => (
+    <View style={{
+      backgroundColor: color,
+      width: diameter,
+      height: diameter,
+      borderRadius: diameter / 2,
+      borderColor: "lightgray",
+      borderWidth: showBorder ? 1 : undefined,
+    }} />
   );
 
   return (
@@ -68,13 +64,13 @@ export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHan
       elevation="sticky"
       style={styles.container}>
 
-      <Pressable
+      <PressableHighlight
         onPress={() => setIsSelectingStrokeWeight(true)}
         ref={strokeWidthSelectingButton}
-        style={({ pressed }) => [pressed && { backgroundColor: "rgba(0,0,0,0.15)" }, styles.buttonStyle]}
+        style={styles.buttonStyle}
         key={"stroke-width-button"}>
-        <View style={{ width: currentStrokeWeight, height: currentStrokeWeight, backgroundColor: "#007079", borderRadius: currentStrokeWeight / 2 }} />
-      </Pressable>
+        <Circle diameter={currentStrokeWeight} />
+      </PressableHighlight>
 
       <Popover
         open={isSelectingStrokeWeight}
@@ -83,26 +79,27 @@ export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHan
         placement="top"
         style={{ padding: 0 }}
       >
-        {strokeWeights.map(rad => {
-          return (
-            <CircleButton
-              key={rad}
-              radius={rad}
-              onPress={() => onPressStrokeWidth(rad)}
-            />
-
-          );
-        })}
+        {strokeWeights.map(rad => (
+          <PressableHighlight
+            key={rad}
+            onPress={() => onPressStrokeWidth(rad)}
+            style={styles.buttonStyle}
+          >
+            <View style={{ margin: 20 }}>
+              <Circle diameter={rad} />
+            </View>
+          </PressableHighlight>
+        ))}
 
       </Popover>
 
-      <Pressable
+      <PressableHighlight
         onPress={() => setIsSelectingColor(true)}
         ref={colorSelectingButton}
-        style={({ pressed }) => [pressed && { backgroundColor: "rgba(0,0,0,0.15)" }, styles.buttonStyle]}
+        style={styles.buttonStyle}
         key={"color-button"}>
-        <View style={[styles.circle, { backgroundColor: currentColor }]} />
-      </Pressable>
+        <Circle color={currentColor} showBorder />
+      </PressableHighlight>
       <Popover
         open={isSelectingColor}
         anchorEl={colorSelectingButton}
@@ -110,24 +107,26 @@ export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHan
         placement="top"
         style={{ padding: 0 }}
       >
-        {colors.map(col => {
-          return (
-            <CircleButton
-              key={col}
-              color={col}
-              onPress={() => onPressColor(col)}
-            />
-
-          );
-        })}
+        {colors.map(col => (
+          <PressableHighlight
+            key={col}
+            onPress={() => onPressColor(col)}
+            style={styles.buttonStyle}
+          >
+            <View style={{ margin: 20 }}>
+              <Circle color={col} showBorder />
+            </View>
+          </PressableHighlight>
+        ))}
       </Popover>
-      <Pressable onPress={() => onPressUndo()} key={"undo-button"} style={({ pressed }) => [pressed && { backgroundColor: "rgba(0,0,0,0.15)" }, styles.buttonStyle]}>
-        <Typography>U</Typography>
-      </Pressable>
-      <Pressable onPress={() => onPressClear()} key={"clear-button"} style={({ pressed }) => [pressed && { backgroundColor: "rgba(0,0,0,0.15)" }, styles.buttonStyle]}>
-        <Typography>C</Typography>
-      </Pressable>
-    </Paper>
+
+      <PressableHighlight onPress={() => onPressUndo()} key={"undo-button"} style={styles.buttonStyle}>
+        <Typography color="gray">undo</Typography>
+      </PressableHighlight>
+      <PressableHighlight onPress={() => onPressClear()} key={"clear-button"} style={styles.buttonStyle}>
+        <Typography color="red">clear</Typography>
+      </PressableHighlight>
+    </Paper >
   );
 };
 
@@ -147,11 +146,11 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   circle: {
     height: BUTTON_SIZE,
     width: BUTTON_SIZE,
-    borderWidth: 1, borderRadius: BUTTON_SIZE / 2
+    borderRadius: BUTTON_SIZE / 2
   }
 });
