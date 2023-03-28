@@ -2,7 +2,7 @@ import {
     Color, SkImage,
     SkPath, SkRect,
 } from "@shopify/react-native-skia";
-import {StyleProp, ViewStyle} from "react-native";
+import {StyleProp, ViewProps, ViewStyle} from "react-native";
 
 export type SkiaDrawHandle = {
     setColor: (color:Color) => void,
@@ -41,6 +41,7 @@ export type CanvasProps = {
     renderChildrenOnTop?: boolean
 
     style?: StyleProp<ViewStyle>
+    onLayout?: ViewProps["onLayout"]
 }
 
 /**
