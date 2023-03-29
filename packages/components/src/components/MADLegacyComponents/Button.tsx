@@ -16,6 +16,7 @@ const styles = {
   defaultButtonStyle: {
     flexDirection: 'row',
     borderRadius: 2,
+    minHeight: 35,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
