@@ -5,6 +5,8 @@
 import type { EquipmentMinimal } from './EquipmentMinimal';
 
 export type EquipmentBasicV2 = (EquipmentMinimal & {
+    manufacturer?: string;
+    modelNumber?: string;
     serialNumber: string;
     partNumber: string;
     /**

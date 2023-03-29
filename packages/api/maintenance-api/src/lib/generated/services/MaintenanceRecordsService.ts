@@ -55,6 +55,9 @@ export class MaintenanceRecordsService {
      * ### Update release v1.12.0
      * Added property `maintenanceRecordTypeId`.
      *
+     * ### Update release v1.16.0
+     * Added property `workCenterId` to `maintenanceRecords.failureReports`
+     *
      * @returns MaintenanceRecordList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

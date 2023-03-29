@@ -1,1 +1,2 @@
-export { DFWCanvas } from "./ImageMarkup/DFWCanvas";
+export { DFWCanvas } from "./DFWCanvas";
+export {SignaturePad} from './SignaturePad/SignaturePad'

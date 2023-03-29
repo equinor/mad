@@ -34,7 +34,7 @@ export type ModificationProposalSimple = {
     workCenterId: string;
     workCenterPlantId: string;
     requiredStartDate: string;
-    requiredEndDate: string;
+    requiredEndDate: string | null;
     /**
      * The point in time where the failure report was created
      */
