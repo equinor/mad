@@ -7,15 +7,15 @@ import React from "react";
 import { SignaturePadHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
 
-export type DFWCanvas = {
+export type DFWCanvasProps = {
     markupImageUri?: string,
 } & ViewProps;
 
-export const DFWCanvas = React.forwardRef<SignaturePadHandle, DFWCanvas>((props, ref) => {
+export const DFWCanvas = React.forwardRef<SignaturePadHandle, DFWCanvasProps>((props, ref) => {
     const [dimensions, setDimensions] = useState<{ width: number, height: number }>();
 
     const canvasRef = useRef<SkiaDrawHandle>(null);
-    useImperativeHandle(ref, () => ({ makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot({ x: 0, y: 100, width: dimensions?.width ?? 0, height: dimensions?.height ?? 0 }) || undefined }))
+    useImperativeHandle(ref, () => ({ makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot({ x: 0, y: 0, width: dimensions?.width ?? 0, height: dimensions?.height ?? 0 }) || undefined }))
     const image = useImage(props.markupImageUri);
 
     return (
