@@ -24,7 +24,7 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@equinor/mad-components": "0.0.1"
+        "@equinor/mad-components": "workspace:*"
     },
     "peerDependencies": {
         "@shopify/react-native-skia": "^0.1.141",
