@@ -1,33 +1,33 @@
 import {useEffect, useRef, useState} from "react";
-import {StyleSheet, View, Image, Text} from "react-native";
+import {StyleSheet, View, Image} from "react-native";
 import { MADLegacyButton, Typography} from "@equinor/mad-components";
 import {SignaturePadHandle, SkiaDrawSnapshot} from "@equinor/react-native-skia-draw/dist/types";
 import {SignaturePad} from "@equinor/react-native-skia-draw";
 import {Circle} from "@shopify/react-native-skia";
 
+type Dimensions = {width: number, height: number};
 export const SignatureScreen = () => {
     const [image, setImage] = useState<SkiaDrawSnapshot>()
-    const [height, setHeight] = useState(0);
-    const [width, setWidth] = useState(0);
-    const [metadata, setMetadata] = useState({width:0, height:0})
+    const [imageDimensions, setImageDimensions] = useState<Dimensions>({width:0, height:0});
+    const [canvasDimensions, setCanvasDimensions] = useState<Dimensions>({width:0, height:0})
     useEffect(() => {
         if (!image) return;
         Image.getSize(image.uri, (newWidth, newHeight) => {
-            setHeight(newHeight/2)
-            setWidth(newWidth/2)
+            setImageDimensions({height: newHeight/2, width: newWidth/2})
         })
     }, [image])
+
+
     const drawRef = useRef<SignaturePadHandle>(null)
     return <View style={{flex:1}}>
         <View style={styles.resultsContainer}>
             <Typography>Results:</Typography>
-            <Image source={{uri:image?.uri}} style={{height: height, width:width}}/>
+            <Image source={{uri:image?.uri}} style={{height: imageDimensions.height, width:imageDimensions.width}}/>
         </View>
         <View style={styles.padContainer}>
             <View style={styles.canvasContainer}>
                 <SignaturePad ref={drawRef} withLabel height={200} onLayout={(e) => {
-                    console.log()
-                    setMetadata({
+                    setCanvasDimensions({
                         height: e.nativeEvent.layout.height,
                         width: e.nativeEvent.layout.width
                     })
@@ -38,8 +38,8 @@ export const SignatureScreen = () => {
             <View style={styles.buttonContainer}>
                 <MADLegacyButton title={"Snapshot"} disabled={false} busy={false} viewStyle={{}} textStyle={{}} onPress={() => drawRef.current?.makeImageSnapshot && setImage(drawRef.current?.makeImageSnapshot())}/>
             </View>
-            <Typography>{metadata.height}</Typography>
-            <Typography>{metadata.width}</Typography>
+            <Typography>{canvasDimensions.height}</Typography>
+            <Typography>{canvasDimensions.width}</Typography>
         </View>
     </View>
 }
