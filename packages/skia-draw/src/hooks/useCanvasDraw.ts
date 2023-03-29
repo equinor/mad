@@ -1,4 +1,4 @@
-import {Color, Skia, SkiaView, useTouchHandler, useValue} from "@shopify/react-native-skia";
+import {Color, Skia, SkiaDomView, SkiaView, useTouchHandler, useValue} from "@shopify/react-native-skia";
 import {ForwardedRef, RefObject} from "react";
 import { PathData, SkiaDrawHandle} from "../types";
 import { useRerender } from "./useRerender";
@@ -8,7 +8,7 @@ type CanvasSetup = {
     initialDrawColor: Color,
     initialStrokeWidth: number,
     ref: ForwardedRef<SkiaDrawHandle>,
-    skiaCanvasRef: RefObject<SkiaView>
+    skiaCanvasRef: RefObject<SkiaDomView>
 };
 
 export const useCanvasDraw = (setup: CanvasSetup) => {

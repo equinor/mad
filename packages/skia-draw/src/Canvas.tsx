@@ -1,10 +1,9 @@
 import {
     Canvas as SkiaCanvas,
-    CanvasProps as SkiaCanvasProps,
     Path, useCanvasRef,
 } from "@shopify/react-native-skia"
 
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native"
+import { StyleSheet } from "react-native"
 import { useCanvasDraw } from "./hooks/useCanvasDraw";
 import { CanvasProps, SkiaDrawHandle } from "./types";
 import { forwardRef, ForwardRefRenderFunction, PropsWithChildren } from "react";
@@ -14,7 +13,8 @@ const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildre
     initialStrokeWidth = 10,
     children,
     renderChildrenOnTop,
-    style
+    style,
+    onLayout
 }, ref) => {
 
     const skiaCanvasRef = useCanvasRef();
@@ -31,7 +31,7 @@ const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildre
 
 
     return (
-        <SkiaCanvas ref={skiaCanvasRef} style={StyleSheet.flatten([{ flex: 1, backgroundColor: "black" }, style])} onTouch={touchHandler}>
+        <SkiaCanvas ref={skiaCanvasRef} style={StyleSheet.flatten([{ flex: 1, backgroundColor: "black" }, style])} onTouch={touchHandler} onLayout={onLayout}>
             {!renderChildrenOnTop && children}
             {pathHistory.current.concat(Object.values(currentPaths.current)).map((pathData, index) => (
                 <Path
