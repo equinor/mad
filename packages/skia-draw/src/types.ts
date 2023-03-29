@@ -1,8 +1,9 @@
 import {
-    Color, SkImage,
+    Color,
     SkPath, SkRect,
 } from "@shopify/react-native-skia";
 import {StyleProp, ViewProps, ViewStyle} from "react-native";
+import {PropsWithChildren} from "react";
 
 export type SkiaDrawHandle = {
     setColor: (color:Color) => void,
@@ -23,6 +24,8 @@ export type SkiaDrawSnapshot = {
     height: number,
     width: number,
 }
+
+export type SignaturePadProps = PropsWithChildren<{height?: number, withLabel?: boolean, onLayout?: CanvasProps["onLayout"]}>
 
 export type CanvasProps = { 
     /**

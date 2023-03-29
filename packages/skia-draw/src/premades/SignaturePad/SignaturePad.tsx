@@ -1,12 +1,12 @@
-import {forwardRef, PropsWithChildren, useImperativeHandle, useRef} from "react";
+import {forwardRef, useImperativeHandle, useRef} from "react";
 import {Canvas} from '../../Canvas'
-import {CanvasProps, SkiaDrawHandle} from "../../types";
+import { SignaturePadProps, SkiaDrawHandle} from "../../types";
 import {View, StyleSheet, Text} from "react-native";
 import {SignaturePadHandle} from "../../types";
 import {SkRect} from "@shopify/react-native-skia";
 import {ClearSignatureButton} from "./components/ClearSignatureButton";
 
-export const SignaturePad = forwardRef<SignaturePadHandle, PropsWithChildren<{height?: number, withLabel?: boolean, onLayout?: CanvasProps["onLayout"]}>>((props, ref) => {
+export const SignaturePad = forwardRef<SignaturePadHandle, SignaturePadProps>((props, ref) => {
     const canvasRef = useRef<SkiaDrawHandle>(null);
     useImperativeHandle(ref, () => ({makeImageSnapshot: (rect?: SkRect) => canvasRef.current?.makeImageSnapshot(rect) || undefined}))
     const canvasStyle = StyleSheet.flatten([styles.canvas, {height:props.height || 200}])
