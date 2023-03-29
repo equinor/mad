@@ -1,7 +1,7 @@
 import { View, StyleSheet, ViewProps } from "react-native"
 import { Canvas } from "../../Canvas"
 import { EDSControlPanel } from "./EDSControlPanel"
-import { useImperativeHandle, useRef, useState } from "react";
+import { useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { SkiaDrawHandle } from "../../types";
 import React from "react";
 import { SignaturePadHandle } from "../../types";
@@ -11,18 +11,38 @@ export type DFWCanvasProps = {
     markupImageUri?: string,
 } & ViewProps;
 
+type Dimensions = {
+    width: number,
+    height: number,
+};
+
 export const DFWCanvas = React.forwardRef<SignaturePadHandle, DFWCanvasProps>((props, ref) => {
-    const [dimensions, setDimensions] = useState<{ width: number, height: number }>();
+    const [dimensions, setDimensions] = useState<Dimensions>();
 
     const canvasRef = useRef<SkiaDrawHandle>(null);
     useImperativeHandle(ref, () => ({ makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot({ x: 0, y: 0, width: dimensions?.width ?? 0, height: dimensions?.height ?? 0 }) || undefined }))
     const image = useImage(props.markupImageUri);
+    const canvasDim: Dimensions | undefined = useMemo(() => {
+        if (!dimensions) return undefined;
+        if (!image) return dimensions;
+        const width = Math.min(dimensions.width, dimensions.height * image.width() / image.height());
+        const height = Math.min(dimensions.height, dimensions.width * image.height() / image.width());
+        return { width, height };
+    }, [image, dimensions]);
 
     return (
-        <View {...props} onLayout={(event) => setDimensions({ width: event.nativeEvent.layout.width, height: event.nativeEvent.layout.height })}>
-            <Canvas ref={canvasRef}>
-                {image && dimensions && <SKImage image={image} fit="contain" x={0} y={0} width={dimensions.width} height={dimensions.height} />}
-            </Canvas>
+        <View
+            style={[props.style, { justifyContent: "center", alignItems: "center" }]}
+            onLayout={(event) => setDimensions({ width: event.nativeEvent.layout.width, height: event.nativeEvent.layout.height })}
+            {...props}>
+            {canvasDim &&
+                <Canvas ref={canvasRef} style={{ maxHeight: canvasDim.height, maxWidth: canvasDim.width }}>
+                    {
+                        image && dimensions &&
+                        <SKImage image={image} fit="contain" x={0} y={0} width={dimensions.width} height={canvasDim.height} />
+                    }
+                </Canvas>
+            }
             <View style={styles.overlay} pointerEvents="box-none">
                 <EDSControlPanel canvasRef={canvasRef} />
             </View>
