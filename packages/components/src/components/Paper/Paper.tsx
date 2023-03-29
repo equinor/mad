@@ -6,22 +6,24 @@ import {
 
 import { useDynamicStyle } from "../../hooks/useDynamicStyle"
 import { elevationShadowStyleMap } from "../../translations/boxShadow";
+import React from "react";
 
 export type PaperProps = {
     elevation: ElevationType
 };
 
-export const Paper = ({
+export const Paper = React.forwardRef<View, React.PropsWithChildren<PaperProps & ViewProps>>(({
     elevation = "none",
     children,
     ...rest
-}: React.PropsWithChildren<PaperProps & ViewProps>) => {
+}, ref) => {
     const shadowStyle = useDynamicStyle(() => {
         return elevationShadowStyleMap[elevation];
     }, [elevation])
-    return(
-        <View {...rest} style={[shadowStyle, {backgroundColor: paperToken.background}, rest.style]}>
+    return (
+        <View ref={ref} {...rest} style={[shadowStyle, { backgroundColor: paperToken.background }, rest.style]}>
             {children}
         </View>
     )
 }
+);

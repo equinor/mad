@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -16,10 +16,13 @@ import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 import IconsScreen from '../screens/IconsScreen';
-import { RootStackParamList, RootTabParamList, } from '../types';
+import { DiscoverStackParamList, RootStackParamList, RootTabParamList, } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { DrawScreen } from '../screens/DrawScreen';
 import { SignatureScreen } from "../screens/SignatureTest";
+import { PaperScreen } from '../screens/components/PaperScreen';
+import { PopoverScreen } from '../screens/components/PopoverScreen';
+import { ButtonScreen } from '../screens/components/ButtonScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -35,17 +38,37 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
-    </Stack.Navigator>
+    <RootStack.Navigator>
+      <RootStack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <RootStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+        <RootStack.Screen name="Modal" component={ModalScreen} />
+      </RootStack.Group>
+    </RootStack.Navigator>
+  );
+}
+
+const DiscoverStack = createNativeStackNavigator<DiscoverStackParamList>();
+function DiscoverNavigator() {
+  return (
+    <DiscoverStack.Navigator
+      screenOptions={{
+        headerLargeTitle: true,
+        headerLargeTitleShadowVisible: true,
+        headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
+        headerTitleStyle: { fontFamily: "Equinor-Regular", color: "#243746" },
+        headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+        headerTintColor: "#007079"
+      }}>
+      <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
+      <DiscoverStack.Screen name="Paper" component={PaperScreen} />
+      <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
+      <DiscoverStack.Screen name="Button" component={ButtonScreen} />
+    </DiscoverStack.Navigator>
   );
 }
 
@@ -62,13 +85,14 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Discover"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-        headerTitleAllowFontScaling: true,
+        tabBarActiveTintColor: "#007079",
+        tabBarLabelStyle: { fontFamily: "Equinor-Bold" }
       }}>
       <BottomTab.Screen
         name="Discover"
-        component={DiscoverScreen}
+        component={DiscoverNavigator}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="briefcase" color={color} />
         }}
       />

@@ -28,6 +28,14 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermissions": "The app needs access to your photos library in order to process them."
+        }
+      ]
+    ],
     "web": {
       "favicon": "./assets/images/favicon.png"
     }

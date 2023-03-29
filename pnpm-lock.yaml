@@ -14,7 +14,7 @@ importers:
       ts-node: ^10.9.1
       tsconfig: workspace:*
       tslib: ^2.5.0
-      turbo: latest
+      turbo: ^1.8.5
       typescript: ^4.7.4
     devDependencies:
       '@changesets/cli': 2.26.0
@@ -48,6 +48,7 @@ importers:
       expo-asset: ~8.9.1
       expo-constants: ~14.2.1
       expo-font: ~11.1.1
+      expo-image-picker: ~14.1.1
       expo-linking: ~4.0.1
       expo-splash-screen: ~0.18.1
       expo-status-bar: ~1.4.4
@@ -76,6 +77,7 @@ importers:
       expo-asset: 8.9.1_expo@48.0.9
       expo-constants: 14.2.1_expo@48.0.9
       expo-font: 11.1.1_expo@48.0.9
+      expo-image-picker: 14.1.1_expo@48.0.9
       expo-linking: 4.0.1_expo@48.0.9
       expo-splash-screen: 0.18.1_expo@48.0.9
       expo-status-bar: 1.4.4
@@ -5791,6 +5793,23 @@ packages:
     dependencies:
       expo: 48.0.9_@babel+core@7.20.12
       fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-image-loader/4.1.1_expo@48.0.9:
+    resolution: {integrity: sha512-ciEHVokU0f6w0eTxdRxLCio6tskMsjxWIoV92+/ZD37qePUJYMfEphPhu1sruyvMBNR8/j5iyOvPFVGTfO8oxA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.9_@babel+core@7.20.12
+    dev: false
+
+  /expo-image-picker/14.1.1_expo@48.0.9:
+    resolution: {integrity: sha512-SvWtnkLW7jp5Ntvk3lVcRQmhFYja8psmiR7O6P/+7S6f4llt3vaFwb4I3+pUXqJxxpi7BHc2+95qOLf0SFOIag==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.9_@babel+core@7.20.12
+      expo-image-loader: 4.1.1_expo@48.0.9
     dev: false
 
   /expo-keep-awake/12.0.1_expo@48.0.9:
