@@ -4,4 +4,4 @@
 "@equinor/mad-chronicles": minor
 ---
 
-Created Digital Field worker image markup canvas
+Created Digital Field worker Image Markup Canvas
