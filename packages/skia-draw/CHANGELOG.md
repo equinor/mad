@@ -1,5 +1,11 @@
 # @equinor/react-native-skia-draw
 
+## 0.1.1
+
+### Patch Changes
+
+-   6505f8a: Update image references
+
 ## 0.1.0
 
 ### Minor Changes
