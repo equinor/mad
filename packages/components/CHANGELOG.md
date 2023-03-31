@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.1.0
+
+### Minor Changes
+
+-   6a5d12f: Created Digital Field worker Image Markup Canvas
+
 ## 0.0.2
 
 ### Patch Changes
