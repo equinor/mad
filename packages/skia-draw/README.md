@@ -7,7 +7,7 @@
 </p>
 <p align="center">
         <img 
-            src="https://raw.githubusercontent.com/equinor/mad/docs/skia-draw/packages/skia-draw/assets/skia-draw-header.png"
+            src="https://raw.githubusercontent.com/equinor/mad/main/packages/skia-draw/assets/skia-draw-header.png"
             title="React Native Skia Draw"
             alt="The Equinor React Native library for all things drawing!"
             width=390/>
@@ -23,7 +23,7 @@ The library currently exposes two ready-made (reffered to as premades) solutions
 ### 🖋️ Signature Pad
 <p align="center">
         <img 
-            src="https://raw.githubusercontent.com/equinor/mad/docs/skia-draw/packages/skia-draw/assets/skia-draw-signature.png"
+            src="https://raw.githubusercontent.com/equinor/mad/main/packages/skia-draw/assets/skia-draw-signature.png"
             title="React Native Skia Draw Signature Pad"
             alt="For signing all your important stuff!"
             width=300/>
@@ -64,9 +64,9 @@ const MySignaturePad = () => {
 ### 👩‍🎨 Image Markup
 <p align="center">
         <img 
-            src="https://raw.githubusercontent.com/equinor/mad/docs/skia-draw/packages/skia-draw/assets/skia-draw-image-markup.png"
+            src="https://raw.githubusercontent.com/equinor/mad/main/packages/skia-draw/assets/skia-draw-image-markup.png"
             title="React Native Skia Draw Signature Pad"
-            alt="For signing all your important stuff!"
+            alt="For drawing on top of your work of art <3"
             width=300/>
 </p>
 <br/>
