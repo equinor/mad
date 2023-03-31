@@ -5,6 +5,14 @@
         <img src="https://img.shields.io/badge/web-✅-brightgreen" />
         <img src="https://img.shields.io/badge/android-❔-orange" />
 </p>
+<p align="center">
+        <img 
+            src="./assets/skia-draw-header.png"
+            title="React Native Skia Draw"
+            alt="The Equinor React Native library for all things drawing!"
+            width=300/>
+</p>
+<br />
 
 This library adds basic drawing capabilities for your apps. It features a ready to use Signature Pad and an [EDS](https://loop.equinor.com/en/stories/eds-design-system) themed Image Markup tool.
 The library also exposes functionality for creating your own solution.
@@ -13,6 +21,15 @@ The library also exposes functionality for creating your own solution.
 The library currently exposes two ready-made (reffered to as premades) solutions.
 
 ### 🖋️ Signature Pad
+<p align="center">
+        <img 
+            src="./assets/skia-draw-signature.png"
+            title="React Native Skia Draw Signature Pad"
+            alt="For signing all your important stuff!"
+            width=240/>
+</p>
+<br/>
+
 The Signature Pad component comes with a signature field, a clear button and the ability to create snapshots. A simple implementation looks like this:
 ```ts
 import { Button } from "react-native";
@@ -42,9 +59,17 @@ const MySignaturePad = () => {
 ```
 
 ---
-
+<br/>
 
 ### 👩‍🎨 Image Markup
+<p align="center">
+        <img 
+            src="./assets/skia-draw-image-markup.png"
+            title="React Native Skia Draw Signature Pad"
+            alt="For signing all your important stuff!"
+            width=240/>
+</p>
+<br/>
 
 The Image Markup component comes with a simple control panel for some markup operations (stroke size, color selection, clear and undo), and the ability to draw on top of an imported image. A simple implementation looks like this:
 ```ts
