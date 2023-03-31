@@ -10,7 +10,7 @@
             src="./assets/skia-draw-header.png"
             title="React Native Skia Draw"
             alt="The Equinor React Native library for all things drawing!"
-            width=300/>
+            width=390/>
 </p>
 <br />
 
@@ -26,7 +26,7 @@ The library currently exposes two ready-made (reffered to as premades) solutions
             src="./assets/skia-draw-signature.png"
             title="React Native Skia Draw Signature Pad"
             alt="For signing all your important stuff!"
-            width=240/>
+            width=300/>
 </p>
 <br/>
 
@@ -67,7 +67,7 @@ const MySignaturePad = () => {
             src="./assets/skia-draw-image-markup.png"
             title="React Native Skia Draw Signature Pad"
             alt="For signing all your important stuff!"
-            width=240/>
+            width=300/>
 </p>
 <br/>
 

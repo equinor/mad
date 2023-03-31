@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { MADLegacyButton, Typography } from "@equinor/mad-components";
-import { SignaturePadHandle, SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
+import { SnapshotHandle, SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
 import { SignaturePad } from "@equinor/react-native-skia-draw";
 import { Circle } from "@shopify/react-native-skia";
 
@@ -18,7 +18,7 @@ export const SignatureScreen = () => {
     }, [image])
 
 
-    const drawRef = useRef<SignaturePadHandle>(null)
+    const drawRef = useRef<SnapshotHandle>(null)
     return <View style={{ flex: 1 }}>
         <View style={styles.resultsContainer}>
             <Typography>Results:</Typography>
