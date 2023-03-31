@@ -1,12 +1,12 @@
 import { View, StyleSheet, Image } from "react-native";
-import { DFWCanvas } from "@equinor/react-native-skia-draw";
+import { ImageMarkup } from "@equinor/react-native-skia-draw";
 import { Button, Typography } from "@equinor/mad-components";
 import * as ImagePicker from "expo-image-picker";
 import { useRef, useState } from "react";
-import { SignaturePadHandle } from "@equinor/react-native-skia-draw/dist/types";
+import { SnapshotHandle } from "@equinor/react-native-skia-draw/dist/types";
 
 export const DrawScreen = () => {
-    const canvasHandle = useRef<SignaturePadHandle>(null);
+    const canvasHandle = useRef<SnapshotHandle>(null);
     const [originalImage, setOriginalImage] = useState<string>();
     const [modifiedImage, setModifiedImage] = useState<string>();
 
@@ -30,7 +30,7 @@ export const DrawScreen = () => {
 
     return (
         <>
-            <DFWCanvas ref={canvasHandle} style={{ flex: 3, backgroundColor: "black", justifyContent: "center" }} markupImageUri={originalImage} />
+            <ImageMarkup ref={canvasHandle} style={{ flex: 3, backgroundColor: "black", justifyContent: "center" }} markupImage={originalImage} />
             <View style={styles.inOutContainer}>
                 <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                     <Typography variant="h6" style={{ margin: 7 }}>Original image:</Typography>

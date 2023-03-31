@@ -1,14 +1,14 @@
 import { View, StyleSheet, ViewProps } from "react-native"
 import { Canvas } from "../../Canvas"
 import { EDSControlPanel } from "./EDSControlPanel"
-import { useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { useImperativeHandle, useMemo, useRef, useState } from "react";
 import { SkiaDrawHandle } from "../../types";
 import React from "react";
-import { SignaturePadHandle } from "../../types";
+import { SnapshotHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
 
-export type DFWCanvasProps = {
-    markupImageUri?: string,
+export type ImageMarkupProps = {
+    markupImage?: string,
 } & ViewProps;
 
 type Dimensions = {
@@ -16,12 +16,12 @@ type Dimensions = {
     height: number,
 };
 
-export const DFWCanvas = React.forwardRef<SignaturePadHandle, DFWCanvasProps>((props, ref) => {
+export const ImageMarkup = React.forwardRef<SnapshotHandle, ImageMarkupProps>((props, ref) => {
     const [dimensions, setDimensions] = useState<Dimensions>();
 
     const canvasRef = useRef<SkiaDrawHandle>(null);
     useImperativeHandle(ref, () => ({ makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot({ x: 0, y: 0, width: dimensions?.width ?? 0, height: dimensions?.height ?? 0 }) || undefined }))
-    const image = useImage(props.markupImageUri);
+    const image = useImage(props.markupImage);
     const canvasDim: Dimensions | undefined = useMemo(() => {
         if (!dimensions) return undefined;
         if (!image) return dimensions;

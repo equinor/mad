@@ -13,7 +13,7 @@ export type SkiaDrawHandle = {
     makeImageSnapshot: (rect?: SkRect) => SkiaDrawSnapshot | undefined
 }
 
-export type SignaturePadHandle = Pick<Partial<SkiaDrawHandle>, "makeImageSnapshot">
+export type SnapshotHandle = Pick<Partial<SkiaDrawHandle>, "makeImageSnapshot">
 
 export type SkiaDrawSnapshot = {
     /**
