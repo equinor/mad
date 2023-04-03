@@ -1,16 +1,16 @@
 import { tokens } from "@equinor/eds-tokens";
-import React from "react";
 import { Pressable, StyleSheet, View, ViewProps } from "react-native";
 import { convertToUnitlessNumber } from "../../translations/units";
 import { Typography } from "../Typography";
+import { forwardRef, Children } from "react";
 
 export type ButtonProps = {
-  onPress?: any;
+  onPress?: () => void;
 };
 
-export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
+export const Button = forwardRef<View, ButtonProps & ViewProps>(
   (props: ButtonProps & ViewProps, ref) => {
-    const children = React.Children.toArray(props.children);
+    const children = Children.toArray(props.children);
     return (
       <View style={props.style} ref={ref} collapsable={false}>
         <Pressable
@@ -35,6 +35,8 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
     );
   }
 );
+
+Button.displayName = "Button";
 
 const styles = StyleSheet.create({
   containerResting: {
