@@ -27,3 +27,5 @@ export const Paper = React.forwardRef<View, React.PropsWithChildren<PaperProps &
     )
 }
 );
+
+Paper.displayName = "Paper";

@@ -11,7 +11,7 @@ export const DrawScreen = () => {
     const [modifiedImage, setModifiedImage] = useState<string>();
 
     const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
+        const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: false,
             quality: 1,
