@@ -3,7 +3,7 @@ import { Canvas } from "../../Canvas"
 import { EDSControlPanel } from "./EDSControlPanel"
 import { useImperativeHandle, useMemo, useRef, useState } from "react";
 import { SkiaDrawHandle } from "../../types";
-import React from "react";
+import { forwardRef } from "react";
 import { SnapshotHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
 
@@ -16,7 +16,7 @@ type Dimensions = {
     height: number,
 };
 
-export const ImageMarkup = React.forwardRef<SnapshotHandle, ImageMarkupProps>((props, ref) => {
+export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>((props, ref) => {
     const [dimensions, setDimensions] = useState<Dimensions>();
 
     const canvasRef = useRef<SkiaDrawHandle>(null);
@@ -49,6 +49,8 @@ export const ImageMarkup = React.forwardRef<SnapshotHandle, ImageMarkupProps>((p
         </View>
     )
 });
+
+ImageMarkup.displayName = "ImageMarkup";
 
 const styles = StyleSheet.create({
     overlay: {
