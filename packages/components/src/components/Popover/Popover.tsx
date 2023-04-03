@@ -48,16 +48,16 @@ export const Popover = (props: PopoverProps & ViewProps) => {
 
   let calculatedArrowX = (x as number) + (arrowX ?? 0);
   let calculatedArrowY = (y as number) + (arrowY ?? 0);
-  if (props.placement == "left") {
+  if (props.placement?.startsWith("left")) {
     calculatedArrowX += popoverDimensions.current.width ?? 0;
   }
-  if (props.placement == "top") {
+  if (props.placement?.startsWith("top")) {
     calculatedArrowY += popoverDimensions.current.height ?? 0;
   }
-  if (props.placement == "top" || props.placement == "bottom") {
+  if (props.placement?.startsWith("top") || props.placement?.startsWith("bottom")) {
     calculatedArrowY -= arrowContainerSize / 2;
   }
-  if (props.placement == "left" || props.placement == "right") {
+  if (props.placement?.startsWith("left") || props.placement?.startsWith("right")) {
     calculatedArrowX -= arrowContainerSize / 2;
   }
   return (
