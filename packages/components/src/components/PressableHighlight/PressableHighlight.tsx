@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import { ColorValue, Pressable, PressableProps, StyleProp, View, ViewStyle } from "react-native"
 import { Interactive } from "../../constants/colors"
 
@@ -7,7 +7,7 @@ export type PressableHightlightProps = {
     style?: ViewStyle;
 }
 
-export const PressableHighlight = React.forwardRef<View, React.PropsWithChildren<PressableHightlightProps & PressableProps>>(({
+export const PressableHighlight = forwardRef<View, React.PropsWithChildren<PressableHightlightProps & PressableProps>>(({
     highlightColor = Interactive.PRESSED,
     style,
     children,
@@ -23,3 +23,5 @@ export const PressableHighlight = React.forwardRef<View, React.PropsWithChildren
         {children}
     </Pressable>
 ));
+
+PressableHighlight.displayName = "PressableHighlight";
