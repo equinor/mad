@@ -17,6 +17,8 @@ type PopoverDimensions = {
   height?: number;
 };
 
+const arrowContainerSize: number = 16;
+
 export const Popover = (props: PopoverProps & ViewProps) => {
 
   const arrowRef = useRef(null);
@@ -53,10 +55,10 @@ export const Popover = (props: PopoverProps & ViewProps) => {
     calculatedArrowY += popoverDimensions.current.height ?? 0;
   }
   if (props.placement == "top" || props.placement == "bottom") {
-    calculatedArrowY -= 8;
+    calculatedArrowY -= arrowContainerSize / 2;
   }
   if (props.placement == "left" || props.placement == "right") {
-    calculatedArrowX -= 8;
+    calculatedArrowX -= arrowContainerSize / 2;
   }
   return (
     <Modal visible={props.open} transparent={true} presentationStyle="overFullScreen">
@@ -74,8 +76,8 @@ export const Popover = (props: PopoverProps & ViewProps) => {
         </Paper>
         <View ref={arrowRef} style={[styles.arrow, { left: calculatedArrowX, top: calculatedArrowY }]}>
           <View style={{
-            width: 11.07,
-            height: 11.07,
+            width: arrowContainerSize / 1.444,
+            height: arrowContainerSize / 1.444,
             transform: [{ rotate: "45deg" }],
             backgroundColor: "white"
           }}></View>
@@ -88,8 +90,8 @@ export const Popover = (props: PopoverProps & ViewProps) => {
 const styles = StyleSheet.create({
   arrow: {
     position: "absolute",
-    width: 16,
-    height: 16,
+    width: arrowContainerSize,
+    height: arrowContainerSize,
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
