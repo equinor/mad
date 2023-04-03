@@ -12,9 +12,18 @@ export type PopoverProps = {
   placement?: string;
 };
 
+type PopoverDimensions = {
+  width?: number;
+  height?: number;
+};
+
 export const Popover = (props: PopoverProps & ViewProps) => {
 
   const arrowRef = useRef(null);
+  const popoverDimensions = useRef({
+    width: 0,
+    height: 0
+  } as PopoverDimensions)
   const {
     x,
     y,
@@ -23,7 +32,7 @@ export const Popover = (props: PopoverProps & ViewProps) => {
   } = useFloating({
     sameScrollView: false,
     middleware: [
-      offset(15),
+      offset(12),
       flip(),
       shift({ padding: 8 }),
       arrow({ element: arrowRef })
@@ -35,6 +44,20 @@ export const Popover = (props: PopoverProps & ViewProps) => {
     refs.setReference(props.anchorEl.current);
   }, [refs, props.anchorEl]);
 
+  let calculatedArrowX = (x as number) + (arrowX ?? 0);
+  let calculatedArrowY = (y as number) + (arrowY ?? 0);
+  if (props.placement == "left") {
+    calculatedArrowX += popoverDimensions.current.width ?? 0;
+  }
+  if (props.placement == "top") {
+    calculatedArrowY += popoverDimensions.current.height ?? 0;
+  }
+  if (props.placement == "top" || props.placement == "bottom") {
+    calculatedArrowY -= 8;
+  }
+  if (props.placement == "left" || props.placement == "right") {
+    calculatedArrowX -= 8;
+  }
   return (
     <Modal visible={props.open} transparent={true} presentationStyle="overFullScreen">
       <Pressable onPress={props.onClose} style={{ width: "100%", height: "100%", position: "absolute" }}>
@@ -42,10 +65,14 @@ export const Popover = (props: PopoverProps & ViewProps) => {
           style={{ position: "absolute", left: x ?? 0, top: y ?? 0, borderRadius: 12 }}
           elevation="overlay"
           ref={refs.setFloating}
+          onLayout={(e) => {
+            popoverDimensions.current.width = e.nativeEvent.layout.width;
+            popoverDimensions.current.height = e.nativeEvent.layout.height;
+          }}
         >
           <View style={[styles.innerContainer, props.style]} {...props}>{props.children}</View>
-          {/* <View ref={arrowRef} style={[styles.arrow, { left: arrowX ?? 0, top: arrowY ?? 0 }]}></View> */}
         </Paper>
+        <View ref={arrowRef} style={[styles.arrow, { left: calculatedArrowX, top: calculatedArrowY }]}></View>
       </Pressable>
     </Modal>
   );
@@ -54,10 +81,10 @@ export const Popover = (props: PopoverProps & ViewProps) => {
 const styles = StyleSheet.create({
   arrow: {
     position: "absolute",
-    transform: [{ rotateZ: '45deg' }],
-    width: 25,
-    height: 25,
+    width: 16,
+    height: 16,
     backgroundColor: "white",
+    borderRadius: 8
   },
 
   innerContainer: {
