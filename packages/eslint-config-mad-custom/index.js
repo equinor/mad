@@ -1,7 +1,9 @@
 module.exports = {
-  extends: ["react", "turbo", "prettier"],
+  extends: [
+    "turbo", "prettier", "plugin:react/recommended", 'plugin:@typescript-eslint/recommended'
+  ],
   rules: {
-    "react/jsx-key": "off",
-    "prettier/prettier": ["error"],
+    'no-console': 2
   },
+  parser: '@typescript-eslint/parser'
 };
