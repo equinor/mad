@@ -18,16 +18,23 @@ jobs:
         with:
           version: 7
 
-      - name: Setup Node.js 16
+      - name: 🌈 Setup Node.js 16
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: pnpm
 
-      - name: Install Dependencies
+      - name: 📦 Install Dependencies
         run: pnpm install
 
-      - name: Create Release Pull Request
+      - name: 🦋 Create Release Pull Request
+        id: changesets
         uses: changesets/action@v1
+        with:
+          title: 🚀 Release mad packages
+          commit: "📝 chore: Bump package versions and write changelog"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🤡 Dummy release
+        run: echo "${{ steps.changesets.publishedPackages }}"

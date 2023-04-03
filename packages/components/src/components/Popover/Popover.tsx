@@ -17,7 +17,7 @@ type PopoverDimensions = {
   height?: number;
 };
 
-const arrowContainerSize = 16;
+const arrowContainerSize: number = 16;
 
 export const Popover = (props: PopoverProps & ViewProps) => {
 
