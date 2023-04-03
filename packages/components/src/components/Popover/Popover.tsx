@@ -72,7 +72,14 @@ export const Popover = (props: PopoverProps & ViewProps) => {
         >
           <View style={[styles.innerContainer, props.style]} {...props}>{props.children}</View>
         </Paper>
-        <View ref={arrowRef} style={[styles.arrow, { left: calculatedArrowX, top: calculatedArrowY }]}></View>
+        <View ref={arrowRef} style={[styles.arrow, { left: calculatedArrowX, top: calculatedArrowY }]}>
+          <View style={{
+            width: 11.07,
+            height: 11.07,
+            transform: [{ rotate: "45deg" }],
+            backgroundColor: "white"
+          }}></View>
+        </View>
       </Pressable>
     </Modal>
   );
@@ -83,8 +90,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: 16,
     height: 16,
-    backgroundColor: "white",
-    borderRadius: 8
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   innerContainer: {
