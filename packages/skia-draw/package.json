@@ -4,7 +4,8 @@
     "description": "A React Native drawing library running on SKIA",
     "type": "module",
     "scripts": {
-        "build": "tsc --project tsconfig.json"
+        "build": "tsc --project tsconfig.json",
+        "lint": "eslint \"**/*.tsx\" --fix"
     },
     "keywords": [
         "react native",
@@ -25,6 +26,9 @@
     "types": "./dist/index.d.ts",
     "dependencies": {
         "@equinor/mad-components": "workspace:*"
+    },
+    "devDependencies": {
+        "eslint-config-mad-custom": "workspace:*"
     },
     "peerDependencies": {
         "@shopify/react-native-skia": "^0.1.141",

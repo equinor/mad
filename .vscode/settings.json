@@ -3,5 +3,9 @@
     "editor.defaultFormatter": "vscode.typescript-language-features",
     "[typescriptreact]": {
       "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "prettier.tabWidth": 4,
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }
