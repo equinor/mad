@@ -7,7 +7,7 @@ export default defineConfig({
     dts: true,
     format: "esm",
     tsconfig: "./tsconfig.json",
-    esbuildOptions(options, context) {
+    esbuildOptions(options) {
         options.assetNames = "assets/fonts/[name]"
     },
     loader: {
