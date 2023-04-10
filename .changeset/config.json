@@ -7,9 +7,5 @@
     "access": "public",
     "baseBranch": "main",
     "updateInternalDependencies": "patch",
-    "ignore": [
-        "@equinor/mad-chronicles",
-        "eslint-config-mad-custom",
-        "tsconfig"
-    ]
+    "ignore": ["@equinor/mad-chronicles", "tsconfig"]
 }
