@@ -6,6 +6,7 @@
     "scripts": {
         "build": "tsup-node",
         "test": "jest",
+        "dev": "tsup-node --watch --clean=false",
         "lint": "eslint \"**/*.tsx\" --fix"
     },
     "keywords": [
