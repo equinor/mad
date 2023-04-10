@@ -1,17 +1,15 @@
 {
-    "extends": "tsconfig/base.json",
-    "compilerOptions": {
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+      "rootDir": "./src",
       "allowSyntheticDefaultImports": true,
-      "declaration": true,
       "jsx": "react-native",
       "noImplicitOverride": true,
       "noPropertyAccessFromIndexSignature": true,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
-      "outDir": "./dist"
-    },
-    "files": [],
-    "include": ["./src/**/*"],
-    "exclude": ["dist", "node_modules"],
-  }
-  
+      "outDir": "./dist",
+  },
+  "include": ["./src"],
+  "exclude": ["./src/__tests__", "dist"]
+}

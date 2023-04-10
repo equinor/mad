@@ -1,42 +1,45 @@
 {
-  "name": "mad",
-  "version": "0.0.0",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "packages/**/*"
-  ],
-  "scripts": {
-    "build:skia-draw": "turbo run build --filter @equinor/react-native-skia-draw",
-    "test:components": "turbo run test --filter @equinor/mad-components --",
-    "build:components": "turbo run build --filter @equinor/mad-components",
-    "run:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
-    "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
-    "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
-    "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper -- $npm_config_input",
-    "test:maintenance-api": "turbo run test --filter @equinor/mad-maintenance-api-ts-wrapper",
-    "build:all": "turbo run build",
-    "dev:all": "turbo run dev",
-    "lint:all": "turbo run lint",
-    "format:all": "prettier --write \"**/*.{ts,tsx,md}\""
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.26.0",
-    "@types/jest": "^26.0.14",
-    "@types/node": "^18.13.0",
-    "eslint-config-mad-custom": "workspace:*",
-    "jest": "^29.4.3",
-    "prettier": "2.8.4",
-    "ts-jest": "^29.0.5",
-    "ts-node": "^10.9.1",
-    "tsconfig": "workspace:*",
-    "tslib": "^2.5.0",
-    "turbo": "^1.8.5",
-    "typescript": "^4.7.4"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "packageManager": "pnpm@7.26.3"
+    "name": "mad",
+    "version": "0.0.0",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*",
+        "packages/**/*"
+    ],
+    "scripts": {
+        "build:skia-draw": "turbo run build --filter @equinor/react-native-skia-draw",
+        "test:components": "turbo run test --filter @equinor/mad-components --",
+        "dev:components": "turbo run dev --filter @equinor/mad-components",
+        "build:components": "turbo run build --filter @equinor/mad-components",
+        "run:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
+        "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
+        "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
+        "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper -- $npm_config_input",
+        "test:maintenance-api": "turbo run test --filter @equinor/mad-maintenance-api-ts-wrapper",
+        "build:all": "turbo run build",
+        "dev:all": "turbo run dev",
+        "lint:all": "turbo run lint",
+        "format:all": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "publish:all": "turbo run build lint test && changeset version && changeset publish"
+    },
+    "devDependencies": {
+        "@changesets/cli": "^2.26.0",
+        "@types/jest": "^26.0.14",
+        "@types/node": "^18.13.0",
+        "eslint-config-mad-custom": "workspace:*",
+        "jest": "^29.4.3",
+        "prettier": "2.8.4",
+        "ts-jest": "^29.0.5",
+        "ts-node": "^10.9.1",
+        "tsconfig": "workspace:*",
+        "tslib": "^2.5.0",
+        "turbo": "^1.8.5",
+        "typescript": "^4.7.4",
+        "tsup": "^6.7.0"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "packageManager": "pnpm@7.31.0"
 }
