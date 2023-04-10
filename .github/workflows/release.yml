@@ -34,8 +34,7 @@ jobs:
         with:
           title: 🚀 Release mad packages
           commit: "📝 chore: Bump package versions and write changelog"
+          publish: pnpm publish:all
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🤡 Dummy release
-        run: echo "${{ steps.changesets.publishedPackages }}"
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
