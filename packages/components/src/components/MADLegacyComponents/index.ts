@@ -1,1 +1,1 @@
-export {MADLegacyButton} from './Button'
+export { MADLegacyButton } from "./Button";

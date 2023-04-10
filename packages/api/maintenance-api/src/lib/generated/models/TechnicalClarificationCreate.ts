@@ -24,7 +24,7 @@ export type TechnicalClarificationCreate = {
      * * `L` - Low priority
      *
      */
-    priorityId: 'H' | 'M' | 'L';
+    priorityId: "H" | "M" | "L";
     workCenterId: string;
     workCenterPlantId: string;
     plannerGroupId: string;
@@ -34,4 +34,3 @@ export type TechnicalClarificationCreate = {
      */
     personResponsibleEmail?: string;
 };
-

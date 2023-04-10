@@ -10,7 +10,7 @@ export type BillOfMaterialItem = {
     /**
      * Bill of material type. The bill of material can be linked to the tag (type `T`), the installed equipment (type `E`) or to a material (type `M`)
      */
-    bomTypeId?: 'T' | 'M' | 'E';
+    bomTypeId?: "T" | "M" | "E";
     /**
      * The material id or number
      */
@@ -37,4 +37,3 @@ export type BillOfMaterialItem = {
      */
     parentBOMItemId?: string;
 };
-

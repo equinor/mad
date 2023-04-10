@@ -5,34 +5,33 @@ import { convertToUnitlessNumber } from "../../translations/units";
 const {
     colors: {
         ui: {
-            background__default: {hex: background},
-            background__medium: {hex: borderColor}
+            background__default: { hex: background },
+            background__medium: { hex: borderColor },
         },
         interactive: {
-            pressed_overlay_dark: {rgba: pressedBackground}
-        }
+            pressed_overlay_dark: { rgba: pressedBackground },
+        },
     },
     spacings: {
-        comfortable: { medium_small: padding}
-    }
-    
+        comfortable: { medium_small: padding },
+    },
 } = tokens;
 const p = convertToUnitlessNumber(padding)?.toString();
 
 export const navigationToken: ComponentToken = {
     background,
     border: {
-        color: borderColor
+        color: borderColor,
     },
     states: {
         pressed: {
-            background: pressedBackground
-        }
+            background: pressedBackground,
+        },
     },
     spacings: {
         left: p,
         right: p,
         top: p,
         bottom: p,
-    }
+    },
 };

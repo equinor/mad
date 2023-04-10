@@ -24,4 +24,3 @@ export type RelationshipToDocument = {
      */
     documentVersion: string | null;
 };
-

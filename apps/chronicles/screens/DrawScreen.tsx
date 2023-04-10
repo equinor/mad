@@ -30,37 +30,60 @@ export const DrawScreen = () => {
 
     return (
         <>
-            <ImageMarkup ref={canvasHandle} style={{ flex: 3, backgroundColor: "black", justifyContent: "center" }} markupImage={originalImage} />
+            <ImageMarkup
+                ref={canvasHandle}
+                style={{
+                    flex: 3,
+                    backgroundColor: "black",
+                    justifyContent: "center",
+                }}
+                markupImage={originalImage}
+            />
             <View style={styles.inOutContainer}>
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <Typography variant="h6" style={{ margin: 7 }}>Original image:</Typography>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Typography variant="h6" style={{ margin: 7 }}>
+                        Original image:
+                    </Typography>
                     <View style={styles.imageContainer}>
-                        <Image source={{ uri: originalImage }} style={{ height: "100%" }} />
+                        <Image
+                            source={{ uri: originalImage }}
+                            style={{ height: "100%" }}
+                        />
                     </View>
-                    <Button
-                        onPress={pickImage}
-                        style={{ margin: 10 }}>
+                    <Button onPress={pickImage} style={{ margin: 10 }}>
                         + Add photo
                     </Button>
-
                 </View>
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <Typography variant="h6" style={{ margin: 7 }}>Modified image:</Typography>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Typography variant="h6" style={{ margin: 7 }}>
+                        Modified image:
+                    </Typography>
                     <View style={styles.imageContainer}>
-                        <Image source={{ uri: modifiedImage }} style={{ height: "100%" }} />
+                        <Image
+                            source={{ uri: modifiedImage }}
+                            style={{ height: "100%" }}
+                        />
                     </View>
-                    <Button
-                        style={{ margin: 10 }}
-                        onPress={saveSnapshot}
-                    >
+                    <Button style={{ margin: 10 }} onPress={saveSnapshot}>
                         Save snapshot
                     </Button>
                 </View>
             </View>
         </>
     );
-}
-
+};
 
 const styles = StyleSheet.create({
     inOutContainer: {
@@ -73,6 +96,6 @@ const styles = StyleSheet.create({
         width: "90%",
         backgroundColor: "white",
         borderRadius: 12,
-        overflow: "hidden"
+        overflow: "hidden",
     },
-})
+});

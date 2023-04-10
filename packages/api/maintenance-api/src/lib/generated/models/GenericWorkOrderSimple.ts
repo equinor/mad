@@ -45,4 +45,3 @@ export type GenericWorkOrderSimple = {
      */
     sortField: string;
 };
-

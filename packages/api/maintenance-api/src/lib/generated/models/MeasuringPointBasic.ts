@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MeasuringPointMinimal } from './MeasuringPointMinimal';
+import type { MeasuringPointMinimal } from "./MeasuringPointMinimal";
 
-export type MeasuringPointBasic = (MeasuringPointMinimal & {
+export type MeasuringPointBasic = MeasuringPointMinimal & {
     tagId: string | null;
     tagPlantId: string;
     equipmentId: string;
@@ -16,5 +16,4 @@ export type MeasuringPointBasic = (MeasuringPointMinimal & {
     categoryId: string;
     qualitativeCodeGroupId: string;
     supportsQualitativeMeasurement: boolean;
-});
-
+};

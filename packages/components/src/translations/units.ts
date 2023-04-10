@@ -6,7 +6,7 @@ export const convertToUnitlessNumber = (value: string): number | undefined => {
     if (valueSplit?.length !== 3) return undefined;
     const [_, strVal, unit] = valueSplit;
     const val = Number(strVal.replace(",", "."));
-    switch(unit){
+    switch (unit) {
         case "px":
             return val;
         case "em":
@@ -16,4 +16,4 @@ export const convertToUnitlessNumber = (value: string): number | undefined => {
         default:
             return undefined;
     }
-}
+};

@@ -1,2 +1,2 @@
-export * from './premades/index'
-export { Canvas } from './Canvas'
+export * from "./premades/index";
+export { Canvas } from "./Canvas";

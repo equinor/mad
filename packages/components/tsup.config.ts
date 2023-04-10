@@ -12,11 +12,16 @@ export default defineConfig({
         ".otf": "copy",
     },
     esbuildOptions(options) {
-        options.assetNames = "assets/fonts/[name]"
+        options.assetNames = "assets/fonts/[name]";
     },
     async onSuccess() {
         // eslint-disable-next-line no-console
         console.log("⚙️ Generating typescript declarations..");
-        spawnSync("tsc", ["--project", "tsconfig.json", "--emitDeclarationOnly", "--declaration"]);
-    }
+        spawnSync("tsc", [
+            "--project",
+            "tsconfig.json",
+            "--emitDeclarationOnly",
+            "--declaration",
+        ]);
+    },
 });

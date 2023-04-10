@@ -14,4 +14,3 @@ export type MaintenancePlanMaterialNeed = {
      */
     quantityUnit: string;
 };
-

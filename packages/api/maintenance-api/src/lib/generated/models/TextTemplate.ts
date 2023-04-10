@@ -15,4 +15,3 @@ export type TextTemplate = {
     createdDateTime: string | null;
     changedDateTime: string | null;
 };
-

@@ -55,6 +55,5 @@ export type CorrectiveWorkOrderSimple = {
      * * `D` - Done
      *
      */
-    priorityId: 'L' | 'M' | 'H' | 'U' | 'D';
+    priorityId: "L" | "M" | "H" | "U" | "D";
 };
-

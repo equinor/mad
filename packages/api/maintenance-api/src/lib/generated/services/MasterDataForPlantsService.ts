@@ -1,23 +1,22 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Area } from '../models/Area';
-import type { CatalogProfile } from '../models/CatalogProfile';
-import type { Location } from '../models/Location';
-import type { PlannerGroup } from '../models/PlannerGroup';
-import type { PlanningPlantRevision } from '../models/PlanningPlantRevision';
-import type { Plant } from '../models/Plant';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { SurfaceDegradationFactor } from '../models/SurfaceDegradationFactor';
-import type { User } from '../models/User';
-import type { WorkCenter } from '../models/WorkCenter';
+import type { Area } from "../models/Area";
+import type { CatalogProfile } from "../models/CatalogProfile";
+import type { Location } from "../models/Location";
+import type { PlannerGroup } from "../models/PlannerGroup";
+import type { PlanningPlantRevision } from "../models/PlanningPlantRevision";
+import type { Plant } from "../models/Plant";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { SurfaceDegradationFactor } from "../models/SurfaceDegradationFactor";
+import type { User } from "../models/User";
+import type { WorkCenter } from "../models/WorkCenter";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MasterDataForPlantsService {
-
     /**
      * @deprecated
      * Tag catalog profiles - Get
@@ -39,13 +38,13 @@ export class MasterDataForPlantsService {
     public static getTagCatalogProfile({
         plantId,
     }: {
-        plantId: string,
+        plantId: string;
     }): CancelablePromise<Array<CatalogProfile> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tag-catalog-profiles',
+            method: "GET",
+            url: "/plants/{plant-id}/tag-catalog-profiles",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -71,13 +70,13 @@ export class MasterDataForPlantsService {
     public static getLocations({
         plantId,
     }: {
-        plantId: string,
+        plantId: string;
     }): CancelablePromise<Array<Location> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/locations',
+            method: "GET",
+            url: "/plants/{plant-id}/locations",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -102,13 +101,13 @@ export class MasterDataForPlantsService {
     public static getAreas({
         plantId,
     }: {
-        plantId: string,
+        plantId: string;
     }): CancelablePromise<Array<Area> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/areas',
+            method: "GET",
+            url: "/plants/{plant-id}/areas",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -132,13 +131,13 @@ export class MasterDataForPlantsService {
     public static getPlannerGroups({
         plantId,
     }: {
-        plantId: string,
+        plantId: string;
     }): CancelablePromise<Array<PlannerGroup> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/planner-groups',
+            method: "GET",
+            url: "/plants/{plant-id}/planner-groups",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -163,13 +162,13 @@ export class MasterDataForPlantsService {
     public static getWorkCenters({
         plantId,
     }: {
-        plantId: string,
+        plantId: string;
     }): CancelablePromise<Array<WorkCenter> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/work-centers',
+            method: "GET",
+            url: "/plants/{plant-id}/work-centers",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -212,61 +211,64 @@ export class MasterDataForPlantsService {
         includeRevisions = false,
         includeSystems = false,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Include location for plant
          */
-        includeLocations?: boolean,
+        includeLocations?: boolean;
         /**
          * Include work centers for plant
          */
-        includeWorkCenters?: boolean,
+        includeWorkCenters?: boolean;
         /**
          * Include planner groups for plant
          */
-        includePlannerGroups?: boolean,
+        includePlannerGroups?: boolean;
         /**
          * Include tag catalog profiles in use for plant
          */
-        includeTagCatalogProfiles?: boolean,
+        includeTagCatalogProfiles?: boolean;
         /**
          * Include equipment catalog profiles in use for plant
          */
-        includeEquipmentCatalogProfiles?: boolean,
+        includeEquipmentCatalogProfiles?: boolean;
         /**
          * Use this in combination with `include-tag-catalog-profiles=true` and/or `include-equipment-catalog-profiles=true` to improve performance.
          *
          */
-        includeOnlyDefaultCatalogProfiles?: boolean,
+        includeOnlyDefaultCatalogProfiles?: boolean;
         /**
          * Include surface degradations for plant
          */
-        includeSurfaceDegradationFactors?: boolean,
+        includeSurfaceDegradationFactors?: boolean;
         /**
          * Include revisions for plant
          */
-        includeRevisions?: boolean,
+        includeRevisions?: boolean;
         /**
          * Include systems for plant
          */
-        includeSystems?: boolean,
+        includeSystems?: boolean;
     }): CancelablePromise<Plant | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}',
+            method: "GET",
+            url: "/plants/{plant-id}",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'include-locations': includeLocations,
-                'include-work-centers': includeWorkCenters,
-                'include-planner-groups': includePlannerGroups,
-                'include-tag-catalog-profiles': includeTagCatalogProfiles,
-                'include-equipment-catalog-profiles': includeEquipmentCatalogProfiles,
-                'include-only-default-catalog-profiles': includeOnlyDefaultCatalogProfiles,
-                'include-surface-degradation-factors': includeSurfaceDegradationFactors,
-                'include-revisions': includeRevisions,
-                'include-systems': includeSystems,
+                "include-locations": includeLocations,
+                "include-work-centers": includeWorkCenters,
+                "include-planner-groups": includePlannerGroups,
+                "include-tag-catalog-profiles": includeTagCatalogProfiles,
+                "include-equipment-catalog-profiles":
+                    includeEquipmentCatalogProfiles,
+                "include-only-default-catalog-profiles":
+                    includeOnlyDefaultCatalogProfiles,
+                "include-surface-degradation-factors":
+                    includeSurfaceDegradationFactors,
+                "include-revisions": includeRevisions,
+                "include-systems": includeSystems,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -302,35 +304,36 @@ export class MasterDataForPlantsService {
         includeWorkOrderOperations = false,
         includeOnlyWorkOrderOperationsWithMaterials = false,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Filter to limit revisions
          */
-        filter: 'by-revision-id',
+        filter: "by-revision-id";
         /**
          * Comma-separated list of revision-id
          */
-        revisionIdAnyOf?: string,
+        revisionIdAnyOf?: string;
         /**
          * Include the work order operations
          */
-        includeWorkOrderOperations?: boolean,
+        includeWorkOrderOperations?: boolean;
         /**
          * Limit the work order operations to only those which have material
          */
-        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean;
     }): CancelablePromise<Array<PlanningPlantRevision> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/revisions',
+            method: "GET",
+            url: "/plants/{plant-id}/revisions",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'filter': filter,
-                'revision-id-any-of': revisionIdAnyOf,
-                'include-work-order-operations': includeWorkOrderOperations,
-                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                filter: filter,
+                "revision-id-any-of": revisionIdAnyOf,
+                "include-work-order-operations": includeWorkOrderOperations,
+                "include-only-work-order-operations-with-materials":
+                    includeOnlyWorkOrderOperationsWithMaterials,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -376,53 +379,55 @@ export class MasterDataForPlantsService {
         /**
          * Filter to limit plants by
          */
-        filter: 'by-plant' | 'by-planning-plant',
+        filter: "by-plant" | "by-planning-plant";
         /**
          * Plant identifier
          */
-        plantId?: string,
+        plantId?: string;
         /**
          * Plant used to plan the maintenance work. Usually same as `plantId`, but there are some cases were one `planningPlantId` is used across multiple `plantId`.
          */
-        planningPlantId?: string,
+        planningPlantId?: string;
         /**
          * Include location for plant
          */
-        includeLocations?: boolean,
+        includeLocations?: boolean;
         /**
          * Include work centers for plant
          */
-        includeWorkCenters?: boolean,
+        includeWorkCenters?: boolean;
         /**
          * Include planner groups for plant
          */
-        includePlannerGroups?: boolean,
+        includePlannerGroups?: boolean;
         /**
          * Include tag catalog profiles in use for plant
          */
-        includeTagCatalogProfiles?: boolean,
+        includeTagCatalogProfiles?: boolean;
         /**
          * Include equipment catalog profiles in use for plant
          */
-        includeEquipmentCatalogProfiles?: boolean,
+        includeEquipmentCatalogProfiles?: boolean;
         /**
          * Include surface degradations for plant
          */
-        includeSurfaceDegradationFactors?: boolean,
+        includeSurfaceDegradationFactors?: boolean;
     }): CancelablePromise<Array<Plant> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants',
+            method: "GET",
+            url: "/plants",
             query: {
-                'filter': filter,
-                'plant-id': plantId,
-                'planning-plant-id': planningPlantId,
-                'include-locations': includeLocations,
-                'include-work-centers': includeWorkCenters,
-                'include-planner-groups': includePlannerGroups,
-                'include-tag-catalog-profiles': includeTagCatalogProfiles,
-                'include-equipment-catalog-profiles': includeEquipmentCatalogProfiles,
-                'include-surface-degradation-factors': includeSurfaceDegradationFactors,
+                filter: filter,
+                "plant-id": plantId,
+                "planning-plant-id": planningPlantId,
+                "include-locations": includeLocations,
+                "include-work-centers": includeWorkCenters,
+                "include-planner-groups": includePlannerGroups,
+                "include-tag-catalog-profiles": includeTagCatalogProfiles,
+                "include-equipment-catalog-profiles":
+                    includeEquipmentCatalogProfiles,
+                "include-surface-degradation-factors":
+                    includeSurfaceDegradationFactors,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -443,13 +448,13 @@ export class MasterDataForPlantsService {
     public static getSurfaceDegradationFactors({
         plantId,
     }: {
-        plantId: string,
+        plantId: string;
     }): CancelablePromise<Array<SurfaceDegradationFactor> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/surface-degradation-factors',
+            method: "GET",
+            url: "/plants/{plant-id}/surface-degradation-factors",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
         });
     }
@@ -472,15 +477,14 @@ export class MasterDataForPlantsService {
         /**
          * Include information on authorization user has for API
          */
-        includeAuthorizations?: boolean,
+        includeAuthorizations?: boolean;
     }): CancelablePromise<User | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/user',
+            method: "GET",
+            url: "/user",
             query: {
-                'include-authorizations': includeAuthorizations,
+                "include-authorizations": includeAuthorizations,
             },
         });
     }
-
 }

@@ -5,8 +5,9 @@
 ### Minor Changes
 
 -   Upgrade to 1.16
-  
+
 **NOTE:** This update introduces a breaking change with the `Plant.TagAndEquipment` endpoint. This has now been split into two endpoints:
+
 -   `Plant.Tag`
 -   `Plant.Equipment`
 

@@ -10,7 +10,7 @@ export type RelationshipToMaintenanceRecordAdd = {
     /**
      * Defines the type of relationship to the work order
      */
-    source?: 'ObjectList' | 'TechnicalFeedback';
+    source?: "ObjectList" | "TechnicalFeedback";
     /**
      * Reference to the specific element the relationship will be defined for. The specific format for this value will depend on the `source` type and the value should be found using lookup of the work order.
      */
@@ -23,4 +23,3 @@ export type RelationshipToMaintenanceRecordAdd = {
         reasonId?: string;
     };
 };
-

@@ -24,4 +24,3 @@ export type ProblemDetails = {
      */
     errors?: Record<string, Array<string>> | null;
 };
-

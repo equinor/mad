@@ -5,13 +5,13 @@ const {
     elevation,
     colors: {
         ui: {
-            background__default: {hex: background},
+            background__default: { hex: background },
         },
     },
 } = tokens;
 
 export type ElevationType = keyof Elevations;
-export const elevationToken = elevation;;
+export const elevationToken = elevation;
 export const paperToken: ComponentToken = {
-    background
+    background,
 };

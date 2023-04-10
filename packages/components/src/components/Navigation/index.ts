@@ -1,2 +1,2 @@
-export * from  "./NavigationCell";
+export * from "./NavigationCell";
 export * from "./NavigationCellList";

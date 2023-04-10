@@ -1,15 +1,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { TagJsonPatch } from '../models/TagJsonPatch';
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { TagJsonPatch } from "../models/TagJsonPatch";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class NewEndpointsV1170Service {
-
     /**
      * Tag - Update
      * ### Overview
@@ -28,22 +27,22 @@ export class NewEndpointsV1170Service {
         tagId,
         requestBody,
     }: {
-        plantId: string,
-        tagId: string,
+        plantId: string;
+        tagId: string;
         /**
          * Information to be updated
          */
-        requestBody: Array<TagJsonPatch>,
+        requestBody: Array<TagJsonPatch>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/plants/{plant-id}/tags/{tag-id}',
+            method: "PATCH",
+            url: "/plants/{plant-id}/tags/{tag-id}",
             path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
+                "plant-id": plantId,
+                "tag-id": tagId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update tag`,
@@ -52,5 +51,4 @@ export class NewEndpointsV1170Service {
             },
         });
     }
-
 }

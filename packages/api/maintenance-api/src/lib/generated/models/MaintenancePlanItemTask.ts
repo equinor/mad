@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TaskWorkOrderOperation } from './TaskWorkOrderOperation';
+import type { TaskWorkOrderOperation } from "./TaskWorkOrderOperation";
 
 export type MaintenancePlanItemTask = {
     /**
@@ -24,4 +24,3 @@ export type MaintenancePlanItemTask = {
     statusId: string;
     operations: Array<TaskWorkOrderOperation>;
 };
-

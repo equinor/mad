@@ -6,11 +6,11 @@ export type MaintenancePlanItemJsonPatch = {
     /**
      * JSON Patch operation according to RFC6902
      */
-    op: 'replace';
+    op: "replace";
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/maintenancePlanItem';
+    path: "/maintenancePlanItem";
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *
@@ -20,4 +20,3 @@ export type MaintenancePlanItemJsonPatch = {
      */
     value: string;
 };
-

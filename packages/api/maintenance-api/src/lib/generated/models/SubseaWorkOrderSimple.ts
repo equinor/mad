@@ -54,6 +54,5 @@ export type SubseaWorkOrderSimple = {
      * * null - No priority assigned
      *
      */
-    priorityId: 'L' | 'M' | 'H' | 'U' | null;
+    priorityId: "L" | "M" | "H" | "U" | null;
 };
-

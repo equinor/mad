@@ -50,4 +50,3 @@ export type ModificationWorkOrderSimple = {
      */
     sortField: string;
 };
-

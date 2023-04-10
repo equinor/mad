@@ -2,16 +2,16 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
-import type { CorrectiveWorkOrderBasic } from './CorrectiveWorkOrderBasic';
-import type { CorrectiveWorkOrderOperation } from './CorrectiveWorkOrderOperation';
-import type { MaintenanceRecordMinimal } from './MaintenanceRecordMinimal';
-import type { Measurement } from './Measurement';
-import type { Status } from './Status';
-import type { TagBasic } from './TagBasic';
-import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
+import type { Attachment } from "./Attachment";
+import type { CorrectiveWorkOrderBasic } from "./CorrectiveWorkOrderBasic";
+import type { CorrectiveWorkOrderOperation } from "./CorrectiveWorkOrderOperation";
+import type { MaintenanceRecordMinimal } from "./MaintenanceRecordMinimal";
+import type { Measurement } from "./Measurement";
+import type { Status } from "./Status";
+import type { TagBasic } from "./TagBasic";
+import type { TagRelatedToWorkOrder } from "./TagRelatedToWorkOrder";
 
-export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
+export type CorrectiveWorkOrder = CorrectiveWorkOrderBasic & {
     operations?: Array<CorrectiveWorkOrderOperation>;
     /**
      * All statuses possible with information about activation
@@ -34,5 +34,4 @@ export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
-});
-
+};

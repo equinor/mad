@@ -9,4 +9,3 @@ export type EquipmentCharacteristic = {
     value: string;
     classId: string;
 };
-

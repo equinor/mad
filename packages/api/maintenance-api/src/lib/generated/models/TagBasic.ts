@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TagMinimal } from './TagMinimal';
+import type { TagMinimal } from "./TagMinimal";
 
-export type TagBasic = (TagMinimal & {
+export type TagBasic = TagMinimal & {
     isInactive: boolean;
     parentTagId: string | null;
     systemId: string;
@@ -27,5 +27,4 @@ export type TagBasic = (TagMinimal & {
      */
     area: string;
     catalogProfileId: string;
-});
-
+};

@@ -20,4 +20,3 @@ export type Conflict = {
      */
     traceId?: string;
 };
-

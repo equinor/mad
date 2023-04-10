@@ -14,22 +14,26 @@ This is a monorepo collecting many of the packages used in the Mobile Applicatio
 | [ESLint MAD](./packages/eslint-config-mad-custom)  | Linting rules used throughout MAD development.                                                            |
 
 ## 👨‍💻 Development
+
 ### ⏱️ Getting started
+
 This turborepo uses [pnpm](https://pnpm.io) as a package manager. Start by cloning the repository and run
+
 ```
 npm install -g pnpm
 ```
- You can build only the packages you work on, but if you want to build everything to start with, run
 
- ```
- pnpm build:all
+You can build only the packages you work on, but if you want to build everything to start with, run
+
+```
+pnpm build:all
 ```
 
 ### 👷‍♀️ Working on a package
 
 Packages in the repository usually have some common scripts to make development easier. These are labeled by the following keywords : `build`, `test`, `dev`, and `lint`.
 
-The `dev` commands wrap package specific needs into a single command for development. Take for example the [MAD Components](./packages/components/) package. Since any change in its code requires a build for the [MAD Chronicles](./apps/chronicles/) app to refresh, we define the `dev` script in the components package to build with the `watch` flag. A developer working on the component library does not need to bother with these details, so running 
+The `dev` commands wrap package specific needs into a single command for development. Take for example the [MAD Components](./packages/components/) package. Since any change in its code requires a build for the [MAD Chronicles](./apps/chronicles/) app to refresh, we define the `dev` script in the components package to build with the `watch` flag. A developer working on the component library does not need to bother with these details, so running
 
 ```
 pnpm run:chronicles
@@ -39,7 +43,8 @@ pnpm dev:components
 is all that is required.
 
 This is how development on the packages is set up.
-With some exceptions, you can run any of these scripts with 
+With some exceptions, you can run any of these scripts with
+
 ```
 pnpm {keyword}:{package-alias}
 ```
@@ -47,11 +52,14 @@ pnpm {keyword}:{package-alias}
 Head into the project root [package.json](./package.json) for a full list of all commands.
 
 ### 🙏 Contributing to the repository
+
 #### Branching
-We use [Trunk-based development](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development) in this repository. Branching is done in and out of the `main` branch for each update. 
+
+We use [Trunk-based development](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development) in this repository. Branching is done in and out of the `main` branch for each update.
 
 #### Pull requests
-Pull requests into main should as a rule of thumb ALWAYS contain a changeset (see: [Changesets](https://github.com/changesets/changesets)). You create these by running 
+
+Pull requests into main should as a rule of thumb ALWAYS contain a changeset (see: [Changesets](https://github.com/changesets/changesets)). You create these by running
 
 ```
 pnpm changeset
@@ -61,7 +69,9 @@ and follow the promts.
 This way, changelogs and version bumps are automatically handeled. Also note that we use [semantic](https://gist.githubusercontent.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716/raw/e75b1b9536ee5ee82e2ec0ba8948d8f8238488c3/semantic-commit-messages.md) pull request titles. These are verified automatically during PR linting.
 
 ## 🔗 Useful Links
+
 ### 🚀 Turborepo
+
 Learn more about the power of Turborepo:
 
 -   [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
@@ -72,7 +82,9 @@ Learn more about the power of Turborepo:
 -   [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
 
 ### 🛠️ Repository tools
+
 Check out the docs for some of the tools we use throughout the repository:
-- [Changesets](https://github.com/changesets/changesets) - Versioning 
-- [Jest](https://jestjs.io) - Testing
-- [tsup](https://tsup.egoist.dev) - Building
+
+-   [Changesets](https://github.com/changesets/changesets) - Versioning
+-   [Jest](https://jestjs.io) - Testing
+-   [tsup](https://tsup.egoist.dev) - Building

@@ -33,4 +33,3 @@ export type WorkOrderCreateAbstract = {
     areaId?: string;
     text?: string;
 };
-

@@ -20,10 +20,10 @@ describe("Unitless converter", () => {
         const input = "2.0rem";
         const expected = 34;
         expect(convertToUnitlessNumber(input)).toEqual(expected);
-    })
+    });
     it("should handle comma decimal values", () => {
         const input = "2,0em";
         const expected = 34;
         expect(convertToUnitlessNumber(input)).toEqual(expected);
-    })
+    });
 });
