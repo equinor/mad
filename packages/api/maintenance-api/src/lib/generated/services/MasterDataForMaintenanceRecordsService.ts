@@ -1,17 +1,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ActivityCodeGroup } from '../models/ActivityCodeGroup';
-import type { ModificationProposalReasonGroup } from '../models/ModificationProposalReasonGroup';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { TaskCodeGroup } from '../models/TaskCodeGroup';
+import type { ActivityCodeGroup } from "../models/ActivityCodeGroup";
+import type { ModificationProposalReasonGroup } from "../models/ModificationProposalReasonGroup";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { TaskCodeGroup } from "../models/TaskCodeGroup";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MasterDataForMaintenanceRecordsService {
-
     /**
      * Maintenance records - Get activity codes
      * ### Overview
@@ -44,23 +43,23 @@ export class MasterDataForMaintenanceRecordsService {
         /**
          * The maintenance record to get activity codes for
          */
-        maintenanceRecordId?: string,
+        maintenanceRecordId?: string;
         /**
          * The catalog profile of the functional location/equipment
          */
-        catalogProfileId?: string,
+        catalogProfileId?: string;
         /**
          * The type of maintenance record to get activities or
          */
-        maintenanceRecordType?: 'failure-report' | 'activity-report',
+        maintenanceRecordType?: "failure-report" | "activity-report";
     }): CancelablePromise<Array<ActivityCodeGroup> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/activity-codes',
+            method: "GET",
+            url: "/maintenance-records/activity-codes",
             query: {
-                'maintenance-record-id': maintenanceRecordId,
-                'catalog-profile-id': catalogProfileId,
-                'maintenance-record-type': maintenanceRecordType,
+                "maintenance-record-id": maintenanceRecordId,
+                "catalog-profile-id": catalogProfileId,
+                "maintenance-record-type": maintenanceRecordType,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -103,23 +102,26 @@ export class MasterDataForMaintenanceRecordsService {
         /**
          * The maintenance record to get task codes for
          */
-        maintenanceRecordId?: string,
+        maintenanceRecordId?: string;
         /**
          * The catalog profile of the functional location/equipment
          */
-        catalogProfileId?: string,
+        catalogProfileId?: string;
         /**
          * The type of maintenance record to get activities or
          */
-        maintenanceRecordType?: 'failure-report' | 'activity-report' | 'technical-information-update-request',
+        maintenanceRecordType?:
+            | "failure-report"
+            | "activity-report"
+            | "technical-information-update-request";
     }): CancelablePromise<Array<TaskCodeGroup> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/task-codes',
+            method: "GET",
+            url: "/maintenance-records/task-codes",
             query: {
-                'maintenance-record-id': maintenanceRecordId,
-                'catalog-profile-id': catalogProfileId,
-                'maintenance-record-type': maintenanceRecordType,
+                "maintenance-record-id": maintenanceRecordId,
+                "catalog-profile-id": catalogProfileId,
+                "maintenance-record-type": maintenanceRecordType,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -145,18 +147,19 @@ export class MasterDataForMaintenanceRecordsService {
         /**
          * The type of maintenance record to get activities or
          */
-        maintenanceRecordType: 'modification-proposal',
-    }): CancelablePromise<Array<ModificationProposalReasonGroup> | ProblemDetails> {
+        maintenanceRecordType: "modification-proposal";
+    }): CancelablePromise<
+        Array<ModificationProposalReasonGroup> | ProblemDetails
+    > {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/reason-codes',
+            method: "GET",
+            url: "/maintenance-records/reason-codes",
             query: {
-                'maintenance-record-type': maintenanceRecordType,
+                "maintenance-record-type": maintenanceRecordType,
             },
             errors: {
                 404: `The specified resource was not found`,
             },
         });
     }
-
 }

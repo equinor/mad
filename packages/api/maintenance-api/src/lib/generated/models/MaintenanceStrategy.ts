@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenancePackageBasic } from './MaintenancePackageBasic';
+import type { MaintenancePackageBasic } from "./MaintenancePackageBasic";
 
 export type MaintenanceStrategy = {
     /**
@@ -18,4 +18,3 @@ export type MaintenanceStrategy = {
      */
     maintenancePackages: Array<MaintenancePackageBasic>;
 };
-

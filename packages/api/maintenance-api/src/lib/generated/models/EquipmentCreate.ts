@@ -17,4 +17,3 @@ export type EquipmentCreate = {
         tagPlantId?: string;
     };
 };
-

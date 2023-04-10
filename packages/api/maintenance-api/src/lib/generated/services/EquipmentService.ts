@@ -1,22 +1,21 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Equipment } from '../models/Equipment';
-import type { EquipmentAddClass } from '../models/EquipmentAddClass';
-import type { EquipmentBasicV2 } from '../models/EquipmentBasicV2';
-import type { EquipmentChangeLogs } from '../models/EquipmentChangeLogs';
-import type { EquipmentCreate } from '../models/EquipmentCreate';
-import type { EquipmentJsonPatch } from '../models/EquipmentJsonPatch';
-import type { EquipmentListItem } from '../models/EquipmentListItem';
-import type { EquipmentSearchItem } from '../models/EquipmentSearchItem';
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { Equipment } from "../models/Equipment";
+import type { EquipmentAddClass } from "../models/EquipmentAddClass";
+import type { EquipmentBasicV2 } from "../models/EquipmentBasicV2";
+import type { EquipmentChangeLogs } from "../models/EquipmentChangeLogs";
+import type { EquipmentCreate } from "../models/EquipmentCreate";
+import type { EquipmentJsonPatch } from "../models/EquipmentJsonPatch";
+import type { EquipmentListItem } from "../models/EquipmentListItem";
+import type { EquipmentSearchItem } from "../models/EquipmentSearchItem";
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class EquipmentService {
-
     /**
      * Equipment - Lookup
      * ### Overview
@@ -94,80 +93,96 @@ export class EquipmentService {
         /**
          * The unique equipmentId in Equinor's system
          */
-        equipmentId: string,
+        equipmentId: string;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Limit include-maintenance-records to only open maintenance records
          */
-        includeOnlyOpenMaintenanceRecords?: boolean,
+        includeOnlyOpenMaintenanceRecords?: boolean;
         /**
          * Include work orders. If include-work-order-types is not supplied, all support types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Limit include-work-orders to only open work order
          */
-        includeOnlyOpenWorkOrders?: boolean,
+        includeOnlyOpenWorkOrders?: boolean;
         /**
          * Include possible detection methods, failure modes and failure mechanisms
          */
-        includeCatalogProfileDetails?: boolean,
+        includeCatalogProfileDetails?: boolean;
         /**
          * Include equipment characteristics such as 'Kontrollkort gyldig til' and 'Equipment group'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Include equipment or tag attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include URL references for equipment or tag
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include measuring points for this tag
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
     }): CancelablePromise<Equipment | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/equipment/{equipment-id}',
+            method: "GET",
+            url: "/equipment/{equipment-id}",
             path: {
-                'equipment-id': equipmentId,
+                "equipment-id": equipmentId,
             },
             query: {
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-characteristics': includeCharacteristics,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-status-details': includeStatusDetails,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types":
+                    includeMaintenanceRecordTypes,
+                "include-only-open-maintenance-records":
+                    includeOnlyOpenMaintenanceRecords,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-only-open-work-orders": includeOnlyOpenWorkOrders,
+                "include-catalog-profile-details": includeCatalogProfileDetails,
+                "include-characteristics": includeCharacteristics,
+                "include-attachments": includeAttachments,
+                "include-url-references": includeUrlReferences,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-status-details": includeStatusDetails,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -190,20 +205,20 @@ export class EquipmentService {
         equipmentId,
         requestBody,
     }: {
-        equipmentId: string,
+        equipmentId: string;
         /**
          * The information to be updated
          */
-        requestBody: Array<EquipmentJsonPatch>,
+        requestBody: Array<EquipmentJsonPatch>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/equipment/{equipment-id}',
+            method: "PATCH",
+            url: "/equipment/{equipment-id}",
             path: {
-                'equipment-id': equipmentId,
+                "equipment-id": equipmentId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update equipment`,
@@ -238,21 +253,21 @@ export class EquipmentService {
         /**
          * The unique equipmentId in Equinor's system
          */
-        equipmentId: string,
+        equipmentId: string;
         /**
          * Characteristics to add to equipment.
          */
-        requestBody: Array<EquipmentAddClass>,
+        requestBody: Array<EquipmentAddClass>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/equipment/{equipment-id}/characteristics',
+            method: "POST",
+            url: "/equipment/{equipment-id}/characteristics",
             path: {
-                'equipment-id': equipmentId,
+                "equipment-id": equipmentId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to equipment`,
@@ -283,25 +298,25 @@ export class EquipmentService {
         filter,
         equipmentCategoryIdAnyOf,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Filter to limit the equipment list by
          */
-        filter?: 'filter-by-equipment-category',
+        filter?: "filter-by-equipment-category";
         /**
          * Comma-separated list of equipment categories. `G` = Tank Customer equipment, `M` = Machines/Equipment, `P` = Production resources/tools, `Q` = Test/measurement equipment, `R` = Process Equipment, `S` = Customer equipment, `T` = IT Equipment, `U` = Subsea Equipment, `W` = Wind Operation Certified Equip, `Y` = Tool Crib
          */
-        equipmentCategoryIdAnyOf?: string,
+        equipmentCategoryIdAnyOf?: string;
     }): CancelablePromise<Array<EquipmentListItem> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/equipment-list',
+            method: "GET",
+            url: "/plants/{plant-id}/equipment-list",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'filter': filter,
-                'equipment-category-id-any-of': equipmentCategoryIdAnyOf,
+                filter: filter,
+                "equipment-category-id-any-of": equipmentCategoryIdAnyOf,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -324,15 +339,15 @@ export class EquipmentService {
         equipmentId,
         attachmentId,
     }: {
-        equipmentId: string,
-        attachmentId: string,
+        equipmentId: string;
+        attachmentId: string;
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/equipment/{equipment-id}/attachments/{attachment-id}',
+            method: "GET",
+            url: "/equipment/{equipment-id}/attachments/{attachment-id}",
             path: {
-                'equipment-id': equipmentId,
-                'attachment-id': attachmentId,
+                "equipment-id": equipmentId,
+                "attachment-id": attachmentId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -362,13 +377,13 @@ export class EquipmentService {
         /**
          * Equipment to create
          */
-        requestBody: EquipmentCreate,
+        requestBody: EquipmentCreate;
     }): CancelablePromise<ProblemDetails | EquipmentBasicV2> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/equipment',
+            method: "POST",
+            url: "/equipment",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Bad request, for example if missing required properties, \`equipmentCategoryId\` is not \`R\` or if \`installedAtTag\` is invalid or is not in service.`,
                 403: `User does not have sufficient rights to create an equipment.`,
@@ -453,73 +468,89 @@ export class EquipmentService {
         /**
          * Search based on equipmentIds. Wildcards are supported
          */
-        equipmentIdAnyOf?: Array<string>,
+        equipmentIdAnyOf?: Array<string>;
         /**
          * Search based on serialNumber. Wildcards are supported
          */
-        serialNumberAnyOf?: Array<string>,
+        serialNumberAnyOf?: Array<string>;
         /**
          * Search based on partNumber. Wildcards are supported
          */
-        vendorPartNumberAnyOf?: Array<string>,
+        vendorPartNumberAnyOf?: Array<string>;
         /**
          * Search based on materialId. Wildcards are supported
          */
-        materialIdAnyOf?: Array<string>,
+        materialIdAnyOf?: Array<string>;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Limit include-maintenance-records to only open maintenance records. Recommend using `true` in order to improve performance.
          */
-        includeOnlyOpenMaintenanceRecords?: boolean,
+        includeOnlyOpenMaintenanceRecords?: boolean;
         /**
          * Include work orders. If include-work-order-types is not supplied, all support types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Limit include-work-orders to only open work order. Recommend using `true` in order to improve performance.
          */
-        includeOnlyOpenWorkOrders?: boolean,
+        includeOnlyOpenWorkOrders?: boolean;
         /**
          * Include tag characteristics such as 'Kontrollkort gyldig til' and 'Equipment group'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Results to return pr page
          */
-        perPage?: number,
+        perPage?: number;
         /**
          * Page to fetch
          */
-        page?: number,
+        page?: number;
     }): CancelablePromise<Array<EquipmentSearchItem> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/equipment',
+            method: "GET",
+            url: "/equipment",
             query: {
-                'equipment-id-any-of': equipmentIdAnyOf,
-                'serial-number-any-of': serialNumberAnyOf,
-                'vendor-part-number-any-of': vendorPartNumberAnyOf,
-                'material-id-any-of': materialIdAnyOf,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-                'include-characteristics': includeCharacteristics,
-                'per-page': perPage,
-                'page': page,
+                "equipment-id-any-of": equipmentIdAnyOf,
+                "serial-number-any-of": serialNumberAnyOf,
+                "vendor-part-number-any-of": vendorPartNumberAnyOf,
+                "material-id-any-of": materialIdAnyOf,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types":
+                    includeMaintenanceRecordTypes,
+                "include-only-open-maintenance-records":
+                    includeOnlyOpenMaintenanceRecords,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-only-open-work-orders": includeOnlyOpenWorkOrders,
+                "include-characteristics": includeCharacteristics,
+                "per-page": perPage,
+                page: page,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -567,28 +598,30 @@ export class EquipmentService {
         /**
          * Filter to limit the work order by
          */
-        filter: 'recently-changed-reserved-equipment' | 'recently-changed-equipment',
+        filter:
+            | "recently-changed-reserved-equipment"
+            | "recently-changed-equipment";
         /**
          * The subsea work order to check if any reserved equipment has been changed recently
          */
-        subseaWorkOrderId?: string,
+        subseaWorkOrderId?: string;
         /**
          * Comma-separated list of equipment to check
          */
-        equipmentIds?: Array<string>,
+        equipmentIds?: Array<string>;
         /**
          * Earliest datetime to returned changed equipment for
          */
-        changedSinceDate?: string,
+        changedSinceDate?: string;
     }): CancelablePromise<EquipmentChangeLogs | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/equipment-change-log',
+            method: "GET",
+            url: "/equipment-change-log",
             query: {
-                'filter': filter,
-                'subsea-work-order-id': subseaWorkOrderId,
-                'equipment-ids': equipmentIds,
-                'changed-since-date': changedSinceDate,
+                filter: filter,
+                "subsea-work-order-id": subseaWorkOrderId,
+                "equipment-ids": equipmentIds,
+                "changed-since-date": changedSinceDate,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -596,5 +629,4 @@ export class EquipmentService {
             },
         });
     }
-
 }

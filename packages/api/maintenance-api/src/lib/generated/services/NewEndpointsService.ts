@@ -1,20 +1,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PlanningPlantRevision } from '../models/PlanningPlantRevision';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { RelationshipToDocument } from '../models/RelationshipToDocument';
-import type { RelationshipToDocumentsAdd } from '../models/RelationshipToDocumentsAdd';
-import type { TagAddClass } from '../models/TagAddClass';
-import type { TagBasic } from '../models/TagBasic';
-import type { TagCreate } from '../models/TagCreate';
+import type { PlanningPlantRevision } from "../models/PlanningPlantRevision";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { RelationshipToDocument } from "../models/RelationshipToDocument";
+import type { RelationshipToDocumentsAdd } from "../models/RelationshipToDocumentsAdd";
+import type { TagAddClass } from "../models/TagAddClass";
+import type { TagBasic } from "../models/TagBasic";
+import type { TagCreate } from "../models/TagCreate";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class NewEndpointsService {
-
     /**
      * Tag - Add characteristics
      * Add new characteristics to an existing tag.
@@ -39,23 +38,23 @@ export class NewEndpointsService {
         tagId,
         requestBody,
     }: {
-        plantId: string,
-        tagId: string,
+        plantId: string;
+        tagId: string;
         /**
          * Characteristics to add to tag.
          */
-        requestBody: Array<TagAddClass>,
+        requestBody: Array<TagAddClass>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/plants/{plant-id}/tags/{tag-id}/characteristics',
+            method: "POST",
+            url: "/plants/{plant-id}/tags/{tag-id}/characteristics",
             path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
+                "plant-id": plantId,
+                "tag-id": tagId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
@@ -84,15 +83,15 @@ export class NewEndpointsService {
         /**
          * Type of business object to add relationship to documents for
          */
-        relationshipType: 'tags',
-        sourceId: string,
+        relationshipType: "tags";
+        sourceId: string;
     }): CancelablePromise<Array<RelationshipToDocument> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/document-relationships/{relationship-type}/{source-id}',
+            method: "GET",
+            url: "/document-relationships/{relationship-type}/{source-id}",
             path: {
-                'relationship-type': relationshipType,
-                'source-id': sourceId,
+                "relationship-type": relationshipType,
+                "source-id": sourceId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -132,23 +131,23 @@ export class NewEndpointsService {
         /**
          * Type of business object to add relationship to documents for
          */
-        relationshipType: 'tags',
-        sourceId: string,
+        relationshipType: "tags";
+        sourceId: string;
         /**
          * Documents to add a relationship to from the `sourceId`
          */
-        requestBody: Array<RelationshipToDocumentsAdd>,
+        requestBody: Array<RelationshipToDocumentsAdd>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/document-relationships/{relationship-type}/{source-id}',
+            method: "POST",
+            url: "/document-relationships/{relationship-type}/{source-id}",
             path: {
-                'relationship-type': relationshipType,
-                'source-id': sourceId,
+                "relationship-type": relationshipType,
+                "source-id": sourceId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update document`,
@@ -190,23 +189,23 @@ export class NewEndpointsService {
         /**
          * Type of business object to replace relationships to documents for
          */
-        relationshipType: 'tags',
-        sourceId: string,
+        relationshipType: "tags";
+        sourceId: string;
         /**
          * Documents to replace a relationship to from the `sourceId`
          */
-        requestBody: Array<RelationshipToDocumentsAdd>,
+        requestBody: Array<RelationshipToDocumentsAdd>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/document-relationships/{relationship-type}/{source-id}',
+            method: "PUT",
+            url: "/document-relationships/{relationship-type}/{source-id}",
             path: {
-                'relationship-type': relationshipType,
-                'source-id': sourceId,
+                "relationship-type": relationshipType,
+                "source-id": sourceId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update document`,
@@ -244,22 +243,22 @@ export class NewEndpointsService {
         /**
          * Type of business object to remove relationship to documents for
          */
-        relationshipType: 'tags',
-        sourceId: string,
+        relationshipType: "tags";
+        sourceId: string;
         /**
          * Documents to remove a relationship to from the `sourceId`
          */
-        requestBody: Array<RelationshipToDocumentsAdd>,
+        requestBody: Array<RelationshipToDocumentsAdd>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'DELETE',
-            url: '/document-relationships/{relationship-type}/{source-id}',
+            method: "DELETE",
+            url: "/document-relationships/{relationship-type}/{source-id}",
             path: {
-                'relationship-type': relationshipType,
-                'source-id': sourceId,
+                "relationship-type": relationshipType,
+                "source-id": sourceId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update document`,
@@ -297,35 +296,36 @@ export class NewEndpointsService {
         includeWorkOrderOperations = false,
         includeOnlyWorkOrderOperationsWithMaterials = false,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Filter to limit revisions
          */
-        filter: 'by-revision-id',
+        filter: "by-revision-id";
         /**
          * Comma-separated list of revision-id
          */
-        revisionIdAnyOf?: string,
+        revisionIdAnyOf?: string;
         /**
          * Include the work order operations
          */
-        includeWorkOrderOperations?: boolean,
+        includeWorkOrderOperations?: boolean;
         /**
          * Limit the work order operations to only those which have material
          */
-        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean;
     }): CancelablePromise<Array<PlanningPlantRevision> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/revisions',
+            method: "GET",
+            url: "/plants/{plant-id}/revisions",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'filter': filter,
-                'revision-id-any-of': revisionIdAnyOf,
-                'include-work-order-operations': includeWorkOrderOperations,
-                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                filter: filter,
+                "revision-id-any-of": revisionIdAnyOf,
+                "include-work-order-operations": includeWorkOrderOperations,
+                "include-only-work-order-operations-with-materials":
+                    includeOnlyWorkOrderOperationsWithMaterials,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -354,25 +354,24 @@ export class NewEndpointsService {
         plantId,
         requestBody,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Tag to create
          */
-        requestBody: TagCreate,
+        requestBody: TagCreate;
     }): CancelablePromise<ProblemDetails | TagBasic> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/plants/{plant-id}/tags',
+            method: "POST",
+            url: "/plants/{plant-id}/tags",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Bad request, for example if missing required properties`,
                 403: `User does not have sufficient rights to create tag.`,
             },
         });
     }
-
 }

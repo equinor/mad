@@ -7,4 +7,3 @@ export type TagHierachyItemDeprecated = {
     parentTagId: string;
     catalogProfileId: string;
 };
-

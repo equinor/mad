@@ -2,15 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
-import type { MaintenanceRecordMinimal } from './MaintenanceRecordMinimal';
-import type { SASChangeWorkOrderBasic } from './SASChangeWorkOrderBasic';
-import type { Status } from './Status';
-import type { TagBasic } from './TagBasic';
-import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
-import type { WorkOrderOperation } from './WorkOrderOperation';
+import type { Attachment } from "./Attachment";
+import type { MaintenanceRecordMinimal } from "./MaintenanceRecordMinimal";
+import type { SASChangeWorkOrderBasic } from "./SASChangeWorkOrderBasic";
+import type { Status } from "./Status";
+import type { TagBasic } from "./TagBasic";
+import type { TagRelatedToWorkOrder } from "./TagRelatedToWorkOrder";
+import type { WorkOrderOperation } from "./WorkOrderOperation";
 
-export type SASChangeWorkOrder = (SASChangeWorkOrderBasic & {
+export type SASChangeWorkOrder = SASChangeWorkOrderBasic & {
     operations?: Array<WorkOrderOperation>;
     /**
      * All statuses possible with information about activation
@@ -29,5 +29,4 @@ export type SASChangeWorkOrder = (SASChangeWorkOrderBasic & {
      * Attachments to Work order operation
      */
     attachments?: Array<Attachment>;
-});
-
+};

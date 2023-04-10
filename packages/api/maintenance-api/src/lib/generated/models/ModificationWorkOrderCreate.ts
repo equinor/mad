@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderCreateAbstract } from './WorkOrderCreateAbstract';
-import type { WorkOrderOperationListCreate } from './WorkOrderOperationListCreate';
+import type { WorkOrderCreateAbstract } from "./WorkOrderCreateAbstract";
+import type { WorkOrderOperationListCreate } from "./WorkOrderOperationListCreate";
 
-export type ModificationWorkOrderCreate = (WorkOrderCreateAbstract & {
+export type ModificationWorkOrderCreate = WorkOrderCreateAbstract & {
     title: string;
     workCenterId: string;
     workCenterPlantId: string;
@@ -24,5 +24,4 @@ export type ModificationWorkOrderCreate = (WorkOrderCreateAbstract & {
      */
     additionalCostWBSId?: string;
     operations?: Array<WorkOrderOperationListCreate>;
-});
-
+};

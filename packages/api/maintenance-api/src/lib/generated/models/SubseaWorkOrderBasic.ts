@@ -2,14 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { SubseaWorkOrderSimple } from './SubseaWorkOrderSimple';
+import type { SubseaWorkOrderSimple } from "./SubseaWorkOrderSimple";
 
-export type SubseaWorkOrderBasic = (SubseaWorkOrderSimple & {
+export type SubseaWorkOrderBasic = SubseaWorkOrderSimple & {
     text: string;
     /**
      * The type of work order it is an instance of
      */
-    workOrderTypeId: 'subseaWorkOrder';
+    workOrderTypeId: "subseaWorkOrder";
     plannerGroup: string;
     workCenter: string;
     /**
@@ -20,5 +20,4 @@ export type SubseaWorkOrderBasic = (SubseaWorkOrderSimple & {
     projectId: string;
     costNetworkId: string;
     costNetworkOperationId: string;
-});
-
+};

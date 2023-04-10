@@ -1,21 +1,20 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { GenericWorkOrderJsonPatch } from '../models/GenericWorkOrderJsonPatch';
-import type { PreventiveWorkOrder } from '../models/PreventiveWorkOrder';
-import type { PreventiveWorkOrderSimple } from '../models/PreventiveWorkOrderSimple';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { StatusUpdate } from '../models/StatusUpdate';
-import type { WorkOrderOperationCreate } from '../models/WorkOrderOperationCreate';
-import type { WorkOrderOperationJsonPatchDeprecated } from '../models/WorkOrderOperationJsonPatchDeprecated';
-import type { WorkOrderOperationTimeTicketAdd } from '../models/WorkOrderOperationTimeTicketAdd';
+import type { GenericWorkOrderJsonPatch } from "../models/GenericWorkOrderJsonPatch";
+import type { PreventiveWorkOrder } from "../models/PreventiveWorkOrder";
+import type { PreventiveWorkOrderSimple } from "../models/PreventiveWorkOrderSimple";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { StatusUpdate } from "../models/StatusUpdate";
+import type { WorkOrderOperationCreate } from "../models/WorkOrderOperationCreate";
+import type { WorkOrderOperationJsonPatchDeprecated } from "../models/WorkOrderOperationJsonPatchDeprecated";
+import type { WorkOrderOperationTimeTicketAdd } from "../models/WorkOrderOperationTimeTicketAdd";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class PreventiveWorkOrdersService {
-
     /**
      * Preventive Work order - Lookup
      * ### Overview
@@ -120,80 +119,81 @@ export class PreventiveWorkOrdersService {
         includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include technical feedback required to be completed as part of work order execution.
          */
-        includeTechnicalFeedback?: boolean,
+        includeTechnicalFeedback?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list and technical feedback)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include details for maintenance plan
          */
-        includeMaintenancePlanDetails?: boolean,
+        includeMaintenancePlanDetails?: boolean;
         /**
          * Include Work order attachments (including PRT attachments)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
         /**
          * Include URL references from PRT
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include related measuring points from PRT
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean,
+        includeMeasurements?: boolean;
     }): CancelablePromise<PreventiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/preventive-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/preventive-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-technical-feedback': includeTechnicalFeedback,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-plan-details': includeMaintenancePlanDetails,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
-                'include-url-references': includeUrlReferences,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
+                "include-operations": includeOperations,
+                "include-technical-feedback": includeTechnicalFeedback,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-plan-details":
+                    includeMaintenancePlanDetails,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
+                "include-url-references": includeUrlReferences,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -242,20 +242,20 @@ export class PreventiveWorkOrdersService {
         workOrderId,
         requestBody,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * The information to be updated
          */
-        requestBody: GenericWorkOrderJsonPatch,
+        requestBody: GenericWorkOrderJsonPatch;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-orders/preventive-work-orders/{work-order-id}',
+            method: "PATCH",
+            url: "/work-orders/preventive-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update work order operation`,
@@ -279,21 +279,21 @@ export class PreventiveWorkOrdersService {
         workOrderId,
         requestBody,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Operations to add to existing Work order
          */
-        requestBody: Array<WorkOrderOperationCreate>,
+        requestBody: Array<WorkOrderOperationCreate>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/preventive-work-orders/{work-order-id}/operations',
+            method: "POST",
+            url: "/work-orders/preventive-work-orders/{work-order-id}/operations",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add operations to work order`,
@@ -325,22 +325,22 @@ export class PreventiveWorkOrdersService {
         operation,
         requestBody,
     }: {
-        workOrderId: string,
-        operation: string,
+        workOrderId: string;
+        operation: string;
         /**
          * Work order operation to update
          */
-        requestBody: WorkOrderOperationJsonPatchDeprecated,
+        requestBody: WorkOrderOperationJsonPatchDeprecated;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-orders/preventive-work-orders/{work-order-id}/operations/{operation}',
+            method: "PATCH",
+            url: "/work-orders/preventive-work-orders/{work-order-id}/operations/{operation}",
             path: {
-                'work-order-id': workOrderId,
-                'operation': operation,
+                "work-order-id": workOrderId,
+                operation: operation,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update work order operation`,
@@ -366,22 +366,22 @@ export class PreventiveWorkOrdersService {
         operation,
         requestBody,
     }: {
-        workOrderId: string,
-        operation: string,
+        workOrderId: string;
+        operation: string;
         /**
          * Time ticket to add to operation
          */
-        requestBody: WorkOrderOperationTimeTicketAdd,
+        requestBody: WorkOrderOperationTimeTicketAdd;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/preventive-work-orders/{work-order-id}/operations/{operation}/time-tickets',
+            method: "POST",
+            url: "/work-orders/preventive-work-orders/{work-order-id}/operations/{operation}/time-tickets",
             path: {
-                'work-order-id': workOrderId,
-                'operation': operation,
+                "work-order-id": workOrderId,
+                operation: operation,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add operations to work order`,
@@ -402,15 +402,15 @@ export class PreventiveWorkOrdersService {
         recordId,
         attachmentId,
     }: {
-        recordId: string,
-        attachmentId: string,
+        recordId: string;
+        attachmentId: string;
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/preventive-work-orders/{record-id}/attachments/{attachment-id}',
+            method: "GET",
+            url: "/work-orders/preventive-work-orders/{record-id}/attachments/{attachment-id}",
             path: {
-                'record-id': recordId,
-                'attachment-id': attachmentId,
+                "record-id": recordId,
+                "attachment-id": attachmentId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -466,22 +466,22 @@ export class PreventiveWorkOrdersService {
         statusId,
         requestBody,
     }: {
-        workOrderId: string,
-        statusId: string,
+        workOrderId: string;
+        statusId: string;
         /**
          * Work order status to update
          */
-        requestBody: StatusUpdate,
+        requestBody: StatusUpdate;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-orders/preventive-work-orders/{work-order-id}/statuses/{status-id}',
+            method: "PATCH",
+            url: "/work-orders/preventive-work-orders/{work-order-id}/statuses/{status-id}",
             path: {
-                'work-order-id': workOrderId,
-                'status-id': statusId,
+                "work-order-id": workOrderId,
+                "status-id": statusId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 403: `User does not have sufficient rights to update Work order`,
                 404: `The specified resource was not found`,
@@ -562,75 +562,78 @@ export class PreventiveWorkOrdersService {
         /**
          * Filter to limit the failure reports by
          */
-        filter: 'recent-status-activations' | 'before-planned-date' | 'by-maintenance-type-id' | 'maintenance-plan-history',
+        filter:
+            | "recent-status-activations"
+            | "before-planned-date"
+            | "by-maintenance-type-id"
+            | "maintenance-plan-history";
         /**
          * Status
          */
-        statusId?: string,
+        statusId?: string;
         /**
          * Plant
          */
-        plantId?: string,
+        plantId?: string;
         /**
          * Define how many days from the current day to include results for. 0 if only include for today
          */
-        maxDaysSinceActivation?: number,
+        maxDaysSinceActivation?: number;
         /**
          * Preventive Work order id
          */
-        workOrderId?: string,
+        workOrderId?: string;
         /**
          * Earliest date to find maintenance plan history for (optional for filter)
          */
-        earliestDate?: string,
+        earliestDate?: string;
         /**
          * Maximal numbers of results returned (optional for filter)
          */
-        maxWorkOrders?: number,
+        maxWorkOrders?: number;
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
-        locationId?: string,
+        locationId?: string;
         /**
          * Deprecated. Use locationId instead
          * @deprecated
          */
-        areaId?: string,
+        areaId?: string;
         /**
          * Earliest date to find maintenance plan history for (optional for filter)
          */
-        plannedDate?: string,
+        plannedDate?: string;
         /**
          * system-id of the preventive work order
          * @deprecated
          */
-        systemId?: string,
+        systemId?: string;
         /**
          * Type of maintenance for the work order
          */
-        maintenanceTypeId?: string,
+        maintenanceTypeId?: string;
     }): CancelablePromise<Array<PreventiveWorkOrderSimple> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/preventive-work-orders',
+            method: "GET",
+            url: "/work-orders/preventive-work-orders",
             query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'work-order-id': workOrderId,
-                'earliest-date': earliestDate,
-                'max-work-orders': maxWorkOrders,
-                'location-id': locationId,
-                'area-id': areaId,
-                'planned-date': plannedDate,
-                'system-id': systemId,
-                'maintenance-type-id': maintenanceTypeId,
+                filter: filter,
+                "status-id": statusId,
+                "plant-id": plantId,
+                "max-days-since-activation": maxDaysSinceActivation,
+                "work-order-id": workOrderId,
+                "earliest-date": earliestDate,
+                "max-work-orders": maxWorkOrders,
+                "location-id": locationId,
+                "area-id": areaId,
+                "planned-date": plannedDate,
+                "system-id": systemId,
+                "maintenance-type-id": maintenanceTypeId,
             },
             errors: {
                 404: `The specified resource was not found`,
             },
         });
     }
-
 }

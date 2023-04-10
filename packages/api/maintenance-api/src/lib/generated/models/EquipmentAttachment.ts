@@ -24,4 +24,3 @@ export type EquipmentAttachment = {
         enclosure?: string;
     };
 };
-

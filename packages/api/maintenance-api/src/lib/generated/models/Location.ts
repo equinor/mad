@@ -9,4 +9,3 @@ export type Location = {
     locationId: string;
     location: string;
 };
-

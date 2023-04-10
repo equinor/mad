@@ -24,4 +24,3 @@ export type PlantBasic = {
      */
     country?: string;
 };
-

@@ -17,7 +17,7 @@ export type ModificationProposalSimple = {
      * * null - No priority defined
      *
      */
-    priorityId: 'H' | 'M' | 'L' | null;
+    priorityId: "H" | "M" | "L" | null;
     title: string;
     isSimpleProposal: boolean;
     /**
@@ -44,4 +44,3 @@ export type ModificationProposalSimple = {
      */
     completedDateTime: string | null;
 };
-

@@ -13,4 +13,3 @@ export type MaintenanceRecordActivity = {
     startDateTime: string | null;
     endDateTime: string | null;
 };
-

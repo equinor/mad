@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { EquipmentRelationshipToWorkOrder } from './EquipmentRelationshipToWorkOrder';
-import type { SASChangeWorkOrderSimple } from './SASChangeWorkOrderSimple';
+import type { EquipmentRelationshipToWorkOrder } from "./EquipmentRelationshipToWorkOrder";
+import type { SASChangeWorkOrderSimple } from "./SASChangeWorkOrderSimple";
 
-export type SASChangeWorkOrderSimpleWithRelationship = (SASChangeWorkOrderSimple & {
-    equipmentRelationship: EquipmentRelationshipToWorkOrder;
-});
-
+export type SASChangeWorkOrderSimpleWithRelationship =
+    SASChangeWorkOrderSimple & {
+        equipmentRelationship: EquipmentRelationshipToWorkOrder;
+    };

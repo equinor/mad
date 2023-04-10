@@ -23,4 +23,4 @@ const fontMap = {
 export const useEDS = () => {
     const isLoaded = useFonts(fontMap);
     return isLoaded;
-}
+};

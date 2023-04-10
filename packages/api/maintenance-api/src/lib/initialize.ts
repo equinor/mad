@@ -1,8 +1,8 @@
 import { OpenAPI } from "./generated/core/OpenAPI";
 
 type ApiConfig = {
-  baseUrl: string;
-  tokenFetcher: () => Promise<string>;
+    baseUrl: string;
+    tokenFetcher: () => Promise<string>;
 };
 
 /**
@@ -14,11 +14,11 @@ type ApiConfig = {
  * @param {() => Promise<string>} configuration.tokenFetcher - The method for fetching tokens. This is called once for every endpoint.
  */
 export const initializeMaintenanceApi = ({
-  baseUrl,
-  tokenFetcher,
+    baseUrl,
+    tokenFetcher,
 }: ApiConfig) => {
-  OpenAPI.BASE = baseUrl;
-  OpenAPI.TOKEN = tokenFetcher;
+    OpenAPI.BASE = baseUrl;
+    OpenAPI.TOKEN = tokenFetcher;
 };
 
 /**

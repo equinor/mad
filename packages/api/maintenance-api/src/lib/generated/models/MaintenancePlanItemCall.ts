@@ -12,4 +12,3 @@ export type MaintenancePlanItemCall = {
     callDate?: string | null;
     completionDate?: string | null;
 };
-

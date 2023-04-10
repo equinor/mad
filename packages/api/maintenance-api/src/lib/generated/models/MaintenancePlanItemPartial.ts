@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenancePlanItemBasic } from './MaintenancePlanItemBasic';
-import type { MaintenancePlanItemCall } from './MaintenancePlanItemCall';
+import type { MaintenancePlanItemBasic } from "./MaintenancePlanItemBasic";
+import type { MaintenancePlanItemCall } from "./MaintenancePlanItemCall";
 
-export type MaintenancePlanItemPartial = (MaintenancePlanItemBasic & {
+export type MaintenancePlanItemPartial = MaintenancePlanItemBasic & {
     /**
      * The maintenance strategy id used
      */
@@ -19,5 +19,4 @@ export type MaintenancePlanItemPartial = (MaintenancePlanItemBasic & {
      */
     status: string;
     calls?: Array<MaintenancePlanItemCall>;
-});
-
+};

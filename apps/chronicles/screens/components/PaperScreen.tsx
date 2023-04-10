@@ -1,6 +1,5 @@
-import { Paper } from "@equinor/mad-components"
-import { Text, ScrollView } from "react-native"
-
+import { Paper } from "@equinor/mad-components";
+import { Text, ScrollView } from "react-native";
 
 export const PaperScreen = () => {
     return (
@@ -13,7 +12,8 @@ export const PaperScreen = () => {
                 width: "100%",
                 justifyContent: "space-evenly",
             }}
-            style={{ backgroundColor: "#D0D0D0" }}>
+            style={{ backgroundColor: "#D0D0D0" }}
+        >
             <Paper elevation="none" style={{ width: "auto", height: 50 }}>
                 <Text>none</Text>
             </Paper>
@@ -26,12 +26,18 @@ export const PaperScreen = () => {
             <Paper elevation="sticky" style={{ width: "auto", height: 50 }}>
                 <Text>sticky</Text>
             </Paper>
-            <Paper elevation="temporary_nav" style={{ width: "auto", height: 50 }}>
+            <Paper
+                elevation="temporary_nav"
+                style={{ width: "auto", height: 50 }}
+            >
                 <Text>temporary_nav</Text>
             </Paper>
-            <Paper elevation="above_scrim" style={{ width: "auto", height: 50 }}>
+            <Paper
+                elevation="above_scrim"
+                style={{ width: "auto", height: 50 }}
+            >
                 <Text>above_scrim</Text>
             </Paper>
         </ScrollView>
     );
-}
+};

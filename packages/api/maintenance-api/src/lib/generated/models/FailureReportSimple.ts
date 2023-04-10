@@ -9,7 +9,7 @@ export type FailureReportSimple = {
     equipmentId: string;
     title: string;
     requiredEndDate: string | null;
-    failureImpactId: 'D' | 'S' | 'U' | 'X' | null;
+    failureImpactId: "D" | "S" | "U" | "X" | null;
     isBreakdown: boolean;
     /**
      * Unsafe failure mode identified for failure report ref `R-12137 - Give immediate warning of unsafe failure modes`
@@ -18,7 +18,7 @@ export type FailureReportSimple = {
     /**
      * Unsafe failure mode status for failure report ref `R-12137 - Give immediate warning of unsafe failure modes`. Value `IN_PAST` is used if tag or failure mode has been modified since creation and the criterias for unsafe failure mode are no longer fulfilled.
      */
-    unsafeFailureModeStatus: 'OUTSTANDING' | 'MADE_SAFE' | 'IN_PAST' | null;
+    unsafeFailureModeStatus: "OUTSTANDING" | "MADE_SAFE" | "IN_PAST" | null;
     /**
      * Structured location within the plant where the tag is located
      */
@@ -58,4 +58,3 @@ export type FailureReportSimple = {
     failureEndDateTime: string | null;
     workCenterId: string | null;
 };
-

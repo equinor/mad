@@ -58,4 +58,3 @@ export type PreventiveWorkOrderSimple = {
     ProductionCritical?: boolean;
     HSECritical?: boolean;
 };
-

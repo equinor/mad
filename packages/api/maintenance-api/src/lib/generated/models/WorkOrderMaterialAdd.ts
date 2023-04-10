@@ -20,4 +20,3 @@ export type WorkOrderMaterialAdd = {
      */
     requiredDatetime?: string | null;
 };
-

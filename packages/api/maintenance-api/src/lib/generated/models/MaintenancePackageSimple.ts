@@ -20,4 +20,3 @@ export type MaintenancePackageSimple = {
      */
     cycle: string;
 };
-

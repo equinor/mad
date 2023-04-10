@@ -1,16 +1,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CertificationReport } from '../models/CertificationReport';
-import type { CertificationReportSimple } from '../models/CertificationReportSimple';
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { CertificationReport } from "../models/CertificationReport";
+import type { CertificationReportSimple } from "../models/CertificationReportSimple";
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class CertificationReportsService {
-
     /**
      * Certification report - Lookup
      * ### Overview
@@ -50,45 +49,45 @@ export class CertificationReportsService {
         /**
          * The recordId of the certification report
          */
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include details about tag for failure report
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include measuring points related to tagId/equipmentId
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
     }): CancelablePromise<CertificationReport | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/certification-reports/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/certification-reports/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-attachments': includeAttachments,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-created-by-details': includeCreatedByDetails,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-attachments": includeAttachments,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-created-by-details": includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -155,40 +154,39 @@ export class CertificationReportsService {
         /**
          * Filter to limit the certification reports by
          */
-        filter: 'recent-status-activations' | 'by-tag' | 'by-equipment',
+        filter: "recent-status-activations" | "by-tag" | "by-equipment";
         /**
          * Status
          */
-        statusId?: string,
+        statusId?: string;
         /**
          * Plant
          */
-        plantId?: string,
+        plantId?: string;
         /**
          * Define how many days from the current day to include results for. 0 if only include for today
          */
-        maxDaysSinceActivation?: number,
+        maxDaysSinceActivation?: number;
         /**
          * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
          */
-        createdAfterDatetime?: string,
+        createdAfterDatetime?: string;
         /**
          * Filter based on if it's completed or open
          */
-        includeCompleted?: boolean,
+        includeCompleted?: boolean;
     }): CancelablePromise<Array<CertificationReportSimple> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/certification-reports',
+            method: "GET",
+            url: "/maintenance-records/certification-reports",
             query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'created-after-datetime': createdAfterDatetime,
-                'include-completed': includeCompleted,
+                filter: filter,
+                "status-id": statusId,
+                "plant-id": plantId,
+                "max-days-since-activation": maxDaysSinceActivation,
+                "created-after-datetime": createdAfterDatetime,
+                "include-completed": includeCompleted,
             },
         });
     }
-
 }

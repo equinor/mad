@@ -1,31 +1,30 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ActivityReport } from '../models/ActivityReport';
-import type { CertificationReport } from '../models/CertificationReport';
-import type { CorrectiveWorkOrder } from '../models/CorrectiveWorkOrder';
-import type { Equipment } from '../models/Equipment';
-import type { EquipmentSearchItem } from '../models/EquipmentSearchItem';
-import type { FailureReport } from '../models/FailureReport';
-import type { FailureReportBasic } from '../models/FailureReportBasic';
-import type { FailureReportCreate } from '../models/FailureReportCreate';
-import type { FailureReportSimple } from '../models/FailureReportSimple';
-import type { MaintenanceRecordList } from '../models/MaintenanceRecordList';
-import type { ModificationProposal } from '../models/ModificationProposal';
-import type { PreventiveWorkOrder } from '../models/PreventiveWorkOrder';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { RelationshipToMaintenanceRecordAdd } from '../models/RelationshipToMaintenanceRecordAdd';
-import type { Tag } from '../models/Tag';
-import type { TechnicalClarification } from '../models/TechnicalClarification';
-import type { TechnicalInformationUpdateRequest } from '../models/TechnicalInformationUpdateRequest';
-import type { WorkOrderOptimizedForQuery } from '../models/WorkOrderOptimizedForQuery';
+import type { ActivityReport } from "../models/ActivityReport";
+import type { CertificationReport } from "../models/CertificationReport";
+import type { CorrectiveWorkOrder } from "../models/CorrectiveWorkOrder";
+import type { Equipment } from "../models/Equipment";
+import type { EquipmentSearchItem } from "../models/EquipmentSearchItem";
+import type { FailureReport } from "../models/FailureReport";
+import type { FailureReportBasic } from "../models/FailureReportBasic";
+import type { FailureReportCreate } from "../models/FailureReportCreate";
+import type { FailureReportSimple } from "../models/FailureReportSimple";
+import type { MaintenanceRecordList } from "../models/MaintenanceRecordList";
+import type { ModificationProposal } from "../models/ModificationProposal";
+import type { PreventiveWorkOrder } from "../models/PreventiveWorkOrder";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { RelationshipToMaintenanceRecordAdd } from "../models/RelationshipToMaintenanceRecordAdd";
+import type { Tag } from "../models/Tag";
+import type { TechnicalClarification } from "../models/TechnicalClarification";
+import type { TechnicalInformationUpdateRequest } from "../models/TechnicalInformationUpdateRequest";
+import type { WorkOrderOptimizedForQuery } from "../models/WorkOrderOptimizedForQuery";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class ModifiedEndpointsService {
-
     /**
      * Maintenance records - Search
      * ### Overview
@@ -90,43 +89,54 @@ export class ModifiedEndpointsService {
         /**
          * Filter to limit the failure reports by
          */
-        filter: 'by-external-partner-record-id' | 'my-recent-maintenance-records' | 'recently-changed',
+        filter:
+            | "by-external-partner-record-id"
+            | "my-recent-maintenance-records"
+            | "recently-changed";
         /**
          * If failure report was initially created in an external system, this represent the unique id of it
          */
-        externalPartnerRecordId?: string,
+        externalPartnerRecordId?: string;
         /**
          * Optional parameter to limit the response to only maintenance records changed after changed-since-datetime but before this datetime
          */
-        createdAfterDatetime?: string,
+        createdAfterDatetime?: string;
         /**
          * Plant
          */
-        plantId?: string,
+        plantId?: string;
         /**
          * Earliest datetime to returned changed work orders for
          */
-        changedSinceDatetime?: string,
+        changedSinceDatetime?: string;
         /**
          * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
          */
-        beforeDatetime?: string,
+        beforeDatetime?: string;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
          */
-        includeMaintenanceRecordTypes?: Array<'modification-proposal' | 'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "modification-proposal"
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+        >;
     }): CancelablePromise<MaintenanceRecordList | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records',
+            method: "GET",
+            url: "/maintenance-records",
             query: {
-                'filter': filter,
-                'external-partner-record-id': externalPartnerRecordId,
-                'created-after-datetime': createdAfterDatetime,
-                'plant-id': plantId,
-                'changed-since-datetime': changedSinceDatetime,
-                'before-datetime': beforeDatetime,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
+                filter: filter,
+                "external-partner-record-id": externalPartnerRecordId,
+                "created-after-datetime": createdAfterDatetime,
+                "plant-id": plantId,
+                "changed-since-datetime": changedSinceDatetime,
+                "before-datetime": beforeDatetime,
+                "include-maintenance-record-types":
+                    includeMaintenanceRecordTypes,
             },
             errors: {
                 400: `Bad request, for example if \`before-datetime\` is before \`changed-since-datetime\``,
@@ -213,92 +223,107 @@ export class ModifiedEndpointsService {
         includeStatusDetails = false,
         includeLinearData = false,
     }: {
-        plantId: string,
-        tagId: string,
+        plantId: string;
+        tagId: string;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Include work orders. If include-work-order-types is not supplied, all support types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Include installed equipment
          */
-        includeInstalledEquipment?: boolean,
+        includeInstalledEquipment?: boolean;
         /**
          * Include possible detection methods, failure modes and failure mechanisms
          */
-        includeCatalogProfileDetails?: boolean,
+        includeCatalogProfileDetails?: boolean;
         /**
          * Include Maintenance Plan items this functional location is part of
          */
-        includeMaintenancePlanItems?: boolean,
+        includeMaintenancePlanItems?: boolean;
         /**
          * Include measuring points for this tag
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Include bill of materials (also known as structure list) for tag and installed equipment
          */
-        includeBillOfMaterials?: boolean,
+        includeBillOfMaterials?: boolean;
         /**
          * Include equipment or tag attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include URL references for equipment or tag
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include linear data
          */
-        includeLinearData?: boolean,
+        includeLinearData?: boolean;
     }): CancelablePromise<Tag | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tags/{tag-id}',
+            method: "GET",
+            url: "/plants/{plant-id}/tags/{tag-id}",
             path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
+                "plant-id": plantId,
+                "tag-id": tagId,
             },
             query: {
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types":
+                    includeMaintenanceRecordTypes,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-installed-equipment": includeInstalledEquipment,
+                "include-catalog-profile-details": includeCatalogProfileDetails,
+                "include-maintenance-plan-items": includeMaintenancePlanItems,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-characteristics": includeCharacteristics,
+                "include-bill-of-materials": includeBillOfMaterials,
+                "include-attachments": includeAttachments,
+                "include-url-references": includeUrlReferences,
+                "include-status-details": includeStatusDetails,
+                "include-linear-data": includeLinearData,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -383,80 +408,96 @@ export class ModifiedEndpointsService {
         /**
          * The unique equipmentId in Equinor's system
          */
-        equipmentId: string,
+        equipmentId: string;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Limit include-maintenance-records to only open maintenance records
          */
-        includeOnlyOpenMaintenanceRecords?: boolean,
+        includeOnlyOpenMaintenanceRecords?: boolean;
         /**
          * Include work orders. If include-work-order-types is not supplied, all support types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Limit include-work-orders to only open work order
          */
-        includeOnlyOpenWorkOrders?: boolean,
+        includeOnlyOpenWorkOrders?: boolean;
         /**
          * Include possible detection methods, failure modes and failure mechanisms
          */
-        includeCatalogProfileDetails?: boolean,
+        includeCatalogProfileDetails?: boolean;
         /**
          * Include equipment characteristics such as 'Kontrollkort gyldig til' and 'Equipment group'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Include equipment or tag attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include URL references for equipment or tag
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include measuring points for this tag
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
     }): CancelablePromise<Equipment | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/equipment/{equipment-id}',
+            method: "GET",
+            url: "/equipment/{equipment-id}",
             path: {
-                'equipment-id': equipmentId,
+                "equipment-id": equipmentId,
             },
             query: {
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-characteristics': includeCharacteristics,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-status-details': includeStatusDetails,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types":
+                    includeMaintenanceRecordTypes,
+                "include-only-open-maintenance-records":
+                    includeOnlyOpenMaintenanceRecords,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-only-open-work-orders": includeOnlyOpenWorkOrders,
+                "include-catalog-profile-details": includeCatalogProfileDetails,
+                "include-characteristics": includeCharacteristics,
+                "include-attachments": includeAttachments,
+                "include-url-references": includeUrlReferences,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-status-details": includeStatusDetails,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -541,73 +582,89 @@ export class ModifiedEndpointsService {
         /**
          * Search based on equipmentIds. Wildcards are supported
          */
-        equipmentIdAnyOf?: Array<string>,
+        equipmentIdAnyOf?: Array<string>;
         /**
          * Search based on serialNumber. Wildcards are supported
          */
-        serialNumberAnyOf?: Array<string>,
+        serialNumberAnyOf?: Array<string>;
         /**
          * Search based on partNumber. Wildcards are supported
          */
-        vendorPartNumberAnyOf?: Array<string>,
+        vendorPartNumberAnyOf?: Array<string>;
         /**
          * Search based on materialId. Wildcards are supported
          */
-        materialIdAnyOf?: Array<string>,
+        materialIdAnyOf?: Array<string>;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Limit include-maintenance-records to only open maintenance records. Recommend using `true` in order to improve performance.
          */
-        includeOnlyOpenMaintenanceRecords?: boolean,
+        includeOnlyOpenMaintenanceRecords?: boolean;
         /**
          * Include work orders. If include-work-order-types is not supplied, all support types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Limit include-work-orders to only open work order. Recommend using `true` in order to improve performance.
          */
-        includeOnlyOpenWorkOrders?: boolean,
+        includeOnlyOpenWorkOrders?: boolean;
         /**
          * Include tag characteristics such as 'Kontrollkort gyldig til' and 'Equipment group'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Results to return pr page
          */
-        perPage?: number,
+        perPage?: number;
         /**
          * Page to fetch
          */
-        page?: number,
+        page?: number;
     }): CancelablePromise<Array<EquipmentSearchItem> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/equipment',
+            method: "GET",
+            url: "/equipment",
             query: {
-                'equipment-id-any-of': equipmentIdAnyOf,
-                'serial-number-any-of': serialNumberAnyOf,
-                'vendor-part-number-any-of': vendorPartNumberAnyOf,
-                'material-id-any-of': materialIdAnyOf,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-                'include-characteristics': includeCharacteristics,
-                'per-page': perPage,
-                'page': page,
+                "equipment-id-any-of": equipmentIdAnyOf,
+                "serial-number-any-of": serialNumberAnyOf,
+                "vendor-part-number-any-of": vendorPartNumberAnyOf,
+                "material-id-any-of": materialIdAnyOf,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types":
+                    includeMaintenanceRecordTypes,
+                "include-only-open-maintenance-records":
+                    includeOnlyOpenMaintenanceRecords,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-only-open-work-orders": includeOnlyOpenWorkOrders,
+                "include-characteristics": includeCharacteristics,
+                "per-page": perPage,
+                page: page,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -720,80 +777,81 @@ export class ModifiedEndpointsService {
         includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include technical feedback required to be completed as part of work order execution.
          */
-        includeTechnicalFeedback?: boolean,
+        includeTechnicalFeedback?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list and technical feedback)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include details for maintenance plan
          */
-        includeMaintenancePlanDetails?: boolean,
+        includeMaintenancePlanDetails?: boolean;
         /**
          * Include Work order attachments (including PRT attachments)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
         /**
          * Include URL references from PRT
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include related measuring points from PRT
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean,
+        includeMeasurements?: boolean;
     }): CancelablePromise<PreventiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/preventive-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/preventive-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-technical-feedback': includeTechnicalFeedback,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-plan-details': includeMaintenancePlanDetails,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
-                'include-url-references': includeUrlReferences,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
+                "include-operations": includeOperations,
+                "include-technical-feedback": includeTechnicalFeedback,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-plan-details":
+                    includeMaintenancePlanDetails,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
+                "include-url-references": includeUrlReferences,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -896,75 +954,75 @@ export class ModifiedEndpointsService {
         includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include technical feedback required to be completed as part of work order execution.
          */
-        includeTechnicalFeedback?: boolean,
+        includeTechnicalFeedback?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include Work order attachments (including PRT attachments)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
         /**
          * Include URL references from PRT
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include related measuring points from PRT
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean,
+        includeMeasurements?: boolean;
     }): CancelablePromise<CorrectiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/corrective-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/corrective-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-technical-feedback': includeTechnicalFeedback,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
-                'include-url-references': includeUrlReferences,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
+                "include-operations": includeOperations,
+                "include-technical-feedback": includeTechnicalFeedback,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
+                "include-url-references": includeUrlReferences,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`correctiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -1018,7 +1076,7 @@ export class ModifiedEndpointsService {
      */
     public static searchTags({
         plantId,
-        filter = 'by-tag-prefix',
+        filter = "by-tag-prefix",
         tagPrefix,
         tagIdsAnyOf,
         includeMaintenanceRecords = false,
@@ -1037,102 +1095,117 @@ export class ModifiedEndpointsService {
         perPage = 100,
         page = 1,
     }: {
-        plantId: string,
-        filter?: 'by-tag-ids' | 'by-tag-prefix' | null,
+        plantId: string;
+        filter?: "by-tag-ids" | "by-tag-prefix" | null;
         /**
          * The first few characters of the tag, required if filter is empty or `by-tag-prefix`
          */
-        tagPrefix?: string | null,
+        tagPrefix?: string | null;
         /**
          * The tagIds as a comma separated list, required if filter is `by-tag-ids`
          */
-        tagIdsAnyOf?: Array<string>,
+        tagIdsAnyOf?: Array<string>;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Include work orders. If include-work-order-types is not supplied, all support types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Include installed equipment
          */
-        includeInstalledEquipment?: boolean,
+        includeInstalledEquipment?: boolean;
         /**
          * Include possible detection methods, failure modes and failure mechanisms
          */
-        includeCatalogProfileDetails?: boolean,
+        includeCatalogProfileDetails?: boolean;
         /**
          * Include Maintenance Plan items this functional location is part of
          */
-        includeMaintenancePlanItems?: boolean,
+        includeMaintenancePlanItems?: boolean;
         /**
          * Include measuring points for this tag
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Include bill of materials (also known as structure list) for tag and installed equipment
          */
-        includeBillOfMaterials?: boolean,
+        includeBillOfMaterials?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include linear data
          */
-        includeLinearData?: boolean,
+        includeLinearData?: boolean;
         /**
          * Results to return pr page
          */
-        perPage?: number,
+        perPage?: number;
         /**
          * Page to fetch
          */
-        page?: number,
+        page?: number;
     }): CancelablePromise<Array<Tag> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tags',
+            method: "GET",
+            url: "/plants/{plant-id}/tags",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'filter': filter,
-                'tag-prefix': tagPrefix,
-                'tag-ids-any-of': tagIdsAnyOf,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
-                'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
-                'per-page': perPage,
-                'page': page,
+                filter: filter,
+                "tag-prefix": tagPrefix,
+                "tag-ids-any-of": tagIdsAnyOf,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types":
+                    includeMaintenanceRecordTypes,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-installed-equipment": includeInstalledEquipment,
+                "include-catalog-profile-details": includeCatalogProfileDetails,
+                "include-maintenance-plan-items": includeMaintenancePlanItems,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-characteristics": includeCharacteristics,
+                "include-bill-of-materials": includeBillOfMaterials,
+                "include-status-details": includeStatusDetails,
+                "include-linear-data": includeLinearData,
+                "per-page": perPage,
+                page: page,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -1211,148 +1284,168 @@ export class ModifiedEndpointsService {
         /**
          * Query based on planningPlantIds (any-of)
          */
-        planningPlants: Array<string>,
+        planningPlants: Array<string>;
         /**
          * Query based on keywords in title (case insensitive)
          */
-        keywordsAllOf?: Array<string>,
+        keywordsAllOf?: Array<string>;
         /**
          * Query based on keywords in title (case insensitive)
          */
-        keywordsAnyOf?: Array<string>,
+        keywordsAnyOf?: Array<string>;
         /**
          * Query based on keywords in title (case insensitive)
          */
-        keywordsNot?: Array<string>,
+        keywordsNot?: Array<string>;
         /**
          * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        tagsAllOf?: Array<string>,
+        tagsAllOf?: Array<string>;
         /**
          * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        tagsAnyOf?: Array<string>,
+        tagsAnyOf?: Array<string>;
         /**
          * Query based on tagIds. Expressions with wildcards can be used for example `AE55*`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        tagsNot?: Array<string>,
+        tagsNot?: Array<string>;
         /**
          * Query based on workCenterIds
          */
-        workCentersAnyOf?: Array<string>,
+        workCentersAnyOf?: Array<string>;
         /**
          * Query based on workCenterIds
          */
-        workCentersNot?: Array<string>,
+        workCentersNot?: Array<string>;
         /**
          * Query based on systemIds
          */
-        systemsAnyOf?: Array<string>,
+        systemsAnyOf?: Array<string>;
         /**
          * Query based on systemIds
          */
-        systemsNot?: Array<string>,
+        systemsNot?: Array<string>;
         /**
          * Query based on locationIds
          */
-        locationsAnyOf?: Array<string>,
+        locationsAnyOf?: Array<string>;
         /**
          * Query based on locationIds
          */
-        locationsNot?: Array<string>,
+        locationsNot?: Array<string>;
         /**
          * Query based on sortField ()used for grouping work orders)
          */
-        sortFieldAnyOf?: Array<string>,
+        sortFieldAnyOf?: Array<string>;
         /**
          * Query based on sortField (used for grouping work orders)
          */
-        sortFieldNot?: Array<string>,
+        sortFieldNot?: Array<string>;
         /**
          * Query based on revisionCode
          */
-        revisionCodeAnyOf?: Array<string>,
+        revisionCodeAnyOf?: Array<string>;
         /**
          * Query based on sortField (often used for revision codes)
          */
-        revisionCodeNot?: Array<string>,
+        revisionCodeNot?: Array<string>;
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAllOf?: Array<string>,
+        statusAllOf?: Array<string>;
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAnyOf?: Array<string>,
+        statusAnyOf?: Array<string>;
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusNot?: Array<string>,
+        statusNot?: Array<string>;
         /**
          * Include only open work orders or only closed work orders. By default, all work orders are included.
          */
-        isOpen?: boolean,
+        isOpen?: boolean;
         /**
          * Earliest creation date to include
          */
-        createdAfterDate?: string,
+        createdAfterDate?: string;
         /**
          * Latest creation date to include
          */
-        createdBeforeDate?: string,
+        createdBeforeDate?: string;
         /**
          * Limit to specific work order types (one-of)
          */
-        workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        workOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Property to sort the results by
          */
-        sortBy?: Array<'createdDateTime desc' | 'createdDateTime asc' | 'workOrderId desc' | 'workOrderId asc' | 'systemId desc' | 'systemId asc' | 'locationId desc' | 'locationId asc' | 'sortField desc' | 'sortField asc' | 'title desc' | 'title asc'>,
+        sortBy?: Array<
+            | "createdDateTime desc"
+            | "createdDateTime asc"
+            | "workOrderId desc"
+            | "workOrderId asc"
+            | "systemId desc"
+            | "systemId asc"
+            | "locationId desc"
+            | "locationId asc"
+            | "sortField desc"
+            | "sortField asc"
+            | "title desc"
+            | "title asc"
+        >;
         /**
          * Include the multi-line text of the work order (will cause the endpoint to go significantly slower)
          */
-        includeText?: boolean,
+        includeText?: boolean;
         /**
          * Include the main maintenance record linked to the work order (if any)
          */
-        includeMaintenanceRecord?: boolean,
+        includeMaintenanceRecord?: boolean;
         /**
          * Maximum number of results to include. Default is 1000.
          */
-        maxResults?: number,
+        maxResults?: number;
     }): CancelablePromise<Array<WorkOrderOptimizedForQuery> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders-optimized-for-query',
+            method: "GET",
+            url: "/work-orders-optimized-for-query",
             query: {
-                'planning-plants': planningPlants,
-                'keywords-all-of': keywordsAllOf,
-                'keywords-any-of': keywordsAnyOf,
-                'keywords-not': keywordsNot,
-                'tags-all-of': tagsAllOf,
-                'tags-any-of': tagsAnyOf,
-                'tags-not': tagsNot,
-                'work-centers-any-of': workCentersAnyOf,
-                'work-centers-not': workCentersNot,
-                'systems-any-of': systemsAnyOf,
-                'systems-not': systemsNot,
-                'locations-any-of': locationsAnyOf,
-                'locations-not': locationsNot,
-                'sort-field-any-of': sortFieldAnyOf,
-                'sort-field-not': sortFieldNot,
-                'revision-code-any-of': revisionCodeAnyOf,
-                'revision-code-not': revisionCodeNot,
-                'status-all-of': statusAllOf,
-                'status-any-of': statusAnyOf,
-                'status-not': statusNot,
-                'is-open': isOpen,
-                'created-after-date': createdAfterDate,
-                'created-before-date': createdBeforeDate,
-                'work-order-types': workOrderTypes,
-                'sort-by': sortBy,
-                'include-text': includeText,
-                'include-maintenance-record': includeMaintenanceRecord,
-                'max-results': maxResults,
+                "planning-plants": planningPlants,
+                "keywords-all-of": keywordsAllOf,
+                "keywords-any-of": keywordsAnyOf,
+                "keywords-not": keywordsNot,
+                "tags-all-of": tagsAllOf,
+                "tags-any-of": tagsAnyOf,
+                "tags-not": tagsNot,
+                "work-centers-any-of": workCentersAnyOf,
+                "work-centers-not": workCentersNot,
+                "systems-any-of": systemsAnyOf,
+                "systems-not": systemsNot,
+                "locations-any-of": locationsAnyOf,
+                "locations-not": locationsNot,
+                "sort-field-any-of": sortFieldAnyOf,
+                "sort-field-not": sortFieldNot,
+                "revision-code-any-of": revisionCodeAnyOf,
+                "revision-code-not": revisionCodeNot,
+                "status-all-of": statusAllOf,
+                "status-any-of": statusAnyOf,
+                "status-not": statusNot,
+                "is-open": isOpen,
+                "created-after-date": createdAfterDate,
+                "created-before-date": createdBeforeDate,
+                "work-order-types": workOrderTypes,
+                "sort-by": sortBy,
+                "include-text": includeText,
+                "include-maintenance-record": includeMaintenanceRecord,
+                "max-results": maxResults,
             },
         });
     }
@@ -1388,20 +1481,20 @@ export class ModifiedEndpointsService {
         /**
          * Id of the work order (can be any type)
          */
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Define maintenance record to add relationship to
          */
-        requestBody: RelationshipToMaintenanceRecordAdd,
+        requestBody: RelationshipToMaintenanceRecordAdd;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-order-relationships/{work-order-id}/related-maintenance-records',
+            method: "POST",
+            url: "/work-order-relationships/{work-order-id}/related-maintenance-records",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to work order`,
@@ -1472,55 +1565,55 @@ export class ModifiedEndpointsService {
         /**
          * The recordId of the failure report.
          */
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include details about tag for failure report
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include detailed information for activities
          */
-        includeActivities?: boolean,
+        includeActivities?: boolean;
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean,
+        includeTasks?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include extra metadata related to additional failure modes and detection modes. This is only used in rare cases
          */
-        includeAdditionalMetadata?: boolean,
+        includeAdditionalMetadata?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
         /**
          * Include URL references for failure report. See `POST /maintenance-record-relationships/{record-id}/url-references`
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
     }): CancelablePromise<FailureReport | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/failure-reports/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/failure-reports/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-activities': includeActivities,
-                'include-tasks': includeTasks,
-                'include-attachments': includeAttachments,
-                'include-additional-metadata': includeAdditionalMetadata,
-                'include-created-by-details': includeCreatedByDetails,
-                'include-url-references': includeUrlReferences,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-activities": includeActivities,
+                "include-tasks": includeTasks,
+                "include-attachments": includeAttachments,
+                "include-additional-metadata": includeAdditionalMetadata,
+                "include-created-by-details": includeCreatedByDetails,
+                "include-url-references": includeUrlReferences,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1587,43 +1680,43 @@ export class ModifiedEndpointsService {
         /**
          * Filter to limit the failure reports by
          */
-        filter: 'recent-status-activations' | 'open-by-plant',
+        filter: "recent-status-activations" | "open-by-plant";
         /**
          * Status
          */
-        statusId?: string,
+        statusId?: string;
         /**
          * Plant
          */
-        plantId?: string,
+        plantId?: string;
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
-        locationId?: string,
+        locationId?: string;
         /**
          * System id to filter by
          */
-        systemId?: string,
+        systemId?: string;
         /**
          * Define how many days from the current day to include results for. 0 if only include for today
          */
-        maxDaysSinceActivation?: number,
+        maxDaysSinceActivation?: number;
         /**
          * Comma separated list of work center IDs to filter by
          */
-        workCenterIds?: Array<string>,
+        workCenterIds?: Array<string>;
     }): CancelablePromise<Array<FailureReportSimple> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/failure-reports',
+            method: "GET",
+            url: "/maintenance-records/failure-reports",
             query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'location-id': locationId,
-                'system-id': systemId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'work-center-ids': workCenterIds,
+                filter: filter,
+                "status-id": statusId,
+                "plant-id": plantId,
+                "location-id": locationId,
+                "system-id": systemId,
+                "max-days-since-activation": maxDaysSinceActivation,
+                "work-center-ids": workCenterIds,
             },
         });
     }
@@ -1672,13 +1765,13 @@ export class ModifiedEndpointsService {
         /**
          * Failure report to create
          */
-        requestBody: FailureReportCreate,
+        requestBody: FailureReportCreate;
     }): CancelablePromise<ProblemDetails | FailureReportBasic> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/failure-reports',
+            method: "POST",
+            url: "/maintenance-records/failure-reports",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 403: `User does not have sufficient rights to create a failure report`,
             },
@@ -1726,40 +1819,40 @@ export class ModifiedEndpointsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed information for activities
          */
-        includeActivities?: boolean,
+        includeActivities?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
         /**
          * Include URL references for activity report. See `POST /maintenance-record-relationships/{record-id}/url-references`
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
     }): CancelablePromise<ActivityReport | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/activity-reports/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/activity-reports/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-status-details': includeStatusDetails,
-                'include-activities': includeActivities,
-                'include-attachments': includeAttachments,
-                'include-created-by-details': includeCreatedByDetails,
-                'include-url-references': includeUrlReferences,
+                "include-status-details": includeStatusDetails,
+                "include-activities": includeActivities,
+                "include-attachments": includeAttachments,
+                "include-created-by-details": includeCreatedByDetails,
+                "include-url-references": includeUrlReferences,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1808,35 +1901,35 @@ export class ModifiedEndpointsService {
         includeAttachments = false,
         includeCreatedByDetails = false,
     }: {
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean,
+        includeTasks?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
     }): CancelablePromise<ModificationProposal | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/modification-proposals/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/modification-proposals/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-tasks': includeTasks,
-                'include-status-details': includeStatusDetails,
-                'include-attachments': includeAttachments,
-                'include-created-by-details': includeCreatedByDetails,
+                "include-tasks": includeTasks,
+                "include-status-details": includeStatusDetails,
+                "include-attachments": includeAttachments,
+                "include-created-by-details": includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1888,45 +1981,45 @@ export class ModifiedEndpointsService {
         /**
          * The recordId of the certification report
          */
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include details about tag for failure report
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include measuring points related to tagId/equipmentId
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
     }): CancelablePromise<CertificationReport | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/certification-reports/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/certification-reports/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-attachments': includeAttachments,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-created-by-details': includeCreatedByDetails,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-attachments": includeAttachments,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-created-by-details": includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1987,45 +2080,45 @@ export class ModifiedEndpointsService {
         /**
          * The recordId of the technical information update request
          */
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean,
+        includeTasks?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include details about tag for failure report
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include person responsible information in response. If user does not have significant rights, this will return a `403` response
          */
-        includePersonResponsible?: boolean,
+        includePersonResponsible?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
     }): CancelablePromise<TechnicalInformationUpdateRequest | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/technical-information-update-requests/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/technical-information-update-requests/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-status-details': includeStatusDetails,
-                'include-tasks': includeTasks,
-                'include-attachments': includeAttachments,
-                'include-tag-details': includeTagDetails,
-                'include-person-responsible': includePersonResponsible,
-                'include-created-by-details': includeCreatedByDetails,
+                "include-status-details": includeStatusDetails,
+                "include-tasks": includeTasks,
+                "include-attachments": includeAttachments,
+                "include-tag-details": includeTagDetails,
+                "include-person-responsible": includePersonResponsible,
+                "include-created-by-details": includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -2079,45 +2172,45 @@ export class ModifiedEndpointsService {
         /**
          * The recordId of the technical clarification
          */
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean,
+        includeTasks?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include details about tag for technical clarification
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include person responsible information in response. If user does not have significant rights, this will return a `403` response
          */
-        includePersonResponsible?: boolean,
+        includePersonResponsible?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
     }): CancelablePromise<TechnicalClarification | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/technical-clarifications/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/technical-clarifications/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-status-details': includeStatusDetails,
-                'include-tasks': includeTasks,
-                'include-attachments': includeAttachments,
-                'include-tag-details': includeTagDetails,
-                'include-person-responsible': includePersonResponsible,
-                'include-created-by-details': includeCreatedByDetails,
+                "include-status-details": includeStatusDetails,
+                "include-tasks": includeTasks,
+                "include-attachments": includeAttachments,
+                "include-tag-details": includeTagDetails,
+                "include-person-responsible": includePersonResponsible,
+                "include-created-by-details": includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -2130,5 +2223,4 @@ export class ModifiedEndpointsService {
             },
         });
     }
-
 }

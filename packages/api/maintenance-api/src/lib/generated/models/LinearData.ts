@@ -16,4 +16,3 @@ export type LinearData = {
      */
     linearUnitOfMeasure?: string;
 };
-

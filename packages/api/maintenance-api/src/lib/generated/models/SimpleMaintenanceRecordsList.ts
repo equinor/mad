@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ActivityReportSimple } from './ActivityReportSimple';
-import type { CertificationReportSimple } from './CertificationReportSimple';
-import type { FailureReportSimple } from './FailureReportSimple';
-import type { ModificationProposalSimple } from './ModificationProposalSimple';
-import type { TechnicalClarificationSimple } from './TechnicalClarificationSimple';
-import type { TechnicalInformationUpdateRequestSimple } from './TechnicalInformationUpdateRequestSimple';
+import type { ActivityReportSimple } from "./ActivityReportSimple";
+import type { CertificationReportSimple } from "./CertificationReportSimple";
+import type { FailureReportSimple } from "./FailureReportSimple";
+import type { ModificationProposalSimple } from "./ModificationProposalSimple";
+import type { TechnicalClarificationSimple } from "./TechnicalClarificationSimple";
+import type { TechnicalInformationUpdateRequestSimple } from "./TechnicalInformationUpdateRequestSimple";
 
 export type SimpleMaintenanceRecordsList = {
     modificationProposals?: Array<ModificationProposalSimple>;
@@ -17,4 +17,3 @@ export type SimpleMaintenanceRecordsList = {
     technicalInformationUpdateRequests?: Array<TechnicalInformationUpdateRequestSimple>;
     technicalClarifications?: Array<TechnicalClarificationSimple>;
 };
-

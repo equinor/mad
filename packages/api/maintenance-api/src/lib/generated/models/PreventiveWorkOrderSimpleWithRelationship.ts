@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { EquipmentRelationshipToWorkOrder } from './EquipmentRelationshipToWorkOrder';
-import type { PreventiveWorkOrderSimple } from './PreventiveWorkOrderSimple';
+import type { EquipmentRelationshipToWorkOrder } from "./EquipmentRelationshipToWorkOrder";
+import type { PreventiveWorkOrderSimple } from "./PreventiveWorkOrderSimple";
 
-export type PreventiveWorkOrderSimpleWithRelationship = (PreventiveWorkOrderSimple & {
-    equipmentRelationship: EquipmentRelationshipToWorkOrder;
-});
-
+export type PreventiveWorkOrderSimpleWithRelationship =
+    PreventiveWorkOrderSimple & {
+        equipmentRelationship: EquipmentRelationshipToWorkOrder;
+    };

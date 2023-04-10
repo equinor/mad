@@ -32,9 +32,9 @@ export type FailureReportBasic = {
      */
     area: string;
     systemId: string;
-    failureImpactId: 'D' | 'S' | 'U' | 'X' | null;
+    failureImpactId: "D" | "S" | "U" | "X" | null;
     failureImpact: string;
-    priorityId?: 'D' | 'H' | 'L' | 'M' | 'U' | null;
+    priorityId?: "D" | "H" | "L" | "M" | "U" | null;
     isBreakdown: boolean;
     /**
      * Unsafe failure mode identified for failure report ref `R-12137 - Give immediate warning of unsafe failure modes`
@@ -43,7 +43,7 @@ export type FailureReportBasic = {
     /**
      * Unsafe failure mode status for failure report ref `R-12137 - Give immediate warning of unsafe failure modes`. Value `IN_PAST` is used if tag or failure mode has been modified since creation and the criteria for unsafe failure mode are no longer fulfilled.
      */
-    unsafeFailureModeStatus: 'OUTSTANDING' | 'MADE_SAFE' | 'IN_PAST' | null;
+    unsafeFailureModeStatus: "OUTSTANDING" | "MADE_SAFE" | "IN_PAST" | null;
     requiredEndDate: string | null;
     failureModeId: string | null;
     failureMode: string | null;
@@ -84,4 +84,3 @@ export type FailureReportBasic = {
      */
     failureEndDateTime: string | null;
 };
-

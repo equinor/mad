@@ -22,4 +22,3 @@ export type UserAuthorizations = {
         hasERPAccess: boolean | null;
     };
 };
-

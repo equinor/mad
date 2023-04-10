@@ -1,15 +1,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MaintenanceConcept } from '../models/MaintenanceConcept';
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { MaintenanceConcept } from "../models/MaintenanceConcept";
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MaintenanceConceptsService {
-
     /**
      * Maintenance Concept - Lookup
      * ### Overview
@@ -31,18 +30,17 @@ export class MaintenanceConceptsService {
     public static getMaintenanceConcept({
         conceptId,
     }: {
-        conceptId: string,
+        conceptId: string;
     }): CancelablePromise<MaintenanceConcept | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-concepts/{concept-id}',
+            method: "GET",
+            url: "/maintenance-concepts/{concept-id}",
             path: {
-                'concept-id': conceptId,
+                "concept-id": conceptId,
             },
             errors: {
                 404: `The specified resource was not found`,
             },
         });
     }
-
 }

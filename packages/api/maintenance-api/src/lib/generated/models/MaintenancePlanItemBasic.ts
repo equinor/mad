@@ -12,4 +12,3 @@ export type MaintenancePlanItemBasic = {
     maintenanceActivityTypeId: string;
     maintenanceActivityType: string;
 };
-

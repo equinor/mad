@@ -7,4 +7,3 @@ export type TagHierachyItem = {
     parentTagId: string | null;
     catalogProfileId: string;
 };
-

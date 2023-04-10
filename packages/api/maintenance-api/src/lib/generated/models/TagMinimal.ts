@@ -7,4 +7,3 @@ export type TagMinimal = {
     tagPlantId: string;
     tag: string;
 };
-
