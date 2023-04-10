@@ -8,7 +8,7 @@
       "noPropertyAccessFromIndexSignature": true,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
-      "outDir": "./dist",
+      "outDir": "./dist"
   },
   "include": ["./src"],
   "exclude": ["./src/__tests__", "dist"]
