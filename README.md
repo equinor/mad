@@ -46,6 +46,20 @@ pnpm {keyword}:{package-alias}
 
 Head into the project root [package.json](./package.json) for a full list of all commands.
 
+### 🙏 Contributing to the repository
+#### Branching
+We use [Trunk-based development](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development) in this repository. Branching is done in and out of the `main` branch for each update. 
+
+#### Pull requests
+Pull requests into main should as a rule of thumb ALWAYS contain a changeset (see: [Changesets](https://github.com/changesets/changesets)). You create these by running 
+
+```
+pnpm changeset
+```
+
+and follow the promts.
+This way, changelogs and version bumps are automatically handeled. Also note that we use [semantic](https://gist.githubusercontent.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716/raw/e75b1b9536ee5ee82e2ec0ba8948d8f8238488c3/semantic-commit-messages.md) pull request titles. These are verified automatically during PR linting.
+
 ## 🔗 Useful Links
 ### 🚀 Turborepo
 Learn more about the power of Turborepo:
