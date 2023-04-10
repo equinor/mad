@@ -5,8 +5,8 @@
 ### Patch Changes
 
 -   928f526: Configured eslint
--   5948fae: Fix configuration. Install proper SKIA version.
--   064958f: - Added arrows to popovers.
+-   5948fae: Fixed configuration. Installed proper SKIA version.
+-   064958f: Added arrows to popovers.
 -   Updated dependencies [928f526]
 -   Updated dependencies [2ff3459]
 -   Updated dependencies [064958f]
