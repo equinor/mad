@@ -6,7 +6,7 @@
 
 -   928f526: Configured eslint
 -   2ff3459: Added proper build system
--   064958f: - Added arrows to popovers.
+-   064958f: Added arrows to popovers.
 
 ## 0.1.0
 
