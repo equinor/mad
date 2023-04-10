@@ -1,14 +1,23 @@
-import { useFonts, processFontFamily } from "expo-font";
+import { useFonts } from "expo-font";
+
+import EquinorBold from "../assets/fonts/Equinor-Bold.otf";
+import EquinorBoldItalic from "../assets/fonts/Equinor-BoldItalic.otf";
+import EquinorItalic from "../assets/fonts/Equinor-Italic.otf";
+import EquinorLight from "../assets/fonts/Equinor-Light.otf";
+import EquinorLightItalic from "../assets/fonts/Equinor-LightItalic.otf";
+import EquinorMedium from "../assets/fonts/Equinor-Medium.otf";
+import EquinorMediumItalic from "../assets/fonts/Equinor-MediumItalic.otf";
+import EquinorRegular from "../assets/fonts/Equinor-Regular.otf";
 
 const fontMap = {
-    "Equinor-Bold": require("../assets/fonts/Equinor-Bold.otf"),
-    "Equinor-BoldItalic": require("../assets/fonts/Equinor-BoldItalic.otf"),
-    "Equinor-Italic": require("../assets/fonts/Equinor-Italic.otf"),
-    "Equinor-Light": require("../assets/fonts/Equinor-Light.otf"),
-    "Equinor-LightItalic": require("../assets/fonts/Equinor-LightItalic.otf"),
-    "Equinor-Medium": require("../assets/fonts/Equinor-Medium.otf"),
-    "Equinor-MediumItalic": require("../assets/fonts/Equinor-MediumItalic.otf"),
-    "Equinor-Regular": require("../assets/fonts/Equinor-Regular.otf"),
+    "Equinor-Bold": EquinorBold,
+    "Equinor-BoldItalic": EquinorBoldItalic,
+    "Equinor-Italic": EquinorItalic,
+    "Equinor-Light": EquinorLight,
+    "Equinor-LightItalic": EquinorLightItalic,
+    "Equinor-Medium": EquinorMedium,
+    "Equinor-MediumItalic": EquinorMediumItalic,
+    "Equinor-Regular": EquinorRegular,
 };
 
 export const useEDS = () => {

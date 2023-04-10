@@ -4,10 +4,9 @@
     "description": "A React Native component library implementing the Equinor Design System.",
     "type": "module",
     "scripts": {
-        "build-new": "tsup-node",
+        "build": "tsup-node",
         "test": "jest",
-        "lint": "eslint \"**/*.tsx\" --fix",
-        "build": "tsc --project tsconfig.json"
+        "lint": "eslint \"**/*.tsx\" --fix"
     },
     "keywords": [
         "react native",
