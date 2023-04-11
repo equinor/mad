@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.17.1
+
+### Patch Changes
+
+-   77b2afc: Remove duplicate identifier in PreventiveWorkOrderBasic type
+
 ## 1.17.0
 
 ### Minor Changes
