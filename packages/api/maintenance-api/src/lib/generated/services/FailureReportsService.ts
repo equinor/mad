@@ -66,6 +66,9 @@ export class FailureReportsService {
      * ### Update release v1.16.0
      * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
+     * ### Update release v1.17.0
+     * Added query parameter `include-measurements`.
+     *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -80,6 +83,7 @@ export class FailureReportsService {
         includeAdditionalMetadata = false,
         includeCreatedByDetails = false,
         includeUrlReferences = false,
+        includeMeasurements = false,
     }: {
         /**
          * The recordId of the failure report.
@@ -117,6 +121,10 @@ export class FailureReportsService {
          * Include URL references for failure report. See `POST /maintenance-record-relationships/{record-id}/url-references`
          */
         includeUrlReferences?: boolean;
+        /**
+         * Include related measurements
+         */
+        includeMeasurements?: boolean;
     }): CancelablePromise<FailureReport | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
@@ -133,6 +141,7 @@ export class FailureReportsService {
                 "include-additional-metadata": includeAdditionalMetadata,
                 "include-created-by-details": includeCreatedByDetails,
                 "include-url-references": includeUrlReferences,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -298,6 +307,12 @@ export class FailureReportsService {
     /**
      * Failure report - Attachment upload
      * Upload attachment for failure report
+     *
+     * ### Update release 1.17.0
+     * Added `documentTitle` as input. If supplied, the title is added to all files that are sent
+     * in the current request. If different titles are wanted for different files, they have to be sent in separately
+     * (one file, one document title per request). When supplying a document-title, a new document will always be created for the attachment
+     *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -308,7 +323,8 @@ export class FailureReportsService {
     }: {
         recordId: string;
         formData?: {
-            files?: Array<Blob>;
+            files: Array<Blob>;
+            "document-title"?: string | null;
         };
     }): CancelablePromise<any | ProblemDetails> {
         return __request(OpenAPI, {

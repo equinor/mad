@@ -1,13 +1,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PlanningPlantRevision } from "../models/PlanningPlantRevision";
+import type { CodeGroup } from "../models/CodeGroup";
+import type { ModificationProposalJsonUpdate } from "../models/ModificationProposalJsonUpdate";
 import type { ProblemDetails } from "../models/ProblemDetails";
-import type { RelationshipToDocument } from "../models/RelationshipToDocument";
-import type { RelationshipToDocumentsAdd } from "../models/RelationshipToDocumentsAdd";
-import type { TagAddClass } from "../models/TagAddClass";
-import type { TagBasic } from "../models/TagBasic";
-import type { TagCreate } from "../models/TagCreate";
+import type { RelationshipToTagAdd } from "../models/RelationshipToTagAdd";
+import type { TechnicalFeedbackStatus } from "../models/TechnicalFeedbackStatus";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
@@ -15,362 +13,176 @@ import { request as __request } from "../core/request";
 
 export class NewEndpointsService {
     /**
-     * Tag - Add characteristics
-     * Add new characteristics to an existing tag.
-     *
-     * Characteristics are grouped into a class such as `FL_MAINT_STRATEGY`. Classes can be assigned to a tag and specific characteristics such as `CRIT_PRODUCTION` will then be available for that specific equipment.
-     *
-     * With this endpoint, the consumer can assign classes to a tag and define initial values for some of the characteristics in the classes.
-     *
-     * There is currently no endpoint for looking up existing classes and their characteristics, but this may be added in the future.
-     *
-     * Note that if a given characteristic has already been added to this tag, repeated adding will result into overwriting of the characteristic value.
-     *
-     * ### Important information
-     * Use `/plants/{plant-id}/tags/{tag-id}?include-characteristics=true&api-version=v1` to view characteristics with value after using this endpoint.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns string Created - No body available for response. Use lookup from location header
-     * @throws ApiError
-     */
-    public static addCharacteristicsToTag({
-        plantId,
-        tagId,
-        requestBody,
-    }: {
-        plantId: string;
-        tagId: string;
-        /**
-         * Characteristics to add to tag.
-         */
-        requestBody: Array<TagAddClass>;
-    }): CancelablePromise<ProblemDetails | string> {
-        return __request(OpenAPI, {
-            method: "POST",
-            url: "/plants/{plant-id}/tags/{tag-id}/characteristics",
-            path: {
-                "plant-id": plantId,
-                "tag-id": tagId,
-            },
-            body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
-            errors: {
-                400: `Request is missing required parameters or characteristicId is not part of class`,
-                403: `User does not have sufficient rights to add characteristics to measuring point`,
-            },
-        });
-    }
-
-    /**
-     * Document relationships - Get relationships
+     * Code Group - Search
      * ### Overview
-     * Get relationship between a business object such as tags and documents.
+     * Returns a list of codeGroups that belong in the catalog.
      *
-     * Currently, `relationship-type` only supports tags, but in the future this may be extended to equipment, maintenance record etc.
+     * The catalog-id can be any of the following:
+     * | catalogId      |  Description                                                         |
+     * |-----------------------|-----------------------------------------------------------------------|
+     * | 1                     |  Characteristic attribute       |
+     * | 2                     |  Tasks                          |
+     * | 5                     |  Failure mechanism              |
+     * | C                     |  Failure mode                   |
+     * | V                     |  Measuring points               |
      *
-     * Example urls:
-     * - Tags: `/document-relationships/tags/1100-AE5566?api-version=v1`
-     *
-     * @returns RelationshipToDocument Success
+     * @returns CodeGroup Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupRelationshipsToDocument({
-        relationshipType,
-        sourceId,
+    public static searchCodeGroup({
+        catalogId,
     }: {
-        /**
-         * Type of business object to add relationship to documents for
-         */
-        relationshipType: "tags";
-        sourceId: string;
-    }): CancelablePromise<Array<RelationshipToDocument> | ProblemDetails> {
+        catalogId: "1" | "2" | "5" | "C" | "V";
+    }): CancelablePromise<Array<CodeGroup> | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
-            url: "/document-relationships/{relationship-type}/{source-id}",
+            url: "/catalogs/{catalog-id}/code-groups",
             path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
+                "catalog-id": catalogId,
             },
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update document`,
                 404: `The specified resource was not found`,
-                409: `Document is locked by other user`,
             },
         });
     }
 
     /**
-     * Document relationships - Add new relationships
+     * Technical feedback - Master data
      * ### Overview
-     * Add new relationship between a business object such as tags and documents.
+     * Get a list of all statuses and reasons which can be used in technical feedback.
      *
-     * Currently, `relationship-type` only supports tags, but in the future this may be extended to equipment, maintenance record etc.
-     *
-     * The documents specified in the the request must contain one of:
-     * - `documentId`
-     * - `documentNumber`, `documentType`, `documentPart`, `documentVersion`
-     * - `documentNumber`, `documentType`
-     *
-     * Example urls:
-     * - Tags: `/document-relationships/tags/1100-AE5566?api-version=v1`
-     *
-     * This endpoint returns no response data.
-     *
+     * @returns TechnicalFeedbackStatus Success
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns string Created - No body available for response. Use lookup from location header
      * @throws ApiError
      */
-    public static addRelationshipsToDocument({
-        relationshipType,
-        sourceId,
+    public static getTechnicalFeedbackMasterData(): CancelablePromise<
+        Array<TechnicalFeedbackStatus> | ProblemDetails
+    > {
+        return __request(OpenAPI, {
+            method: "GET",
+            url: "/work-orders/technical-feedback-master-data",
+        });
+    }
+
+    /**
+     * Work order relationships - Add related tag
+     * ### Overview
+     * Add new relationship between a work order and a tag.
+     *
+     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information. This is currently not possible for technical feedback, but is expected to be added in the future.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addRelationshipFromWorkOrderToTag({
+        workOrderId,
         requestBody,
     }: {
         /**
-         * Type of business object to add relationship to documents for
+         * Id of the work order (can be any type)
          */
-        relationshipType: "tags";
-        sourceId: string;
+        workOrderId: string;
         /**
-         * Documents to add a relationship to from the `sourceId`
+         * Define tag to add relationship to
          */
-        requestBody: Array<RelationshipToDocumentsAdd>;
-    }): CancelablePromise<ProblemDetails | string> {
+        requestBody: RelationshipToTagAdd;
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
             method: "POST",
-            url: "/document-relationships/{relationship-type}/{source-id}",
+            url: "/work-order-relationships/{work-order-id}/related-tags",
             path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
+                "work-order-id": workOrderId,
             },
             body: requestBody,
             mediaType: "application/json",
-            responseHeader: "Location",
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update document`,
+                403: `User does not have sufficient rights to work order`,
                 404: `The specified resource was not found`,
-                409: `Document is locked by other user`,
+                409: `Work order is locked by other user`,
             },
         });
     }
 
     /**
-     * Document relationships - Replace relationships
+     * Work order relationships - Remove related tag
      * ### Overview
-     * Replace existing relationship between a business object such as tags and documents.
+     * Remove an existing relationship between a work order and a tag/functional location.
      *
-     * Currently, `relationship-type` only supports tags, but in the future this may be extended to equipment, maintenance record etc.
+     * Internally in the ERP system, this relationship will be removed from the object list of the work order.
      *
-     * The documents specified in the the request must contain one of:
-     * - `documentId`
-     * - `documentNumber`, `documentType`, `documentPart`, `documentVersion`
-     * - `documentNumber`, `documentType`
-     *
-     * Example urls:
-     * - Tags: `/document-relationships/tags/1100-AE5566?api-version=v1`
-     *
-     * This endpoint returns no response data.
-     *
-     * ### Important information
-     * NOTE: Take special care when using this endpoint. The PUT operation will remove any document relationships from the `source-id`(for example tags) which are not present in the request body. Normally, the corresponding POST operation should be used as it only adds new relationships and never removes existing ones.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns string Created - No body available for response. Use lookup from location header
-     * @throws ApiError
-     */
-    public static replaceRelationshipsToDocument({
-        relationshipType,
-        sourceId,
-        requestBody,
-    }: {
-        /**
-         * Type of business object to replace relationships to documents for
-         */
-        relationshipType: "tags";
-        sourceId: string;
-        /**
-         * Documents to replace a relationship to from the `sourceId`
-         */
-        requestBody: Array<RelationshipToDocumentsAdd>;
-    }): CancelablePromise<ProblemDetails | string> {
-        return __request(OpenAPI, {
-            method: "PUT",
-            url: "/document-relationships/{relationship-type}/{source-id}",
-            path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
-            },
-            body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
-            errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update document`,
-                404: `The specified resource was not found`,
-                409: `Document is locked by other user`,
-            },
-        });
-    }
-
-    /**
-     * Document relationships - Remove relationships
-     * ### Overview
-     * Remove one or more relationships between a business object such as tags and documents.
-     *
-     * Currently, `relationship-type` only supports tags, but in the future this may be extended to equipment, maintenance record etc.
-     *
-     * The documents specified in the the request must contain one of:
-     * - `documentId`
-     * - `documentNumber`, `documentType`, `documentPart`, `documentVersion`
-     * - `documentNumber`, `documentType`
-     *
-     * Example urls:
-     * - Tags: `/document-relationships/tags/1100-AE5566?api-version=v1`
-     *
-     * This endpoint returns no response data.
+     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static removeRelationshipsToDocument({
-        relationshipType,
-        sourceId,
-        requestBody,
+    public static removeRelationshipFromWorkOrderToTag({
+        workOrderId,
+        tagPlantId,
+        tagId,
     }: {
         /**
-         * Type of business object to remove relationship to documents for
+         * Id of the work order (can be any type)
          */
-        relationshipType: "tags";
-        sourceId: string;
+        workOrderId: string;
         /**
-         * Documents to remove a relationship to from the `sourceId`
+         * Id of the plant
          */
-        requestBody: Array<RelationshipToDocumentsAdd>;
+        tagPlantId: string;
+        /**
+         * Id of the tag
+         */
+        tagId: string;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
             method: "DELETE",
-            url: "/document-relationships/{relationship-type}/{source-id}",
+            url: "/work-order-relationships/{work-order-id}/related-tags/{tag-plant-id}-{tag-id}",
             path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
+                "work-order-id": workOrderId,
+                "tag-plant-id": tagPlantId,
+                "tag-id": tagId,
             },
-            body: requestBody,
-            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update document`,
+                403: `User does not have sufficient rights to work order`,
                 404: `The specified resource was not found`,
-                409: `Document is locked by other user`,
+                409: `Work order is locked by other user or it is not possible to remove the relationship`,
             },
         });
     }
 
     /**
-     * Revisions - Search
+     * Modification proposal - Update
      * ### Overview
-     * Search revisions for a single plant with related information.
+     * Update key fields of a modification proposal.
      *
-     * ### Filter: by-revision-id
-     * Search by revision ids for a single plant
-     *
-     * Parameters:
-     * - revision-id-any-of
-     * - include-work-order-operations (default: false)
-     * - include-work-order-operation-text (default: false)
-     * - include-only-work-order-operations-with-materials (default: false)
-     *
-     * ### Examples
-     * `/plants/1310/revisions?filter=by-revision-id&revision-id-any-of=OFP,OFP%202022,&include-work-order-operations=true&include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&api-version=v1`
-     *
-     * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static searchRevisions({
-        plantId,
-        filter,
-        revisionIdAnyOf,
-        includeWorkOrderOperations = false,
-        includeOnlyWorkOrderOperationsWithMaterials = false,
-    }: {
-        plantId: string;
-        /**
-         * Filter to limit revisions
-         */
-        filter: "by-revision-id";
-        /**
-         * Comma-separated list of revision-id
-         */
-        revisionIdAnyOf?: string;
-        /**
-         * Include the work order operations
-         */
-        includeWorkOrderOperations?: boolean;
-        /**
-         * Limit the work order operations to only those which have material
-         */
-        includeOnlyWorkOrderOperationsWithMaterials?: boolean;
-    }): CancelablePromise<Array<PlanningPlantRevision> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/revisions",
-            path: {
-                "plant-id": plantId,
-            },
-            query: {
-                filter: filter,
-                "revision-id-any-of": revisionIdAnyOf,
-                "include-work-order-operations": includeWorkOrderOperations,
-                "include-only-work-order-operations-with-materials":
-                    includeOnlyWorkOrderOperationsWithMaterials,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Tag - Create
-     * ### Overview
-     * Create tag with option to create linear data. Linear data can be creted only for the tagCategoryId `U` (Pipeline).
-     *
-     * Locations and systems available for this plant can be found by querying `/plants/{plant-id}?include-systems=true&nclude-locations=true&api-version=v1`
-     *
-     * To find a valid parentTagId, use the tag search endpoint `/plants/{plant-id}/tag-hierarchy`
-     * ### Important information
-     * There is a plant-specific configuration called "data origin" which determines which properties should be inherited from the parent tag, and which should be maintained by user directly, e.g. via the API. Properties provided in the request will overwrite the inherited default values. Nevertheless, the inheritance rules of the "data origin" configuration remain the same even if default values were overwritten during the creation.
-     *
-     * Please note that to execute this request, elevated roles are required in Equinor's ERP system.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns TagBasic Created
-     * @throws ApiError
-     */
-    public static createTag({
-        plantId,
+    public static updateModificationProposal({
+        recordId,
         requestBody,
     }: {
-        plantId: string;
+        recordId: string;
         /**
-         * Tag to create
+         * Details on how to update modification proposal
          */
-        requestBody: TagCreate;
-    }): CancelablePromise<ProblemDetails | TagBasic> {
+        requestBody: Array<ModificationProposalJsonUpdate>;
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/plants/{plant-id}/tags",
+            method: "PATCH",
+            url: "/maintenance-records/modification-proposals/{record-id}",
             path: {
-                "plant-id": plantId,
+                "record-id": recordId,
             },
             body: requestBody,
             mediaType: "application/json",
             errors: {
-                400: `Bad request, for example if missing required properties`,
-                403: `User does not have sufficient rights to create tag.`,
+                403: `User does not have sufficient rights to update activity report`,
+                404: `The specified resource was not found`,
+                409: `Activity report is locked by other user`,
             },
         });
     }

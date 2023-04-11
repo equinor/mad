@@ -5,6 +5,7 @@
 import type { ActivityReportBasic } from "./ActivityReportBasic";
 import type { Attachment } from "./Attachment";
 import type { MaintenanceRecordActivity } from "./MaintenanceRecordActivity";
+import type { Measurement } from "./Measurement";
 import type { Status } from "./Status";
 import type { URLReference } from "./URLReference";
 
@@ -37,4 +38,8 @@ export type ActivityReport = ActivityReportBasic & {
      * All statuses possible with information about activation
      */
     statuses?: Array<Status>;
+    /**
+     * Related measurements
+     */
+    measurements?: Array<Measurement>;
 };

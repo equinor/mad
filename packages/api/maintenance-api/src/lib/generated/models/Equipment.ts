@@ -15,7 +15,7 @@ import type { SASChangeWorkOrderSimpleWithRelationship } from "./SASChangeWorkOr
 import type { SimpleMaintenanceRecordsList } from "./SimpleMaintenanceRecordsList";
 import type { Status } from "./Status";
 import type { SubseaWorkOrderSimpleWithRelationship } from "./SubseaWorkOrderSimpleWithRelationship";
-import type { URLReference } from "./URLReference";
+import type { URLReferenceWithCharacteristics } from "./URLReferenceWithCharacteristics";
 
 export type Equipment = EquipmentBasicV2 & {
     /**
@@ -42,7 +42,7 @@ export type Equipment = EquipmentBasicV2 & {
     plannerGroup: string;
     characteristics?: Array<EquipmentCharacteristic>;
     attachments?: Array<EquipmentAttachment>;
-    urlReferences?: Array<URLReference>;
+    urlReferences?: Array<URLReferenceWithCharacteristics>;
     /**
      * All statuses possible with information about activation
      */

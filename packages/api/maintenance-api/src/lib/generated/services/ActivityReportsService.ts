@@ -41,6 +41,9 @@ export class ActivityReportsService {
      * ### Update release v1.16.0
      * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
+     * ### Update release v1.17.0
+     * Added query parameter `include-measurements`.
+     *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -52,6 +55,7 @@ export class ActivityReportsService {
         includeAttachments = false,
         includeCreatedByDetails = false,
         includeUrlReferences = false,
+        includeMeasurements = false,
     }: {
         /**
          * The recordId of the activity report.
@@ -77,6 +81,10 @@ export class ActivityReportsService {
          * Include URL references for activity report. See `POST /maintenance-record-relationships/{record-id}/url-references`
          */
         includeUrlReferences?: boolean;
+        /**
+         * Include related measurements
+         */
+        includeMeasurements?: boolean;
     }): CancelablePromise<ActivityReport | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
@@ -90,6 +98,7 @@ export class ActivityReportsService {
                 "include-attachments": includeAttachments,
                 "include-created-by-details": includeCreatedByDetails,
                 "include-url-references": includeUrlReferences,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `The specified resource exists in another location

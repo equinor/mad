@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { ProblemDetails } from "../models/ProblemDetails";
 import type { StandardTextTemplate } from "../models/StandardTextTemplate";
+import type { TechnicalFeedbackStatus } from "../models/TechnicalFeedbackStatus";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
@@ -59,6 +60,24 @@ export class MasterDataForWorkOrdersService {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights`,
             },
+        });
+    }
+
+    /**
+     * Technical feedback - Master data
+     * ### Overview
+     * Get a list of all statuses and reasons which can be used in technical feedback.
+     *
+     * @returns TechnicalFeedbackStatus Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getTechnicalFeedbackMasterData(): CancelablePromise<
+        Array<TechnicalFeedbackStatus> | ProblemDetails
+    > {
+        return __request(OpenAPI, {
+            method: "GET",
+            url: "/work-orders/technical-feedback-master-data",
         });
     }
 }

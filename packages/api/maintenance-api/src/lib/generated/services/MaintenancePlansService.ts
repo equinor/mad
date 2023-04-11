@@ -322,6 +322,7 @@ export class MaintenancePlansService {
      * Maintenance Plan Item - Delete object list linkage
      * ### Overview
      * Delete maintenance item object linkage
+     * Deleting maintenance item object linkage of operations with `suboperationId` is not supported.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -374,6 +375,7 @@ export class MaintenancePlansService {
      * Maintenance Plan Item - Create object list linkage
      * ### Overview
      * Create maintenance item object linkage
+     * Creating maintenance item object linkage of operations with `suboperationId` is not supported.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Success - Created . Use the HTTP GET endpoint `/maintenance-plans/{plan-id}/items/{item-id}?include-task-list=true` to verify that data has been created.
@@ -541,6 +543,8 @@ export class MaintenancePlansService {
      * ## Overview
      * Update operation for a maintenance plan item.
      *
+     * Updating operations with `suboperationId` is not supported.
+     *
      * ### Important information
      * Note: The operation belongs to a task list which may be shared with multiple maintenance plan items. Therefore, multiple maintenance plan items may be affected by the change.
      *
@@ -675,7 +679,7 @@ export class MaintenancePlansService {
      * Use the HTTP GET endpoint `/maintenance-plans/{plan-id}/items/{item-id}?include-task-list=true` for retrieving current data and necessary ids.
      *
      * `activityTypeId` is related to cost center and fiscal year, and there is currently no endpoint to get possible values.
-     *
+     * Creating operation with `suboperationId` is not supported.
      * ### Update release v1.5.0
      * Bugfix related to text for operation.
      *
@@ -730,6 +734,7 @@ export class MaintenancePlansService {
      * Maintenance Plan Item - Create operation material needs
      * ## Overview
      * Create material needs of operation for a maintenance plan item.
+     * Adding material to operations with `suboperationId` is not supported.
      *
      * ### Important information
      * Note: The operation belongs to a task list which may be shared with multiple maintenance plan items. Therefore, multiple maintenance plan items may be affected by the change.
@@ -792,6 +797,7 @@ export class MaintenancePlansService {
      * Maintenance Plan Item - Update operation material needs
      * ## Overview
      * Update material needs of operation for a maintenance plan item.
+     * Updating material needs of operations with `suboperationId` is not supported.
      *
      * ### Important information
      * Note: The operation belongs to a task list which may be shared with multiple maintenance plan items. Therefore, multiple maintenance plan items may be affected by the change.

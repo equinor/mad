@@ -193,6 +193,9 @@ export class MasterDataForPlantsService {
      * ### Update version 1.14.0
      * Added `include-only-default-tag-catalog-profiles` query parameter to limit the response from `include-tag-catalog-profiles` and/or `include-equipment-catalog-profiles`
      *
+     * ### Update version 1.17.0
+     * Added the  `allowSimplifiedTimeAndProgress` flag to represent is the plant is valid for Non-CATS time recording.
+     *
      * Updated PlanningPlantRevision-model.
      *
      * @returns Plant Success
@@ -360,6 +363,9 @@ export class MasterDataForPlantsService {
      *
      * ### Update version 1.13.0
      * Added `include-equipment-catalog-profiles` query parameter.
+     *
+     * ### Update version 1.17.0
+     * Added the  `allowSimplifiedTimeAndProgress` flag to represent is the plant is valid for Non-CATS time recording.
      *
      * @returns Plant Success
      * @returns ProblemDetails Response for other HTTP status codes

@@ -4,6 +4,7 @@
 import type { ModificationProposal } from "../models/ModificationProposal";
 import type { ModificationProposalBasic } from "../models/ModificationProposalBasic";
 import type { ModificationProposalCreate } from "../models/ModificationProposalCreate";
+import type { ModificationProposalJsonUpdate } from "../models/ModificationProposalJsonUpdate";
 import type { ProblemDetails } from "../models/ProblemDetails";
 import type { StatusUpdateJsonPatch } from "../models/StatusUpdateJsonPatch";
 
@@ -85,6 +86,40 @@ export class ModificationProposalsService {
                 Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
                 `,
                 404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Modification proposal - Update
+     * ### Overview
+     * Update key fields of a modification proposal.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateModificationProposal({
+        recordId,
+        requestBody,
+    }: {
+        recordId: string;
+        /**
+         * Details on how to update modification proposal
+         */
+        requestBody: Array<ModificationProposalJsonUpdate>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/maintenance-records/modification-proposals/{record-id}",
+            path: {
+                "record-id": recordId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                403: `User does not have sufficient rights to update activity report`,
+                404: `The specified resource was not found`,
+                409: `Activity report is locked by other user`,
             },
         });
     }

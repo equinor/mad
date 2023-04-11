@@ -7,10 +7,6 @@ export type TaskWorkOrderOperationCreate = {
      * Operation
      */
     operationId?: string;
-    /**
-     * Sub operation numbering (often empty)
-     */
-    subOperationId?: string;
     title: string;
     workCenterId?: string;
     workCenterPlantId?: string;

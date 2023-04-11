@@ -7,6 +7,7 @@ import type { FailureReportBasic } from "./FailureReportBasic";
 import type { MaintenanceRecordActivity } from "./MaintenanceRecordActivity";
 import type { MaintenanceRecordItemMetadata } from "./MaintenanceRecordItemMetadata";
 import type { MaintenanceRecordTask } from "./MaintenanceRecordTask";
+import type { Measurement } from "./Measurement";
 import type { Status } from "./Status";
 import type { TagBasic } from "./TagBasic";
 import type { URLReference } from "./URLReference";
@@ -49,4 +50,8 @@ export type FailureReport = FailureReportBasic & {
      * Extra metadata related to additional failure modes and detection modes. This is only used in rare cases
      */
     additionalMetadata?: Array<MaintenanceRecordItemMetadata>;
+    /**
+     * Related measurements
+     */
+    measurements?: Array<Measurement>;
 };
