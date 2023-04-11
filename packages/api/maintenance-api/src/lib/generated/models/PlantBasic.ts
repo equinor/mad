@@ -23,4 +23,8 @@ export type PlantBasic = {
      * Country name
      */
     country?: string;
+    /**
+     * Plant is valid for Non-CATS time recording
+     */
+    allowSimplifiedTimeAndProgress?: boolean;
 };

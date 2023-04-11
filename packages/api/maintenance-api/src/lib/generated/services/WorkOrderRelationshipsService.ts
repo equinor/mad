@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { ProblemDetails } from "../models/ProblemDetails";
 import type { RelationshipToMaintenanceRecordAdd } from "../models/RelationshipToMaintenanceRecordAdd";
+import type { RelationshipToTagAdd } from "../models/RelationshipToTagAdd";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
@@ -97,6 +98,93 @@ export class WorkOrderRelationshipsService {
             path: {
                 "work-order-id": workOrderId,
                 "record-id": recordId,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to work order`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user or it is not possible to remove the relationship`,
+            },
+        });
+    }
+
+    /**
+     * Work order relationships - Add related tag
+     * ### Overview
+     * Add new relationship between a work order and a tag.
+     *
+     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information. This is currently not possible for technical feedback, but is expected to be added in the future.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addRelationshipFromWorkOrderToTag({
+        workOrderId,
+        requestBody,
+    }: {
+        /**
+         * Id of the work order (can be any type)
+         */
+        workOrderId: string;
+        /**
+         * Define tag to add relationship to
+         */
+        requestBody: RelationshipToTagAdd;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "POST",
+            url: "/work-order-relationships/{work-order-id}/related-tags",
+            path: {
+                "work-order-id": workOrderId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to work order`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Work order relationships - Remove related tag
+     * ### Overview
+     * Remove an existing relationship between a work order and a tag/functional location.
+     *
+     * Internally in the ERP system, this relationship will be removed from the object list of the work order.
+     *
+     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static removeRelationshipFromWorkOrderToTag({
+        workOrderId,
+        tagPlantId,
+        tagId,
+    }: {
+        /**
+         * Id of the work order (can be any type)
+         */
+        workOrderId: string;
+        /**
+         * Id of the plant
+         */
+        tagPlantId: string;
+        /**
+         * Id of the tag
+         */
+        tagId: string;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "DELETE",
+            url: "/work-order-relationships/{work-order-id}/related-tags/{tag-plant-id}-{tag-id}",
+            path: {
+                "work-order-id": workOrderId,
+                "tag-plant-id": tagPlantId,
+                "tag-id": tagId,
             },
             errors: {
                 400: `Request is missing required parameters`,

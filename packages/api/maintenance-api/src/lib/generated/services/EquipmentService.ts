@@ -70,6 +70,11 @@ export class EquipmentService {
      *
      * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
+     * ### Update release v1.17.0
+     * Add property `characteristics` to `urlReferences` in response
+     *
+     * Add query parameter `include-url-characteristics`
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -86,6 +91,7 @@ export class EquipmentService {
         includeCharacteristics = false,
         includeAttachments = false,
         includeUrlReferences = false,
+        includeUrlCharacteristics = false,
         includeMeasuringPoints = false,
         includeLastMeasurement = false,
         includeStatusDetails = false,
@@ -149,6 +155,10 @@ export class EquipmentService {
          */
         includeUrlReferences?: boolean;
         /**
+         * Include characteristics for URL References
+         */
+        includeUrlCharacteristics?: boolean;
+        /**
          * Include measuring points for this tag
          */
         includeMeasuringPoints?: boolean;
@@ -180,6 +190,7 @@ export class EquipmentService {
                 "include-characteristics": includeCharacteristics,
                 "include-attachments": includeAttachments,
                 "include-url-references": includeUrlReferences,
+                "include-url-characteristics": includeUrlCharacteristics,
                 "include-measuring-points": includeMeasuringPoints,
                 "include-last-measurement": includeLastMeasurement,
                 "include-status-details": includeStatusDetails,
