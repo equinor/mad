@@ -34,7 +34,9 @@ jobs:
         with:
           title: 🚀 Release mad packages
           commit: "📝 chore: Bump package versions and write changelog"
+          createGithubReleases: true
           publish: pnpm publish:all
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
