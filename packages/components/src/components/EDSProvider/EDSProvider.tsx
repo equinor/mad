@@ -1,18 +1,19 @@
-import { ViewProps } from "react-native";
 import { createContext } from "react";
-import { Theme, ThemeData } from "./ThemeData";
-
-const ThemeContext = createContext(ThemeData[Theme.Light]);
-ThemeContext.displayName = "ThemeContext";
+import { ColorScheme, Density } from "../../styling/EDSTheme";
 
 export type EDSProviderProps = {
-    value: Theme
+    colorScheme: ColorScheme;
+    density: Density;
 };
 
-export const EDSProvider = (props: EDSProviderProps & ViewProps) => {
-    return <ThemeContext.Provider value={ThemeData[props.value]}>
+export const EDSContext = createContext<EDSProviderProps>({ colorScheme: "light", density: "comfortable" });
+EDSContext.displayName = "EDSContext";
+
+
+export const EDSProvider = (props: React.PropsWithChildren<EDSProviderProps>) => {
+    return <EDSContext.Provider value={{ colorScheme: props.colorScheme, density: props.density }}>
         {props.children}
-    </ThemeContext.Provider>
+    </EDSContext.Provider>
 };
 
 EDSProvider.displayName = "EDSProvider";
