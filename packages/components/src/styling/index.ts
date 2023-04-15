@@ -1,2 +1,2 @@
 export * from "./EDSStyleSheet";
-export * from "./EDSTheme";
+export * from "./types";

@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from './EDSTheme';
+import type { Theme } from './types';
 
-export type ThemeDependentStyles<T> = (context: Theme) => T | StyleSheet.NamedStyles<T>;
+export type ThemeDependentStyles<TName, TProps> = (context: Theme, props?: TProps) => TName | StyleSheet.NamedStyles<TName>;
 
 export const EDSStyleSheet = {
-    create<T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<unknown>>(creator: ThemeDependentStyles<T>) {
+    create<TProps, TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>>(creator: ThemeDependentStyles<TName, TProps>) {
         return creator
     },
 };

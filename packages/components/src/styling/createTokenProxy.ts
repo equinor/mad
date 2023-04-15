@@ -1,4 +1,4 @@
-import { ColorScheme, Density, MasterToken, Theme } from "./EDSTheme";
+import type { ColorScheme, Density, MasterToken, Theme } from "./types";
 import { masterToken } from "./masterToken";
 
 export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {

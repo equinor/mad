@@ -16,7 +16,7 @@ export default function App() {
     } else {
         return (
             <SafeAreaProvider>
-                <EDSProvider colorScheme="light" density="comfortable">
+                <EDSProvider colorScheme={colorScheme} density="comfortable">
                     <Navigation colorScheme={colorScheme} />
                     <StatusBar />
                 </EDSProvider>

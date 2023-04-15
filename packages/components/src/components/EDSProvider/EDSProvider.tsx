@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { ColorScheme, Density } from "../../styling/EDSTheme";
+import { ColorScheme, Density } from "../../styling/types";
 
 export type EDSProviderProps = {
     colorScheme: ColorScheme;

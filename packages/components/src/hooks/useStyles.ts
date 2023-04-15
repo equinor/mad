@@ -4,8 +4,7 @@ import type { ThemeDependentStyles } from "../styling";
 import { useDynamicStyleSheet } from "./useDynamicStyleSheet";
 import { useTheme } from "./useTheme";
 
-export function useStyles<T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<unknown>>(themeStyles: ThemeDependentStyles<T>) {
+export function useStyles<TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>, TProps>(themeStyles: ThemeDependentStyles<TName, TProps>, props: TProps | undefined = undefined) {
     const currentTheme = useTheme();
-    return useDynamicStyleSheet<T>(() => themeStyles(currentTheme), [currentTheme])
-
+    return useDynamicStyleSheet<TName>(() => themeStyles(currentTheme, props), [currentTheme, props]);
 }

@@ -1,62 +1,63 @@
-import { tokens } from "@equinor/eds-tokens";
-import { Pressable, StyleSheet, View, ViewProps } from "react-native";
-import { convertToUnitlessNumber } from "../../translations/units";
+import { View } from "react-native";
 import { Typography } from "../Typography";
-import { forwardRef, Children } from "react";
+import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
+import { PressableHighlight } from "../PressableHighlight";
 
 export type ButtonProps = {
+    title: string;
+    color?: "primary" | "secondary" | "danger";
+    variant?: "contained" | "outlined" | "icon"
     onPress?: () => void;
 };
 
-export const Button = forwardRef<View, ButtonProps & ViewProps>(
-    (props: ButtonProps & ViewProps, ref) => {
-        const children = Children.toArray(props.children);
-        return (
-            <View style={props.style} ref={ref} collapsable={false}>
-                <Pressable
-                    style={({ pressed }) => {
-                        return pressed
-                            ? styles.containerPressed
-                            : styles.containerResting;
-                    }}
-                    onPress={props.onPress}
-                >
-                    {children.map((child) => {
-                        if (typeof child === "string")
-                            return (
-                                <Typography
-                                    group="navigation"
-                                    variant="button"
-                                    color="white"
-                                >
-                                    {child}
-                                </Typography>
-                            );
-                        return child;
-                    })}
-                </Pressable>
-            </View>
-        );
-    }
-);
+export const Button = ({
+    title,
+    onPress = () => null,
+    color = "primary",
+    variant = "contained",
+}: ButtonProps) => {
+    const styles = useStyles(themeStyles, { color, variant });
 
+    return (
+        <View style={styles.colorContainer}>
+            <PressableHighlight
+                onPress={onPress}
+                style={styles.pressableContainer}
+            >
+                <Typography group="navigation" variant="button" style={styles.textStyle}>{title}</Typography>
+            </PressableHighlight>
+        </View>
+    );
+};
 Button.displayName = "Button";
 
-const styles = StyleSheet.create({
-    containerResting: {
-        backgroundColor: tokens.colors.interactive.primary__resting.rgba,
-        borderRadius: convertToUnitlessNumber(tokens.shape.button.borderRadius),
-        padding: convertToUnitlessNumber(
-            tokens.spacings.comfortable.medium_small
-        ),
-        alignItems: "center",
-    },
-    containerPressed: {
-        backgroundColor: tokens.colors.interactive.pressed_overlay_dark.rgba,
-        borderRadius: convertToUnitlessNumber(tokens.shape.button.borderRadius),
-        padding: convertToUnitlessNumber(
-            tokens.spacings.comfortable.medium_small
-        ),
-        alignItems: "center",
-    },
+const themeStyles = EDSStyleSheet.create((theme, props) => {
+    const {
+        color: color = "primary",
+        variant: variant = "contained"
+    } = props as ButtonProps;
+
+    const backgroundColor = variant === "contained" ? theme.colors.interactive[color] : "transparent";
+    const textColor = variant === "contained" ? theme.colors.text.primaryInverted : theme.colors.interactive[color];
+
+    return {
+        colorContainer: {
+            backgroundColor,
+            borderRadius: theme.geometry.border.elementBorderRadius,
+            borderColor: theme.colors.interactive[color],
+            borderWidth: theme.geometry.border.borderWidth,
+            overflow: "hidden"
+        },
+        pressableContainer: {
+            paddingHorizontal: theme.spacing.paddingHorizontal,
+            minWidth: theme.geometry.dimension.button.minWidth,
+            minHeight: theme.geometry.dimension.button.minHeight,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        textStyle: {
+            color: textColor,
+        }
+    };
 });

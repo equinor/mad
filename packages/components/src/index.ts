@@ -5,6 +5,10 @@ export * from "./components/Typography";
 export * from "./components/Navigation";
 export * from "./components/PressableHighlight";
 export * from "./components/EDSProvider";
+export * from "./components/Spacer";
+
+export * from "./styling/EDSStyleSheet";
 
 export * from "./hooks/useEDS";
+export * from "./hooks/useStyles";
 export * from "./components/MADLegacyComponents";
