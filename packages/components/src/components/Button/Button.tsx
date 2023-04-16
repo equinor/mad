@@ -3,6 +3,7 @@ import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { PressableHighlight } from "../PressableHighlight";
+import React from "react";
 
 export type ButtonProps = {
     title: string;
@@ -11,16 +12,16 @@ export type ButtonProps = {
     onPress?: () => void;
 };
 
-export const Button = ({
+export const Button = React.forwardRef<View, ButtonProps>(({
     title,
     onPress = () => null,
     color = "primary",
     variant = "contained",
-}: ButtonProps) => {
+}, ref) => {
     const styles = useStyles(themeStyles, { color, variant });
 
     return (
-        <View style={styles.colorContainer}>
+        <View ref={ref} style={styles.colorContainer}>
             <PressableHighlight
                 onPress={onPress}
                 style={styles.pressableContainer}
@@ -29,7 +30,8 @@ export const Button = ({
             </PressableHighlight>
         </View>
     );
-};
+});
+
 Button.displayName = "Button";
 
 const themeStyles = EDSStyleSheet.create((theme, props) => {
