@@ -11,4 +11,6 @@ export * from "./styling/EDSStyleSheet";
 
 export * from "./hooks/useEDS";
 export * from "./hooks/useStyles";
+export * from "./hooks/useToken"
+
 export * from "./components/MADLegacyComponents";

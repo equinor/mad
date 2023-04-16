@@ -12,6 +12,56 @@ const SPACING_XX_SMALL = 2;
 
 export const masterToken: MasterToken = {
     colors: {
+        border: { //TODO: Dark mode on these values
+            lighter: {
+                light: "#FFFFFF",
+                dark: "#132634",
+            },
+            light: {
+                light: "#F7F7F7",
+                dark: "#132634",
+            },
+            medium: {
+                light: "#DCDCDC",
+                dark: "#132634",
+            },
+        },
+        container: {
+            background: {
+                light: "#F7F7F7",
+                dark: "#080808", // TODO: This value needs a look at
+            },
+            default: {
+                light: "#FFFFFF",
+                dark: "#132634",
+            },
+            elevation: {
+                none: {
+                    light: "#FFFFFF",
+                    dark: "#132634",
+                },
+                aboveScrim: {
+                    light: "#FFFFFF",
+                    dark: "#132634",
+                },
+                raised: {
+                    light: "#FFFFFF",
+                    dark: "#243746",
+                },
+                overlay: {
+                    light: "#FFFFFF",
+                    dark: "#2E3F4D",
+                },
+                sticky: {
+                    light: "#FFFFFF",
+                    dark: "#364855",
+                },
+                temporaryNav: {
+                    light: "#FFFFFF",
+                    dark: "#3E4F5C",
+                }
+            }
+        },
         interactive: {
             primary: {
                 light: "#007079",

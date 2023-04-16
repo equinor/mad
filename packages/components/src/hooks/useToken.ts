@@ -2,7 +2,7 @@ import { useContext, useMemo } from "react";
 import { EDSContext } from "../components/EDSProvider";
 import { createTokenProxy } from "../styling/createTokenProxy";
 
-export function useTheme() {
+export function useToken() {
     const context = useContext(EDSContext);
     if (!context) throw new Error("Could not find the EDS Context. Have you set up the EDSProvider in your app root?");
     const tokenProxy = useMemo(() => {

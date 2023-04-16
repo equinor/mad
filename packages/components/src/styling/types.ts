@@ -1,11 +1,28 @@
 export type ColorScheme = "light" | "dark";
 export type Density = "comfortable" | "tight";
 
-type ColorSchemeValues<T> = Record<ColorScheme, T>;
-type DensityValues<T> = Record<Density, T>;
+export type ColorSchemeValues<T> = Record<ColorScheme, T>;
+export type DensityValues<T> = Record<Density, T>;
 
 export type MasterToken = {
     colors: {
+        border: {
+            lighter: ColorSchemeValues<string>,
+            light: ColorSchemeValues<string>,
+            medium: ColorSchemeValues<string>,
+        },
+        container: {
+            background: ColorSchemeValues<string>;
+            default: ColorSchemeValues<string>,
+            elevation: {
+                none: ColorSchemeValues<string>,
+                aboveScrim: ColorSchemeValues<string>,
+                raised: ColorSchemeValues<string>,
+                overlay: ColorSchemeValues<string>,
+                sticky: ColorSchemeValues<string>,
+                temporaryNav: ColorSchemeValues<string>,
+            }
+        },
         interactive: {
             primary: ColorSchemeValues<string>;
             secondary: ColorSchemeValues<string>;
