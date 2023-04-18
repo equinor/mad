@@ -76,7 +76,14 @@ const resolveFontName = (bold: boolean | undefined, italic: boolean | undefined,
 };
 
 const themeStyles = EDSStyleSheet.create((theme, props: Pick<TypographyProps<TypographyGroup>, "group" | "variant" | "color" | "bold" | "italic">) => {
-    const { group: group = "basic", variant: variant = "p", color: color = "primary", bold, italic } = props;
+    const {
+        group: group = "basic",
+        variant: variant = "p",
+        color: color = "primary",
+        bold,
+        italic
+    } = props;
+
     const typography = (theme.typography as any)[group as keyof typeof theme.typography][variant as any] as TypographyStyle;
 
     const textStyle: TextStyle = {

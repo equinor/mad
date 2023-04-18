@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import type { Theme } from './types';
 
-export type ThemeDependentStyles<TProps, TStyleSheet> = (context: Theme, props: TProps) => TStyleSheet;
+export type ThemeDependentStyles<TProps = undefined, TStyleSheet = StyleSheet.NamedStyles<any>> = (context: Theme, props: TProps) => TStyleSheet;
 
 export const EDSStyleSheet = {
     create<
