@@ -39,3 +39,5 @@ export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {
     }
     return new Proxy<MasterToken>(masterToken, handler) as unknown as Theme;
 }
+
+

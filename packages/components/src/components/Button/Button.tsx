@@ -34,11 +34,11 @@ export const Button = React.forwardRef<View, ButtonProps>(({
 
 Button.displayName = "Button";
 
-const themeStyles = EDSStyleSheet.create((theme, props) => {
+const themeStyles = EDSStyleSheet.create((theme, props: Pick<ButtonProps, "variant" | "color">) => {
     const {
         color: color = "primary",
         variant: variant = "contained"
-    } = props as ButtonProps;
+    } = props;
 
     const backgroundColor = variant === "contained" ? theme.colors.interactive[color] : "transparent";
     const textColor = variant === "contained" ? theme.colors.text.primaryInverted : theme.colors.interactive[color];

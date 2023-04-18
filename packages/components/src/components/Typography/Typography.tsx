@@ -1,88 +1,93 @@
 import { Text, TextProps } from "react-native";
-import { useDynamicStyle } from "../../hooks/useDynamicStyle";
-import {
-    typography,
-    quickVariants,
-    ColorVariants,
-    TypographyGroups,
-    TypographyVariants,
-    typographyColors,
-    QuickTypographyVariants,
-} from "./Typography.tokens";
+import React from "react";
+import { EDSStyleSheet, Theme, TypographyGroup, TypographyStyle, TypographyVariant } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
+import { TextStyle } from "react-native";
 
-import { Typography as TypographyType } from "@equinor/eds-tokens";
-import { typographyTemplate } from "../../translations/typographyTemplate";
+export type TypographyColorVariant =
+    "primary" |
+    "secondary" |
+    "tetriary" |
+    "primaryInverted" |
+    "disabled" |
+    "warning" |
+    "success" |
+    "danger";
 
-export type TypographyProps = {
-    /** Typography variants, specifies which variant to use. */
-    variant?: TypographyVariants;
+
+export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
     /** Typography groups, specifies which group to use. */
-    group?: TypographyGroups;
+    group?: TGroup;
+    /** Typography variants, specifies which variant to use. */
+    variant?: TypographyVariant<TGroup>;
     /** Bold text. */
     bold?: boolean;
     /** Italic text. */
     italic?: boolean;
     /** Typography colors. */
-    color?: ColorVariants | string;
+    color?: TypographyColorVariant;
+    /** Reference to text object */
+    ref?: React.ForwardedRef<Text>;
 };
 
-const resolveColor = (
-    color: ColorVariants | string | undefined
-): string | undefined => {
-    if (!color) return undefined;
-    return typographyColors[color as ColorVariants] ?? color;
-};
+type TextChildren = { children: string | number | undefined | null };
 
-const resolveTypography = (
-    variantName: TypographyVariants,
-    group: TypographyGroups | undefined
-): TypographyType | undefined => {
-    // For quick use when using paragraphs and headings we can skip group
-    if (!group && quickVariants[variantName as keyof QuickTypographyVariants]) {
-        return quickVariants[
-            variantName as keyof QuickTypographyVariants
-        ] as TypographyType;
-    }
-    return (typography[group ?? ("" as TypographyGroups)] as any)[
-        variantName
-    ] as TypographyType;
-};
-
-const resolveVariantName = (
-    variant: TypographyVariants,
-    bold = false,
-    italic = false
-) =>
-    `${variant}${bold ? "_bold" : ""}${
-        italic ? "_italic" : ""
-    }` as TypographyVariants;
-
-export const Typography = ({
-    variant = "body_short",
-    group,
+const TypographyInner = <TGroup extends TypographyGroup>({
+    group = "basic" as TGroup,
+    variant,
     bold,
     italic,
     color,
+    ref,
     children,
     ...rest
-}: React.PropsWithChildren<TypographyProps & TextProps>) => {
-    const style = useDynamicStyle(() => {
-        const variantName = resolveVariantName(variant, bold, italic);
-        const typ = resolveTypography(variantName, group);
-        if (!typ)
-            throw new Error(
-                `Typography variant not found for variant "${variantName}" ("${variant}") & group "${
-                    group || ""
-                }"`
-            );
-        return typographyTemplate(typ);
-    }, [variant, group, color, bold, italic]);
+}: TypographyProps<TGroup> & TextChildren & TextProps) => {
+    const styles = useStyles(themeStyles, { group, variant, bold, italic });
+
     return (
         <Text
             {...rest}
-            style={[style, { color: resolveColor(color) }, rest.style]}
+            ref={ref}
+            style={[styles.text, rest.style]}
         >
             {children}
         </Text>
     );
 };
+
+const resolveColor = (color: TypographyColorVariant, theme: Theme) => {
+    if (color === "primary" || color === "secondary" || color === "tetriary" || color === "primaryInverted") {
+        return theme.colors.text[color];
+    }
+    if (color === "disabled") {
+        return theme.colors.text.tetriary;
+    }
+    return theme.colors.interactive[color];
+};
+
+const resolveFontName = (bold: boolean | undefined, italic: boolean | undefined, defaultName: string) => {
+    let fontName = defaultName;
+    if (bold) {
+        fontName = fontName.replace(/Regular|Medium|Light/gi, "Bold");
+    };
+    if (italic) fontName += "Italic";
+    fontName = fontName.replace("RegularItalic", "Italic");
+    return fontName;
+};
+
+const themeStyles = EDSStyleSheet.create((theme, props: Pick<TypographyProps<TypographyGroup>, "group" | "variant" | "color" | "bold" | "italic">) => {
+    const { group: group = "basic", variant: variant = "p", color: color = "primary", bold, italic } = props;
+    const typography = (theme.typography as any)[group as keyof typeof theme.typography][variant as any] as TypographyStyle;
+
+    const textStyle: TextStyle = {
+        ...typography,
+        color: resolveColor(color, theme),
+        fontFamily: resolveFontName(bold, italic, typography.fontFamily ?? "Equinor-Regular")
+    }
+    return {
+        text: textStyle
+    };
+});
+
+export const Typography = React.forwardRef(TypographyInner) as <TGroup extends TypographyGroup>(p: TypographyProps<TGroup> & TextChildren & TextProps) => React.ReactElement;
+Typography.displayName = "Typography";

@@ -9,6 +9,7 @@ const SPACING_MEDIUM_SMALL = 12;
 const SPACING_SMALL = 8;
 const SPACING_X_SMALL = 4;
 const SPACING_XX_SMALL = 2;
+const FONT_BASIS = 17;
 
 export const masterToken: MasterToken = {
     colors: {
@@ -143,6 +144,62 @@ export const masterToken: MasterToken = {
             large: {
                 comfortable: 42,
                 tight: 34,
+            }
+        }
+    },
+    typography: {
+        basic: {
+            h1: {
+                fontFamily: "Equinor-Regular",
+                fontSize: 2 * FONT_BASIS,
+                textAlign: "left",
+            },
+            h2: {
+                fontFamily: "Equinor-",
+                fontSize: 1.750 * FONT_BASIS,
+                textAlign: "left",
+            },
+            h3: {
+                fontFamily: "Equinor-Regular",
+                fontSize: 1.5 * FONT_BASIS,
+                textAlign: "left",
+            },
+            h4: {
+                fontFamily: "Equinor-Regular",
+                fontSize: 1.250 * FONT_BASIS,
+                textAlign: "left",
+            },
+            h5: {
+                fontFamily: "Equinor-Medium",
+                fontSize: 1.125 * FONT_BASIS,
+                textAlign: "left",
+            },
+            h6: {
+                fontFamily: "Equinor-Medium",
+                fontSize: FONT_BASIS,
+                textAlign: "left",
+            },
+            p: {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS,
+                textAlign: "left",
+            },
+        },
+        navigation: {
+            button: {
+                fontFamily: "Equinor-Medium",
+                fontSize: 0.875 * FONT_BASIS,
+                textAlign: "left",
+            },
+            "cell-title": {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS,
+                textAlign: "left",
+            },
+            "cell-description": {
+                fontFamily: "Equinor-Medium",
+                fontSize: 0.750 * FONT_BASIS,
+                textAlign: "left",
             }
         }
     }

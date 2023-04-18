@@ -1,8 +1,20 @@
+import { TextProps, TextStyle } from "react-native";
+
 export type ColorScheme = "light" | "dark";
 export type Density = "comfortable" | "tight";
 
 export type ColorSchemeValues<T> = Record<ColorScheme, T>;
 export type DensityValues<T> = Record<Density, T>;
+
+
+export type TypographyVariantGroupMap = {
+    basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+    navigation: "button" | "cell-title" | "cell-description";
+};
+export type TypographyGroup = keyof TypographyVariantGroupMap;
+export type TypographyVariant<TKey extends TypographyGroup> = TypographyVariantGroupMap[TKey];
+
+export type TypographyStyle = Pick<TextStyle, "fontFamily" | "fontSize" | "letterSpacing" | "textTransform" | "textAlign">;
 
 export type MasterToken = {
     colors: {
@@ -57,6 +69,11 @@ export type MasterToken = {
             small: DensityValues<number>,
             medium: DensityValues<number>,
             large: DensityValues<number>,
+        }
+    },
+    typography: {
+        [TGroup in TypographyGroup]: {
+            [TKey in TypographyVariant<TGroup>]: TypographyStyle
         }
     }
 };
