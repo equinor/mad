@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, ViewProps } from "react-native";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -7,21 +7,22 @@ import React from "react";
 
 export type ButtonProps = {
     title: string;
+    onPress?: () => void,
     color?: "primary" | "secondary" | "danger";
     variant?: "contained" | "outlined" | "icon"
-    onPress?: () => void;
 };
 
-export const Button = React.forwardRef<View, ButtonProps>(({
+export const Button = React.forwardRef<View, ButtonProps & ViewProps>(({
     title,
-    onPress = () => null,
     color = "primary",
     variant = "contained",
+    onPress = () => null,
+    ...rest
 }, ref) => {
     const styles = useStyles(themeStyles, { color, variant });
 
     return (
-        <View ref={ref} style={styles.colorContainer}>
+        <View ref={ref} style={[styles.colorContainer, rest.style]}>
             <PressableHighlight
                 onPress={onPress}
                 style={styles.pressableContainer}
