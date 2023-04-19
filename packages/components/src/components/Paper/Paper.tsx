@@ -1,28 +1,23 @@
 import { View, ViewProps } from "react-native";
-import { ElevationType, paperToken } from "./Paper.tokens";
-
-import { useDynamicStyle } from "../../hooks/useDynamicStyle";
-import { elevationShadowStyleMap } from "../../translations/boxShadow";
 import React from "react";
+import { EDSStyleSheet, Elevation } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
 
 export type PaperProps = {
-    elevation: ElevationType;
+    elevation: Elevation;
 };
 
 export const Paper = React.forwardRef<
     View,
     React.PropsWithChildren<PaperProps & ViewProps>
 >(({ elevation = "none", children, ...rest }, ref) => {
-    const shadowStyle = useDynamicStyle(() => {
-        return elevationShadowStyleMap[elevation];
-    }, [elevation]);
+    const style = useStyles(themeStyles, elevation)
     return (
         <View
             ref={ref}
             {...rest}
             style={[
-                shadowStyle,
-                { backgroundColor: paperToken.background },
+                style.container,
                 rest.style,
             ]}
         >
@@ -32,3 +27,10 @@ export const Paper = React.forwardRef<
 });
 
 Paper.displayName = "Paper";
+
+const themeStyles = EDSStyleSheet.create((theme, elevation: Elevation) => ({
+    container: {
+        backgroundColor: theme.colors.container.elevation[elevation],
+        ...theme.geometry.shadow[elevation],
+    }
+}))

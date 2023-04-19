@@ -8,9 +8,11 @@ export * from "./components/EDSProvider";
 export * from "./components/Spacer";
 
 export * from "./styling/EDSStyleSheet";
+export * from "./styling/types";
 
 export * from "./hooks/useEDS";
 export * from "./hooks/useStyles";
 export * from "./hooks/useToken"
+
 
 export * from "./components/MADLegacyComponents";

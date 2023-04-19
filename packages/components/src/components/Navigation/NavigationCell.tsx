@@ -67,13 +67,13 @@ export const NavigationCell = (
                             <Typography
                                 style={{ paddingBottom: 5 }}
                                 group="navigation"
-                                variant="cell-title"
+                                variant="cellTitle"
                             >
                                 {props.title}
                             </Typography>
                         )}
                         {props.description && (
-                            <Typography group="navigation" variant="cell-description">
+                            <Typography group="navigation" variant="cellDescription">
                                 {props.description}
                             </Typography>
                         )}

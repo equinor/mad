@@ -122,6 +122,59 @@ export const masterToken: MasterToken = {
                 }
             },
         },
+        shadow: {
+            none: {},
+            raised: {
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 2,
+                },
+                shadowOpacity: 0.23,
+                shadowRadius: 2.62,
+                elevation: 4,
+            },
+            overlay: {
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 3,
+                },
+                shadowOpacity: 0.29,
+                shadowRadius: 4.65,
+                elevation: 7,
+            },
+            sticky: {
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 4,
+                },
+                shadowOpacity: 0.32,
+                shadowRadius: 5.46,
+                elevation: 9,
+            },
+            temporaryNav: {
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 6,
+                },
+                shadowOpacity: 0.37,
+                shadowRadius: 7.49,
+                elevation: 12,
+            },
+            aboveScrim: {
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 9,
+                },
+                shadowOpacity: 0.5,
+                shadowRadius: 12.35,
+                elevation: 19,
+            },
+        }
     },
     spacing: {
         paddingHorizontal: {
@@ -155,7 +208,7 @@ export const masterToken: MasterToken = {
                 textAlign: "left",
             },
             h2: {
-                fontFamily: "Equinor-",
+                fontFamily: "Equinor-Regular",
                 fontSize: 1.750 * FONT_BASIS,
                 textAlign: "left",
             },
@@ -191,14 +244,21 @@ export const masterToken: MasterToken = {
                 fontSize: 0.875 * FONT_BASIS,
                 textAlign: "left",
             },
-            "cell-title": {
+            cellTitle: {
                 fontFamily: "Equinor-Regular",
                 fontSize: FONT_BASIS,
                 textAlign: "left",
             },
-            "cell-description": {
+            cellDescription: {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.750 * FONT_BASIS,
+                textAlign: "left",
+            }
+        },
+        ui: {
+            tooltip: {
+                fontFamily: "Equinor-Medium",
+                fontSize: 0.700 * FONT_BASIS,
                 textAlign: "left",
             }
         }

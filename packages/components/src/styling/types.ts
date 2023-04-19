@@ -1,4 +1,4 @@
-import { TextProps, TextStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 export type ColorScheme = "light" | "dark";
 export type Density = "comfortable" | "tight";
@@ -9,12 +9,16 @@ export type DensityValues<T> = Record<Density, T>;
 
 export type TypographyVariantGroupMap = {
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
-    navigation: "button" | "cell-title" | "cell-description";
+    navigation: "button" | "cellTitle" | "cellDescription";
+    ui: "tooltip"
 };
 export type TypographyGroup = keyof TypographyVariantGroupMap;
 export type TypographyVariant<TKey extends TypographyGroup> = TypographyVariantGroupMap[TKey];
 
+export type Elevation = "raised" | "none" | "overlay" | "sticky" | "temporaryNav" | "aboveScrim";
+
 export type TypographyStyle = Pick<TextStyle, "fontFamily" | "fontSize" | "letterSpacing" | "textTransform" | "textAlign">;
+export type ShadowStyle = Pick<ViewStyle, "shadowColor" | "shadowOffset" | "shadowOpacity" | "shadowRadius" | "elevation">;
 
 export type MasterToken = {
     colors: {
@@ -61,6 +65,9 @@ export type MasterToken = {
                 minWidth: DensityValues<number>,
             },
         },
+        shadow: {
+            [TElev in Elevation]: ShadowStyle
+        }
     },
     spacing: {
         paddingHorizontal: DensityValues<number>,

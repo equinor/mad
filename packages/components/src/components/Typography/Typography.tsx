@@ -30,7 +30,7 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
     ref?: React.ForwardedRef<Text>;
 };
 
-type TextChildren = { children: string | number | undefined | null };
+type TextChildren = { children: string | string[] | number | undefined | null };
 
 const TypographyInner = <TGroup extends TypographyGroup>({
     group = "basic" as TGroup,
