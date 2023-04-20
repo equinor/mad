@@ -28,13 +28,8 @@ export const NavigationCell = (
 
     return (
         <View style={dynamicStyle.containerWrapper}>
-            <PressableHighlight
-                onPress={props.onPress}
-                style={{ flex: 1 }}
-            >
-                <View
-                    style={dynamicStyle.containerInner}
-                >
+            <PressableHighlight onPress={props.onPress} style={{ flex: 1 }}>
+                <View style={dynamicStyle.containerInner}>
                     <View style={styles.cellIconContainer}>
                         <Typography>{"?"}</Typography>
                     </View>
@@ -55,7 +50,10 @@ export const NavigationCell = (
                             </Typography>
                         )}
                         {props.description && (
-                            <Typography group="navigation" variant="cellDescription">
+                            <Typography
+                                group="navigation"
+                                variant="cellDescription"
+                            >
                                 {props.description}
                             </Typography>
                         )}
@@ -70,24 +68,25 @@ export const NavigationCell = (
     );
 };
 
-
-const themeStyles = EDSStyleSheet.create((theme, props: { borderEdges: Partial<NavigationBorderEdges> }) => ({
-    containerWrapper: {
-        width: "100%",
-        minHeight: 70,
-        backgroundColor: theme.colors.container.elevation.none,
-        borderColor: theme.colors.border.medium,
-        borderTopWidth: props.borderEdges.top ? 1 : undefined,
-        borderBottomWidth: props.borderEdges.bottom ? 1 : undefined,
-    },
-    containerInner: {
-        flex: 1,
-        flexDirection: "row",
-        paddingHorizontal: theme.spacing.paddingHorizontal,
-        paddingTop: 12,
-        paddingBottom: 12,
-    }
-}));
+const themeStyles = EDSStyleSheet.create(
+    (theme, props: { borderEdges: Partial<NavigationBorderEdges> }) => ({
+        containerWrapper: {
+            width: "100%",
+            minHeight: 70,
+            backgroundColor: theme.colors.container.elevation.none,
+            borderColor: theme.colors.border.medium,
+            borderTopWidth: props.borderEdges.top ? 1 : undefined,
+            borderBottomWidth: props.borderEdges.bottom ? 1 : undefined,
+        },
+        containerInner: {
+            flex: 1,
+            flexDirection: "row",
+            paddingHorizontal: theme.spacing.paddingHorizontal,
+            paddingTop: 12,
+            paddingBottom: 12,
+        },
+    })
+);
 
 const styles = StyleSheet.create({
     cellIconContainer: {

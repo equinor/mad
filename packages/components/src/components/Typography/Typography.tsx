@@ -1,19 +1,24 @@
 import { Text, TextProps } from "react-native";
 import React from "react";
-import { EDSStyleSheet, Theme, TypographyGroup, TypographyStyle, TypographyVariant } from "../../styling";
+import {
+    EDSStyleSheet,
+    Theme,
+    TypographyGroup,
+    TypographyStyle,
+    TypographyVariant,
+} from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { TextStyle } from "react-native";
 
 export type TypographyColorVariant =
-    "primary" |
-    "secondary" |
-    "tetriary" |
-    "primaryInverted" |
-    "disabled" |
-    "warning" |
-    "success" |
-    "danger";
-
+    | "primary"
+    | "secondary"
+    | "tetriary"
+    | "primaryInverted"
+    | "disabled"
+    | "warning"
+    | "success"
+    | "danger";
 
 export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
     /** Typography groups, specifies which group to use. */
@@ -45,18 +50,19 @@ const TypographyInner = <TGroup extends TypographyGroup>({
     const styles = useStyles(themeStyles, { group, variant, bold, italic });
 
     return (
-        <Text
-            {...rest}
-            ref={ref}
-            style={[styles.text, rest.style]}
-        >
+        <Text {...rest} ref={ref} style={[styles.text, rest.style]}>
             {children}
         </Text>
     );
 };
 
 const resolveColor = (color: TypographyColorVariant, theme: Theme) => {
-    if (color === "primary" || color === "secondary" || color === "tetriary" || color === "primaryInverted") {
+    if (
+        color === "primary" ||
+        color === "secondary" ||
+        color === "tetriary" ||
+        color === "primaryInverted"
+    ) {
         return theme.colors.text[color];
     }
     if (color === "disabled") {
@@ -65,36 +71,58 @@ const resolveColor = (color: TypographyColorVariant, theme: Theme) => {
     return theme.colors.interactive[color];
 };
 
-const resolveFontName = (bold: boolean | undefined, italic: boolean | undefined, defaultName: string) => {
+const resolveFontName = (
+    bold: boolean | undefined,
+    italic: boolean | undefined,
+    defaultName: string
+) => {
     let fontName = defaultName;
     if (bold) {
         fontName = fontName.replace(/Regular|Medium|Light/gi, "Bold");
-    };
+    }
     if (italic) fontName += "Italic";
     fontName = fontName.replace("RegularItalic", "Italic");
     return fontName;
 };
 
-const themeStyles = EDSStyleSheet.create((theme, props: Pick<TypographyProps<TypographyGroup>, "group" | "variant" | "color" | "bold" | "italic">) => {
-    const {
-        group: group = "basic",
-        variant: variant = "p",
-        color: color = "primary",
-        bold,
-        italic
-    } = props;
+const themeStyles = EDSStyleSheet.create(
+    (
+        theme,
+        props: Pick<
+            TypographyProps<TypographyGroup>,
+            "group" | "variant" | "color" | "bold" | "italic"
+        >
+    ) => {
+        const {
+            group: group = "basic",
+            variant: variant = "p",
+            color: color = "primary",
+            bold,
+            italic,
+        } = props;
 
-    const typography = (theme.typography as any)[group as keyof typeof theme.typography][variant as any] as TypographyStyle;
+        const typography = (theme.typography as any)[
+            group as keyof typeof theme.typography
+        ][variant as any] as TypographyStyle;
 
-    const textStyle: TextStyle = {
-        ...typography,
-        color: resolveColor(color, theme),
-        fontFamily: resolveFontName(bold, italic, typography.fontFamily ?? "Equinor-Regular")
+        const textStyle: TextStyle = {
+            ...typography,
+            color: resolveColor(color, theme),
+            fontFamily: resolveFontName(
+                bold,
+                italic,
+                typography.fontFamily ?? "Equinor-Regular"
+            ),
+        };
+        return {
+            text: textStyle,
+        };
     }
-    return {
-        text: textStyle
-    };
-});
+);
 
-export const Typography = React.forwardRef(TypographyInner) as <TGroup extends TypographyGroup>(p: TypographyProps<TGroup> & TextChildren & TextProps) => React.ReactElement;
+export const Typography = React.forwardRef(TypographyInner) as <
+    TGroup extends TypographyGroup
+>(
+    p: TypographyProps<TGroup> & TextChildren & TextProps
+) => React.ReactElement;
 Typography.displayName = "Typography";

@@ -7,8 +7,8 @@ import { useStyles } from "../../hooks/useStyles";
 
 export type NavigationCellListProps = {
     children?:
-    | React.ReactElement<NavigationProps>
-    | React.ReactElement<NavigationProps>[];
+        | React.ReactElement<NavigationProps>
+        | React.ReactElement<NavigationProps>[];
 };
 
 export const NavigationCellList = (props: NavigationCellListProps) => {
@@ -46,7 +46,7 @@ export const NavigationCellList = (props: NavigationCellListProps) => {
     );
 };
 
-const themeStyles = EDSStyleSheet.create(theme => ({
+const themeStyles = EDSStyleSheet.create((theme) => ({
     dividerOuter: {
         position: "absolute",
         top: 0,
@@ -58,5 +58,5 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         backgroundColor: theme.colors.border.medium,
         width: "100%",
         height: 1,
-    }
-}))
+    },
+}));

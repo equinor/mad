@@ -121,7 +121,8 @@ export const Popover = (props: PopoverProps & ViewProps) => {
                             width: ARROW_CONTAINER_SIZE / 1.444,
                             height: ARROW_CONTAINER_SIZE / 1.444,
                             transform: [{ rotate: "45deg" }],
-                            backgroundColor: theme.colors.container.elevation.overlay,
+                            backgroundColor:
+                                theme.colors.container.elevation.overlay,
                         }}
                     ></View>
                 </View>
@@ -130,7 +131,7 @@ export const Popover = (props: PopoverProps & ViewProps) => {
     );
 };
 
-const themeStyles = EDSStyleSheet.create(theme => ({
+const themeStyles = EDSStyleSheet.create((theme) => ({
     arrow: {
         position: "absolute",
         width: ARROW_CONTAINER_SIZE,

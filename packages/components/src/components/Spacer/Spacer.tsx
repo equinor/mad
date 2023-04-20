@@ -1,19 +1,16 @@
 import { View } from "react-native";
-import { useStyles } from "../../hooks/useStyles"
-import { EDSStyleSheet } from "../../styling"
-
+import { useStyles } from "../../hooks/useStyles";
+import { EDSStyleSheet } from "../../styling";
 
 export type SpacerProps = {
-    amount?: "small" | "medium" | "large",
-}
+    amount?: "small" | "medium" | "large";
+};
 
-export const Spacer = ({
-    amount = "medium",
-}: SpacerProps) => {
+export const Spacer = ({ amount = "medium" }: SpacerProps) => {
     const styles = useStyles(themeStyles, { amount });
 
-    return <View style={styles.spacer} />
-}
+    return <View style={styles.spacer} />;
+};
 
 Spacer.defaultName = "Spacer";
 

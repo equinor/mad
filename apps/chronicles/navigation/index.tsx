@@ -5,9 +5,7 @@
  */
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-    NavigationContainer,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
@@ -47,7 +45,7 @@ export default function Navigation({
                     text: token.colors.text.primary,
                     border: token.colors.border.medium,
                     notification: token.colors.interactive.primary,
-                }
+                },
             }}
         >
             <RootNavigator />
@@ -93,7 +91,6 @@ function DiscoverNavigator() {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />

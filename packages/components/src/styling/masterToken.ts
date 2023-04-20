@@ -13,7 +13,8 @@ const FONT_BASIS = 17;
 
 export const masterToken: MasterToken = {
     colors: {
-        border: { //TODO: Dark mode on these values
+        border: {
+            //TODO: Dark mode on these values
             lighter: {
                 light: "#FFFFFF",
                 dark: "#132634",
@@ -60,8 +61,8 @@ export const masterToken: MasterToken = {
                 temporaryNav: {
                     light: "#FFFFFF",
                     dark: "#3E4F5C",
-                }
-            }
+                },
+            },
         },
         interactive: {
             primary: {
@@ -87,7 +88,7 @@ export const masterToken: MasterToken = {
             pressedOverlay: {
                 light: "rgba(0,0,0,0.2)",
                 dark: "rgba(255,255,255,0.2)",
-            }
+            },
         },
         text: {
             primary: {
@@ -105,7 +106,7 @@ export const masterToken: MasterToken = {
             primaryInverted: {
                 light: "#FFFFFF",
                 dark: "#000000",
-            }
+            },
         },
     },
     geometry: {
@@ -123,7 +124,7 @@ export const masterToken: MasterToken = {
                 minWidth: {
                     comfortable: 112,
                     tight: 96,
-                }
+                },
             },
         },
         shadow: {
@@ -178,7 +179,7 @@ export const masterToken: MasterToken = {
                 shadowRadius: 12.35,
                 elevation: 19,
             },
-        }
+        },
     },
     spacing: {
         paddingHorizontal: {
@@ -201,8 +202,8 @@ export const masterToken: MasterToken = {
             large: {
                 comfortable: 42,
                 tight: 34,
-            }
-        }
+            },
+        },
     },
     typography: {
         basic: {
@@ -213,7 +214,7 @@ export const masterToken: MasterToken = {
             },
             h2: {
                 fontFamily: "Equinor-Regular",
-                fontSize: 1.750 * FONT_BASIS,
+                fontSize: 1.75 * FONT_BASIS,
                 textAlign: "left",
             },
             h3: {
@@ -223,7 +224,7 @@ export const masterToken: MasterToken = {
             },
             h4: {
                 fontFamily: "Equinor-Regular",
-                fontSize: 1.250 * FONT_BASIS,
+                fontSize: 1.25 * FONT_BASIS,
                 textAlign: "left",
             },
             h5: {
@@ -255,16 +256,16 @@ export const masterToken: MasterToken = {
             },
             cellDescription: {
                 fontFamily: "Equinor-Medium",
-                fontSize: 0.750 * FONT_BASIS,
+                fontSize: 0.75 * FONT_BASIS,
                 textAlign: "left",
-            }
+            },
         },
         ui: {
             tooltip: {
                 fontFamily: "Equinor-Medium",
-                fontSize: 0.700 * FONT_BASIS,
+                fontSize: 0.7 * FONT_BASIS,
                 textAlign: "left",
-            }
-        }
-    }
-}
+            },
+        },
+    },
+};

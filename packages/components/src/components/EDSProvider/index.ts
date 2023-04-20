@@ -1,1 +1,1 @@
-export * from './EDSProvider';
+export * from "./EDSProvider";

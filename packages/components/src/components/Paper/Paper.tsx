@@ -11,16 +11,9 @@ export const Paper = React.forwardRef<
     View,
     React.PropsWithChildren<PaperProps & ViewProps>
 >(({ elevation = "none", children, ...rest }, ref) => {
-    const style = useStyles(themeStyles, elevation)
+    const style = useStyles(themeStyles, elevation);
     return (
-        <View
-            ref={ref}
-            {...rest}
-            style={[
-                style.container,
-                rest.style,
-            ]}
-        >
+        <View ref={ref} {...rest} style={[style.container, rest.style]}>
             {children}
         </View>
     );
@@ -32,5 +25,5 @@ const themeStyles = EDSStyleSheet.create((theme, elevation: Elevation) => ({
     container: {
         backgroundColor: theme.colors.container.elevation[elevation],
         ...theme.geometry.shadow[elevation],
-    }
-}))
+    },
+}));

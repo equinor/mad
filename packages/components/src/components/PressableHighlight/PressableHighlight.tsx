@@ -30,14 +30,17 @@ export const PressableHighlight = forwardRef<
             <Pressable
                 ref={ref}
                 style={({ pressed }) => [
-                    pressed && { backgroundColor: theme.colors.interactive.pressedOverlay },
+                    pressed && {
+                        backgroundColor:
+                            theme.colors.interactive.pressedOverlay,
+                    },
                     style,
                 ]}
                 {...rest}
             >
                 {children}
             </Pressable>
-        )
+        );
     }
 );
 

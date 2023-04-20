@@ -1,6 +1,6 @@
 export enum Theme {
     Light,
-    Dark
+    Dark,
 }
 
 export const ThemeData = {
@@ -8,24 +8,24 @@ export const ThemeData = {
         colors: {
             ui: {
                 background: {
-                    default: "white"
-                }
+                    default: "white",
+                },
             },
             text: {
-                primary: "#3D3D3D"
-            }
-        }
+                primary: "#3D3D3D",
+            },
+        },
     },
     [Theme.Dark]: {
         colors: {
             ui: {
                 background: {
-                    default: "#132634"
-                }
+                    default: "#132634",
+                },
             },
             text: {
-                primary: "white"
-            }
-        }
-    }
-}
+                primary: "white",
+            },
+        },
+    },
+};

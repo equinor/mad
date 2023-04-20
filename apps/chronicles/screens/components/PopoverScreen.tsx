@@ -16,7 +16,8 @@ export const PopoverScreen = () => {
             <Typography>
                 The popover component displays modally on top of your content
                 and positions itself automatically based on constraints around
-                the anchor element so you won't have to worry about it being positioned badly.
+                the anchor element so you won't have to worry about it being
+                positioned badly.
             </Typography>
             <Spacer amount="large" />
             <Button
