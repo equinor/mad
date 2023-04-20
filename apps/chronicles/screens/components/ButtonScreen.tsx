@@ -4,6 +4,8 @@ import {
     Spacer,
     Typography,
     useStyles,
+    ButtonGroup,
+    ToggleButton
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
@@ -31,7 +33,7 @@ export const ButtonScreen = () => {
             </View>
             <Spacer />
             <Typography style={styles.textArea}>
-                ...and in different variants
+                ...and in different variants.
             </Typography>
             <View
                 style={{
@@ -43,6 +45,30 @@ export const ButtonScreen = () => {
                 <Button title="Contained" variant="contained" />
                 <Button title="Outlined" variant="outlined" />
                 <Button title="ICON (TBA)" color="danger" variant="outlined" />
+            </View>
+            <Spacer />
+            <Typography style={styles.textArea}>
+                They can also be grouped
+            </Typography>
+            <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
+                <ButtonGroup>
+                    <Button title="One"></Button>
+                    <Button title="Two"></Button>
+                    <Button title="Three"></Button>
+                </ButtonGroup>
+            </View>
+            <Spacer />
+            <Typography style={styles.textArea}>
+                Or used as toggles
+            </Typography>
+            <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
+                <ToggleButton onChange={(indices) => {
+                    console.log(indices);
+                }} multiple={false}>
+                    <Button title="One"></Button>
+                    <Button title="Two"></Button>
+                    <Button title="Three"></Button>
+                </ToggleButton>
             </View>
         </ScrollView>
     );
