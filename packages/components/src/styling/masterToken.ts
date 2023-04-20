@@ -84,6 +84,10 @@ export const masterToken: MasterToken = {
                 light: "#EB0000",
                 dark: "#EB0000",
             },
+            pressedOverlay: {
+                light: "rgba(0,0,0,0.2)",
+                dark: "rgba(255,255,255,0.2)",
+            }
         },
         text: {
             primary: {

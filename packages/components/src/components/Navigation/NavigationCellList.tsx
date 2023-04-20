@@ -1,17 +1,18 @@
-import { Border } from "@equinor/eds-tokens";
 import * as React from "react";
 import { useMemo } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { NavigationProps } from "./NavigationCell";
-import { navigationToken } from "./NavigationCell.token";
+import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
 
 export type NavigationCellListProps = {
     children?:
-        | React.ReactElement<NavigationProps>
-        | React.ReactElement<NavigationProps>[];
+    | React.ReactElement<NavigationProps>
+    | React.ReactElement<NavigationProps>[];
 };
 
 export const NavigationCellList = (props: NavigationCellListProps) => {
+    const styles = useStyles(themeStyles);
     const navs = useMemo(() => {
         const navChildren = React.Children.toArray(props.children).filter(
             (child) => React.isValidElement<NavigationProps>(child)
@@ -44,17 +45,18 @@ export const NavigationCellList = (props: NavigationCellListProps) => {
         </View>
     );
 };
-const styles = StyleSheet.create({
+
+const themeStyles = EDSStyleSheet.create(theme => ({
     dividerOuter: {
         position: "absolute",
         top: 0,
         left: 0,
-        paddingHorizontal: 12,
+        paddingHorizontal: theme.spacing.paddingHorizontal,
         width: "100%",
     },
     dividerInner: {
-        backgroundColor: (navigationToken.border as Border).color,
+        backgroundColor: theme.colors.border.medium,
         width: "100%",
         height: 1,
-    },
-});
+    }
+}))

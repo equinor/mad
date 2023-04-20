@@ -6,7 +6,7 @@ import {
     View,
     ViewStyle,
 } from "react-native";
-import { Interactive } from "../../constants/colors";
+import { useToken } from "../../hooks/useToken";
 
 export type PressableHightlightProps = {
     highlightColor?: ColorValue;
@@ -19,24 +19,26 @@ export const PressableHighlight = forwardRef<
 >(
     (
         {
-            highlightColor = Interactive.PRESSED,
             style,
             children,
             ...rest
         }: React.PropsWithChildren<PressableHightlightProps>,
         ref
-    ) => (
-        <Pressable
-            ref={ref}
-            style={({ pressed }) => [
-                pressed && { backgroundColor: highlightColor },
-                style,
-            ]}
-            {...rest}
-        >
-            {children}
-        </Pressable>
-    )
+    ) => {
+        const theme = useToken();
+        return (
+            <Pressable
+                ref={ref}
+                style={({ pressed }) => [
+                    pressed && { backgroundColor: theme.colors.interactive.pressedOverlay },
+                    style,
+                ]}
+                {...rest}
+            >
+                {children}
+            </Pressable>
+        )
+    }
 );
 
 PressableHighlight.displayName = "PressableHighlight";
