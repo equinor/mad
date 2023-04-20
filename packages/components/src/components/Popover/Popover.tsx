@@ -1,4 +1,3 @@
-import { tokens } from "@equinor/eds-tokens";
 import {
     arrow,
     flip,
@@ -8,10 +7,11 @@ import {
     useFloating,
 } from "@floating-ui/react-native";
 import React, { useLayoutEffect, useRef } from "react";
-import { Modal, Pressable, StyleSheet, View, ViewProps } from "react-native";
-import { convertToUnitlessNumber } from "../../translations/units";
+import { Modal, Pressable, View, ViewProps } from "react-native";
 import { Paper } from "../Paper";
 import { useToken } from "../../hooks/useToken";
+import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
 
 export type PopoverProps = {
     open: boolean;
@@ -25,10 +25,12 @@ type PopoverDimensions = {
     height?: number;
 };
 
-const arrowContainerSize = 16;
+const ARROW_CONTAINER_SIZE = 16;
 
 export const Popover = (props: PopoverProps & ViewProps) => {
     const theme = useToken();
+    const styles = useStyles(themeStyles);
+
     const arrowRef = useRef(null);
     const popoverDimensions = useRef({
         width: 0,
@@ -66,13 +68,13 @@ export const Popover = (props: PopoverProps & ViewProps) => {
         props.placement?.startsWith("top") ||
         props.placement?.startsWith("bottom")
     ) {
-        calculatedArrowY -= arrowContainerSize / 2;
+        calculatedArrowY -= ARROW_CONTAINER_SIZE / 2;
     }
     if (
         props.placement?.startsWith("left") ||
         props.placement?.startsWith("right")
     ) {
-        calculatedArrowX -= arrowContainerSize / 2;
+        calculatedArrowX -= ARROW_CONTAINER_SIZE / 2;
     }
     return (
         <Modal
@@ -116,8 +118,8 @@ export const Popover = (props: PopoverProps & ViewProps) => {
                 >
                     <View
                         style={{
-                            width: arrowContainerSize / 1.444,
-                            height: arrowContainerSize / 1.444,
+                            width: ARROW_CONTAINER_SIZE / 1.444,
+                            height: ARROW_CONTAINER_SIZE / 1.444,
                             transform: [{ rotate: "45deg" }],
                             backgroundColor: theme.colors.container.elevation.overlay,
                         }}
@@ -128,20 +130,20 @@ export const Popover = (props: PopoverProps & ViewProps) => {
     );
 };
 
-const styles = StyleSheet.create({
+const themeStyles = EDSStyleSheet.create(theme => ({
     arrow: {
         position: "absolute",
-        width: arrowContainerSize,
-        height: arrowContainerSize,
+        width: ARROW_CONTAINER_SIZE,
+        height: ARROW_CONTAINER_SIZE,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
     },
-
     innerContainer: {
         overflow: "hidden",
-        minWidth: convertToUnitlessNumber(tokens.shape.button.minWidth),
-        padding: convertToUnitlessNumber(tokens.spacings.comfortable.medium),
-        minHeight: convertToUnitlessNumber(tokens.shape.button.minHeight),
+        minWidth: theme.geometry.dimension.button.minWidth,
+        minHeight: theme.geometry.dimension.button.minHeight,
+        paddingHorizontal: theme.spacing.paddingHorizontal,
+        paddingVertical: theme.spacing.paddingVertical,
     },
-});
+}));
