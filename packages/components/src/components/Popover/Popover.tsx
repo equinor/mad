@@ -11,6 +11,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import { Modal, Pressable, StyleSheet, View, ViewProps } from "react-native";
 import { convertToUnitlessNumber } from "../../translations/units";
 import { Paper } from "../Paper";
+import { useToken } from "../../hooks/useToken";
 
 export type PopoverProps = {
     open: boolean;
@@ -27,6 +28,7 @@ type PopoverDimensions = {
 const arrowContainerSize = 16;
 
 export const Popover = (props: PopoverProps & ViewProps) => {
+    const theme = useToken();
     const arrowRef = useRef(null);
     const popoverDimensions = useRef({
         width: 0,
@@ -117,7 +119,7 @@ export const Popover = (props: PopoverProps & ViewProps) => {
                             width: arrowContainerSize / 1.444,
                             height: arrowContainerSize / 1.444,
                             transform: [{ rotate: "45deg" }],
-                            backgroundColor: "white",
+                            backgroundColor: theme.colors.container.elevation.overlay,
                         }}
                     ></View>
                 </View>

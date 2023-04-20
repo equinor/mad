@@ -3,7 +3,6 @@ import {
     ColorValue,
     Pressable,
     PressableProps,
-    StyleProp,
     View,
     ViewStyle,
 } from "react-native";
