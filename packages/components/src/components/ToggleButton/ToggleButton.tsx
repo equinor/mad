@@ -1,10 +1,10 @@
-import { ViewProps, Pressable, Text, View } from "react-native";
+import { ViewProps, Pressable } from "react-native";
 import { ButtonGroup } from "../ButtonGroup";
-import { Children, ReactNode, createContext, isValidElement, useState } from "react";
+import { Children, ReactNode, createContext, useState } from "react";
 
 export type ToggleButtonProps = {
     multiple?: boolean;
-    onChange: (indices: number[]) => void;
+    onChange?: (indices: number[]) => void;
 }
 
 export type ToggleButtonContextContents = {
@@ -27,16 +27,18 @@ export const ToggleButton = (props: ToggleButtonProps & ViewProps) => {
                     valid: true
                 }}>
                     <Pressable onPress={() => {
+                        let result = [];
                         if (props.multiple) {
                             if (selectedIndices.indexOf(index) === -1) {
-                                setSelectedIndices([...selectedIndices, index]);
+                                result = [...selectedIndices, index];
                             } else {
-                                setSelectedIndices(selectedIndices.filter((current) => current !== index));
+                                result = selectedIndices.filter((current) => current !== index)
                             }
                         } else {
-                            setSelectedIndices([index]);
+                            result = [index];
                         }
-                        props.onChange(selectedIndices);
+                        setSelectedIndices(result);
+                        props.onChange && props.onChange(result);
                     }}>
                         {child}
                     </Pressable>
