@@ -64,7 +64,7 @@ export const ButtonScreen = () => {
             <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
                 <ToggleButton onChange={(indices) => {
                     console.log(indices);
-                }} multiple={false}>
+                }}>
                     <Button title="One"></Button>
                     <Button title="Two"></Button>
                     <Button title="Three"></Button>

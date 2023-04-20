@@ -27,10 +27,14 @@ export const ToggleButton = (props: ToggleButtonProps & ViewProps) => {
                     valid: true
                 }}>
                     <Pressable onPress={() => {
-                        if (selectedIndices.indexOf(index) === -1) {
-                            setSelectedIndices([...selectedIndices, index]);
+                        if (props.multiple) {
+                            if (selectedIndices.indexOf(index) === -1) {
+                                setSelectedIndices([...selectedIndices, index]);
+                            } else {
+                                setSelectedIndices(selectedIndices.filter((current) => current !== index));
+                            }
                         } else {
-                            setSelectedIndices(selectedIndices.filter((current) => current !== index));
+                            setSelectedIndices([index]);
                         }
                         props.onChange(selectedIndices);
                     }}>
