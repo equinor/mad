@@ -3,9 +3,7 @@ import {
     EDSStyleSheet,
     Spacer,
     Typography,
-    useStyles,
-    ButtonGroup,
-    ToggleButton
+    useStyles
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
@@ -50,29 +48,29 @@ export const ButtonScreen = () => {
             <Typography style={styles.textArea}>
                 They can also be grouped
             </Typography>
-            <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
-                <ButtonGroup>
-                    <Button title="One"></Button>
-                    <Button title="Two"></Button>
-                    <Button title="Three"></Button>
-                </ButtonGroup>
+            <View style={{ alignItems: "center" }}>
+                <Button.Group>
+                    <Button title="One" />
+                    <Button title="Two" />
+                    <Button title="Three" />
+                </Button.Group>
             </View>
             <Spacer />
             <Typography style={styles.textArea}>
                 Or used as toggles
             </Typography>
-            <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
-                <ToggleButton>
-                    <Button title="One"></Button>
-                    <Button title="Two"></Button>
-                    <Button title="Three"></Button>
-                </ToggleButton>
+            <View style={{ alignItems: "center" }}>
+                <Button.Toggle>
+                    <Button title="One" />
+                    <Button title="Two" />
+                    <Button title="Three" />
+                </Button.Toggle>
             </View>
         </ScrollView>
     );
 };
 
-const themeStyles = EDSStyleSheet.create((theme) => ({
+const themeStyles = EDSStyleSheet.create((theme: any) => ({
     textArea: {
         paddingHorizontal: theme.spacing.paddingHorizontal,
         paddingVertical: theme.spacing.paddingVertical,

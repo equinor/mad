@@ -22,7 +22,6 @@ export const ButtonGroup = (props: ButtonGroupProps & ViewProps) => {
         <View style={props.vertical ? styles.vertical : styles.horizontal}>
             {
                 Children.map(props.children, (child: ReactNode, i: number) => {
-                    console.log(i);
                     if (isValidElement(child)) {
                         return (<ButtonGroupContext.Provider value={{
                             index: i,
@@ -39,7 +38,7 @@ export const ButtonGroup = (props: ButtonGroupProps & ViewProps) => {
     );
 };
 
-ButtonGroup.displayName = "ButtonGroup";
+ButtonGroup.displayName = "Button.Group";
 
 const styles = StyleSheet.create({
     horizontal: {

@@ -10,11 +10,13 @@ export type ToggleButtonProps = {
 export type ToggleButtonContextContents = {
     isSelected: boolean;
     valid: boolean;
+    toggle: () => void;
 };
 
 export const ToggleButtonContext = createContext({
     isSelected: false,
-    valid: false
+    valid: false,
+    toggle: () => { }
 } as ToggleButtonContextContents);
 
 export const ToggleButton = (props: ToggleButtonProps & ViewProps) => {
@@ -24,9 +26,8 @@ export const ToggleButton = (props: ToggleButtonProps & ViewProps) => {
             Children.map(props.children, (child: ReactNode, index: number) => {
                 return <ToggleButtonContext.Provider value={{
                     isSelected: selectedIndices.indexOf(index) !== -1,
-                    valid: true
-                }}>
-                    <Pressable onPress={() => {
+                    valid: true,
+                    toggle: () => {
                         let result = [];
                         if (props.multiple) {
                             if (selectedIndices.indexOf(index) === -1) {
@@ -39,13 +40,13 @@ export const ToggleButton = (props: ToggleButtonProps & ViewProps) => {
                         }
                         setSelectedIndices(result);
                         props.onChange && props.onChange(result);
-                    }}>
-                        {child}
-                    </Pressable>
+                    }
+                }}>
+                    {child}
                 </ToggleButtonContext.Provider>;
             })
         }
     </ButtonGroup>
 }
 
-ToggleButton.displayName = "ToggleButton";
+ToggleButton.displayName = "Button.Toggle";

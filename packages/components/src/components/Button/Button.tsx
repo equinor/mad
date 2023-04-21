@@ -4,8 +4,8 @@ import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { PressableHighlight } from "../PressableHighlight";
 import React, { useContext } from "react";
-import { ButtonGroupContext } from "../ButtonGroup";
-import { ToggleButtonContext } from "../ToggleButton";
+import { ButtonGroup, ButtonGroupContext } from "./ButtonGroup";
+import { ToggleButton, ToggleButtonContext } from "./ToggleButton";
 
 export type ButtonProps = {
     title: string;
@@ -48,7 +48,10 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
 
         return (
             <View ref={ref} style={style}>
-                {isToggleButton ? <View style={styles.pressableContainer}>
+                <PressableHighlight
+                    onPress={isToggleButton ? toggleData.toggle : onPress}
+                    style={styles.pressableContainer}
+                >
                     <Typography
                         group="navigation"
                         variant="button"
@@ -56,20 +59,7 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
                     >
                         {title}
                     </Typography>
-                </View> :
-                    <PressableHighlight
-                        onPress={onPress}
-                        style={styles.pressableContainer}
-                    >
-                        <Typography
-                            group="navigation"
-                            variant="button"
-                            style={styles.textStyle}
-                        >
-                            {title}
-                        </Typography>
-                    </PressableHighlight>
-                }
+                </PressableHighlight>
             </View>
         );
     }
