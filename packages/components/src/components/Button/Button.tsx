@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, ViewProps } from "react-native";
+import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
