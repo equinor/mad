@@ -71,20 +71,6 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
 
 Button.displayName = "Button";
 
-const buttonGroupStyles = StyleSheet.create({
-    first: {
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0
-    },
-    last: {
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0
-    },
-    middle: {
-        borderRadius: 0
-    }
-});
-
 enum GroupPosition {
     First,
     Last,
