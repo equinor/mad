@@ -3,7 +3,7 @@ import {
     EDSStyleSheet,
     Spacer,
     Typography,
-    useStyles,
+    useStyles
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
@@ -31,7 +31,7 @@ export const ButtonScreen = () => {
             </View>
             <Spacer />
             <Typography style={styles.textArea}>
-                ...and in different variants
+                ...and in different variants.
             </Typography>
             <View
                 style={{
@@ -43,6 +43,28 @@ export const ButtonScreen = () => {
                 <Button title="Contained" variant="contained" />
                 <Button title="Outlined" variant="outlined" />
                 <Button title="ICON (TBA)" color="danger" variant="outlined" />
+            </View>
+            <Spacer />
+            <Typography style={styles.textArea}>
+                They can also be grouped
+            </Typography>
+            <View style={{ alignItems: "center" }}>
+                <Button.Group>
+                    <Button title="One" />
+                    <Button title="Two" />
+                    <Button title="Three" />
+                </Button.Group>
+            </View>
+            <Spacer />
+            <Typography style={styles.textArea}>
+                Or used as toggles
+            </Typography>
+            <View style={{ alignItems: "center" }}>
+                <Button.Toggle>
+                    <Button title="One" />
+                    <Button title="Two" />
+                    <Button title="Three" />
+                </Button.Toggle>
             </View>
         </ScrollView>
     );

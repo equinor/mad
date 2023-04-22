@@ -8,15 +8,15 @@ type InferStyles<T> = T extends ThemeDependentStyles<any, infer R> ? R : never;
 
 export function useStyles<
     TName extends
-        | StyleSheet.NamedStyles<TName>
-        | StyleSheet.NamedStyles<unknown>
+    | StyleSheet.NamedStyles<TName>
+    | StyleSheet.NamedStyles<unknown>
 >(
     themeStyles: ThemeDependentStyles<undefined, TName>
 ): InferStyles<typeof themeStyles>;
 export function useStyles<
     TName extends
-        | StyleSheet.NamedStyles<TName>
-        | StyleSheet.NamedStyles<unknown>,
+    | StyleSheet.NamedStyles<TName>
+    | StyleSheet.NamedStyles<unknown>,
     TProps
 >(
     themeStyles: ThemeDependentStyles<TProps, TName>,
@@ -24,8 +24,8 @@ export function useStyles<
 ): InferStyles<typeof themeStyles>;
 export function useStyles<
     TName extends
-        | StyleSheet.NamedStyles<TName>
-        | StyleSheet.NamedStyles<unknown>,
+    | StyleSheet.NamedStyles<TName>
+    | StyleSheet.NamedStyles<unknown>,
     TProps
 >(themeStyles: ThemeDependentStyles<TProps, TName>, props?: TProps) {
     const currentTheme = useToken();
