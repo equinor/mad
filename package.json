@@ -35,7 +35,7 @@
         "tsconfig": "workspace:*",
         "tslib": "^2.5.0",
         "tsup": "^6.7.0",
-        "turbo": "^1.8.5",
+        "turbo": "^1.9.3",
         "typescript": "^5.0.4"
     },
     "engines": {
