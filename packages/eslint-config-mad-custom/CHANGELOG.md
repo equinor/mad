@@ -1,5 +1,11 @@
 # eslint-config-mad-custom
 
+## 0.1.1
+
+### Patch Changes
+
+-   a242b74: Toggle buttons behave better on smaller screens, styles are now specific to tablets and phones
+
 ## 0.1.0
 
 ### Minor Changes
