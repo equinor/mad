@@ -5,25 +5,19 @@ import { useEDS, EDSProvider, Density } from "@equinor/mad-components";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
-import * as Device from 'expo-device';
-import { useState } from "react";
+import { useWindowDimensions } from 'react-native';
+import { useMemo } from "react";
+
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const isLoadingEds = useEDS();
     const colorScheme = useColorScheme();
 
-    const [firstRender, setFirstRender] = useState(true);
-    const [deviceType, setDeviceType] = useState("tablet" as Density);
-
-    if (firstRender) {
-        setFirstRender(false);
-        Device.getDeviceTypeAsync().then((deviceType) => {
-            if (deviceType === Device.DeviceType.PHONE) {
-                setDeviceType("phone");
-            }
-        });
-    }
+    const { width } = useWindowDimensions();
+    const deviceType = useMemo(() => {
+        return width > 576 ? "tablet" : "phone"
+    }, [width]);
 
     if (!isLoadingComplete || !isLoadingEds) {
         return null;
