@@ -56,9 +56,11 @@ export const DrawScreen = () => {
                             style={{ height: "100%" }}
                         />
                     </View>
-                    <Button onPress={pickImage} style={{ margin: 10 }}>
-                        + Add photo
-                    </Button>
+                    <Button
+                        title="+ Add photo"
+                        onPress={pickImage}
+                        style={{ margin: 10 }}
+                    />
                 </View>
                 <View
                     style={{
@@ -76,9 +78,11 @@ export const DrawScreen = () => {
                             style={{ height: "100%" }}
                         />
                     </View>
-                    <Button style={{ margin: 10 }} onPress={saveSnapshot}>
-                        Save snapshot
-                    </Button>
+                    <Button
+                        title="Save snapshot"
+                        style={{ margin: 10 }}
+                        onPress={saveSnapshot}
+                    />
                 </View>
             </View>
         </>

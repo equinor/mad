@@ -1,8 +1,8 @@
-import { Border } from "@equinor/eds-tokens";
-import { Pressable, StyleSheet, View } from "react-native";
-import { useDynamicStyle } from "../../hooks/useDynamicStyle";
+import { StyleSheet, View } from "react-native";
 import { Typography } from "../Typography";
-import { navigationToken } from "./NavigationCell.token";
+import { EDSStyleSheet } from "../../styling";
+import { PressableHighlight } from "../PressableHighlight";
+import { useStyles } from "../../hooks/useStyles";
 
 export type NavigationBorderEdges = {
     top: boolean;
@@ -24,35 +24,12 @@ export const NavigationCell = (
         bottom: props?.borderEdges?.bottom ?? true,
     };
 
-    const wrapperStyle = useDynamicStyle(
-        () => ({
-            width: "100%",
-            minHeight: 70,
-            borderColor: (navigationToken.border as Border).color,
-            borderTopWidth: borderEdges.top ? 1 : undefined,
-            borderBottomWidth: borderEdges.bottom ? 1 : undefined,
-        }),
-        [props.borderEdges]
-    );
+    const dynamicStyle = useStyles(themeStyles, { borderEdges });
 
     return (
-        <View style={wrapperStyle}>
-            <Pressable
-                onPress={props.onPress}
-                style={({ pressed }) =>
-                    pressed ? styles.containerPressed : styles.containerResting
-                }
-            >
-                <View
-                    style={{
-                        flex: 1,
-                        flexDirection: "row",
-                        paddingLeft: 12,
-                        paddingRight: 12,
-                        paddingTop: 12,
-                        paddingBottom: 12,
-                    }}
-                >
+        <View style={dynamicStyle.containerWrapper}>
+            <PressableHighlight onPress={props.onPress} style={{ flex: 1 }}>
+                <View style={dynamicStyle.containerInner}>
                     <View style={styles.cellIconContainer}>
                         <Typography>{"?"}</Typography>
                     </View>
@@ -67,13 +44,16 @@ export const NavigationCell = (
                             <Typography
                                 style={{ paddingBottom: 5 }}
                                 group="navigation"
-                                variant="menu_title"
+                                variant="cellTitle"
                             >
                                 {props.title}
                             </Typography>
                         )}
                         {props.description && (
-                            <Typography group="navigation" variant="label">
+                            <Typography
+                                group="navigation"
+                                variant="cellDescription"
+                            >
                                 {props.description}
                             </Typography>
                         )}
@@ -83,20 +63,32 @@ export const NavigationCell = (
                         <Typography>{">"}</Typography>
                     </View>
                 </View>
-            </Pressable>
+            </PressableHighlight>
         </View>
     );
 };
 
+const themeStyles = EDSStyleSheet.create(
+    (theme, props: { borderEdges: Partial<NavigationBorderEdges> }) => ({
+        containerWrapper: {
+            width: "100%",
+            minHeight: 70,
+            backgroundColor: theme.colors.container.elevation.none,
+            borderColor: theme.colors.border.medium,
+            borderTopWidth: props.borderEdges.top ? 1 : undefined,
+            borderBottomWidth: props.borderEdges.bottom ? 1 : undefined,
+        },
+        containerInner: {
+            flex: 1,
+            flexDirection: "row",
+            paddingHorizontal: theme.spacing.paddingHorizontal,
+            paddingTop: 12,
+            paddingBottom: 12,
+        },
+    })
+);
+
 const styles = StyleSheet.create({
-    containerResting: {
-        flex: 1,
-        backgroundColor: navigationToken.background,
-    },
-    containerPressed: {
-        flex: 1,
-        backgroundColor: navigationToken.states?.pressed?.background,
-    },
     cellIconContainer: {
         backgroundColor: "#ff1243",
         marginRight: 10,

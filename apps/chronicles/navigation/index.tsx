@@ -5,16 +5,11 @@
  */
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-    NavigationContainer,
-    DefaultTheme,
-    DarkTheme,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
-import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
@@ -30,16 +25,28 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
+import { useToken } from "@equinor/mad-components";
 
 export default function Navigation({
     colorScheme,
 }: {
     colorScheme: ColorSchemeName;
 }) {
+    const token = useToken();
     return (
         <NavigationContainer
             linking={LinkingConfiguration}
-            theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            theme={{
+                dark: colorScheme === "dark",
+                colors: {
+                    primary: token.colors.interactive.primary,
+                    background: token.colors.container.background,
+                    card: token.colors.container.default,
+                    text: token.colors.text.primary,
+                    border: token.colors.border.medium,
+                    notification: token.colors.interactive.primary,
+                },
+            }}
         >
             <RootNavigator />
         </NavigationContainer>
@@ -82,10 +89,8 @@ function DiscoverNavigator() {
                 headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
                 headerTitleStyle: {
                     fontFamily: "Equinor-Regular",
-                    color: "#243746",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-                headerTintColor: "#007079",
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
@@ -107,7 +112,6 @@ function BottomTabNavigator() {
         <BottomTab.Navigator
             initialRouteName="Discover"
             screenOptions={{
-                tabBarActiveTintColor: "#007079",
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
             }}
         >
