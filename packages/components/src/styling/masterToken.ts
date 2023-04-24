@@ -118,14 +118,24 @@ export const masterToken: MasterToken = {
         dimension: {
             button: {
                 minHeight: {
-                    comfortable: 36,
-                    tight: 36,
+                    tablet: 36,
+                    phone: 36,
                 },
                 minWidth: {
-                    comfortable: 112,
-                    tight: 96,
+                    tablet: 112,
+                    phone: 96,
                 },
             },
+            toggleButton: {
+                minHeight: {
+                    tablet: 36,
+                    phone: 36,
+                },
+                minWidth: {
+                    tablet: 48,
+                    phone: 36,
+                },
+            }
         },
         shadow: {
             none: {},
@@ -183,25 +193,25 @@ export const masterToken: MasterToken = {
     },
     spacing: {
         paddingHorizontal: {
-            comfortable: SPACING_MEDIUM,
-            tight: SPACING_MEDIUM_SMALL,
+            tablet: SPACING_MEDIUM,
+            phone: SPACING_MEDIUM_SMALL,
         },
         paddingVertical: {
-            comfortable: SPACING_MEDIUM,
-            tight: SPACING_MEDIUM,
+            tablet: SPACING_MEDIUM,
+            phone: SPACING_MEDIUM,
         },
         spacer: {
             small: {
-                comfortable: 20,
-                tight: 12,
+                tablet: 20,
+                phone: 12,
             },
             medium: {
-                comfortable: 30,
-                tight: 22,
+                tablet: 30,
+                phone: 22,
             },
             large: {
-                comfortable: 42,
-                tight: 34,
+                tablet: 42,
+                phone: 34,
             },
         },
     },

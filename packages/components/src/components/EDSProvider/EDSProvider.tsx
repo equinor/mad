@@ -8,7 +8,7 @@ export type EDSProviderProps = {
 
 export const EDSContext = createContext<EDSProviderProps>({
     colorScheme: "light",
-    density: "comfortable",
+    density: "tablet",
 });
 EDSContext.displayName = "EDSContext";
 

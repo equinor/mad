@@ -1,7 +1,7 @@
 import { TextStyle, ViewStyle } from "react-native";
 
 export type ColorScheme = "light" | "dark";
-export type Density = "comfortable" | "tight";
+export type Density = "tablet" | "phone";
 
 export type ColorSchemeValues<T> = Record<ColorScheme, T>;
 export type DensityValues<T> = Record<Density, T>;
@@ -78,6 +78,10 @@ export type MasterToken = {
         };
         dimension: {
             button: {
+                minHeight: DensityValues<number>;
+                minWidth: DensityValues<number>;
+            };
+            toggleButton: {
                 minHeight: DensityValues<number>;
                 minWidth: DensityValues<number>;
             };

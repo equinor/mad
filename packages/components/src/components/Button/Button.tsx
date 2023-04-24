@@ -130,8 +130,8 @@ const themeStyles = EDSStyleSheet.create(
             },
             pressableContainer: {
                 paddingHorizontal: theme.spacing.paddingHorizontal,
-                minWidth: theme.geometry.dimension.button.minWidth,
-                minHeight: theme.geometry.dimension.button.minHeight,
+                minWidth: theme.geometry.dimension[isToggleButton ? "toggleButton" : "button"].minWidth,
+                minHeight: theme.geometry.dimension[isToggleButton ? "toggleButton" : "button"].minHeight,
                 justifyContent: "center",
                 alignItems: "center",
             },
