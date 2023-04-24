@@ -1,5 +1,15 @@
 # @equinor/mad-components
 
+## 0.2.0
+
+### Minor Changes
+
+-   6112b37: Introduce theming engine. All components should now dynamically respond to the set theme and density!
+
+### Patch Changes
+
+-   6112b37: Extended the Button to support Button.Group and Button.Toggle
+
 ## 0.1.1
 
 ### Patch Changes
