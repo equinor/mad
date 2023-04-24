@@ -1,4 +1,4 @@
-import { ViewProps, Pressable } from "react-native";
+import { ViewProps } from "react-native";
 import { ButtonGroup } from "../ButtonGroup";
 import { Children, ReactNode, createContext, useState } from "react";
 
@@ -16,11 +16,14 @@ export type ToggleButtonContextContents = {
 export const ToggleButtonContext = createContext({
     isSelected: false,
     valid: false,
-    toggle: () => { }
+    toggle: () => {
+        // eslint-disable-next-line no-console
+        console.log("Unintialized ToggleButtonContext");
+    }
 } as ToggleButtonContextContents);
 
 export const ToggleButton = (props: ToggleButtonProps & ViewProps) => {
-    let [selectedIndices, setSelectedIndices] = useState([0]);
+    const [selectedIndices, setSelectedIndices] = useState([0]);
     return <ButtonGroup>
         {
             Children.map(props.children, (child: ReactNode, index: number) => {

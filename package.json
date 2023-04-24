@@ -39,7 +39,7 @@
         "typescript": "^5.0.4"
     },
     "engines": {
-        "node": ">=14.0.0"
+        "node": ">=16.0.0"
     },
     "packageManager": "pnpm@7.31.0"
 }
