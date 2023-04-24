@@ -21,7 +21,7 @@
         "dev:all": "turbo run dev",
         "lint:all": "turbo run lint",
         "format:all": "prettier --write \"**/*.{ts,tsx,md}\"",
-        "publish:all": "turbo run build lint && changeset version && changeset publish"
+        "publish:all": "turbo run build && changeset version && changeset publish"
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
