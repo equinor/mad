@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.2.1
+
+### Patch Changes
+
+-   a242b74: Toggle buttons behave better on smaller screens, styles are now specific to tablets and phones
+
 ## 0.2.0
 
 ### Minor Changes
