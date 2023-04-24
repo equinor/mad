@@ -26,8 +26,8 @@ function isColorSchemeValuesObject(
 
 function isDensityValuesObject(obj: object): obj is DensityValues<unknown> {
     const template: DensityValues<unknown> = {
-        comfortable: undefined as unknown,
-        tight: undefined as unknown,
+        tablet: undefined as unknown,
+        phone: undefined as unknown,
     };
     return keyEquality(obj, template);
 }
