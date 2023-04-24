@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Button, Popover, Spacer, Typography } from "@equinor/mad-components";
 import { useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
@@ -5,7 +6,7 @@ import { ScrollView, View } from "react-native";
 export const PopoverScreen = () => {
     const buttonRef = useRef<View>(null);
     const [open, setOpen] = useState(false);
-    const [placement, setPlacement] = useState("top");
+    const [placement] = useState("top");
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
