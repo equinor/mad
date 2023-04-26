@@ -6,6 +6,8 @@ export * from "./components/Navigation";
 export * from "./components/PressableHighlight";
 export * from "./components/EDSProvider";
 export * from "./components/Spacer";
+export * from "./components/TextField";
+export * from "./components/Label";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";

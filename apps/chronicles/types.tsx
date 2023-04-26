@@ -21,6 +21,7 @@ export type DiscoverStackParamList = {
     Paper: undefined;
     Button: undefined;
     Popover: undefined;
+    TextField: undefined;
 };
 
 export type DiscoverStackScreenProps<

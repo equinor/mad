@@ -66,7 +66,7 @@ const resolveColor = (color: TypographyColorVariant, theme: Theme) => {
         return theme.colors.text[color];
     }
     if (color === "disabled") {
-        return theme.colors.text.tetriary;
+        return theme.colors.text.tertiary;
     }
     return theme.colors.interactive[color];
 };

@@ -25,16 +25,16 @@ export const masterToken: MasterToken = {
             },
             medium: {
                 light: "#DCDCDC",
-                dark: "#132634",
+                dark: "#3E4F5C",
             },
         },
         container: {
             background: {
-                light: "#F7F7F7",
+                light: "#FFFFFF",
                 dark: "#080808", // TODO: This value needs a look at
             },
             default: {
-                light: "#FFFFFF",
+                light: "#F7F7F7",
                 dark: "#132634",
             },
             elevation: {
@@ -99,7 +99,7 @@ export const masterToken: MasterToken = {
                 light: "#565656",
                 dark: "#DEE5E7",
             },
-            tetriary: {
+            tertiary: {
                 light: "#6F6F6F",
                 dark: "#9CA6AC",
             },
@@ -252,6 +252,11 @@ export const masterToken: MasterToken = {
                 fontSize: FONT_BASIS,
                 textAlign: "left",
             },
+            label: {
+                fontFamily: "Equinor-Bold",
+                fontSize: FONT_BASIS * 0.9,
+                textAlign: "left",
+            }
         },
         navigation: {
             button: {

@@ -25,6 +25,11 @@ export default function DiscoverScreen({
                     description="Contaner floating over some reference element"
                     onPress={() => navigation.navigate("Popover")}
                 />
+                <NavigationCell
+                    title="TextField"
+                    description="Enter and edit text"
+                    onPress={() => navigation.navigate("TextField")}
+                />
             </NavigationCellList>
         </ScrollView>
     );
