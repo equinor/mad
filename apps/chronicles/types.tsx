@@ -23,6 +23,7 @@ export type DiscoverStackParamList = {
     Popover: undefined;
     Input: undefined;
     TextField: undefined;
+    Search: undefined;
 };
 
 export type DiscoverStackScreenProps<

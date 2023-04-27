@@ -30,7 +30,7 @@ export const Input = (props: InputProps) => {
 const themedStyles = EDSStyleSheet.create((theme) => {
     return {
         adornment: {
-            backgroundColor: "red",
+            backgroundColor: theme.colors.container.default,
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
             marginTop: 20,
