@@ -13,9 +13,6 @@ export const Input = (props: InputProps) => {
     const styles = useStyles(themedStyles);
     const { leftAdornments, rightAdornments, ...other } = props;
     other.multiline = false;
-    const leftFlex = leftAdornments ? 0.1 : 0;
-    const rightFlex = rightAdornments ? 0.1 : 0;
-    const centerFlex = 1 - leftFlex - rightFlex;
     const labelFontSize = styles.label.fontSize ?? 0;
     const marginTop = 4.25 + (props.label ? labelFontSize : 0);
     const marginBottom = 8.25 + (props.helperText ? labelFontSize : 0);
@@ -23,27 +20,28 @@ export const Input = (props: InputProps) => {
         <View
             style={{
                 flexDirection: "row",
+                alignItems: "stretch",
             }}
         >
-            <View
+            {leftAdornments && <View
                 style={[
-                    { flex: leftFlex, marginTop, marginBottom },
+                    { flex: 0.1, marginTop, marginBottom },
                     styles.adornment,
                 ]}
             >
                 {leftAdornments}
-            </View>
-            <View style={{ flex: centerFlex }}>
+            </View>}
+            <View style={{ flex: 1 }}>
                 <TextField {...other} />
             </View>
-            <View
+            {rightAdornments && <View
                 style={[
-                    { flex: rightFlex, marginBottom, marginTop },
+                    { flex: 0.1, marginBottom, marginTop },
                     styles.adornment,
                 ]}
             >
                 {rightAdornments}
-            </View>
+            </View>}
         </View>
     );
 };
