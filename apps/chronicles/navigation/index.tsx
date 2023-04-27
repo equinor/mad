@@ -25,7 +25,7 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { TextField, useToken } from "@equinor/mad-components";
+import { useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 
