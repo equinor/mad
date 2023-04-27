@@ -61,6 +61,7 @@ export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>(
             >
                 {canvasDim && (
                     <Canvas
+                        initialDrawColor="red"
                         ref={canvasRef}
                         style={{
                             maxHeight: canvasDim.height,
