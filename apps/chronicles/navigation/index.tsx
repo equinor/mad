@@ -28,6 +28,7 @@ import { ButtonScreen } from "../screens/components/ButtonScreen";
 import { useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
+import { SearchScreen } from "../screens/components/SearchScreen";
 
 export default function Navigation({
     colorScheme,
@@ -101,6 +102,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Button" component={ButtonScreen} />
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
             <DiscoverStack.Screen name="Input" component={InputScreen} />
+            <DiscoverStack.Screen name="Search" component={SearchScreen} />
         </DiscoverStack.Navigator>
     );
 }

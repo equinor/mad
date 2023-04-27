@@ -45,7 +45,6 @@ const themedStyles = EDSStyleSheet.create((theme) => {
         innerContainer: {
             backgroundColor: theme.colors.container.default,
             padding: 12,
-
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
             marginTop: 4,

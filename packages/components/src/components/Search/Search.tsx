@@ -1,31 +1,31 @@
 import { View } from "react-native";
 import { EDSStyleSheet } from "../../styling";
-import { Input, useStyles } from "../..";
-import React from "react";
+import { Input, TextFieldProps, useStyles } from "../..";
+import { Ionicons } from "@expo/vector-icons";
 
-export type SearchProps = {
-    onChange: (text: string) => void;
-};
+export type SearchProps = Omit<TextFieldProps, "multiline">;
 
 export const Search = (props: SearchProps) => {
     const styles = useStyles(themedStyles);
     return (
-        <Input onChange={(x) => props.onChange?.(x)} leftAdornments={
-            <View style={{ backgroundColor: "#007079", flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <Ionicons name="cafe" size={16} color={"white"} />
+        <Input {...props} leftAdornments={
+            <View style={styles.adornment}>
+                <Ionicons name="search" size={18} color={styles.icon.color} />
             </View>
-        } label="Say something" placeholder="Anything goes here"></Input>
+        }></Input>
     );
 };
 
 const themedStyles = EDSStyleSheet.create((theme) => {
     return {
         adornment: {
-            backgroundColor: "red",
-            borderBottomWidth: theme.geometry.border.borderWidth,
-            borderBottomColor: theme.colors.border.medium,
-            marginTop: 20,
-            marginBottom: 4
+            backgroundColor: theme.colors.container.default,
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
         },
+        icon: {
+            color: theme.colors.text.primary
+        }
     };
 });

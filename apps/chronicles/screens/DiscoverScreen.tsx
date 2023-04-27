@@ -35,6 +35,12 @@ export default function DiscoverScreen({
                     description="Fancier text input"
                     onPress={() => navigation.navigate("Input")}
                 />
+
+                <NavigationCell
+                    title="Search"
+                    description="Search for content"
+                    onPress={() => navigation.navigate("Search")}
+                />
             </NavigationCellList>
         </ScrollView>
     );
