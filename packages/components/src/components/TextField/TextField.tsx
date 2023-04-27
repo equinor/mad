@@ -76,6 +76,8 @@ const themedStyles = EDSStyleSheet.create((theme) => {
         },
         placeholder: {
             color: theme.colors.text.tertiary,
+            fontFamily: theme.typography.basic.p.fontFamily,
+            fontSize: theme.typography.basic.p.fontSize,
         },
     };
 });
