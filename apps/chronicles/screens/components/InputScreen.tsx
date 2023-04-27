@@ -15,10 +15,10 @@ export const InputScreen = () => {
             </Typography>
             <Spacer />
             <Input leftAdornments={
-                <View style={{ backgroundColor: "#007079", flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <View style={{ backgroundColor: "transparent", flex: 1, justifyContent: "center", alignItems: "center" }}>
                     <Ionicons name="cafe" size={16} color={"white"} />
                 </View>
-            } label="Say something" placeholder="Anything goes here"></Input>
+            } label="Say something" placeholder="Anything goes here" helperText="Some help"></Input>
 
             <Spacer />
             <Typography>

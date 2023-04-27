@@ -11,9 +11,9 @@ export type TextFieldProps = {
     multiline?: boolean;
     placeholder?: string;
     disabled?: boolean;
-};
+} & ViewProps;
 
-export const TextField = React.forwardRef<View, TextFieldProps & ViewProps>(({
+export const TextField = React.forwardRef<View, TextFieldProps>(({
     label, helperText, onChange, multiline, placeholder, disabled, ...rest
 }, ref) => {
     const [contents, setContents] = useState("");
@@ -31,11 +31,12 @@ export const TextField = React.forwardRef<View, TextFieldProps & ViewProps>(({
                         setContents(x);
                         onChange?.(x);
                     }}
+                    textAlignVertical="top"
                     placeholderTextColor={styles.placeholder.color}
                     style={[multiline ? { minHeight: 60, maxHeight: 60 } : {}, contents ? styles.textInput : styles.placeholder]}
                 ></TextInput>
             </View>
-            {helperText && <Label label={label} />}
+            {helperText && <Label label={helperText} />}
         </View>
     );
 });
@@ -48,7 +49,7 @@ const themedStyles = EDSStyleSheet.create((theme) => {
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
             marginTop: 4,
-            marginBottom: 4,
+            marginBottom: 8,
             marginLeft: -12,
         },
         outerContainer: {
@@ -56,6 +57,8 @@ const themedStyles = EDSStyleSheet.create((theme) => {
         },
         textInput: {
             color: theme.colors.text.primary,
+            fontFamily: theme.typography.basic.p.fontFamily,
+            fontSize: theme.typography.basic.p.fontSize
         },
         placeholder: {
             color: theme.colors.text.tertiary,

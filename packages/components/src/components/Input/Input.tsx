@@ -16,13 +16,34 @@ export const Input = (props: InputProps) => {
     const leftFlex = leftAdornments ? 0.1 : 0;
     const rightFlex = rightAdornments ? 0.1 : 0;
     const centerFlex = 1 - leftFlex - rightFlex;
+    const labelFontSize = styles.label.fontSize ?? 0;
+    const marginTop = 4.25 + (props.label ? labelFontSize : 0);
+    const marginBottom = 8.25 + (props.helperText ? labelFontSize : 0);
     return (
-        <View style={{
-            flexDirection: "row"
-        }}>
-            <View style={[{ flex: leftFlex }, styles.adornment]}>{leftAdornments}</View>
-            <View style={{ flex: centerFlex }}><TextField {...other} /></View>
-            <View style={[{ flex: rightFlex }, styles.adornment]}>{rightAdornments}</View>
+        <View
+            style={{
+                flexDirection: "row",
+            }}
+        >
+            <View
+                style={[
+                    { flex: leftFlex, marginTop, marginBottom },
+                    styles.adornment,
+                ]}
+            >
+                {leftAdornments}
+            </View>
+            <View style={{ flex: centerFlex }}>
+                <TextField {...other} />
+            </View>
+            <View
+                style={[
+                    { flex: rightFlex, marginBottom, marginTop },
+                    styles.adornment,
+                ]}
+            >
+                {rightAdornments}
+            </View>
         </View>
     );
 };
@@ -33,8 +54,9 @@ const themedStyles = EDSStyleSheet.create((theme) => {
             backgroundColor: theme.colors.container.default,
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
-            marginTop: 20,
-            marginBottom: 4
+        },
+        label: {
+            fontSize: theme.typography.basic.label.fontSize,
         },
     };
 });

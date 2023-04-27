@@ -30,11 +30,11 @@ export const masterToken: MasterToken = {
         },
         container: {
             background: {
-                light: "#FFFFFF",
+                light: "#F7F7F7",
                 dark: "#080808", // TODO: This value needs a look at
             },
             default: {
-                light: "#F7F7F7",
+                light: "#FFFFFF",
                 dark: "#132634",
             },
             elevation: {
@@ -254,7 +254,7 @@ export const masterToken: MasterToken = {
             },
             label: {
                 fontFamily: "Equinor-Bold",
-                fontSize: FONT_BASIS * 0.9,
+                fontSize: FONT_BASIS * 0.75,
                 textAlign: "left",
             }
         },

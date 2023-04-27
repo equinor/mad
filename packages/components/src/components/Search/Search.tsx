@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { Input, TextFieldProps, useStyles } from "../..";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export type SearchProps = Omit<TextFieldProps, "multiline">;
 
@@ -10,7 +10,7 @@ export const Search = (props: SearchProps) => {
     return (
         <Input {...props} leftAdornments={
             <View style={styles.adornment}>
-                <Ionicons name="search" size={18} color={styles.icon.color} />
+                <MaterialIcons name="search" size={18} color={styles.icon.color} />
             </View>
         }></Input>
     );
