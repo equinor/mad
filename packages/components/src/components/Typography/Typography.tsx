@@ -13,7 +13,7 @@ import { TextStyle } from "react-native";
 export type TypographyColorVariant =
     | "primary"
     | "secondary"
-    | "tetriary"
+    | "tertiary"
     | "primaryInverted"
     | "disabled"
     | "warning"
@@ -47,7 +47,7 @@ const TypographyInner = <TGroup extends TypographyGroup>({
     children,
     ...rest
 }: TypographyProps<TGroup> & TextChildren & TextProps) => {
-    const styles = useStyles(themeStyles, { group, variant, bold, italic });
+    const styles = useStyles(themeStyles, { group, variant, bold, italic, color });
 
     return (
         <Text {...rest} ref={ref} style={[styles.text, rest.style]}>
@@ -60,7 +60,7 @@ const resolveColor = (color: TypographyColorVariant, theme: Theme) => {
     if (
         color === "primary" ||
         color === "secondary" ||
-        color === "tetriary" ||
+        color === "tertiary" ||
         color === "primaryInverted"
     ) {
         return theme.colors.text[color];
@@ -125,4 +125,3 @@ export const Typography = React.forwardRef(TypographyInner) as <
 >(
     p: TypographyProps<TGroup> & TextChildren & TextProps
 ) => React.ReactElement;
-Typography.displayName = "Typography";

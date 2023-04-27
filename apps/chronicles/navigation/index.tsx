@@ -25,7 +25,8 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { useToken } from "@equinor/mad-components";
+import { TextField, useToken } from "@equinor/mad-components";
+import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 
 export default function Navigation({
@@ -99,6 +100,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
             <DiscoverStack.Screen name="Button" component={ButtonScreen} />
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
+            <DiscoverStack.Screen name="Input" component={InputScreen} />
         </DiscoverStack.Navigator>
     );
 }

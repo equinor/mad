@@ -1,6 +1,6 @@
-import { ScrollView } from "react-native"
-import { View } from "../../components/Themed"
-import { EDSStyleSheet, useStyles, Typography, TextField, Spacer } from "@equinor/mad-components"
+import { EDSStyleSheet, Spacer, TextField, Typography, useStyles } from "@equinor/mad-components";
+import { ScrollView } from "react-native";
+import { View } from "../../components/Themed";
 
 export const TextFieldScreen = () => {
     const styles = useStyles(themedStyles);
@@ -13,7 +13,14 @@ export const TextFieldScreen = () => {
                 You can use a TextField to accept user input
             </Typography>
             <Spacer />
-            <TextField disabled label="Say something" placeholder="Anything goes here"></TextField>
+            <TextField label="Say something" placeholder="Anything goes here" />
+
+            <Spacer />
+            <Typography>
+                It can accept multiple lines of text too
+            </Typography>
+            <Spacer />
+            <TextField multiline label="Say something" placeholder="Anything goes here" />
         </View>
     </ScrollView >
 }
