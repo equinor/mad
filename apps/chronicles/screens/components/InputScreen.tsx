@@ -51,6 +51,7 @@ const themedStyles = EDSStyleSheet.create((theme) => ({
     container: {
         paddingHorizontal: theme.spacing.paddingHorizontal,
         paddingVertical: theme.spacing.paddingVertical,
+        backgroundColor: theme.colors.container.default
     },
     icon: {
         color: theme.colors.text.tertiary

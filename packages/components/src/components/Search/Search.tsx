@@ -19,7 +19,7 @@ export const Search = (props: SearchProps) => {
 const themedStyles = EDSStyleSheet.create((theme) => {
     return {
         adornment: {
-            backgroundColor: theme.colors.container.default,
+            backgroundColor: theme.colors.container.background,
             flex: 1,
             justifyContent: "center",
             alignItems: "center",

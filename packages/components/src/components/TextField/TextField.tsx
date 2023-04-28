@@ -44,8 +44,15 @@ export const TextField = React.forwardRef<View, TextFieldProps>(
                         textAlignVertical="top"
                         placeholderTextColor={styles.placeholder.color}
                         style={[
-                            multiline ? { minHeight: 60, maxHeight: 60 } : {},
-                            contents ? styles.textInput : styles.placeholder,
+                            multiline
+                                ? {
+                                    minHeight: 80,
+                                    maxHeight: 80,
+                                    paddingTop: styles.textInput.padding,
+                                }
+                                : {},
+                            contents ? styles.text : styles.placeholder,
+                            styles.textInput,
                         ]}
                     ></TextInput>
                 </View>
@@ -58,18 +65,20 @@ export const TextField = React.forwardRef<View, TextFieldProps>(
 const themedStyles = EDSStyleSheet.create((theme) => {
     return {
         innerContainer: {
-            backgroundColor: theme.colors.container.default,
-            padding: 12,
+            backgroundColor: theme.colors.container.background,
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
             marginTop: 4,
             marginBottom: 8,
-            marginLeft: -12,
+            marginLeft: -theme.spacing.paddingHorizontal,
         },
         outerContainer: {
-            marginLeft: 12,
+            marginLeft: theme.spacing.paddingHorizontal,
         },
         textInput: {
+            padding: theme.spacing.paddingHorizontal,
+        },
+        text: {
             color: theme.colors.text.primary,
             fontFamily: theme.typography.basic.p.fontFamily,
             fontSize: theme.typography.basic.p.fontSize,

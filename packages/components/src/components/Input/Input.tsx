@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { TextField, TextFieldProps } from "../TextField";
 import { ReactNode } from "react";
 import { EDSStyleSheet } from "../../styling";
-import { useStyles } from "../..";
+import { Label, useStyles } from "../..";
 
 export type InputProps = {
     leftAdornments?: ReactNode;
@@ -11,37 +11,38 @@ export type InputProps = {
 
 export const Input = (props: InputProps) => {
     const styles = useStyles(themedStyles);
-    const { leftAdornments, rightAdornments, ...other } = props;
+    const { leftAdornments, rightAdornments, label, helperText, ...other } = props;
     other.multiline = false;
-    const labelFontSize = styles.label.fontSize ?? 0;
-    const marginTop = 4.25 + (props.label ? labelFontSize : 0);
-    const marginBottom = 8.25 + (props.helperText ? labelFontSize : 0);
     return (
-        <View
-            style={{
-                flexDirection: "row",
-                alignItems: "stretch",
-            }}
-        >
-            {leftAdornments && <View
-                style={[
-                    { flex: 0.1, marginTop, marginBottom },
-                    styles.adornment,
-                ]}
+        <View>
+            {label && <Label label={label} />}
+            <View
+                style={{
+                    flexDirection: "row",
+                    alignItems: "stretch",
+                }}
             >
-                {leftAdornments}
-            </View>}
-            <View style={{ flex: 1 }}>
-                <TextField {...other} />
+                {leftAdornments && <View
+                    style={[
+                        { flex: 0.1 },
+                        styles.adornment,
+                    ]}
+                >
+                    {leftAdornments}
+                </View>}
+                <View style={{ flex: 1 }}>
+                    <TextField {...other} />
+                </View>
+                {rightAdornments && <View
+                    style={[
+                        { flex: 0.1 },
+                        styles.adornment,
+                    ]}
+                >
+                    {rightAdornments}
+                </View>}
             </View>
-            {rightAdornments && <View
-                style={[
-                    { flex: 0.1, marginBottom, marginTop },
-                    styles.adornment,
-                ]}
-            >
-                {rightAdornments}
-            </View>}
+            {helperText && <Label label={helperText} />}
         </View>
     );
 };
@@ -49,12 +50,11 @@ export const Input = (props: InputProps) => {
 const themedStyles = EDSStyleSheet.create((theme) => {
     return {
         adornment: {
-            backgroundColor: theme.colors.container.default,
+            backgroundColor: theme.colors.container.background,
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
-        },
-        label: {
-            fontSize: theme.typography.basic.label.fontSize,
-        },
+            marginTop: 4.25,
+            marginBottom: 8.25
+        }
     };
 });
