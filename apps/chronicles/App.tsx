@@ -7,7 +7,9 @@ import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import { useWindowDimensions } from 'react-native';
 import { useMemo } from "react";
+import { LogBox } from 'react-native';
 
+LogBox.ignoreAllLogs();
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
