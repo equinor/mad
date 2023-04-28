@@ -1,5 +1,14 @@
 # MAD - Mobile Application Delivery
 
+<p align="center">
+  <img src="./assets/gitLogo.png">
+</p>
+<br />
+
+[![npm](https://img.shields.io/npm/v/@equinor/mad-components?label=%40equinor%2Fmad-components&logo=npm)](https://www.npmjs.com/package/@equinor/mad-components)
+[![npm](https://img.shields.io/npm/v/@equinor/mad-maintenance-api-ts-wrapper?label=%40equinor%2Fmad-maintenance-api-ts-wrapper&logo=npm)](https://www.npmjs.com/package/@equinor/mad-maintenance-api-ts-wrapper)
+[![npm](https://img.shields.io/npm/v/@equinor/react-native-skia-draw?label=%40equinor%2Freact-native-skia-draw&logo=npm)](https://www.npmjs.com/package/@equinor/react-native-skia-draw)
+
 This is a monorepo collecting many of the packages used in the Mobile Application Delivery team.
 
 ## 📦 Apps and packages:
