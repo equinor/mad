@@ -15,7 +15,7 @@ export const Input = (props: InputProps) => {
     other.multiline = false;
     return (
         <View>
-            {label && <Label label={label} />}
+            {label && <Label label={label} bold />}
             <View
                 style={{
                     flexDirection: "row",
@@ -42,7 +42,7 @@ export const Input = (props: InputProps) => {
                     {rightAdornments}
                 </View>}
             </View>
-            {helperText && <Label label={helperText} />}
+            {helperText && <Label label={helperText} bold />}
         </View>
     );
 };

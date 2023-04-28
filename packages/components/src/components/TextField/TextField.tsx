@@ -30,7 +30,7 @@ export const TextField = React.forwardRef<View, TextFieldProps>(
         const styles = useStyles(themedStyles);
         return (
             <View style={[styles.outerContainer, rest.style]} ref={ref}>
-                {label && <Label label={label} />}
+                {label && <Label label={label} bold />}
                 <View style={styles.innerContainer}>
                     <TextInput
                         multiline={multiline}
@@ -56,7 +56,7 @@ export const TextField = React.forwardRef<View, TextFieldProps>(
                         ]}
                     ></TextInput>
                 </View>
-                {helperText && <Label label={helperText} />}
+                {helperText && <Label label={helperText} bold />}
             </View>
         );
     }
@@ -77,17 +77,14 @@ const themedStyles = EDSStyleSheet.create((theme) => {
         },
         textInput: {
             padding: theme.spacing.paddingHorizontal,
+            ...theme.typography.basic.p
         },
         text: {
             color: theme.colors.text.primary,
-            fontFamily: theme.typography.basic.p.fontFamily,
-            fontSize: theme.typography.basic.p.fontSize,
         },
         placeholder: {
             color: theme.colors.text.tertiary,
-            fontFamily: theme.typography.basic.p.fontFamily,
-            fontSize: theme.typography.basic.p.fontSize,
-        },
+        }
     };
 });
 

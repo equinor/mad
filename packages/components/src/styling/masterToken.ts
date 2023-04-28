@@ -253,7 +253,7 @@ export const masterToken: MasterToken = {
                 textAlign: "left",
             },
             label: {
-                fontFamily: "Equinor-Bold",
+                fontFamily: "Equinor-Regular",
                 fontSize: FONT_BASIS * 0.75,
                 textAlign: "left",
             }
