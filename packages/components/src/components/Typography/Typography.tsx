@@ -2,10 +2,14 @@ import { Text, TextProps } from "react-native";
 import React from "react";
 import {
     EDSStyleSheet,
+    HexColorValue,
+    RGBAColorValue,
     Theme,
     TypographyGroup,
     TypographyStyle,
     TypographyVariant,
+    isHexColorValue,
+    isRGBAColorValue,
 } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { TextStyle } from "react-native";
@@ -30,7 +34,7 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
     /** Italic text. */
     italic?: boolean;
     /** Typography colors. */
-    color?: TypographyColorVariant;
+    color?: TypographyColorVariant | HexColorValue | RGBAColorValue;
     /** Reference to text object */
     ref?: React.ForwardedRef<Text>;
 };
@@ -47,7 +51,7 @@ const TypographyInner = <TGroup extends TypographyGroup>({
     children,
     ...rest
 }: TypographyProps<TGroup> & TextChildren & TextProps) => {
-    const styles = useStyles(themeStyles, { group, variant, bold, italic });
+    const styles = useStyles(themeStyles, { group, variant, bold, italic, color });
 
     return (
         <Text {...rest} ref={ref} style={[styles.text, rest.style]}>
@@ -56,7 +60,8 @@ const TypographyInner = <TGroup extends TypographyGroup>({
     );
 };
 
-const resolveColor = (color: TypographyColorVariant, theme: Theme) => {
+const resolveColor = (color: TypographyColorVariant | HexColorValue | RGBAColorValue, theme: Theme) => {
+    if (isHexColorValue(color) || isRGBAColorValue(color)) return color;
     if (
         color === "primary" ||
         color === "secondary" ||

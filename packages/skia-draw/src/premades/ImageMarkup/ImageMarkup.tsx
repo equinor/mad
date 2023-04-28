@@ -18,67 +18,64 @@ type Dimensions = {
 
 export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>(
     (props, ref) => {
-        const [dimensions, setDimensions] = useState<Dimensions>();
+        const [contentDim, setContentDim] = useState<Dimensions>();
 
         const canvasRef = useRef<SkiaDrawHandle>(null);
         useImperativeHandle(ref, () => ({
             makeImageSnapshot: () =>
-                canvasRef.current?.makeImageSnapshot({
-                    x: 0,
-                    y: 0,
-                    width: dimensions?.width ?? 0,
-                    height: dimensions?.height ?? 0,
-                }) || undefined,
+                canvasRef.current?.makeImageSnapshot() || undefined,
         }));
         const image = useImage(props.markupImage);
         const canvasDim: Dimensions | undefined = useMemo(() => {
-            if (!dimensions) return undefined;
-            if (!image) return dimensions;
+            if (!contentDim) return undefined;
+            if (!image) return contentDim;
             const width = Math.min(
-                dimensions.width,
-                (dimensions.height * image.width()) / image.height()
+                contentDim.width,
+                (contentDim.height * image.width()) / image.height()
             );
             const height = Math.min(
-                dimensions.height,
-                (dimensions.width * image.height()) / image.width()
+                contentDim.height,
+                (contentDim.width * image.height()) / image.width()
             );
             return { width, height };
-        }, [image, dimensions]);
-
+        }, [image, contentDim]);
         return (
             <View
-                style={[
-                    props.style,
-                    { justifyContent: "center", alignItems: "center" },
-                ]}
                 onLayout={(event) =>
-                    setDimensions({
+                    setContentDim({
                         width: event.nativeEvent.layout.width,
                         height: event.nativeEvent.layout.height,
                     })
                 }
                 {...props}
+                style={[
+                    props.style,
+                    { width: "100%", position: "relative" },
+                ]}
             >
-                {canvasDim && (
-                    <Canvas
-                        ref={canvasRef}
-                        style={{
-                            maxHeight: canvasDim.height,
-                            maxWidth: canvasDim.width,
-                        }}
-                    >
-                        {image && dimensions && (
-                            <SKImage
-                                image={image}
-                                fit="contain"
-                                x={0}
-                                y={0}
-                                width={dimensions.width}
-                                height={canvasDim.height}
-                            />
-                        )}
-                    </Canvas>
-                )}
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    {canvasDim && (
+                        <Canvas
+                            initialDrawColor="red"
+                            ref={canvasRef}
+                            style={{
+                                maxHeight: canvasDim.height,
+                                maxWidth: canvasDim.width,
+                            }}
+                        >
+                            {image && contentDim && (
+                                <SKImage
+                                    image={image}
+                                    fit="contain"
+                                    x={0}
+                                    y={0}
+                                    width={canvasDim.width}
+                                    height={canvasDim.height}
+                                />
+                            )}
+                        </Canvas>
+                    )}
+                </View>
                 <View style={styles.overlay} pointerEvents="box-none">
                     <EDSControlPanel canvasRef={canvasRef} />
                 </View>
