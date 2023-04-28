@@ -1,4 +1,3 @@
-import { TextProps } from "react-native";
 import { Typography, TypographyProps } from "../Typography";
 
 export type LabelProps = {

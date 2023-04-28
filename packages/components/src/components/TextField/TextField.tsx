@@ -30,7 +30,7 @@ export const TextField = React.forwardRef<View, TextFieldProps>(
         const styles = useStyles(themedStyles);
         return (
             <View style={[styles.outerContainer, rest.style]} ref={ref}>
-                {label && <Label label={label} bold />}
+                {label && <Label label={label} />}
                 <View style={styles.innerContainer}>
                     <TextInput
                         multiline={multiline}
@@ -56,7 +56,7 @@ export const TextField = React.forwardRef<View, TextFieldProps>(
                         ]}
                     ></TextInput>
                 </View>
-                {helperText && <Label label={helperText} bold />}
+                {helperText && <Label label={helperText} />}
             </View>
         );
     }
