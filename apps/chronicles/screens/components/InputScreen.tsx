@@ -1,5 +1,4 @@
-import { ScrollView } from "react-native"
-import { View } from "../../components/Themed"
+import { ScrollView, View } from "react-native"
 import { EDSStyleSheet, useStyles, Typography, Input, Spacer } from "@equinor/mad-components"
 import { Ionicons } from "@expo/vector-icons";
 
@@ -15,8 +14,8 @@ export const InputScreen = () => {
             </Typography>
             <Spacer />
             <Input leftAdornments={
-                <View style={{ backgroundColor: "transparent", flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <Ionicons name="cafe" size={16} color={"white"} />
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                    <Ionicons name="cafe" size={16} color={styles.icon.color} />
                 </View>
             } label="Say something" placeholder="Anything goes here" helperText="Some help"></Input>
 
@@ -52,5 +51,8 @@ const themedStyles = EDSStyleSheet.create((theme) => ({
     container: {
         paddingHorizontal: theme.spacing.paddingHorizontal,
         paddingVertical: theme.spacing.paddingVertical,
+    },
+    icon: {
+        color: theme.colors.text.tertiary
     }
 }));
