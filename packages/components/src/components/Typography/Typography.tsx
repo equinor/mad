@@ -17,7 +17,7 @@ import { TextStyle } from "react-native";
 export type TypographyColorVariant =
     | "primary"
     | "secondary"
-    | "tetriary"
+    | "tertiary"
     | "primaryInverted"
     | "disabled"
     | "warning"
@@ -65,13 +65,13 @@ const resolveColor = (color: TypographyColorVariant | HexColorValue | RGBAColorV
     if (
         color === "primary" ||
         color === "secondary" ||
-        color === "tetriary" ||
+        color === "tertiary" ||
         color === "primaryInverted"
     ) {
         return theme.colors.text[color];
     }
     if (color === "disabled") {
-        return theme.colors.text.tetriary;
+        return theme.colors.text.tertiary;
     }
     return theme.colors.interactive[color];
 };
@@ -130,4 +130,3 @@ export const Typography = React.forwardRef(TypographyInner) as <
 >(
     p: TypographyProps<TGroup> & TextChildren & TextProps
 ) => React.ReactElement;
-Typography.displayName = "Typography";

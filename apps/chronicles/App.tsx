@@ -8,7 +8,6 @@ import Navigation from "./navigation";
 import { useWindowDimensions } from 'react-native';
 import { useMemo } from "react";
 
-
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const [hasLoadedEds, edsLoadError] = useEDS();

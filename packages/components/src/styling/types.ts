@@ -10,7 +10,7 @@ export type ColorSchemeValues<T> = Record<ColorScheme, T>;
 export type DensityValues<T> = Record<Density, T>;
 
 export type TypographyVariantGroupMap = {
-    basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+    basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label";
     navigation: "button" | "cellTitle" | "cellDescription";
     ui: "tooltip";
 };
@@ -69,7 +69,7 @@ export type MasterToken = {
         text: {
             primary: ColorSchemeValues<string>;
             secondary: ColorSchemeValues<string>;
-            tetriary: ColorSchemeValues<string>;
+            tertiary: ColorSchemeValues<string>;
             primaryInverted: ColorSchemeValues<string>;
         };
     };
