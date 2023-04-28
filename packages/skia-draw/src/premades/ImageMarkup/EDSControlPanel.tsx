@@ -14,7 +14,7 @@ export const EDSControlPanel = (props: {
     canvasRef: MutableRefObject<SkiaDrawHandle | null>;
 }) => {
     const [isSelectingColor, setIsSelectingColor] = useState<boolean>(false);
-    const [currentColor, setCurrentColor] = useState<string>("white");
+    const [currentColor, setCurrentColor] = useState<string>("red");
 
     const [isSelectingStrokeWeight, setIsSelectingStrokeWeight] =
         useState<boolean>(false);
@@ -24,9 +24,9 @@ export const EDSControlPanel = (props: {
     const strokeWidthSelectingButton = useRef<View>(null);
 
     const colors = [
+        "red",
         "white",
         "black",
-        "red",
         "blue",
         "orange",
         "yellow",
@@ -139,14 +139,14 @@ export const EDSControlPanel = (props: {
                 key={"undo-button"}
                 style={styles.buttonStyle}
             >
-                <Typography color="gray">undo</Typography>
+                <Typography color="secondary">undo</Typography>
             </PressableHighlight>
             <PressableHighlight
                 onPress={() => onPressClear()}
                 key={"clear-button"}
                 style={styles.buttonStyle}
             >
-                <Typography color="red">clear</Typography>
+                <Typography color="danger">clear</Typography>
             </PressableHighlight>
         </Paper>
     );

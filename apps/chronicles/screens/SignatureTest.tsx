@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import { MADLegacyButton, Typography } from "@equinor/mad-components";
+import { Button, Typography } from "@equinor/mad-components";
 import {
     SnapshotHandle,
     SkiaDrawSnapshot,
@@ -56,12 +56,8 @@ export const SignatureScreen = () => {
                     </SignaturePad>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <MADLegacyButton
-                        title={"Snapshot"}
-                        disabled={false}
-                        busy={false}
-                        viewStyle={{}}
-                        textStyle={{}}
+                    <Button
+                        title="Snapshot"
                         onPress={() =>
                             drawRef.current?.makeImageSnapshot &&
                             setImage(drawRef.current?.makeImageSnapshot())

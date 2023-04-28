@@ -29,13 +29,11 @@ export const DrawScreen = () => {
     };
 
     return (
-        <>
+        <View style={{ flex: 1 }}>
             <ImageMarkup
                 ref={canvasHandle}
                 style={{
                     flex: 3,
-                    backgroundColor: "black",
-                    justifyContent: "center",
                 }}
                 markupImage={originalImage}
             />
@@ -85,7 +83,7 @@ export const DrawScreen = () => {
                     />
                 </View>
             </View>
-        </>
+        </View>
     );
 };
 

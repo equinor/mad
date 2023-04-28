@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useEDS, EDSProvider, Density } from "@equinor/mad-components";
+import { useEDS, EDSProvider } from "@equinor/mad-components";
 
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
@@ -11,7 +11,7 @@ import { useMemo } from "react";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
-    const isLoadingEds = useEDS();
+    const [hasLoadedEds, edsLoadError] = useEDS();
     const colorScheme = useColorScheme();
 
     const { width } = useWindowDimensions();
@@ -19,7 +19,7 @@ export default function App() {
         return width > 576 ? "tablet" : "phone"
     }, [width]);
 
-    if (!isLoadingComplete || !isLoadingEds) {
+    if (!isLoadingComplete || !hasLoadedEds) {
         return null;
     } else {
         return (
