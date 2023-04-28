@@ -1,7 +1,7 @@
 # MAD Components
 
 <p align="center">
-  <img src="./assets/mad-components.png">
+  <img src="https://raw.githubusercontent.com/equinor/mad/main/packages/components/assets/mad-components.png">
 </p>
 <br />
 
