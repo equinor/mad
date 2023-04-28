@@ -47,7 +47,7 @@ const TypographyInner = <TGroup extends TypographyGroup>({
     children,
     ...rest
 }: TypographyProps<TGroup> & TextChildren & TextProps) => {
-    const styles = useStyles(themeStyles, { group, variant, bold, italic });
+    const styles = useStyles(themeStyles, { group, variant, bold, italic, color });
 
     return (
         <Text {...rest} ref={ref} style={[styles.text, rest.style]}>

@@ -23,42 +23,42 @@ const CanvasComponent: ForwardRefRenderFunction<
     },
     ref
 ) => {
-    const skiaCanvasRef = useCanvasRef();
-    const { currentPaths, pathHistory, touchHandler } = useCanvasDraw({
-        initialDrawColor,
-        initialStrokeWidth,
-        ref,
-        skiaCanvasRef,
-    });
+        const skiaCanvasRef = useCanvasRef();
+        const { currentPaths, pathHistory, touchHandler } = useCanvasDraw({
+            initialDrawColor,
+            initialStrokeWidth,
+            ref,
+            skiaCanvasRef,
+        });
 
-    return (
-        <SkiaCanvas
-            ref={skiaCanvasRef}
-            style={StyleSheet.flatten([
-                { flex: 1, backgroundColor: "black" },
-                style,
-            ])}
-            onTouch={touchHandler}
-            onLayout={onLayout}
-        >
-            {!renderChildrenOnTop && children}
-            {pathHistory.current
-                .concat(Object.values(currentPaths.current))
-                .map((pathData, index) => (
-                    <Path
-                        key={index}
-                        path={pathData.path}
-                        color={pathData.color}
-                        style="stroke"
-                        strokeWidth={pathData.strokeWidth}
-                        strokeMiter={1}
-                        strokeCap="round"
-                        antiAlias
-                    />
-                ))}
-            {renderChildrenOnTop && children}
-        </SkiaCanvas>
-    );
-};
+        return (
+            <SkiaCanvas
+                ref={skiaCanvasRef}
+                style={StyleSheet.flatten([
+                    { flex: 1, backgroundColor: "black", width: "100%" },
+                    style,
+                ])}
+                onTouch={touchHandler}
+                onLayout={onLayout}
+            >
+                {!renderChildrenOnTop && children}
+                {pathHistory.current
+                    .concat(Object.values(currentPaths.current))
+                    .map((pathData, index) => (
+                        <Path
+                            key={index}
+                            path={pathData.path}
+                            color={pathData.color}
+                            style="stroke"
+                            strokeWidth={pathData.strokeWidth}
+                            strokeMiter={1}
+                            strokeCap="round"
+                            antiAlias
+                        />
+                    ))}
+                {renderChildrenOnTop && children}
+            </SkiaCanvas>
+        );
+    };
 
 export const Canvas = forwardRef(CanvasComponent);

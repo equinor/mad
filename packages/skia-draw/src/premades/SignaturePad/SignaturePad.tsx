@@ -4,7 +4,7 @@ import { SignaturePadProps, SkiaDrawHandle } from "../../types";
 import { View, StyleSheet, Text } from "react-native";
 import { SnapshotHandle } from "../../types";
 import { SkRect } from "@shopify/react-native-skia";
-import { ClearSignatureButton } from "./components/ClearSignatureButton";
+import { Button } from "@equinor/mad-components";
 
 export const SignaturePad = forwardRef<SnapshotHandle, SignaturePadProps>(
     (props, ref) => {
@@ -35,9 +35,11 @@ export const SignaturePad = forwardRef<SnapshotHandle, SignaturePadProps>(
                     )}
                 </View>
                 <View style={styles.clearSignatureButtonContainer}>
-                    <ClearSignatureButton
-                        onPress={() => canvasRef.current?.clear()}
-                    />
+                    <Button
+                        variant="outlined"
+                        title="Clear signature"
+                        color="secondary"
+                        onPress={() => canvasRef.current?.clear()} />
                 </View>
             </View>
         );
@@ -59,7 +61,6 @@ const styles = StyleSheet.create({
     clearSignatureButtonContainer: {
         flexDirection: "row",
         justifyContent: "flex-end",
-        flex: 1,
     },
     signatureLabel: {
         position: "absolute",
