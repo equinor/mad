@@ -1,5 +1,8 @@
 import { TextStyle, ViewStyle } from "react-native";
 
+export type HexColorValue = `#${string}`;
+export type RGBAColorValue = `rgba(${string})`
+
 export type ColorScheme = "light" | "dark";
 export type Density = "tablet" | "phone";
 

@@ -34,10 +34,10 @@ const CanvasComponent: ForwardRefRenderFunction<
         return (
             <SkiaCanvas
                 ref={skiaCanvasRef}
-                style={StyleSheet.flatten([
+                style={[
                     { flex: 1, backgroundColor: "black", width: "100%" },
                     style,
-                ])}
+                ]}
                 onTouch={touchHandler}
                 onLayout={onLayout}
             >
