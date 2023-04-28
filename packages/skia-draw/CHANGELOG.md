@@ -1,5 +1,19 @@
 # @equinor/react-native-skia-draw
 
+## 0.2.0
+
+### Minor Changes
+
+-   a1e9110: Fixed snapshot issues with the ImageMarkup canvas and adjusted how it is layed out on the screen.
+
+### Patch Changes
+
+-   Updated dependencies [a1e9110]
+-   Updated dependencies [a1e9110]
+-   Updated dependencies [5bc0eb2]
+-   Updated dependencies [5bc0eb2]
+    -   @equinor/mad-components@0.2.2
+
 ## 0.1.4
 
 ### Patch Changes

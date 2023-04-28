@@ -1,5 +1,14 @@
 # @equinor/mad-components
 
+## 0.2.2
+
+### Patch Changes
+
+-   a1e9110: Removed MadLegacyButton
+-   a1e9110: Added support for more color options in the Typography component
+-   5bc0eb2: Added TextField and Input components
+-   5bc0eb2: Added a search component
+
 ## 0.2.1
 
 ### Patch Changes
