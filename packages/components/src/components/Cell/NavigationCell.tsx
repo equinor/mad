@@ -28,7 +28,7 @@ export const NavigationCell = ({
 
     const DisclosureAdornment = () => (
         <View style={styles.disclosureContainer}>
-            <Icon name="chevron-right" />
+            <Icon name="chevron-right" color="textTertiary" />
         </View>
     );
 

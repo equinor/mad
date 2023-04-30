@@ -147,8 +147,8 @@ export const masterToken: MasterToken = {
                         phone: 32,
                     },
                     widthMedium: {
-                        tablet: 72,
-                        phone: 64,
+                        tablet: 56,
+                        phone: 48,
                     },
                     widthLarge: {
                         tablet: 96,
