@@ -89,6 +89,9 @@ export type MasterToken = {
                 minHeight: DensityValues<number>;
                 minWidth: DensityValues<number>;
             };
+            icon: {
+                size: number;
+            }
             toggleButton: {
                 minHeight: DensityValues<number>;
                 minWidth: DensityValues<number>;
@@ -115,8 +118,12 @@ export type MasterToken = {
             group: {
                 titleBottomPadding: DensityValues<number>;
             }
+            content: {
+                titleDescriptionGap: DensityValues<number>;
+            },
             paddingVertical: DensityValues<number>;
             gapHorizontal: DensityValues<number>;
+
         }
         spacer: {
             small: DensityValues<number>;

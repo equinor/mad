@@ -126,6 +126,9 @@ export const masterToken: MasterToken = {
                     phone: 96,
                 },
             },
+            icon: {
+                size: 22,
+            },
             toggleButton: {
                 minHeight: {
                     tablet: 36,
@@ -226,6 +229,12 @@ export const masterToken: MasterToken = {
                     phone: SPACING_SMALL
                 }
             },
+            content: {
+                titleDescriptionGap: {
+                    tablet: SPACING_SMALL,
+                    phone: SPACING_X_SMALL,
+                },
+            },
             paddingVertical: {
                 tablet: SPACING_MEDIUM_SMALL,
                 phone: SPACING_SMALL,
@@ -300,16 +309,6 @@ export const masterToken: MasterToken = {
                 fontSize: 0.875 * FONT_BASIS,
                 textAlign: "left",
             },
-            cellTitle: {
-                fontFamily: "Equinor-Regular",
-                fontSize: FONT_BASIS,
-                textAlign: "left",
-            },
-            cellDescription: {
-                fontFamily: "Equinor-Medium",
-                fontSize: 0.75 * FONT_BASIS,
-                textAlign: "left",
-            },
         },
         cell: {
             groupTitle: {
@@ -337,4 +336,4 @@ export const masterToken: MasterToken = {
             },
         },
     },
-} as const;
+};

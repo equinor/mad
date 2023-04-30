@@ -11,6 +11,7 @@ export * from "./components/Label";
 export * from "./components/Input";
 export * from "./components/Search";
 export * from "./components/Cell";
+export * from "./components/Icon";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";
