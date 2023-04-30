@@ -43,16 +43,16 @@ export const NavigationCell = (
                         {props.title && (
                             <Typography
                                 style={{ paddingBottom: 5 }}
-                                group="navigation"
-                                variant="cellTitle"
+                                group="cell"
+                                variant="title"
                             >
                                 {props.title}
                             </Typography>
                         )}
                         {props.description && (
                             <Typography
-                                group="navigation"
-                                variant="cellDescription"
+                                group="cell"
+                                variant="description"
                             >
                                 {props.description}
                             </Typography>
@@ -81,7 +81,7 @@ const themeStyles = EDSStyleSheet.create(
         containerInner: {
             flex: 1,
             flexDirection: "row",
-            paddingHorizontal: theme.spacing.paddingHorizontal,
+            paddingHorizontal: theme.spacing.container.paddingHorizontal,
             paddingTop: 12,
             paddingBottom: 12,
         },

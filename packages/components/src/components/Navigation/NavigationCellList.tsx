@@ -7,8 +7,8 @@ import { useStyles } from "../../hooks/useStyles";
 
 export type NavigationCellListProps = {
     children?:
-        | React.ReactElement<NavigationProps>
-        | React.ReactElement<NavigationProps>[];
+    | React.ReactElement<NavigationProps>
+    | React.ReactElement<NavigationProps>[];
 };
 
 export const NavigationCellList = (props: NavigationCellListProps) => {
@@ -51,7 +51,7 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
         position: "absolute",
         top: 0,
         left: 0,
-        paddingHorizontal: theme.spacing.paddingHorizontal,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
         width: "100%",
     },
     dividerInner: {

@@ -41,6 +41,11 @@ export default function DiscoverScreen({
                     description="Search for content"
                     onPress={() => navigation.navigate("Search")}
                 />
+                <NavigationCell
+                    title="Cell"
+                    description="You are looking at one!"
+                    onPress={() => navigation.navigate("Cell")}
+                />
             </NavigationCellList>
         </ScrollView>
     );

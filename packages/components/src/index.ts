@@ -10,6 +10,7 @@ export * from "./components/TextField";
 export * from "./components/Label";
 export * from "./components/Input";
 export * from "./components/Search";
+export * from "./components/Cell";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";

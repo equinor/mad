@@ -1,7 +1,11 @@
 import { TextStyle, ViewStyle } from "react-native";
 
 export type HexColorValue = `#${string}`;
-export type RGBAColorValue = `rgba(${string})`
+export type RGBAColorValue = `rgba(${string})`;
+export type RGBColorValue = `rgb(${string})`;
+export type EDSColor = "primary" | "secondary" | "warning" | "danger" | "success";
+export type EDSTextColor = "textPrimary" | "textSecondary" | "textTertiary" | "textInverted";
+export type Color = HexColorValue | RGBAColorValue | RGBColorValue | EDSColor | EDSTextColor;
 
 export type ColorScheme = "light" | "dark";
 export type Density = "tablet" | "phone";
@@ -11,8 +15,9 @@ export type DensityValues<T> = Record<Density, T>;
 
 export type TypographyVariantGroupMap = {
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label";
-    navigation: "button" | "cellTitle" | "cellDescription";
+    interactive: "button";
     ui: "tooltip";
+    cell: "groupTitle" | "title" | "description"
 };
 export type TypographyGroup = keyof TypographyVariantGroupMap;
 export type TypographyVariant<TKey extends TypographyGroup> =
@@ -28,7 +33,7 @@ export type Elevation =
 
 export type TypographyStyle = Pick<
     TextStyle,
-    "fontFamily" | "fontSize" | "letterSpacing" | "textTransform" | "textAlign"
+    "fontFamily" | "fontSize" | "letterSpacing" | "textTransform" | "textAlign" | "lineHeight" | "paddingTop"
 >;
 export type ShadowStyle = Pick<
     ViewStyle,
@@ -88,14 +93,31 @@ export type MasterToken = {
                 minHeight: DensityValues<number>;
                 minWidth: DensityValues<number>;
             };
+            cell: {
+                minHeight: number;
+                adornment: {
+                    widthSmall: DensityValues<number>,
+                    widthMedium: DensityValues<number>,
+                    widthLarge: DensityValues<number>,
+                }
+            }
         };
         shadow: {
             [TElev in Elevation]: ShadowStyle;
         };
     };
     spacing: {
-        paddingHorizontal: DensityValues<number>;
-        paddingVertical: DensityValues<number>;
+        container: {
+            paddingHorizontal: DensityValues<number>;
+            paddingVertical: DensityValues<number>;
+        };
+        cell: {
+            group: {
+                titleBottomPadding: DensityValues<number>;
+            }
+            paddingVertical: DensityValues<number>;
+            gapHorizontal: DensityValues<number>;
+        }
         spacer: {
             small: DensityValues<number>;
             medium: DensityValues<number>;

@@ -1,15 +1,12 @@
 import { Text, TextProps } from "react-native";
 import React from "react";
 import {
+    Color,
     EDSStyleSheet,
-    HexColorValue,
-    RGBAColorValue,
-    Theme,
     TypographyGroup,
     TypographyStyle,
     TypographyVariant,
-    isHexColorValue,
-    isRGBAColorValue,
+    resolveColor,
 } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { TextStyle } from "react-native";
@@ -34,7 +31,7 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
     /** Italic text. */
     italic?: boolean;
     /** Typography colors. */
-    color?: TypographyColorVariant | HexColorValue | RGBAColorValue;
+    color?: Color;
     /** Reference to text object */
     ref?: React.ForwardedRef<Text>;
 };
@@ -58,22 +55,6 @@ const TypographyInner = <TGroup extends TypographyGroup>({
             {children}
         </Text>
     );
-};
-
-const resolveColor = (color: TypographyColorVariant | HexColorValue | RGBAColorValue, theme: Theme) => {
-    if (isHexColorValue(color) || isRGBAColorValue(color)) return color;
-    if (
-        color === "primary" ||
-        color === "secondary" ||
-        color === "tertiary" ||
-        color === "primaryInverted"
-    ) {
-        return theme.colors.text[color];
-    }
-    if (color === "disabled") {
-        return theme.colors.text.tertiary;
-    }
-    return theme.colors.interactive[color];
 };
 
 const resolveFontName = (
@@ -101,7 +82,7 @@ const themeStyles = EDSStyleSheet.create(
         const {
             group: group = "basic",
             variant: variant = "p",
-            color: color = "primary",
+            color: color = "textPrimary",
             bold,
             italic,
         } = props;

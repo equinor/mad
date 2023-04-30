@@ -8,10 +8,10 @@ export type LabelProps = {
 export const Label = (props: LabelProps & TypographyProps) => {
     const { label, meta, ...other } = props;
     return <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Typography variant="label" {...other}>
+        <Typography variant="label" color="textTertiary" {...other}>
             {label}
         </Typography>
-        <Typography variant="label" {...other}>
+        <Typography variant="label" color="textTertiary" {...other}>
             {meta}
         </Typography>
     </View>

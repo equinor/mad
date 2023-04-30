@@ -1,0 +1,5 @@
+
+
+const NavigationCell = () => {
+    return {}
+}
