@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 import { DiscoverStackParamList } from "../types";
 
-import { Cell, NavigationCell, NavigationCellList, Spacer } from "@equinor/mad-components";
+import { Cell, Spacer } from "@equinor/mad-components";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export default function DiscoverScreen({
@@ -67,9 +67,15 @@ export default function DiscoverScreen({
             <Cell.Group title="cells">
                 <Cell.Navigation
                     title="Cell"
-                    description="You are looking at one!"
+                    description="This screen is filled with them!"
                     iconName="table-row"
                     onPress={() => navigation.navigate("Cell")}
+                />
+                <Cell.Navigation
+                    title="Navigation Cell"
+                    description="Navigate to it by pressing one"
+                    iconName="sign-direction"
+                    onPress={() => navigation.navigate("NavigationCell")}
                 />
             </Cell.Group>
         </ScrollView>

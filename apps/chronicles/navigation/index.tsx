@@ -29,6 +29,7 @@ import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 import { SearchScreen } from "../screens/components/SearchScreen";
 import { CellScreen } from "../screens/components/CellScreen";
+import { NavigationCellScreen } from "../screens/components/NavigationCellScreen";
 
 export default function Navigation({
     colorScheme,
@@ -101,6 +102,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Input" component={InputScreen} />
             <DiscoverStack.Screen name="Search" component={SearchScreen} />
             <DiscoverStack.Screen name="Cell" component={CellScreen} />
+            <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />
         </DiscoverStack.Navigator>
     );
 }
