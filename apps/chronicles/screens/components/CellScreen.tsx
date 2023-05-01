@@ -17,7 +17,7 @@ export const CellScreen = () => {
                 </Typography>
             </View>
             <Spacer />
-            <Cell />
+            <Cell style={{ height: 60 }} />
             <Spacer />
             <View style={styles.readableContent}>
                 <Typography variant="h2">Groups</Typography>
@@ -28,9 +28,9 @@ export const CellScreen = () => {
             </View>
             <Spacer />
             <Cell.Group title="My first cell group">
-                <Cell />
-                <Cell />
-                <Cell />
+                <Cell style={{ height: 60 }} />
+                <Cell style={{ height: 60 }} />
+                <Cell style={{ height: 60 }} />
             </Cell.Group>
             <Spacer />
             <View style={styles.readableContent}>
@@ -46,8 +46,9 @@ export const CellScreen = () => {
                     <View style={styles.adornment}>
                         <Typography> This is the left adornment</Typography>
                     </View>
-                } />
-                <Cell>
+                }
+                    style={{ height: 60 }} />
+                <Cell style={{ height: 60 }} >
                     <View style={styles.child}>
                         <Typography>This element is a child of Cell</Typography>
                     </View>
@@ -63,6 +64,7 @@ export const CellScreen = () => {
                             <Typography> Right</Typography>
                         </View>
                     }
+                    style={{ height: 60 }}
                 >
                     <View style={styles.child}>
                         <Typography>Main content</Typography>
@@ -77,7 +79,7 @@ export const CellScreen = () => {
                 </Typography>
             </View>
             <Spacer />
-            <Cell onPress={() => null}>
+            <Cell onPress={() => null} style={{ height: 60 }} >
                 <View style={{ justifyContent: "center", flex: 1 }}>
                     <Typography>This cell responds to touch!</Typography>
                 </View>
