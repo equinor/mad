@@ -60,6 +60,12 @@ export default function DiscoverScreen({
                     iconName="paper-roll-outline"
                     onPress={() => navigation.navigate("Paper")}
                 />
+                <Cell.Navigation
+                    title="Accordion"
+                    description="Collapsable and expandable containers"
+                    iconName="arrow-collapse-vertical"
+                    onPress={() => navigation.navigate("Accordion")}
+                />
             </Cell.Group>
 
             <Spacer />

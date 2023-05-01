@@ -9,6 +9,7 @@ const SPACING_MEDIUM_SMALL = 12;
 const SPACING_SMALL = 8;
 const SPACING_X_SMALL = 4;
 const SPACING_XX_SMALL = 2;
+
 const FONT_BASIS = 17;
 
 export const masterToken: MasterToken = {
@@ -140,7 +141,19 @@ export const masterToken: MasterToken = {
                 },
             },
             cell: {
-                minHeight: 70,
+                minHeight: 30,
+                navigation: {
+                    height: {
+                        tablet: 56,
+                        phone: 48,
+                    },
+                },
+                accordion: {
+                    height: {
+                        tablet: 40,
+                        phone: 32,
+                    },
+                },
                 adornment: {
                     widthSmall: {
                         tablet: 40,
@@ -336,4 +349,11 @@ export const masterToken: MasterToken = {
             },
         },
     },
+    timing: {
+        animation: {
+            slow: 250,
+            normal: 100,
+            fast: 50,
+        }
+    }
 };
