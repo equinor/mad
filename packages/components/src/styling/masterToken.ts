@@ -214,7 +214,7 @@ export const masterToken: MasterToken = {
     spacing: {
         container: {
             paddingHorizontal: {
-                tablet: SPACING_MEDIUM,
+                tablet: SPACING_X_LARGE,
                 phone: SPACING_MEDIUM_SMALL,
             },
             paddingVertical: {
