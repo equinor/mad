@@ -1,5 +1,5 @@
 import { ReactNode, useContext } from "react";
-import { View } from "react-native";
+import { View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
@@ -15,25 +15,26 @@ export const Cell = ({
     leftAdornment,
     rightAdornment,
     onPress,
-    children
-}: React.PropsWithChildren<CellProps>) => {
+    children,
+    ...rest
+}: React.PropsWithChildren<CellProps & ViewProps>) => {
     const { isFirstCell, isLastCell } = useContext(CellGroupContext);
     const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
     return (
-        <View style={styles.container}>
+        <View {...rest} style={[styles.container, rest.style]}>
             <PressableHighlight
                 disabled={!onPress}
                 onPress={onPress}
                 style={{ flex: 1 }}
             >
                 <View style={styles.contentContainer}>
-                    {leftAdornment && <View style={styles.adornment}>
+                    {leftAdornment && <View>
                         {leftAdornment}
                     </View>}
                     <View style={styles.children}>
                         {children}
                     </View>
-                    {rightAdornment && <View style={styles.adornment}>
+                    {rightAdornment && <View>
                         {rightAdornment}
                     </View>}
                 </View>
@@ -64,8 +65,6 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
     },
     children: {
         flex: 1,
-    },
-    adornment: {
     },
     dividerOuter: {
         position: "absolute",

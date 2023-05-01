@@ -41,6 +41,19 @@ export const NavigationCellScreen = () => {
                 description="Let me play among the stars"
                 iconName="moon-waning-crescent"
                 onPress={() => null} />
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>
+                    Should the text labels take up to much space, the cell will limit the
+                    title to be no more than one line and the description to two lines.
+                </Typography>
+            </View>
+            <Spacer />
+            <Cell.Navigation
+                title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque metus purus, tristique quis magna sed, vehicula varius eros. Quisque volutpat in lacus in venenatis"
+                description="Etiam luctus ligula lacinia, interdum risus a, cursus dolor. Nulla facilisi. Donec et urna nec ante consequat pharetra in ac nulla. Quisque feugiat, tortor a egestas suscipit, lectus augue venenatis ligula, eget placerat purus urna quis tellus"
+                iconName="baby-face-outline"
+                onPress={() => null} />
         </ScrollView >
     );
 };
