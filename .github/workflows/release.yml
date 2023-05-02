@@ -17,7 +17,7 @@ jobs:
       - name: 🏗️ Set up pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 7
 
       - name: 🌈 Setup Node.js 16
         uses: actions/setup-node@v3
