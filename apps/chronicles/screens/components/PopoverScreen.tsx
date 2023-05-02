@@ -42,7 +42,7 @@ export const PopoverScreen = () => {
 const themeStyles = EDSStyleSheet.create((theme) => ({
     contentContainer: {
         flex: 1,
-        paddingHorizontal: theme.spacing.paddingHorizontal,
-        paddingVertical: theme.spacing.paddingVertical
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical
     }
 }));

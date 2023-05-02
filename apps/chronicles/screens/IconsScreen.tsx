@@ -1,35 +1,27 @@
-import { StyleSheet } from "react-native";
-
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import { EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function IconsScreen() {
+    const styles = useStyles(themeStyles);
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Tab Two</Text>
-            <View
-                style={styles.separator}
-                lightColor="#eee"
-                darkColor="rgba(255,255,255,0.1)"
-            />
-            <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
-        </View>
+        <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.readableContent}>
+                <Typography>
+                    We are not able to expose EDS icons in our component library yet.{"\n"}
+                    For the time being, you'll just have to accept MaterialComunityIcons as the source of the icons in this library.
+                </Typography>
+            </View>
+        </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({
+const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+        paddingVertical: theme.spacing.container.paddingVertical
     },
-    title: {
-        fontSize: 20,
-        fontWeight: "bold",
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: "80%",
-    },
-});
+    readableContent: {
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+    }
+}));

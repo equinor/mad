@@ -24,6 +24,9 @@ export type DiscoverStackParamList = {
     Input: undefined;
     TextField: undefined;
     Search: undefined;
+    Cell: undefined;
+    NavigationCell: undefined;
+    Accordion: undefined;
 };
 
 export type DiscoverStackScreenProps<

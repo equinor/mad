@@ -57,7 +57,7 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
                     style={styles.pressableContainer}
                 >
                     <Typography
-                        group="navigation"
+                        group="interactive"
                         variant="button"
                         style={styles.textStyle}
                     >
@@ -129,7 +129,7 @@ const themeStyles = EDSStyleSheet.create(
                 overflow: "hidden",
             },
             pressableContainer: {
-                paddingHorizontal: theme.spacing.paddingHorizontal,
+                paddingHorizontal: theme.spacing.container.paddingHorizontal,
                 minWidth: theme.geometry.dimension[isToggleButton ? "toggleButton" : "button"].minWidth,
                 minHeight: theme.geometry.dimension[isToggleButton ? "toggleButton" : "button"].minHeight,
                 justifyContent: "center",

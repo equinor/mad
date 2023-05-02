@@ -144,7 +144,7 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
         overflow: "hidden",
         minWidth: theme.geometry.dimension.button.minWidth,
         minHeight: theme.geometry.dimension.button.minHeight,
-        paddingHorizontal: theme.spacing.paddingHorizontal,
-        paddingVertical: theme.spacing.paddingVertical,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
 }));

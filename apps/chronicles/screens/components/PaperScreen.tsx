@@ -65,9 +65,9 @@ export const PaperScreen = () => {
 const themeStyles = EDSStyleSheet.create((theme) => ({
     contentContainer: {
         flex: 1,
-        paddingVertical: theme.spacing.paddingVertical,
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
     textContentContainer: {
-        paddingHorizontal: theme.spacing.paddingHorizontal,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
     },
 }));

@@ -1,6 +1,5 @@
 import { EDSStyleSheet, Spacer, TextField, Typography, useStyles } from "@equinor/mad-components";
-import { ScrollView } from "react-native";
-import { View } from "../../components/Themed";
+import { ScrollView, View } from "react-native";
 
 export const TextFieldScreen = () => {
     const styles = useStyles(themedStyles);
@@ -27,8 +26,8 @@ export const TextFieldScreen = () => {
 
 const themedStyles = EDSStyleSheet.create((theme) => ({
     container: {
-        paddingHorizontal: theme.spacing.paddingHorizontal,
-        paddingVertical: theme.spacing.paddingVertical,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical,
         backgroundColor: theme.colors.container.default
     }
 }));

@@ -10,7 +10,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
-import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
 import IconsScreen from "../screens/IconsScreen";
@@ -29,6 +28,9 @@ import { useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 import { SearchScreen } from "../screens/components/SearchScreen";
+import { CellScreen } from "../screens/components/CellScreen";
+import { NavigationCellScreen } from "../screens/components/NavigationCellScreen";
+import { AccordionScreen } from "../screens/components/AccordionScreen";
 
 export default function Navigation({
     colorScheme,
@@ -75,9 +77,6 @@ function RootNavigator() {
                 component={NotFoundScreen}
                 options={{ title: "Oops!" }}
             />
-            <RootStack.Group screenOptions={{ presentation: "modal" }}>
-                <RootStack.Screen name="Modal" component={ModalScreen} />
-            </RootStack.Group>
         </RootStack.Navigator>
     );
 }
@@ -103,6 +102,9 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
             <DiscoverStack.Screen name="Input" component={InputScreen} />
             <DiscoverStack.Screen name="Search" component={SearchScreen} />
+            <DiscoverStack.Screen name="Cell" component={CellScreen} />
+            <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />
+            <DiscoverStack.Screen name="Accordion" component={AccordionScreen} />
         </DiscoverStack.Navigator>
     );
 }

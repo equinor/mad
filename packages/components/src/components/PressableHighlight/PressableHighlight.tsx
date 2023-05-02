@@ -10,6 +10,7 @@ import { useToken } from "../../hooks/useToken";
 
 export type PressableHightlightProps = {
     highlightColor?: ColorValue;
+    disabled?: boolean;
     style?: ViewStyle;
 };
 
@@ -21,6 +22,7 @@ export const PressableHighlight = forwardRef<
         {
             style,
             children,
+            disabled = false,
             ...rest
         }: React.PropsWithChildren<PressableHightlightProps>,
         ref
@@ -30,7 +32,7 @@ export const PressableHighlight = forwardRef<
             <Pressable
                 ref={ref}
                 style={({ pressed }) => [
-                    pressed && {
+                    pressed && !disabled && {
                         backgroundColor:
                             theme.colors.interactive.pressedOverlay,
                     },

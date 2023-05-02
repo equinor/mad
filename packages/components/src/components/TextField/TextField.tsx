@@ -70,14 +70,14 @@ const themedStyles = EDSStyleSheet.create((theme) => {
             borderBottomColor: theme.colors.border.medium,
             marginTop: 4,
             marginBottom: 8,
-            marginLeft: -theme.spacing.paddingHorizontal,
+            marginLeft: -theme.spacing.container.paddingHorizontal,
         },
         outerContainer: {
-            marginLeft: theme.spacing.paddingHorizontal,
+            marginLeft: theme.spacing.container.paddingHorizontal,
         },
         textInput: {
-            padding: theme.spacing.paddingHorizontal,
-            ...theme.typography.basic.p
+            padding: theme.spacing.container.paddingHorizontal,
+            ...theme.typography.basic.input
         },
         text: {
             color: theme.colors.text.primary,

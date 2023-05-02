@@ -72,7 +72,7 @@ export const ButtonScreen = () => {
 
 const themeStyles = EDSStyleSheet.create((theme) => ({
     textArea: {
-        paddingHorizontal: theme.spacing.paddingHorizontal,
-        paddingVertical: theme.spacing.paddingVertical,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
 }));

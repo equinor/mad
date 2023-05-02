@@ -49,8 +49,8 @@ export const InputScreen = () => {
 
 const themedStyles = EDSStyleSheet.create((theme) => ({
     container: {
-        paddingHorizontal: theme.spacing.paddingHorizontal,
-        paddingVertical: theme.spacing.paddingVertical,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical,
         backgroundColor: theme.colors.container.default
     },
     icon: {

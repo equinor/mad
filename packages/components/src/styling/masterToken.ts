@@ -9,6 +9,7 @@ const SPACING_MEDIUM_SMALL = 12;
 const SPACING_SMALL = 8;
 const SPACING_X_SMALL = 4;
 const SPACING_XX_SMALL = 2;
+
 const FONT_BASIS = 17;
 
 export const masterToken: MasterToken = {
@@ -126,6 +127,9 @@ export const masterToken: MasterToken = {
                     phone: 96,
                 },
             },
+            icon: {
+                size: 22,
+            },
             toggleButton: {
                 minHeight: {
                     tablet: 36,
@@ -135,7 +139,36 @@ export const masterToken: MasterToken = {
                     tablet: 48,
                     phone: 36,
                 },
-            }
+            },
+            cell: {
+                minHeight: 30,
+                navigation: {
+                    height: {
+                        tablet: 56,
+                        phone: 48,
+                    },
+                },
+                accordion: {
+                    height: {
+                        tablet: 40,
+                        phone: 32,
+                    },
+                },
+                adornment: {
+                    widthSmall: {
+                        tablet: 40,
+                        phone: 32,
+                    },
+                    widthMedium: {
+                        tablet: 56,
+                        phone: 48,
+                    },
+                    widthLarge: {
+                        tablet: 96,
+                        phone: 88,
+                    },
+                },
+            },
         },
         shadow: {
             none: {},
@@ -192,13 +225,37 @@ export const masterToken: MasterToken = {
         },
     },
     spacing: {
-        paddingHorizontal: {
-            tablet: SPACING_MEDIUM,
-            phone: SPACING_MEDIUM_SMALL,
+        container: {
+            paddingHorizontal: {
+                tablet: SPACING_X_LARGE,
+                phone: SPACING_MEDIUM_SMALL,
+            },
+            paddingVertical: {
+                tablet: SPACING_MEDIUM,
+                phone: SPACING_MEDIUM,
+            },
         },
-        paddingVertical: {
-            tablet: SPACING_MEDIUM,
-            phone: SPACING_MEDIUM,
+        cell: {
+            group: {
+                titleBottomPadding: {
+                    tablet: SPACING_MEDIUM_SMALL,
+                    phone: SPACING_SMALL
+                }
+            },
+            content: {
+                titleDescriptionGap: {
+                    tablet: SPACING_SMALL,
+                    phone: SPACING_X_SMALL,
+                },
+            },
+            paddingVertical: {
+                tablet: SPACING_MEDIUM_SMALL,
+                phone: SPACING_SMALL,
+            },
+            gapHorizontal: {
+                tablet: SPACING_MEDIUM_SMALL,
+                phone: SPACING_SMALL,
+            }
         },
         spacer: {
             small: {
@@ -251,29 +308,43 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Regular",
                 fontSize: FONT_BASIS,
                 textAlign: "left",
+                lineHeight: 1.5 * FONT_BASIS,
             },
             label: {
                 fontFamily: "Equinor-Medium",
                 fontSize: FONT_BASIS * 0.75,
                 textAlign: "left",
+            },
+            input: {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS,
+                textAlign: "left",
             }
         },
-        navigation: {
+        interactive: {
             button: {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.875 * FONT_BASIS,
                 textAlign: "left",
             },
-            cellTitle: {
+        },
+        cell: {
+            groupTitle: {
+                fontFamily: "Equinor-Regular",
+                fontSize: 0.75 * FONT_BASIS,
+                textAlign: "left",
+                textTransform: "uppercase",
+            },
+            title: {
                 fontFamily: "Equinor-Regular",
                 fontSize: FONT_BASIS,
                 textAlign: "left",
             },
-            cellDescription: {
+            description: {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.75 * FONT_BASIS,
                 textAlign: "left",
-            },
+            }
         },
         ui: {
             tooltip: {
@@ -283,4 +354,11 @@ export const masterToken: MasterToken = {
             },
         },
     },
+    timing: {
+        animation: {
+            slow: 250,
+            normal: 100,
+            fast: 50,
+        }
+    }
 };

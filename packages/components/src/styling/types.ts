@@ -1,7 +1,11 @@
 import { TextStyle, ViewStyle } from "react-native";
 
 export type HexColorValue = `#${string}`;
-export type RGBAColorValue = `rgba(${string})`
+export type RGBAColorValue = `rgba(${string})`;
+export type RGBColorValue = `rgb(${string})`;
+export type EDSColor = "primary" | "secondary" | "warning" | "danger" | "success";
+export type EDSTextColor = "textPrimary" | "textSecondary" | "textTertiary" | "textInverted";
+export type Color = HexColorValue | RGBAColorValue | RGBColorValue | EDSColor | EDSTextColor;
 
 export type ColorScheme = "light" | "dark";
 export type Density = "tablet" | "phone";
@@ -10,9 +14,10 @@ export type ColorSchemeValues<T> = Record<ColorScheme, T>;
 export type DensityValues<T> = Record<Density, T>;
 
 export type TypographyVariantGroupMap = {
-    basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label";
-    navigation: "button" | "cellTitle" | "cellDescription";
+    basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label" | "input";
+    interactive: "button";
     ui: "tooltip";
+    cell: "groupTitle" | "title" | "description"
 };
 export type TypographyGroup = keyof TypographyVariantGroupMap;
 export type TypographyVariant<TKey extends TypographyGroup> =
@@ -28,7 +33,7 @@ export type Elevation =
 
 export type TypographyStyle = Pick<
     TextStyle,
-    "fontFamily" | "fontSize" | "letterSpacing" | "textTransform" | "textAlign"
+    "fontFamily" | "fontSize" | "letterSpacing" | "textTransform" | "textAlign" | "lineHeight" | "paddingTop"
 >;
 export type ShadowStyle = Pick<
     ViewStyle,
@@ -84,9 +89,26 @@ export type MasterToken = {
                 minHeight: DensityValues<number>;
                 minWidth: DensityValues<number>;
             };
+            icon: {
+                size: number;
+            };
             toggleButton: {
                 minHeight: DensityValues<number>;
                 minWidth: DensityValues<number>;
+            };
+            cell: {
+                minHeight: number;
+                navigation: {
+                    height: DensityValues<number>;
+                };
+                accordion: {
+                    height: DensityValues<number>;
+                },
+                adornment: {
+                    widthSmall: DensityValues<number>;
+                    widthMedium: DensityValues<number>;
+                    widthLarge: DensityValues<number>;
+                };
             };
         };
         shadow: {
@@ -94,8 +116,21 @@ export type MasterToken = {
         };
     };
     spacing: {
-        paddingHorizontal: DensityValues<number>;
-        paddingVertical: DensityValues<number>;
+        container: {
+            paddingHorizontal: DensityValues<number>;
+            paddingVertical: DensityValues<number>;
+        };
+        cell: {
+            group: {
+                titleBottomPadding: DensityValues<number>;
+            }
+            content: {
+                titleDescriptionGap: DensityValues<number>;
+            },
+            paddingVertical: DensityValues<number>;
+            gapHorizontal: DensityValues<number>;
+
+        }
         spacer: {
             small: DensityValues<number>;
             medium: DensityValues<number>;
@@ -107,6 +142,13 @@ export type MasterToken = {
             [TKey in TypographyVariant<TGroup>]: TypographyStyle;
         };
     };
+    timing: {
+        animation: {
+            slow: number;
+            normal: number;
+            fast: number;
+        }
+    }
 };
 
 type WithoutThemeOptionValues<TToken> = {
