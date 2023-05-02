@@ -20,7 +20,7 @@ export const AccordionItem = ({
     disabled = false,
     children,
     ...rest
-}: React.PropsWithChildren<AccordionItemProps & ViewProps>) => {
+}: AccordionItemProps & ViewProps) => {
 
     const context = useContext(AccordionContext);
     const [expanded, setExpanded] = useState<boolean>(false);
