@@ -15,9 +15,15 @@ export default function DiscoverScreen({
             <Cell.Group title="data display">
                 <Cell.Navigation
                     title="Popover"
-                    description="Contaner floating over some reference element"
+                    description="Contaner floating over some reference element with an arrow"
                     iconName="party-popper"
                     onPress={() => navigation.navigate("Popover")}
+                />
+                <Cell.Navigation
+                    title="Menu"
+                    description="Select from a list of options in a popover"
+                    iconName="menu"
+                    onPress={() => navigation.navigate("Menu")}
                 />
             </Cell.Group>
 
