@@ -13,12 +13,9 @@ export const AccordionContext = createContext<AccordionContextType>({
     isLastItem: true,
 });
 
-export type AccordionProps = {
-    singular?: boolean;
-}
+export type AccordionProps = {};
 
 export const Accordion = ({
-    singular = false,
     children,
     ...rest
 }: AccordionProps & ViewProps) => {
