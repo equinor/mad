@@ -77,7 +77,7 @@ const themedStyles = EDSStyleSheet.create((theme) => {
         },
         textInput: {
             padding: theme.spacing.container.paddingHorizontal,
-            ...theme.typography.basic.p
+            ...theme.typography.basic.input
         },
         text: {
             color: theme.colors.text.primary,
