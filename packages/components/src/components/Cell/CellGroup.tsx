@@ -21,11 +21,11 @@ export const CellGroup = ({
     title,
     children,
 }: React.PropsWithChildren<CellGroupProps>) => {
+    const styles = useStyles(themeStyles);
     const validChildrenIndexes = useMemo(() => {
         const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child));
         return validChildren.map((_, index) => index);
     }, [children]);
-    const styles = useStyles(themeStyles);
     return (
         <>
             {title &&

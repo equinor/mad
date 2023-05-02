@@ -91,19 +91,25 @@ export type MasterToken = {
             };
             icon: {
                 size: number;
-            }
+            };
             toggleButton: {
                 minHeight: DensityValues<number>;
                 minWidth: DensityValues<number>;
             };
             cell: {
                 minHeight: number;
+                navigation: {
+                    height: DensityValues<number>;
+                };
+                accordion: {
+                    height: DensityValues<number>;
+                },
                 adornment: {
-                    widthSmall: DensityValues<number>,
-                    widthMedium: DensityValues<number>,
-                    widthLarge: DensityValues<number>,
-                }
-            }
+                    widthSmall: DensityValues<number>;
+                    widthMedium: DensityValues<number>;
+                    widthLarge: DensityValues<number>;
+                };
+            };
         };
         shadow: {
             [TElev in Elevation]: ShadowStyle;
@@ -136,6 +142,13 @@ export type MasterToken = {
             [TKey in TypographyVariant<TGroup>]: TypographyStyle;
         };
     };
+    timing: {
+        animation: {
+            slow: number;
+            normal: number;
+            fast: number;
+        }
+    }
 };
 
 type WithoutThemeOptionValues<TToken> = {
