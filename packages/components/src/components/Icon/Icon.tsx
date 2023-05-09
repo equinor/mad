@@ -23,3 +23,4 @@ export const Icon = ({
 };
 
 Icon.displayName = "Icon";
+Icon.displayName = "Icon";

@@ -352,6 +352,11 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Medium",
                 fontSize: FONT_BASIS * 0.75,
                 textAlign: "left",
+            },
+            input: {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS,
+                textAlign: "left",
             }
         },
         interactive: {

@@ -114,9 +114,9 @@ export type MasterToken = {
                     widthSmall: DensityValues<number>;
                     widthMedium: DensityValues<number>;
                     widthLarge: DensityValues<number>;
-                },
-            },
-        },
+                };
+            };
+        };
         shadow: {
             [TElev in Elevation]: ShadowStyle;
         },
