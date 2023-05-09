@@ -1,5 +1,5 @@
 import { Placement, flip, offset, shift, useFloating } from "@floating-ui/react-native";
-import React from "react";
+import React, { createContext } from "react";
 import { Animated, Modal, Pressable, View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { Paper } from "../Paper";
@@ -11,6 +11,14 @@ export type MenuProps = {
     onClose: () => void;
     placement?: Placement;
 };
+
+export type MenuContextType = {
+    close: () => void;
+}
+
+export const MenuContext = createContext<MenuContextType>({
+    close: () => null,
+})
 
 export const Menu = ({
     anchorEl,
@@ -52,13 +60,18 @@ export const Menu = ({
                 >
                     <Paper
                         style={styles.paperStyle}
-                        elevation="overlay"
+                        elevation="temporaryNav"
                     >
                         <View
                             style={[styles.innerContainer, rest.style]}
                             {...rest}
                         >
-                            {children}
+                            <MenuContext.Provider
+                                value={{
+                                    close: onClose
+                                }}>
+                                {children}
+                            </MenuContext.Provider>
                         </View>
                     </Paper>
                 </Animated.View>
@@ -75,7 +88,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         overflow: "hidden",
         minWidth: theme.geometry.dimension.button.minWidth,
         minHeight: theme.geometry.dimension.button.minHeight,
-        paddingHorizontal: theme.spacing.container.paddingHorizontal,
-        paddingVertical: theme.spacing.container.paddingVertical,
+        paddingVertical: theme.spacing.menu.paddingVertical,
     },
 }));

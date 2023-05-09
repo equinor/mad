@@ -70,12 +70,18 @@ export type MasterToken = {
             warning: ColorSchemeValues<string>;
             danger: ColorSchemeValues<string>;
             pressedOverlay: ColorSchemeValues<string>;
+            selectedHighlight: ColorSchemeValues<string>;
         };
         text: {
             primary: ColorSchemeValues<string>;
             secondary: ColorSchemeValues<string>;
             tertiary: ColorSchemeValues<string>;
             primaryInverted: ColorSchemeValues<string>;
+            disabled: ColorSchemeValues<string>;
+            menu: {
+                resting: ColorSchemeValues<string>;
+                active: ColorSchemeValues<string>;
+            }
         };
     };
     geometry: {
@@ -108,18 +114,26 @@ export type MasterToken = {
                     widthSmall: DensityValues<number>;
                     widthMedium: DensityValues<number>;
                     widthLarge: DensityValues<number>;
-                };
-            };
-        };
+                },
+            },
+        },
         shadow: {
             [TElev in Elevation]: ShadowStyle;
-        };
-    };
+        },
+    },
     spacing: {
         container: {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;
-        };
+        },
+        menu: {
+            paddingVertical: DensityValues<number>;
+            item: {
+                paddingHorizontal: DensityValues<number>;
+                paddingVertical: DensityValues<number>;
+                iconGap: DensityValues<number>;
+            }
+        }
         cell: {
             group: {
                 titleBottomPadding: DensityValues<number>;
@@ -135,8 +149,8 @@ export type MasterToken = {
             small: DensityValues<number>;
             medium: DensityValues<number>;
             large: DensityValues<number>;
-        };
-    };
+        },
+    },
     typography: {
         [TGroup in TypographyGroup]: {
             [TKey in TypographyVariant<TGroup>]: TypographyStyle;
