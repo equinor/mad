@@ -1,5 +1,14 @@
 # @equinor/mad-components
 
+## 0.2.3
+
+### Patch Changes
+
+-   6c65ad1: Add Cell, Cell Group and Navigation Cell components!
+-   3a31f24: Added Menu component
+-   6c65ad1: Streamlined colors used in the component library
+-   6c65ad1: Added Accordion component!
+
 ## 0.2.2
 
 ### Patch Changes
