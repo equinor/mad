@@ -9,7 +9,6 @@ import {
 import { useToken } from "../../hooks/useToken";
 
 export type PressableHightlightProps = {
-    highlightColor?: ColorValue;
     disabled?: boolean;
     style?: ViewStyle;
 };

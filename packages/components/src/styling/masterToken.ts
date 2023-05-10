@@ -90,6 +90,10 @@ export const masterToken: MasterToken = {
                 light: "rgba(0,0,0,0.2)",
                 dark: "rgba(255,255,255,0.2)",
             },
+            selectedHighlight: {
+                light: "#E6FAEC",
+                dark: "#97CACE",
+            }
         },
         text: {
             primary: {
@@ -107,6 +111,20 @@ export const masterToken: MasterToken = {
             primaryInverted: {
                 light: "#FFFFFF",
                 dark: "#000000",
+            },
+            menu: {
+                resting: {
+                    light: "#3D3D3D",
+                    dark: "#DEE5E7",
+                },
+                active: {
+                    light: "#007079",
+                    dark: "#000000",
+                }
+            },
+            disabled: {
+                light: "#BEBEBE",
+                dark: "#637583",
             },
         },
     },
@@ -233,6 +251,26 @@ export const masterToken: MasterToken = {
             paddingVertical: {
                 tablet: SPACING_MEDIUM,
                 phone: SPACING_MEDIUM,
+            },
+        },
+        menu: {
+            paddingVertical: {
+                tablet: SPACING_SMALL,
+                phone: SPACING_SMALL,
+            },
+            item: {
+                paddingVertical: {
+                    tablet: SPACING_MEDIUM_SMALL,
+                    phone: SPACING_MEDIUM_SMALL,
+                },
+                paddingHorizontal: {
+                    tablet: SPACING_LARGE,
+                    phone: SPACING_LARGE,
+                },
+                iconGap: {
+                    tablet: SPACING_MEDIUM,
+                    phone: SPACING_MEDIUM_SMALL,
+                },
             },
         },
         cell: {

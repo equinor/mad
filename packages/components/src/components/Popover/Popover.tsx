@@ -17,7 +17,7 @@ export type PopoverProps = {
     open: boolean;
     onClose: () => void;
     anchorEl: React.MutableRefObject<View | null>;
-    placement?: string;
+    placement?: Placement;
 };
 
 type PopoverDimensions = {

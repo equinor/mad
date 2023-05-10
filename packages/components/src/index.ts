@@ -12,6 +12,7 @@ export * from "./components/Search";
 export * from "./components/Cell";
 export * from "./components/Icon";
 export * from "./components/Accordion";
+export * from "./components/Menu"
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";
