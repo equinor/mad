@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.2.4
+
+### Patch Changes
+
+-   8379013: Restructure text inputs
+-   3acea10: Animate PressableHighlight component on release
+
 ## 0.2.3
 
 ### Patch Changes
