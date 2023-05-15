@@ -19,7 +19,7 @@ export const TextFieldScreen = () => {
                 It can accept multiple lines of text too
             </Typography>
             <Spacer />
-            <TextField multiline label="Say something" placeholder="Anything goes here" />
+            <TextField multiline label="Say something" placeholder="Anything goes here" helperText="Hello everyone hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello" />
         </View>
     </ScrollView >
 }

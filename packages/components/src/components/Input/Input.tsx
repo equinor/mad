@@ -1,60 +1,83 @@
-import { View } from "react-native";
-import { TextField, TextFieldProps } from "../TextField";
+import { TextInput, TextInputProps, View } from "react-native";
 import { ReactNode } from "react";
 import { EDSStyleSheet } from "../../styling";
 import { Label, useStyles } from "../..";
+import React from "react";
 
 export type InputProps = {
+    label?: string;
+    helperText?: string;
+    onChange?: (contents: string) => void;
+    multiline?: boolean;
+    placeholder?: string;
+    disabled?: boolean;
     leftAdornments?: ReactNode;
     rightAdornments?: ReactNode;
-} & TextFieldProps;
+} & TextInputProps;
 
-export const Input = (props: InputProps) => {
-    const styles = useStyles(themedStyles);
-    const { leftAdornments, rightAdornments, label, helperText, ...other } = props;
-    other.multiline = false;
+
+export const Input = React.forwardRef<TextInput, InputProps>(({
+    leftAdornments,
+    rightAdornments,
+    label,
+    helperText,
+    value,
+    placeholder,
+    onChange,
+    multiline = false,
+    disabled = false,
+    ...rest
+}, ref) => {
+    const styles = useStyles(themedStyles, { multiline });
     return (
-        <View>
+        <>
             {label && <Label label={label} />}
-            <View
-                style={{
-                    flexDirection: "row",
-                    alignItems: "stretch",
-                }}
+            <View style={styles.contentContainer}
             >
-                {leftAdornments && <View
-                    style={[
-                        { flex: 0.1 },
-                        styles.adornment,
-                    ]}
-                >
-                    {leftAdornments}
-                </View>}
+                {leftAdornments}
                 <View style={{ flex: 1 }}>
-                    <TextField {...other} />
+                    <TextInput
+                        ref={ref}
+                        multiline={multiline}
+                        editable={!disabled}
+                        value={value}
+                        placeholder={placeholder}
+                        onChangeText={onChange}
+                        textAlignVertical="top"
+                        placeholderTextColor={styles.placeholder.color}
+                        style={[
+                            styles.textInput,
+                            rest.style
+                        ]}
+                    />
                 </View>
-                {rightAdornments && <View
-                    style={[
-                        { flex: 0.1 },
-                        styles.adornment,
-                    ]}
-                >
-                    {rightAdornments}
-                </View>}
+                {rightAdornments}
             </View>
             {helperText && <Label label={helperText} />}
-        </View>
+        </>
     );
-};
+});
 
-const themedStyles = EDSStyleSheet.create((theme) => {
+Input.displayName = "Input";
+
+const themedStyles = EDSStyleSheet.create((theme, props: { multiline: boolean }) => {
     return {
-        adornment: {
+        contentContainer: {
+            flexDirection: "row",
             backgroundColor: theme.colors.container.background,
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
-            marginTop: 4.25,
-            marginBottom: 8.25
-        }
+        },
+        textInput: {
+            paddingTop: theme.spacing.textField.paddingVertical,
+            paddingBottom: theme.spacing.textField.paddingVertical,
+            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
+            color: theme.colors.text.primary,
+            ...theme.typography.basic.input,
+            minHeight: props.multiline ? 80 : undefined
+        },
+        placeholder: {
+            color: theme.colors.text.tertiary,
+        },
     };
 });

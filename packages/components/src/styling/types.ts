@@ -126,6 +126,10 @@ export type MasterToken = {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;
         },
+        textField: {
+            paddingHorizontal: DensityValues<number>;
+            paddingVertical: DensityValues<number>;
+        }
         menu: {
             paddingVertical: DensityValues<number>;
             item: {
