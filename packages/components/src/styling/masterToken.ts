@@ -253,6 +253,16 @@ export const masterToken: MasterToken = {
                 phone: SPACING_MEDIUM,
             },
         },
+        textField: {
+            paddingHorizontal: {
+                tablet: SPACING_MEDIUM_SMALL,
+                phone: SPACING_SMALL,
+            },
+            paddingVertical: {
+                tablet: SPACING_SMALL,
+                phone: SPACING_SMALL,
+            },
+        },
         menu: {
             paddingVertical: {
                 tablet: SPACING_SMALL,
@@ -352,6 +362,8 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Medium",
                 fontSize: FONT_BASIS * 0.75,
                 textAlign: "left",
+                lineHeight: FONT_BASIS
+
             },
             input: {
                 fontFamily: "Equinor-Regular",

@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native"
-import { EDSStyleSheet, useStyles, Typography, Input, Spacer } from "@equinor/mad-components"
+import { EDSStyleSheet, useStyles, Typography, Input, Spacer, Icon } from "@equinor/mad-components"
 import { Ionicons } from "@expo/vector-icons";
 
 export const InputScreen = () => {
@@ -14,8 +14,8 @@ export const InputScreen = () => {
             </Typography>
             <Spacer />
             <Input leftAdornments={
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <Ionicons name="cafe" size={16} color={styles.icon.color} />
+                <View style={styles.adornment}>
+                    <Icon name="face-agent" />
                 </View>
             } label="Say something" placeholder="Anything goes here" helperText="Some help"></Input>
 
@@ -25,8 +25,10 @@ export const InputScreen = () => {
             </Typography>
             <Spacer />
             <Input rightAdornments={
-                <View style={{ backgroundColor: "#007079", flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <Ionicons name="beer" size={16} color={"white"} />
+                <View style={[styles.adornment, { flexDirection: "row", width: 100, backgroundColor: "gray", gap: 8 }]}>
+                    <Icon name="face-man" color="#FFFFFF" />
+                    <Icon name="face-woman" color="#FFFFFF" />
+                    <Icon name="face-mask" color="#FFFFFF" />
                 </View>
             } label="Say something" placeholder="Anything goes here"></Input>
             <Spacer />
@@ -35,12 +37,12 @@ export const InputScreen = () => {
             </Typography>
             <Spacer />
             <Input rightAdornments={
-                <View style={{ backgroundColor: "#007079", flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <Ionicons name="backspace" size={16} color={"white"} />
+                <View style={styles.adornment}>
+                    <Icon name="calculator" />
                 </View>
             } leftAdornments={
-                <View style={{ backgroundColor: "#007079", flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <Ionicons name="calculator" size={16} color={"white"} />
+                <View style={styles.adornment}>
+                    <Icon name="backspace" />
                 </View>
             } label="Say something" placeholder="Anything goes here"></Input>
         </View>
@@ -53,7 +55,9 @@ const themedStyles = EDSStyleSheet.create((theme) => ({
         paddingVertical: theme.spacing.container.paddingVertical,
         backgroundColor: theme.colors.container.default
     },
-    icon: {
-        color: theme.colors.text.tertiary
-    }
+    adornment: {
+        width: 30,
+        justifyContent: "center",
+        alignItems: "center",
+    },
 }));
