@@ -1,48 +1,79 @@
-import { forwardRef } from "react";
+import { forwardRef, useRef } from "react";
 import {
-    ColorValue,
+    Animated,
     Pressable,
     PressableProps,
     View,
     ViewStyle,
+    StyleSheet,
 } from "react-native";
 import { useToken } from "../../hooks/useToken";
 
 export type PressableHightlightProps = {
     disabled?: boolean;
     style?: ViewStyle;
-};
+} & PressableProps;
 
 export const PressableHighlight = forwardRef<
     View,
-    React.PropsWithChildren<PressableHightlightProps & PressableProps>
+    React.PropsWithChildren<PressableHightlightProps>
 >(
     (
         {
             style,
             children,
-            disabled = false,
+            disabled,
+            onPress,
             ...rest
         }: React.PropsWithChildren<PressableHightlightProps>,
         ref
     ) => {
         const theme = useToken();
+        const fadeAnim = useRef(new Animated.Value(0)).current;
+
+        const handlePressIn = () => {
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 0,
+                useNativeDriver: true,
+            }).start();
+        };
+
+        const handlePressOut = () => {
+            Animated.timing(fadeAnim, {
+                toValue: 0,
+                duration: theme.timing.animation.normal,
+                useNativeDriver: true,
+            }).start();
+        };
+
         return (
             <Pressable
                 ref={ref}
-                style={({ pressed }) => [
-                    pressed && !disabled && {
-                        backgroundColor:
-                            theme.colors.interactive.pressedOverlay,
-                    },
-                    style,
-                ]}
+                style={style}
+                onPressIn={() => !disabled && handlePressIn()}
+                onPressOut={() => !disabled && handlePressOut()}
+                onPress={(event) => !disabled && !!onPress && onPress(event)}
                 {...rest}
             >
+                <Animated.View
+                    style={[
+                        styles.overlay,
+                        {
+                            backgroundColor: theme.colors.interactive.pressedOverlay,
+                            opacity: fadeAnim
+                        }
+                    ]} />
                 {children}
             </Pressable>
         );
     }
 );
+
+const styles = StyleSheet.create({
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+    }
+})
 
 PressableHighlight.displayName = "PressableHighlight";
