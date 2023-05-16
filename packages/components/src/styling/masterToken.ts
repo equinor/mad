@@ -162,8 +162,8 @@ export const masterToken: MasterToken = {
                 minHeight: 30,
                 navigation: {
                     height: {
-                        tablet: 56,
-                        phone: 48,
+                        tablet: 60,
+                        phone: 60,
                     },
                 },
                 accordion: {
@@ -246,7 +246,7 @@ export const masterToken: MasterToken = {
         container: {
             paddingHorizontal: {
                 tablet: SPACING_X_LARGE,
-                phone: SPACING_MEDIUM_SMALL,
+                phone: SPACING_LARGE,
             },
             paddingVertical: {
                 tablet: SPACING_MEDIUM,
@@ -303,7 +303,7 @@ export const masterToken: MasterToken = {
             content: {
                 titleDescriptionGap: {
                     tablet: SPACING_SMALL,
-                    phone: SPACING_X_SMALL,
+                    phone: SPACING_SMALL,
                 },
             },
             paddingVertical: {
@@ -311,8 +311,8 @@ export const masterToken: MasterToken = {
                 phone: SPACING_SMALL,
             },
             gapHorizontal: {
-                tablet: SPACING_MEDIUM_SMALL,
-                phone: SPACING_SMALL,
+                tablet: SPACING_X_LARGE,
+                phone: SPACING_LARGE,
             }
         },
         spacer: {
@@ -391,7 +391,7 @@ export const masterToken: MasterToken = {
         cell: {
             groupTitle: {
                 fontFamily: "Equinor-Regular",
-                fontSize: 0.75 * FONT_BASIS,
+                fontSize: 0.875 * FONT_BASIS,
                 textAlign: "left",
                 textTransform: "uppercase",
             },
