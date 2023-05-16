@@ -20,9 +20,9 @@ const themedStyles = EDSStyleSheet.create((theme) => {
     return {
         adornment: {
             backgroundColor: theme.colors.container.background,
-            flex: 1,
             justifyContent: "center",
             alignItems: "center",
+            paddingHorizontal: theme.spacing.element.paddingHorizontal
         },
         icon: {
             color: theme.colors.text.primary

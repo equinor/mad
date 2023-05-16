@@ -253,6 +253,16 @@ export const masterToken: MasterToken = {
                 phone: SPACING_MEDIUM,
             },
         },
+        element: {
+            paddingHorizontal: {
+                tablet: SPACING_MEDIUM_SMALL,
+                phone: SPACING_SMALL,
+            },
+            paddingVertical: {
+                tablet: SPACING_SMALL,
+                phone: SPACING_SMALL,
+            },
+        },
         textField: {
             paddingHorizontal: {
                 tablet: SPACING_MEDIUM_SMALL,
