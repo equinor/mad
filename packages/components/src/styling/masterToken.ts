@@ -307,12 +307,12 @@ export const masterToken: MasterToken = {
                 },
             },
             paddingVertical: {
-                tablet: SPACING_MEDIUM_SMALL,
-                phone: SPACING_SMALL,
+                tablet: SPACING_MEDIUM,
+                phone: SPACING_MEDIUM_SMALL,
             },
             gapHorizontal: {
-                tablet: SPACING_X_LARGE,
-                phone: SPACING_LARGE,
+                tablet: SPACING_LARGE,
+                phone: SPACING_MEDIUM,
             }
         },
         spacer: {
