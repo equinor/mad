@@ -34,7 +34,8 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
     color?: Color;
     /** Reference to text object */
     ref?: React.ForwardedRef<Text>;
-};
+
+} & TextProps;
 
 type TextChildren = { children: string | string[] | number | undefined | null };
 
@@ -47,7 +48,7 @@ const TypographyInner = <TGroup extends TypographyGroup>({
     ref,
     children,
     ...rest
-}: TypographyProps<TGroup> & TextChildren & TextProps) => {
+}: TypographyProps<TGroup> & TextChildren) => {
     const styles = useStyles(themeStyles, { group, variant, bold, italic, color });
 
     return (

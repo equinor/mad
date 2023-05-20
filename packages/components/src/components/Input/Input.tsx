@@ -31,7 +31,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(({
     const styles = useStyles(themedStyles, { multiline });
     return (
         <>
-            {label && <Label label={label} />}
+            {label && <Label style={styles.label} label={label} />}
             <View style={styles.contentContainer}
             >
                 {leftAdornments}
@@ -53,7 +53,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(({
                 </View>
                 {rightAdornments}
             </View>
-            {helperText && <Label label={helperText} />}
+            {helperText && <Label style={styles.label} label={helperText} />}
         </>
     );
 });
@@ -67,6 +67,9 @@ const themedStyles = EDSStyleSheet.create((theme, props: { multiline: boolean })
             backgroundColor: theme.colors.container.background,
             borderBottomWidth: theme.geometry.border.borderWidth,
             borderBottomColor: theme.colors.border.medium,
+        },
+        label: {
+            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
         },
         textInput: {
             paddingTop: theme.spacing.textField.paddingVertical,
