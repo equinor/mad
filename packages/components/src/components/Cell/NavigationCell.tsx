@@ -63,14 +63,11 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         flex: 1,
         justifyContent: "center",
         gap: theme.spacing.cell.content.titleDescriptionGap,
-        height: theme.geometry.dimension.cell.navigation.height
-
     },
     iconContainer: {
         flex: 1,
-        width: theme.geometry.dimension.cell.adornment.widthMedium,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     disclosureContainer: {
         flex: 1,
