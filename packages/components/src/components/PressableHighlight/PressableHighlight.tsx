@@ -72,7 +72,7 @@ export const PressableHighlight = forwardRef<
 
 const styles = StyleSheet.create({
     overlay: {
-        ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFillObject
     }
 })
 

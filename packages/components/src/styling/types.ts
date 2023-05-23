@@ -69,6 +69,7 @@ export type MasterToken = {
             success: ColorSchemeValues<string>;
             warning: ColorSchemeValues<string>;
             danger: ColorSchemeValues<string>;
+            disabled: ColorSchemeValues<string>;
             pressedOverlay: ColorSchemeValues<string>;
             selectedHighlight: ColorSchemeValues<string>;
         };
@@ -92,16 +93,11 @@ export type MasterToken = {
             focusedBorderWidth: number;
         };
         dimension: {
-            button: {
-                minHeight: DensityValues<number>;
-                minWidth: DensityValues<number>;
-            };
             icon: {
                 size: number;
             };
-            toggleButton: {
+            button: {
                 minHeight: DensityValues<number>;
-                minWidth: DensityValues<number>;
             };
             cell: {
                 minHeight: number;
@@ -130,7 +126,12 @@ export type MasterToken = {
         element: {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;
-        }
+        },
+        button: {
+            paddingHorizontal: DensityValues<number>;
+            paddingVertical: DensityValues<number>;
+            iconGap: DensityValues<number>;
+        },
         textField: {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;

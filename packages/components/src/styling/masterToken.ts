@@ -86,6 +86,10 @@ export const masterToken: MasterToken = {
                 light: "#EB0000",
                 dark: "#EB0000",
             },
+            disabled: {
+                light: "#EAEAEA",
+                dark: "#344450",
+            },
             pressedOverlay: {
                 light: "rgba(0,0,0,0.2)",
                 dark: "rgba(255,255,255,0.2)",
@@ -136,27 +140,13 @@ export const masterToken: MasterToken = {
             focusedBorderWidth: 2,
         },
         dimension: {
-            button: {
-                minHeight: {
-                    tablet: 36,
-                    phone: 36,
-                },
-                minWidth: {
-                    tablet: 112,
-                    phone: 96,
-                },
-            },
             icon: {
                 size: 22,
             },
-            toggleButton: {
+            button: {
                 minHeight: {
-                    tablet: 36,
-                    phone: 36,
-                },
-                minWidth: {
-                    tablet: 48,
-                    phone: 36,
+                    tablet: SPACING_XX_LARGE,
+                    phone: SPACING_XX_LARGE,
                 },
             },
             cell: {
@@ -263,6 +253,20 @@ export const masterToken: MasterToken = {
                 tablet: SPACING_SMALL,
                 phone: SPACING_SMALL,
             },
+        },
+        button: {
+            paddingHorizontal: {
+                tablet: SPACING_MEDIUM,
+                phone: SPACING_MEDIUM_SMALL,
+            },
+            paddingVertical: {
+                tablet: SPACING_SMALL,
+                phone: SPACING_SMALL,
+            },
+            iconGap: {
+                tablet: SPACING_SMALL,
+                phone: SPACING_SMALL,
+            }
         },
         textField: {
             paddingHorizontal: {

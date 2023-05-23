@@ -2,4 +2,4 @@
 "@equinor/mad-components": patch
 ---
 
-Reworked Cell styling
+Added ghost button variation
