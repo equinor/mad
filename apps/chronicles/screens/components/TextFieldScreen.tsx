@@ -9,11 +9,16 @@ export const TextFieldScreen = () => {
     >
         <View style={styles.container}>
             <Typography>
-                You can use a TextField to accept user input
+                TextField acts as a convenience wrapper for the Input component.
             </Typography>
             <Spacer />
             <TextField label="Say something" placeholder="Anything goes here" />
-
+            <Spacer />
+            <Typography>
+                You may add units to it:
+            </Typography>
+            <Spacer />
+            <TextField label="Measurement" placeholder="Length" unit="(mm)" />
             <Spacer />
             <Typography>
                 It can accept multiple lines of text too

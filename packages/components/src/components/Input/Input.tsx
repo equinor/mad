@@ -1,5 +1,5 @@
-import { TextInput, TextInputProps, View } from "react-native";
-import { ReactNode } from "react";
+import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
+import { ReactNode, useState } from "react";
 import { EDSStyleSheet } from "../../styling";
 import { Label, useStyles } from "../..";
 import React from "react";
@@ -28,7 +28,8 @@ export const Input = React.forwardRef<TextInput, InputProps>(({
     disabled = false,
     ...rest
 }, ref) => {
-    const styles = useStyles(themedStyles, { multiline });
+    const [isSelected, setIsSelected] = useState<boolean>(false);
+    const styles = useStyles(themedStyles, { multiline, isSelected });
     return (
         <>
             {label && <Label style={styles.label} label={label} />}
@@ -45,6 +46,8 @@ export const Input = React.forwardRef<TextInput, InputProps>(({
                         onChangeText={onChange}
                         textAlignVertical="top"
                         placeholderTextColor={styles.placeholder.color}
+                        onFocus={() => setIsSelected(true)}
+                        onBlur={() => setIsSelected(false)}
                         style={[
                             styles.textInput,
                             rest.style
@@ -60,13 +63,23 @@ export const Input = React.forwardRef<TextInput, InputProps>(({
 
 Input.displayName = "Input";
 
-const themedStyles = EDSStyleSheet.create((theme, props: { multiline: boolean }) => {
+const themedStyles = EDSStyleSheet.create((theme, props: { multiline: boolean, isSelected: boolean }) => {
+    const { multiline, isSelected } = props;
+
+    let borderStyle: ViewStyle;
+    if (isSelected) borderStyle = {
+        borderColor: theme.colors.interactive.primary,
+        borderWidth: theme.geometry.border.focusedBorderWidth,
+    }
+    else borderStyle = {
+        borderColor: theme.colors.text.tertiary,
+        borderBottomWidth: theme.geometry.border.borderWidth,
+    }
     return {
         contentContainer: {
             flexDirection: "row",
             backgroundColor: theme.colors.container.background,
-            borderBottomWidth: theme.geometry.border.borderWidth,
-            borderBottomColor: theme.colors.border.medium,
+            ...borderStyle,
         },
         label: {
             paddingHorizontal: theme.spacing.textField.paddingHorizontal,
@@ -77,7 +90,7 @@ const themedStyles = EDSStyleSheet.create((theme, props: { multiline: boolean })
             paddingHorizontal: theme.spacing.textField.paddingHorizontal,
             color: theme.colors.text.primary,
             ...theme.typography.basic.input,
-            minHeight: props.multiline ? 80 : undefined
+            minHeight: multiline ? 80 : undefined
         },
         placeholder: {
             color: theme.colors.text.tertiary,
