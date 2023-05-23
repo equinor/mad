@@ -1,22 +1,43 @@
 
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
 import { Input, InputProps } from "../Input";
 import React from "react";
+import { Typography } from "../Typography";
+import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
 
-export type TextFieldProps = Omit<InputProps, "leftAdornment" | "rightAdornment">
+export type TextFieldProps = {
+    unit?: string;
+} & Omit<InputProps, "leftAdornment" | "rightAdornment">
 
 export const TextField = React.forwardRef<TextInput, TextFieldProps>(
     (
-        props,
+        {
+            unit,
+            ...rest
+        },
         ref
     ) => {
+        const styles = useStyles(themeStyles);
         return (
             <Input
                 ref={ref}
-                {...props}
+                rightAdornments={unit && (
+                    <View style={styles.unit}>
+                        <Typography variant="label" color="textTertiary">{unit}</Typography>
+                    </View>
+                )}
+                {...rest}
             />
         );
     }
 );
 
 TextField.displayName = "TextField";
+
+const themeStyles = EDSStyleSheet.create(theme => ({
+    unit: {
+        justifyContent: "center",
+        paddingLeft: theme.spacing.textField.paddingHorizontal,
+    }
+}));
