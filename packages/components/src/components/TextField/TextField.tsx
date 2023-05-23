@@ -38,6 +38,6 @@ TextField.displayName = "TextField";
 const themeStyles = EDSStyleSheet.create(theme => ({
     unit: {
         justifyContent: "center",
-        paddingLeft: theme.spacing.textField.paddingHorizontal,
+        paddingHorizontal: theme.spacing.textField.paddingHorizontal,
     }
 }));

@@ -79,7 +79,6 @@ const themedStyles = EDSStyleSheet.create((theme, props: { multiline: boolean, i
         contentContainer: {
             flexDirection: "row",
             backgroundColor: theme.colors.container.background,
-            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
             ...borderStyle,
         },
         label: {
@@ -88,6 +87,7 @@ const themedStyles = EDSStyleSheet.create((theme, props: { multiline: boolean, i
         textInput: {
             paddingTop: theme.spacing.textField.paddingVertical,
             paddingBottom: theme.spacing.textField.paddingVertical,
+            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
             color: theme.colors.text.primary,
             ...theme.typography.basic.input,
             minHeight: multiline ? 80 : undefined
