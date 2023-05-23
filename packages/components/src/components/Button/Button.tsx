@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
-import { EDSStyleSheet } from "../../styling";
+import { Color, EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
 import { Typography } from "../Typography";
 import { ButtonGroupContext } from "./ButtonGroup";
 import { ToggleButtonContext } from "./ToggleButton";
+import { Icon, IconName } from "../Icon";
 
 export type ButtonProps = {
     title: string;
@@ -13,6 +14,8 @@ export type ButtonProps = {
     color?: "primary" | "secondary" | "danger";
     variant?: "contained" | "outlined" | "ghost";
     disabled?: boolean;
+    iconName?: IconName;
+    iconPosition?: "leading" | "trailing";
 };
 
 export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
@@ -23,6 +26,8 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
             variant = "contained",
             onPress = () => null,
             disabled = false,
+            iconName,
+            iconPosition = "leading",
             ...rest
         },
         ref
@@ -41,20 +46,28 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
         });
 
         return (
-            <View ref={ref} style={[styles.colorContainer, rest.style]}>
-                <PressableHighlight
-                    disabled={disabled}
-                    onPress={isToggleButton ? toggleData.toggle : onPress}
-                    style={styles.pressableContainer}
-                >
-                    <Typography
-                        group="interactive"
-                        variant="button"
-                        style={styles.textStyle}
+            <View>
+                <View ref={ref} style={[styles.colorContainer, rest.style]}>
+                    <PressableHighlight
+                        disabled={disabled}
+                        onPress={isToggleButton ? toggleData.toggle : onPress}
+                        style={styles.pressableContainer}
                     >
-                        {title}
-                    </Typography>
-                </PressableHighlight>
+                        {iconName && (iconPosition === "leading") &&
+                            <Icon name={iconName} color={styles.textStyle.color as Color} />
+                        }
+                        <Typography
+                            group="interactive"
+                            variant="button"
+                            style={styles.textStyle}
+                        >
+                            {title}
+                        </Typography>
+                        {iconName && (iconPosition === "trailing") &&
+                            <Icon name={iconName} color={styles.textStyle.color as Color} />
+                        }
+                    </PressableHighlight>
+                </View>
             </View>
         );
     }
@@ -84,16 +97,14 @@ const themeStyles = EDSStyleSheet.create(
 
         variant = isToggleButton ? toggleStatus ? "contained" : "outlined" : variant;
 
-        let backgroundColor =
-            variant === "contained"
-                ? theme.colors.interactive[color]
-                : "transparent";
+        let backgroundColor = theme.colors.interactive[color];
         let textColor =
             variant === "contained"
                 ? theme.colors.text.primaryInverted
                 : theme.colors.interactive[color];
 
         backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
+        backgroundColor = variant !== "contained" ? "transparent" : backgroundColor;
         textColor = disabled ? theme.colors.text.disabled : textColor;
 
         const leftRadius = !groupData.isFirstItem ? 0 : theme.geometry.border.elementBorderRadius;
@@ -106,16 +117,17 @@ const themeStyles = EDSStyleSheet.create(
                 borderBottomLeftRadius: leftRadius,
                 borderTopRightRadius: rightRadius,
                 borderBottomRightRadius: rightRadius,
-                borderColor: theme.colors.interactive[color],
-                borderWidth: variant === "outlined" ? theme.geometry.border.borderWidth : 0,
+                borderColor: disabled ? theme.colors.text.disabled : theme.colors.interactive[color],
+                borderWidth: variant === "outlined" ? theme.geometry.border.borderWidth : undefined,
                 overflow: "hidden",
             },
             pressableContainer: {
-                paddingHorizontal: theme.spacing.container.paddingHorizontal,
-                minWidth: theme.geometry.dimension[isToggleButton ? "toggleButton" : "button"].minWidth,
-                minHeight: theme.geometry.dimension[isToggleButton ? "toggleButton" : "button"].minHeight,
-                justifyContent: "center",
+                flexDirection: "row",
                 alignItems: "center",
+                minHeight: theme.geometry.dimension.button.minHeight,
+                gap: theme.spacing.button.iconGap,
+                paddingHorizontal: theme.spacing.button.paddingHorizontal,
+                paddingVertical: theme.spacing.button.paddingVertical,
             },
             textStyle: {
                 color: textColor,

@@ -26,19 +26,33 @@ export const ButtonScreen = () => {
             </View>
             <Spacer />
             <Typography >
-                And different variants:
+                Different variants:
             </Typography>
             <View style={styles.buttonRow}>
                 <Button title="Contained" variant="contained" />
                 <Button title="Outlined" variant="outlined" />
                 <Button title="Ghost" variant="ghost" />
             </View>
+            <Spacer />
+            <Typography >
+                And icon positions:
+            </Typography>
+            <View style={styles.buttonRow}>
+                <Button title="Leading" iconPosition="leading" iconName="home-outline" />
+                <Button title="Trailing" iconPosition="trailing" iconName="send-outline" />
+            </View>
             <Spacer amount="large" />
 
             <Typography variant="h2">States</Typography>
             <Typography>A button can have multiple states:</Typography>
             <View style={styles.buttonRow}>
-                <Button title="Disabled" disabled />
+                <Button title="Disabled" variant="contained" disabled />
+                <Button title="Disabled" variant="outlined" disabled />
+                <Button title="Disabled" variant="ghost" disabled />
+            </View>
+            <Spacer />
+            <View style={styles.buttonRow}>
+                <Button title="Loading" />
                 <Button title="Loading" />
             </View>
             <Spacer amount="large" />
@@ -76,6 +90,7 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
         paddingVertical: theme.spacing.container.paddingVertical,
     },
     buttonRow: {
+        paddingVertical: 8,
         flexDirection: "row",
         justifyContent: "space-around"
     }

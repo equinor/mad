@@ -92,16 +92,11 @@ export type MasterToken = {
             borderWidth: number;
         };
         dimension: {
-            button: {
-                minHeight: DensityValues<number>;
-                minWidth: DensityValues<number>;
-            };
             icon: {
                 size: number;
             };
-            toggleButton: {
+            button: {
                 minHeight: DensityValues<number>;
-                minWidth: DensityValues<number>;
             };
             cell: {
                 minHeight: number;
@@ -130,7 +125,12 @@ export type MasterToken = {
         element: {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;
-        }
+        },
+        button: {
+            paddingHorizontal: DensityValues<number>;
+            paddingVertical: DensityValues<number>;
+            iconGap: DensityValues<number>;
+        },
         textField: {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;
