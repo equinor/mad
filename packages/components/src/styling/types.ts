@@ -89,6 +89,7 @@ export type MasterToken = {
             elementBorderRadius: number;
             containerBorderRadius: number;
             borderWidth: number;
+            focusedBorderWidth: number;
         };
         dimension: {
             button: {

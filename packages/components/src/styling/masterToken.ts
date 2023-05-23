@@ -133,6 +133,7 @@ export const masterToken: MasterToken = {
             elementBorderRadius: 4,
             containerBorderRadius: 24,
             borderWidth: 1,
+            focusedBorderWidth: 2,
         },
         dimension: {
             button: {
