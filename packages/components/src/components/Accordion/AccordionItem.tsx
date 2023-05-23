@@ -1,7 +1,7 @@
-import { useContext, useRef, useState } from "react";
+import { ReactNode, useContext, useRef, useState } from "react";
 import { Cell } from "../Cell";
 import { Animated, View, ViewProps } from "react-native";
-import { Icon } from "../Icon";
+import { Icon, IconName } from "../Icon";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { Typography } from "../Typography";
@@ -11,13 +11,17 @@ import { useToken } from "../../hooks/useToken";
 export type AccordionItemProps = {
     title: string;
     chevronPosition?: "right" | "left";
+    adornment?: ReactNode;
+    iconName?: IconName;
     disabled?: boolean;
 };
 
 export const AccordionItem = ({
     title,
-    chevronPosition = "right",
+    chevronPosition = "left",
     disabled = false,
+    adornment,
+    iconName,
     children,
     ...rest
 }: AccordionItemProps & ViewProps) => {
@@ -55,17 +59,23 @@ export const AccordionItem = ({
     }
 
     const ChevronView = () => (
-        <View style={styles.chevronContainer}>
+        <View style={styles.iconContainer}>
             <Icon name={expanded ? "chevron-up" : "chevron-down"} color={disabled ? "textTertiary" : "primary"} />
         </View>
     );
+
+    const IconView = () => (
+        iconName && <View style={styles.iconContainer}>
+            <Icon name={iconName} color={disabled ? "textTertiary" : "textPrimary"} />
+        </View>
+    )
 
     return (
         <>
             <View>
                 <Cell
-                    rightAdornment={chevronPosition === "right" ? ChevronView() : undefined}
-                    leftAdornment={chevronPosition === "left" ? ChevronView() : undefined}
+                    rightAdornment={chevronPosition === "right" ? ChevronView() : IconView()}
+                    leftAdornment={chevronPosition === "left" ? ChevronView() : IconView()}
                     onPress={disabled ? undefined : toggleItem}
                     style={styles.cellContainer}
                 >
@@ -76,6 +86,7 @@ export const AccordionItem = ({
                             numberOfLines={1}>
                             {title}
                         </Typography>
+                        {adornment}
                     </View>
                 </Cell>
                 {expanded && <View style={styles.dividerOuter}>
@@ -111,15 +122,17 @@ const themeStyles = EDSStyleSheet.create((theme, props: AccordionContextType) =>
             borderBottomWidth: isLastItem ? theme.geometry.border.borderWidth : undefined,
         },
         headerContainer: {
+            flexDirection: "row",
+            alignItems: "center",
+            gap: theme.spacing.cell.gapHorizontal,
             height: theme.geometry.dimension.cell.accordion.height,
-            justifyContent: "center",
         },
         contentContainer: {
             backgroundColor: theme.colors.container.default,
             paddingHorizontal: theme.spacing.container.paddingHorizontal,
             paddingVertical: theme.spacing.container.paddingVertical
         },
-        chevronContainer: {
+        iconContainer: {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
