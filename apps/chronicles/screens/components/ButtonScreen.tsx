@@ -5,7 +5,7 @@ import {
     Typography,
     useStyles
 } from "@equinor/mad-components";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 
 export const ButtonScreen = () => {
     const styles = useStyles(themeStyles);
@@ -19,7 +19,6 @@ export const ButtonScreen = () => {
             <Typography>
                 Select between multiple colors:
             </Typography>
-            <Button title="test" />
             <View style={styles.buttonRow}>
                 <Button title="Primary" color="primary" />
                 <Button title="Secondary" color="secondary" />

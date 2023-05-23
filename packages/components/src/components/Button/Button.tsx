@@ -53,19 +53,22 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
                         onPress={isToggleButton ? toggleData.toggle : onPress}
                         style={styles.pressableContainer}
                     >
-                        {iconName && (iconPosition === "leading") &&
-                            <Icon name={iconName} color={styles.textStyle.color as Color} />
-                        }
-                        <Typography
-                            group="interactive"
-                            variant="button"
-                            style={styles.textStyle}
-                        >
-                            {title}
-                        </Typography>
-                        {iconName && (iconPosition === "trailing") &&
-                            <Icon name={iconName} color={styles.textStyle.color as Color} />
-                        }
+                        <View style={styles.labelContainer}>
+                            {iconName && (iconPosition === "leading") &&
+                                <Icon name={iconName} color={styles.textStyle.color as Color} />
+                            }
+                            <Typography
+                                group="interactive"
+                                variant="button"
+                                style={styles.textStyle}
+                            >
+                                {title}
+                            </Typography>
+                            {iconName && (iconPosition === "trailing") &&
+                                <Icon name={iconName} color={styles.textStyle.color as Color} />
+                            }
+
+                        </View>
                     </PressableHighlight>
                 </View>
             </View>
@@ -122,12 +125,16 @@ const themeStyles = EDSStyleSheet.create(
                 overflow: "hidden",
             },
             pressableContainer: {
-                flexDirection: "row",
-                alignItems: "center",
                 minHeight: theme.geometry.dimension.button.minHeight,
-                gap: theme.spacing.button.iconGap,
                 paddingHorizontal: theme.spacing.button.paddingHorizontal,
                 paddingVertical: theme.spacing.button.paddingVertical,
+            },
+            labelContainer: {
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: theme.spacing.button.iconGap,
             },
             textStyle: {
                 color: textColor,
