@@ -13,39 +13,38 @@ export const ButtonScreen = () => {
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={{ flex: 1 }}
+            contentContainerStyle={styles.container}
         >
-            <Typography style={styles.textArea}>
-                Buttons come in different colors...
+            <Typography variant="h2">Variations</Typography>
+            <Typography>
+                Select between multiple colors:
             </Typography>
-            <View
-                style={{
-                    width: "100%",
-                    flexDirection: "row",
-                    justifyContent: "space-evenly",
-                }}
-            >
+            <View style={styles.buttonRow}>
                 <Button title="Primary" color="primary" />
                 <Button title="Secondary" color="secondary" />
                 <Button title="Danger" color="danger" />
             </View>
             <Spacer />
-            <Typography style={styles.textArea}>
-                ...and in different variants.
+            <Typography >
+                And different variants:
             </Typography>
-            <View
-                style={{
-                    width: "100%",
-                    flexDirection: "row",
-                    justifyContent: "space-evenly",
-                }}
-            >
+            <View style={styles.buttonRow}>
                 <Button title="Contained" variant="contained" />
                 <Button title="Outlined" variant="outlined" />
                 <Button title="Ghost" variant="ghost" />
             </View>
-            <Spacer />
-            <Typography style={styles.textArea}>
+            <Spacer amount="large" />
+
+            <Typography variant="h2">States</Typography>
+            <Typography>A button can have multiple states:</Typography>
+            <View style={styles.buttonRow}>
+                <Button title="Disabled" disabled />
+                <Button title="Loading" />
+            </View>
+            <Spacer amount="large" />
+
+            <Typography variant="h2">Toggles and groups</Typography>
+            <Typography>
                 They can also be grouped
             </Typography>
             <View style={{ alignItems: "center" }}>
@@ -56,7 +55,7 @@ export const ButtonScreen = () => {
                 </Button.Group>
             </View>
             <Spacer />
-            <Typography style={styles.textArea}>
+            <Typography>
                 Or used as toggles
             </Typography>
             <View style={{ alignItems: "center" }}>
@@ -71,8 +70,13 @@ export const ButtonScreen = () => {
 };
 
 const themeStyles = EDSStyleSheet.create((theme) => ({
-    textArea: {
+    container: {
+        flex: 1,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
     },
+    buttonRow: {
+        flexDirection: "row",
+        justifyContent: "space-around"
+    }
 }));

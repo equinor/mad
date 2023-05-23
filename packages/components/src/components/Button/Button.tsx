@@ -12,6 +12,7 @@ export type ButtonProps = {
     onPress?: () => void;
     color?: "primary" | "secondary" | "danger";
     variant?: "contained" | "outlined" | "ghost";
+    disabled?: boolean;
 };
 
 export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
@@ -21,6 +22,7 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
             color = "primary",
             variant = "contained",
             onPress = () => null,
+            disabled = false,
             ...rest
         },
         ref
@@ -34,12 +36,14 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
             variant,
             isToggleButton,
             toggleStatus: isToggleButton ? toggleData.isSelected : false,
-            groupData
+            groupData,
+            disabled,
         });
 
         return (
             <View ref={ref} style={[styles.colorContainer, rest.style]}>
                 <PressableHighlight
+                    disabled={disabled}
                     onPress={isToggleButton ? toggleData.toggle : onPress}
                     style={styles.pressableContainer}
                 >
@@ -63,24 +67,34 @@ type ButtonStyleSheetProps = {
     isToggleButton: boolean,
     toggleStatus: boolean,
     color: "primary" | "secondary" | "danger",
-    variant: "contained" | "outlined" | "ghost"
+    variant: "contained" | "outlined" | "ghost",
+    disabled: boolean,
 };
 
 const themeStyles = EDSStyleSheet.create(
     (theme, props: ButtonStyleSheetProps) => {
-        const { color, isToggleButton, toggleStatus, groupData } = props;
+        const {
+            color,
+            isToggleButton,
+            toggleStatus,
+            groupData,
+            disabled
+        } = props;
         let { variant } = props;
 
         variant = isToggleButton ? toggleStatus ? "contained" : "outlined" : variant;
 
-        const backgroundColor =
+        let backgroundColor =
             variant === "contained"
                 ? theme.colors.interactive[color]
                 : "transparent";
-        const textColor =
+        let textColor =
             variant === "contained"
                 ? theme.colors.text.primaryInverted
                 : theme.colors.interactive[color];
+
+        backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
+        textColor = disabled ? theme.colors.text.disabled : textColor;
 
         const leftRadius = !groupData.isFirstItem ? 0 : theme.geometry.border.elementBorderRadius;
         const rightRadius = !groupData.isLastItem ? 0 : theme.geometry.border.elementBorderRadius;
@@ -93,7 +107,7 @@ const themeStyles = EDSStyleSheet.create(
                 borderTopRightRadius: rightRadius,
                 borderBottomRightRadius: rightRadius,
                 borderColor: theme.colors.interactive[color],
-                borderWidth: theme.geometry.border.borderWidth,
+                borderWidth: variant === "outlined" ? theme.geometry.border.borderWidth : 0,
                 overflow: "hidden",
             },
             pressableContainer: {

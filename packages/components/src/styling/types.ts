@@ -69,6 +69,7 @@ export type MasterToken = {
             success: ColorSchemeValues<string>;
             warning: ColorSchemeValues<string>;
             danger: ColorSchemeValues<string>;
+            disabled: ColorSchemeValues<string>;
             pressedOverlay: ColorSchemeValues<string>;
             selectedHighlight: ColorSchemeValues<string>;
         };
