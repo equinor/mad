@@ -1,5 +1,19 @@
 # @equinor/mad-components
 
+## 0.2.5
+
+### Patch Changes
+
+-   afe14c9: Reworked Cell styling
+-   89f2e91: Added icon support for text buttons
+-   89f2e91: Added disabled state to button
+-   675f9d2: Made input field visually indicate its focus state
+-   afe14c9: Fixed Input component label padding
+-   6c837a1: Added support for icon and adornment layout to Accordion.Item component
+-   675f9d2: Added unit prop to TextField component
+-   89f2e91: Added Button.Icon component
+-   89f2e91: Added ghost button variation
+
 ## 0.2.4
 
 ### Patch Changes
