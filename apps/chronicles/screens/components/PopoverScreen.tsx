@@ -6,7 +6,6 @@ import { ScrollView, View } from "react-native";
 export const PopoverScreen = () => {
     const buttonRef = useRef<View>(null);
     const [open, setOpen] = useState(false);
-    const [placement] = useState("top");
     const style = useStyles(themeStyles);
     return (
         <ScrollView
@@ -31,7 +30,7 @@ export const PopoverScreen = () => {
                 open={open}
                 anchorEl={buttonRef}
                 onClose={() => setOpen(false)}
-                placement={placement}
+                placement="top"
             >
                 <Typography>This is a popover</Typography>
             </Popover>
@@ -41,7 +40,6 @@ export const PopoverScreen = () => {
 
 const themeStyles = EDSStyleSheet.create((theme) => ({
     contentContainer: {
-        flex: 1,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical
     }

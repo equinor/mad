@@ -46,9 +46,11 @@ ButtonGroup.displayName = "Button.Group";
 
 const styles = StyleSheet.create({
     horizontal: {
-        flexDirection: "row"
+        flexDirection: "row",
+        alignItems: "center"
     },
     vertical: {
-        flexDirection: "column"
+        flexDirection: "column",
+        alignItems: "center",
     }
 });

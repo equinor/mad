@@ -1,5 +1,5 @@
 import { ViewProps } from "react-native";
-import { ButtonGroup } from "../ButtonGroup";
+import { ButtonGroup } from "./ButtonGroup";
 import { Children, ReactNode, createContext, useState } from "react";
 
 export type ToggleButtonProps = {

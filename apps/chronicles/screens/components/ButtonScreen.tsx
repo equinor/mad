@@ -19,6 +19,7 @@ export const ButtonScreen = () => {
             <Typography>
                 Select between multiple colors:
             </Typography>
+            <Button title="test" />
             <View style={styles.buttonRow}>
                 <Button title="Primary" color="primary" />
                 <Button title="Secondary" color="secondary" />
@@ -35,11 +36,23 @@ export const ButtonScreen = () => {
             </View>
             <Spacer />
             <Typography >
-                And icon positions:
+                Icon positions:
             </Typography>
             <View style={styles.buttonRow}>
                 <Button title="Leading" iconPosition="leading" iconName="home-outline" />
                 <Button title="Trailing" iconPosition="trailing" iconName="send-outline" />
+            </View>
+            <Spacer />
+            <Typography >
+                Or just icons:
+            </Typography>
+            <View style={styles.buttonRow}>
+                <Button.Icon name="airballoon-outline" />
+                <Button.Icon name="bug-outline" variant="outlined" />
+                <Button.Icon name="cake" variant="ghost" />
+                <Button.Icon name="cloud-outline" color="danger" />
+                <Button.Icon name="fingerprint" color="danger" variant="outlined" />
+                <Button.Icon name="fire" color="danger" variant="ghost" />
             </View>
             <Spacer amount="large" />
 
@@ -52,8 +65,8 @@ export const ButtonScreen = () => {
             </View>
             <Spacer />
             <View style={styles.buttonRow}>
-                <Button title="Loading" />
-                <Button title="Loading" />
+                <Button title="Loading (TBA)" />
+                <Button title="Loading icon (TBA)" />
             </View>
             <Spacer amount="large" />
 
@@ -85,7 +98,6 @@ export const ButtonScreen = () => {
 
 const themeStyles = EDSStyleSheet.create((theme) => ({
     container: {
-        flex: 1,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
     },
