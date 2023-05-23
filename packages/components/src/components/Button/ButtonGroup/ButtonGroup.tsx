@@ -1,37 +1,41 @@
-import { Children, ReactNode, createContext, isValidElement } from "react";
+import { Children, createContext, isValidElement, useMemo } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 
 export type ButtonGroupProps = {
     vertical?: boolean;
 };
 
-export type ButtonGroupContextContents = {
-    index: number;
-    length: number;
-    valid: boolean;
+export type ButtonGroupContextType = {
+    isFirstItem: boolean;
+    isLastItem: boolean;
 }
 
 export const ButtonGroupContext = createContext({
-    valid: false,
-    length: 0,
-    index: -1
-} as ButtonGroupContextContents);
+    isFirstItem: true,
+    isLastItem: true,
+} as ButtonGroupContextType);
 
-export const ButtonGroup = (props: ButtonGroupProps & ViewProps) => {
+export const ButtonGroup = ({
+    vertical,
+    children,
+}: ButtonGroupProps & ViewProps) => {
+
+    const validChildrenIndexes = useMemo(() => {
+        const validChildren = Children.toArray(children).filter(child => isValidElement(child));
+        return validChildren.map((_, index) => index);
+    }, [children]);
+
     return (
-        <View style={props.vertical ? styles.vertical : styles.horizontal}>
+        <View style={vertical ? styles.vertical : styles.horizontal}>
             {
-                Children.map(props.children, (child: ReactNode, i: number) => {
-                    if (isValidElement(child)) {
-                        return (<ButtonGroupContext.Provider value={{
-                            index: i,
-                            length: Children.count(props.children),
-                            valid: true
+                Children.map(children, (child, index) => {
+                    return (
+                        <ButtonGroupContext.Provider value={{
+                            isFirstItem: index === validChildrenIndexes.at(0),
+                            isLastItem: index === validChildrenIndexes.at(-1),
                         }}>
                             {child}
                         </ButtonGroupContext.Provider>);
-                    }
-                    return <View />
                 })
             }
         </View>

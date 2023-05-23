@@ -11,7 +11,7 @@ export type ButtonProps = {
     title: string;
     onPress?: () => void;
     color?: "primary" | "secondary" | "danger";
-    variant?: "contained" | "outlined" | "icon";
+    variant?: "contained" | "outlined" | "ghost";
 };
 
 export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
@@ -28,30 +28,17 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
         const toggleData = useContext(ToggleButtonContext);
         const isToggleButton = toggleData && toggleData.valid;
         const groupData = useContext(ButtonGroupContext);
-        const isGroupButton = groupData && groupData.valid;
-        let groupPosition = GroupPosition.None;
-        if (isGroupButton) {
-            groupPosition = GroupPosition.Middle;
-            if (groupData.index === 0) {
-                groupPosition = GroupPosition.First;
-            }
-            if (groupData.index === groupData.length - 1) {
-                groupPosition = GroupPosition.Last;
-            }
-        }
 
         const styles = useStyles(themeStyles, {
             color,
             variant,
             isToggleButton,
-            isGroupButton,
             toggleStatus: isToggleButton ? toggleData.isSelected : false,
-            groupPosition
+            groupData
         });
-        const style: any[] = [styles.colorContainer, rest.style];
 
         return (
-            <View ref={ref} style={style}>
+            <View ref={ref} style={[styles.colorContainer, rest.style]}>
                 <PressableHighlight
                     onPress={isToggleButton ? toggleData.toggle : onPress}
                     style={styles.pressableContainer}
@@ -71,25 +58,17 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
 
 Button.displayName = "Button";
 
-enum GroupPosition {
-    First,
-    Last,
-    Middle,
-    None
-}
-
 type ButtonStyleSheetProps = {
-    groupPosition: GroupPosition,
-    isGroupButton: boolean,
+    groupData: { isFirstItem: boolean, isLastItem: boolean }
     isToggleButton: boolean,
     toggleStatus: boolean,
     color: "primary" | "secondary" | "danger",
-    variant: "contained" | "outlined" | "icon"
+    variant: "contained" | "outlined" | "ghost"
 };
 
 const themeStyles = EDSStyleSheet.create(
     (theme, props: ButtonStyleSheetProps) => {
-        const { color, isToggleButton, toggleStatus, isGroupButton, groupPosition } = props;
+        const { color, isToggleButton, toggleStatus, groupData } = props;
         let { variant } = props;
 
         variant = isToggleButton ? toggleStatus ? "contained" : "outlined" : variant;
@@ -103,27 +82,16 @@ const themeStyles = EDSStyleSheet.create(
                 ? theme.colors.text.primaryInverted
                 : theme.colors.interactive[color];
 
-        let borderTopLeftRadius = isGroupButton ? 0 : theme.geometry.border.elementBorderRadius;
-        let borderTopRightRadius = isGroupButton ? 0 : theme.geometry.border.elementBorderRadius;
-        let borderBottomLeftRadius = isGroupButton ? 0 : theme.geometry.border.elementBorderRadius;
-        let borderBottomRightRadius = isGroupButton ? 0 : theme.geometry.border.elementBorderRadius;
-
-        if (groupPosition == GroupPosition.First) {
-            borderTopLeftRadius = theme.geometry.border.elementBorderRadius;
-            borderBottomLeftRadius = theme.geometry.border.elementBorderRadius;
-        }
-        if (groupPosition == GroupPosition.Last) {
-            borderTopRightRadius = theme.geometry.border.elementBorderRadius;
-            borderBottomRightRadius = theme.geometry.border.elementBorderRadius;
-        }
+        const leftRadius = !groupData.isFirstItem ? 0 : theme.geometry.border.elementBorderRadius;
+        const rightRadius = !groupData.isLastItem ? 0 : theme.geometry.border.elementBorderRadius;
 
         return {
             colorContainer: {
                 backgroundColor,
-                borderTopLeftRadius,
-                borderTopRightRadius,
-                borderBottomLeftRadius,
-                borderBottomRightRadius,
+                borderTopLeftRadius: leftRadius,
+                borderBottomLeftRadius: leftRadius,
+                borderTopRightRadius: rightRadius,
+                borderBottomRightRadius: rightRadius,
                 borderColor: theme.colors.interactive[color],
                 borderWidth: theme.geometry.border.borderWidth,
                 overflow: "hidden",

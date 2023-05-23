@@ -42,7 +42,7 @@ export const ButtonScreen = () => {
             >
                 <Button title="Contained" variant="contained" />
                 <Button title="Outlined" variant="outlined" />
-                <Button title="ICON (TBA)" color="danger" variant="outlined" />
+                <Button title="Ghost" variant="ghost" />
             </View>
             <Spacer />
             <Typography style={styles.textArea}>
