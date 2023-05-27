@@ -28,6 +28,7 @@ export type DiscoverStackParamList = {
     NavigationCell: undefined;
     Accordion: undefined;
     Menu: undefined;
+    ProgressIndicator: undefined;
 };
 
 export type DiscoverStackScreenProps<

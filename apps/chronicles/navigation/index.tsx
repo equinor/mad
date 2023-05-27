@@ -32,6 +32,7 @@ import { CellScreen } from "../screens/components/CellScreen";
 import { NavigationCellScreen } from "../screens/components/NavigationCellScreen";
 import { AccordionScreen } from "../screens/components/AccordionScreen";
 import { MenuScreen } from "../screens/components/MenuScreen";
+import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicatorScreen";
 
 export default function Navigation({
     colorScheme,
@@ -107,6 +108,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />
             <DiscoverStack.Screen name="Accordion" component={AccordionScreen} />
             <DiscoverStack.Screen name="Menu" component={MenuScreen} />
+            <DiscoverStack.Screen name="ProgressIndicator" options={{ title: "Progress Indicators" }} component={ProgressIndicatorScreen} />
         </DiscoverStack.Navigator>
     );
 }
