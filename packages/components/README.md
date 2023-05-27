@@ -8,6 +8,20 @@
 This is a library of EDS components for React Native. Using this library should feel similar as for [EDS for React](https://www.npmjs.com/package/@equinor/eds-core-react).
 
 ## 🧑‍🏫 How to use
+### Installation
+#### npm
+`npm install @equinor/mad-components`
+
+#### yarn
+`yarn add @equinor/mad-components`
+
+#### ___NOTE:___
+The component library requires `react-native-svg` for some components to funciton properly. For Expo client apps, install this first with 
+
+`expo install react-native-svg`
+
+For pure React Native projects, follow the [react native svg](https://github.com/software-mansion/react-native-svg) installation instructions.
+
 ### Getting started
 Before using the components in your app, make sure to load the fonts and assets required by the library somewhere in your root component. It is also recommended that you wrap your app in the `EDSProvider`. This will give you access to dynamically switching between `tablet` and `phone` mode as well as `dark` and `light` mode support:
 
