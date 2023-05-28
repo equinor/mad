@@ -3,21 +3,11 @@ import { useState } from "react";
 import { ScrollView, View } from "react-native";
 
 
-export const ProgressIndicatorScreen = () => {
+const CircularProgressSection = () => {
     const styles = useStyles(themeStyles);
     const [progress, setProgress] = useState<number>(0);
     return (
-        <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={styles.container}>
-            <Typography>
-                Indicators come in different shapes and sizes. There are 3 variants of progress indicators:
-                <Typography bold italic> CirularProgress</Typography>,
-                <Typography bold italic> LinearProgress</Typography> and
-                <Typography bold italic> DotProgress</Typography>,
-                each serving different needs.
-            </Typography>
-            <Spacer />
+        <>
             <Typography variant="h2">CircularProgress</Typography>
             <Typography>
                 The circular progress bar is categorized into determinate and indeterminate types,
@@ -56,7 +46,67 @@ export const ProgressIndicatorScreen = () => {
                 <CircularProgress size={50} />
                 <CircularProgress size={25} />
             </View>
+        </>
+    );
+};
+
+const LinearProgressSection = () => {
+    const styles = useStyles(themeStyles);
+    const [progress, setProgress] = useState<number>(0);
+    return (
+        <>
+            <Typography variant="h2">LinearProgress</Typography>
+            <Typography>
+                As with the circular progress, the linear progress bar also comes in both a determinate and an indeterminate form.
+            </Typography>
             <Spacer />
+            <Typography variant="h3">Determinate</Typography>
+            <Spacer />
+            <View style={styles.progressRow}>
+                <CircularProgress size={100} value={progress} />
+                <CircularProgress size={75} value={progress} />
+                <CircularProgress size={50} value={progress} />
+                <CircularProgress size={25} value={progress} />
+            </View>
+            <Spacer />
+            <View style={styles.incrementButtonRow}>
+                <Button
+                    title="Increment"
+                    iconName="plus-box"
+                    onPress={() => setProgress(state => state + 0.1)}
+                />
+                <Button
+                    title="Reset"
+                    iconName="restore"
+                    variant="outlined"
+                    color="secondary"
+                    onPress={() => setProgress(0)}
+                />
+            </View>
+            <Spacer />
+            <Typography variant="h3">Indeterminate</Typography>
+            <Spacer />
+            <View style={styles.progressRow}>
+                <CircularProgress size={100} />
+                <CircularProgress size={75} />
+                <CircularProgress size={50} />
+                <CircularProgress size={25} />
+            </View>
+        </>
+    );
+}
+
+export const ProgressIndicatorScreen = () => {
+    const styles = useStyles(themeStyles);
+
+    return (
+        <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            contentContainerStyle={styles.container}>
+            <CircularProgressSection />
+            <Spacer amount="large" />
+            <Spacer amount="large" />
+            <LinearProgressSection />
         </ScrollView >
     );
 };

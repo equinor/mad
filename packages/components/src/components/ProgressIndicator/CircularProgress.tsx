@@ -1,12 +1,12 @@
 import Svg, { Circle } from "react-native-svg";
 import { ProgressIndicatorProps } from "./types";
-import { Animated, Easing } from "react-native";
+import { Animated, Easing, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useToken } from "../../hooks/useToken";
 
-type CircularProgressProps = {
+export type CircularProgressProps = {
     size?: number;
     color?: "neutral" | "primary"
 } & ProgressIndicatorProps;
@@ -14,15 +14,15 @@ type CircularProgressProps = {
 const RELATIVE_SIZE_VALUE = 12;
 const DEFAULT_PROGRESS = 0.618033; // Golden angle / ratio, if anyone is interested...
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+const STROKE_WIDTH = 1.0;
+const RADIUS = (RELATIVE_SIZE_VALUE - STROKE_WIDTH) / 2;
+const CIRCUMFERENCE = Math.PI * 2 * RADIUS;
 
 export const CircularProgress = ({
     color,
     value,
     size = 100,
 }: CircularProgressProps) => {
-    const strokeWidth = 1.0;
-    const radius = (RELATIVE_SIZE_VALUE - strokeWidth) / 2;
-    const circumference = Math.PI * 2 * radius;
     const progressValue = useRef(new Animated.Value(value ?? DEFAULT_PROGRESS)).current;
     const rotationValue = useRef(new Animated.Value(0)).current;
 
@@ -40,7 +40,7 @@ export const CircularProgress = ({
     const rotationAnimation = Animated.loop(
         Animated.timing(rotationValue, {
             toValue: 1,
-            duration: 2000,
+            duration: 1500,
             useNativeDriver: true,
         })
     );
@@ -56,7 +56,7 @@ export const CircularProgress = ({
         outputRange: [`${3 / 2 * Math.PI}rad`, `${7 / 2 * Math.PI}rad`]
     });
 
-    const dashOffset = Animated.multiply(theta, radius);
+    const dashOffset = Animated.multiply(theta, RADIUS);
 
     useEffect(() => {
         if (value === undefined) {
@@ -68,41 +68,43 @@ export const CircularProgress = ({
     }, [value]);
 
     return (
-        <Animated.View
-            style={{
-                transform: [
-                    { rotate: phi }
-                ]
-            }}
-        >
-            <Svg
-                width={size}
-                height={size}
-                role="progressbar"
-                viewBox={`${RELATIVE_SIZE_VALUE / 2} ${RELATIVE_SIZE_VALUE / 2} ${RELATIVE_SIZE_VALUE} ${RELATIVE_SIZE_VALUE}`}
+        <View style={{ width: size, height: size }}>
+            <Animated.View
+                style={{
+                    transform: [
+                        { rotate: phi }
+                    ]
+                }}
             >
-                <Circle
-                    cx={RELATIVE_SIZE_VALUE}
-                    cy={RELATIVE_SIZE_VALUE}
-                    fill="none"
-                    r={radius}
-                    stroke={styles.circle.color}
-                    strokeWidth={strokeWidth}
-                    opacity={styles.circle.opacity}
-                />
-                <AnimatedCircle
-                    cx={RELATIVE_SIZE_VALUE}
-                    cy={RELATIVE_SIZE_VALUE}
-                    fill="none"
-                    r={radius}
-                    stroke={styles.circle.color}
-                    strokeWidth={strokeWidth}
-                    strokeDashoffset={dashOffset}
-                    strokeDasharray={`${circumference} ${circumference}`}
-                    strokeLinecap="round"
-                />
-            </Svg>
-        </Animated.View>
+                <Svg
+                    width={size}
+                    height={size}
+                    role="progressbar"
+                    viewBox={`${RELATIVE_SIZE_VALUE / 2} ${RELATIVE_SIZE_VALUE / 2} ${RELATIVE_SIZE_VALUE} ${RELATIVE_SIZE_VALUE}`}
+                >
+                    <Circle
+                        cx={RELATIVE_SIZE_VALUE}
+                        cy={RELATIVE_SIZE_VALUE}
+                        fill="none"
+                        r={RADIUS}
+                        stroke={styles.circle.color}
+                        strokeWidth={STROKE_WIDTH}
+                        opacity={styles.circle.opacity}
+                    />
+                    <AnimatedCircle
+                        cx={RELATIVE_SIZE_VALUE}
+                        cy={RELATIVE_SIZE_VALUE}
+                        fill="none"
+                        r={RADIUS}
+                        stroke={styles.circle.color}
+                        strokeWidth={STROKE_WIDTH}
+                        strokeDashoffset={dashOffset}
+                        strokeDasharray={`${CIRCUMFERENCE} ${CIRCUMFERENCE}`}
+                        strokeLinecap="round"
+                    />
+                </Svg>
+            </Animated.View>
+        </View>
     );
 }
 
