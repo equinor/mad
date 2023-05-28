@@ -1,5 +1,5 @@
 import { Text, TextProps } from "react-native";
-import React from "react";
+import React, { ReactElement } from "react";
 import {
     Color,
     EDSStyleSheet,
@@ -37,7 +37,14 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
 
 } & TextProps;
 
-type TextChildren = { children: string | string[] | number | undefined | null };
+type TextChildren = {
+    children:
+    string |
+    string[] |
+    number |
+    undefined |
+    null
+};
 
 const TypographyInner = <TGroup extends TypographyGroup>({
     group = "basic" as TGroup,
