@@ -5,7 +5,7 @@ import {
     Typography,
     useStyles
 } from "@equinor/mad-components";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export const ButtonScreen = () => {
     const styles = useStyles(themeStyles);
@@ -64,8 +64,8 @@ export const ButtonScreen = () => {
             </View>
             <Spacer />
             <View style={styles.buttonRow}>
-                <Button title="Loading (TBA)" />
-                <Button title="Loading icon (TBA)" />
+                <Button title="Loading" loading />
+                <Button title="Loading" loading disabled />
             </View>
             <Spacer amount="large" />
 
