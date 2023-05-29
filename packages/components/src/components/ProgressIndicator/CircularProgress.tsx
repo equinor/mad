@@ -3,7 +3,6 @@ import { ProgressIndicatorProps } from "./types";
 import { Animated, View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
-import { useEffect, useRef } from "react";
 import { useAnimatedProgress } from "./useAnimatedProgress";
 import { useNoProgressAnimation } from "./useNoProgressAnimation";
 

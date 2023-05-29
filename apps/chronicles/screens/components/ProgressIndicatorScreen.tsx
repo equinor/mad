@@ -1,4 +1,4 @@
-import { EDSStyleSheet, CircularProgress, useStyles, Button, Spacer, Typography, LinearProgress } from "@equinor/mad-components";
+import { EDSStyleSheet, CircularProgress, useStyles, Button, Spacer, Typography, LinearProgress, DotProgress } from "@equinor/mad-components";
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 
@@ -86,6 +86,32 @@ const LinearProgressSection = () => {
     );
 }
 
+const DotProgressSection = () => {
+    const styles = useStyles(themeStyles);
+    return (
+        <>
+            <Typography variant="h2">DotProgress</Typography>
+            <Typography>
+                The dot progress indicator does not come in a determinate and indeterminate form,
+                but it fits nicely into components like the button.
+            </Typography>
+            <Spacer />
+            <View style={styles.dotsContainer}>
+                <DotProgress size={50} />
+            </View>
+            <Spacer />
+            <Typography>Different sizes</Typography>
+            <Spacer />
+            <View style={styles.dotsContainer}>
+                <DotProgress size={40} />
+                <DotProgress size={30} />
+                <DotProgress size={20} />
+            </View>
+            <Spacer />
+        </>
+    );
+}
+
 export const ProgressIndicatorScreen = () => {
     const styles = useStyles(themeStyles);
 
@@ -97,6 +123,9 @@ export const ProgressIndicatorScreen = () => {
             <Spacer amount="large" />
             <Spacer amount="large" />
             <LinearProgressSection />
+            <Spacer amount="large" />
+            <Spacer amount="large" />
+            <DotProgressSection />
         </ScrollView >
     );
 };
@@ -120,5 +149,9 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         justifyContent: "center",
         padding: 10,
         columnGap: 10,
+    },
+    dotsContainer: {
+        rowGap: 10,
+        alignItems: "center"
     }
 }));
