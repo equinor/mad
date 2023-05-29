@@ -1,4 +1,4 @@
-import { EDSStyleSheet, CircularProgress, useStyles, Button, Spacer, Typography } from "@equinor/mad-components";
+import { EDSStyleSheet, CircularProgress, useStyles, Button, Spacer, Typography, LinearProgress } from "@equinor/mad-components";
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 
@@ -62,12 +62,7 @@ const LinearProgressSection = () => {
             <Spacer />
             <Typography variant="h3">Determinate</Typography>
             <Spacer />
-            <View style={styles.progressRow}>
-                <CircularProgress size={100} value={progress} />
-                <CircularProgress size={75} value={progress} />
-                <CircularProgress size={50} value={progress} />
-                <CircularProgress size={25} value={progress} />
-            </View>
+            <LinearProgress value={progress} />
             <Spacer />
             <View style={styles.incrementButtonRow}>
                 <Button
@@ -86,12 +81,7 @@ const LinearProgressSection = () => {
             <Spacer />
             <Typography variant="h3">Indeterminate</Typography>
             <Spacer />
-            <View style={styles.progressRow}>
-                <CircularProgress size={100} />
-                <CircularProgress size={75} />
-                <CircularProgress size={50} />
-                <CircularProgress size={25} />
-            </View>
+            <LinearProgress />
         </>
     );
 }
