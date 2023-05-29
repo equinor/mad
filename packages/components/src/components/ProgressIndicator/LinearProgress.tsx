@@ -3,6 +3,7 @@ import { ProgressIndicatorProps } from "./types"
 import Svg, { Rect } from "react-native-svg";
 import { useAnimatedProgress } from "./useAnimatedProgress";
 import { useToken } from "../../hooks/useToken";
+import { useNoProgressAnimation } from "./useNoProgressAnimation";
 
 export type LinearProgressProps = {
     test?: number
@@ -17,15 +18,24 @@ export const LinearProgress = ({
 }: LinearProgressProps) => {
 
     const token = useToken();
-    const progressValue = useAnimatedProgress(value);
+
+    const progressValue = useAnimatedProgress(value, true);
+    const slideValue = useNoProgressAnimation(value);
+
     const progress = progressValue.interpolate({
         inputRange: [0, 1],
         outputRange: ["0%", "100%"],
         extrapolate: "clamp",
-    })
+    });
+
+    const slideX = slideValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["-50%", "100%"],
+    });
+
 
     return (
-        <View style={[{ flex: 1 }, rest.style]}>
+        <View style={[{ flex: 1, borderRadius: STROKE_WIDTH / 2, overflow: "hidden" }, rest.style]}>
             <Svg height={STROKE_WIDTH} width="100%">
                 <Rect
                     x="0"
@@ -38,7 +48,7 @@ export const LinearProgress = ({
                     ry={STROKE_WIDTH / 2}
                 />
                 <AnimatedRect
-                    x="0"
+                    x={value === undefined ? slideX : "0"}
                     y="0"
                     width={progress}
                     height={STROKE_WIDTH}

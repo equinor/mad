@@ -4,9 +4,10 @@ import { useToken } from "../../hooks/useToken";
 
 const DEFAULT_PROGRESS = 0.618033; // Golden angle / ratio, if anyone is interested...
 
-export const useAnimatedProgress = (value?: number) => {
+export const useAnimatedProgress = (value?: number, invertedDefaltProgress = false,) => {
+    const defaultProgress = invertedDefaltProgress ? (1 - DEFAULT_PROGRESS) : DEFAULT_PROGRESS;
     const token = useToken();
-    const progressValue = useRef(new Animated.Value(value ?? DEFAULT_PROGRESS)).current;
+    const progressValue = useRef(new Animated.Value(value ?? defaultProgress)).current;
 
     const setProgressAnimation = (val: number) => Animated.timing(progressValue, {
         toValue: val,
@@ -17,8 +18,8 @@ export const useAnimatedProgress = (value?: number) => {
 
     useEffect(() => {
         if (value === undefined) {
-            setProgressAnimation(DEFAULT_PROGRESS).start(() =>
-                setProgressAnimation(DEFAULT_PROGRESS).stop()
+            setProgressAnimation(defaultProgress).start(() =>
+                setProgressAnimation(defaultProgress).stop()
             );
         }
         else {

@@ -81,7 +81,7 @@ const LinearProgressSection = () => {
             <Spacer />
             <Typography variant="h3">Indeterminate</Typography>
             <Spacer />
-            <LinearProgress />
+            <LinearProgress value={undefined} />
         </>
     );
 }
