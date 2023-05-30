@@ -6,6 +6,7 @@ import React from "react";
 
 export type InputProps = {
     label?: string;
+    meta?: string;
     helperText?: string;
     onChange?: (contents: string) => void;
     multiline?: boolean;
@@ -20,6 +21,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(({
     leftAdornments,
     rightAdornments,
     label,
+    meta,
     helperText,
     value,
     placeholder,
@@ -32,7 +34,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(({
     const styles = useStyles(themedStyles, { multiline, isSelected });
     return (
         <>
-            {label && <Label style={styles.label} label={label} />}
+            {label && <Label style={styles.label} label={label} meta={meta} />}
             <View style={styles.contentContainer}
             >
                 {leftAdornments}
