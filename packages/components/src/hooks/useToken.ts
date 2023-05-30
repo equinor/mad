@@ -6,6 +6,6 @@ export function useToken() {
     const context = useContext(EDSContext);
     const tokenProxy = useMemo(() => {
         return createTokenProxy(context.colorScheme, context.density);
-    }, [context]);
+    }, Object.values(context));
     return tokenProxy;
 }

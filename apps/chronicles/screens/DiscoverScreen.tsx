@@ -37,7 +37,7 @@ export default function DiscoverScreen({
                     onPress={() => navigation.navigate("Button")}
                 />
                 <Cell.Navigation
-                    title="TextField"
+                    title="Text Field"
                     description="Enter and edit text"
                     iconName="card-text-outline"
                     onPress={() => navigation.navigate("TextField")}
@@ -48,7 +48,6 @@ export default function DiscoverScreen({
                     iconName="form-textbox"
                     onPress={() => navigation.navigate("Input")}
                 />
-
                 <Cell.Navigation
                     title="Search"
                     description="Search for content"
@@ -71,6 +70,17 @@ export default function DiscoverScreen({
                     description="Collapsable and expandable containers"
                     iconName="arrow-collapse-vertical"
                     onPress={() => navigation.navigate("Accordion")}
+                />
+            </Cell.Group>
+
+            <Spacer />
+
+            <Cell.Group title="feedback">
+                <Cell.Navigation
+                    title="Progress Indicators"
+                    description="Multiple ways to tell the user that stuff is happening"
+                    iconName="loading"
+                    onPress={() => navigation.navigate("ProgressIndicator")}
                 />
             </Cell.Group>
 

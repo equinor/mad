@@ -25,10 +25,11 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "peerDependencies": {
-        "expo-font": ">=10.0.0",
         "react": ">=16.8",
         "react-dom": ">=16.8",
-        "react-native": ">=0.68"
+        "react-native": ">=0.68",
+        "expo-font": ">=10.0.0",
+        "react-native-svg": "*"
     },
     "dependencies": {
         "@floating-ui/react-native": "^0.10.0"

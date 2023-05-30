@@ -7,6 +7,7 @@ import { Typography } from "../Typography";
 import { ButtonGroupContext } from "./ButtonGroup";
 import { ToggleButtonContext } from "./ToggleButton";
 import { Icon, IconName } from "../Icon";
+import { DotProgress } from "../ProgressIndicator";
 
 export type ButtonProps = {
     title: string;
@@ -14,6 +15,7 @@ export type ButtonProps = {
     color?: "primary" | "secondary" | "danger";
     variant?: "contained" | "outlined" | "ghost";
     disabled?: boolean;
+    loading?: boolean;
     iconName?: IconName;
     iconPosition?: "leading" | "trailing";
 };
@@ -26,6 +28,7 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
             variant = "contained",
             onPress = () => null,
             disabled = false,
+            loading = false,
             iconName,
             iconPosition = "leading",
             ...rest
@@ -45,6 +48,25 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
             disabled,
         });
 
+        const ButtonContent = () => (
+            <>
+                {iconName && (iconPosition === "leading") &&
+                    <Icon name={iconName} color={styles.textStyle.color as Color} />
+                }
+                <Typography
+                    group="interactive"
+                    variant="button"
+                    style={styles.textStyle}
+                >
+                    {title}
+                </Typography>
+                {iconName && (iconPosition === "trailing") &&
+                    <Icon name={iconName} color={styles.textStyle.color as Color} />
+                }
+
+            </>
+        )
+
         return (
             <View>
                 <View ref={ref} style={[styles.colorContainer, rest.style]}>
@@ -54,20 +76,12 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
                         style={styles.pressableContainer}
                     >
                         <View style={styles.labelContainer}>
-                            {iconName && (iconPosition === "leading") &&
-                                <Icon name={iconName} color={styles.textStyle.color as Color} />
-                            }
-                            <Typography
-                                group="interactive"
-                                variant="button"
-                                style={styles.textStyle}
-                            >
-                                {title}
-                            </Typography>
-                            {iconName && (iconPosition === "trailing") &&
-                                <Icon name={iconName} color={styles.textStyle.color as Color} />
-                            }
-
+                            {loading ?
+                                <DotProgress
+                                    color={(disabled || variant !== "contained") ? "primary" : "neutral"}
+                                    size={12} />
+                                :
+                                ButtonContent()}
                         </View>
                     </PressableHighlight>
                 </View>
