@@ -1,5 +1,20 @@
 # @equinor/mad-components
 
+## 0.3.0
+
+### Minor Changes
+
+-   dfcd044: Added peer requirement to `react-native-svg`
+
+### Patch Changes
+
+-   5e212e6: Added `forwardRef` to Cell component
+-   dfcd044: Added `loading` prop to Button component
+-   dfcd044: Added `DotProgress` component
+-   08a351c: Added `meta` prop to Input and TextField components
+-   dfcd044: Added `LinearProgress` component
+-   dfcd044: Added `CircularProgress` component
+
 ## 0.2.5
 
 ### Patch Changes
