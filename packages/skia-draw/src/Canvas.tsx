@@ -4,7 +4,6 @@ import {
     useCanvasRef,
 } from "@shopify/react-native-skia";
 
-import { StyleSheet } from "react-native";
 import { useCanvasDraw } from "./hooks/useCanvasDraw";
 import { CanvasProps, SkiaDrawHandle } from "./types";
 import { forwardRef, ForwardRefRenderFunction, PropsWithChildren } from "react";

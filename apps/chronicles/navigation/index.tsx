@@ -3,11 +3,9 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -120,15 +118,16 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
-            initialRouteName="Discover"
+            initialRouteName="DiscoverTab"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
             }}
         >
             <BottomTab.Screen
-                name="Discover"
+                name="DiscoverTab"
                 component={DiscoverNavigator}
                 options={{
+                    title: "Discover",
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="binoculars" color={color as Color} />
@@ -136,7 +135,7 @@ function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="Icons"
+                name="IconsTab"
                 component={IconsScreen}
                 options={{
                     title: "Icons",
@@ -146,7 +145,7 @@ function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="Draw"
+                name="DrawTab"
                 component={DrawScreen}
                 options={{
                     title: "Draw",
@@ -156,7 +155,7 @@ function BottomTabNavigator() {
                 }}
             />
             <BottomTab.Screen
-                name="Sign"
+                name="SignTab"
                 component={SignatureScreen}
                 options={{
                     title: "Sign",
