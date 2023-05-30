@@ -24,7 +24,7 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { useToken } from "@equinor/mad-components";
+import { Color, Icon, IconName, useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 import { SearchScreen } from "../screens/components/SearchScreen";
@@ -131,7 +131,7 @@ function BottomTabNavigator() {
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="briefcase" color={color} />
+                        <TabBarIcon name="binoculars" color={color as Color} />
                     ),
                 }}
             />
@@ -141,7 +141,7 @@ function BottomTabNavigator() {
                 options={{
                     title: "Icons",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="th" color={color} />
+                        <TabBarIcon name="grid" color={color as Color} />
                     ),
                 }}
             />
@@ -151,7 +151,7 @@ function BottomTabNavigator() {
                 options={{
                     title: "Draw",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="pencil-square-o" color={color} />
+                        <TabBarIcon name="draw" color={color as Color} />
                     ),
                 }}
             />
@@ -161,7 +161,7 @@ function BottomTabNavigator() {
                 options={{
                     title: "Sign",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="pencil-square-o" color={color} />
+                        <TabBarIcon name="signature-image" color={color as Color} />
                     ),
                 }}
             />
@@ -173,8 +173,8 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-    name: React.ComponentProps<typeof FontAwesome>["name"];
-    color: string;
+    name: IconName;
+    color: Color;
 }) {
-    return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+    return <Icon size={30} style={{ marginBottom: -3 }} {...props} />;
 }
