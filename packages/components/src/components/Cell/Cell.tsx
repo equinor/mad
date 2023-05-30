@@ -4,47 +4,52 @@ import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { PressableHighlight } from "../PressableHighlight";
+import React from "react";
 
 export type CellProps = {
     leftAdornment?: ReactNode;
     rightAdornment?: ReactNode;
     onPress?: () => void;
-};
+} & ViewProps;
 
-export const Cell = ({
-    leftAdornment,
-    rightAdornment,
-    onPress,
-    children,
-    ...rest
-}: React.PropsWithChildren<CellProps & ViewProps>) => {
-    const { isFirstCell, isLastCell } = useContext(CellGroupContext);
-    const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
-    return (
-        <View {...rest} style={[styles.container, rest.style]}>
-            <PressableHighlight
-                disabled={!onPress}
-                onPress={onPress}
-                style={{ flex: 1 }}
-            >
-                <View style={styles.contentContainer}>
-                    {leftAdornment && <View>
-                        {leftAdornment}
-                    </View>}
-                    <View style={styles.children}>
-                        {children}
+export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
+    (
+        {
+            leftAdornment,
+            rightAdornment,
+            onPress,
+            children,
+            ...rest
+        },
+        ref
+    ) => {
+        const { isFirstCell, isLastCell } = useContext(CellGroupContext);
+        const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
+        return (
+            <View {...rest} style={[styles.container, rest.style]} ref={ref}>
+                <PressableHighlight
+                    disabled={!onPress}
+                    onPress={onPress}
+                    style={{ flex: 1 }}
+                >
+                    <View style={styles.contentContainer}>
+                        {leftAdornment && <View>
+                            {leftAdornment}
+                        </View>}
+                        <View style={styles.children}>
+                            {children}
+                        </View>
+                        {rightAdornment && <View>
+                            {rightAdornment}
+                        </View>}
                     </View>
-                    {rightAdornment && <View>
-                        {rightAdornment}
+                    {!isLastCell && <View style={styles.dividerOuter} >
+                        <View style={styles.dividerInner} />
                     </View>}
-                </View>
-                {!isLastCell && <View style={styles.dividerOuter} >
-                    <View style={styles.dividerInner} />
-                </View>}
-            </PressableHighlight>
-        </View>
-    );
-};
+                </PressableHighlight>
+            </View>
+        );
+    });
 
 Cell.displayName = "Cell";
 

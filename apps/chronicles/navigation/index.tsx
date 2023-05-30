@@ -3,11 +3,9 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -24,7 +22,7 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { useToken } from "@equinor/mad-components";
+import { Color, Icon, IconName, useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 import { SearchScreen } from "../screens/components/SearchScreen";
@@ -120,48 +118,49 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
-            initialRouteName="Discover"
+            initialRouteName="DiscoverTab"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
             }}
         >
             <BottomTab.Screen
-                name="Discover"
+                name="DiscoverTab"
                 component={DiscoverNavigator}
                 options={{
+                    title: "Discover",
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="briefcase" color={color} />
+                        <TabBarIcon name="binoculars" color={color as Color} />
                     ),
                 }}
             />
             <BottomTab.Screen
-                name="Icons"
+                name="IconsTab"
                 component={IconsScreen}
                 options={{
                     title: "Icons",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="th" color={color} />
+                        <TabBarIcon name="grid" color={color as Color} />
                     ),
                 }}
             />
             <BottomTab.Screen
-                name="Draw"
+                name="DrawTab"
                 component={DrawScreen}
                 options={{
                     title: "Draw",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="pencil-square-o" color={color} />
+                        <TabBarIcon name="draw" color={color as Color} />
                     ),
                 }}
             />
             <BottomTab.Screen
-                name="Sign"
+                name="SignTab"
                 component={SignatureScreen}
                 options={{
                     title: "Sign",
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="pencil-square-o" color={color} />
+                        <TabBarIcon name="signature-image" color={color as Color} />
                     ),
                 }}
             />
@@ -173,8 +172,8 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-    name: React.ComponentProps<typeof FontAwesome>["name"];
-    color: string;
+    name: IconName;
+    color: Color;
 }) {
-    return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+    return <Icon size={30} style={{ marginBottom: -3 }} {...props} />;
 }
