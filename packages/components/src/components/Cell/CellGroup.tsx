@@ -23,8 +23,10 @@ export const CellGroup = ({
 }: React.PropsWithChildren<CellGroupProps>) => {
     const styles = useStyles(themeStyles);
     const validChildrenIndexes = useMemo(() => {
-        const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child));
-        return validChildren.map((_, index) => index);
+        const childValidityArray: boolean[] = [];
+        React.Children.forEach(children, child => childValidityArray.push(React.isValidElement(child)));
+        return childValidityArray.reduce<number[]>(
+            (validIndexes, isValid, index) => isValid ? validIndexes.concat(index) : validIndexes, [])
     }, [children]);
     return (
         <>
