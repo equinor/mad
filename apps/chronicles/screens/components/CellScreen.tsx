@@ -1,9 +1,22 @@
-import { Cell, EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
+import { Button, Cell, EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
 
 export const CellScreen = () => {
     const styles = useStyles(themeStyles);
+
+    const MyCustomCell = (customCellProps: { title: string }) => (
+        <Cell
+            rightAdornment={
+                <Button.Toggle>
+                    <Button title="1" />
+                    <Button title="2" />
+                </Button.Toggle>}>
+            <View style={{ flex: 1, justifyContent: "center" }}>
+                <Typography>{customCellProps.title}</Typography>
+            </View>
+        </Cell>
+    )
 
     return (
         <ScrollView
@@ -31,6 +44,20 @@ export const CellScreen = () => {
                 <Cell style={{ height: 60 }} />
                 <Cell style={{ height: 60 }} />
                 <Cell style={{ height: 60 }} />
+            </Cell.Group>
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>
+                    The clumping behavior applies for any type of cell. The group below contains three cells:
+                    one navigation cell, one normal blank cell and one custom cell made for this screen. You would typically
+                    create app specific cells for your apps needs.
+                </Typography>
+            </View>
+            <Spacer />
+            <Cell.Group>
+                <Cell.Navigation title="This is a navigation cell" onPress={() => null} />
+                <Cell><Typography>This is a normal blank cell</Typography></Cell>
+                <MyCustomCell title="This is a custom cell" />
             </Cell.Group>
             <Spacer />
             <View style={styles.readableContent}>

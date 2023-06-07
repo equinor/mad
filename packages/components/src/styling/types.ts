@@ -4,7 +4,7 @@ export type HexColorValue = `#${string}`;
 export type RGBAColorValue = `rgba(${string})`;
 export type RGBColorValue = `rgb(${string})`;
 export type EDSColor = "primary" | "secondary" | "warning" | "danger" | "success";
-export type EDSTextColor = "textPrimary" | "textSecondary" | "textTertiary" | "textInverted";
+export type EDSTextColor = "textPrimary" | "textSecondary" | "textTertiary" | "textInverted" | "textDisabled";
 export type Color = HexColorValue | RGBAColorValue | RGBColorValue | EDSColor | EDSTextColor;
 
 export type ColorScheme = "light" | "dark";
