@@ -1,8 +1,9 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { createContext } from "react";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
+import { useValidChildrenIndexes } from "../../hooks/useValidChildrenIndexes";
 
 export type CellGroupContextType = {
     isFirstCell: boolean;
@@ -22,12 +23,7 @@ export const CellGroup = ({
     children,
 }: React.PropsWithChildren<CellGroupProps>) => {
     const styles = useStyles(themeStyles);
-    const validChildrenIndexes = useMemo(() => {
-        const childValidityArray: boolean[] = [];
-        React.Children.forEach(children, child => childValidityArray.push(React.isValidElement(child)));
-        return childValidityArray.reduce<number[]>(
-            (validIndexes, isValid, index) => isValid ? validIndexes.concat(index) : validIndexes, [])
-    }, [children]);
+    const validChildrenIndexes = useValidChildrenIndexes(children);
     return (
         <>
             {title &&
