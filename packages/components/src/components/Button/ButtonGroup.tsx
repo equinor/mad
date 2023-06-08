@@ -1,5 +1,6 @@
 import { Children, createContext, isValidElement, useMemo } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
+import { useValidChildrenIndexes } from "../../hooks/useValidChildrenIndexes";
 
 export type ButtonGroupProps = {
     vertical?: boolean;
@@ -20,10 +21,7 @@ export const ButtonGroup = ({
     children,
 }: ButtonGroupProps & ViewProps) => {
 
-    const validChildrenIndexes = useMemo(() => {
-        const validChildren = Children.toArray(children).filter(child => isValidElement(child));
-        return validChildren.map((_, index) => index);
-    }, [children]);
+    const validChildrenIndexes = useValidChildrenIndexes(children);
 
     return (
         <View style={vertical ? styles.vertical : styles.horizontal}>

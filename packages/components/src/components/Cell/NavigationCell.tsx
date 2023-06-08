@@ -7,14 +7,16 @@ import { Typography } from "../Typography";
 
 export type NavigationCellProps = {
     title: string,
-    onPress: () => void;
+    onPress?: () => void;
+    disabled?: boolean;
     description?: string,
-    iconName?: IconName
+    iconName?: IconName,
 };
 
 export const NavigationCell = ({
     title,
     onPress,
+    disabled = false,
     description,
     iconName,
 }: NavigationCellProps) => {
@@ -22,13 +24,13 @@ export const NavigationCell = ({
 
     const IconAdornment = () => (
         <View style={styles.iconContainer}>
-            <Icon name={iconName!} />
+            <Icon name={iconName!} color={disabled ? "textDisabled" : undefined} />
         </View>
     );
 
     const DisclosureAdornment = () => (
         <View style={styles.disclosureContainer}>
-            <Icon name="chevron-right" color="textTertiary" />
+            <Icon name="chevron-right" color={disabled ? "textDisabled" : undefined} />
         </View>
     );
 
@@ -36,19 +38,22 @@ export const NavigationCell = ({
         <Cell
             leftAdornment={iconName ? IconAdornment() : undefined}
             rightAdornment={DisclosureAdornment()}
-            onPress={onPress}>
+            onPress={disabled ? undefined : onPress}>
             <View style={styles.contentContainer}>
                 <Typography
                     group="cell"
                     variant="title"
-                    numberOfLines={1}>
+                    numberOfLines={1}
+                    color={disabled ? "textDisabled" : undefined}
+                >
                     {title}
                 </Typography>
                 {description && <Typography
                     group="cell"
                     variant="description"
-                    color="textTertiary"
-                    numberOfLines={2}>
+                    numberOfLines={2}
+                    color={disabled ? "textDisabled" : "textTertiary"}
+                >
                     {description}
                 </Typography>}
             </View>

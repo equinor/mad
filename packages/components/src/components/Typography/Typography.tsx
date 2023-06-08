@@ -1,5 +1,5 @@
 import { Text, TextProps } from "react-native";
-import React, { ReactElement } from "react";
+import React from "react";
 import {
     Color,
     EDSStyleSheet,
