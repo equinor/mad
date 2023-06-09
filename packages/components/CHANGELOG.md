@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.3.1
+
+### Patch Changes
+
+-   eb3d0d1: Added `adornment` prop to `Cell.Group` component
+-   764c47a: Added `disabled` prop to `Cell.Navigation` component
+
 ## 0.3.0
 
 ### Minor Changes
