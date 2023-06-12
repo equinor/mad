@@ -32,6 +32,12 @@ This turborepo uses [pnpm](https://pnpm.io) as a package manager. Start by cloni
 npm install -g pnpm
 ```
 
+Install dependencies, run
+
+```
+pnpm install
+```
+
 You can build only the packages you work on, but if you want to build everything to start with, run
 
 ```
