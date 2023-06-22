@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { ColorScheme, Density } from "../../styling/types";
+import { PortalProvider } from "../Portal/PortalContext";
 
 export type EDSProviderProps = {
     colorScheme: ColorScheme;
@@ -17,9 +18,10 @@ export const EDSProvider = (
 ) => {
     return (
         <EDSContext.Provider
-            value={{ colorScheme: props.colorScheme, density: props.density }}
-        >
-            {props.children}
+            value={{ colorScheme: props.colorScheme, density: props.density }}>
+            <PortalProvider>
+                {props.children}
+            </PortalProvider>
         </EDSContext.Provider>
     );
 };
