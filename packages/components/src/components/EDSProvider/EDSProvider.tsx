@@ -1,6 +1,7 @@
 import React, { createContext, PropsWithChildren } from "react";
 import { ColorScheme, Density } from "../../styling/types";
 import { PortalProvider } from "../Portal/PortalContext";
+import { Portal } from "../Portal";
 
 export type EDSProviderProps = {
     colorScheme: ColorScheme;
@@ -20,7 +21,9 @@ export const EDSProvider = (
         <EDSContext.Provider
             value={{ colorScheme: props.colorScheme, density: props.density }}>
             <PortalProvider>
-                {props.children}
+                <Portal.Host style={{ flex: 1 }} name="root">
+                    {props.children}
+                </Portal.Host>
             </PortalProvider>
         </EDSContext.Provider>
     );

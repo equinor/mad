@@ -3,7 +3,7 @@ import { Canvas } from "../../Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
 import { useImperativeHandle, useMemo, useRef, useState } from "react";
 import { SkiaDrawHandle } from "../../types";
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { SnapshotHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
 

@@ -16,13 +16,13 @@ export type PortalHostProps = {
 const PortalHostComponent = ({
     name,
     children,
-    renderPortalsFirst = true
+    renderPortalsFirst = true,
+    ...rest
 }: PropsWithChildren<PortalHostProps & ViewProps>) => {
     const {
         registerHost,
         unregisterHost,
         hosts,
-        ...rest
     } = useContext(PortalContext);
 
     useEffect(() => {

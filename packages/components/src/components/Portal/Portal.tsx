@@ -13,9 +13,11 @@ export const Portal = ({
         registerHost,
         bindNode,
     } = useContext(PortalContext);
+
     useEffect(() => {
         registerHost(name);
         bindNode(name, children);
-    }, [children])
+    }, [children]);
+
     return null;
 }

@@ -6,7 +6,7 @@ import {
 
 import { useCanvasDraw } from "./hooks/useCanvasDraw";
 import { CanvasProps, SkiaDrawHandle } from "./types";
-import { forwardRef, ForwardRefRenderFunction, PropsWithChildren } from "react";
+import React, { forwardRef, ForwardRefRenderFunction, PropsWithChildren } from "react";
 
 const CanvasComponent: ForwardRefRenderFunction<
     SkiaDrawHandle,

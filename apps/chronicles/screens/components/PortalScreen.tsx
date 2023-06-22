@@ -6,7 +6,7 @@ import {
     Spacer,
     Paper
 } from "@equinor/mad-components";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export const PortalScreen = () => {
     const styles = useStyles(themeStyles);
@@ -41,11 +41,15 @@ export const PortalScreen = () => {
             <Spacer />
             <Typography variant="h2">Root portaling</Typography>
             <Typography>
-                Portals are useful tools, and while the example shown in this page perhaps fails to justify why,
+                Portals are useful tools, and while the prior example perhaps fails to justify why,
                 imagine a scenario where you need to send content to the root of the DOM tree.
                 You may define your own hosts, or use the default "root" host that comes included with the
                 EDSProvider component you hopefully have wrapped your app in allready.
             </Typography>
+            <Spacer />
+            <Portal name="root">
+                <View style={{ height: 300, backgroundColor: "red" }}></View>
+            </Portal>
         </ScrollView>
     );
 }
@@ -64,10 +68,16 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
         borderRadius: theme.geometry.border.elementBorderRadius,
         borderWidth: theme.geometry.border.focusedBorderWidth,
         borderColor: theme.colors.interactive.warning,
+        paddingHorizontal: theme.spacing.element.paddingHorizontal,
+        paddingVertical: theme.spacing.element.paddingVertical,
+        borderStyle: "dashed"
     },
     greenContainer: {
         borderRadius: theme.geometry.border.elementBorderRadius,
         borderWidth: theme.geometry.border.focusedBorderWidth,
         borderColor: theme.colors.interactive.success,
+        paddingHorizontal: theme.spacing.element.paddingHorizontal,
+        paddingVertical: theme.spacing.element.paddingVertical,
+        borderStyle: "dashed",
     }
 }));
