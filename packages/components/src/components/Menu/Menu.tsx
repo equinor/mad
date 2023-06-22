@@ -86,7 +86,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     innerContainer: {
         overflow: "hidden",
-        minWidth: theme.geometry.dimension.button.minWidth,
         minHeight: theme.geometry.dimension.button.minHeight,
         paddingVertical: theme.spacing.menu.paddingVertical,
     },
