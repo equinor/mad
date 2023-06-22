@@ -7,11 +7,12 @@ import {
     useFloating,
 } from "@floating-ui/react-native";
 import React, { useRef } from "react";
-import { Animated, Pressable, View, ViewProps, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, ViewProps } from "react-native";
 import { Paper } from "../Paper";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-import { Portal } from "../Portal";
+import { PopInContainer } from "../_internal/PopinContainer";
+import { RootModal } from "../_internal/RootModal";
 
 export type PopoverProps = {
     open: boolean;
@@ -81,18 +82,18 @@ export const Popover = ({
     ) {
         calculatedArrowX -= ARROW_CONTAINER_SIZE / 2;
     }
+
     return (open &&
-        <Portal name="root">
-            <Pressable
-                onPressIn={onClose}
-                style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}>
-                <Animated.View style={floatingStyles}>
+        <RootModal onBackdropPress={onClose}>
+            <View
+                ref={refs.setFloating}
+                style={floatingStyles}>
+                <PopInContainer>
                     <Paper
                         style={{
                             borderRadius: 12,
                         }}
                         elevation="overlay"
-                        ref={refs.setFloating}
                         onLayout={(e) => {
                             popoverDimensions.current.width =
                                 e.nativeEvent.layout.width;
@@ -114,10 +115,9 @@ export const Popover = ({
                             { left: calculatedArrowX, top: calculatedArrowY },
                         ]}
                     />
-
-                </Animated.View>
-            </Pressable>
-        </Portal>
+                </PopInContainer>
+            </View>
+        </RootModal>
     );
 };
 
