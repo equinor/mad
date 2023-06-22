@@ -1,3 +1,4 @@
+import React from "react";
 import { TextStyle } from "react-native";
 import { useToken } from "../../hooks/useToken";
 import { Color, resolveColor } from "../../styling";

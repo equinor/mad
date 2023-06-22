@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode, createContext, useState } from "react";
+import React, { PropsWithChildren, ReactNode, createContext, useState } from "react";
 
 export type PortalContextType = {
     registerHost: (name: string) => void;

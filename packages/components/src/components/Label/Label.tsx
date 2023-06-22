@@ -1,3 +1,4 @@
+import React from "react";
 import { Typography, TypographyProps } from "../Typography";
 import { View } from "react-native";
 export type LabelProps = {

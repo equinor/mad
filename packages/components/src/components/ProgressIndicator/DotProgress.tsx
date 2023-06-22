@@ -1,3 +1,4 @@
+import React from "react";
 import { Animated, Easing, View, ViewProps } from "react-native"
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";

@@ -1,4 +1,4 @@
-import { PropsWithChildren, memo, useContext, useEffect, useMemo } from "react";
+import React, { PropsWithChildren, memo, useContext, useEffect, useMemo } from "react";
 import { PortalContext } from "./PortalContext";
 import { View, ViewProps } from "react-native";
 

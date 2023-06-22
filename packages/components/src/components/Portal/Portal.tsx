@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useEffect } from "react";
+import React, { PropsWithChildren, useContext, useEffect } from "react";
 import { PortalContext } from "./PortalContext";
 
 export type PortalProps = {

@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import React, { createContext, PropsWithChildren } from "react";
 import { ColorScheme, Density } from "../../styling/types";
 import { PortalProvider } from "../Portal/PortalContext";
 
@@ -14,7 +14,7 @@ export const EDSContext = createContext<EDSProviderProps>({
 EDSContext.displayName = "EDSContext";
 
 export const EDSProvider = (
-    props: React.PropsWithChildren<EDSProviderProps>
+    props: PropsWithChildren<EDSProviderProps>
 ) => {
     return (
         <EDSContext.Provider
