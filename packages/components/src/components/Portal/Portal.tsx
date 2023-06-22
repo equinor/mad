@@ -19,5 +19,11 @@ export const Portal = ({
         bindNode(name, children);
     }, [children]);
 
+    useEffect(() => {
+        return () => {
+            bindNode(name, null);
+        }
+    }, [])
+
     return null;
 }

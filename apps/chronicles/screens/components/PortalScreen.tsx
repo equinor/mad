@@ -4,12 +4,16 @@ import {
     EDSStyleSheet,
     useStyles,
     Spacer,
-    Paper
+    Paper,
+    Icon,
+    Button
 } from "@equinor/mad-components";
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 
 export const PortalScreen = () => {
     const styles = useStyles(themeStyles);
+    const [isRootPortaling, setIsRootPortaling] = useState<boolean>(false);
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
@@ -41,16 +45,27 @@ export const PortalScreen = () => {
             <Spacer />
             <Typography variant="h2">Root portaling</Typography>
             <Typography>
-                Portals are useful tools, and while the prior example perhaps fails to justify why,
+                Portals are useful tools, and while the prior example perhaps fail to justify why,
                 imagine a scenario where you need to send content to the root of the DOM tree.
                 You may define your own hosts, or use the default "root" host that comes included with the
                 EDSProvider component you hopefully have wrapped your app in allready.
             </Typography>
             <Spacer />
-            <Portal name="root">
-                <View style={{ height: 300, backgroundColor: "red" }}></View>
-            </Portal>
-        </ScrollView>
+            <Button
+                title={isRootPortaling ? "No thanks!" : "Offer me something"}
+                iconName={isRootPortaling ? "arrange-send-backward" : "arrange-bring-forward"}
+                color={isRootPortaling ? "danger" : "primary"}
+                onPress={() => setIsRootPortaling(state => !state)}
+            />
+            {isRootPortaling && <Portal name="root">
+                <Paper elevation="raised" style={styles.extendedWarrantyContainer}>
+                    <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+                        <Icon name="face-man" color="textInverted" />
+                        <Typography variant="h6" color="textInverted"> Sir, we've been trying to reach you about your car's extended warrranty</Typography>
+                    </View>
+                </Paper>
+            </Portal>}
+        </ScrollView >
     );
 }
 
@@ -79,5 +94,13 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
         paddingHorizontal: theme.spacing.element.paddingHorizontal,
         paddingVertical: theme.spacing.element.paddingVertical,
         borderStyle: "dashed",
+    },
+    extendedWarrantyContainer: {
+        height: 200,
+        justifyContent: "flex-end",
+        backgroundColor: theme.colors.interactive.secondary,
+        zIndex: 10,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingHorizontal,
     }
 }));
