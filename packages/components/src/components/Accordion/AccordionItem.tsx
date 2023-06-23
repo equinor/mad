@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useRef, useState } from "react";
+import React, { ReactNode, useContext, useRef, useState } from "react";
 import { Cell } from "../Cell";
 import { Animated, View, ViewProps } from "react-native";
 import { Icon, IconName } from "../Icon";

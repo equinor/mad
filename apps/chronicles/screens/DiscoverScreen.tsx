@@ -100,6 +100,17 @@ export default function DiscoverScreen({
                     onPress={() => navigation.navigate("NavigationCell")}
                 />
             </Cell.Group>
+
+            <Spacer />
+
+            <Cell.Group title="utility">
+                <Cell.Navigation
+                    title="Portal"
+                    description="Send react nodes up the render tree!"
+                    iconName="cake"
+                    onPress={() => navigation.navigate("Portal")}
+                />
+            </Cell.Group>
         </ScrollView>
     );
 }

@@ -1,4 +1,4 @@
-import { Children, createContext, isValidElement, useMemo } from "react";
+import React, { Children, createContext } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 import { useValidChildrenIndexes } from "../../hooks/useValidChildrenIndexes";
 
