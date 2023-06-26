@@ -4,11 +4,15 @@ import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { PressableHighlight } from "../PressableHighlight";
+import { Swipeable } from "react-native-gesture-handler";
 import React from "react";
+import { CellSwipeItemProps } from "./types";
 
 export type CellProps = {
     leftAdornment?: ReactNode;
     rightAdornment?: ReactNode;
+    rightSwipeGroup?: CellSwipeItemProps[];
+    leftSwipeGroup?: CellSwipeItemProps[];
     onPress?: () => void;
 } & ViewProps;
 
@@ -17,6 +21,8 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
         {
             leftAdornment,
             rightAdornment,
+            leftSwipeGroup,
+            rightSwipeGroup,
             onPress,
             children,
             ...rest
@@ -25,28 +31,37 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
     ) => {
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
+        const CellContent = () => (
+            <PressableHighlight
+                disabled={!onPress}
+                onPress={onPress}
+                style={{ flex: 1 }}
+            >
+                <View style={styles.contentContainer}>
+                    {leftAdornment && <View>
+                        {leftAdornment}
+                    </View>}
+                    <View style={styles.children}>
+                        {children}
+                    </View>
+                    {rightAdornment && <View>
+                        {rightAdornment}
+                    </View>}
+                </View>
+                {!isLastCell && <View style={styles.dividerOuter} >
+                    <View style={styles.dividerInner} />
+                </View>}
+            </PressableHighlight>
+        )
         return (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
-                <PressableHighlight
-                    disabled={!onPress}
-                    onPress={onPress}
-                    style={{ flex: 1 }}
-                >
-                    <View style={styles.contentContainer}>
-                        {leftAdornment && <View>
-                            {leftAdornment}
-                        </View>}
-                        <View style={styles.children}>
-                            {children}
-                        </View>
-                        {rightAdornment && <View>
-                            {rightAdornment}
-                        </View>}
-                    </View>
-                    {!isLastCell && <View style={styles.dividerOuter} >
-                        <View style={styles.dividerInner} />
-                    </View>}
-                </PressableHighlight>
+                {(leftSwipeGroup || rightSwipeGroup) ?
+                    <Swipeable>
+                        {CellContent()}
+                    </Swipeable>
+                    :
+                    CellContent()
+                }
             </View>
         );
     });

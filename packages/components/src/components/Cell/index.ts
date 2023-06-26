@@ -1,6 +1,7 @@
 import { CellGroup, CellGroupProps } from "./CellGroup";
 import { NavigationCell, NavigationCellProps } from "./NavigationCell";
 import { Cell as _Cell, CellProps } from "./Cell";
+import { CellSwipeItemProps } from "./types";
 
 type CellFamily = typeof _Cell & {
     Group: typeof CellGroup;
@@ -15,5 +16,6 @@ export {
     Cell,
     CellProps,
     CellGroupProps,
-    NavigationCellProps
+    NavigationCellProps,
+    CellSwipeItemProps as CellSwipeGroup
 }
