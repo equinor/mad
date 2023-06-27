@@ -1,5 +1,15 @@
 # @equinor/mad-components
 
+## 0.3.2
+
+### Patch Changes
+
+-   05f7145: Added Portal and Portal.Host components
+-   5bbce84: Added `defaultOpen` prop to `Accordion.Item` component
+-   05f7145: Add animations to Popover and Menu components!
+-   6a82f85: Added swipe items to cells!
+-   05f7145: Fixed error in build causing large package size
+
 ## 0.3.1
 
 ### Patch Changes
