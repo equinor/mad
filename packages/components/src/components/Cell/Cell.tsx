@@ -33,45 +33,45 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
         const CellContent = () => (
-            <PressableHighlight
-                disabled={!onPress}
-                onPress={onPress}
-                style={{ flex: 1 }}
-            >
-                <View style={styles.contentContainer}>
-                    {leftAdornment && <View>
-                        {leftAdornment}
-                    </View>}
-                    <View style={styles.children}>
-                        {children}
+            <View {...rest} style={[styles.container, rest.style]} ref={ref}>
+                <PressableHighlight
+                    disabled={!onPress}
+                    onPress={onPress}
+                    style={{ flex: 1 }}
+                >
+                    <View style={styles.contentContainer}>
+                        {leftAdornment && <View>
+                            {leftAdornment}
+                        </View>}
+                        <View style={styles.children}>
+                            {children}
+                        </View>
+                        {rightAdornment && <View>
+                            {rightAdornment}
+                        </View>}
                     </View>
-                    {rightAdornment && <View>
-                        {rightAdornment}
+                    {!isLastCell && <View style={styles.dividerOuter} >
+                        <View style={styles.dividerInner} />
                     </View>}
-                </View>
-                {!isLastCell && <View style={styles.dividerOuter} >
-                    <View style={styles.dividerInner} />
-                </View>}
-            </PressableHighlight>
+                </PressableHighlight>
+            </View>
         )
         return (
-            <View {...rest} style={[styles.container, rest.style]} ref={ref}>
-                {(leftSwipeGroup || rightSwipeGroup) ?
-                    <Swipeable
-                        overshootFriction={8}
-                        containerStyle={{ backgroundColor: styles.contentContainer.backgroundColor }}
-                        renderLeftActions={() => leftSwipeGroup && leftSwipeGroup.map((swipeItem, index) => (
-                            <CellSwipeItem key={`testL_${index}`} {...swipeItem} />
-                        ))}
-                        renderRightActions={() => rightSwipeGroup && rightSwipeGroup.map((swipeItem, index) => (
-                            <CellSwipeItem key={`test_${index}`} {...swipeItem} />
-                        ))}>
-                        {CellContent()}
-                    </Swipeable>
-                    :
-                    CellContent()
-                }
-            </View>
+            (leftSwipeGroup || rightSwipeGroup) ?
+                <Swipeable
+                    overshootFriction={8}
+                    containerStyle={{ backgroundColor: styles.container.backgroundColor }}
+                    renderLeftActions={() => leftSwipeGroup && leftSwipeGroup.map((swipeItem, index) => (
+                        <CellSwipeItem key={`testL_${index}`} {...swipeItem} />
+                    ))}
+                    renderRightActions={() => rightSwipeGroup && rightSwipeGroup.map((swipeItem, index) => (
+                        <CellSwipeItem key={`test_${index}`} {...swipeItem} />
+                    ))}>
+                    {CellContent()}
+                </Swipeable>
+                :
+                CellContent()
+
         );
     });
 
@@ -82,10 +82,11 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         borderColor: theme.colors.border.medium,
         borderBottomWidth: props.isLastCell ? theme.geometry.border.borderWidth : undefined,
         borderTopWidth: props.isFirstCell ? theme.geometry.border.borderWidth : undefined,
-    },
-    contentContainer: {
         backgroundColor: theme.colors.container.default,
         minHeight: theme.geometry.dimension.cell.minHeight,
+    },
+    contentContainer: {
+
         flex: 1,
         flexDirection: "row",
         gap: theme.spacing.cell.gapHorizontal,
