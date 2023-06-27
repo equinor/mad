@@ -4,9 +4,10 @@ import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { PressableHighlight } from "../PressableHighlight";
-import { Swipeable } from "react-native-gesture-handler";
-import React from "react";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import { CellSwipeItemProps } from "./types";
+import { CellSwipeItem } from "./CellSwipeItem";
+import React from "react";
 
 export type CellProps = {
     leftAdornment?: ReactNode;
@@ -56,7 +57,15 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
         return (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
                 {(leftSwipeGroup || rightSwipeGroup) ?
-                    <Swipeable>
+                    <Swipeable
+                        overshootFriction={8}
+                        containerStyle={{ backgroundColor: styles.contentContainer.backgroundColor }}
+                        renderLeftActions={() => leftSwipeGroup && leftSwipeGroup.map((swipeItem, index) => (
+                            <CellSwipeItem key={`testL_${index}`} {...swipeItem} />
+                        ))}
+                        renderRightActions={() => rightSwipeGroup && rightSwipeGroup.map((swipeItem, index) => (
+                            <CellSwipeItem key={`test_${index}`} {...swipeItem} />
+                        ))}>
                         {CellContent()}
                     </Swipeable>
                     :
@@ -70,13 +79,13 @@ Cell.displayName = "Cell";
 
 const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => ({
     container: {
-        backgroundColor: theme.colors.container.default,
-        minHeight: theme.geometry.dimension.cell.minHeight,
         borderColor: theme.colors.border.medium,
         borderBottomWidth: props.isLastCell ? theme.geometry.border.borderWidth : undefined,
         borderTopWidth: props.isFirstCell ? theme.geometry.border.borderWidth : undefined,
     },
     contentContainer: {
+        backgroundColor: theme.colors.container.default,
+        minHeight: theme.geometry.dimension.cell.minHeight,
         flex: 1,
         flexDirection: "row",
         gap: theme.spacing.cell.gapHorizontal,

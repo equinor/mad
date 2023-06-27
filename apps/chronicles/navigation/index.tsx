@@ -86,6 +86,7 @@ const DiscoverStack = createNativeStackNavigator<DiscoverStackParamList>();
 function DiscoverNavigator() {
     return (
         <DiscoverStack.Navigator
+            initialRouteName="Discover"
             screenOptions={{
                 headerLargeTitle: true,
                 headerLargeTitleShadowVisible: true,
