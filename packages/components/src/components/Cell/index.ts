@@ -17,5 +17,5 @@ export {
     CellProps,
     CellGroupProps,
     NavigationCellProps,
-    CellSwipeItemProps as CellSwipeGroup
+    CellSwipeItemProps
 }

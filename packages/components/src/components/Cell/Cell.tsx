@@ -32,6 +32,7 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
     ) => {
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
+
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
                 <PressableHighlight
@@ -62,10 +63,10 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
                     overshootFriction={8}
                     containerStyle={{ backgroundColor: styles.container.backgroundColor }}
                     renderLeftActions={() => leftSwipeGroup && leftSwipeGroup.map((swipeItem, index) => (
-                        <CellSwipeItem key={`testL_${index}`} {...swipeItem} />
+                        <CellSwipeItem key={`leftSwipeItem_${index}`} {...swipeItem} />
                     ))}
                     renderRightActions={() => rightSwipeGroup && rightSwipeGroup.map((swipeItem, index) => (
-                        <CellSwipeItem key={`test_${index}`} {...swipeItem} />
+                        <CellSwipeItem key={`rightSwipeItem_${index}`} {...swipeItem} />
                     ))}>
                     {CellContent()}
                 </Swipeable>
