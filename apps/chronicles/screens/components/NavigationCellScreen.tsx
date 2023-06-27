@@ -16,6 +16,11 @@ export const NavigationCellScreen = () => {
             </View>
             <Spacer />
             <Cell.Navigation
+                rightSwipeGroup={[
+                    {
+                        title: "test"
+                    }
+                ]}
                 title="I'll take you anywhere!"
                 onPress={() => null} />
             <Spacer />

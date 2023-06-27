@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { Icon, IconName } from "../Icon";
-import { Cell } from "./Cell";
+import { Cell, CellProps } from "./Cell";
 import { Typography } from "../Typography";
 
 export type NavigationCellProps = {
@@ -12,7 +12,7 @@ export type NavigationCellProps = {
     disabled?: boolean;
     description?: string,
     iconName?: IconName,
-};
+} & Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
 
 export const NavigationCell = ({
     title,
@@ -20,6 +20,7 @@ export const NavigationCell = ({
     disabled = false,
     description,
     iconName,
+    ...cellProps
 }: NavigationCellProps) => {
     const styles = useStyles(themeStyles);
 
@@ -39,7 +40,8 @@ export const NavigationCell = ({
         <Cell
             leftAdornment={iconName ? IconAdornment() : undefined}
             rightAdornment={DisclosureAdornment()}
-            onPress={disabled ? undefined : onPress}>
+            onPress={disabled ? undefined : onPress}
+            {...cellProps}>
             <View style={styles.contentContainer}>
                 <Typography
                     group="cell"

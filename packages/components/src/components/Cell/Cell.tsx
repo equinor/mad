@@ -4,11 +4,16 @@ import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { PressableHighlight } from "../PressableHighlight";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { CellSwipeItemProps } from "./types";
+import { CellSwipeItem } from "./CellSwipeItem";
 import React from "react";
 
 export type CellProps = {
     leftAdornment?: ReactNode;
     rightAdornment?: ReactNode;
+    rightSwipeGroup?: CellSwipeItemProps[];
+    leftSwipeGroup?: CellSwipeItemProps[];
     onPress?: () => void;
 } & ViewProps;
 
@@ -17,6 +22,8 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
         {
             leftAdornment,
             rightAdornment,
+            leftSwipeGroup,
+            rightSwipeGroup,
             onPress,
             children,
             ...rest
@@ -25,7 +32,8 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
     ) => {
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
-        return (
+
+        const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
                 <PressableHighlight
                     disabled={!onPress}
@@ -48,6 +56,23 @@ export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
                     </View>}
                 </PressableHighlight>
             </View>
+        )
+        return (
+            (leftSwipeGroup || rightSwipeGroup) ?
+                <Swipeable
+                    overshootFriction={8}
+                    containerStyle={{ backgroundColor: styles.container.backgroundColor }}
+                    renderLeftActions={() => leftSwipeGroup && leftSwipeGroup.map((swipeItem, index) => (
+                        <CellSwipeItem key={`leftSwipeItem_${index}`} {...swipeItem} />
+                    ))}
+                    renderRightActions={() => rightSwipeGroup && rightSwipeGroup.map((swipeItem, index) => (
+                        <CellSwipeItem key={`rightSwipeItem_${index}`} {...swipeItem} />
+                    ))}>
+                    {CellContent()}
+                </Swipeable>
+                :
+                CellContent()
+
         );
     });
 
@@ -55,13 +80,14 @@ Cell.displayName = "Cell";
 
 const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => ({
     container: {
-        backgroundColor: theme.colors.container.default,
-        minHeight: theme.geometry.dimension.cell.minHeight,
         borderColor: theme.colors.border.medium,
         borderBottomWidth: props.isLastCell ? theme.geometry.border.borderWidth : undefined,
         borderTopWidth: props.isFirstCell ? theme.geometry.border.borderWidth : undefined,
+        backgroundColor: theme.colors.container.default,
+        minHeight: theme.geometry.dimension.cell.minHeight,
     },
     contentContainer: {
+
         flex: 1,
         flexDirection: "row",
         gap: theme.spacing.cell.gapHorizontal,
