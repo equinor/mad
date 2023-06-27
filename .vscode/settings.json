@@ -1,4 +1,10 @@
 {
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/*.code-search": true,
+      "**/dist": true,
+    },
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "vscode.typescript-language-features",
     "[typescriptreact]": {

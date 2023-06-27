@@ -40,6 +40,9 @@ export const AccordionScreen = () => {
                 <Accordion.Item title="This item is disabled!" disabled>
                     <Typography>But it defaults to right!</Typography>
                 </Accordion.Item>
+                <Accordion.Item title="This item is allready open" defaultOpen>
+                    <Typography>But it defaults to right!</Typography>
+                </Accordion.Item>
             </Accordion>
 
             <Spacer amount="large" />
