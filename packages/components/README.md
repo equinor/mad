@@ -8,6 +8,7 @@
 This is a library of EDS components for React Native. Using this library should feel similar as for [EDS for React](https://www.npmjs.com/package/@equinor/eds-core-react).
 
 ## 🧑‍🏫 How to use
+
 ### Installation
 #### npm
 `npm install @equinor/mad-components`
