@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.3.3
+
+### Patch Changes
+
+-   26e3968: Fixed formatting
+
 ## 0.3.2
 
 ### Patch Changes
