@@ -83,41 +83,44 @@ export const Popover = ({
         calculatedArrowX -= ARROW_CONTAINER_SIZE / 2;
     }
 
-    return (open &&
-        <RootModal onBackdropPress={onClose}>
-            <View
-                ref={refs.setFloating}
-                style={floatingStyles}>
-                <PopInContainer>
-                    <Paper
-                        style={{
-                            borderRadius: 12,
-                        }}
-                        elevation="overlay"
-                        onLayout={(e) => {
-                            popoverDimensions.current.width =
-                                e.nativeEvent.layout.width;
-                            popoverDimensions.current.height =
-                                e.nativeEvent.layout.height;
-                        }}
-                    >
-                        <View
-                            {...rest}
-                            style={[styles.innerContainer, rest.style]}
-                        >
-                            {children}
-                        </View>
-                    </Paper>
+    return (
+        <>
+            {open &&
+                <RootModal onBackdropPress={onClose}>
                     <View
-                        ref={arrowRef}
-                        style={[
-                            styles.arrow,
-                            { left: calculatedArrowX, top: calculatedArrowY },
-                        ]}
-                    />
-                </PopInContainer>
-            </View>
-        </RootModal>
+                        ref={refs.setFloating}
+                        style={floatingStyles}>
+                        <PopInContainer>
+                            <Paper
+                                style={{
+                                    borderRadius: 12,
+                                }}
+                                elevation="overlay"
+                                onLayout={(e) => {
+                                    popoverDimensions.current.width =
+                                        e.nativeEvent.layout.width;
+                                    popoverDimensions.current.height =
+                                        e.nativeEvent.layout.height;
+                                }}
+                            >
+                                <View
+                                    {...rest}
+                                    style={[styles.innerContainer, rest.style]}
+                                >
+                                    {children}
+                                </View>
+                            </Paper>
+                            <View
+                                ref={arrowRef}
+                                style={[
+                                    styles.arrow,
+                                    { left: calculatedArrowX, top: calculatedArrowY },
+                                ]}
+                            />
+                        </PopInContainer>
+                    </View>
+                </RootModal>}
+        </>
     );
 };
 

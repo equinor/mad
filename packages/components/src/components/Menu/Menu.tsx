@@ -47,31 +47,34 @@ export const Menu = ({
     });
 
     const styles = useStyles(themeStyles);
-    return (open &&
-        <RootModal onBackdropPress={onClose}>
-            <View
-                ref={refs.setFloating}
-                style={floatingStyles}>
-                <PopInContainer>
-                    <Paper
-                        style={styles.paperStyle}
-                        elevation="temporaryNav"
-                    >
-                        <View
-                            style={[styles.innerContainer, rest.style]}
-                            {...rest}
-                        >
-                            <MenuContext.Provider
-                                value={{
-                                    close: onClose
-                                }}>
-                                {children}
-                            </MenuContext.Provider>
-                        </View>
-                    </Paper>
-                </PopInContainer>
-            </View>
-        </RootModal>
+    return (
+        <>
+            {open &&
+                <RootModal onBackdropPress={onClose}>
+                    <View
+                        ref={refs.setFloating}
+                        style={floatingStyles}>
+                        <PopInContainer>
+                            <Paper
+                                style={styles.paperStyle}
+                                elevation="temporaryNav"
+                            >
+                                <View
+                                    style={[styles.innerContainer, rest.style]}
+                                    {...rest}
+                                >
+                                    <MenuContext.Provider
+                                        value={{
+                                            close: onClose
+                                        }}>
+                                        {children}
+                                    </MenuContext.Provider>
+                                </View>
+                            </Paper>
+                        </PopInContainer>
+                    </View>
+                </RootModal>}
+        </>
     );
 };
 
