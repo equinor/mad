@@ -9,13 +9,21 @@ import { ToastType } from "../types";
  */
 export const getColorByToastType = (toastType: ToastType) => {
     switch (toastType) {
+        // case "ERROR":
+        //     return "#FF6670";
+        // case "INFO":
+        //     return "#D5EAF4";
+        // case "WARNING":
+        //     return "#FFC67A";
+        // default:
+        //     return "#C1E7C1";
         case "ERROR":
-            return "red";
+            return "#EB0000";
         case "INFO":
-            return "blue";
+            return "#243746";
         case "WARNING":
-            return "yellow";
+            return "#FF9200";
         default:
-            return "gray";
+            return "#4BB748";
     }
 }

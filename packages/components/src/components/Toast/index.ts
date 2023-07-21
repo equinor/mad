@@ -1,2 +1,2 @@
-export * from "./premades/index";
-export { Canvas } from "./Canvas";
+export { ToastEmitter } from './ToastEmitter'
+export { addToast } from './store'
