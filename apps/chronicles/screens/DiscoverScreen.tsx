@@ -82,6 +82,12 @@ export default function DiscoverScreen({
                     iconName="loading"
                     onPress={() => navigation.navigate("ProgressIndicator")}
                 />
+                <Cell.Navigation
+                    title="Dialog"
+                    description="When the user has to take action"
+                    iconName="menu"
+                    onPress={() => navigation.navigate("Dialog")}
+                />
             </Cell.Group>
 
             <Spacer />

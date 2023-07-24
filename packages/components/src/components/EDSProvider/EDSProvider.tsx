@@ -22,7 +22,9 @@ export const EDSProvider = (
             value={{ colorScheme: props.colorScheme, density: props.density }}>
             <PortalProvider>
                 <Portal.Host style={{ flex: 1 }} name="root">
-                    {props.children}
+                    <Portal.Host style={{ flex: 1 }} renderPortalsFirst={false} name="scrim">
+                        {props.children}
+                    </Portal.Host>
                 </Portal.Host>
             </PortalProvider>
         </EDSContext.Provider>
