@@ -2,6 +2,7 @@ import React, { createContext, PropsWithChildren } from "react";
 import { ColorScheme, Density } from "../../styling/types";
 import { PortalProvider } from "../Portal/PortalContext";
 import { Portal } from "../Portal";
+import { DialogServiceProvider } from "../Dialog/service/DialogServiceProvider";
 
 export type EDSProviderProps = {
     colorScheme: ColorScheme;
@@ -24,6 +25,7 @@ export const EDSProvider = (
                 <Portal.Host style={{ flex: 1 }} name="root">
                     <Portal.Host style={{ flex: 1 }} renderPortalsFirst={false} name="scrim">
                         {props.children}
+                        <DialogServiceProvider />
                     </Portal.Host>
                 </Portal.Host>
             </PortalProvider>

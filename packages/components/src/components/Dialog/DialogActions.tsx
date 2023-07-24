@@ -17,7 +17,6 @@ const themeStyles = EDSStyleSheet.create((theme, align: "left" | "right") => ({
         flexDirection: "row",
         gap: 16,
         justifyContent: align === "left" ? "flex-start" : "flex-end",
-        paddingHorizontal: 16,
-        paddingBottom: 16
+        padding: 16
     }
 }))

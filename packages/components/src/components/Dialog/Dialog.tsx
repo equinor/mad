@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react"
-import { LayoutAnimation, Pressable, ViewStyle } from "react-native";
+import { LayoutAnimation, Pressable, ScaledSize, ViewStyle, useWindowDimensions } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { Paper } from "../Paper";
@@ -8,7 +8,8 @@ import { Portal } from "../Portal";
 type DialogProps = PropsWithChildren<{ isOpen: boolean, style?: ViewStyle }> & ({ isDismissable?: false, onClose?: () => void } | { isDismissable: true, onClose: () => void })
 
 export const Dialog = ({ isOpen, style, isDismissable, onClose, children }: DialogProps) => {
-    const styles = useStyles(themeStyles, style)
+    const dimensions = useWindowDimensions();
+    const styles = useStyles(themeStyles, { style, dimensions })
     LayoutAnimation.configureNext({ ...LayoutAnimation.Presets.spring, duration: 100 })
     if (!isOpen) return null;
     return <Portal name="scrim">
@@ -20,7 +21,7 @@ export const Dialog = ({ isOpen, style, isDismissable, onClose, children }: Dial
     </Portal>
 }
 
-const themeStyles = EDSStyleSheet.create((_, style: ViewStyle | undefined) => ({
+const themeStyles = EDSStyleSheet.create((theme, props: { style: ViewStyle | undefined, dimensions: ScaledSize }) => ({
     background: {
         position: "absolute",
         width: "100%",
@@ -32,7 +33,8 @@ const themeStyles = EDSStyleSheet.create((_, style: ViewStyle | undefined) => ({
     dialog: {
         borderRadius: 4,
         height: 213,
-        width: 252,
-        ...style
+        width: 500,
+        maxWidth: props.dimensions.width - (theme.spacing.container.paddingVertical * 2),
+        ...props.style
     }
 }))

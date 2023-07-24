@@ -15,6 +15,7 @@ export const DialogCustomContent = ({ children }: PropsWithChildren) => {
 const themeStyles = EDSStyleSheet.create(() => ({
     customContentContainer: {
         flex: 1,
-        padding: 16
+        padding: 16,
+        paddingBottom: 0
     }
 }))
