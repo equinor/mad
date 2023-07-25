@@ -126,7 +126,8 @@ const themeStyles = EDSStyleSheet.create(
 
         const leftRadius = !groupData.isFirstItem ? 0 : theme.geometry.border.elementBorderRadius;
         const rightRadius = !groupData.isLastItem ? 0 : theme.geometry.border.elementBorderRadius;
-
+        const outlinedPaddingReduction = variant === "outlined" ? theme.geometry.border.borderWidth : 0
+        const outlinedHeightReduction = outlinedPaddingReduction * 2;
         return {
             colorContainer: {
                 backgroundColor,
@@ -139,9 +140,9 @@ const themeStyles = EDSStyleSheet.create(
                 overflow: "hidden",
             },
             pressableContainer: {
-                minHeight: theme.geometry.dimension.button.minHeight,
-                paddingHorizontal: theme.spacing.button.paddingHorizontal,
-                paddingVertical: theme.spacing.button.paddingVertical,
+                minHeight: theme.geometry.dimension.button.minHeight - outlinedHeightReduction,
+                paddingHorizontal: theme.spacing.button.paddingHorizontal - outlinedPaddingReduction,
+                paddingVertical: theme.spacing.button.paddingVertical - outlinedPaddingReduction,
             },
             labelContainer: {
                 flex: 1,
