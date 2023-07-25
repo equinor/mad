@@ -2,6 +2,7 @@ import React, { createContext, PropsWithChildren } from "react";
 import { ColorScheme, Density } from "../../styling/types";
 import { PortalProvider } from "../Portal/PortalContext";
 import { Portal } from "../Portal";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export type EDSProviderProps = {
     colorScheme: ColorScheme;
@@ -20,11 +21,13 @@ export const EDSProvider = (
     return (
         <EDSContext.Provider
             value={{ colorScheme: props.colorScheme, density: props.density }}>
-            <PortalProvider>
-                <Portal.Host style={{ flex: 1 }} name="root">
-                    {props.children}
-                </Portal.Host>
-            </PortalProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <PortalProvider>
+                    <Portal.Host style={{ flex: 1 }} name="root">
+                        {props.children}
+                    </Portal.Host>
+                </PortalProvider>
+            </GestureHandlerRootView>
         </EDSContext.Provider>
     );
 };
