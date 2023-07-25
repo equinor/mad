@@ -28,7 +28,7 @@ export const DialogScreen = () => {
         },
     ]
     )
-    return <><ScrollView
+    return <ScrollView
         contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.contentContainer}>
         <Button title="Trigger dialog" onPress={triggerAlert} />
         <Spacer />
@@ -47,7 +47,6 @@ export const DialogScreen = () => {
         <Typography>{"- if 'isDismissable' is true, 'onClose' is required"}</Typography>
         <Typography>{"- Dialog.Actions has a 'align' prop, to help you align buttons left or right"}</Typography>
     </ScrollView>
-    </>
 }
 
 const themeStyles = EDSStyleSheet.create((theme) => ({
@@ -55,33 +54,4 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical
     },
-    // paperContainer: {
-    //     borderRadius: theme.geometry.border.elementBorderRadius,
-    //     paddingHorizontal: theme.spacing.container.paddingHorizontal,
-    //     paddingVertical: theme.spacing.container.paddingVertical
-    // },
-    // orangeContainer: {
-    //     borderRadius: theme.geometry.border.elementBorderRadius,
-    //     borderWidth: theme.geometry.border.focusedBorderWidth,
-    //     borderColor: theme.colors.interactive.warning,
-    //     paddingHorizontal: theme.spacing.element.paddingHorizontal,
-    //     paddingVertical: theme.spacing.element.paddingVertical,
-    //     borderStyle: "dashed"
-    // },
-    // greenContainer: {
-    //     borderRadius: theme.geometry.border.elementBorderRadius,
-    //     borderWidth: theme.geometry.border.focusedBorderWidth,
-    //     borderColor: theme.colors.interactive.success,
-    //     paddingHorizontal: theme.spacing.element.paddingHorizontal,
-    //     paddingVertical: theme.spacing.element.paddingVertical,
-    //     borderStyle: "dashed",
-    // },
-    // extendedWarrantyContainer: {
-    //     height: 200,
-    //     justifyContent: "flex-end",
-    //     backgroundColor: theme.colors.interactive.secondary,
-    //     zIndex: 10,
-    //     paddingHorizontal: theme.spacing.container.paddingHorizontal,
-    //     paddingVertical: theme.spacing.container.paddingHorizontal,
-    // }
 }));
