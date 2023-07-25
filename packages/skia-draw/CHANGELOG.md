@@ -1,5 +1,25 @@
 # @equinor/react-native-skia-draw
 
+## 0.2.6
+
+### Patch Changes
+
+-   05f7145: Fixed an issue in the build configuration
+-   Updated dependencies [05f7145]
+-   Updated dependencies [5bbce84]
+-   Updated dependencies [05f7145]
+-   Updated dependencies [6a82f85]
+-   Updated dependencies [05f7145]
+    -   @equinor/mad-components@0.3.2
+
+## 0.2.5
+
+### Patch Changes
+
+-   Updated dependencies [eb3d0d1]
+-   Updated dependencies [764c47a]
+    -   @equinor/mad-components@0.3.1
+
 ## 0.2.4
 
 ### Patch Changes

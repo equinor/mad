@@ -6,7 +6,7 @@ import {
     Typography,
 } from "@equinor/mad-components";
 import { SkiaDrawHandle } from "../../types";
-import { MutableRefObject, useRef, useState } from "react";
+import React, { MutableRefObject, useRef, useState } from "react";
 
 const BUTTON_SIZE = 20;
 

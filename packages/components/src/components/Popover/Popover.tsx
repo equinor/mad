@@ -6,12 +6,13 @@ import {
     shift,
     useFloating,
 } from "@floating-ui/react-native";
-import React, { useLayoutEffect, useRef } from "react";
-import { Modal, Pressable, View, ViewProps } from "react-native";
+import React, { useRef } from "react";
+import { View, ViewProps } from "react-native";
 import { Paper } from "../Paper";
-import { useToken } from "../../hooks/useToken";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
+import { PopInContainer } from "../_internal/PopinContainer";
+import { RootModal } from "../_internal/RootModal";
 
 export type PopoverProps = {
     open: boolean;
@@ -25,10 +26,17 @@ type PopoverDimensions = {
     height?: number;
 };
 
-const ARROW_CONTAINER_SIZE = 16;
+const ARROW_CONTAINER_SIZE = 12;
 
-export const Popover = (props: PopoverProps & ViewProps) => {
-    const theme = useToken();
+export const Popover = ({
+    open,
+    onClose,
+    anchorEl,
+    placement = "top",
+    children,
+    ...rest
+
+}: PopoverProps & ViewProps) => {
     const styles = useStyles(themeStyles);
 
     const arrowRef = useRef(null);
@@ -37,97 +45,79 @@ export const Popover = (props: PopoverProps & ViewProps) => {
         height: 0,
     } as PopoverDimensions);
     const {
-        x,
-        y,
         refs,
-        middlewareData: { arrow: { x: arrowX, y: arrowY } = {} },
+        floatingStyles,
+        middlewareData: { arrow: { x: arrowX, y: arrowY } = {} }
     } = useFloating({
         sameScrollView: false,
+        elements: {
+            reference: anchorEl.current,
+        },
         middleware: [
             offset(12),
             flip(),
             shift({ padding: 8 }),
             arrow({ element: arrowRef }),
         ],
-        placement: (props.placement as Placement) ?? "top",
+        placement: placement
     });
 
-    useLayoutEffect(() => {
-        refs.setReference(props.anchorEl.current);
-    }, [refs, props.anchorEl]);
-
-    let calculatedArrowX = (x as number) + (arrowX ?? 0);
-    let calculatedArrowY = (y as number) + (arrowY ?? 0);
-    if (props.placement?.startsWith("left")) {
+    let calculatedArrowX = (arrowX ?? 0);
+    let calculatedArrowY = (arrowY ?? 0);
+    if (placement.startsWith("left")) {
         calculatedArrowX += popoverDimensions.current.width ?? 0;
     }
-    if (props.placement?.startsWith("top")) {
+    if (placement.startsWith("top")) {
         calculatedArrowY += popoverDimensions.current.height ?? 0;
     }
     if (
-        props.placement?.startsWith("top") ||
-        props.placement?.startsWith("bottom")
+        placement.startsWith("top") ||
+        placement.startsWith("bottom")
     ) {
         calculatedArrowY -= ARROW_CONTAINER_SIZE / 2;
     }
     if (
-        props.placement?.startsWith("left") ||
-        props.placement?.startsWith("right")
+        placement.startsWith("left") ||
+        placement.startsWith("right")
     ) {
         calculatedArrowX -= ARROW_CONTAINER_SIZE / 2;
     }
-    return (
-        <Modal
-            visible={props.open}
-            transparent={true}
-            presentationStyle="overFullScreen"
-        >
-            <Pressable
-                onPress={props.onClose}
-                style={{ width: "100%", height: "100%", position: "absolute" }}
-            >
-                <Paper
-                    style={{
-                        position: "absolute",
-                        left: x ?? 0,
-                        top: y ?? 0,
-                        borderRadius: 12,
-                    }}
-                    elevation="overlay"
-                    ref={refs.setFloating}
-                    onLayout={(e) => {
-                        popoverDimensions.current.width =
-                            e.nativeEvent.layout.width;
-                        popoverDimensions.current.height =
-                            e.nativeEvent.layout.height;
-                    }}
-                >
-                    <View
-                        style={[styles.innerContainer, props.style]}
-                        {...props}
-                    >
-                        {props.children}
-                    </View>
-                </Paper>
-                <View
-                    ref={arrowRef}
-                    style={[
-                        styles.arrow,
-                        { left: calculatedArrowX, top: calculatedArrowY },
-                    ]}
-                >
-                    <View
+
+    return (open &&
+        <RootModal onBackdropPress={onClose}>
+            <View
+                ref={refs.setFloating}
+                style={floatingStyles}>
+                <PopInContainer>
+                    <Paper
                         style={{
-                            width: ARROW_CONTAINER_SIZE / 1.444,
-                            height: ARROW_CONTAINER_SIZE / 1.444,
-                            transform: [{ rotate: "45deg" }],
-                            backgroundColor:
-                                theme.colors.container.elevation.overlay,
+                            borderRadius: 12,
                         }}
-                    ></View>
-                </View>
-            </Pressable>
-        </Modal>
+                        elevation="overlay"
+                        onLayout={(e) => {
+                            popoverDimensions.current.width =
+                                e.nativeEvent.layout.width;
+                            popoverDimensions.current.height =
+                                e.nativeEvent.layout.height;
+                        }}
+                    >
+                        <View
+                            {...rest}
+                            style={[styles.innerContainer, rest.style]}
+                        >
+                            {children}
+                        </View>
+                    </Paper>
+                    <View
+                        ref={arrowRef}
+                        style={[
+                            styles.arrow,
+                            { left: calculatedArrowX, top: calculatedArrowY },
+                        ]}
+                    />
+                </PopInContainer>
+            </View>
+        </RootModal>
     );
 };
 
@@ -139,10 +129,11 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: theme.colors.container.elevation.overlay,
+        transform: [{ rotate: "45deg" }],
     },
     innerContainer: {
         overflow: "hidden",
-        minWidth: theme.geometry.dimension.button.minWidth,
         minHeight: theme.geometry.dimension.button.minHeight,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,

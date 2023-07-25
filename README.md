@@ -32,6 +32,12 @@ This turborepo uses [pnpm](https://pnpm.io) as a package manager. Start by cloni
 npm install -g pnpm
 ```
 
+Install dependencies, run
+
+```
+pnpm install
+```
+
 You can build only the packages you work on, but if you want to build everything to start with, run
 
 ```
@@ -45,7 +51,7 @@ Packages in the repository usually have some common scripts to make development 
 The `dev` commands wrap package specific needs into a single command for development. Take for example the [MAD Components](./packages/components/) package. Since any change in its code requires a build for the [MAD Chronicles](./apps/chronicles/) app to refresh, we define the `dev` script in the components package to build with the `watch` flag. A developer working on the component library does not need to bother with these details, so running
 
 ```
-pnpm run:chronicles
+pnpm dev:chronicles
 pnpm dev:components
 ```
 

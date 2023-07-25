@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useRef, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { Cell } from "../Cell";
 import { Animated, View, ViewProps } from "react-native";
 import { Icon, IconName } from "../Icon";
@@ -14,6 +14,7 @@ export type AccordionItemProps = {
     adornment?: ReactNode;
     iconName?: IconName;
     disabled?: boolean;
+    defaultOpen?: boolean,
 };
 
 export const AccordionItem = ({
@@ -23,11 +24,12 @@ export const AccordionItem = ({
     adornment,
     iconName,
     children,
+    defaultOpen = false,
     ...rest
 }: AccordionItemProps & ViewProps) => {
 
     const context = useContext(AccordionContext);
-    const [expanded, setExpanded] = useState<boolean>(false);
+    const [expanded, setExpanded] = useState<boolean>(defaultOpen);
 
     const styles = useStyles(themeStyles, context);
     const token = useToken();
@@ -52,9 +54,11 @@ export const AccordionItem = ({
         outputRange: [0, contentHeight ?? 0],
     });
 
+    useEffect(() => {
+        expanded ? _expandAnimation.start() : _retractAnimation.start();
+    }, [expanded])
+
     const toggleItem = () => {
-        console
-        expanded ? _retractAnimation.start() : _expandAnimation.start();
         setExpanded(state => !state);
     }
 

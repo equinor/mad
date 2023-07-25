@@ -1,9 +1,11 @@
 import { Placement, flip, offset, shift, useFloating } from "@floating-ui/react-native";
 import React, { createContext } from "react";
-import { Animated, Modal, Pressable, View, ViewProps } from "react-native";
+import { View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { Paper } from "../Paper";
 import { useStyles } from "../../hooks/useStyles";
+import { RootModal } from "../_internal/RootModal";
+import { PopInContainer } from "../_internal/PopinContainer";
 
 export type MenuProps = {
     anchorEl: React.MutableRefObject<View | null>;
@@ -45,19 +47,12 @@ export const Menu = ({
     });
 
     const styles = useStyles(themeStyles);
-    return (
-        <Modal
-            visible={open}
-            transparent={true}
-        >
-            <Pressable
-                onPress={onClose}
-                style={{ width: "100%", height: "100%" }}
-            >
-                <Animated.View
-                    ref={refs.setFloating}
-                    style={floatingStyles}
-                >
+    return (open &&
+        <RootModal onBackdropPress={onClose}>
+            <View
+                ref={refs.setFloating}
+                style={floatingStyles}>
+                <PopInContainer>
                     <Paper
                         style={styles.paperStyle}
                         elevation="temporaryNav"
@@ -74,9 +69,9 @@ export const Menu = ({
                             </MenuContext.Provider>
                         </View>
                     </Paper>
-                </Animated.View>
-            </Pressable>
-        </Modal>
+                </PopInContainer>
+            </View>
+        </RootModal>
     );
 };
 
@@ -86,7 +81,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     innerContainer: {
         overflow: "hidden",
-        minWidth: theme.geometry.dimension.button.minWidth,
         minHeight: theme.geometry.dimension.button.minHeight,
         paddingVertical: theme.spacing.menu.paddingVertical,
     },

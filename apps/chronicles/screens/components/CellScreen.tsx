@@ -111,6 +111,74 @@ export const CellScreen = () => {
                     <Typography>This cell responds to touch!</Typography>
                 </View>
             </Cell>
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography variant="h2">Swipe items</Typography>
+                <Typography>
+                    Cells can also be swiped in either direction to reveal actions.
+                    Take a look at the different variants below.
+                </Typography>
+            </View>
+            <Spacer />
+            <Cell.Group title="Swipe items">
+                <Cell
+                    rightSwipeGroup={[
+                        {
+                            title: "hello world",
+                        }
+                    ]}>
+                    <Typography>
+                        This cell has right swipe items.
+                    </Typography>
+                </Cell>
+                <Cell
+                    leftSwipeGroup={[
+                        {
+                            title: "first",
+                            iconName: "nature",
+                        },
+                        {
+                            title: "second",
+                            iconName: "water",
+                            color: "warning"
+                        },
+                        {
+                            title: "third",
+                            iconName: "star",
+                            color: "danger"
+                        }
+                    ]}>
+                    <Typography>
+                        This cell has multiple left swipe items.
+                    </Typography>
+                </Cell>
+                <Cell
+                    leftSwipeGroup={[
+                        {
+                            iconName: "human-male",
+                            color: "success"
+                        },
+                        {
+                            iconName: "human-female",
+                            color: "secondary"
+                        },
+                    ]}
+                    rightSwipeGroup={[
+                        {
+                            iconName: "face-man",
+                            color: "warning"
+                        },
+                        {
+                            iconName: "face-woman",
+                            color: "primary"
+                        }
+                    ]}
+                >
+                    <Typography>
+                        This cell has both, with icons only
+                    </Typography>
+                </Cell>
+            </Cell.Group>
         </ScrollView >
     );
 };

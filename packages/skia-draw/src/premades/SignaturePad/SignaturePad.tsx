@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { Canvas } from "../../Canvas";
 import { SignaturePadProps, SkiaDrawHandle } from "../../types";
 import { View, StyleSheet, Text } from "react-native";

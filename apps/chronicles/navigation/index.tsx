@@ -32,6 +32,7 @@ import { AccordionScreen } from "../screens/components/AccordionScreen";
 import { MenuScreen } from "../screens/components/MenuScreen";
 import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicatorScreen";
 import { ToastScreen } from "../screens/components/ToastScreen";
+import { PortalScreen } from "../screens/components/PortalScreen";
 
 export default function Navigation({
     colorScheme,
@@ -86,6 +87,7 @@ const DiscoverStack = createNativeStackNavigator<DiscoverStackParamList>();
 function DiscoverNavigator() {
     return (
         <DiscoverStack.Navigator
+            initialRouteName="Discover"
             screenOptions={{
                 headerLargeTitle: true,
                 headerLargeTitleShadowVisible: true,
@@ -109,6 +111,8 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Menu" component={MenuScreen} />
             <DiscoverStack.Screen name="ProgressIndicator" options={{ title: "Progress Indicators" }} component={ProgressIndicatorScreen} />
             <DiscoverStack.Screen name="Toast" options={{ title: "Toast" }} component={ToastScreen} />
+            <DiscoverStack.Screen name="Portal" component={PortalScreen} />
+
         </DiscoverStack.Navigator>
     );
 }

@@ -15,6 +15,7 @@ export * from "./components/Accordion";
 export * from "./components/Menu";
 export * from "./components/ProgressIndicator";
 export * from "./components/Toast";
+export * from "./components/Portal";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";
