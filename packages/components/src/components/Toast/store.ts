@@ -1,28 +1,16 @@
-import { LayoutAnimation } from "react-native";
-import { Listener, Toast, ToastType } from "./types";
+import { Listener, Toast } from "./types";
 
 type WithId<T> = T & { id: number };
 type StoredToasts = WithId<Toast>[];
-type Filter = { type?: ToastType | ToastType[], amount?: number }
 
 /**
  * The main store of toasts
  */
 let toasts: StoredToasts = []
-/**
- * This will contain a record of filtered toasts
- */
-let filteredToasts: Record<string, StoredToasts>;
-/**
- * filters being used to hydrate filteredToasts
- */
-let filters: Filter[] = []
 let listeners: Listener[] = [];
 let id = 0;
-
-function syncFilteredToasts() {
-
-}
+//TODO finish this functionality
+let numberOfNonFallbackEmitters = 0;
 
 export const toastStore = {
 
@@ -30,10 +18,8 @@ export const toastStore = {
      * Lets React components subscribe to changes in the store
      * For more information, go to https://react.dev/reference/react/useSyncExternalStore
      */
-    subscribe(listener: Listener, filter: Filter) {
+    subscribe(listener: Listener) {
         listeners = [...listeners, listener];
-        filters.push(filter)
-        hydrateFilteredToasts()
         return () => {
             listeners = listeners.filter(l => l !== listener);
         };
@@ -45,14 +31,6 @@ export const toastStore = {
     getSnapshot() {
         return toasts
     },
-
-    getFilteredSnapshot(filter?: ToastType | ToastType[], amount?: number) {
-        if (!filter) return this.getSnapshot().slice(0, amount);
-        const filteredToasts = toasts.filter((toast) => (toast.type === filter || filter.includes(toast.type)));
-        console.log("AMOUNT:", amount);
-        if (!amount) return filteredToasts;
-        return filteredToasts.slice(0, amount - 1);
-    }
 }
 
 /**

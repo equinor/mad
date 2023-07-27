@@ -1,6 +1,7 @@
 export type Toast = {
     type: ToastType,
-    message: string
+    message: string,
+    duration?: number
 }
 
 export type ToastType = "WARNING" | "ERROR" | "SUCCESS" | "INFO"
