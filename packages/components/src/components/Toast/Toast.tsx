@@ -7,9 +7,7 @@ import { removeToast } from "./store"
 import { Typography } from "../Typography"
 
 export type ToastProps = { message: string, type: ToastType, id: number, duration: number }
-/**
- * This is just an awful toast component used for prototyping
- */
+
 export const Toast = ({ message, type, id, duration }: ToastProps) => {
     useEffect(() => {
         setTimeout(() => removeToast(id), duration * 1000);
