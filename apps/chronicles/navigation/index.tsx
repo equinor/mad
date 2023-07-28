@@ -33,6 +33,7 @@ import { MenuScreen } from "../screens/components/MenuScreen";
 import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicatorScreen";
 import { ToastScreen } from "../screens/components/ToastScreen";
 import { PortalScreen } from "../screens/components/PortalScreen";
+import { ToastWithoutEmittersScreen } from "../screens/components/ToastWithoutEmittersScreen";
 
 export default function Navigation({
     colorScheme,
@@ -111,6 +112,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Menu" component={MenuScreen} />
             <DiscoverStack.Screen name="ProgressIndicator" options={{ title: "Progress Indicators" }} component={ProgressIndicatorScreen} />
             <DiscoverStack.Screen name="Toast" options={{ title: "Toast" }} component={ToastScreen} />
+            <DiscoverStack.Screen name="ToastWithoutEmitter" options={{ title: "Toast without emitters" }} component={ToastWithoutEmittersScreen} />
             <DiscoverStack.Screen name="Portal" component={PortalScreen} />
 
         </DiscoverStack.Navigator>

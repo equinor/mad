@@ -3,6 +3,7 @@ import { ColorScheme, Density } from "../../styling/types";
 import { PortalProvider } from "../Portal/PortalContext";
 import { Portal } from "../Portal";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { AnnouncementsProvider } from "../Toast/AnnouncementsProvider";
 
 export type EDSProviderProps = {
     colorScheme: ColorScheme;
@@ -24,7 +25,9 @@ export const EDSProvider = (
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <PortalProvider>
                     <Portal.Host style={{ flex: 1 }} name="root">
-                        {props.children}
+                        <AnnouncementsProvider>
+                            {props.children}
+                        </AnnouncementsProvider>
                     </Portal.Host>
                 </PortalProvider>
             </GestureHandlerRootView>

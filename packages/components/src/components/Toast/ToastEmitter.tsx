@@ -3,6 +3,7 @@ import { useToasts } from "./hooks/useToasts"
 import { Toast as DefaultToastComponent, ToastProps } from "./Toast";
 import { ToastType } from "./types";
 import { LayoutAnimation, View } from "react-native";
+import { getFallbacksEnabled } from './store';
 
 export type ToastEmitterProps = {
     /**
@@ -30,10 +31,12 @@ export type ToastEmitterProps = {
      * Fallback emitters are present in EDSProvider.
      * @todo finish this functionality
      */
-    isFallback?: true
+    isFallback?: true,
+
 }
-export const ToastEmitter = ({ filter, customToastComponent, defaultDuration = 5, direction, maxAmountDisplayed }: ToastEmitterProps) => {
-    const toasts = useToasts({ filter, amount: maxAmountDisplayed });
+export const ToastEmitter = ({ filter, customToastComponent, defaultDuration = 5, direction, maxAmountDisplayed, isFallback }: ToastEmitterProps) => {
+    const toasts = useToasts({ filter, amount: maxAmountDisplayed, isFallback });
+    if (isFallback && getFallbacksEnabled() === false) return null;
     const ToastComponent = customToastComponent || DefaultToastComponent;
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     return <View style={{ gap: 8, width: '100%', justifyContent: direction === 'up' ? 'flex-end' : undefined }}>

@@ -88,6 +88,12 @@ export default function DiscoverScreen({
                     iconName="loading"
                     onPress={() => navigation.navigate("Toast")}
                 />
+                <Cell.Navigation
+                    title="Toast example without emitters"
+                    description="example using the root emitter"
+                    iconName="loading"
+                    onPress={() => navigation.navigate("ToastWithoutEmitter")}
+                />
             </Cell.Group>
 
             <Spacer />

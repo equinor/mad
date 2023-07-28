@@ -18,10 +18,12 @@ export const toastStore = {
      * Lets React components subscribe to changes in the store
      * For more information, go to https://react.dev/reference/react/useSyncExternalStore
      */
-    subscribe(listener: Listener) {
+    subscribe(listener: Listener, isFallback?: boolean) {
         listeners = [...listeners, listener];
+        if (!isFallback) numberOfNonFallbackEmitters++;
         return () => {
             listeners = listeners.filter(l => l !== listener);
+            if (!isFallback) numberOfNonFallbackEmitters--;
         };
     },
     /**
@@ -44,6 +46,10 @@ export const addToast = (toast: Toast) => {
 export const removeToast = (id: number) => {
     toasts = toasts.filter((toast) => toast.id !== id);
     emitChange();
+}
+
+export const getFallbacksEnabled = () => {
+    return numberOfNonFallbackEmitters === 0;
 }
 
 /**
