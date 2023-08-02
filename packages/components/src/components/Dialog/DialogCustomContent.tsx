@@ -12,10 +12,9 @@ export const DialogCustomContent = ({ children }: PropsWithChildren) => {
     </View>
 }
 
-const themeStyles = EDSStyleSheet.create(() => ({
+const themeStyles = EDSStyleSheet.create((theme) => ({
     customContentContainer: {
-        flex: 1,
-        padding: 16,
+        padding: theme.spacing.dialog.padding,
         paddingBottom: 0
     }
 }))

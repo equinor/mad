@@ -12,15 +12,15 @@ import { _useDialogService } from "./dialogServiceStore";
 export const DialogServiceProvider = () => {
     const { dialogContent, finishDialog } = _useDialogService();
     const isDialogOpen = !!dialogContent;
-    return <Dialog isOpen={isDialogOpen} isDismissable={false}>
+    return <Dialog isOpen={isDialogOpen}>
         <Dialog.Header>{dialogContent?.title}</Dialog.Header>
         <Dialog.CustomContent>
             <Typography>{dialogContent?.message}</Typography>
         </Dialog.CustomContent>
         <Dialog.Actions align="right">
-            {dialogContent?.buttons.map((button) =>
+            {dialogContent?.buttons.map((button, index) =>
                 <Button
-                    key={JSON.stringify(button)}
+                    key={index}
                     title={button.text}
                     variant={button.isPreferred ? undefined : "outlined"}
                     onPress={() => {

@@ -20,7 +20,7 @@ export const DialogScreen = () => {
     ]
     )
 
-    const triggerAnotherAlert = () => alert("Another alert", "Another test message", [
+    const triggerAnotherAlert = () => alert("Another alert Another alert Another alert Another alert Another alert Another alert Another alert Another alert Another alert", "A very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long message", [
         {
             text: "OK",
             onPress: () => undefined,

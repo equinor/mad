@@ -1,13 +1,13 @@
 import { useSyncExternalStore } from "react";
 import { IconName } from "../../Icon";
 
-type DialogContent = {
+export type DialogContent = {
     title: string;
     message: string;
     buttons: DialogButton[]
 }
 
-type DialogButton = {
+export type DialogButton = {
     text: string
     onPress: () => void
     style?: 'default' | 'cancel' | 'destructive',
