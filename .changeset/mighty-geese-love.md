@@ -2,4 +2,4 @@
 "@equinor/mad-components": minor
 ---
 
-add scrim component
+Added `Scrim` component
