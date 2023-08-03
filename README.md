@@ -20,7 +20,7 @@ This is a monorepo collecting many of the packages used in the Mobile Applicatio
 | [Skia Draw](./packages/skia-draw)                  | Wrappers and utility components for implementing a drawing library in React Native.                       |
 | [Maintenance API](./packages/api/maintenance-api/) | Typescript wrapper for the [Equinor Maintenance API](https://equinor.github.io/maintenance-api-docs/)     |
 | [TSConfig](./packages/tsconfig)                    | Global TSConfig used in our packages.                                                                     |
-| [ESLint MAD](./packages/eslint-config-mad)  | Linting rules used throughout MAD development.                                                            |
+| [ESLint MAD](./packages/eslint-config-equinor-mad)  | Linting rules used throughout MAD development.                                                            |
 
 ## 👨‍💻 Development
 

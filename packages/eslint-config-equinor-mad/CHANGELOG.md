@@ -1,4 +1,4 @@
-# eslint-config-mad
+# eslint-config-equinor-mad
 
 ## 0.1.0
 

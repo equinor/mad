@@ -37,7 +37,7 @@
         "@floating-ui/react-native": "^0.10.0"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "workspace:*"
+        "eslint-config-equinor-mad": "workspace:*"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
