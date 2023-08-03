@@ -11,9 +11,9 @@ module.exports = {
     },
     parser: "@typescript-eslint/parser",
     settings: {
-        "react": {
-            "version": "detect"
-        }
+        react: {
+            version: "detect",
+        },
     },
-    ignorePatterns: ["*Legacy*"]
+    ignorePatterns: ["*Legacy*"],
 };

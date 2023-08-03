@@ -1,5 +1,5 @@
 {
-    "name": "eslint-config-mad-custom",
+    "name": "@equinor/eslint-config-mad",
     "version": "0.1.1",
     "main": "index.js",
     "license": "MIT",
