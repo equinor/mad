@@ -1,6 +1,5 @@
 import { Button, EDSStyleSheet, Spacer, Typography, alert, useStyles } from "@equinor/mad-components";
-import { Alert } from "react-native";
-import { ScrollView } from "react-native-gesture-handler"
+import { ScrollView } from "react-native"
 
 
 export const DialogScreen = () => {
