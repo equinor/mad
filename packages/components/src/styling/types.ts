@@ -62,6 +62,7 @@ export type MasterToken = {
                 sticky: ColorSchemeValues<string>;
                 temporaryNav: ColorSchemeValues<string>;
             };
+            scrim: ColorSchemeValues<string>
         };
         interactive: {
             primary: ColorSchemeValues<string>;
@@ -113,6 +114,13 @@ export type MasterToken = {
                     widthLarge: DensityValues<number>;
                 };
             };
+            dialog: {
+                minHeight: DensityValues<number>,
+                defaultWidth: DensityValues<number>
+                header: {
+                    height: DensityValues<number>
+                }
+            }
         };
         shadow: {
             [TElev in Elevation]: ShadowStyle;
@@ -143,6 +151,10 @@ export type MasterToken = {
                 paddingVertical: DensityValues<number>;
                 iconGap: DensityValues<number>;
             }
+        },
+        dialog: {
+            padding: DensityValues<number>,
+            gap: DensityValues<number>
         }
         cell: {
             group: {
