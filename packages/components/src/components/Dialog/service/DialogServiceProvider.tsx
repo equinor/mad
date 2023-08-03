@@ -12,7 +12,7 @@ import { _useDialogService } from "./dialogServiceStore";
 export const DialogServiceProvider = () => {
     const { dialogContent, finishDialog } = _useDialogService();
     const isDialogOpen = !!dialogContent;
-    return <Dialog isOpen={isDialogOpen}>
+    return <Dialog isOpen={isDialogOpen} style={{ backgroundColor: "green" }}>
         <Dialog.Header>{dialogContent?.title}</Dialog.Header>
         <Dialog.CustomContent>
             <Typography>{dialogContent?.message}</Typography>
