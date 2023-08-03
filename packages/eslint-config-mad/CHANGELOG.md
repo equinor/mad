@@ -1,4 +1,4 @@
-# eslint-config-mad-custom
+# eslint-config-mad
 
 ## 0.1.0
 
