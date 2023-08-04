@@ -1,17 +1,22 @@
 {
-    "search.exclude": {
-      "**/node_modules": true,
-      "**/bower_components": true,
-      "**/*.code-search": true,
-      "**/dist": true,
-    },
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "vscode.typescript-language-features",
-    "[typescriptreact]": {
-      "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-    "prettier.tabWidth": 4,
-    "[json]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/dist": true
+  },
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact",
+    "javascript"
+  ],
+  "eslint.workingDirectories": [
+    "."
+  ]
 }

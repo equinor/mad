@@ -19,11 +19,21 @@ module.exports = {
         "@typescript-eslint/lines-between-class-members": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-use-before-define": "off",
-        "class-methods-use-this": "off",
+        "class-methods-use-this": "warn",
         curly: ["error", "all"],
         "func-names": ["warn", "as-needed"],
-        "import/no-default-export": "warn",
+        "import/no-default-export": "error",
         "import/prefer-default-export": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+        ],
         "max-classes-per-file": "off",
         "no-await-in-loop": "off",
         "no-continue": "off",
@@ -52,13 +62,16 @@ module.exports = {
             "error",
             {
                 arrowParens: "avoid",
-                printWidth: 100,
-                singleQuote: true,
+                tabWidth: 4,
+                singleQuote: false,
                 trailingComma: "all",
             },
         ],
         radix: "off",
-        "react/function-component-definition": "off",
+        "react/function-component-definition": [
+            "error",
+            {"namedComponents": "arrow-function"}
+        ],
         "react/jsx-props-no-spreading": "off",
         "react/prop-types": "off",
         "react/require-default-props": "off",

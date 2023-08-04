@@ -30,7 +30,7 @@
         "@types/node": "^18.13.0",
         "eslint-config-equinor-mad": "workspace:*",
         "jest": "^29.4.3",
-        "prettier": "2.8.4",
+        "prettier": "3.0.1",
         "ts-jest": "^29.0.5",
         "ts-node": "^10.9.1",
         "tsconfig": "workspace:*",
@@ -42,5 +42,8 @@
     "engines": {
         "node": ">=16.0.0"
     },
-    "packageManager": "pnpm@7.31.0"
+    "packageManager": "pnpm@7.31.0",
+    "dependencies": {
+        "eslint": "^8.46.0"
+    }
 }
