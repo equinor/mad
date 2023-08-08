@@ -1,53 +1,53 @@
 name: Feature request
- description: Request new features to be added to the platform
- title: "[Feature]: "
- labels: ["feature"]
+description: Request new features to be added to the platform
+title: "[Feature]: "
+labels: ["feature"]
 
- body:
-   - type: markdown
-     attributes:
-       value: |
-         Thanks for taking the time to fill out this feature request!
-         
-   - type: dropdown
-       id: package
-       attributes:
-         label: Package / App
-         description: What package or app does the feature apply to?
-         mutiple: false
-         options:
-           - MAD Components
-           - MAD Chronicles
-           - React Native Skia Draw
-           - Maintenance API typescript wrapper
-           - ESLint Equinor MAD
-           - Other
-       validations:
-       required: true
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+        
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package / App
+      description: What package or app does the feature apply to?
+      mutiple: false
+      options:
+        - MAD Components
+        - MAD Chronicles
+        - React Native Skia Draw
+        - Maintenance API typescript wrapper
+        - ESLint Equinor MAD
+        - Other
+    validations:
+    required: true
 
-   - type: textarea
-     id: what
-     attributes:
-       label: Description
-       description: "A clear and concise description of what the problem is. "
-       placeholder: "Ex. I'm always frustrated when [...]"
-     validations:
-       required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Description
+      description: "A clear and concise description of what the problem is. "
+      placeholder: "Ex. I'm always frustrated when [...]"
+    validations:
+      required: true
 
-   - type: textarea
-     id: alternatives
-     attributes:
-       label: Alternatives
-       description: "A clear and concise description of any alternative solutions or features you've considered."
-       placeholder: Describe your considered alternatives here...
-     validations:
-       required: false
-       
-   - type: textarea
-     id: other
-     attributes:
-       label: Other info
-       description: Please provide any additional details should you have some
-       placeholder: Details, context, etc...
-     validations:
-       required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: "A clear and concise description of any alternative solutions or features you've considered."
+      placeholder: Describe your considered alternatives here...
+    validations:
+      required: false
+      
+  - type: textarea
+    id: other
+    attributes:
+      label: Other info
+      description: Please provide any additional details should you have some
+      placeholder: Details, context, etc...
+    validations:
+      required: false
