@@ -10,20 +10,20 @@ body:
         Thanks for taking the time to fill out this bug report!
         
   - type: dropdown
-      id: package
-      attributes:
-        label: Package / App
-        description: What package or app does the bug appear from?
-        mutiple: false
-        options:
-          - MAD Components
-          - MAD Chronicles
-          - React Native Skia Draw
-          - Maintenance API typescript wrapper
-          - ESLint Equinor MAD
-          - Other
-      validations:
-      required: true
+    id: package
+    attributes:
+      label: Package / App
+      description: What package or app does the bug appear from?
+      mutiple: false
+      options:
+        - MAD Components
+        - MAD Chronicles
+        - React Native Skia Draw
+        - Maintenance API typescript wrapper
+        - ESLint Equinor MAD
+        - Other
+    validations:
+    required: true
       
   - type: input
     id: version
