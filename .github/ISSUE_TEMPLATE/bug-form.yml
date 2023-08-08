@@ -1,0 +1,60 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        
+  - type: dropdown
+      id: package
+      attributes:
+        label: Package / App
+        description: What package or app does the bug appear from?
+        mutiple: false
+        options:
+          - MAD Components
+          - MAD Chronicles
+          - React Native Skia Draw
+          - Maintenance API typescript wrapper
+          - ESLint Equinor MAD
+          - Other
+      validations:
+      required: true
+      
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What package or app version did the bug occur in?
+      placeHolder: Version number
+    validations:
+      required: true
+      
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Describe the issue here...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: other
+    attributes:
+      label: Other info
+      description: Please provide any additional details should you have some
+      placeholder: Details, context, etc...
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
