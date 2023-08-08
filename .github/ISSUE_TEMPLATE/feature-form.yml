@@ -1,4 +1,4 @@
-name: Feature request
+name: 🆕 Feature request
 description: Request new features to be added to the platform
 title: "[Feature]: "
 labels: ["feature"]
@@ -14,7 +14,7 @@ body:
     attributes:
       label: Package / App
       description: What package or app does the feature apply to?
-      mutiple: false
+      multiple: false
       options:
         - MAD Components
         - MAD Chronicles
@@ -23,7 +23,7 @@ body:
         - ESLint Equinor MAD
         - Other
     validations:
-    required: true
+      required: true
 
   - type: textarea
     id: what
