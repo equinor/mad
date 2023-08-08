@@ -14,7 +14,7 @@ body:
     attributes:
       label: Package / App
       description: What package or app does the bug appear from?
-      mutiple: false
+      multiple: false
       options:
         - MAD Components
         - MAD Chronicles
@@ -23,14 +23,14 @@ body:
         - ESLint Equinor MAD
         - Other
     validations:
-    required: true
+      required: true
       
   - type: input
     id: version
     attributes:
       label: Version
       description: What package or app version did the bug occur in?
-      placeHolder: Version number
+      placeholder: Version number
     validations:
       required: true
       
