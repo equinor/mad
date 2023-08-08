@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: MAD Platform Discussions
+    url: https://github.com/equinor/mad/discussions
+    about: Use the discussions space to discuss whatever you feel like 💬
