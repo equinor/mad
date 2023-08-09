@@ -5,7 +5,7 @@ import { EDSStyleSheet } from "../../styling";
 import { Paper } from "../Paper";
 import { useStyles } from "../../hooks/useStyles";
 import { RootModal } from "../_internal/RootModal";
-import { PopInContainer } from "../_internal/PopinContainer";
+import { PopInContainer } from "../_internal/PopInContainer";
 
 export type MenuProps = {
     anchorEl: React.MutableRefObject<View | null>;

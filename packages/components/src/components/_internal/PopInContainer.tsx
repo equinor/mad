@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useRef, forwardRef } from "react";
-import { Animated, Easing, ViewProps } from "react-native";
+import { Animated, ViewProps } from "react-native";
 import { useToken } from "../../hooks/useToken";
 
 export const PopInContainer = forwardRef(({

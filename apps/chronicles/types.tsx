@@ -31,6 +31,7 @@ export type DiscoverStackParamList = {
     ProgressIndicator: undefined;
     Portal: undefined;
     Dialog: undefined;
+    Environment: undefined;
 };
 
 export type DiscoverStackScreenProps<

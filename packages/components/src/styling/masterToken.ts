@@ -1,3 +1,4 @@
+import { colors } from "./colors";
 import { MasterToken } from "./types";
 
 const SPACING_XXX_LARGE = 48;
@@ -15,53 +16,52 @@ const FONT_BASIS = 17;
 export const masterToken: MasterToken = {
     colors: {
         border: {
-            //TODO: Dark mode on these values
             lighter: {
-                light: "#FFFFFF",
-                dark: "#132634",
+                light: colors.ui_background_light_default,
+                dark: colors.ui_background_dark_default,
             },
             light: {
-                light: "#F7F7F7",
-                dark: "#132634",
+                light: colors.ui_background_light_light,
+                dark: colors.ui_background_dark_default,
             },
             medium: {
-                light: "#DCDCDC",
-                dark: "#3E4F5C",
+                light: colors.ui_background_light_medium,
+                dark: colors.ui_background_dark_temporary_nav,
             },
         },
         container: {
             background: {
-                light: "#F7F7F7",
-                dark: "#080808", // TODO: This value needs a look at
+                light: colors.ui_background_light_light,
+                dark: colors.ui_background_dark_light,
             },
             default: {
-                light: "#FFFFFF",
-                dark: "#132634",
+                light: colors.ui_background_light_default,
+                dark: colors.ui_background_dark_default,
             },
             elevation: {
                 none: {
-                    light: "#FFFFFF",
-                    dark: "#132634",
+                    light: colors.ui_background_light_default,
+                    dark: colors.ui_background_dark_none_plus_above_scrim,
                 },
                 aboveScrim: {
-                    light: "#FFFFFF",
-                    dark: "#132634",
+                    light: colors.ui_background_light_default,
+                    dark: colors.ui_background_dark_none_plus_above_scrim,
                 },
                 raised: {
-                    light: "#FFFFFF",
-                    dark: "#243746",
+                    light: colors.ui_background_light_default,
+                    dark: colors.ui_background_dark_raised,
                 },
                 overlay: {
-                    light: "#FFFFFF",
-                    dark: "#2E3F4D",
+                    light: colors.ui_background_light_default,
+                    dark: colors.ui_background_dark_overlay,
                 },
                 sticky: {
-                    light: "#FFFFFF",
-                    dark: "#364855",
+                    light: colors.ui_background_light_default,
+                    dark: colors.ui_background_dark_sticky,
                 },
                 temporaryNav: {
-                    light: "#FFFFFF",
-                    dark: "#3E4F5C",
+                    light: colors.ui_background_light_default,
+                    dark: colors.ui_background_dark_temporary_nav,
                 },
             },
             scrim: {
@@ -72,68 +72,86 @@ export const masterToken: MasterToken = {
         },
         interactive: {
             primary: {
-                light: "#007079",
-                dark: "#97CACE",
+                light: colors.interactive_primary_light_resting,
+                dark: colors.interactive_primary_dark_resting,
             },
             secondary: {
-                light: "#233746",
-                dark: "#DEE5E7",
+                light: colors.interactive_secondary_light_resting,
+                dark: colors.interactive_secondary_dark_resting,
             },
             success: {
-                light: "#4BB748",
-                dark: "#4BB748",
+                light: colors.feedback_success_light_resting,
+                dark: colors.feedback_success_dark_resting,
             },
             warning: {
-                light: "#FF9200",
-                dark: "#FF9200",
+                light: colors.feedback_warning_light_resting,
+                dark: colors.feedback_warning_dark_resting,
             },
             danger: {
-                light: "#EB0000",
-                dark: "#EB0000",
+                light: colors.feedback_danger_light_resting,
+                dark: colors.feedback_danger_dark_resting,
             },
             disabled: {
-                light: "#EAEAEA",
-                dark: "#344450",
+                light: colors.interactive_disabled_light_fill,
+                dark: colors.interactive_disabled_dark_fill,
             },
             pressedOverlay: {
                 light: "rgba(0,0,0,0.2)",
                 dark: "rgba(255,255,255,0.2)",
             },
             selectedHighlight: {
-                light: "#E6FAEC",
-                dark: "#97CACE",
+                light: colors.interactive_primary_light_selected_highlight,
+                dark: colors.interactive_primary_dark_resting,
+            }
+        },
+        environment: {
+            dev: {
+                light: colors.infographic_primary_energy_red_21,
+                dark: colors.infographic_primary_energy_red_34,
+            },
+            test: {
+                light: colors.infographic_primary_spruce_wood,
+                dark: colors.feedback_warning_dark_hover,
+            },
+            qa: {
+                light: colors.infographic_primary_moss_green_21,
+                dark: colors.infographic_primary_moss_green_34,
+            },
+            text: {
+                light: colors.text_and_static_icons_light_default,
+                dark: colors.text_and_static_icons_dark_primary_black,
             }
         },
         text: {
             primary: {
-                light: "#3D3D3D",
-                dark: "#FFFFFF",
+                light: colors.text_and_static_icons_light_default,
+                dark: colors.text_and_static_icons_dark_primary,
             },
             secondary: {
-                light: "#565656",
-                dark: "#DEE5E7",
+                light: colors.text_and_static_icons_light_secondary,
+                dark: colors.text_and_static_icons_dark_secondary,
             },
             tertiary: {
-                light: "#6F6F6F",
-                dark: "#9CA6AC",
+                light: colors.text_and_static_icons_light_tertiary,
+                dark: colors.text_and_static_icons_dark_tertiary,
             },
             primaryInverted: {
-                light: "#FFFFFF",
-                dark: "#000000",
+                light: colors.text_and_static_icons_light_primary_white,
+                dark: colors.text_and_static_icons_dark_primary_black,
             },
             menu: {
                 resting: {
-                    light: "#3D3D3D",
-                    dark: "#DEE5E7",
+                    light: colors.text_and_static_icons_light_default,
+                    dark: colors.text_and_static_icons_dark_secondary,
                 },
                 active: {
-                    light: "#007079",
-                    dark: "#000000",
+                    light: colors.interactive_primary_light_resting,
+                    dark: colors.interactive_primary_dark_resting,
                 }
             },
             disabled: {
-                light: "#BEBEBE",
-                dark: "#637583",
+                light: colors.interactive_disabled_light_text,
+                dark: colors.interactive_disabled_dark_text,
             },
         },
     },

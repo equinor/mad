@@ -16,6 +16,7 @@ export * from "./components/Menu";
 export * from "./components/ProgressIndicator";
 export * from "./components/Portal";
 export { alert } from "./components/Dialog";
+export * from "./components/Environment";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";

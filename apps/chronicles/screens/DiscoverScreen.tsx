@@ -116,6 +116,12 @@ export default function DiscoverScreen({
                     iconName="cake"
                     onPress={() => navigation.navigate("Portal")}
                 />
+                <Cell.Navigation
+                    title="Environment"
+                    description="Visualizes your app environment"
+                    iconName="island"
+                    onPress={() => navigation.navigate("Environment")}
+                />
             </Cell.Group>
         </ScrollView>
     );

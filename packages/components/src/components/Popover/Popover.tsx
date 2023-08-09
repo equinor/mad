@@ -11,7 +11,7 @@ import { View, ViewProps } from "react-native";
 import { Paper } from "../Paper";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-import { PopInContainer } from "../_internal/PopinContainer";
+import { PopInContainer } from "../_internal/PopInContainer";
 import { RootModal } from "../_internal/RootModal";
 
 export type PopoverProps = {
