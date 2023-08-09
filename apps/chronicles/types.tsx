@@ -30,6 +30,7 @@ export type DiscoverStackParamList = {
     Menu: undefined;
     ProgressIndicator: undefined;
     Portal: undefined;
+    Environment: undefined;
 };
 
 export type DiscoverStackScreenProps<

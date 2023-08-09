@@ -47,41 +47,47 @@ export type ShadowStyle = Pick<
 export type MasterToken = {
     colors: {
         border: {
-            lighter: ColorSchemeValues<string>;
-            light: ColorSchemeValues<string>;
-            medium: ColorSchemeValues<string>;
+            lighter: ColorSchemeValues<Color>;
+            light: ColorSchemeValues<Color>;
+            medium: ColorSchemeValues<Color>;
         };
         container: {
-            background: ColorSchemeValues<string>;
-            default: ColorSchemeValues<string>;
+            background: ColorSchemeValues<Color>;
+            default: ColorSchemeValues<Color>;
             elevation: {
-                none: ColorSchemeValues<string>;
-                aboveScrim: ColorSchemeValues<string>;
-                raised: ColorSchemeValues<string>;
-                overlay: ColorSchemeValues<string>;
-                sticky: ColorSchemeValues<string>;
-                temporaryNav: ColorSchemeValues<string>;
+                none: ColorSchemeValues<Color>;
+                aboveScrim: ColorSchemeValues<Color>;
+                raised: ColorSchemeValues<Color>;
+                overlay: ColorSchemeValues<Color>;
+                sticky: ColorSchemeValues<Color>;
+                temporaryNav: ColorSchemeValues<Color>;
             };
         };
         interactive: {
-            primary: ColorSchemeValues<string>;
-            secondary: ColorSchemeValues<string>;
-            success: ColorSchemeValues<string>;
-            warning: ColorSchemeValues<string>;
-            danger: ColorSchemeValues<string>;
-            disabled: ColorSchemeValues<string>;
-            pressedOverlay: ColorSchemeValues<string>;
-            selectedHighlight: ColorSchemeValues<string>;
+            primary: ColorSchemeValues<Color>;
+            secondary: ColorSchemeValues<Color>;
+            success: ColorSchemeValues<Color>;
+            warning: ColorSchemeValues<Color>;
+            danger: ColorSchemeValues<Color>;
+            disabled: ColorSchemeValues<Color>;
+            pressedOverlay: ColorSchemeValues<Color>;
+            selectedHighlight: ColorSchemeValues<Color>;
         };
+        environment: {
+            dev: ColorSchemeValues<Color>;
+            test: ColorSchemeValues<Color>;
+            qa: ColorSchemeValues<Color>;
+            text: ColorSchemeValues<Color>;
+        }
         text: {
-            primary: ColorSchemeValues<string>;
-            secondary: ColorSchemeValues<string>;
-            tertiary: ColorSchemeValues<string>;
-            primaryInverted: ColorSchemeValues<string>;
-            disabled: ColorSchemeValues<string>;
+            primary: ColorSchemeValues<Color>;
+            secondary: ColorSchemeValues<Color>;
+            tertiary: ColorSchemeValues<Color>;
+            primaryInverted: ColorSchemeValues<Color>;
+            disabled: ColorSchemeValues<Color>;
             menu: {
-                resting: ColorSchemeValues<string>;
-                active: ColorSchemeValues<string>;
+                resting: ColorSchemeValues<Color>;
+                active: ColorSchemeValues<Color>;
             }
         };
     };
