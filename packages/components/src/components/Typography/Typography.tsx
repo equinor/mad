@@ -37,7 +37,7 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
 
 } & TextProps;
 
-type TextChildren = {
+export type TextChildren = {
     children:
     string |
     string[] |

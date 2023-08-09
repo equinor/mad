@@ -1,5 +1,17 @@
 # @equinor/mad-components
 
+## 0.4.0
+
+### Minor Changes
+
+-   ddaf58c: Added `Dialog` components and `alert` function for easy usability to trigger dialog
+-   ddaf58c: Added `Scrim` component
+
+### Patch Changes
+
+-   cd3b2eb: outlined buttons should now have the same height/width as other buttons
+-   afbaece: add GestureHandlerRootView to EDSProvider for Expo SDK 49 support
+
 ## 0.3.2
 
 ### Patch Changes

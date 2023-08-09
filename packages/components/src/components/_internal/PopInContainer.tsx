@@ -12,7 +12,7 @@ export const PopInContainer = forwardRef(({
     const popInAnimation = Animated.timing(scale, {
         toValue: 1,
         useNativeDriver: true,
-        duration: token.timing.animation.fast,
+        duration: token.timing.animation.normal,
     });
 
     useEffect(() => {

@@ -64,6 +64,11 @@ export const masterToken: MasterToken = {
                     dark: colors.ui_background_dark_temporary_nav,
                 },
             },
+            scrim: {
+                light: "rgba(0,0,0,0.4)",
+                // TODO same color for dark mode?
+                dark: "rgba(0,0,0,0.4)"
+            }
         },
         interactive: {
             primary: {
@@ -196,6 +201,22 @@ export const masterToken: MasterToken = {
                     },
                 },
             },
+            dialog: {
+                minHeight: {
+                    tablet: 213,
+                    phone: 213
+                },
+                defaultWidth: {
+                    phone: 500,
+                    tablet: 500
+                },
+                header: {
+                    height: {
+                        tablet: 50,
+                        phone: 50
+                    }
+                }
+            }
         },
         shadow: {
             none: {},
@@ -261,6 +282,16 @@ export const masterToken: MasterToken = {
                 tablet: SPACING_MEDIUM,
                 phone: SPACING_MEDIUM,
             },
+        },
+        dialog: {
+            padding: {
+                tablet: SPACING_MEDIUM,
+                phone: SPACING_MEDIUM
+            },
+            gap: {
+                tablet: SPACING_MEDIUM,
+                phone: SPACING_MEDIUM
+            }
         },
         element: {
             paddingHorizontal: {
