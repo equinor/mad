@@ -1,6 +1,6 @@
 name: 🆕 Feature request
 description: Request new features to be added to the platform
-title: "[Feature]: "
+title: "[TITLE]"
 labels: ["feature"]
 
 body:
@@ -48,6 +48,6 @@ body:
     attributes:
       label: Other info
       description: Please provide any additional details should you have some
-      placeholder: Details, context, etc...
+      placeholder: Details, context, code snippets etc...
     validations:
       required: false

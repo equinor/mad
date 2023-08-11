@@ -1,6 +1,6 @@
 name: 🐛 Bug Report
 description: File a bug report
-title: "[Bug]: "
+title: "[TITLE]"
 labels: ["bug"]
 
 body:
@@ -48,7 +48,7 @@ body:
     attributes:
       label: Other info
       description: Please provide any additional details should you have some
-      placeholder: Details, context, etc...
+      placeholder: Details, context, code snippets etc...
     validations:
       required: false
 
