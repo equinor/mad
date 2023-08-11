@@ -48,7 +48,7 @@ body:
     attributes:
       label: Other info
       description: Please provide any additional details should you have some
-      placeholder: Details, context, code snippts etc...
+      placeholder: Details, context, code snippets etc...
     validations:
       required: false
 
