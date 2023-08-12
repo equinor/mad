@@ -5,18 +5,11 @@
     "**/*.code-search": true,
     "**/dist": true
   },
-  "eslint.format.enable": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.validate": [
     "typescript",
     "typescriptreact",
     "javascript"
   ],
-  "eslint.workingDirectories": [
-    "."
-  ]
 }
