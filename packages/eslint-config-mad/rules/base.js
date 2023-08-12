@@ -1,4 +1,4 @@
 module.exports = {
-	extends: ["eslint:recommended", "plugin:import/recommended"],
+	extends: ["prettier", "eslint:recommended", "plugin:import/recommended"],
 	plugins: ["simple-import-sort"],
 };

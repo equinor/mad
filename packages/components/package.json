@@ -7,7 +7,7 @@
 		"build": "tsup-node",
 		"test": "jest",
 		"dev": "tsup-node --watch --clean=false",
-		"lint": "eslint ."
+		"lint": "eslint src/"
 	},
 	"keywords": [
 		"react native",
