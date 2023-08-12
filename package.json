@@ -20,8 +20,8 @@
 		"test:maintenance-api": "turbo run test --filter @equinor/mad-maintenance-api-ts-wrapper",
 		"build:all": "turbo run build",
 		"dev:all": "turbo run dev",
-		"lint:all": "turbo run lint",
-		"format:all": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"lint:all": "turbo run lint --",
+		"format:all": "prettier --write .",
 		"publish:all": "turbo run build && changeset version && changeset publish"
 	},
 	"devDependencies": {
