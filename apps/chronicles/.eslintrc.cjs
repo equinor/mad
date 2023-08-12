@@ -1,6 +1,6 @@
 module.exports = {
     root: true,
-    extends: ["equinor-mad"],
+    extends: ["@equinor/mad"],
     parserOptions: {
         project: ["./tsconfig"],
     },

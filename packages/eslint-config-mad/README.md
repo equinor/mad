@@ -10,3 +10,13 @@ The main package consists of multiple entrypoints:
 These entrypoints can be be used individually or all together.
 
 ## Installation
+If you are using the default set of rules (`mad`) or the `mad/typescript` config, add the following to your project ESLint config file:
+```js
+{
+    // ...
+    parserOptions: {
+        project: ["./tsconfig.json"],
+        tsconfigRootDir: __dirname,
+      }
+}
+```
