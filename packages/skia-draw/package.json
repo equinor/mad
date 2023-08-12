@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "tsup-node",
 		"dev": "tsup-node --watch --clean=false",
-		"lint": "eslint ."
+		"lint": "eslint src/"
 	},
 	"keywords": [
 		"react native",
