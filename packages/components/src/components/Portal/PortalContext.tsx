@@ -1,15 +1,37 @@
 import React, { PropsWithChildren, ReactNode, createContext, useState } from "react";
 
 export type PortalContextType = {
+    /**
+     * Register a new host in the context.
+     * @param name The name of the portal to register.
+     */
     registerHost: (name: string) => void;
+    /**
+     * Deletes the portal from the registery.
+     * @param name The name of the portal to delete.
+     */
     unregisterHost: (name: string) => void;
+    /**
+     * Relates a react component to the portal with the provided name.
+     * @param name Name of the portal to relate the react component to.
+     * @param node The react component.
+     */
     bindNode: (name: string, node: ReactNode) => void;
+    /**
+     * A list containing the portal hosts.
+     */
     hosts: PortalHostType[];
 
 }
 
 export type PortalHostType = {
+    /**
+     * Name of the portal.
+     */
     name: string;
+    /**
+     * Component attached to the portal.
+     */
     node?: ReactNode;
 }
 

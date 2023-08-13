@@ -2,6 +2,11 @@ import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { useToken } from "../../hooks/useToken";
 
+/**
+ * Creates a smooth looping animated value.
+ * @param value An initial value to start the loop around.
+ * @returns An animated value between 0 and 1 representing the current loop progress.
+ */
 export const useNoProgressAnimation = (value?: number) => {
     const loopValue = useRef(new Animated.Value(value ?? 0)).current;
     const token = useToken();

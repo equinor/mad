@@ -8,7 +8,13 @@ import { useAnimatedProgress } from "./useAnimatedProgress";
 import { useNoProgressAnimation } from "./useNoProgressAnimation";
 
 export type CircularProgressProps = {
+    /**
+     * Diameter of the circle.
+     */
     size?: number;
+    /**
+     * Color theme of the indicator.
+     */
     color?: "neutral" | "primary"
 } & ProgressIndicatorProps & ViewProps;
 

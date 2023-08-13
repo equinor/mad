@@ -22,17 +22,29 @@ export type TypographyColorVariant =
     | "danger";
 
 export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
-    /** Typography groups, specifies which group to use. */
+    /**
+     * Typography groups, specifies which group to use.
+     */
     group?: TGroup;
-    /** Typography variants, specifies which variant to use. */
+    /** 
+     * Typography variants, specifies which variant to use.
+     */
     variant?: TypographyVariant<TGroup>;
-    /** Bold text. */
+    /**
+     * Bold text. 
+     */
     bold?: boolean;
-    /** Italic text. */
+    /** 
+     * Italic text.
+     */
     italic?: boolean;
-    /** Typography colors. */
+    /**
+     * Typography colors.
+     */
     color?: Color;
-    /** Reference to text object */
+    /**
+     * Reference to text object
+     */
     ref?: React.ForwardedRef<Text>;
 
 } & TextProps;

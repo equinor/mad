@@ -10,7 +10,14 @@ import {
 import { useToken } from "../../hooks/useToken";
 
 export type PressableHightlightProps = {
+    /**
+     * Whether or not the pressable surface should be disabled or not.
+     */
     disabled?: boolean;
+    /**
+     * The style to apply to this component.
+     * Any stylings based on the state of the press is applied on top of this.
+     */
     style?: ViewStyle;
 } & PressableProps;
 
