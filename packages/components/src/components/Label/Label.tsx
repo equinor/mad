@@ -1,8 +1,15 @@
 import React from "react";
 import { Typography, TypographyProps } from "../Typography";
 import { View } from "react-native";
+
 export type LabelProps = {
+    /**
+     * The primary text to display in the label.
+     */
     label?: string;
+    /**
+     * The secondary text to display in the label.
+     */
     meta?: string;
 };
 

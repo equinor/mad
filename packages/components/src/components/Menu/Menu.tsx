@@ -8,13 +8,28 @@ import { RootModal } from "../_internal/RootModal";
 import { PopInContainer } from "../_internal/PopInContainer";
 
 export type MenuProps = {
+    /**
+     * A reference to the element that the menu should appear around.
+     */
     anchorEl: React.MutableRefObject<View | null>;
+    /**
+     * A boolean value indicating whether or not the menu should be open.
+     */
     open: boolean;
+    /**
+     * A callback method invoked when a user closes the menu.
+     */
     onClose: () => void;
+    /**
+     * The positioning of the menu around the anchor element.
+     */
     placement?: Placement;
 };
 
 export type MenuContextType = {
+    /**
+     * A callback method invokable from any part of the menu. Calling this should close the menu.
+     */
     close: () => void;
 }
 

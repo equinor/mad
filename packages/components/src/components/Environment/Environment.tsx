@@ -9,6 +9,9 @@ type EnvironmentStyleProps = Pick<EnvironmentProps, "environment">;
 export type EnvironmentName = "dev" | "test" | "qa" | "prod";
 
 type EnvironmentProps = {
+    /**
+     * A string representing the environment that the banner should be rendered for.
+     */
     environment: EnvironmentName;
 }
 

@@ -4,6 +4,10 @@ import { EDSStyleSheet, Elevation } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 
 export type PaperProps = {
+    /**
+     * The elevation of the paper component.
+     * Each elevation comes with its own visual appearance.
+     */
     elevation: Elevation;
 };
 
