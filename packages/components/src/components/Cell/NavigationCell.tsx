@@ -7,10 +7,27 @@ import { Cell, CellProps } from "./Cell";
 import { Typography } from "../Typography";
 
 export type NavigationCellProps = {
+    /**
+     * Title of the navigation cell.
+     */
     title: string,
-    onPress?: () => void;
-    disabled?: boolean;
+    /**
+     * The description field of the navigation cell. This will be shown under the title.
+     */
     description?: string,
+    /**
+     * Callback method invoked when a user presses the cell.
+     * Leaving this `undefined` causes the cell to not respond to touch or hover events.
+     */
+    onPress?: () => void;
+    /**
+     * A boolean value indicating whether or not the cell should be disabled or not.
+     * This value affects the visual appearance of the cell and also makes it not respond to presses.
+     */
+    disabled?: boolean;
+    /**
+     * Name of the icon to use as a left adornment.
+     */
     iconName?: IconName,
 } & Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
 

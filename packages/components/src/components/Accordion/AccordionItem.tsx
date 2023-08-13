@@ -9,11 +9,29 @@ import { AccordionContext, AccordionContextType } from "./Accordion";
 import { useToken } from "../../hooks/useToken";
 
 export type AccordionItemProps = {
+    /**
+     * Title of the accordion item.
+     */
     title: string;
+    /**
+     * Positions the chevron in the item either to the left or to the right.
+     */
     chevronPosition?: "right" | "left";
+    /**
+     * Additional space for adding custom components to the item.
+     */
     adornment?: ReactNode;
+    /**
+     * Icon to use with the title.
+     */
     iconName?: IconName;
+    /**
+     * Boolean value indicating whether or not the item should respond to touch.
+     */
     disabled?: boolean;
+    /**
+     * Boolean value indicating whether or not the item should be opened by default.
+     */
     defaultOpen?: boolean,
 };
 

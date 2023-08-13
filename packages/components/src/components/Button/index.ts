@@ -4,10 +4,19 @@ import { ToggleButton, ToggleButtonProps } from "./ToggleButton";
 import { IconButton, IconButtonProps } from "./IconButton";
 
 type ExtendedButton = typeof _Button & {
+    /**
+     * A container for grouping buttons. The child buttons of this container visually clump together.
+     */
     Group: typeof ButtonGroup;
+    /**
+     * A container for grouping toggled buttons. Similar to `Button.Group`, but allows for binary choice.
+     */
     Toggle: typeof ToggleButton;
+    /**
+     * A small icon-only variant of the button.
+     */
     Icon: typeof IconButton;
-}
+};
 
 const Button = _Button as ExtendedButton;
 Button.Group = ButtonGroup;

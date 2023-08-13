@@ -12,22 +12,26 @@ type BaseCellSwipeItemProps = {
     onPress?: () => void;
 };
 
-export type CellSwipeItemProps = ({
-    /**
-     * Text to display in the swipe item.
-     */
-    title: string;
-    /**
-     * Name of the icon to display alongside the text.
-     */
-    iconName?: IconName;
-} | {
-    /**
-     * Text to display in the swipe item.
-     */
-    title?: string;
-    /**
-     * Name of the icon to display alongside the text.
-     */
-    iconName: IconName;
-}) & BaseCellSwipeItemProps;
+export type CellSwipeItemProps = (
+    | {
+          /**
+           * Text to display in the swipe item.
+           */
+          title: string;
+          /**
+           * Name of the icon to display alongside the text.
+           */
+          iconName?: IconName;
+      }
+    | {
+          /**
+           * Text to display in the swipe item.
+           */
+          title?: string;
+          /**
+           * Name of the icon to display alongside the text.
+           */
+          iconName: IconName;
+      }
+) &
+    BaseCellSwipeItemProps;

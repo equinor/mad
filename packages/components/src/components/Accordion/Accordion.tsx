@@ -4,7 +4,13 @@ import { View, ViewProps } from "react-native";
 
 
 export type AccordionContextType = {
+    /**
+     * Indicates that the contexed item is the first item in the Accordion 
+     */
     isFirstItem: boolean;
+    /**
+     * Indicates that the contexed item is the last item in the Accordion 
+     */
     isLastItem: boolean;
 };
 
