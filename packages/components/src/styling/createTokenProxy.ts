@@ -32,6 +32,13 @@ function isDensityValuesObject(obj: object): obj is DensityValues<unknown> {
     return keyEquality(obj, template);
 }
 
+/**
+ * Given a color scheme and a density value,
+ * this method creates proxies for the master token so that it resolves to the correct theme values.
+ * @param scheme The color scheme of the application.
+ * @param density The density scheme of the application
+ * @returns A proxied master token with all values resolved to the provided schemes.
+ */
 export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {
     const handler: ProxyHandler<any> = {
         get: function (target, property, receiver) {
