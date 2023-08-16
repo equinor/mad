@@ -10,7 +10,7 @@ export type InputProps = {
      */
     label?: string;
     /**
-     * Secondary small label text to add tot he input field.
+     * Secondary small label text to add to the input field.
      */
     meta?: string;
     /**
