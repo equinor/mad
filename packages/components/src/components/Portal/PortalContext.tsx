@@ -7,7 +7,7 @@ export type PortalContextType = {
      */
     registerHost: (name: string) => void;
     /**
-     * Deletes the portal from the registery.
+     * Deletes the portal from the registry.
      * @param name The name of the portal to delete.
      */
     unregisterHost: (name: string) => void;
