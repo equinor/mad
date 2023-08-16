@@ -1,42 +1,42 @@
 name: Release
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: 👀 Checkout Repo
-        uses: actions/checkout@v3
+    release:
+        name: Release
+        runs-on: ubuntu-latest
+        steps:
+            - name: 👀 Checkout Repo
+              uses: actions/checkout@v3
 
-      - name: 🏗️ Set up pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
+            - name: 🏗️ Set up pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 7
 
-      - name: 🌈 Setup Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: pnpm
+            - name: 🌈 Setup Node.js 16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: pnpm
 
-      - name: 📦 Install Dependencies
-        run: pnpm install
+            - name: 📦 Install Dependencies
+              run: pnpm install
 
-      - name: 🦋 Create Release Pull Request
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          title: 🚀 Release mad packages
-          commit: "📝 chore: Bump package versions and write changelog"
-          createGithubReleases: true
-          publish: pnpm publish:all
+            - name: 🦋 Create Release Pull Request
+              id: changesets
+              uses: changesets/action@v1
+              with:
+                  title: 🚀 Release mad packages
+                  commit: "📝 chore: Bump package versions and write changelog"
+                  createGithubReleases: true
+                  publish: pnpm publish:all
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
