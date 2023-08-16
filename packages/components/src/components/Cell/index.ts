@@ -5,7 +5,7 @@ import { CellSwipeItemProps } from "./types";
 
 type CellFamily = typeof _Cell & {
     /**
-     * A container for grouping cells togehter. The child cells visually come together inside a group.
+     * A container for grouping cells together. The child cells visually come together inside a group.
      */
     Group: typeof CellGroup;
     /**
