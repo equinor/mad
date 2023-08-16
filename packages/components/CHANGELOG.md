@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.4.1
+
+### Patch Changes
+
+-   283729c: Added docstrings to all types and methods exposed by the library!
+-   ed5b46f: Added `Environment` component
+
 ## 0.4.0
 
 ### Minor Changes
@@ -87,13 +94,15 @@
 
 ### Patch Changes
 
--   a242b74: Toggle buttons behave better on smaller screens, styles are now specific to tablets and phones
+-   a242b74: Toggle buttons behave better on smaller screens, styles are now specific to tablets and
+    phones
 
 ## 0.2.0
 
 ### Minor Changes
 
--   6112b37: Introduce theming engine. All components should now dynamically respond to the set theme and density!
+-   6112b37: Introduce theming engine. All components should now dynamically respond to the set
+    theme and density!
 
 ### Patch Changes
 
