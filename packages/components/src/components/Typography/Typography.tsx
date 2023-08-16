@@ -31,11 +31,11 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
      */
     variant?: TypographyVariant<TGroup>;
     /**
-     * Bold text. 
+     * Enable bold text. 
      */
     bold?: boolean;
     /** 
-     * Italic text.
+     * Enable italic text.
      */
     italic?: boolean;
     /**
