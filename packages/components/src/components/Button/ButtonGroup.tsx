@@ -11,11 +11,11 @@ export type ButtonGroupProps = {
 
 export type ButtonGroupContextType = {
     /**
-     * Indicates that the contexed item is the first item in the button group. 
+     * Indicates that the item in the context is the first item in the button group. 
      */
     isFirstItem: boolean;
     /**
-     * Indicates that the contexed item is the last item in the button group.
+     * Indicates that the item in the context is the last item in the button group.
      */
     isLastItem: boolean;
 }
