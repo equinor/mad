@@ -1,5 +1,11 @@
 # @equinor/eslint-config-mad
 
+## 0.2.0
+
+### Minor Changes
+
+-   e77fecc: Rewrite internal structure to allow for a more modular config system
+
 ## 0.1.0
 
 ### Minor Changes
