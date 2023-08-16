@@ -3,6 +3,9 @@ import { Portal } from "../Portal";
 import { Pressable, StyleSheet } from "react-native";
 
 type RootModalProps = {
+    /**
+     * Callback method invoked when the user presses outside the child content.
+     */
     onBackdropPress?: () => void;
 };
 

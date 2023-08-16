@@ -15,9 +15,21 @@ import { PopInContainer } from "../_internal/PopInContainer";
 import { RootModal } from "../_internal/RootModal";
 
 export type PopoverProps = {
-    open: boolean;
-    onClose: () => void;
+    /**
+     * A reference to the element that the popover should appear around.
+     */
     anchorEl: React.MutableRefObject<View | null>;
+    /**
+     * A boolean value indicating whether or not the popover should be open.
+     */
+    open: boolean;
+    /**
+     * A callback method invoked when a user closes the popover.
+     */
+    onClose: () => void;
+    /**
+     * The positioning of the popover around the anchor element.
+     */
     placement?: Placement;
 };
 

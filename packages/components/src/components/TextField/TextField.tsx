@@ -7,6 +7,9 @@ import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 
 export type TextFieldProps = {
+    /**
+     * A unit describing the input value.
+     */
     unit?: string;
 } & Omit<InputProps, "leftAdornment" | "rightAdornment">
 

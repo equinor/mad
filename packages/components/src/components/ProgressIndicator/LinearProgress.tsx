@@ -7,7 +7,6 @@ import { useToken } from "../../hooks/useToken";
 import { useNoProgressAnimation } from "./useNoProgressAnimation";
 
 export type LinearProgressProps = {
-    test?: number
 } & ProgressIndicatorProps & ViewProps;
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect);

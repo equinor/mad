@@ -20,6 +20,11 @@ const fontMap = {
     "Equinor-Regular": EquinorRegular,
 };
 
+/**
+ * Initializes, preloads and caches fonts and assets for the component library.
+ * This hook is required for fonts and icons to function properly.
+ * @returns A tuple array of the loading state in addition to any potential errors caught during asset initialization.
+ */
 export const useEDS = () => {
     const isLoaded = useFonts(fontMap);
     return isLoaded;

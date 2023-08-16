@@ -9,11 +9,31 @@ import { useContext } from "react";
 import { MenuContext } from "./Menu";
 
 export type MenuItemProps = {
+    /**
+     * The title of the menu item.
+     */
     title: string;
+    /**
+     * A boolean value indicating whether or not the item should be selected as active.
+     * An active item has a different visual appearance than a non-active item.
+     */
     active?: boolean;
+    /**
+     * A boolean value indicating whether or not the item should be disabled.
+     * A disabled item has a different visual appearance than a non-disabled item.
+     */
     disabled?: boolean;
+    /**
+     * A callback method invoked when the item is pressed.
+     */
     onPress?: () => void;
+    /**
+     * A boolean value indicating whether or not the parent menu should be dismissed when a user presses this item.
+     */
     closeMenuOnClick?: boolean;
+    /**
+     * The name of the icon to show alongside the text of this item.
+     */
     iconName?: IconName;
 };
 

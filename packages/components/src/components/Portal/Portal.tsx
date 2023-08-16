@@ -2,7 +2,10 @@ import React, { PropsWithChildren, useContext, useEffect } from "react";
 import { PortalContext } from "./PortalContext";
 
 export type PortalProps = {
-    name: "root" | string;
+    /**
+     * The name of the portal. The name will be registered and available for all components to route to.
+     */
+    name: "root" | Omit<string, "root">;
 }
 
 export const Portal = ({

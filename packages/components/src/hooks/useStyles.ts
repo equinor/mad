@@ -6,6 +6,11 @@ import { useToken } from "./useToken";
 
 type InferStyles<T> = T extends ThemeDependentStyles<any, infer R> ? R : never;
 
+/**
+ * Processes a style sheet created with `EDSStyleSheet.create` to provide a resolved style you can use in your component.
+ * @param themeStyles The style sheet object created by the `EDSStyleSheet.create` method
+ * @returns A resolved style sheet object that adheres to the current app theme.
+ */
 export function useStyles<
     TName extends
     | StyleSheet.NamedStyles<TName>

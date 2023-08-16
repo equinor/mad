@@ -7,8 +7,14 @@ import { useToken } from "../../hooks/useToken";
 import { useEffect, useRef } from "react";
 
 export type DotProgressProps = {
-    color?: "neutral" | "primary"
+    /**
+     * Height of the indicator. The width is calculated automatically based on this value.
+     */
     size?: number;
+    /**
+     * Color theme of the indicator.
+     */
+    color?: "neutral" | "primary"
 } & ViewProps;
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);

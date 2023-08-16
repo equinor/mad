@@ -6,10 +6,25 @@ import { PressableHighlight } from "../PressableHighlight";
 import { Icon, IconName } from "../Icon";
 
 export type IconButtonProps = {
+    /**
+     * Name of the icon.
+     */
     name: IconName
+    /**
+     * Callback method invoked when the user presses outside the child content.
+     */
     onPress?: () => void;
+    /**
+     * Color theme of the icon button.
+     */
     color?: "primary" | "secondary" | "danger";
+    /**
+     * Button variant. This value works with the `color` prop to set the theming of the button.
+     */
     variant?: "contained" | "outlined" | "ghost";
+    /**
+     * Boolean value indicating whether or not the button should be in its disabled state.
+     */
     disabled?: boolean;
 };
 

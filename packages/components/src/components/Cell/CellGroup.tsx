@@ -7,7 +7,13 @@ import { useValidChildrenIndexes } from "../../hooks/useValidChildrenIndexes";
 import { View } from "react-native";
 
 export type CellGroupContextType = {
+    /**
+     * A boolean value indicating whether or not the contexed cell is first in the group or not.
+     */
     isFirstCell: boolean;
+    /**
+     * A boolean value indicating whether or not the contexed cell is last in the group or not.
+     */
     isLastCell: boolean;
 }
 export const CellGroupContext = createContext<CellGroupContextType>({
@@ -16,7 +22,13 @@ export const CellGroupContext = createContext<CellGroupContextType>({
 });
 
 export type CellGroupProps = {
+    /**
+     * The title of the cell group.
+     */
     title?: string;
+    /**
+     * Extra component given the remaining space after the title size has been calculated. 
+     */
     adornment?: ReactNode;
 }
 

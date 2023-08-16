@@ -3,11 +3,20 @@ import { StyleSheet, View, ViewProps } from "react-native";
 import { useValidChildrenIndexes } from "../../hooks/useValidChildrenIndexes";
 
 export type ButtonGroupProps = {
+    /**
+     * Boolean value indicating whether or not the button group should align vertically or not.
+     */
     vertical?: boolean;
 };
 
 export type ButtonGroupContextType = {
+    /**
+     * Indicates that the item in the context is the first item in the button group. 
+     */
     isFirstItem: boolean;
+    /**
+     * Indicates that the item in the context is the last item in the button group.
+     */
     isLastItem: boolean;
 }
 

@@ -10,13 +10,37 @@ import { Icon, IconName } from "../Icon";
 import { DotProgress } from "../ProgressIndicator";
 
 export type ButtonProps = {
+    /**
+     * Label text of the button.
+     */
     title: string;
+    /**
+     * Callback method invoked when the user presses the button.
+     */
     onPress?: () => void;
+    /**
+     * Color theme of the button.
+     */
     color?: "primary" | "secondary" | "danger";
+    /**
+     * Button variant. This value works with the `color` prop to set the theming of the button.
+     */
     variant?: "contained" | "outlined" | "ghost";
+    /**
+     * Boolean value indicating whether or not the button is in its disabled state.
+     */
     disabled?: boolean;
+    /**
+     * Boolean value indicating whether or not the button should be in its loading state.
+     */
     loading?: boolean;
+    /**
+     * Name of the icon to use with the title.
+     */
     iconName?: IconName;
+    /**
+     * Options for positioning the icon either to the left or to the right of the label text.
+     */
     iconPosition?: "leading" | "trailing";
 };
 

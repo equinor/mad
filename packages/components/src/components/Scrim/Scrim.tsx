@@ -4,7 +4,16 @@ import { Portal } from "../Portal";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 
-export type ScrimProps = PropsWithChildren<{ isOpen: boolean, onPress?: () => void }>
+export type ScrimProps = PropsWithChildren<{
+    /**
+     * A boolean value indicating whether or not the scrim should be open.
+     */
+    isOpen: boolean,
+    /**
+     * A callback method invoked when a user presses the scrim surface.
+     */
+    onPress?: () => void
+}>
 
 export const Scrim = ({ isOpen, onPress, children }: ScrimProps) => {
     const styles = useStyles(themeStyles);

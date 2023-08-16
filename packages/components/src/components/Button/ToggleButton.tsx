@@ -3,13 +3,29 @@ import { ButtonGroup } from "./ButtonGroup";
 import React, { Children, ReactNode, createContext, useState } from "react";
 
 export type ToggleButtonProps = {
+    /**
+     * A boolean value indicating whether or not multiple containing buttons should be allowed to be active at the same time. 
+     */
     multiple?: boolean;
+    /**
+     * A callback method invoked when a user presses one of the containing buttons in the toggle group.
+     * @param indices A list of indicies refering to the active buttons in the toggle group.
+     */
     onChange?: (indices: number[]) => void;
 }
 
 export type ToggleButtonContextContents = {
+    /**
+     * Boolean value indicating whether or not the contexed button is selected or not.
+     */
     isSelected: boolean;
+    /**
+     * Boolean value indicating whether or not the contexed component passes validation (i.e is a button).
+     */
     valid: boolean;
+    /**
+     * A callback method invokable by the contexed button for when the user presses it. 
+     */
     toggle: () => void;
 };
 
