@@ -17,7 +17,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     lint:
-        name: Lint code
+        name: 👁️ Lint code
         runs-on: ubuntu-latest
         steps:
             - name: 👀 Checkout Repo
@@ -38,7 +38,7 @@ jobs:
               run: pnpm install
 
             - name: 🚦 Lint and fix
-              run: pnpm lintFix:all
+              run: pnpm lint:all --fix
 
             - name: 🤖 Format
               run: pnpm format:all
