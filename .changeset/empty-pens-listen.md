@@ -2,4 +2,4 @@
 "@equinor/mad-components": patch
 ---
 
-style: swapped white with variable color
+Set the Dialog container color to be dynamic.
