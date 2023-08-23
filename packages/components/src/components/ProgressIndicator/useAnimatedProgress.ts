@@ -31,6 +31,7 @@ export const useAnimatedProgress = (value?: number, invertedDefaltProgress = fal
         } else {
             setProgressAnimation(value).start();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     return progressValue;

@@ -38,7 +38,7 @@ function isDensityValuesObject(obj: object): obj is DensityValues<unknown> {
  * @returns A proxied master token with all values resolved to the provided schemes.
  */
 export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {
-    const handler: ProxyHandler<any> = {
+    const handler: ProxyHandler<object> = {
         get: function (target, property, receiver) {
             const value = Reflect.get(target, property, receiver);
 

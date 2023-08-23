@@ -1,12 +1,12 @@
 import React from "react";
 import { Animated, View, ViewProps } from "react-native";
 import { ProgressIndicatorProps } from "./types";
-import Svg, { Rect } from "react-native-svg";
+import { Rect, Svg } from "react-native-svg";
 import { useAnimatedProgress } from "./useAnimatedProgress";
 import { useToken } from "../../hooks/useToken";
 import { useNoProgressAnimation } from "./useNoProgressAnimation";
 
-export type LinearProgressProps = {} & ProgressIndicatorProps & ViewProps;
+export type LinearProgressProps = Record<string, never> & ProgressIndicatorProps & ViewProps;
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect);
 const STROKE_WIDTH = 6;

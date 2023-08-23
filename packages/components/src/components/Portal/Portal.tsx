@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useContext, useEffect } from "react";
+import { PropsWithChildren, useContext, useEffect } from "react";
 import { PortalContext } from "./PortalContext";
 
 export type PortalProps = {
@@ -12,15 +12,15 @@ export const Portal = ({ name, children }: PropsWithChildren<PortalProps>) => {
     const { registerHost, bindNode } = useContext(PortalContext);
 
     useEffect(() => {
-        registerHost(name);
-        bindNode(name, children);
-    }, [children]);
+        registerHost(name as string);
+        bindNode(name as string, children);
+    }, [children, name]);
 
     useEffect(() => {
         return () => {
-            bindNode(name, null);
+            bindNode(name as string, null);
         };
-    }, []);
+    }, [name]);
 
     return null;
 };

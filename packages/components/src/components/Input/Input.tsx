@@ -1,5 +1,5 @@
 import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, forwardRef, useState } from "react";
 import { EDSStyleSheet } from "../../styling";
 import { Label, useStyles } from "../..";
 
@@ -44,7 +44,7 @@ export type InputProps = {
     rightAdornments?: ReactNode;
 } & TextInputProps;
 
-export const Input = React.forwardRef<TextInput, InputProps>(
+export const Input = forwardRef<TextInput, InputProps>(
     (
         {
             leftAdornments,

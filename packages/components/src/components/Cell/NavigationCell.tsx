@@ -43,7 +43,7 @@ export const NavigationCell = ({
 
     const IconAdornment = () => (
         <View style={styles.iconContainer}>
-            <Icon name={iconName!} color={disabled ? "textDisabled" : undefined} />
+            <Icon name={iconName ?? "dots-square"} color={disabled ? "textDisabled" : undefined} />
         </View>
     );
 

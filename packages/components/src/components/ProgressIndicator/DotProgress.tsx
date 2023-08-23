@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Animated, Easing, View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-import Svg, { Circle } from "react-native-svg";
+import { Circle, Svg } from "react-native-svg";
 import { useToken } from "../../hooks/useToken";
 
 export type DotProgressProps = {
@@ -65,7 +65,7 @@ export const DotProgress = ({ color, size: optionalSize, ...rest }: DotProgressP
 
     useEffect(() => {
         swipeAnimation.start();
-    }, []);
+    }, [swipeAnimation]);
     return (
         <View {...rest} style={[{ width, height }, rest.style]}>
             <Svg height={height} width={width}>

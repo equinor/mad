@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode, createContext, useState } from "react";
+import React, { PropsWithChildren, ReactNode, createContext, useCallback, useState } from "react";
 
 export type PortalContextType = {
     /**
@@ -44,28 +44,37 @@ export const PortalContext = createContext<PortalContextType>({
 export const PortalProvider = ({ children }: PropsWithChildren) => {
     const [hosts, setHosts] = useState<PortalHostType[]>([]);
 
-    const contextOptions: PortalContextType = {
-        registerHost(name) {
+    const registerHost = useCallback(
+        (name: string) => {
             if (hosts.find(host => host.name === name)) return;
             setHosts(state => [...state, { name: name }]);
         },
-        unregisterHost(name) {
-            setHosts(state => state.filter(host => host.name !== name));
-        },
-        bindNode(name, node) {
-            setHosts(state =>
-                state.map(host => {
-                    if (host.name === name) {
-                        return {
-                            ...host,
-                            node: node,
-                        };
-                    } else {
-                        return host;
-                    }
-                }),
-            );
-        },
+        [hosts],
+    );
+
+    const unregisterHost = useCallback((name: string) => {
+        setHosts(state => state.filter(host => host.name !== name));
+    }, []);
+
+    const bindNode = useCallback((name: string, node: ReactNode) => {
+        setHosts(state =>
+            state.map(host => {
+                if (host.name === name) {
+                    return {
+                        ...host,
+                        node: node,
+                    };
+                } else {
+                    return host;
+                }
+            }),
+        );
+    }, []);
+
+    const contextOptions = {
+        registerHost,
+        unregisterHost,
+        bindNode,
         hosts,
     };
 

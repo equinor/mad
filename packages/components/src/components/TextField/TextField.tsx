@@ -1,6 +1,6 @@
 import { TextInput, View } from "react-native";
 import { Input, InputProps } from "../Input";
-import React from "react";
+import React, { forwardRef } from "react";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -12,7 +12,7 @@ export type TextFieldProps = {
     unit?: string;
 } & Omit<InputProps, "leftAdornment" | "rightAdornment">;
 
-export const TextField = React.forwardRef<TextInput, TextFieldProps>(({ unit, ...rest }, ref) => {
+export const TextField = forwardRef<TextInput, TextFieldProps>(({ unit, ...rest }, ref) => {
     const styles = useStyles(themeStyles);
     return (
         <Input

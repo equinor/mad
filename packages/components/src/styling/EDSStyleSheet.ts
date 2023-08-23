@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import type { Theme } from "./types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ThemeDependentStyles<TProps = undefined, TStyleSheet = StyleSheet.NamedStyles<any>> = (
     /**
      * The will-be resolved theme.
@@ -21,6 +22,7 @@ export const EDSStyleSheet = {
      * @param creator An object containing the will-be resolved theme and possibly any props sent in from the calling component.
      * @returns A resolvable style sheet.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     create<TProps, TStyleSheet extends StyleSheet.NamedStyles<any>>(
         creator: ThemeDependentStyles<TProps, TStyleSheet>,
     ) {

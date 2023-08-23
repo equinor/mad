@@ -1,5 +1,5 @@
 import { Text, TextProps, TextStyle } from "react-native";
-import React from "react";
+import React, { forwardRef } from "react";
 import {
     Color,
     EDSStyleSheet,
@@ -100,9 +100,7 @@ const themeStyles = EDSStyleSheet.create(
             italic,
         } = props;
 
-        const typography = (theme.typography as any)[group as keyof typeof theme.typography][
-            variant as any
-        ] as TypographyStyle;
+        const typography = (theme.typography as never)[group][variant] as TypographyStyle;
 
         const textStyle: TextStyle = {
             ...typography,
@@ -115,6 +113,6 @@ const themeStyles = EDSStyleSheet.create(
     },
 );
 
-export const Typography = React.forwardRef(TypographyInner) as <TGroup extends TypographyGroup>(
+export const Typography = forwardRef(TypographyInner) as <TGroup extends TypographyGroup>(
     p: TypographyProps<TGroup> & TextChildren & TextProps,
 ) => React.ReactElement;

@@ -4,7 +4,7 @@ import type { ThemeDependentStyles } from "../styling";
 import { useDynamicStyleSheet } from "./useDynamicStyleSheet";
 import { useToken } from "./useToken";
 
-type InferStyles<T> = T extends ThemeDependentStyles<any, infer R> ? R : never;
+type InferStyles<T> = T extends ThemeDependentStyles<never, infer R> ? R : never;
 
 /**
  * Processes a style sheet created with `EDSStyleSheet.create` to provide a resolved style you can use in your component.

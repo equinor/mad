@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useEffect, useRef, forwardRef } from "react";
-import { Animated, ViewProps } from "react-native";
+import { Animated, View, ViewProps } from "react-native";
 import { useToken } from "../../hooks/useToken";
 
-export const PopInContainer = forwardRef(
-    ({ children, ...rest }: PropsWithChildren & ViewProps, ref) => {
+export const PopInContainer = forwardRef<View, PropsWithChildren & ViewProps>(
+    ({ children, ...rest }, ref) => {
         const token = useToken();
         const scale = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -16,7 +16,7 @@ export const PopInContainer = forwardRef(
         useEffect(() => {
             popInAnimation.start();
             return () => popInAnimation.reset();
-        }, []);
+        }, [popInAnimation]);
 
         return (
             <Animated.View

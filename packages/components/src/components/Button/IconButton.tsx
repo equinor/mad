@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
@@ -28,7 +28,7 @@ export type IconButtonProps = {
     disabled?: boolean;
 };
 
-export const IconButton = React.forwardRef<View, IconButtonProps & ViewProps>(
+export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
     (
         {
             name,

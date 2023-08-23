@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext } from "react";
+import React, { Children, ReactNode, createContext } from "react";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -48,7 +48,7 @@ export const CellGroup = ({
                 )}
                 <View>{adornment}</View>
             </View>
-            {React.Children.map(children, (child, index) => (
+            {Children.map(children, (child, index) => (
                 <CellGroupContext.Provider
                     value={{
                         isFirstCell: index === validChildrenIndexes.at(0),

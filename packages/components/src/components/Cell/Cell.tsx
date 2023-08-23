@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode, forwardRef, useContext } from "react";
 import { View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -34,7 +34,7 @@ export type CellProps = {
     onPress?: () => void;
 } & ViewProps;
 
-export const Cell = React.forwardRef<View, React.PropsWithChildren<CellProps>>(
+export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
     (
         {
             leftAdornment,

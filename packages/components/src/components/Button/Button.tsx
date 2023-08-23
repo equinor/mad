@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { forwardRef, useContext } from "react";
 import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
@@ -44,7 +44,7 @@ export type ButtonProps = {
     iconPosition?: "leading" | "trailing";
 };
 
-export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
+export const Button = forwardRef<View, ButtonProps & ViewProps>(
     (
         {
             title,

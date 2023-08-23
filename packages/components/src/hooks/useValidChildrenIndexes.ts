@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React, { Children, isValidElement, useMemo } from "react";
 
 const getValidIndexes = (children: React.ReactNode) => {
     const childValidityArray: boolean[] = [];
-    React.Children.forEach(children, child => childValidityArray.push(React.isValidElement(child)));
+    Children.forEach(children, child => childValidityArray.push(isValidElement(child)));
     return childValidityArray.reduce<number[]>(
         (validIndexes, isValid, index) => (isValid ? validIndexes.concat(index) : validIndexes),
         [],

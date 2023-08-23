@@ -24,9 +24,10 @@ const PortalHostComponent = ({
     useEffect(() => {
         registerHost(name);
         return () => unregisterHost(name);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name]);
 
-    const host = useMemo(() => hosts.find(host => host.name === name), [hosts]);
+    const host = useMemo(() => hosts.find(host => host.name === name), [hosts, name]);
     return (
         <View {...rest}>
             {renderPortalsFirst && host?.node}
