@@ -17,9 +17,7 @@ export const AccordionContext = createContext<AccordionContextType>({
     isLastItem: true,
 });
 
-export type AccordionProps = Record<string, never>;
-
-export const Accordion = ({ children, ...rest }: AccordionProps & ViewProps) => {
+export const Accordion = ({ children, ...rest }: ViewProps) => {
     const validChildrenIndexes = useMemo(() => {
         const validChildren = Children.toArray(children).filter(child => isValidElement(child));
         return validChildren.map((_, index) => index);
