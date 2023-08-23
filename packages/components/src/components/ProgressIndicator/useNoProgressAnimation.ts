@@ -8,31 +8,30 @@ import { useToken } from "../../hooks/useToken";
  * @returns An animated value between 0 and 1 representing the current loop progress.
  */
 export const useNoProgressAnimation = (value?: number) => {
-    const loopValue = useRef(new Animated.Value(value ?? 0)).current;
-    const token = useToken();
+	const loopValue = useRef(new Animated.Value(value ?? 0)).current;
+	const token = useToken();
 
-    const endlessAnimation = Animated.loop(Animated.timing(loopValue, {
-        toValue: 1,
-        duration: 1500,
-        useNativeDriver: true,
-    }));
+	const endlessAnimation = Animated.loop(
+		Animated.timing(loopValue, {
+			toValue: 1,
+			duration: 1500,
+			useNativeDriver: true,
+		}),
+	);
 
-    const resetAnimation = Animated.timing(loopValue, {
-        toValue: 0,
-        duration: token.timing.animation.normal,
-        useNativeDriver: true,
-    });
+	const resetAnimation = Animated.timing(loopValue, {
+		toValue: 0,
+		duration: token.timing.animation.normal,
+		useNativeDriver: true,
+	});
 
-    useEffect(() => {
-        if (value !== undefined) {
-            resetAnimation.start(() =>
-                endlessAnimation.stop()
-            );
-        }
-        else {
-            endlessAnimation.start();
-        }
-    }, [value]);
+	useEffect(() => {
+		if (value !== undefined) {
+			resetAnimation.start(() => endlessAnimation.stop());
+		} else {
+			endlessAnimation.start();
+		}
+	}, [value]);
 
-    return loopValue;
-}
+	return loopValue;
+};

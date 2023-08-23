@@ -18,7 +18,8 @@
 
 -   Upgrade to 1.16
 
-**NOTE:** This update introduces a breaking change with the `Plant.TagAndEquipment` endpoint. This has now been split into two endpoints:
+**NOTE:** This update introduces a breaking change with the `Plant.TagAndEquipment` endpoint. This
+has now been split into two endpoints:
 
 -   `Plant.Tag`
 -   `Plant.Equipment`
@@ -45,6 +46,5 @@
 
 ### Minor Changes
 
--   97c428c: Upgraded to Maintenance API 1.15.0
-    Add `filterMaintenanceApiProblem` filter method
+-   97c428c: Upgraded to Maintenance API 1.15.0 Add `filterMaintenanceApiProblem` filter method
     Update docs

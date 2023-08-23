@@ -2,14 +2,10 @@ import { Menu as _Menu, MenuProps } from "./Menu";
 import { MenuItem, MenuItemProps } from "./MenuItem";
 
 type MenuFamily = typeof _Menu & {
-    Item: typeof MenuItem;
+	Item: typeof MenuItem;
 };
 
 const Menu = _Menu as MenuFamily;
 Menu.Item = MenuItem;
 
-export {
-    Menu,
-    MenuProps,
-    MenuItemProps
-};
+export { Menu, MenuProps, MenuItemProps };

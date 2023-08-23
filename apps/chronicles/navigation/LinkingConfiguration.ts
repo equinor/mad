@@ -10,27 +10,27 @@ import * as Linking from "expo-linking";
 import { RootStackParamList } from "../types";
 
 const linking: LinkingOptions<RootStackParamList> = {
-    prefixes: [Linking.createURL("/")],
-    config: {
-        screens: {
-            Root: {
-                screens: {
-                    Discover: {
-                        screens: {
-                            DiscoverScreen: "discover",
-                        },
-                    },
-                    Icons: {
-                        screens: {
-                            Icons: "icons",
-                        },
-                    },
-                },
-            },
-            Modal: "modal",
-            NotFound: "*",
-        },
-    },
+	prefixes: [Linking.createURL("/")],
+	config: {
+		screens: {
+			Root: {
+				screens: {
+					Discover: {
+						screens: {
+							DiscoverScreen: "discover",
+						},
+					},
+					Icons: {
+						screens: {
+							Icons: "icons",
+						},
+					},
+				},
+			},
+			Modal: "modal",
+			NotFound: "*",
+		},
+	},
 };
 
 export default linking;
