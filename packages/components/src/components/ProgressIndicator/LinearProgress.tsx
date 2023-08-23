@@ -6,7 +6,7 @@ import { useAnimatedProgress } from "./useAnimatedProgress";
 import { useToken } from "../../hooks/useToken";
 import { useNoProgressAnimation } from "./useNoProgressAnimation";
 
-export type LinearProgressProps = Record<string, never> & ProgressIndicatorProps & ViewProps;
+export type LinearProgressProps = ProgressIndicatorProps & ViewProps;
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect);
 const STROKE_WIDTH = 6;
