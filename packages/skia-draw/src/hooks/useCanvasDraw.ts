@@ -1,11 +1,4 @@
-import {
-	Color,
-	Skia,
-	SkiaDomView,
-	SkiaView,
-	useTouchHandler,
-	useValue,
-} from "@shopify/react-native-skia";
+import { Color, Skia, SkiaDomView, useTouchHandler, useValue } from "@shopify/react-native-skia";
 import { ForwardedRef, RefObject } from "react";
 import { PathData, SkiaDrawHandle } from "../types";
 import { useRerender } from "./useRerender";
