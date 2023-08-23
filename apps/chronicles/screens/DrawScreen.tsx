@@ -22,7 +22,7 @@ export const DrawScreen = () => {
     };
 
     const saveSnapshot = () => {
-        if (!!canvasHandle?.current?.makeImageSnapshot) {
+        if (canvasHandle?.current?.makeImageSnapshot) {
             const image = canvasHandle.current.makeImageSnapshot();
             setModifiedImage(image?.uri);
         }

@@ -1,5 +1,4 @@
-import { ScrollView } from "react-native";
-import { View } from "react-native";
+import { ScrollView , View } from "react-native";
 import { EDSStyleSheet, useStyles, Typography, Spacer, Search } from "@equinor/mad-components";
 
 export const SearchScreen = () => {
