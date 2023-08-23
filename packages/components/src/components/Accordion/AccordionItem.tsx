@@ -73,7 +73,7 @@ export const AccordionItem = ({
 
 	useEffect(() => {
 		expanded ? _expandAnimation.start() : _retractAnimation.start();
-	}, [expanded]);
+	}, [_expandAnimation, _retractAnimation, expanded]);
 
 	const toggleItem = () => {
 		setExpanded(state => !state);

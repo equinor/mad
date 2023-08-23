@@ -1,6 +1,7 @@
 import { colors } from "./colors";
 import { MasterToken } from "./types";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_XXX_LARGE = 48;
 const SPACING_XX_LARGE = 40;
 const SPACING_X_LARGE = 32;
@@ -8,7 +9,9 @@ const SPACING_LARGE = 24;
 const SPACING_MEDIUM = 16;
 const SPACING_MEDIUM_SMALL = 12;
 const SPACING_SMALL = 8;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_X_SMALL = 4;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_XX_SMALL = 2;
 
 const FONT_BASIS = 17;

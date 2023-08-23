@@ -1,4 +1,4 @@
-import React, { useMemo, createContext } from "react";
+import React, { useMemo, createContext, isValidElement, Children } from "react";
 import { View, ViewProps } from "react-native";
 
 export type AccordionContextType = {
@@ -17,18 +17,16 @@ export const AccordionContext = createContext<AccordionContextType>({
 	isLastItem: true,
 });
 
-export type AccordionProps = {};
+export type AccordionProps = Record<string, never>;
 
 export const Accordion = ({ children, ...rest }: AccordionProps & ViewProps) => {
 	const validChildrenIndexes = useMemo(() => {
-		const validChildren = React.Children.toArray(children).filter(child =>
-			React.isValidElement(child),
-		);
+		const validChildren = Children.toArray(children).filter(child => isValidElement(child));
 		return validChildren.map((_, index) => index);
 	}, [children]);
 	return (
 		<View {...rest}>
-			{React.Children.map(children, (child, index) => (
+			{Children.map(children, (child, index) => (
 				<AccordionContext.Provider
 					value={{
 						isFirstItem: index === validChildrenIndexes.at(0),
