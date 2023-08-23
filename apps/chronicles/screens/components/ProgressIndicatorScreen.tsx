@@ -8,7 +8,7 @@ import {
     LinearProgress,
     DotProgress,
 } from "@equinor/mad-components";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
 
 const CircularProgressSection = () => {

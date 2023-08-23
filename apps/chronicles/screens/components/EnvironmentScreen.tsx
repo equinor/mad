@@ -1,3 +1,4 @@
+import React from "react";
 import { EDSStyleSheet, Environment, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView } from "react-native";
 
@@ -10,8 +11,9 @@ export const EnvironmentScreen = () => {
             contentContainerStyle={styles.contentContainer}
         >
             <Typography>
-                Displays the app's current environment but only visible in non-production
-                environments.
+                {
+                    "Displays the app's current environment but only visible in non-production environments."
+                }
             </Typography>
             <Spacer />
             <Environment environment="dev" />

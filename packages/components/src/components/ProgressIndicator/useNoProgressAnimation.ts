@@ -31,6 +31,7 @@ export const useNoProgressAnimation = (value?: number) => {
         } else {
             endlessAnimation.start();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     return loopValue;

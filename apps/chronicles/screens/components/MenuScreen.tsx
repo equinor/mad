@@ -6,7 +6,7 @@ import {
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 export const MenuScreen = () => {

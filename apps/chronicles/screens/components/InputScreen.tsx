@@ -1,6 +1,6 @@
+import React from "react";
 import { ScrollView, View } from "react-native";
 import { EDSStyleSheet, useStyles, Typography, Input, Spacer, Icon } from "@equinor/mad-components";
-import { Ionicons } from "@expo/vector-icons";
 
 export const InputScreen = () => {
     const styles = useStyles(themedStyles);

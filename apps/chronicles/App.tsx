@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useEDS, EDSProvider } from "@equinor/mad-components";
@@ -6,11 +7,10 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import { useWindowDimensions } from "react-native";
-import { useMemo } from "react";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
-    const [hasLoadedEds, edsLoadError] = useEDS();
+    const [hasLoadedEds] = useEDS();
     const colorScheme = useColorScheme();
 
     const { width } = useWindowDimensions();

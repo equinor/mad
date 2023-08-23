@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 

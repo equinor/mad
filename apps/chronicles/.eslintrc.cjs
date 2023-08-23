@@ -3,5 +3,6 @@ module.exports = {
     extends: ["@equinor/mad"],
     parserOptions: {
         project: ["./tsconfig.json"],
+        tsconfigRootDir: __dirname,
     },
 };

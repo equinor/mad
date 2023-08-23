@@ -2,7 +2,7 @@ import { View, StyleSheet, Image } from "react-native";
 import { ImageMarkup } from "@equinor/react-native-skia-draw";
 import { Button, Typography } from "@equinor/mad-components";
 import * as ImagePicker from "expo-image-picker";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { SnapshotHandle } from "@equinor/react-native-skia-draw/dist/types";
 
 export const DrawScreen = () => {

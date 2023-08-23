@@ -8,7 +8,7 @@ import {
     Icon,
     Button,
 } from "@equinor/mad-components";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
 
 export const PortalScreen = () => {
@@ -43,10 +43,12 @@ export const PortalScreen = () => {
             <Spacer />
             <Typography variant="h2">Root portaling</Typography>
             <Typography>
-                Portals are useful tools, and while the prior example perhaps fail to justify why,
-                imagine a scenario where you need to send content to the root of the DOM tree. You
-                may define your own hosts, or use the default "root" host that comes included with
-                the EDSProvider component you hopefully have wrapped your app in allready.
+                {
+                    'Portals are useful tools, and while the prior example perhaps fail to justify why, \
+                imagine a scenario where you need to send content to the root of the DOM tree. You \
+                may define your own hosts, or use the default "root" host that comes included with \
+                the EDSProvider component you hopefully have wrapped your app in allready.'
+                }
             </Typography>
             <Spacer />
             <Button
@@ -61,9 +63,9 @@ export const PortalScreen = () => {
                         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
                             <Icon name="face-man" color="textInverted" />
                             <Typography variant="h6" color="textInverted">
-                                {" "}
-                                Sir, we've been trying to reach you about your car's extended
-                                warrranty
+                                {
+                                    "Sir, we've been trying to reach you about your car's extended warrranty"
+                                }
                             </Typography>
                         </View>
                     </Paper>

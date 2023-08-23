@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { Button, Typography } from "@equinor/mad-components";
 import { SnapshotHandle, SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";

@@ -14,12 +14,14 @@ export const Portal = ({ name, children }: PropsWithChildren<PortalProps>) => {
     useEffect(() => {
         registerHost(name as string);
         bindNode(name as string, children);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [children, name]);
 
     useEffect(() => {
         return () => {
             bindNode(name as string, null);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name]);
 
     return null;

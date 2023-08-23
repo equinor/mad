@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import {
     Button,
     EDSStyleSheet,
@@ -7,7 +6,7 @@ import {
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 export const PopoverScreen = () => {
@@ -20,9 +19,11 @@ export const PopoverScreen = () => {
             contentContainerStyle={style.contentContainer}
         >
             <Typography>
-                The popover component displays modally on top of your content and positions itself
-                automatically based on constraints around the anchor element so you won't have to
-                worry about it being positioned badly.
+                {
+                    "The popover component displays modally on top of your content and positions itself \
+                automatically based on constraints around the anchor element so you won't have to \
+                worry about it being positioned badly."
+                }
             </Typography>
             <Spacer amount="large" />
             <Button
