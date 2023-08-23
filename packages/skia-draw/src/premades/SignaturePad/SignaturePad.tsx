@@ -1,8 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { Canvas } from "../../Canvas";
-import { SignaturePadProps, SkiaDrawHandle } from "../../types";
+import { SignaturePadProps, SkiaDrawHandle , SnapshotHandle } from "../../types";
 import { View, StyleSheet, Text } from "react-native";
-import { SnapshotHandle } from "../../types";
 import { SkRect } from "@shopify/react-native-skia";
 import { Button } from "@equinor/mad-components";
 

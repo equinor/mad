@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
 import { Typography } from "../Typography";
 import { Icon, IconName } from "../Icon";
-import { useContext } from "react";
 import { MenuContext } from "./Menu";
 
 export type MenuItemProps = {

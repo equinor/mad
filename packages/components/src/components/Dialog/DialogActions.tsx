@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { View } from "react-native"
 import { EDSStyleSheet } from "../../styling"
-import { PropsWithChildren } from "react"
 import { useStyles } from "../../hooks/useStyles"
 
 export type DialogActionsProps = PropsWithChildren<{ align?: "left" | "right" }>

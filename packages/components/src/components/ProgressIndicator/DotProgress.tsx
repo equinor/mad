@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Animated, Easing, View, ViewProps } from "react-native"
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import Svg, { Circle } from "react-native-svg";
 import { useToken } from "../../hooks/useToken";
-import { useEffect, useRef } from "react";
 
 export type DotProgressProps = {
     /**

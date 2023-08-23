@@ -1,8 +1,7 @@
 import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
-import { ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { EDSStyleSheet } from "../../styling";
 import { Label, useStyles } from "../..";
-import React from "react";
 
 export type InputProps = {
     /**

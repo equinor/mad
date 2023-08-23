@@ -1,10 +1,8 @@
 import { View, StyleSheet, ViewProps } from "react-native";
 import { Canvas } from "../../Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
-import { useImperativeHandle, useMemo, useRef, useState } from "react";
-import { SkiaDrawHandle } from "../../types";
-import React, { forwardRef } from "react";
-import { SnapshotHandle } from "../../types";
+import React, { useImperativeHandle, useMemo, useRef, useState , forwardRef } from "react";
+import { SkiaDrawHandle , SnapshotHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
 
 export type ImageMarkupProps = {

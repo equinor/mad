@@ -1,4 +1,4 @@
-import { Text, TextProps } from "react-native";
+import { Text, TextProps , TextStyle } from "react-native";
 import React from "react";
 import {
     Color,
@@ -9,7 +9,6 @@ import {
     resolveColor,
 } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-import { TextStyle } from "react-native";
 
 export type TypographyColorVariant =
     | "primary"

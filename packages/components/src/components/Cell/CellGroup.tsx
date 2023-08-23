@@ -1,5 +1,4 @@
-import React, { ReactNode } from "react";
-import { createContext } from "react";
+import React, { ReactNode , createContext } from "react";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";

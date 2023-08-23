@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from "react";
+import React, { ReactNode, useContext } from "react";
 import { View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -7,7 +7,6 @@ import { PressableHighlight } from "../PressableHighlight";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { CellSwipeItemProps } from "./types";
 import { CellSwipeItem } from "./CellSwipeItem";
-import React from "react";
 
 export type CellProps = {
     /**
