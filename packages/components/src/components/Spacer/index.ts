@@ -3,7 +3,7 @@ import { SpacerVertical } from "./SpacerVertical";
 import { SpacerProps } from "./types";
 
 export type ExtendedSpacer = typeof SpacerVertical & {
-	Horizontal: typeof SpacerHorizontal;
+    Horizontal: typeof SpacerHorizontal;
 };
 
 const Spacer = SpacerVertical as ExtendedSpacer;

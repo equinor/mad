@@ -9,9 +9,9 @@ import { createTokenProxy } from "../styling/createTokenProxy";
  * @returns A resolved instance of the master token that adheres to the current app theme.
  */
 export function useToken() {
-	const context = useContext(EDSContext);
-	const tokenProxy = useMemo(() => {
-		return createTokenProxy(context.colorScheme, context.density);
-	}, Object.values(context));
-	return tokenProxy;
+    const context = useContext(EDSContext);
+    const tokenProxy = useMemo(() => {
+        return createTokenProxy(context.colorScheme, context.density);
+    }, Object.values(context));
+    return tokenProxy;
 }

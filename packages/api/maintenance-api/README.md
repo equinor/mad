@@ -7,27 +7,27 @@ establishing a secure connection to the maintenance API and is focused on ease o
 
 ```ts
 import {
-	initializeMaintenanceApi,
-	filterMaintenanceApiProblem,
-	Plants,
+    initializeMaintenanceApi,
+    filterMaintenanceApiProblem,
+    Plants,
 } from "@equinor/mad-maintenance-api-ts-wrapper";
 
 // Example token fetcher. Get this from your auth provider
 const getMaintenanceApiToken = async () => {
-	return "SomeToken";
+    return "SomeToken";
 };
 
 // Set up maintenance api with correct url and token
 initializeMaintenanceApi({
-	baseUrl: "https://someUrlHere.com",
-	tokenFetcher: getMaintenanceApiToken,
+    baseUrl: "https://someUrlHere.com",
+    tokenFetcher: getMaintenanceApiToken,
 });
 
 // Endpoints are structured similarly as in the maintenance api docs.
 const apiResult = await Plants.TagAndEquipment.lookupTag({
-	plantId: "123",
-	tagId: "34XV1234",
-	includeMeasuringPoints: true,
+    plantId: "123",
+    tagId: "34XV1234",
+    includeMeasuringPoints: true,
 });
 
 // Maitnenance API returns a union type containing ProblemDetails in the case of internal errors.

@@ -12,19 +12,19 @@ type InferStyles<T> = T extends ThemeDependentStyles<any, infer R> ? R : never;
  * @returns A resolved style sheet object that adheres to the current app theme.
  */
 export function useStyles<
-	TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>,
+    TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>,
 >(themeStyles: ThemeDependentStyles<undefined, TName>): InferStyles<typeof themeStyles>;
 export function useStyles<
-	TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>,
-	TProps,
+    TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>,
+    TProps,
 >(themeStyles: ThemeDependentStyles<TProps, TName>, props: TProps): InferStyles<typeof themeStyles>;
 export function useStyles<
-	TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>,
-	TProps,
+    TName extends StyleSheet.NamedStyles<TName> | StyleSheet.NamedStyles<unknown>,
+    TProps,
 >(themeStyles: ThemeDependentStyles<TProps, TName>, props?: TProps) {
-	const currentTheme = useToken();
-	return useDynamicStyleSheet<TName>(
-		() => themeStyles(currentTheme, props as TProps),
-		[currentTheme, props],
-	);
+    const currentTheme = useToken();
+    return useDynamicStyleSheet<TName>(
+        () => themeStyles(currentTheme, props as TProps),
+        [currentTheme, props],
+    );
 }

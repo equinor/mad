@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { ImageStyle, TextStyle, ViewStyle, StyleSheet } from "react-native";
 
 const createStyleSheet = (style: ViewStyle | ImageStyle | TextStyle) =>
-	StyleSheet.create({ __main: style }).__main;
+    StyleSheet.create({ __main: style }).__main;
 
 /**
  * Memoizes a provided style to its dependencies. Internally, this hook creates a new StyleSheet object on recalculation.
@@ -11,13 +11,13 @@ const createStyleSheet = (style: ViewStyle | ImageStyle | TextStyle) =>
  * @returns A memoized style object.
  */
 export const useDynamicStyle = (
-	style: () => ViewStyle | ImageStyle | TextStyle,
-	dependencies?: React.DependencyList,
+    style: () => ViewStyle | ImageStyle | TextStyle,
+    dependencies?: React.DependencyList,
 ) => {
-	const [currentStyle, setCurrentStyle] = useState(style());
-	useMemo(() => {
-		const newStyle = createStyleSheet(style());
-		setCurrentStyle(newStyle);
-	}, dependencies);
-	return currentStyle;
+    const [currentStyle, setCurrentStyle] = useState(style());
+    useMemo(() => {
+        const newStyle = createStyleSheet(style());
+        setCurrentStyle(newStyle);
+    }, dependencies);
+    return currentStyle;
 };

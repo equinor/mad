@@ -2,28 +2,28 @@ import { StyleSheet } from "react-native";
 import type { Theme } from "./types";
 
 export type ThemeDependentStyles<TProps = undefined, TStyleSheet = StyleSheet.NamedStyles<any>> = (
-	/**
-	 * The will-be resolved theme.
-	 */
-	context: Theme,
-	/**
-	 * Additional props passed into the style sheet create object.
-	 */
-	props: TProps,
+    /**
+     * The will-be resolved theme.
+     */
+    context: Theme,
+    /**
+     * Additional props passed into the style sheet create object.
+     */
+    props: TProps,
 ) => TStyleSheet;
 
 /**
  * Provides functionality for creating resolvable style sheets.
  */
 export const EDSStyleSheet = {
-	/**
-	 * Creates a resolvable style sheet object. Use this with the `useStyles` hook to resolve it to a context.
-	 * @param creator An object containing the will-be resolved theme and possibly any props sent in from the calling component.
-	 * @returns A resolvable style sheet.
-	 */
-	create<TProps, TStyleSheet extends StyleSheet.NamedStyles<any>>(
-		creator: ThemeDependentStyles<TProps, TStyleSheet>,
-	) {
-		return creator;
-	},
+    /**
+     * Creates a resolvable style sheet object. Use this with the `useStyles` hook to resolve it to a context.
+     * @param creator An object containing the will-be resolved theme and possibly any props sent in from the calling component.
+     * @returns A resolvable style sheet.
+     */
+    create<TProps, TStyleSheet extends StyleSheet.NamedStyles<any>>(
+        creator: ThemeDependentStyles<TProps, TStyleSheet>,
+    ) {
+        return creator;
+    },
 };
