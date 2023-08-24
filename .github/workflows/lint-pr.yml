@@ -1,4 +1,4 @@
-name: "Lint PR"
+name: "Validate PR"
 
 on:
     pull_request_target:
@@ -9,7 +9,7 @@ on:
 
 jobs:
     title:
-        name: 🛂 Validate PR title
+        name: 🛂 Lint PR title
         runs-on: ubuntu-latest
         steps:
             - uses: amannn/action-semantic-pull-request@v5
@@ -17,7 +17,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     lint:
-        name: 👁️ Lint code
+        name: 👁️ Validate code
         runs-on: ubuntu-latest
         steps:
             - name: 👀 Checkout Repo
@@ -38,6 +38,9 @@ jobs:
 
             - name: 📦 Install Dependencies
               run: pnpm install
+
+            - name: 🏭 Build packages
+              run: pnpm build:all
 
             - name: 🚦 Lint and fix
               run: pnpm lint:all --fix
