@@ -8,8 +8,4 @@ type PortalFamily = typeof _Portal & {
 const Portal = _Portal as PortalFamily;
 Portal.Host = PortalHost;
 
-export {
-    Portal,
-    PortalProps,
-    PortalHostProps,
-}
+export { Portal, PortalProps, PortalHostProps };

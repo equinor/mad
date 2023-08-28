@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode, createContext, useState } from "react";
+import React, { PropsWithChildren, ReactNode, createContext, useCallback, useState } from "react";
 
 export type PortalContextType = {
     /**
@@ -21,8 +21,7 @@ export type PortalContextType = {
      * A list containing the portal hosts.
      */
     hosts: PortalHostType[];
-
-}
+};
 
 export type PortalHostType = {
     /**
@@ -33,7 +32,7 @@ export type PortalHostType = {
      * Component attached to the portal.
      */
     node?: ReactNode;
-}
+};
 
 export const PortalContext = createContext<PortalContextType>({
     registerHost: () => null,
@@ -42,21 +41,24 @@ export const PortalContext = createContext<PortalContextType>({
     hosts: [],
 });
 
-export const PortalProvider = ({
-    children
-}: PropsWithChildren) => {
+export const PortalProvider = ({ children }: PropsWithChildren) => {
     const [hosts, setHosts] = useState<PortalHostType[]>([]);
 
-    const contextOptions: PortalContextType = ({
-        registerHost(name) {
+    const registerHost = useCallback(
+        (name: string) => {
             if (hosts.find(host => host.name === name)) return;
             setHosts(state => [...state, { name: name }]);
         },
-        unregisterHost(name) {
-            setHosts(state => state.filter(host => host.name !== name));
-        },
-        bindNode(name, node) {
-            setHosts((state) => state.map((host) => {
+        [hosts],
+    );
+
+    const unregisterHost = useCallback((name: string) => {
+        setHosts(state => state.filter(host => host.name !== name));
+    }, []);
+
+    const bindNode = useCallback((name: string, node: ReactNode) => {
+        setHosts(state =>
+            state.map(host => {
                 if (host.name === name) {
                     return {
                         ...host,
@@ -65,14 +67,16 @@ export const PortalProvider = ({
                 } else {
                     return host;
                 }
-            }));
-        },
-        hosts,
-    });
+            }),
+        );
+    }, []);
 
-    return (
-        <PortalContext.Provider value={contextOptions}>
-            {children}
-        </PortalContext.Provider>
-    )
-}
+    const contextOptions = {
+        registerHost,
+        unregisterHost,
+        bindNode,
+        hosts,
+    };
+
+    return <PortalContext.Provider value={contextOptions}>{children}</PortalContext.Provider>;
+};

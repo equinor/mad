@@ -9,24 +9,27 @@ export type SearchProps = Omit<TextFieldProps, "multiline">;
 export const Search = (props: SearchProps) => {
     const styles = useStyles(themedStyles);
     return (
-        <Input {...props} leftAdornments={
-            <View style={styles.adornment}>
-                <MaterialIcons name="search" size={18} color={styles.icon.color} />
-            </View>
-        }></Input>
+        <Input
+            {...props}
+            leftAdornments={
+                <View style={styles.adornment}>
+                    <MaterialIcons name="search" size={18} color={styles.icon.color} />
+                </View>
+            }
+        ></Input>
     );
 };
 
-const themedStyles = EDSStyleSheet.create((theme) => {
+const themedStyles = EDSStyleSheet.create(theme => {
     return {
         adornment: {
             backgroundColor: theme.colors.container.background,
             justifyContent: "center",
             alignItems: "center",
-            paddingHorizontal: theme.spacing.element.paddingHorizontal
+            paddingHorizontal: theme.spacing.element.paddingHorizontal,
         },
         icon: {
-            color: theme.colors.text.primary
-        }
+            color: theme.colors.text.primary,
+        },
     };
 });

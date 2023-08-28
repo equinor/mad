@@ -14,8 +14,9 @@
 </p>
 <br />
 
-This library adds basic drawing capabilities for your apps. It features a ready to use Signature Pad and an [EDS](https://loop.equinor.com/en/stories/eds-design-system) themed Image Markup tool.
-The library also exposes functionality for creating your own solution.
+This library adds basic drawing capabilities for your apps. It features a ready to use Signature Pad
+and an [EDS](https://loop.equinor.com/en/stories/eds-design-system) themed Image Markup tool. The
+library also exposes functionality for creating your own solution.
 
 ## 🖌️ How to use
 
@@ -32,7 +33,8 @@ The library currently exposes two ready-made (reffered to as premades) solutions
 </p>
 <br/>
 
-The Signature Pad component comes with a signature field, a clear button and the ability to create snapshots. A simple implementation looks like this:
+The Signature Pad component comes with a signature field, a clear button and the ability to create
+snapshots. A simple implementation looks like this:
 
 ```ts
 import { Button } from "react-native";
@@ -76,7 +78,9 @@ const MySignaturePad = () => {
 </p>
 <br/>
 
-The Image Markup component comes with a simple control panel for some markup operations (stroke size, color selection, clear and undo), and the ability to draw on top of an imported image. A simple implementation looks like this:
+The Image Markup component comes with a simple control panel for some markup operations (stroke
+size, color selection, clear and undo), and the ability to draw on top of an imported image. A
+simple implementation looks like this:
 
 ```ts
 import { Button } from "react-native";
@@ -114,8 +118,13 @@ const MyImageMarkup = ({
 
 ## ⚙️ Installation
 
-[React Native Skia](https://shopify.github.io/react-native-skia/) is listed as a peer deendency to this project. This means you will have to install an appropriate version of this on your own. Please refer to the [React Native installlation guide](https://shopify.github.io/react-native-skia/docs/getting-started/installation) for information on how to do this.
+[React Native Skia](https://shopify.github.io/react-native-skia/) is listed as a peer deendency to
+this project. This means you will have to install an appropriate version of this on your own. Please
+refer to the
+[React Native installlation guide](https://shopify.github.io/react-native-skia/docs/getting-started/installation)
+for information on how to do this.
 
 ### 🕸️ Web support
 
-Note that React Native Skia has an own setup process for working on the web. Make sure to follow this when adding any solution from this packace to your React Native web project.
+Note that React Native Skia has an own setup process for working on the web. Make sure to follow
+this when adding any solution from this packace to your React Native web project.

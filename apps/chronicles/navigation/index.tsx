@@ -3,6 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -11,11 +12,7 @@ import { ColorSchemeName } from "react-native";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
 import IconsScreen from "../screens/IconsScreen";
-import {
-    DiscoverStackParamList,
-    RootStackParamList,
-    RootTabParamList,
-} from "../types";
+import { DiscoverStackParamList, RootStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { DrawScreen } from "../screens/DrawScreen";
 import { SignatureScreen } from "../screens/SignatureTest";
@@ -35,11 +32,7 @@ import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 
-export default function Navigation({
-    colorScheme,
-}: {
-    colorScheme: ColorSchemeName;
-}) {
+export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
         <NavigationContainer
@@ -110,11 +103,15 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />
             <DiscoverStack.Screen name="Accordion" component={AccordionScreen} />
             <DiscoverStack.Screen name="Menu" component={MenuScreen} />
-            <DiscoverStack.Screen name="ProgressIndicator" options={{ title: "Progress Indicators" }} component={ProgressIndicatorScreen} />
+            <DiscoverStack.Screen
+                name="ProgressIndicator"
+                options={{ title: "Progress Indicators" }}
+                component={ProgressIndicatorScreen}
+            />
             <DiscoverStack.Screen name="Portal" component={PortalScreen} />
             <DiscoverStack.Screen name="Dialog" component={DialogScreen} />
             <DiscoverStack.Screen name="Environment" component={EnvironmentScreen} />
-        </DiscoverStack.Navigator >
+        </DiscoverStack.Navigator>
     );
 }
 
@@ -148,9 +145,7 @@ function BottomTabNavigator() {
                 component={IconsScreen}
                 options={{
                     title: "Icons",
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="grid" color={color as Color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="grid" color={color as Color} />,
                 }}
             />
             <BottomTab.Screen
@@ -158,9 +153,7 @@ function BottomTabNavigator() {
                 component={DrawScreen}
                 options={{
                     title: "Draw",
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="draw" color={color as Color} />
-                    ),
+                    tabBarIcon: ({ color }) => <TabBarIcon name="draw" color={color as Color} />,
                 }}
             />
             <BottomTab.Screen
@@ -180,9 +173,6 @@ function BottomTabNavigator() {
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: {
-    name: IconName;
-    color: Color;
-}) {
+function TabBarIcon(props: { name: IconName; color: Color }) {
     return <Icon size={30} style={{ marginBottom: -3 }} {...props} />;
 }

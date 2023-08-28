@@ -12,12 +12,13 @@ const createStyleSheet = (style: ViewStyle | ImageStyle | TextStyle) =>
  */
 export const useDynamicStyle = (
     style: () => ViewStyle | ImageStyle | TextStyle,
-    dependencies?: React.DependencyList
+    dependencies?: React.DependencyList,
 ) => {
     const [currentStyle, setCurrentStyle] = useState(style());
     useMemo(() => {
         const newStyle = createStyleSheet(style());
         setCurrentStyle(newStyle);
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- we only want to update when deps change
     }, dependencies);
     return currentStyle;
 };

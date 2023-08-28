@@ -10,11 +10,11 @@ export type NavigationCellProps = {
     /**
      * Title of the navigation cell.
      */
-    title: string,
+    title: string;
     /**
      * The description field of the navigation cell. This will be shown under the title.
      */
-    description?: string,
+    description?: string;
     /**
      * Callback method invoked when a user presses the cell.
      * Leaving this `undefined` causes the cell to not respond to touch or hover events.
@@ -28,7 +28,7 @@ export type NavigationCellProps = {
     /**
      * Name of the icon to use as a left adornment.
      */
-    iconName?: IconName,
+    iconName?: IconName;
 } & Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
 
 export const NavigationCell = ({
@@ -43,7 +43,7 @@ export const NavigationCell = ({
 
     const IconAdornment = () => (
         <View style={styles.iconContainer}>
-            <Icon name={iconName!} color={disabled ? "textDisabled" : undefined} />
+            <Icon name={iconName ?? "dots-square"} color={disabled ? "textDisabled" : undefined} />
         </View>
     );
 
@@ -58,7 +58,8 @@ export const NavigationCell = ({
             leftAdornment={iconName ? IconAdornment() : undefined}
             rightAdornment={DisclosureAdornment()}
             onPress={disabled ? undefined : onPress}
-            {...cellProps}>
+            {...cellProps}
+        >
             <View style={styles.contentContainer}>
                 <Typography
                     group="cell"
@@ -68,14 +69,16 @@ export const NavigationCell = ({
                 >
                     {title}
                 </Typography>
-                {description && <Typography
-                    group="cell"
-                    variant="description"
-                    numberOfLines={2}
-                    color={disabled ? "textDisabled" : "textTertiary"}
-                >
-                    {description}
-                </Typography>}
+                {description && (
+                    <Typography
+                        group="cell"
+                        variant="description"
+                        numberOfLines={2}
+                        color={disabled ? "textDisabled" : "textTertiary"}
+                    >
+                        {description}
+                    </Typography>
+                )}
             </View>
         </Cell>
     );
@@ -97,6 +100,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     disclosureContainer: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
-    }
+        alignItems: "center",
+    },
 }));

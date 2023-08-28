@@ -1,19 +1,18 @@
-import React from 'react'
-import { View } from "react-native"
-import { EDSStyleSheet } from "../../styling"
-import { PropsWithChildren } from "react"
-import { useStyles } from "../../hooks/useStyles"
+import React, { PropsWithChildren } from "react";
+import { View } from "react-native";
+import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
 
-export type DialogActionsProps = PropsWithChildren<{ align?: "left" | "right" }>
+export type DialogActionsProps = PropsWithChildren<{ align?: "left" | "right" }>;
 export const DialogActions = ({ align = "left", children }: DialogActionsProps) => {
-    const styles = useStyles(themeStyles, align)
-    return <>
-        <View style={styles.spacer} />
-        <View style={styles.actionsContainer}>
-            {children}
-        </View>
-    </>
-}
+    const styles = useStyles(themeStyles, align);
+    return (
+        <>
+            <View style={styles.spacer} />
+            <View style={styles.actionsContainer}>{children}</View>
+        </>
+    );
+};
 
 const themeStyles = EDSStyleSheet.create((theme, align: "left" | "right") => ({
     spacer: { flex: 1 },
@@ -21,6 +20,6 @@ const themeStyles = EDSStyleSheet.create((theme, align: "left" | "right") => ({
         flexDirection: "row",
         gap: theme.spacing.dialog.gap,
         justifyContent: align === "left" ? "flex-start" : "flex-end",
-        padding: theme.spacing.dialog.padding
-    }
-}))
+        padding: theme.spacing.dialog.padding,
+    },
+}));

@@ -24,17 +24,13 @@ describe("Maintenance Records", () => {
         expect(mApi.MaintenanceRecords["FailureReports"]).toBeTruthy();
     });
     it("should have Maitnenance Record Relationships endpoints", () => {
-        expect(
-            mApi.MaintenanceRecords["MaintenanceRecordRelationships"]
-        ).toBeTruthy();
+        expect(mApi.MaintenanceRecords["MaintenanceRecordRelationships"]).toBeTruthy();
     });
     it("should have Maintenance Records endpoints", () => {
         expect(mApi.MaintenanceRecords["MaintenanceRecords"]).toBeTruthy();
     });
     it("should have Master Data For Maintenance Records endpoints", () => {
-        expect(
-            mApi.MaintenanceRecords["MasterDataForMaintenanceRecords"]
-        ).toBeTruthy();
+        expect(mApi.MaintenanceRecords["MasterDataForMaintenanceRecords"]).toBeTruthy();
     });
     it("should have Master Data For Work Orders endpoints", () => {
         expect(mApi.MaintenanceRecords["MasterDataForWorkOrders"]).toBeTruthy();
@@ -110,8 +106,6 @@ describe("Maintenance api problem filter", () => {
     });
     it("should not throw on void results", () => {
         const apiResponse = undefined;
-        expect(() =>
-            mApi.filterMaintenanceApiProblem(apiResponse)
-        ).not.toThrow();
+        expect(() => mApi.filterMaintenanceApiProblem(apiResponse)).not.toThrow();
     });
 });

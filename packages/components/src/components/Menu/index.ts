@@ -8,8 +8,4 @@ type MenuFamily = typeof _Menu & {
 const Menu = _Menu as MenuFamily;
 Menu.Item = MenuItem;
 
-export {
-    Menu,
-    MenuProps,
-    MenuItemProps
-};
+export { Menu, MenuProps, MenuItemProps };

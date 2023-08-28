@@ -39,14 +39,11 @@ export class MaintenanceRecords {
     public static FailureReports = FailureReportsService;
     public static ModificationProposals = ModificationProposalsService;
     public static CertificationReports = CertificationReportsService;
-    public static TechnicalInformation =
-        TechnicalInformationUpdateRequestsService;
+    public static TechnicalInformation = TechnicalInformationUpdateRequestsService;
     public static TechnicalClarifications = TechnicalClarificationsService;
     public static MaintenanceRecords = MaintenanceRecordsService;
-    public static MaintenanceRecordRelationships =
-        MaintenanceRecordRelationshipsService;
-    public static MasterDataForMaintenanceRecords =
-        MasterDataForMaintenanceRecordsService;
+    public static MaintenanceRecordRelationships = MaintenanceRecordRelationshipsService;
+    public static MasterDataForMaintenanceRecords = MasterDataForMaintenanceRecordsService;
     public static MasterDataForWorkOrders = MasterDataForWorkOrdersService;
 }
 
@@ -70,11 +67,8 @@ export class MaintenanceProgram {
     public static MaintenanceStrategies = MaintenanceStrategiesService;
 }
 
-export const filterMaintenanceApiProblem = <T>(
-    result: T | ProblemDetails
-): T => {
-    const isProblemDetailsObject = (obj: any): obj is ProblemDetails =>
-        !!obj?.errors;
+export const filterMaintenanceApiProblem = <T>(result: T | ProblemDetails): T => {
+    const isProblemDetailsObject = (obj: any): obj is ProblemDetails => !!obj?.errors;
     if (isProblemDetailsObject(result)) throw result;
     return result as T;
 };

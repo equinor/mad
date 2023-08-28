@@ -1,5 +1,5 @@
-import { Text, TextProps } from "react-native";
-import React from "react";
+import { Text, TextProps, TextStyle } from "react-native";
+import React, { forwardRef } from "react";
 import {
     Color,
     EDSStyleSheet,
@@ -9,7 +9,6 @@ import {
     resolveColor,
 } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-import { TextStyle } from "react-native";
 
 export type TypographyColorVariant =
     | "primary"
@@ -26,15 +25,15 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
      * Typography groups, specifies which group to use.
      */
     group?: TGroup;
-    /** 
+    /**
      * Typography variants, specifies which variant to use.
      */
     variant?: TypographyVariant<TGroup>;
     /**
-     * Enable bold text. 
+     * Enable bold text.
      */
     bold?: boolean;
-    /** 
+    /**
      * Enable italic text.
      */
     italic?: boolean;
@@ -46,16 +45,10 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
      * Reference to text object
      */
     ref?: React.ForwardedRef<Text>;
-
 } & TextProps;
 
 export type TextChildren = {
-    children:
-    string |
-    string[] |
-    number |
-    undefined |
-    null
+    children: string | string[] | number | undefined | null;
 };
 
 const TypographyInner = <TGroup extends TypographyGroup>({
@@ -80,7 +73,7 @@ const TypographyInner = <TGroup extends TypographyGroup>({
 const resolveFontName = (
     bold: boolean | undefined,
     italic: boolean | undefined,
-    defaultName: string
+    defaultName: string,
 ) => {
     let fontName = defaultName;
     if (bold) {
@@ -97,7 +90,7 @@ const themeStyles = EDSStyleSheet.create(
         props: Pick<
             TypographyProps<TypographyGroup>,
             "group" | "variant" | "color" | "bold" | "italic"
-        >
+        >,
     ) => {
         const {
             group: group = "basic",
@@ -107,27 +100,19 @@ const themeStyles = EDSStyleSheet.create(
             italic,
         } = props;
 
-        const typography = (theme.typography as any)[
-            group as keyof typeof theme.typography
-        ][variant as any] as TypographyStyle;
+        const typography = (theme.typography as never)[group][variant] as TypographyStyle;
 
         const textStyle: TextStyle = {
             ...typography,
             color: resolveColor(color, theme),
-            fontFamily: resolveFontName(
-                bold,
-                italic,
-                typography.fontFamily ?? "Equinor-Regular"
-            ),
+            fontFamily: resolveFontName(bold, italic, typography.fontFamily ?? "Equinor-Regular"),
         };
         return {
             text: textStyle,
         };
-    }
+    },
 );
 
-export const Typography = React.forwardRef(TypographyInner) as <
-    TGroup extends TypographyGroup
->(
-    p: TypographyProps<TGroup> & TextChildren & TextProps
+export const Typography = forwardRef(TypographyInner) as <TGroup extends TypographyGroup>(
+    p: TypographyProps<TGroup> & TextChildren & TextProps,
 ) => React.ReactElement;

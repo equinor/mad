@@ -23,10 +23,4 @@ Button.Group = ButtonGroup;
 Button.Toggle = ToggleButton;
 Button.Icon = IconButton;
 
-export {
-    Button,
-    ButtonProps,
-    ButtonGroupProps,
-    ToggleButtonProps,
-    IconButtonProps,
-};
+export { Button, ButtonProps, ButtonGroupProps, ToggleButtonProps, IconButtonProps };

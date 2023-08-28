@@ -1,11 +1,6 @@
 import { ForwardedRef, RefObject, useImperativeHandle } from "react";
 import { PathData, SkiaDrawHandle } from "../types";
-import {
-    Color,
-    SkiaDomView,
-    SkiaMutableValue,
-    SkRect,
-} from "@shopify/react-native-skia";
+import { Color, SkiaDomView, SkiaMutableValue, SkRect } from "@shopify/react-native-skia";
 import { useRerender } from "./useRerender";
 
 type MutableDrawValues = {
@@ -21,7 +16,7 @@ type MutableDrawValues = {
 export const useDrawHandle = (
     ref: ForwardedRef<SkiaDrawHandle>,
     skiaCanvasRef: RefObject<SkiaDomView>,
-    values: MutableDrawValues
+    values: MutableDrawValues,
 ) => {
     const rerender = useRerender();
     useImperativeHandle(ref, () => ({
@@ -50,8 +45,7 @@ export const useDrawHandle = (
     };
 
     const makeImageSnapshot = (rect?: SkRect) => {
-        const skImage =
-            skiaCanvasRef.current?.makeImageSnapshot(rect) || undefined;
+        const skImage = skiaCanvasRef.current?.makeImageSnapshot(rect) || undefined;
         if (skImage === undefined) return undefined;
         const b64Data = skImage.encodeToBase64();
         const uri = `data:image/png;base64,${b64Data}`;

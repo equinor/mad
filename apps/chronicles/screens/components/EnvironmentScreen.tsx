@@ -1,10 +1,5 @@
-import {
-    EDSStyleSheet,
-    Environment,
-    Spacer,
-    Typography,
-    useStyles,
-} from "@equinor/mad-components";
+import React from "react";
+import { EDSStyleSheet, Environment, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView } from "react-native";
 
 export const EnvironmentScreen = () => {
@@ -16,7 +11,9 @@ export const EnvironmentScreen = () => {
             contentContainerStyle={styles.contentContainer}
         >
             <Typography>
-                Displays the app's current environment but only visible in non-production environments.
+                {
+                    "Displays the app's current environment but only visible in non-production environments."
+                }
             </Typography>
             <Spacer />
             <Environment environment="dev" />
@@ -24,13 +21,13 @@ export const EnvironmentScreen = () => {
             <Environment environment="test" />
             <Spacer />
             <Environment environment="qa" />
-        </ScrollView >
+        </ScrollView>
     );
-}
+};
 
-const themeStyles = EDSStyleSheet.create((theme) => ({
+const themeStyles = EDSStyleSheet.create(theme => ({
     contentContainer: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
-        paddingVertical: theme.spacing.container.paddingVertical
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
 }));

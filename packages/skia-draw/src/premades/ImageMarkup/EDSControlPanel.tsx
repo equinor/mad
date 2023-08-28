@@ -1,37 +1,21 @@
 import { StyleSheet, View, ColorValue } from "react-native";
-import {
-    Paper,
-    Popover,
-    PressableHighlight,
-    Typography,
-} from "@equinor/mad-components";
+import { Paper, Popover, PressableHighlight, Typography } from "@equinor/mad-components";
 import { SkiaDrawHandle } from "../../types";
 import React, { MutableRefObject, useRef, useState } from "react";
 
 const BUTTON_SIZE = 20;
 
-export const EDSControlPanel = (props: {
-    canvasRef: MutableRefObject<SkiaDrawHandle | null>;
-}) => {
+export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHandle | null> }) => {
     const [isSelectingColor, setIsSelectingColor] = useState<boolean>(false);
     const [currentColor, setCurrentColor] = useState<string>("red");
 
-    const [isSelectingStrokeWeight, setIsSelectingStrokeWeight] =
-        useState<boolean>(false);
+    const [isSelectingStrokeWeight, setIsSelectingStrokeWeight] = useState<boolean>(false);
     const [currentStrokeWeight, setCurrentStrokeWeight] = useState<number>(10);
 
     const colorSelectingButton = useRef<View>(null);
     const strokeWidthSelectingButton = useRef<View>(null);
 
-    const colors = [
-        "red",
-        "white",
-        "black",
-        "blue",
-        "orange",
-        "yellow",
-        "green",
-    ];
+    const colors = ["red", "white", "black", "blue", "orange", "yellow", "green"];
     const strokeWeights = [5, 10, 15];
 
     const onPressColor = (c: string) => {
@@ -93,7 +77,7 @@ export const EDSControlPanel = (props: {
                 placement="top"
                 style={{ padding: 0 }}
             >
-                {strokeWeights.map((rad) => (
+                {strokeWeights.map(rad => (
                     <PressableHighlight
                         key={rad}
                         onPress={() => onPressStrokeWidth(rad)}
@@ -121,7 +105,7 @@ export const EDSControlPanel = (props: {
                 placement="top"
                 style={{ padding: 0 }}
             >
-                {colors.map((col) => (
+                {colors.map(col => (
                     <PressableHighlight
                         key={col}
                         onPress={() => onPressColor(col)}

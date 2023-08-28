@@ -1,10 +1,5 @@
-import {
-    Button,
-    EDSStyleSheet,
-    Spacer,
-    Typography,
-    useStyles
-} from "@equinor/mad-components";
+import React from "react";
+import { Button, EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
 export const ButtonScreen = () => {
@@ -16,35 +11,27 @@ export const ButtonScreen = () => {
             contentContainerStyle={styles.container}
         >
             <Typography variant="h2">Variations</Typography>
-            <Typography>
-                Select between multiple colors:
-            </Typography>
+            <Typography>Select between multiple colors:</Typography>
             <View style={styles.buttonRow}>
                 <Button title="Primary" color="primary" />
                 <Button title="Secondary" color="secondary" />
                 <Button title="Danger" color="danger" />
             </View>
             <Spacer />
-            <Typography >
-                Different variants:
-            </Typography>
+            <Typography>Different variants:</Typography>
             <View style={styles.buttonRow}>
                 <Button title="Contained" variant="contained" />
                 <Button title="Outlined" variant="outlined" />
                 <Button title="Ghost" variant="ghost" />
             </View>
             <Spacer />
-            <Typography >
-                Icon positions:
-            </Typography>
+            <Typography>Icon positions:</Typography>
             <View style={styles.buttonRow}>
                 <Button title="Leading" iconPosition="leading" iconName="home-outline" />
                 <Button title="Trailing" iconPosition="trailing" iconName="send-outline" />
             </View>
             <Spacer />
-            <Typography >
-                Or just icons:
-            </Typography>
+            <Typography>Or just icons:</Typography>
             <View style={styles.buttonRow}>
                 <Button.Icon name="airballoon-outline" />
                 <Button.Icon name="bug-outline" variant="outlined" />
@@ -70,9 +57,7 @@ export const ButtonScreen = () => {
             <Spacer amount="large" />
 
             <Typography variant="h2">Toggles and groups</Typography>
-            <Typography>
-                They can also be grouped
-            </Typography>
+            <Typography>They can also be grouped</Typography>
             <View style={{ alignItems: "center" }}>
                 <Button.Group>
                     <Button title="One" />
@@ -81,9 +66,7 @@ export const ButtonScreen = () => {
                 </Button.Group>
             </View>
             <Spacer />
-            <Typography>
-                Or used as toggles
-            </Typography>
+            <Typography>Or used as toggles</Typography>
             <View style={{ alignItems: "center" }}>
                 <Button.Toggle>
                     <Button title="One" />
@@ -95,7 +78,7 @@ export const ButtonScreen = () => {
     );
 };
 
-const themeStyles = EDSStyleSheet.create((theme) => ({
+const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
@@ -103,6 +86,6 @@ const themeStyles = EDSStyleSheet.create((theme) => ({
     buttonRow: {
         paddingVertical: 8,
         flexDirection: "row",
-        justifyContent: "space-around"
-    }
+        justifyContent: "space-around",
+    },
 }));
