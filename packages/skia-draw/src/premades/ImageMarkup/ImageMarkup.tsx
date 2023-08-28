@@ -1,10 +1,8 @@
 import { View, StyleSheet, ViewProps } from "react-native";
 import { Canvas } from "../../Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
-import { useImperativeHandle, useMemo, useRef, useState } from "react";
-import { SkiaDrawHandle } from "../../types";
-import React, { forwardRef } from "react";
-import { SnapshotHandle } from "../../types";
+import React, { useImperativeHandle, useMemo, useRef, useState, forwardRef } from "react";
+import { SkiaDrawHandle, SnapshotHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
 
 export type ImageMarkupProps = {
@@ -16,73 +14,67 @@ type Dimensions = {
     height: number;
 };
 
-export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>(
-    (props, ref) => {
-        const [contentDim, setContentDim] = useState<Dimensions>();
+export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>((props, ref) => {
+    const [contentDim, setContentDim] = useState<Dimensions>();
 
-        const canvasRef = useRef<SkiaDrawHandle>(null);
-        useImperativeHandle(ref, () => ({
-            makeImageSnapshot: () =>
-                canvasRef.current?.makeImageSnapshot() || undefined,
-        }));
-        const image = useImage(props.markupImage);
-        const canvasDim: Dimensions | undefined = useMemo(() => {
-            if (!contentDim) return undefined;
-            if (!image) return contentDim;
-            const width = Math.min(
-                contentDim.width,
-                (contentDim.height * image.width()) / image.height()
-            );
-            const height = Math.min(
-                contentDim.height,
-                (contentDim.width * image.height()) / image.width()
-            );
-            return { width, height };
-        }, [image, contentDim]);
-        return (
-            <View
-                onLayout={(event) =>
-                    setContentDim({
-                        width: event.nativeEvent.layout.width,
-                        height: event.nativeEvent.layout.height,
-                    })
-                }
-                {...props}
-                style={[
-                    props.style,
-                    { width: "100%", position: "relative" },
-                ]}
-            >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    {canvasDim && (
-                        <Canvas
-                            initialDrawColor="red"
-                            ref={canvasRef}
-                            style={{
-                                maxHeight: canvasDim.height,
-                                maxWidth: canvasDim.width,
-                            }}
-                        >
-                            {image && contentDim && (
-                                <SKImage
-                                    image={image}
-                                    fit="contain"
-                                    x={0}
-                                    y={0}
-                                    width={canvasDim.width}
-                                    height={canvasDim.height}
-                                />
-                            )}
-                        </Canvas>
-                    )}
-                </View>
-                <View style={styles.overlay} pointerEvents="box-none">
-                    <EDSControlPanel canvasRef={canvasRef} />
-                </View>
-            </View>
+    const canvasRef = useRef<SkiaDrawHandle>(null);
+    useImperativeHandle(ref, () => ({
+        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() || undefined,
+    }));
+    const image = useImage(props.markupImage);
+    const canvasDim: Dimensions | undefined = useMemo(() => {
+        if (!contentDim) return undefined;
+        if (!image) return contentDim;
+        const width = Math.min(
+            contentDim.width,
+            (contentDim.height * image.width()) / image.height(),
         );
-    }
-);
+        const height = Math.min(
+            contentDim.height,
+            (contentDim.width * image.height()) / image.width(),
+        );
+        return { width, height };
+    }, [image, contentDim]);
+    return (
+        <View
+            onLayout={event =>
+                setContentDim({
+                    width: event.nativeEvent.layout.width,
+                    height: event.nativeEvent.layout.height,
+                })
+            }
+            {...props}
+            style={[props.style, { width: "100%", position: "relative" }]}
+        >
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                {canvasDim && (
+                    <Canvas
+                        initialDrawColor="red"
+                        ref={canvasRef}
+                        style={{
+                            maxHeight: canvasDim.height,
+                            maxWidth: canvasDim.width,
+                        }}
+                    >
+                        {image && contentDim && (
+                            <SKImage
+                                image={image}
+                                fit="contain"
+                                x={0}
+                                y={0}
+                                width={canvasDim.width}
+                                height={canvasDim.height}
+                            />
+                        )}
+                    </Canvas>
+                )}
+            </View>
+            <View style={styles.overlay} pointerEvents="box-none">
+                <EDSControlPanel canvasRef={canvasRef} />
+            </View>
+        </View>
+    );
+});
 
 ImageMarkup.displayName = "ImageMarkup";
 

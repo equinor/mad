@@ -9,8 +9,4 @@ export type ExtendedSpacer = typeof SpacerVertical & {
 const Spacer = SpacerVertical as ExtendedSpacer;
 Spacer.Horizontal = SpacerHorizontal;
 
-
-export {
-    Spacer,
-    SpacerProps,
-}
+export { Spacer, SpacerProps };

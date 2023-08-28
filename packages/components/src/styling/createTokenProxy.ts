@@ -14,9 +14,7 @@ function keyEquality(obj1: object, obj2: object) {
     return JSON.stringify(obj1Keys) === JSON.stringify(obj2Keys);
 }
 
-function isColorSchemeValuesObject(
-    obj: object
-): obj is ColorSchemeValues<unknown> {
+function isColorSchemeValuesObject(obj: object): obj is ColorSchemeValues<unknown> {
     const template: ColorSchemeValues<unknown> = {
         light: undefined as unknown,
         dark: undefined as unknown,
@@ -40,15 +38,12 @@ function isDensityValuesObject(obj: object): obj is DensityValues<unknown> {
  * @returns A proxied master token with all values resolved to the provided schemes.
  */
 export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {
-    const handler: ProxyHandler<any> = {
+    const handler: ProxyHandler<object> = {
         get: function (target, property, receiver) {
             const value = Reflect.get(target, property, receiver);
 
             if (typeof value === "object" && !Array.isArray(value)) {
-                if (
-                    isColorSchemeValuesObject(value) ||
-                    isDensityValuesObject(value)
-                ) {
+                if (isColorSchemeValuesObject(value) || isDensityValuesObject(value)) {
                     return (
                         (value as ColorSchemeValues<unknown>)[scheme] ??
                         (value as DensityValues<unknown>)[density]

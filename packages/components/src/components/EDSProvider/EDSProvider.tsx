@@ -8,7 +8,7 @@ import { ScrimProvider } from "../_internal/ScrimProvider";
 
 export type EDSProviderProps = {
     /**
-     * The color scheme to use for the components. You can fetch the system scheme using the 
+     * The color scheme to use for the components. You can fetch the system scheme using the
      * `useColorScheme` hook provided by react native.
      * @see https://reactnative.dev/docs/usecolorscheme
      */
@@ -26,12 +26,9 @@ export const EDSContext = createContext<EDSProviderProps>({
 });
 EDSContext.displayName = "EDSContext";
 
-export const EDSProvider = (
-    props: PropsWithChildren<EDSProviderProps>
-) => {
+export const EDSProvider = (props: PropsWithChildren<EDSProviderProps>) => {
     return (
-        <EDSContext.Provider
-            value={{ colorScheme: props.colorScheme, density: props.density }}>
+        <EDSContext.Provider value={{ colorScheme: props.colorScheme, density: props.density }}>
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <PortalProvider>
                     <ScrimProvider>
@@ -42,7 +39,7 @@ export const EDSProvider = (
                     </ScrimProvider>
                 </PortalProvider>
             </GestureHandlerRootView>
-        </EDSContext.Provider >
+        </EDSContext.Provider>
     );
 };
 

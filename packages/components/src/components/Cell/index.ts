@@ -18,10 +18,4 @@ const Cell = _Cell as CellFamily;
 Cell.Group = CellGroup;
 Cell.Navigation = NavigationCell;
 
-export {
-    Cell,
-    CellProps,
-    CellGroupProps,
-    NavigationCellProps,
-    CellSwipeItemProps,
-};
+export { Cell, CellProps, CellGroupProps, NavigationCellProps, CellSwipeItemProps };

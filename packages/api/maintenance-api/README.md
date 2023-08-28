@@ -1,7 +1,7 @@
 # Maintenance API TypeScript wrapper
 
-This library wraps the Maintenance API in a TypeScript library.
-It includes everything needed for establishing a secure connection to the maintenance API and is focused on ease of use.
+This library wraps the Maintenance API in a TypeScript library. It includes everything needed for
+establishing a secure connection to the maintenance API and is focused on ease of use.
 
 ## How to use
 
@@ -39,7 +39,8 @@ const properResult = filterMaintenanceApiProblem(apiResult);
 
 ### Codegen
 
-Run `pnpm generate:maintenance-api --input=/path/to/schema.json` to generate the library from the Maintenance API schema.
+Run `pnpm generate:maintenance-api --input=/path/to/schema.json` to generate the library from the
+Maintenance API schema.
 
 ### Building
 

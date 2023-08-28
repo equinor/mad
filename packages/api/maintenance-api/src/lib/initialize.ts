@@ -13,10 +13,7 @@ type ApiConfig = {
  * @param {string} configuration.baseUrl - The base url of the maintenance API.
  * @param {() => Promise<string>} configuration.tokenFetcher - The method for fetching tokens. This is called once for every endpoint.
  */
-export const initializeMaintenanceApi = ({
-    baseUrl,
-    tokenFetcher,
-}: ApiConfig) => {
+export const initializeMaintenanceApi = ({ baseUrl, tokenFetcher }: ApiConfig) => {
     OpenAPI.BASE = baseUrl;
     OpenAPI.TOKEN = tokenFetcher;
 };

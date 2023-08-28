@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
@@ -9,7 +9,7 @@ export type IconButtonProps = {
     /**
      * Name of the icon.
      */
-    name: IconName
+    name: IconName;
     /**
      * Callback method invoked when the user presses outside the child content.
      */
@@ -28,7 +28,7 @@ export type IconButtonProps = {
     disabled?: boolean;
 };
 
-export const IconButton = React.forwardRef<View, IconButtonProps & ViewProps>(
+export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
     (
         {
             name,
@@ -38,9 +38,8 @@ export const IconButton = React.forwardRef<View, IconButtonProps & ViewProps>(
             disabled = false,
             ...rest
         },
-        ref
+        ref,
     ) => {
-
         const styles = useStyles(themeStyles, {
             color,
             variant,
@@ -60,52 +59,46 @@ export const IconButton = React.forwardRef<View, IconButtonProps & ViewProps>(
                 </View>
             </View>
         );
-    }
+    },
 );
 
 IconButton.displayName = "Button.Icon";
 
 type IconButtonStyleSheetProps = {
-    color: "primary" | "secondary" | "danger",
-    variant: "contained" | "outlined" | "ghost",
-    disabled: boolean,
+    color: "primary" | "secondary" | "danger";
+    variant: "contained" | "outlined" | "ghost";
+    disabled: boolean;
 };
 
-const themeStyles = EDSStyleSheet.create(
-    (theme, props: IconButtonStyleSheetProps) => {
-        const {
-            color,
-            disabled,
-            variant
-        } = props;
+const themeStyles = EDSStyleSheet.create((theme, props: IconButtonStyleSheetProps) => {
+    const { color, disabled, variant } = props;
 
-        let backgroundColor = theme.colors.interactive[color];
-        let textColor =
-            variant === "contained"
-                ? theme.colors.text.primaryInverted
-                : theme.colors.interactive[color];
+    let backgroundColor = theme.colors.interactive[color];
+    let textColor =
+        variant === "contained"
+            ? theme.colors.text.primaryInverted
+            : theme.colors.interactive[color];
 
-        backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
-        backgroundColor = variant !== "contained" ? "transparent" : backgroundColor;
-        textColor = disabled ? theme.colors.text.disabled : textColor;
+    backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
+    backgroundColor = variant !== "contained" ? "transparent" : backgroundColor;
+    textColor = disabled ? theme.colors.text.disabled : textColor;
 
-        return {
-            colorContainer: {
-                backgroundColor,
-                borderRadius: theme.geometry.dimension.button.minHeight / 2,
-                borderColor: disabled ? theme.colors.text.disabled : theme.colors.interactive[color],
-                borderWidth: variant === "outlined" ? theme.geometry.border.borderWidth : undefined,
-                overflow: "hidden",
-            },
-            pressableContainer: {
-                justifyContent: "center",
-                alignItems: "center",
-                width: theme.geometry.dimension.button.minHeight,
-                height: theme.geometry.dimension.button.minHeight,
-            },
-            textStyle: {
-                color: textColor,
-            },
-        };
-    }
-);
+    return {
+        colorContainer: {
+            backgroundColor,
+            borderRadius: theme.geometry.dimension.button.minHeight / 2,
+            borderColor: disabled ? theme.colors.text.disabled : theme.colors.interactive[color],
+            borderWidth: variant === "outlined" ? theme.geometry.border.borderWidth : undefined,
+            overflow: "hidden",
+        },
+        pressableContainer: {
+            justifyContent: "center",
+            alignItems: "center",
+            width: theme.geometry.dimension.button.minHeight,
+            height: theme.geometry.dimension.button.minHeight,
+        },
+        textStyle: {
+            color: textColor,
+        },
+    };
+});

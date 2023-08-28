@@ -32,7 +32,7 @@ export type AccordionItemProps = {
     /**
      * Boolean value indicating whether or not the item should be opened by default.
      */
-    defaultOpen?: boolean,
+    defaultOpen?: boolean;
 };
 
 export const AccordionItem = ({
@@ -45,7 +45,6 @@ export const AccordionItem = ({
     defaultOpen = false,
     ...rest
 }: AccordionItemProps & ViewProps) => {
-
     const context = useContext(AccordionContext);
     const [expanded, setExpanded] = useState<boolean>(defaultOpen);
 
@@ -74,23 +73,28 @@ export const AccordionItem = ({
 
     useEffect(() => {
         expanded ? _expandAnimation.start() : _retractAnimation.start();
-    }, [expanded])
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
+    }, [expanded]);
 
     const toggleItem = () => {
         setExpanded(state => !state);
-    }
+    };
 
     const ChevronView = () => (
         <View style={styles.iconContainer}>
-            <Icon name={expanded ? "chevron-up" : "chevron-down"} color={disabled ? "textTertiary" : "primary"} />
+            <Icon
+                name={expanded ? "chevron-up" : "chevron-down"}
+                color={disabled ? "textTertiary" : "primary"}
+            />
         </View>
     );
 
-    const IconView = () => (
-        iconName && <View style={styles.iconContainer}>
-            <Icon name={iconName} color={disabled ? "textTertiary" : "textPrimary"} />
-        </View>
-    )
+    const IconView = () =>
+        iconName && (
+            <View style={styles.iconContainer}>
+                <Icon name={iconName} color={disabled ? "textTertiary" : "textPrimary"} />
+            </View>
+        );
 
     return (
         <>
@@ -105,33 +109,40 @@ export const AccordionItem = ({
                         <Typography
                             variant="h6"
                             color={disabled ? "textTertiary" : expanded ? "primary" : "textPrimary"}
-                            numberOfLines={1}>
+                            numberOfLines={1}
+                        >
                             {title}
                         </Typography>
                         {adornment}
                     </View>
                 </Cell>
-                {expanded && <View style={styles.dividerOuter}>
-                    <View style={styles.dividerInner} />
-                </View>}
-            </View>
-            {children && <Animated.View
-                style={{
-                    height: bodyHeight,
-                    overflow: "hidden",
-                }}
-            >
-                <View style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    width: "100%"
-                }}
-                    onLayout={event => setContentHeight(event.nativeEvent.layout.height)}>
-                    <View {...rest} style={[styles.contentContainer, rest.style]}>
-                        {children}
+                {expanded && (
+                    <View style={styles.dividerOuter}>
+                        <View style={styles.dividerInner} />
                     </View>
-                </View>
-            </Animated.View>}
+                )}
+            </View>
+            {children && (
+                <Animated.View
+                    style={{
+                        height: bodyHeight,
+                        overflow: "hidden",
+                    }}
+                >
+                    <View
+                        style={{
+                            position: "absolute",
+                            bottom: 0,
+                            width: "100%",
+                        }}
+                        onLayout={event => setContentHeight(event.nativeEvent.layout.height)}
+                    >
+                        <View {...rest} style={[styles.contentContainer, rest.style]}>
+                            {children}
+                        </View>
+                    </View>
+                </Animated.View>
+            )}
         </>
     );
 };
@@ -152,7 +163,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: AccordionContextType) =>
         contentContainer: {
             backgroundColor: theme.colors.container.default,
             paddingHorizontal: theme.spacing.container.paddingHorizontal,
-            paddingVertical: theme.spacing.container.paddingVertical
+            paddingVertical: theme.spacing.container.paddingVertical,
         },
         iconContainer: {
             flex: 1,
@@ -169,6 +180,6 @@ const themeStyles = EDSStyleSheet.create((theme, props: AccordionContextType) =>
         dividerInner: {
             height: theme.geometry.border.borderWidth,
             backgroundColor: theme.colors.border.medium,
-        }
-    }
+        },
+    };
 });

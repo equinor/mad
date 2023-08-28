@@ -4,7 +4,6 @@ import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { SpacerProps } from "./types";
 
-
 export const SpacerVertical = ({ amount = "medium" }: SpacerProps) => {
     const styles = useStyles(themeStyles, { amount });
 

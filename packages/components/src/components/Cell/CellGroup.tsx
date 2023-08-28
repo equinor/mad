@@ -1,5 +1,4 @@
-import React, { ReactNode } from "react";
-import { createContext } from "react";
+import React, { Children, ReactNode, createContext } from "react";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -15,7 +14,7 @@ export type CellGroupContextType = {
      * A boolean value indicating whether or not the contexed cell is last in the group or not.
      */
     isLastCell: boolean;
-}
+};
 export const CellGroupContext = createContext<CellGroupContextType>({
     isFirstCell: true,
     isLastCell: true,
@@ -27,10 +26,10 @@ export type CellGroupProps = {
      */
     title?: string;
     /**
-     * Extra component given the remaining space after the title size has been calculated. 
+     * Extra component given the remaining space after the title size has been calculated.
      */
     adornment?: ReactNode;
-}
+};
 
 export const CellGroup = ({
     title,
@@ -42,23 +41,20 @@ export const CellGroup = ({
     return (
         <>
             <View style={styles.titleContainer}>
-                {title &&
-                    <Typography
-                        group="cell"
-                        variant="groupTitle"
-                        color="textTertiary">
+                {title && (
+                    <Typography group="cell" variant="groupTitle" color="textTertiary">
                         {title}
-                    </Typography>}
-                <View>
-                    {adornment}
-                </View>
-
+                    </Typography>
+                )}
+                <View>{adornment}</View>
             </View>
-            {React.Children.map(children, (child, index) => (
-                <CellGroupContext.Provider value={{
-                    isFirstCell: index === validChildrenIndexes.at(0),
-                    isLastCell: index === validChildrenIndexes.at(-1)
-                }}>
+            {Children.map(children, (child, index) => (
+                <CellGroupContext.Provider
+                    value={{
+                        isFirstCell: index === validChildrenIndexes.at(0),
+                        isLastCell: index === validChildrenIndexes.at(-1),
+                    }}
+                >
                     {child}
                 </CellGroupContext.Provider>
             ))}
@@ -73,6 +69,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         flexDirection: "row",
         flex: 1,
         justifyContent: "space-between",
-        alignItems: "flex-end"
-    }
+        alignItems: "flex-end",
+    },
 }));

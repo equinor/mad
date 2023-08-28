@@ -1,42 +1,40 @@
 {
-  "expo": {
-    "name": "chronicles",
-    "slug": "chronicles",
-    "version": "1.0.0",
-    "icon": "./assets/images/icon.png",
-    "scheme": "chronicles",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.equinor.mad.chronicles"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermissions": "The app needs access to your photos library in order to process them."
+    "expo": {
+        "name": "chronicles",
+        "slug": "chronicles",
+        "version": "1.0.0",
+        "icon": "./assets/images/icon.png",
+        "scheme": "chronicles",
+        "userInterfaceStyle": "automatic",
+        "splash": {
+            "image": "./assets/images/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.equinor.mad.chronicles"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/images/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            }
+        },
+        "plugins": [
+            [
+                "expo-image-picker",
+                {
+                    "photosPermissions": "The app needs access to your photos library in order to process them."
+                }
+            ]
+        ],
+        "web": {
+            "favicon": "./assets/images/favicon.png"
         }
-      ]
-    ],
-    "web": {
-      "favicon": "./assets/images/favicon.png"
     }
-  }
 }

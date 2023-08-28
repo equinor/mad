@@ -1,5 +1,12 @@
-import { Button, EDSStyleSheet, Menu, Spacer, Typography, useStyles } from "@equinor/mad-components";
-import { useRef, useState } from "react";
+import {
+    Button,
+    EDSStyleSheet,
+    Menu,
+    Spacer,
+    Typography,
+    useStyles,
+} from "@equinor/mad-components";
+import React, { useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 export const MenuScreen = () => {
@@ -19,8 +26,8 @@ export const MenuScreen = () => {
         >
             <View style={style.readableContent}>
                 <Typography>
-                    The menu opens modally in a non-intrusive manner. Together with the Menu Item component, a user can
-                    select between multiple options.
+                    The menu opens modally in a non-intrusive manner. Together with the Menu Item
+                    component, a user can select between multiple options.
                 </Typography>
 
                 <Spacer />
@@ -33,7 +40,8 @@ export const MenuScreen = () => {
                 <Menu
                     anchorEl={firstButtonRef}
                     open={firstMenuOpen}
-                    onClose={() => setFirstMenuOpen(false)}>
+                    onClose={() => setFirstMenuOpen(false)}
+                >
                     <Menu.Item title="First option" />
                     <Menu.Item title="Second option" />
                     <Menu.Item title="Third option" />
@@ -43,7 +51,8 @@ export const MenuScreen = () => {
 
                 <Typography variant="h2">Customizing items</Typography>
                 <Typography>
-                    The menu items can be customized using various props. Take a look at this menu for some inspiration.
+                    The menu items can be customized using various props. Take a look at this menu
+                    for some inspiration.
                 </Typography>
                 <Spacer />
                 <Button
@@ -63,24 +72,27 @@ export const MenuScreen = () => {
                     <Menu.Item title="This item has an icon" iconName="face-man" />
                     <Menu.Item title="This item is active" active />
                     <Menu.Item
-                        title={selectedToggleButton ? "That means you can do this" : "This won't close the menu"}
+                        title={
+                            selectedToggleButton
+                                ? "That means you can do this"
+                                : "This won't close the menu"
+                        }
                         active={selectedToggleButton}
                         closeMenuOnClick={false}
                         iconName={selectedToggleButton ? "radiobox-marked" : "radiobox-blank"}
                         onPress={() => setSelectedToggleButton(state => !state)}
                     />
                 </Menu>
-
             </View>
         </ScrollView>
     );
 };
 
-const themeStyles = EDSStyleSheet.create((theme) => ({
+const themeStyles = EDSStyleSheet.create(theme => ({
     contentContainer: {
-        paddingVertical: theme.spacing.container.paddingVertical
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
     readableContent: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
-    }
+    },
 }));

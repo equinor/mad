@@ -11,13 +11,14 @@ type RootModalProps = {
 
 export const RootModal = ({
     onBackdropPress = () => null,
-    children
+    children,
 }: PropsWithChildren<RootModalProps>) => (
     <Portal name="root">
         <Pressable
             onPress={onBackdropPress}
-            style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}>
+            style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}
+        >
             {children}
         </Pressable>
     </Portal>
-)
+);

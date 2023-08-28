@@ -1,12 +1,5 @@
 import React, { forwardRef, useRef } from "react";
-import {
-    Animated,
-    Pressable,
-    PressableProps,
-    View,
-    ViewStyle,
-    StyleSheet,
-} from "react-native";
+import { Animated, Pressable, PressableProps, View, ViewStyle, StyleSheet } from "react-native";
 import { useToken } from "../../hooks/useToken";
 
 export type PressableHightlightProps = {
@@ -33,7 +26,7 @@ export const PressableHighlight = forwardRef<
             onPress,
             ...rest
         }: React.PropsWithChildren<PressableHightlightProps>,
-        ref
+        ref,
     ) => {
         const theme = useToken();
         const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -60,7 +53,7 @@ export const PressableHighlight = forwardRef<
                 style={style}
                 onPressIn={() => !disabled && handlePressIn()}
                 onPressOut={() => !disabled && handlePressOut()}
-                onPress={(event) => !disabled && !!onPress && onPress(event)}
+                onPress={event => !disabled && !!onPress && onPress(event)}
                 {...rest}
             >
                 <Animated.View
@@ -68,19 +61,20 @@ export const PressableHighlight = forwardRef<
                         styles.overlay,
                         {
                             backgroundColor: theme.colors.interactive.pressedOverlay,
-                            opacity: fadeAnim
-                        }
-                    ]} />
+                            opacity: fadeAnim,
+                        },
+                    ]}
+                />
                 {children}
             </Pressable>
         );
-    }
+    },
 );
 
 const styles = StyleSheet.create({
     overlay: {
-        ...StyleSheet.absoluteFillObject
-    }
-})
+        ...StyleSheet.absoluteFillObject,
+    },
+});
 
 PressableHighlight.displayName = "PressableHighlight";

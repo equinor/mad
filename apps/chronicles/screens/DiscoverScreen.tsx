@@ -1,3 +1,4 @@
+import React from "react";
 import { ScrollView } from "react-native";
 import { DiscoverStackParamList } from "../types";
 
@@ -9,7 +10,6 @@ export default function DiscoverScreen({
 }: NativeStackScreenProps<DiscoverStackParamList>) {
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-
             <Spacer />
 
             <Cell.Group title="data display">

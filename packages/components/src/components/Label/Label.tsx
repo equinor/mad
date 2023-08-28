@@ -15,14 +15,16 @@ export type LabelProps = {
 
 export const Label = (props: LabelProps & TypographyProps) => {
     const { label, meta, ...other } = props;
-    return <View style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 4 }}>
-        <Typography variant="label" color="textTertiary" {...other}>
-            {label}
-        </Typography>
-        <Typography variant="label" color="textTertiary" {...other}>
-            {meta}
-        </Typography>
-    </View>
-}
+    return (
+        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 4 }}>
+            <Typography variant="label" color="textTertiary" {...other}>
+                {label}
+            </Typography>
+            <Typography variant="label" color="textTertiary" {...other}>
+                {meta}
+            </Typography>
+        </View>
+    );
+};
 
 Label.displayName = "Label";

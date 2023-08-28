@@ -6,11 +6,14 @@ import { useStyles } from "../../hooks/useStyles";
 
 export const DialogHeader = (props: TextChildren) => {
     const styles = useStyles(themeStyles);
-    return <View style={styles.header}>
-        <Typography variant="h6" numberOfLines={1} style={styles.title} >{props.children}</Typography>
-    </View>
-
-}
+    return (
+        <View style={styles.header}>
+            <Typography variant="h6" numberOfLines={1} style={styles.title}>
+                {props.children}
+            </Typography>
+        </View>
+    );
+};
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     header: {
@@ -19,10 +22,10 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         borderBottomWidth: theme.geometry.border.borderWidth,
         borderBottomColor: theme.colors.border.medium,
         padding: theme.spacing.dialog.padding,
-        paddingBottom: 0
+        paddingBottom: 0,
     },
     title: {
         lineHeight: 26,
-        color: theme.colors.text.primary
-    }
-}))
+        color: theme.colors.text.primary,
+    },
+}));

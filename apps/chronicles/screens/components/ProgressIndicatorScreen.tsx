@@ -1,7 +1,15 @@
-import { EDSStyleSheet, CircularProgress, useStyles, Button, Spacer, Typography, LinearProgress, DotProgress } from "@equinor/mad-components";
-import { useState } from "react";
+import {
+    EDSStyleSheet,
+    CircularProgress,
+    useStyles,
+    Button,
+    Spacer,
+    Typography,
+    LinearProgress,
+    DotProgress,
+} from "@equinor/mad-components";
+import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
-
 
 const CircularProgressSection = () => {
     const styles = useStyles(themeStyles);
@@ -57,7 +65,8 @@ const LinearProgressSection = () => {
         <>
             <Typography variant="h2">LinearProgress</Typography>
             <Typography>
-                As with the circular progress, the linear progress bar also comes in both a determinate and an indeterminate form.
+                As with the circular progress, the linear progress bar also comes in both a
+                determinate and an indeterminate form.
             </Typography>
             <Spacer />
             <Typography variant="h3">Determinate</Typography>
@@ -84,7 +93,7 @@ const LinearProgressSection = () => {
             <LinearProgress value={undefined} />
         </>
     );
-}
+};
 
 const DotProgressSection = () => {
     const styles = useStyles(themeStyles);
@@ -110,7 +119,7 @@ const DotProgressSection = () => {
             <Spacer />
         </>
     );
-}
+};
 
 export const ProgressIndicatorScreen = () => {
     const styles = useStyles(themeStyles);
@@ -118,7 +127,8 @@ export const ProgressIndicatorScreen = () => {
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={styles.container}>
+            contentContainerStyle={styles.container}
+        >
             <CircularProgressSection />
             <Spacer amount="large" />
             <Spacer amount="large" />
@@ -126,14 +136,14 @@ export const ProgressIndicatorScreen = () => {
             <Spacer amount="large" />
             <Spacer amount="large" />
             <DotProgressSection />
-        </ScrollView >
+        </ScrollView>
     );
 };
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
         paddingVertical: theme.spacing.container.paddingVertical,
-        paddingHorizontal: theme.spacing.container.paddingHorizontal
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
     },
     readableContent: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
@@ -152,6 +162,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     dotsContainer: {
         rowGap: 10,
-        alignItems: "center"
-    }
+        alignItems: "center",
+    },
 }));
