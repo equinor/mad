@@ -22,7 +22,7 @@ jobs:
         steps:
             - name: 👀 Checkout Repo
               uses: actions/checkout@v3
-              with: 
+              with:
                   ref: ${{ github.head_ref }}
 
             - name: 🏗️ Set up pnpm
