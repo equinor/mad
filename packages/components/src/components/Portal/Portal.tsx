@@ -5,21 +5,21 @@ export type PortalProps = {
     /**
      * The name of the portal. The name will be registered and available for all components to route to.
      */
-    name: "root" | Omit<string, "root">;
+    name: "root" | (string & Record<never, never>);
 };
 
 export const Portal = ({ name, children }: PropsWithChildren<PortalProps>) => {
     const { registerHost, bindNode } = useContext(PortalContext);
 
     useEffect(() => {
-        registerHost(name as string);
-        bindNode(name as string, children);
+        registerHost(name);
+        bindNode(name, children);
         // eslint-disable-next-line react-hooks/exhaustive-deps -- adding methods to deps cause max recursion depth error
     }, [children, name]);
 
     useEffect(() => {
         return () => {
-            bindNode(name as string, null);
+            bindNode(name, null);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps -- adding methods to deps cause max recursion depth error
     }, [name]);
