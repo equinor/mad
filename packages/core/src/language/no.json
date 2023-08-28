@@ -1,0 +1,39 @@
+{
+  "createIncident.title": "Opprett sak i ServiceNow",
+  "createIncident.info": "Vi samler inn informasjon om din enhet som en del av vår saksbehandlingsprosess. Ved å sende inn samtykker du i å dele følgende informasjon:",
+  "createIncident.placeholderTitle": "Skriv inn sakstittel",
+  "createIncident.placeholderDescription": "Skriv inn en komplett beskrivelse av saken din. Du trenger ikke oppgi informasjon om din brukerenhet.",
+  "createIncident.created1": "Sak ",
+  "createIncident.created2": " opprettet.",
+  "createIncident.error": "En feil oppstod ved opprettelse av din sak: ",
+
+  "feedback.title": "Gi tilbakemelding",
+  "feedback.info": "Vi samler inn informasjon om din enhet som en del av vår tilbakemeldingsprosess. Ved å sende inn samtykker du i å dele følgende informasjon:\n\n",
+  "feedback.selectFeedbackType": "Velg tilbakemelding type",
+  "feedback.feedBackOnContent": "Tilbakemelding innhold",
+  "feedback.feedBackOnApp": "Tilbakemelding app",
+  "feedback.placeHolderText": "Skriv tilbakemelding her",
+
+  "information.user": "Bruker",
+  "information.deviceBrand": "Enhetsmerke",
+  "information.device": "Enhet",
+  "information.OS": "Operativsystem",
+  "information.timezone": "Tidssone",
+  "information.locale": "Område",
+
+  "Language": "Språk",
+  "English": "Engelsk",
+  "Norwegian": "Norsk",
+  "Submit": "Velg",
+
+  "settings.title": "Innstillinger",
+  "settings.aboutApp": "Om App'en",
+  "settings.loggedInAs": "Logget inn som:",
+  "settings.language": "Språk",
+  "settings.logOut": "Logg av",
+  "settings.back": "Tilbake",
+
+  "keyboard.done": "Ferdig",
+
+  "serviceMessage.couldNotRetrieve": "Kunne ikke hente tjenestemelding"
+}
