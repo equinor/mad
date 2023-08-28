@@ -24,7 +24,7 @@ const PortalHostComponent = ({
     useEffect(() => {
         registerHost(name);
         return () => unregisterHost(name);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding methods to deps cause max recursion error
     }, [name]);
 
     const host = useMemo(() => hosts.find(host => host.name === name), [hosts, name]);

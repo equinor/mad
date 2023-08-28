@@ -1,20 +1,6 @@
 import { colors } from "./colors";
 import { MasterToken } from "./types";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SPACING_XXX_LARGE = 48;
-const SPACING_XX_LARGE = 40;
-const SPACING_X_LARGE = 32;
-const SPACING_LARGE = 24;
-const SPACING_MEDIUM = 16;
-const SPACING_MEDIUM_SMALL = 12;
-const SPACING_SMALL = 8;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SPACING_X_SMALL = 4;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SPACING_XX_SMALL = 2;
-
-const FONT_BASIS = 17;
+import { FONT_BASIS, spacings } from "./values";
 
 export const masterToken: MasterToken = {
     colors: {
@@ -171,8 +157,8 @@ export const masterToken: MasterToken = {
             },
             button: {
                 minHeight: {
-                    tablet: SPACING_XX_LARGE,
-                    phone: SPACING_XX_LARGE,
+                    tablet: spacings.xx_large,
+                    phone: spacings.xx_large,
                 },
             },
             cell: {
@@ -278,98 +264,98 @@ export const masterToken: MasterToken = {
     spacing: {
         container: {
             paddingHorizontal: {
-                tablet: SPACING_X_LARGE,
-                phone: SPACING_LARGE,
+                tablet: spacings.x_large,
+                phone: spacings.large,
             },
             paddingVertical: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM,
+                tablet: spacings.medium,
+                phone: spacings.medium,
             },
         },
         dialog: {
             padding: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM,
+                tablet: spacings.medium,
+                phone: spacings.medium,
             },
             gap: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM,
+                tablet: spacings.medium,
+                phone: spacings.medium,
             },
         },
         element: {
             paddingHorizontal: {
-                tablet: SPACING_MEDIUM_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.medium_small,
+                phone: spacings.small,
             },
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
         },
         button: {
             paddingHorizontal: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM_SMALL,
+                tablet: spacings.medium,
+                phone: spacings.medium_small,
             },
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
             iconGap: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
         },
         textField: {
             paddingHorizontal: {
-                tablet: SPACING_MEDIUM_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.medium_small,
+                phone: spacings.small,
             },
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
         },
         menu: {
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
             item: {
                 paddingVertical: {
-                    tablet: SPACING_MEDIUM_SMALL,
-                    phone: SPACING_MEDIUM_SMALL,
+                    tablet: spacings.medium_small,
+                    phone: spacings.medium_small,
                 },
                 paddingHorizontal: {
-                    tablet: SPACING_LARGE,
-                    phone: SPACING_LARGE,
+                    tablet: spacings.large,
+                    phone: spacings.large,
                 },
                 iconGap: {
-                    tablet: SPACING_MEDIUM,
-                    phone: SPACING_MEDIUM_SMALL,
+                    tablet: spacings.medium,
+                    phone: spacings.medium_small,
                 },
             },
         },
         cell: {
             group: {
                 titleBottomPadding: {
-                    tablet: SPACING_MEDIUM_SMALL,
-                    phone: SPACING_SMALL,
+                    tablet: spacings.medium_small,
+                    phone: spacings.small,
                 },
             },
             content: {
                 titleDescriptionGap: {
-                    tablet: SPACING_SMALL,
-                    phone: SPACING_SMALL,
+                    tablet: spacings.small,
+                    phone: spacings.small,
                 },
             },
             paddingVertical: {
-                tablet: SPACING_LARGE,
-                phone: SPACING_MEDIUM,
+                tablet: spacings.large,
+                phone: spacings.medium,
             },
             gapHorizontal: {
-                tablet: SPACING_LARGE,
-                phone: SPACING_MEDIUM,
+                tablet: spacings.large,
+                phone: spacings.medium,
             },
         },
         spacer: {

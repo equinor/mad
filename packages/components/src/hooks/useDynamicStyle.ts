@@ -18,7 +18,7 @@ export const useDynamicStyle = (
     useMemo(() => {
         const newStyle = createStyleSheet(style());
         setCurrentStyle(newStyle);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- we only want to update when deps change
     }, dependencies);
     return currentStyle;
 };

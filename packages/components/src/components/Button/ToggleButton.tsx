@@ -33,8 +33,7 @@ export const ToggleButtonContext = createContext({
     isSelected: false,
     valid: false,
     toggle: () => {
-        // eslint-disable-next-line no-console
-        console.log("Unintialized ToggleButtonContext");
+        console.warn("Unintialized ToggleButtonContext");
     },
 } as ToggleButtonContextContents);
 

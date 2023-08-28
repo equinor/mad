@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef -- configuration files need cjs format */
 module.exports = function (api) {
     api.cache(true);
     return {

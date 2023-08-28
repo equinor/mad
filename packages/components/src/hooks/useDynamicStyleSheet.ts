@@ -17,6 +17,6 @@ export const useDynamicStyleSheet = <
     style: () => T | StyleSheet.NamedStyles<T>,
     dependencies?: React.DependencyList,
 ) => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- we only want to update when deps change
     return useMemo(() => createStyleSheet(style()), dependencies);
 };

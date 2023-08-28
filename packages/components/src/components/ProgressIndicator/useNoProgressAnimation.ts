@@ -31,7 +31,7 @@ export const useNoProgressAnimation = (value?: number) => {
         } else {
             endlessAnimation.start();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
     }, [value]);
 
     return loopValue;

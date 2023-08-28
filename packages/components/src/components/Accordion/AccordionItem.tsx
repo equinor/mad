@@ -73,7 +73,7 @@ export const AccordionItem = ({
 
     useEffect(() => {
         expanded ? _expandAnimation.start() : _retractAnimation.start();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
     }, [expanded]);
 
     const toggleItem = () => {
