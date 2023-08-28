@@ -32,7 +32,7 @@ export const Dialog = ({ isOpen, onScrimPress, children, ...rest }: DialogProps 
 const themeStyles = EDSStyleSheet.create(
     (theme, props: { style: StyleProp<ViewStyle>; dimensions: ScaledSize }) => ({
         dialog: StyleSheet.flatten({
-            backgroundColor: "white",
+            backgroundColor: theme.colors.container.elevation.aboveScrim,
             borderRadius: theme.geometry.border.elementBorderRadius,
             minHeight: theme.geometry.dimension.dialog.minHeight,
             width: theme.geometry.dimension.dialog.defaultWidth,
