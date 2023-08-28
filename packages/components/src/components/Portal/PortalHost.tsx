@@ -10,7 +10,7 @@ export type PortalHostProps = {
     /**
      * Determines whether or not the portal content is rendered before or after the children of the portal host
      */
-    renderPortalsFirst?: boolean
+    renderPortalsFirst?: boolean;
 };
 
 const PortalHostComponent = ({
@@ -19,24 +19,22 @@ const PortalHostComponent = ({
     renderPortalsFirst = true,
     ...rest
 }: PropsWithChildren<PortalHostProps & ViewProps>) => {
-    const {
-        registerHost,
-        unregisterHost,
-        hosts,
-    } = useContext(PortalContext);
+    const { registerHost, unregisterHost, hosts } = useContext(PortalContext);
 
     useEffect(() => {
         registerHost(name);
         return () => unregisterHost(name);
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding methods to deps cause max recursion error
     }, [name]);
 
-    const host = useMemo(() => hosts.find(host => host.name === name), [hosts])
+    const host = useMemo(() => hosts.find(host => host.name === name), [hosts, name]);
     return (
         <View {...rest}>
             {renderPortalsFirst && host?.node}
             {children}
             {!renderPortalsFirst && host?.node}
-        </View>);
+        </View>
+    );
 };
 export const PortalHost = memo(PortalHostComponent);
 PortalHost.displayName = "Portal.Host";

@@ -13,7 +13,7 @@ type EnvironmentProps = {
      * A string representing the environment that the banner should be rendered for.
      */
     environment: EnvironmentName;
-}
+};
 
 export const Environment = ({ environment }: EnvironmentProps) => {
     const styles = useStyles(themeStyles, { environment });
@@ -22,28 +22,26 @@ export const Environment = ({ environment }: EnvironmentProps) => {
 
     return (
         <View style={styles.container}>
-            <Typography color={styles.text.color}>
-                {environment} environment
-            </Typography>
+            <Typography color={styles.text.color}>{environment} environment</Typography>
         </View>
     );
 };
 
 const themeStyles = EDSStyleSheet.create((theme, props: EnvironmentStyleProps) => {
     const { environment } = props;
-    let backgroundColor = "#00000000"
+    let backgroundColor = "#00000000";
     if (environment !== "prod") {
-        backgroundColor = theme.colors.environment[environment]
+        backgroundColor = theme.colors.environment[environment];
     }
 
     return {
         container: {
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor
+            backgroundColor,
         },
         text: {
-            color: theme.colors.environment.text
-        }
-    }
+            color: theme.colors.environment.text,
+        },
+    };
 });

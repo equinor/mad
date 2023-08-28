@@ -1,22 +1,17 @@
 import React from "react";
 import { Animated, View, ViewProps } from "react-native";
-import { ProgressIndicatorProps } from "./types"
-import Svg, { Rect } from "react-native-svg";
+import { ProgressIndicatorProps } from "./types";
+import { Rect, Svg } from "react-native-svg";
 import { useAnimatedProgress } from "./useAnimatedProgress";
 import { useToken } from "../../hooks/useToken";
 import { useNoProgressAnimation } from "./useNoProgressAnimation";
 
-export type LinearProgressProps = {
-} & ProgressIndicatorProps & ViewProps;
+export type LinearProgressProps = ProgressIndicatorProps & ViewProps;
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect);
 const STROKE_WIDTH = 6;
 
-export const LinearProgress = ({
-    value,
-    ...rest
-}: LinearProgressProps) => {
-
+export const LinearProgress = ({ value, ...rest }: LinearProgressProps) => {
     const token = useToken();
 
     const progressValue = useAnimatedProgress(value, true);
@@ -32,7 +27,6 @@ export const LinearProgress = ({
         inputRange: [0, 1],
         outputRange: ["-50%", "100%"],
     });
-
 
     return (
         <View style={[{ flex: 1, borderRadius: STROKE_WIDTH / 2, overflow: "hidden" }, rest.style]}>
@@ -59,6 +53,6 @@ export const LinearProgress = ({
             </Svg>
         </View>
     );
-}
+};
 
 LinearProgress.displayName = "LinearProgress";

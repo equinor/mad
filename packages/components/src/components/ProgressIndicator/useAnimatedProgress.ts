@@ -10,28 +10,29 @@ const DEFAULT_PROGRESS = 0.618033; // Golden angle / ratio, if anyone is interes
  * @param invertedDefaltProgress A boolean value indicating whether or not to invert the default progress value when no value is provided.
  * @returns An animated value that is animated towards the provided `value` argument.
  */
-export const useAnimatedProgress = (value?: number, invertedDefaltProgress = false,) => {
-    const defaultProgress = invertedDefaltProgress ? (1 - DEFAULT_PROGRESS) : DEFAULT_PROGRESS;
+export const useAnimatedProgress = (value?: number, invertedDefaltProgress = false) => {
+    const defaultProgress = invertedDefaltProgress ? 1 - DEFAULT_PROGRESS : DEFAULT_PROGRESS;
     const token = useToken();
     const progressValue = useRef(new Animated.Value(value ?? defaultProgress)).current;
 
-    const setProgressAnimation = (val: number) => Animated.timing(progressValue, {
-        toValue: val,
-        duration: token.timing.animation.normal,
-        useNativeDriver: true,
-        easing: Easing.inOut(Easing.ease)
-    });
+    const setProgressAnimation = (val: number) =>
+        Animated.timing(progressValue, {
+            toValue: val,
+            duration: token.timing.animation.normal,
+            useNativeDriver: true,
+            easing: Easing.inOut(Easing.ease),
+        });
 
     useEffect(() => {
         if (value === undefined) {
             setProgressAnimation(defaultProgress).start(() =>
-                setProgressAnimation(defaultProgress).stop()
+                setProgressAnimation(defaultProgress).stop(),
             );
-        }
-        else {
+        } else {
             setProgressAnimation(value).start();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
     }, [value]);
 
     return progressValue;
-}
+};

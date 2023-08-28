@@ -2,7 +2,7 @@ import { View, StyleSheet, Image } from "react-native";
 import { ImageMarkup } from "@equinor/react-native-skia-draw";
 import { Button, Typography } from "@equinor/mad-components";
 import * as ImagePicker from "expo-image-picker";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { SnapshotHandle } from "@equinor/react-native-skia-draw/dist/types";
 
 export const DrawScreen = () => {
@@ -22,7 +22,7 @@ export const DrawScreen = () => {
     };
 
     const saveSnapshot = () => {
-        if (!!canvasHandle?.current?.makeImageSnapshot) {
+        if (canvasHandle?.current?.makeImageSnapshot) {
             const image = canvasHandle.current.makeImageSnapshot();
             setModifiedImage(image?.uri);
         }
@@ -49,16 +49,9 @@ export const DrawScreen = () => {
                         Original image:
                     </Typography>
                     <View style={styles.imageContainer}>
-                        <Image
-                            source={{ uri: originalImage }}
-                            style={{ height: "100%" }}
-                        />
+                        <Image source={{ uri: originalImage }} style={{ height: "100%" }} />
                     </View>
-                    <Button
-                        title="+ Add photo"
-                        onPress={pickImage}
-                        style={{ margin: 10 }}
-                    />
+                    <Button title="+ Add photo" onPress={pickImage} style={{ margin: 10 }} />
                 </View>
                 <View
                     style={{
@@ -71,16 +64,9 @@ export const DrawScreen = () => {
                         Modified image:
                     </Typography>
                     <View style={styles.imageContainer}>
-                        <Image
-                            source={{ uri: modifiedImage }}
-                            style={{ height: "100%" }}
-                        />
+                        <Image source={{ uri: modifiedImage }} style={{ height: "100%" }} />
                     </View>
-                    <Button
-                        title="Save snapshot"
-                        style={{ margin: 10 }}
-                        onPress={saveSnapshot}
-                    />
+                    <Button title="Save snapshot" style={{ margin: 10 }} onPress={saveSnapshot} />
                 </View>
             </View>
         </View>

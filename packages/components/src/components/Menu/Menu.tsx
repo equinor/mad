@@ -31,11 +31,11 @@ export type MenuContextType = {
      * A callback method invokable from any part of the menu. Calling this should close the menu.
      */
     close: () => void;
-}
+};
 
 export const MenuContext = createContext<MenuContextType>({
     close: () => null,
-})
+});
 
 export const Menu = ({
     anchorEl,
@@ -45,48 +45,36 @@ export const Menu = ({
     children,
     ...rest
 }: React.PropsWithChildren<MenuProps & ViewProps>) => {
-    const {
-        refs,
-        floatingStyles
-    } = useFloating({
+    const { refs, floatingStyles } = useFloating({
         sameScrollView: false,
         elements: {
             reference: anchorEl.current,
         },
-        middleware: [
-            offset(8),
-            flip(),
-            shift({ padding: 8 }),
-        ],
+        middleware: [offset(8), flip(), shift({ padding: 8 })],
         placement,
     });
 
     const styles = useStyles(themeStyles);
-    return (open &&
-        <RootModal onBackdropPress={onClose}>
-            <View
-                ref={refs.setFloating}
-                style={floatingStyles}>
-                <PopInContainer>
-                    <Paper
-                        style={styles.paperStyle}
-                        elevation="temporaryNav"
-                    >
-                        <View
-                            style={[styles.innerContainer, rest.style]}
-                            {...rest}
-                        >
-                            <MenuContext.Provider
-                                value={{
-                                    close: onClose
-                                }}>
-                                {children}
-                            </MenuContext.Provider>
-                        </View>
-                    </Paper>
-                </PopInContainer>
-            </View>
-        </RootModal>
+    return (
+        open && (
+            <RootModal onBackdropPress={onClose}>
+                <View ref={refs.setFloating} style={floatingStyles}>
+                    <PopInContainer>
+                        <Paper style={styles.paperStyle} elevation="temporaryNav">
+                            <View style={[styles.innerContainer, rest.style]} {...rest}>
+                                <MenuContext.Provider
+                                    value={{
+                                        close: onClose,
+                                    }}
+                                >
+                                    {children}
+                                </MenuContext.Provider>
+                            </View>
+                        </Paper>
+                    </PopInContainer>
+                </View>
+            </RootModal>
+        )
     );
 };
 

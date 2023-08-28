@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
 import { Typography } from "../Typography";
 import { Icon, IconName } from "../Icon";
-import { useContext } from "react";
 import { MenuContext } from "./Menu";
 
 export type MenuItemProps = {
@@ -37,7 +36,6 @@ export type MenuItemProps = {
     iconName?: IconName;
 };
 
-
 export const MenuItem = ({
     title,
     active = false,
@@ -68,14 +66,16 @@ export const MenuItem = ({
             </PressableHighlight>
         </View>
     );
-}
+};
 
-const themeStyles = EDSStyleSheet.create((theme, props: { active: boolean, disabled: boolean }) => {
+const themeStyles = EDSStyleSheet.create((theme, props: { active: boolean; disabled: boolean }) => {
     const activeColor = props.active && theme.colors.text.menu.active;
     const disabledColor = props.disabled && theme.colors.text.disabled;
     return {
         itemContainer: {
-            backgroundColor: props.active ? theme.colors.interactive.selectedHighlight : theme.colors.container.elevation.temporaryNav,
+            backgroundColor: props.active
+                ? theme.colors.interactive.selectedHighlight
+                : theme.colors.container.elevation.temporaryNav,
         },
         pressableContainer: {
             paddingHorizontal: theme.spacing.menu.item.paddingHorizontal,
@@ -88,7 +88,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: { active: boolean, disab
             flexDirection: "row",
             justifyContent: "flex-start",
             alignContent: "center",
-            gap: theme.spacing.menu.item.iconGap
+            gap: theme.spacing.menu.item.iconGap,
         },
-    }
+    };
 });

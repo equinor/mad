@@ -23,17 +23,19 @@ export type IconProps = {
      * A custom text style applied to the icon.
      * The icon is treated as a font character and will therefore respond to text style values.
      */
-    style?: TextStyle,
+    style?: TextStyle;
 };
 
-export const Icon = ({
-    name,
-    size,
-    color,
-    style
-}: IconProps) => {
+export const Icon = ({ name, size, color, style }: IconProps) => {
     const token = useToken();
-    return <MaterialCommunityIcons name={name} size={size ?? token.geometry.dimension.icon.size} color={resolveColor(color ?? "textPrimary", token)} style={style} />
+    return (
+        <MaterialCommunityIcons
+            name={name}
+            size={size ?? token.geometry.dimension.icon.size}
+            color={resolveColor(color ?? "textPrimary", token)}
+            style={style}
+        />
+    );
 };
 
 Icon.displayName = "Icon";

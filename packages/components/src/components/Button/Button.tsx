@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { forwardRef, useContext } from "react";
 import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
@@ -44,7 +44,7 @@ export type ButtonProps = {
     iconPosition?: "leading" | "trailing";
 };
 
-export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
+export const Button = forwardRef<View, ButtonProps & ViewProps>(
     (
         {
             title,
@@ -57,7 +57,7 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
             iconPosition = "leading",
             ...rest
         },
-        ref
+        ref,
     ) => {
         const toggleData = useContext(ToggleButtonContext);
         const isToggleButton = toggleData && toggleData.valid;
@@ -74,22 +74,17 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
 
         const ButtonContent = () => (
             <>
-                {iconName && (iconPosition === "leading") &&
+                {iconName && iconPosition === "leading" && (
                     <Icon name={iconName} color={styles.textStyle.color as Color} />
-                }
-                <Typography
-                    group="interactive"
-                    variant="button"
-                    style={styles.textStyle}
-                >
+                )}
+                <Typography group="interactive" variant="button" style={styles.textStyle}>
                     {title}
                 </Typography>
-                {iconName && (iconPosition === "trailing") &&
+                {iconName && iconPosition === "trailing" && (
                     <Icon name={iconName} color={styles.textStyle.color as Color} />
-                }
-
+                )}
             </>
-        )
+        );
 
         return (
             <View>
@@ -100,84 +95,80 @@ export const Button = React.forwardRef<View, ButtonProps & ViewProps>(
                         style={styles.pressableContainer}
                     >
                         <View style={styles.labelContainer}>
-                            {loading ?
+                            {loading ? (
                                 <DotProgress
-                                    color={(disabled || variant !== "contained") ? "primary" : "neutral"}
-                                    size={12} />
-                                :
-                                ButtonContent()}
+                                    color={
+                                        disabled || variant !== "contained" ? "primary" : "neutral"
+                                    }
+                                    size={12}
+                                />
+                            ) : (
+                                ButtonContent()
+                            )}
                         </View>
                     </PressableHighlight>
                 </View>
             </View>
         );
-    }
+    },
 );
 
 Button.displayName = "Button";
 
 type ButtonStyleSheetProps = {
-    groupData: { isFirstItem: boolean, isLastItem: boolean }
-    isToggleButton: boolean,
-    toggleStatus: boolean,
-    color: "primary" | "secondary" | "danger",
-    variant: "contained" | "outlined" | "ghost",
-    disabled: boolean,
+    groupData: { isFirstItem: boolean; isLastItem: boolean };
+    isToggleButton: boolean;
+    toggleStatus: boolean;
+    color: "primary" | "secondary" | "danger";
+    variant: "contained" | "outlined" | "ghost";
+    disabled: boolean;
 };
 
-const themeStyles = EDSStyleSheet.create(
-    (theme, props: ButtonStyleSheetProps) => {
-        const {
-            color,
-            isToggleButton,
-            toggleStatus,
-            groupData,
-            disabled
-        } = props;
-        let { variant } = props;
+const themeStyles = EDSStyleSheet.create((theme, props: ButtonStyleSheetProps) => {
+    const { color, isToggleButton, toggleStatus, groupData, disabled } = props;
+    let { variant } = props;
 
-        variant = isToggleButton ? toggleStatus ? "contained" : "outlined" : variant;
+    variant = isToggleButton ? (toggleStatus ? "contained" : "outlined") : variant;
 
-        let backgroundColor = theme.colors.interactive[color];
-        let textColor =
-            variant === "contained"
-                ? theme.colors.text.primaryInverted
-                : theme.colors.interactive[color];
+    let backgroundColor = theme.colors.interactive[color];
+    let textColor =
+        variant === "contained"
+            ? theme.colors.text.primaryInverted
+            : theme.colors.interactive[color];
 
-        backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
-        backgroundColor = variant !== "contained" ? "transparent" : backgroundColor;
-        textColor = disabled ? theme.colors.text.disabled : textColor;
+    backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
+    backgroundColor = variant !== "contained" ? "transparent" : backgroundColor;
+    textColor = disabled ? theme.colors.text.disabled : textColor;
 
-        const leftRadius = !groupData.isFirstItem ? 0 : theme.geometry.border.elementBorderRadius;
-        const rightRadius = !groupData.isLastItem ? 0 : theme.geometry.border.elementBorderRadius;
-        const outlinedPaddingReduction = variant === "outlined" ? theme.geometry.border.borderWidth : 0
-        const outlinedHeightReduction = outlinedPaddingReduction * 2;
-        return {
-            colorContainer: {
-                backgroundColor,
-                borderTopLeftRadius: leftRadius,
-                borderBottomLeftRadius: leftRadius,
-                borderTopRightRadius: rightRadius,
-                borderBottomRightRadius: rightRadius,
-                borderColor: disabled ? theme.colors.text.disabled : theme.colors.interactive[color],
-                borderWidth: variant === "outlined" ? theme.geometry.border.borderWidth : undefined,
-                overflow: "hidden",
-            },
-            pressableContainer: {
-                minHeight: theme.geometry.dimension.button.minHeight - outlinedHeightReduction,
-                paddingHorizontal: theme.spacing.button.paddingHorizontal - outlinedPaddingReduction,
-                paddingVertical: theme.spacing.button.paddingVertical - outlinedPaddingReduction,
-            },
-            labelContainer: {
-                flex: 1,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: theme.spacing.button.iconGap,
-            },
-            textStyle: {
-                color: textColor,
-            },
-        };
-    }
-);
+    const leftRadius = !groupData.isFirstItem ? 0 : theme.geometry.border.elementBorderRadius;
+    const rightRadius = !groupData.isLastItem ? 0 : theme.geometry.border.elementBorderRadius;
+    const outlinedPaddingReduction = variant === "outlined" ? theme.geometry.border.borderWidth : 0;
+    const outlinedHeightReduction = outlinedPaddingReduction * 2;
+    return {
+        colorContainer: {
+            backgroundColor,
+            borderTopLeftRadius: leftRadius,
+            borderBottomLeftRadius: leftRadius,
+            borderTopRightRadius: rightRadius,
+            borderBottomRightRadius: rightRadius,
+            borderColor: disabled ? theme.colors.text.disabled : theme.colors.interactive[color],
+            borderWidth: variant === "outlined" ? theme.geometry.border.borderWidth : undefined,
+            overflow: "hidden",
+        },
+        pressableContainer: {
+            minHeight: theme.geometry.dimension.button.minHeight - outlinedHeightReduction,
+            paddingHorizontal: theme.spacing.button.paddingHorizontal - outlinedPaddingReduction,
+            paddingVertical: theme.spacing.button.paddingVertical - outlinedPaddingReduction,
+        },
+        labelContainer: {
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: theme.spacing.button.iconGap,
+        },
+        textStyle: {
+            color: textColor,
+        },
+    };
+});

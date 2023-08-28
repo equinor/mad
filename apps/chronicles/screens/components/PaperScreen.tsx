@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Paper,
     Typography,
@@ -34,11 +35,10 @@ export const PaperScreen = () => {
         >
             <View style={style.textContentContainer}>
                 <Typography>
-                    A paper is a fundamental container with an elevation and a
-                    default backgroundColor.{"\n"}
-                    It is mainly used as a building block for other components
-                    in our library, so perhaps you might need it for the same
-                    reasons as well.
+                    A paper is a fundamental container with an elevation and a default
+                    backgroundColor.{"\n"}
+                    It is mainly used as a building block for other components in our library, so
+                    perhaps you might need it for the same reasons as well.
                 </Typography>
             </View>
             <Spacer />
@@ -62,7 +62,7 @@ export const PaperScreen = () => {
     );
 };
 
-const themeStyles = EDSStyleSheet.create((theme) => ({
+const themeStyles = EDSStyleSheet.create(theme => ({
     contentContainer: {
         flex: 1,
         paddingVertical: theme.spacing.container.paddingVertical,

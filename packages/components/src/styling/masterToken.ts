@@ -1,17 +1,6 @@
 import { colors } from "./colors";
 import { MasterToken } from "./types";
-
-const SPACING_XXX_LARGE = 48;
-const SPACING_XX_LARGE = 40;
-const SPACING_X_LARGE = 32;
-const SPACING_LARGE = 24;
-const SPACING_MEDIUM = 16;
-const SPACING_MEDIUM_SMALL = 12;
-const SPACING_SMALL = 8;
-const SPACING_X_SMALL = 4;
-const SPACING_XX_SMALL = 2;
-
-const FONT_BASIS = 17;
+import { FONT_BASIS, spacings } from "./values";
 
 export const masterToken: MasterToken = {
     colors: {
@@ -67,8 +56,8 @@ export const masterToken: MasterToken = {
             scrim: {
                 light: "rgba(0,0,0,0.4)",
                 // TODO same color for dark mode?
-                dark: "rgba(0,0,0,0.4)"
-            }
+                dark: "rgba(0,0,0,0.4)",
+            },
         },
         interactive: {
             primary: {
@@ -102,7 +91,7 @@ export const masterToken: MasterToken = {
             selectedHighlight: {
                 light: colors.interactive_primary_light_selected_highlight,
                 dark: colors.interactive_primary_dark_resting,
-            }
+            },
         },
         environment: {
             dev: {
@@ -120,7 +109,7 @@ export const masterToken: MasterToken = {
             text: {
                 light: colors.text_and_static_icons_light_default,
                 dark: colors.text_and_static_icons_dark_primary_black,
-            }
+            },
         },
         text: {
             primary: {
@@ -147,7 +136,7 @@ export const masterToken: MasterToken = {
                 active: {
                     light: colors.interactive_primary_light_resting,
                     dark: colors.interactive_primary_dark_resting,
-                }
+                },
             },
             disabled: {
                 light: colors.interactive_disabled_light_text,
@@ -168,8 +157,8 @@ export const masterToken: MasterToken = {
             },
             button: {
                 minHeight: {
-                    tablet: SPACING_XX_LARGE,
-                    phone: SPACING_XX_LARGE,
+                    tablet: spacings.xx_large,
+                    phone: spacings.xx_large,
                 },
             },
             cell: {
@@ -204,19 +193,19 @@ export const masterToken: MasterToken = {
             dialog: {
                 minHeight: {
                     tablet: 213,
-                    phone: 213
+                    phone: 213,
                 },
                 defaultWidth: {
                     phone: 500,
-                    tablet: 500
+                    tablet: 500,
                 },
                 header: {
                     height: {
                         tablet: 50,
-                        phone: 50
-                    }
-                }
-            }
+                        phone: 50,
+                    },
+                },
+            },
         },
         shadow: {
             none: {},
@@ -275,99 +264,99 @@ export const masterToken: MasterToken = {
     spacing: {
         container: {
             paddingHorizontal: {
-                tablet: SPACING_X_LARGE,
-                phone: SPACING_LARGE,
+                tablet: spacings.x_large,
+                phone: spacings.large,
             },
             paddingVertical: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM,
+                tablet: spacings.medium,
+                phone: spacings.medium,
             },
         },
         dialog: {
             padding: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM
+                tablet: spacings.medium,
+                phone: spacings.medium,
             },
             gap: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM
-            }
+                tablet: spacings.medium,
+                phone: spacings.medium,
+            },
         },
         element: {
             paddingHorizontal: {
-                tablet: SPACING_MEDIUM_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.medium_small,
+                phone: spacings.small,
             },
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
         },
         button: {
             paddingHorizontal: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM_SMALL,
+                tablet: spacings.medium,
+                phone: spacings.medium_small,
             },
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
             iconGap: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
-            }
+                tablet: spacings.small,
+                phone: spacings.small,
+            },
         },
         textField: {
             paddingHorizontal: {
-                tablet: SPACING_MEDIUM_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.medium_small,
+                phone: spacings.small,
             },
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
         },
         menu: {
             paddingVertical: {
-                tablet: SPACING_SMALL,
-                phone: SPACING_SMALL,
+                tablet: spacings.small,
+                phone: spacings.small,
             },
             item: {
                 paddingVertical: {
-                    tablet: SPACING_MEDIUM_SMALL,
-                    phone: SPACING_MEDIUM_SMALL,
+                    tablet: spacings.medium_small,
+                    phone: spacings.medium_small,
                 },
                 paddingHorizontal: {
-                    tablet: SPACING_LARGE,
-                    phone: SPACING_LARGE,
+                    tablet: spacings.large,
+                    phone: spacings.large,
                 },
                 iconGap: {
-                    tablet: SPACING_MEDIUM,
-                    phone: SPACING_MEDIUM_SMALL,
+                    tablet: spacings.medium,
+                    phone: spacings.medium_small,
                 },
             },
         },
         cell: {
             group: {
                 titleBottomPadding: {
-                    tablet: SPACING_MEDIUM_SMALL,
-                    phone: SPACING_SMALL
-                }
+                    tablet: spacings.medium_small,
+                    phone: spacings.small,
+                },
             },
             content: {
                 titleDescriptionGap: {
-                    tablet: SPACING_SMALL,
-                    phone: SPACING_SMALL,
+                    tablet: spacings.small,
+                    phone: spacings.small,
                 },
             },
             paddingVertical: {
-                tablet: SPACING_MEDIUM,
-                phone: SPACING_MEDIUM_SMALL,
+                tablet: spacings.large,
+                phone: spacings.medium,
             },
             gapHorizontal: {
-                tablet: SPACING_LARGE,
-                phone: SPACING_MEDIUM,
-            }
+                tablet: spacings.large,
+                phone: spacings.medium,
+            },
         },
         spacer: {
             small: {
@@ -426,14 +415,13 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Medium",
                 fontSize: FONT_BASIS * 0.75,
                 textAlign: "left",
-                lineHeight: FONT_BASIS
-
+                lineHeight: FONT_BASIS,
             },
             input: {
                 fontFamily: "Equinor-Regular",
                 fontSize: FONT_BASIS,
                 textAlign: "left",
-            }
+            },
         },
         interactive: {
             button: {
@@ -458,7 +446,7 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.75 * FONT_BASIS,
                 textAlign: "left",
-            }
+            },
         },
         ui: {
             tooltip: {
@@ -473,6 +461,6 @@ export const masterToken: MasterToken = {
             slow: 250,
             normal: 100,
             fast: 50,
-        }
-    }
+        },
+    },
 };

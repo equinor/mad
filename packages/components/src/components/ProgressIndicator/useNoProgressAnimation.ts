@@ -11,11 +11,13 @@ export const useNoProgressAnimation = (value?: number) => {
     const loopValue = useRef(new Animated.Value(value ?? 0)).current;
     const token = useToken();
 
-    const endlessAnimation = Animated.loop(Animated.timing(loopValue, {
-        toValue: 1,
-        duration: 1500,
-        useNativeDriver: true,
-    }));
+    const endlessAnimation = Animated.loop(
+        Animated.timing(loopValue, {
+            toValue: 1,
+            duration: 1500,
+            useNativeDriver: true,
+        }),
+    );
 
     const resetAnimation = Animated.timing(loopValue, {
         toValue: 0,
@@ -25,14 +27,12 @@ export const useNoProgressAnimation = (value?: number) => {
 
     useEffect(() => {
         if (value !== undefined) {
-            resetAnimation.start(() =>
-                endlessAnimation.stop()
-            );
-        }
-        else {
+            resetAnimation.start(() => endlessAnimation.stop());
+        } else {
             endlessAnimation.start();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
     }, [value]);
 
     return loopValue;
-}
+};

@@ -1,8 +1,8 @@
+import React from "react";
 import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { SpacerProps } from "./types";
-
 
 export const SpacerHorizontal = ({ amount = "medium" }: SpacerProps) => {
     const styles = useStyles(themeStyles, { amount });

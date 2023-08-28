@@ -1,13 +1,14 @@
+import React from "react";
 import { Accordion, EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
-
 export const AccordionScreen = () => {
-    const styles = useStyles(themeStyles)
+    const styles = useStyles(themeStyles);
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={styles.container}>
+            contentContainerStyle={styles.container}
+        >
             <View style={styles.readableContent}>
                 <Typography>
                     An accordion is a collection of accordion items that can be expanded and
@@ -23,15 +24,18 @@ export const AccordionScreen = () => {
                     <Typography>Here are some colors:</Typography>
                     <Spacer />
                     <View style={styles.rainbowContainer}>
-                        {["red", "orange", "yellow", "green", "blue", "indigo", "violet"].map((col, index) => (
-                            <View
-                                key={index}
-                                style={{
-                                    flex: 1,
-                                    borderRadius: 6,
-                                    backgroundColor: col
-                                }}>
-                            </View>))}
+                        {["red", "orange", "yellow", "green", "blue", "indigo", "violet"].map(
+                            (col, index) => (
+                                <View
+                                    key={index}
+                                    style={{
+                                        flex: 1,
+                                        borderRadius: 6,
+                                        backgroundColor: col,
+                                    }}
+                                ></View>
+                            ),
+                        )}
                     </View>
                 </Accordion.Item>
                 <Accordion.Item title="Right-positioned chevron" chevronPosition="right">
@@ -50,9 +54,9 @@ export const AccordionScreen = () => {
             <View style={styles.readableContent}>
                 <Typography variant="h2">Adornments</Typography>
                 <Typography>
-                    You are free to add an adornment and / or an icon to the accordion items.
-                    Note that based on the position of the chevron, the layout will differ.
-                    See the following accordion for more info:
+                    You are free to add an adornment and / or an icon to the accordion items. Note
+                    that based on the position of the chevron, the layout will differ. See the
+                    following accordion for more info:
                 </Typography>
             </View>
             <Spacer />
@@ -63,8 +67,11 @@ export const AccordionScreen = () => {
                         <View style={styles.adornment}>
                             <Typography>Adornment</Typography>
                         </View>
-                    }>
-                    <Typography>For left-positioned chevrons, the adornment is given plenty of space.</Typography>
+                    }
+                >
+                    <Typography>
+                        For left-positioned chevrons, the adornment is given plenty of space.
+                    </Typography>
                 </Accordion.Item>
                 <Accordion.Item
                     title="Right chevron"
@@ -73,18 +80,24 @@ export const AccordionScreen = () => {
                         <View style={styles.adornment}>
                             <Typography>Adornment</Typography>
                         </View>
-                    }>
-                    <Typography>For right-positioned chevrons, the adornment is put in between it and the title.</Typography>
+                    }
+                >
+                    <Typography>
+                        For right-positioned chevrons, the adornment is put in between it and the
+                        title.
+                    </Typography>
                 </Accordion.Item>
                 <Accordion.Item
                     title="Right chevron with icon"
                     chevronPosition="right"
-                    iconName="face-woman-shimmer-outline">
-                    <Typography>The icon is auto-positioned to make the accordion item line up with the grid-system.</Typography>
+                    iconName="face-woman-shimmer-outline"
+                >
+                    <Typography>
+                        The icon is auto-positioned to make the accordion item line up with the
+                        grid-system.
+                    </Typography>
                 </Accordion.Item>
-                <Accordion.Item
-                    title="Left chevron with icon"
-                    iconName="face-man-shimmer-outline">
+                <Accordion.Item title="Left chevron with icon" iconName="face-man-shimmer-outline">
                     <Typography>The chevron and the icon effectively switch places!</Typography>
                 </Accordion.Item>
                 <Accordion.Item
@@ -95,7 +108,8 @@ export const AccordionScreen = () => {
                         <View style={styles.adornment}>
                             <Typography>Adornment</Typography>
                         </View>
-                    }>
+                    }
+                >
                     <Typography>Things become more tight, but the layout still works.</Typography>
                 </Accordion.Item>
                 <Accordion.Item
@@ -105,11 +119,14 @@ export const AccordionScreen = () => {
                         <View style={styles.adornment}>
                             <Typography>Adornment</Typography>
                         </View>
-                    }>
-                    <Typography>Consider the available space for smaller devices as well. Use with caution!</Typography>
+                    }
+                >
+                    <Typography>
+                        Consider the available space for smaller devices as well. Use with caution!
+                    </Typography>
                 </Accordion.Item>
             </Accordion>
-        </ScrollView >
+        </ScrollView>
     );
 };
 
@@ -133,6 +150,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         borderStyle: "dashed",
         borderColor: theme.colors.interactive.primary,
         borderRadius: theme.geometry.border.elementBorderRadius,
-        paddingHorizontal: theme.spacing.container.paddingHorizontal
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
     },
 }));
