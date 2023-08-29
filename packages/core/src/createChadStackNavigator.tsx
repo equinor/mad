@@ -1,8 +1,8 @@
 
-// @ts-nocheck
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Environment} from '@equinor/mad-components'
-import React, { forwardRef} from 'react';
+import React from 'react';
 import { Login } from './screens/Login';
 
 type ChadStackConfig = {
@@ -12,30 +12,29 @@ type ChadStackConfig = {
     mainRoute: string
 }
 
-export const createChadStackNavigator = (config: ChadStackConfig) => {
-    const Stack = createNativeStackNavigator();
-    const ChadStackScreen = forwardRef<typeof Stack.Screen, PropsOf<typeof Stack.Screen>>((props, ref) => {
+export const createChadStackNavigator = <T extends ParamListBase,>(config: ChadStackConfig) => {
+    const Stack = createNativeStackNavigator<T>();
+    const renderScreen = (props) => {
         const Component = props.component;
         const FinalComponent = (componentProps) => <>
-        <Environment />
+        <Environment environment="dev" />
         {Component && <Component {...componentProps}/>}
     </>
-        return <Stack.Screen ref={ref} {...props} component={FinalComponent} />
-    })
-    ChadStackScreen.displayName = "ChadStackScreen";
+        return <Stack.Screen {...props} component={FinalComponent} />
+    }
 
     const ChadStackNavigator = React.forwardRef<typeof Stack.Navigator, PropsOf<typeof Stack.Navigator>>((props, ref) => {
         return <Stack.Navigator ref={ref} {...props}>
-            <Stack.Screen name="login" component={({navigation}) => <Login onNavigate={() => navigation.navigate(config.mainRoute)} />} />
-            {props.children}
+            {renderScreen({name:"login", component:({navigation}) => <Login onNavigate={() => navigation.navigate(config.mainRoute)} />})}
+            {props.children.map(child => <Stack.Screen component={child} />)}
         </Stack.Navigator>
     })
-    ChadStackNavigator.displayName = "ChadStackNavigator"
+    ChadStackNavigator.displayName = "Navigator"
 
     const ChadStack = {
         Group: Stack.Group,
         Navigator: ChadStackNavigator,
-        Screen: ChadStackScreen
+        Screen: renderScreen
     }
 
     return ChadStack
@@ -43,3 +42,4 @@ export const createChadStackNavigator = (config: ChadStackConfig) => {
 }
 
 export type PropsOf<T extends (props: any) => any> = Parameters<T>[0]
+
