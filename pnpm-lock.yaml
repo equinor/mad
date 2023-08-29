@@ -40,6 +40,7 @@ importers:
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-components': '*'
       '@equinor/mad-core': workspace:*
+      '@equinor/mad-navigation': workspace:*
       '@equinor/react-native-skia-draw': workspace:*
       '@expo/vector-icons': ^13.0.0
       '@expo/webpack-config': ^18.0.1
@@ -75,6 +76,7 @@ importers:
     dependencies:
       '@equinor/mad-components': link:../../packages/components
       '@equinor/mad-core': link:../../packages/core
+      '@equinor/mad-navigation': link:../../packages/navigation
       '@equinor/react-native-skia-draw': link:../../packages/skia-draw
       '@expo/vector-icons': 13.0.0
       '@expo/webpack-config': 18.0.4_expo@49.0.5
@@ -228,6 +230,21 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-native: 0.72.3_5uxi4zdir3aqroafmx7pnq5rdy
       react-native-device-info: 10.8.0_react-native@0.72.3
+    devDependencies:
+      '@equinor/eslint-config-mad': link:../eslint-config-mad
+
+  packages/navigation:
+    specifiers:
+      '@equinor/eslint-config-mad': workspace:*
+      '@equinor/mad-components': workspace:*
+      react: '>=16.8'
+      react-dom: '>=16.8'
+      react-native: '>=0.68'
+    dependencies:
+      '@equinor/mad-components': link:../components
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-native: 0.72.3_5uxi4zdir3aqroafmx7pnq5rdy
     devDependencies:
       '@equinor/eslint-config-mad': link:../eslint-config-mad
 

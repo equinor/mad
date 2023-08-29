@@ -1,5 +1,5 @@
 
-
+// @ts-nocheck
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Environment} from '@equinor/mad-components'
 import React from 'react';

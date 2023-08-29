@@ -4,9 +4,7 @@
  *
  */
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -31,7 +29,7 @@ import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicator
 import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
-import { createChadStackNavigator } from "@equinor/mad-core";
+import { createNativeStackNavigator, createBottomTabNavigator} from "@equinor/mad-navigation";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -59,11 +57,11 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const RootStack = createChadStackNavigator<RootStackParamList>({'login': {'logo': 'whatever'}, 'mainRoute': 'Root'});
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
     return (
-        <RootStack.Navigator initialRouteName="login">
+        <RootStack.Navigator>
             <RootStack.Screen
                 name="Root"
                 component={BottomTabNavigator}
