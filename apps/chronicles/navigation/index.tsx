@@ -31,6 +31,7 @@ import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicator
 import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
+import { createChadStackNavigator } from "@equinor/mad-core";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -58,11 +59,11 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createChadStackNavigator<RootStackParamList>({'login': {'logo': 'whatever'}, 'mainRoute': 'Root'});
 
 function RootNavigator() {
     return (
-        <RootStack.Navigator>
+        <RootStack.Navigator initialRouteName="login">
             <RootStack.Screen
                 name="Root"
                 component={BottomTabNavigator}

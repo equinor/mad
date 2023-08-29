@@ -13,6 +13,7 @@
         "test:components": "turbo run test --filter @equinor/mad-components --",
         "dev:components": "turbo run dev --filter @equinor/mad-components",
         "build:components": "turbo run build --filter @equinor/mad-components",
+        "dev:core": "turbo run dev --filter @equinor/mad-core",
         "dev:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
         "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
         "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",

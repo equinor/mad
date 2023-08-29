@@ -1,0 +1,1 @@
+export {createChadStackNavigator} from './createChadStackNavigator';

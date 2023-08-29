@@ -1,11 +1,12 @@
-import { getDateFromIsoString, getShortDate, Typography } from 'mad-expo-core';
+import { getDateFromIsoString, getShortDate } from './utils/dateutils';
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import RenderHtml, { defaultSystemFonts } from 'react-native-render-html';
 import * as showdown from 'showdown';
 
 import Colors from '../stylesheets/colors';
-import Button from '../atoms/Button';
+
+import { Typography, Button } from '@equinor/mad-components';
 
 const featureTitle = "What's new";
 const affirmText = 'OK';
@@ -29,22 +30,22 @@ type ChangelogProps = {
   onPressAffirm: () => void;
 };
 
-export const ChangeLog = ({ release, onPressAffirm }: ChangelogProps) => {
+export const ReleaseNotesScreen = ({ release, onPressAffirm }: ChangelogProps) => {
   const [width, setWidth] = useState(0);
   const html = { html: converter.makeHtml(release.releaseNote) };
   const date = getDateFromIsoString(release.releaseDate);
-  const shortDate = getShortDate(date);
+  const shortDate = date && getShortDate(date);
 
   return (
     <View style={styles.container}>
-      <Typography style={styles.titleHeader} medium variant="h4">
+      <Typography style={styles.titleHeader} variant="h4">
         {featureTitle}
       </Typography>
       <ScrollView style={styles.changelogItem}>
-        <Typography style={styles.versionHeader} medium>
+        <Typography style={styles.versionHeader}>
           {release.version}
         </Typography>
-        <Typography style={styles.subtitleHeader} medium>
+        <Typography style={styles.subtitleHeader}>
           {shortDate}
         </Typography>
         <View

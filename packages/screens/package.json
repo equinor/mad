@@ -31,11 +31,15 @@
 	},
 	"dependencies": {
 		"@equinor/mad-components": "workspace:*",
+		"luxon": "^3.4.2",
 		"react-native-keyboard-aware-scroll-view": "^0.9.5",
+		"react-native-render-html": "^6.3.4",
 		"showdown": "^2.1.0"
 	},
 	"devDependencies": {
-		"@equinor/eslint-config-mad": "workspace:*"
+		"@equinor/eslint-config-mad": "workspace:*",
+		"@types/luxon": "^3.3.1",
+		"@types/showdown": "^2.0.1"
 	},
 	"files": [
 		"CODE_OF_CONDUCT.md",

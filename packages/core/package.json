@@ -36,6 +36,7 @@
 	},
 	"dependencies": {
 		"@equinor/mad-components": "workspace:*",
+		"@equinor/mad-screens": "workspace:*",
 		"@equinor/mad-insights": "workspace:*",
 		"@floating-ui/react-native": "^0.10.0",
 		"@microsoft/applicationinsights-react-native": "^4.0.0",
