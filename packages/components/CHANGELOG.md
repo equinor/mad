@@ -1,5 +1,13 @@
 # @equinor/mad-components
 
+## 0.4.2
+
+### Patch Changes
+
+-   edac0f1: Added Cell.Button component
+-   e9d978d: Set the Dialog container color to be dynamic.
+-   e507ef4: Increased `Cell` vertical padding
+
 ## 0.4.1
 
 ### Patch Changes
