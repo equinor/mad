@@ -7,27 +7,24 @@ import {
     TabRouter,
     TabRouterOptions,
     useNavigationBuilder,
-  } from '@react-navigation/native';
-  import * as React from 'react';
-  
-  import type {
-    BottomTabNavigationEventMap,
-    BottomTabNavigationOptions,
-  } from '@react-navigation/bottom-tabs';
-  import { BottomTabView } from '@react-navigation/bottom-tabs';
-import { createMadDescriptors } from '../_internal/createMadDescriptors';
-import type {BottomTabNavigationConfig} from './types';
-  
-  type Props = DefaultNavigatorOptions<
+} from "@react-navigation/native";
+import * as React from "react";
+
+import type { BottomTabNavigationEventMap } from "@react-navigation/bottom-tabs";
+import { BottomTabView } from "@react-navigation/bottom-tabs";
+import { createMadDescriptors } from "../_internal/createMadDescriptors";
+import type { BottomTabNavigationConfig, MadBottomTabNavigationOptions } from "./types";
+
+type Props = DefaultNavigatorOptions<
     ParamListBase,
     TabNavigationState<ParamListBase>,
-    BottomTabNavigationOptions,
+    MadBottomTabNavigationOptions,
     BottomTabNavigationEventMap
-  > &
+> &
     TabRouterOptions &
     BottomTabNavigationConfig;
-  
-  function BottomTabNavigator({
+
+function BottomTabNavigator({
     id,
     initialRouteName,
     backBehavior,
@@ -36,41 +33,40 @@ import type {BottomTabNavigationConfig} from './types';
     screenOptions,
     sceneContainerStyle,
     ...rest
-  }: Props) {
-    const { state, descriptors, navigation, NavigationContent } =
-      useNavigationBuilder<
+}: Props) {
+    const { state, descriptors, navigation, NavigationContent } = useNavigationBuilder<
         TabNavigationState<ParamListBase>,
         TabRouterOptions,
         TabActionHelpers<ParamListBase>,
-        BottomTabNavigationOptions,
+        MadBottomTabNavigationOptions,
         BottomTabNavigationEventMap
-      >(TabRouter, {
+    >(TabRouter, {
         id,
         initialRouteName,
         backBehavior,
         children,
         screenListeners,
         screenOptions,
-      });
+    });
 
-      const modifiedDescriptors = createMadDescriptors(descriptors)
-  
+    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions);
+
     return (
-      <NavigationContent>
-        <BottomTabView
-          {...rest}
-          state={state}
-          navigation={navigation}
-          descriptors={modifiedDescriptors}
-          sceneContainerStyle={sceneContainerStyle}
-        />
-      </NavigationContent>
+        <NavigationContent>
+            <BottomTabView
+                {...rest}
+                state={state}
+                navigation={navigation}
+                descriptors={modifiedDescriptors}
+                sceneContainerStyle={sceneContainerStyle}
+            />
+        </NavigationContent>
     );
-  }
-  
-  export const createBottomTabNavigator = createNavigatorFactory<
+}
+
+export const createBottomTabNavigator = createNavigatorFactory<
     TabNavigationState<ParamListBase>,
-    BottomTabNavigationOptions,
+    MadBottomTabNavigationOptions,
     BottomTabNavigationEventMap,
     typeof BottomTabNavigator
-  >(BottomTabNavigator);
+>(BottomTabNavigator);

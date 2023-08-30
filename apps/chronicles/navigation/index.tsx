@@ -17,7 +17,7 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { Color, Icon, IconName, useToken } from "@equinor/mad-components";
+import { Color, EnvironmentProvider, Icon, IconName, useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 import { SearchScreen } from "../screens/components/SearchScreen";
@@ -29,27 +29,32 @@ import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicator
 import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
-import { createNativeStackNavigator, createBottomTabNavigator} from "@equinor/mad-navigation";
+
+//import { createNativeStackNavigator } from "@react-navigation/native-stack";
+//import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator, createBottomTabNavigator } from "@equinor/mad-navigation";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
-        <NavigationContainer
-            linking={LinkingConfiguration}
-            theme={{
-                dark: colorScheme === "dark",
-                colors: {
-                    primary: token.colors.interactive.primary,
-                    background: token.colors.container.background,
-                    card: token.colors.container.default,
-                    text: token.colors.text.primary,
-                    border: token.colors.border.medium,
-                    notification: token.colors.interactive.primary,
-                },
-            }}
-        >
-            <RootNavigator />
-        </NavigationContainer>
+        <EnvironmentProvider environment="test">
+            <NavigationContainer
+                linking={LinkingConfiguration}
+                theme={{
+                    dark: colorScheme === "dark",
+                    colors: {
+                        primary: token.colors.interactive.primary,
+                        background: token.colors.container.background,
+                        card: token.colors.container.default,
+                        text: token.colors.text.primary,
+                        border: token.colors.border.medium,
+                        notification: token.colors.interactive.primary,
+                    },
+                }}
+            >
+                <RootNavigator />
+            </NavigationContainer>
+        </EnvironmentProvider>
     );
 }
 
@@ -91,9 +96,11 @@ function DiscoverNavigator() {
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
             }}
         >
-            <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
-            <DiscoverStack.Screen name="Paper" component={PaperScreen} />
-            <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
+            <DiscoverStack.Group screenOptions={{ environmentBannerShown: false }}>
+                <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
+                <DiscoverStack.Screen name="Paper" component={PaperScreen} />
+                <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
+            </DiscoverStack.Group>
             <DiscoverStack.Screen name="Button" component={ButtonScreen} />
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
             <DiscoverStack.Screen name="Input" component={InputScreen} />

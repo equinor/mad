@@ -1,5 +1,6 @@
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs'
-import { StyleProp, ViewStyle } from 'react-native';
+import type { BottomTabBarProps, BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
+import { StyleProp, ViewStyle } from "react-native";
+import { MadNavigationOptions } from "../_internal/types";
 
 export type BottomTabNavigationConfig = {
     /**
@@ -11,10 +12,10 @@ export type BottomTabNavigationConfig = {
      * By default, the device's safe area insets are automatically detected. You can override the behavior with this option.
      */
     safeAreaInsets?: {
-      top?: number;
-      right?: number;
-      bottom?: number;
-      left?: number;
+        top?: number;
+        right?: number;
+        bottom?: number;
+        left?: number;
     };
     /**
      * Whether inactive screens should be detached from the view hierarchy to save memory.
@@ -26,4 +27,6 @@ export type BottomTabNavigationConfig = {
      * Style object for the component wrapping the screen content.
      */
     sceneContainerStyle?: StyleProp<ViewStyle>;
-  };
+};
+
+export type MadBottomTabNavigationOptions = BottomTabNavigationOptions & MadNavigationOptions;

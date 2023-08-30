@@ -8,14 +8,14 @@ type EnvironmentStyleProps = Pick<EnvironmentProps, "environment">;
 
 export type EnvironmentName = "dev" | "test" | "qa" | "prod";
 
-type EnvironmentProps = {
+export type EnvironmentProps = {
     /**
      * A string representing the environment that the banner should be rendered for.
      */
     environment: EnvironmentName;
 };
 
-export const Environment = ({ environment }: EnvironmentProps) => {
+export const EnvironmentBase = ({ environment }: EnvironmentProps) => {
     const styles = useStyles(themeStyles, { environment });
 
     if (environment === "prod") return null;
