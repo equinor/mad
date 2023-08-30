@@ -2,6 +2,7 @@ import { CellGroup, CellGroupProps } from "./CellGroup";
 import { NavigationCell, NavigationCellProps } from "./NavigationCell";
 import { Cell as _Cell, CellProps } from "./Cell";
 import { CellSwipeItemProps } from "./types";
+import { ButtonCell } from "./ButtonCell";
 
 type CellFamily = typeof _Cell & {
     /**
@@ -12,10 +13,15 @@ type CellFamily = typeof _Cell & {
      * A predefined cell covering most use cases for navigating.
      */
     Navigation: typeof NavigationCell;
+    /**
+     * A cell with button interaction.
+     */
+    Button: typeof ButtonCell;
 };
 
 const Cell = _Cell as CellFamily;
 Cell.Group = CellGroup;
 Cell.Navigation = NavigationCell;
+Cell.Button = ButtonCell;
 
 export { Cell, CellProps, CellGroupProps, NavigationCellProps, CellSwipeItemProps };

@@ -31,6 +31,7 @@ import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicator
 import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
+import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -101,6 +102,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Search" component={SearchScreen} />
             <DiscoverStack.Screen name="Cell" component={CellScreen} />
             <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />
+            <DiscoverStack.Screen name="ButtonCell" component={ButtonCellScreen} />
             <DiscoverStack.Screen name="Accordion" component={AccordionScreen} />
             <DiscoverStack.Screen name="Menu" component={MenuScreen} />
             <DiscoverStack.Screen

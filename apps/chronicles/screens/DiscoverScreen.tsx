@@ -105,6 +105,12 @@ export default function DiscoverScreen({
                     iconName="sign-direction"
                     onPress={() => navigation.navigate("NavigationCell")}
                 />
+                <Cell.Navigation
+                    title="Button Cell"
+                    description="Click me!"
+                    iconName="gesture-tap-button"
+                    onPress={() => navigation.navigate("ButtonCell")}
+                />
             </Cell.Group>
 
             <Spacer />
