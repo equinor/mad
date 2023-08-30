@@ -1,5 +1,12 @@
 import React from "react";
-import { EDSStyleSheet, Environment, Spacer, Typography, useStyles } from "@equinor/mad-components";
+import {
+    EDSStyleSheet,
+    EnvironmentBanner,
+    EnvironmentProvider,
+    Spacer,
+    Typography,
+    useStyles,
+} from "@equinor/mad-components";
 import { ScrollView } from "react-native";
 
 export const EnvironmentScreen = () => {
@@ -16,11 +23,17 @@ export const EnvironmentScreen = () => {
                 }
             </Typography>
             <Spacer />
-            <Environment environment="dev" />
+            <EnvironmentProvider environment="dev">
+                <EnvironmentBanner />
+            </EnvironmentProvider>
             <Spacer />
-            <Environment environment="test" />
+            <EnvironmentProvider environment="test">
+                <EnvironmentBanner />
+            </EnvironmentProvider>
             <Spacer />
-            <Environment environment="qa" />
+            <EnvironmentProvider environment="qa">
+                <EnvironmentBanner />
+            </EnvironmentProvider>
         </ScrollView>
     );
 };
