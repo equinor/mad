@@ -171,11 +171,17 @@ importers:
     specifiers:
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-components': workspace:*
+      '@react-navigation/bottom-tabs': '>=6'
+      '@react-navigation/native': '>=6'
+      '@react-navigation/native-stack': '>=6'
       react: '>=16.8'
       react-dom: '>=16.8'
       react-native: '>=0.68'
     dependencies:
       '@equinor/mad-components': link:../components
+      '@react-navigation/bottom-tabs': 6.5.7_jgbnxgnbfqpp2bzurbjcrvv7ba
+      '@react-navigation/native': 6.1.6_6syixf76bqx5r4tgwtwyqyssoi
+      '@react-navigation/native-stack': 6.9.12_jgbnxgnbfqpp2bzurbjcrvv7ba
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-native: 0.72.3_5uxi4zdir3aqroafmx7pnq5rdy

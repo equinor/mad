@@ -27,10 +27,11 @@
     "peerDependencies": {
         "react": ">=16.8",
         "react-dom": ">=16.8",
-        "react-native": ">=0.68"
-    },
-    "dependencies": {
-        "@equinor/mad-components": "workspace:*"
+        "react-native": ">=0.68",
+        "@equinor/mad-components": "workspace:*",
+        "@react-navigation/native": ">=6",
+        "@react-navigation/native-stack": ">=6",
+        "@react-navigation/bottom-tabs": ">=6"
     },
     "devDependencies": {
         "@equinor/eslint-config-mad": "workspace:*"
