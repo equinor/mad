@@ -1,0 +1,44 @@
+{
+    "name": "@equinor/mad-navigation",
+    "version": "0.0.1",
+    "description": "Navigation package built on top of React Navigation",
+    "type": "module",
+    "scripts": {
+        "build": "tsup-node",
+        "test": "jest",
+        "dev": "tsup-node --watch --clean=false",
+        "lint": "eslint src/"
+    },
+    "keywords": [
+        "react native",
+        "ui",
+        "typescript"
+    ],
+    "author": {
+        "name": "Equinor Mobile App Delivery team (MAD)"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/equinor/mad/issues"
+    },
+    "homepage": "https://github.com/equinor/mad/",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "peerDependencies": {
+        "react": ">=16.8",
+        "react-dom": ">=16.8",
+        "react-native": ">=0.68"
+    },
+    "dependencies": {
+        "@equinor/mad-components": "workspace:*"
+    },
+    "devDependencies": {
+        "@equinor/eslint-config-mad": "workspace:*"
+    },
+    "files": [
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "dist"
+    ]
+}
