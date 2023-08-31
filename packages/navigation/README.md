@@ -1,110 +1,138 @@
-# MAD Navigation
+# Mad Navigation
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/equinor/mad/main/packages/components/assets/mad-components.png">
-</p>
-<br />
+Mad Navigation is a layer on top of React Navigation that provides additional features to provide a
+better experience for developers.
 
-This is a library of EDS components for React Native. Using this library should feel similar as for
-[EDS for React](https://www.npmjs.com/package/@equinor/eds-core-react).
+### Features
 
-## 🧑‍🏫 How to use
+-   Display environment banners automatically on screens.
+-   (more features coming soon)
+
+### Tested on and confirmed working with these versions
+
+_Note: This package will most likely work well with any version of React Navigation v6. If you are
+running a newer version of v6 and some features are missing, create an issue_
+[_here_](https://github.com/equinor/mad/issues)
+
+| @react-navigation/bottom-tabs  | 6.5.7  |
+| ------------------------------ | ------ |
+| @react-navigation/native       | 6.1.6  |
+| @react-navigation/native-stack | 6.9.12 |
 
 ### Installation
 
-#### npm
+`npm install @react-navigation/native @equinor/mad-navigation`
 
-`npm install @equinor/mad-components`
+You also have to install the navigators you want to use, e.g `@react-navigation/bottom-tabs` and
+`@react-navigation/native-stack`
 
-#### yarn
+If you want environment banners to display, you also need to install `@equinor/mad-components`
+version 0.5.0 or higher (unless you use `mad-core`)
 
-`yarn add @equinor/mad-components`
+### Usage
 
-#### **_NOTE:_**
+Follow [React Navigation’s documentation](https://reactnavigation.org/docs/getting-started/). When
+you get to the point where you are creating a navigator, import `createXNavigator` from
+`mad-navigation` instead.
 
-The component library requires the following libraries to properly function:
+```typescript
+//import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//replace the above line with the line below
+import { createNativeStackNavigator } from "@equinor/mad-navigation";
+```
 
--   [`react-native-svg`](https://github.com/software-mansion/react-native-svg#installation)
--   [`react-native-reanimated`](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation)
--   [`react-native-gesture-handler`](https://docs.swmansion.com/react-native-gesture-handler/docs/installation/)
+Our currently supported navigators are `createBottomTabNavigator` and `createNativeStackNavigator`
 
-Please make sure to follow these installation instructions before using this package.
+### Environment banner
 
-### Getting started
+In order for environment banners to work, they need to know which environment they are in
 
-Before using the components in your app, make sure to load the fonts and assets required by the
-library somewhere in your root component. It is also recommended that you wrap your app in the
-`EDSProvider`. This will give you access to dynamically switching between `tablet` and `phone` mode
-as well as `dark` and `light` mode support:
+If you are using mad-core, this step will be fixed for you. If not, you have to add an
+`EnvironmentProvider` to your application
 
-```tsx
+```typescript
 export default function App() {
-    const [hasLoadedEds, edsLoadError] = useEDS();
-    if (!hasLoadedEds) {
-        return null;
-    } else {
-        return (
-            <SafeAreaProvider>
-                <EDSProvider colorScheme="light" density="phone">
-                    <Navigation colorScheme="light" />
+    return (
+        <SafeAreaProvider>
+            <EDSProvider colorScheme={colorScheme} density={deviceType}>
+                <EnvironmentProvider environment={environment}>
+                    <Navigation colorScheme={colorScheme} />
                     <StatusBar />
-                </EDSProvider>
-            </SafeAreaProvider>
-        );
-    }
+                </EnvironmentProvider>
+            </EDSProvider>
+        </SafeAreaProvider>
+    );
 }
 ```
 
-### 🖼️ Theming
+For more information on how environment banners work, please refer to the mad-components docs
 
-Creating stylesheets that use EDS values is made to be easy and performant. Start by creating a
-`EDSStyleSheet`, almost just like for a normal React Native StyleSheet:
+Once the environment provider is set up, you should see environmentbanners in your application. By
+default, the environmentbanner will display if navigator’s header is displayed. if you want to
+overwrite this behaviour, use the custom `environmentBannerShown` option. This option can be applied
+in the `Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop
 
-```tsx
-const themeStyles = EDSStyleSheet.create(theme => ({
-    container: {
-        backgroundColor: theme.colors.container.background,
-        borderRadius: theme.geometry.border.containerBorderRadius,
-    },
-}));
+```typescript
+<Stack.Navigator
+    screenOptions={{
+        // add it here
+        environmentBannerShown: false,
+    }}
+>
+    <Stack.Group
+        screenOptions={{
+            // or here
+            environmentBannerShown: true,
+        }}
+    >
+        <Stack.Screen
+            name="Discover"
+            component={DiscoverScreen}
+            options={{
+                // or here
+                environmentBannerShown: false,
+            }}
+        />
+    </Stack.Group>
+</Stack.Navigator>
 ```
 
-Notice that we pass `theme` into our style sheet. This is a resolved token based on the current
-configuration of the app. This means that the value for `theme.colors.container` can change between
-light/dark mode without you having to worry about anything 😎
+_CAUTION: Environmentbanners will not work properly if `headerLargeTitle` is set to true, and
+`headerLargeTitle` make it hard for elements in your application to calculate header height. It is
+therefore not recommended to use `headerLargeTitle`. If you still decide to use it, we recommend
+disabling environmentbanners where it is used, as the environment banner may cause the header to not
+work as expected._
 
-We resolve our stylesheet in our components using the provided `useStyles` hook:
-
-```tsx
-const MyComponent = () => {
-    const styles = useStyles(themeStyles);
-    return <View style={styles.container} />;
-};
-```
-
-Ideally, all styling, be it conditional or not should happen outside of our components to reduce
-clutter. The `EDSStyleSheet.create` callback method accepts a second optional argument which allows
-you to pass any additional props into the style sheet:
-
-```tsx
-// Notice that we type our second argument!
-const themeStylesWithProps = EDSStyleSheet.create((theme, props: { color?: string }) => {
-    const backgroundColor = color ?? theme.colors.container.background;
-
-    return {
-        container: {
-            backgroundColor,
+```typescript
+<DiscoverStack.Navigator
+    initialRouteName="Discover"
+    screenOptions={{
+        headerLargeTitle: true,
+        headerLargeTitleShadowVisible: true,
+        headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
+        headerTitleStyle: {
+            fontFamily: "Equinor-Regular",
         },
-    };
-});
+        headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+        environmentBannerShown: false,
+    }}
+>
 ```
 
-We are then required by our `useStyle` hook to pass these props in with the `EDSStyleSheet`:
+### Development
 
-```tsx
-const MyOtherComponent = () => {
-    // Normally you'd pass some of your component props into this hook.
-    const styles = useStyles(themeStylesWithProps, { color: "red" });
-    return <View style={styles.container} />;
-};
-```
+This package has custom navigators created by following
+[this guide](https://reactnavigation.org/docs/custom-navigators). If you want to add additional
+navigators or update the current navigators to be in sync with React Navigation’s navigators, follow
+these steps:
+
+1. Go to
+   [React Navigation’s repository](https://github.com/react-navigation/react-navigation/tree/main/packages)
+   and find the navigator you want to copy (usually located within `package-name/src/navigators`
+   directory). Copy the source code.
+2. paste the source code into this package and update imports. Imports that are not provided by the
+   react navigation package should be created manually (usually only the `XNavigationConfig`). The
+   props can also be recreated by exported types from react navigation + your copied
+   `XNavigationConfig`.
+3. Modify the `descriptors` using the `createMadDecorators` function.
+4. Use the modified descriptors instead of the original descriptors in the return function

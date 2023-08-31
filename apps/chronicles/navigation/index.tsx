@@ -4,9 +4,8 @@
  *
  */
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator, createNativeStackNavigator } from "@equinor/mad-navigation";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -19,7 +18,7 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { Color, Icon, IconName, useToken } from "@equinor/mad-components";
+import { Color, EnvironmentProvider, Icon, IconName, useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 import { SearchScreen } from "../screens/components/SearchScreen";
@@ -36,22 +35,24 @@ import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
-        <NavigationContainer
-            linking={LinkingConfiguration}
-            theme={{
-                dark: colorScheme === "dark",
-                colors: {
-                    primary: token.colors.interactive.primary,
-                    background: token.colors.container.background,
-                    card: token.colors.container.default,
-                    text: token.colors.text.primary,
-                    border: token.colors.border.medium,
-                    notification: token.colors.interactive.primary,
-                },
-            }}
-        >
-            <RootNavigator />
-        </NavigationContainer>
+        <EnvironmentProvider environment="qa">
+            <NavigationContainer
+                linking={LinkingConfiguration}
+                theme={{
+                    dark: colorScheme === "dark",
+                    colors: {
+                        primary: token.colors.interactive.primary,
+                        background: token.colors.container.background,
+                        card: token.colors.container.default,
+                        text: token.colors.text.primary,
+                        border: token.colors.border.medium,
+                        notification: token.colors.interactive.primary,
+                    },
+                }}
+            >
+                <RootNavigator />
+            </NavigationContainer>
+        </EnvironmentProvider>
     );
 }
 
@@ -91,6 +92,7 @@ function DiscoverNavigator() {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+                environmentBannerShown: false,
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
