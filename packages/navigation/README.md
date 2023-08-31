@@ -14,10 +14,11 @@ _Note: This package will most likely work well with any version of React Navigat
 running a newer version of v6 and some features are missing, create an issue_
 [_here_](https://github.com/equinor/mad/issues)
 
-| @react-navigation/bottom-tabs  | 6.5.7  |
-| ------------------------------ | ------ |
-| @react-navigation/native       | 6.1.6  |
-| @react-navigation/native-stack | 6.9.12 |
+| Package                        | Version |
+| ------------------------------ | ------- |
+| @react-navigation/bottom-tabs  | 6.5.7   |
+| @react-navigation/native       | 6.1.6   |
+| @react-navigation/native-stack | 6.9.12  |
 
 ### Installation
 
@@ -35,7 +36,7 @@ Follow [React Navigation’s documentation](https://reactnavigation.org/docs/get
 you get to the point where you are creating a navigator, import `createXNavigator` from
 `mad-navigation` instead.
 
-```typescript
+```tsx
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //replace the above line with the line below
 import { createNativeStackNavigator } from "@equinor/mad-navigation";
@@ -50,7 +51,7 @@ In order for environment banners to work, they need to know which environment th
 If you are using mad-core, this step will be fixed for you. If not, you have to add an
 `EnvironmentProvider` to your application
 
-```typescript
+```tsx
 export default function App() {
     return (
         <SafeAreaProvider>
@@ -72,7 +73,7 @@ default, the environmentbanner will display if navigator’s header is displayed
 overwrite this behaviour, use the custom `environmentBannerShown` option. This option can be applied
 in the `Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop
 
-```typescript
+```tsx
 <Stack.Navigator
     screenOptions={{
         // add it here
@@ -103,7 +104,7 @@ therefore not recommended to use `headerLargeTitle`. If you still decide to use 
 disabling environmentbanners where it is used, as the environment banner may cause the header to not
 work as expected._
 
-```typescript
+```tsx
 <DiscoverStack.Navigator
     initialRouteName="Discover"
     screenOptions={{
