@@ -68,8 +68,8 @@ export default function App() {
 
 For more information on how environment banners work, please refer to the mad-components docs
 
-Once the environment provider is set up, you should see environmentbanners in your application. By
-default, the environmentbanner will display if navigator’s header is displayed. if you want to
+Once the environment provider is set up, you should see environment banners in your application. By
+default, the environment banner will display if navigator’s header is displayed. if you want to
 overwrite this behaviour, use the custom `environmentBannerShown` option. This option can be applied
 in the `Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop
 
@@ -98,11 +98,11 @@ in the `Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOp
 </Stack.Navigator>
 ```
 
-_CAUTION: Environmentbanners will not work properly if `headerLargeTitle` is set to true, and
+_CAUTION: Environment banners will not work properly if `headerLargeTitle` is set to true, and
 `headerLargeTitle` make it hard for elements in your application to calculate header height. It is
 therefore not recommended to use `headerLargeTitle`. If you still decide to use it, we recommend
-disabling environmentbanners where it is used, as the environment banner may cause the header to not
-work as expected._
+disabling environment banners where it is used, as the environment banner may cause the header to
+not work as expected._
 
 ```tsx
 <DiscoverStack.Navigator
