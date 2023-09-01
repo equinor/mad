@@ -33,16 +33,19 @@ version 0.5.0 or higher (unless you use `mad-core`)
 ### Usage
 
 Follow [React Navigation’s documentation](https://reactnavigation.org/docs/getting-started/). When
-you get to the point where you are creating a navigator, import `createXNavigator` from
-`mad-navigation` instead.
+you get to the point where you are creating a navigator, import any of our supported navigators
+listed below:
+
+-   `createBottomTabNavigator`
+-   `createNativeStackNavigator`
+
+For example:
 
 ```tsx
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //replace the above line with the line below
 import { createNativeStackNavigator } from "@equinor/mad-navigation";
 ```
-
-Our currently supported navigators are `createBottomTabNavigator` and `createNativeStackNavigator`
 
 ### Environment banner
 
