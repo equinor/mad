@@ -1,3 +1,7 @@
+/**
+ * Based on the original createNativeStackNavigator from react navigation
+ * @see https://github.com/react-navigation/react-navigation/blob/main/packages/native-stack/src/navigators/createNativeStackNavigator.tsx
+ */
 import {
     createNavigatorFactory,
     EventArg,

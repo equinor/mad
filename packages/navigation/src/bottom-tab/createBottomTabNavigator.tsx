@@ -1,3 +1,7 @@
+/**
+ * Based on the original createBottomTabNavigator from react navigation
+ * @see https://github.com/react-navigation/react-navigation/blob/main/packages/bottom-tabs/src/navigators/createBottomTabNavigator.tsx
+ */
 import {
     createNavigatorFactory,
     DefaultNavigatorOptions,
