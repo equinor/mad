@@ -1,20 +1,18 @@
-import { getFinalOptions } from "./getFinalOptions";
-import { getFinalScreenOptions } from "./getFinalScreenOptions";
-import { MadBaseOptions, MadDescriptorBase, ScreenOptions } from "./types";
+import { resolveOptions } from "./resolveOptions";
+import { MadBaseOptions, MadDescriptorBase, UnresolvedScreenOptions } from "./types";
 
 /**
  * Calculate whether the environment banner should be displayed or not
- * @param descriptor
- * @param screenOptions
- * @returns
+ * @param descriptor descriptor from the descriptors object provided by React Navigation
+ * @param unresolvedScreenOptions unresolved screen options provided by React Navigation
+ * @returns whether the environment banner should be returned or not
  */
 export const shouldDisplayEnvironmentBanner = <T extends MadBaseOptions>(
     descriptor: MadDescriptorBase,
-    screenOptions: ScreenOptions<T>,
+    unresolvedScreenOptions: UnresolvedScreenOptions<T>,
 ) => {
     const { route, navigation } = descriptor;
-    const finalScreenOptions = getFinalScreenOptions(screenOptions, route, navigation);
-    const options = getFinalOptions(descriptor, finalScreenOptions);
+    const options = resolveOptions(descriptor, unresolvedScreenOptions, route, navigation);
     // if environmentBannerShown is defined, we should always follow whatever it says
     if (options.environmentBannerShown !== undefined) return options.environmentBannerShown;
     // if headerShown is defined, we should always follow whatever it says, given environmentBannerShown is undefined

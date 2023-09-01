@@ -14,7 +14,7 @@ export type MadDescriptorBase = {
 
 export type MadNavigationOptions = { environmentBannerShown?: boolean };
 
-export type ScreenOptions<Options extends MadNavigationOptions> =
+export type UnresolvedScreenOptions<Options extends MadNavigationOptions> =
     | Options
     | ((props: { route: FinalRouteProp; navigation: unknown }) => Options)
     | undefined;

@@ -1,4 +1,4 @@
-import { MadBaseOptions, MadDescriptorsBase, ScreenOptions } from "./types";
+import { MadBaseOptions, MadDescriptorsBase, UnresolvedScreenOptions } from "./types";
 import { shouldDisplayEnvironmentBanner } from "./shouldDisplayEnvironmentBanner";
 import { getCustomRenderFunction } from "./getCustomRenderFunction";
 
@@ -8,7 +8,7 @@ import { getCustomRenderFunction } from "./getCustomRenderFunction";
  */
 export function createMadDescriptors<T extends MadDescriptorsBase, U extends MadBaseOptions>(
     descriptors: T,
-    screenOptions: ScreenOptions<U>,
+    unresolvedScreenOptions: UnresolvedScreenOptions<U>,
 ) {
     const newDescriptors: typeof descriptors = { ...descriptors };
     const descriptorKeys = Object.keys(descriptors) as Array<keyof typeof descriptors>;
@@ -17,8 +17,8 @@ export function createMadDescriptors<T extends MadDescriptorsBase, U extends Mad
         const originalRender = descriptor.render;
         const customRender = getCustomRenderFunction(descriptor);
         const showEnvironmentBanner = shouldDisplayEnvironmentBanner(
-            descriptors[key],
-            screenOptions,
+            descriptor,
+            unresolvedScreenOptions,
         );
         newDescriptors[key] = {
             ...descriptors[key],
