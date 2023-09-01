@@ -5147,7 +5147,7 @@ packages:
       postcss-modules-scope: 3.0.0_postcss@8.4.29
       postcss-modules-values: 4.0.0_postcss@8.4.29
       postcss-value-parser: 4.2.0
-      semver: 7.3.8
+      semver: 7.5.4
       webpack: 5.88.2
     dev: false
 
