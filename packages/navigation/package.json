@@ -11,8 +11,9 @@
     },
     "keywords": [
         "react native",
-        "ui",
-        "typescript"
+        "react navigation",
+        "typescript",
+        "navigation"
     ],
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
