@@ -15,13 +15,13 @@ export function createMadDescriptors<T extends MadDescriptorsBase, U extends Mad
     descriptorKeys.forEach(key => {
         const descriptor = descriptors[key];
         const originalRender = descriptor.render;
-        const customRender = getCustomRenderFunction(descriptor);
+        const customRender = getCustomRenderFunction(originalRender);
         const showEnvironmentBanner = shouldDisplayEnvironmentBanner(
             descriptor,
             unresolvedScreenOptions,
         );
         newDescriptors[key] = {
-            ...descriptors[key],
+            ...descriptor,
             render: showEnvironmentBanner ? customRender : originalRender,
         };
     });

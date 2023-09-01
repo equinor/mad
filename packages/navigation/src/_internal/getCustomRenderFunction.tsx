@@ -1,13 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { EnvironmentBanner } from "@equinor/mad-components";
-import { MadDescriptorBase } from "./types";
 /**
- * Custom render function that displays environment banner
- * @param descriptor
+ * Custom render function that displays an environment banner
+ * @param originalRender the original render function, found in the descriptor
  * @returns new render function
  */
-export const getCustomRenderFunction = (descriptor: MadDescriptorBase) => {
-    const originalRender = descriptor.render;
+export const getCustomRenderFunction = (originalRender: () => ReactNode) => {
     const customRender = () => (
         <>
             <EnvironmentBanner />
