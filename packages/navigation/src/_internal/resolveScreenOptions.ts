@@ -1,4 +1,4 @@
-import { FinalRouteProp, MadNavigationOptions, UnresolvedScreenOptions } from "./types";
+import { NavigationRouteProp, MadNavigationOptions, UnresolvedScreenOptions } from "./types";
 
 /**
  * Screen options can be an object, a function, or undefined. This function calls it with the right properties if it is a function, resulting in an object or undefined
@@ -9,7 +9,7 @@ import { FinalRouteProp, MadNavigationOptions, UnresolvedScreenOptions } from ".
  */
 export const resolveScreenOptions = <T extends MadNavigationOptions>(
     unresolvedScreenOptions: UnresolvedScreenOptions<T>,
-    route: FinalRouteProp,
+    route: NavigationRouteProp,
     navigation: unknown,
 ) => {
     if (!unresolvedScreenOptions) return undefined;

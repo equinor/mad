@@ -7,7 +7,7 @@ export type MadBaseOptions = { headerShown?: boolean; environmentBannerShown?: b
 
 export type MadDescriptorBase = {
     navigation: unknown;
-    route: FinalRouteProp;
+    route: NavigationRouteProp;
     options: MadBaseOptions | undefined;
     render: () => ReactNode;
 };
@@ -16,7 +16,7 @@ export type MadNavigationOptions = { environmentBannerShown?: boolean };
 
 export type UnresolvedScreenOptions<Options extends MadNavigationOptions> =
     | Options
-    | ((props: { route: FinalRouteProp; navigation: unknown }) => Options)
+    | ((props: { route: NavigationRouteProp; navigation: unknown }) => Options)
     | undefined;
 
-export type FinalRouteProp = RouteProp<ParamListBase, string>;
+export type NavigationRouteProp = RouteProp<ParamListBase, string>;

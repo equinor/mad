@@ -1,6 +1,6 @@
 import { resolveScreenOptions } from "./resolveScreenOptions";
 import {
-    FinalRouteProp,
+    NavigationRouteProp,
     MadBaseOptions,
     MadDescriptorBase,
     UnresolvedScreenOptions,
@@ -17,7 +17,7 @@ import {
 export const resolveOptions = <T extends MadBaseOptions>(
     descriptor: MadDescriptorBase,
     unresolvedScreenOptions: UnresolvedScreenOptions<T>,
-    route: FinalRouteProp,
+    route: NavigationRouteProp,
     navigation: unknown,
 ): MadBaseOptions => {
     const resolvedScreenOptions = resolveScreenOptions(unresolvedScreenOptions, route, navigation);
