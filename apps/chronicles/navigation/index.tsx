@@ -4,7 +4,11 @@
  *
  */
 import React from "react";
-import { createBottomTabNavigator, createNativeStackNavigator } from "@equinor/mad-navigation";
+import {
+    createBottomTabNavigator,
+    createNativeStackNavigator,
+    EnvironmentProvider,
+} from "@equinor/mad-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { ColorSchemeName } from "react-native";
 
@@ -18,7 +22,7 @@ import { SignatureScreen } from "../screens/SignatureTest";
 import { PaperScreen } from "../screens/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/PopoverScreen";
 import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { Color, EnvironmentProvider, Icon, IconName, useToken } from "@equinor/mad-components";
+import { Color, Icon, IconName, useToken } from "@equinor/mad-components";
 import { InputScreen } from "../screens/components/InputScreen";
 import { TextFieldScreen } from "../screens/components/TextFieldScreen";
 import { SearchScreen } from "../screens/components/SearchScreen";

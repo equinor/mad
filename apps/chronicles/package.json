@@ -11,7 +11,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@equinor/mad-components": "*",
+    "@equinor/mad-components": "workspace:*",
+    "@equinor/mad-navigation": "workspace:*",
     "@equinor/react-native-skia-draw": "workspace:*",
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
