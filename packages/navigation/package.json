@@ -25,11 +25,13 @@
     "homepage": "https://github.com/equinor/mad/",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@equinor/mad-components": "workspace:*"
+    },
     "peerDependencies": {
         "react": ">=16.8",
         "react-dom": ">=16.8",
         "react-native": ">=0.68",
-        "@equinor/mad-components": "workspace:*",
         "@react-navigation/native": ">=6",
         "@react-navigation/native-stack": ">=6",
         "@react-navigation/bottom-tabs": ">=6"
