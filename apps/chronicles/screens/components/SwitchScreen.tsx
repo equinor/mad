@@ -9,15 +9,15 @@ export const SwitchScreen = () => {
     const [isDisabled, setIsDisabled] = useState(true);
     const [isDisabledActiveSwitch, setDisabledActiveSwitch] = useState(true);
 
-    const handleSwitchChange1 = newState => {
+    const handleSwitchChange1 = (newState: boolean) => {
         setIsActiveSwitch1(newState);
     };
 
-    const handleSwitchChange2 = newState => {
+    const handleSwitchChange2 = (newState: boolean) => {
         setIsActiveSwitch2(newState);
     };
 
-    const handleDisabledActiveState = newState => {
+    const handleDisabledActiveState = (newState: boolean) => {
         setIsDisabled(newState);
         setDisabledActiveSwitch(newState);
     };
@@ -46,7 +46,7 @@ export const SwitchScreen = () => {
             <View style={styles.SwitchRow}>
                 <View style={styles.switchDescription}>
                     <Switch disabled={isDisabled} />
-                    <Typography>You can't turn me on</Typography>
+                    <Typography>{"You can't turn me on"}</Typography>
                 </View>
                 <View style={styles.switchDescription}>
                     <Switch
@@ -54,7 +54,7 @@ export const SwitchScreen = () => {
                         disabled={isDisabled}
                         onChange={handleDisabledActiveState}
                     />
-                    <Typography>You can't turn me off</Typography>
+                    <Typography>{"You can't turn me off"}</Typography>
                 </View>
             </View>
         </ScrollView>
