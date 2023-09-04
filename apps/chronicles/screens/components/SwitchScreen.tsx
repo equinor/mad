@@ -1,7 +1,6 @@
-import { Switch } from "../../../../packages/components/src/components/Switch/Switch";
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
-import { EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
+import { EDSStyleSheet, Spacer, Typography, useStyles, Switch } from "@equinor/mad-components";
 
 export const SwitchScreen = () => {
     const styles = useStyles(themeStyles);
