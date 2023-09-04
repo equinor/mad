@@ -4,9 +4,12 @@
  *
  */
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+    createBottomTabNavigator,
+    createNativeStackNavigator,
+    EnvironmentProvider,
+} from "@equinor/mad-navigation";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -37,22 +40,24 @@ import SwitchScreen from "../screens/components/SwitchScreen";
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
-        <NavigationContainer
-            linking={LinkingConfiguration}
-            theme={{
-                dark: colorScheme === "dark",
-                colors: {
-                    primary: token.colors.interactive.primary,
-                    background: token.colors.container.background,
-                    card: token.colors.container.default,
-                    text: token.colors.text.primary,
-                    border: token.colors.border.medium,
-                    notification: token.colors.interactive.primary,
-                },
-            }}
-        >
-            <RootNavigator />
-        </NavigationContainer>
+        <EnvironmentProvider environment="qa">
+            <NavigationContainer
+                linking={LinkingConfiguration}
+                theme={{
+                    dark: colorScheme === "dark",
+                    colors: {
+                        primary: token.colors.interactive.primary,
+                        background: token.colors.container.background,
+                        card: token.colors.container.default,
+                        text: token.colors.text.primary,
+                        border: token.colors.border.medium,
+                        notification: token.colors.interactive.primary,
+                    },
+                }}
+            >
+                <RootNavigator />
+            </NavigationContainer>
+        </EnvironmentProvider>
     );
 }
 
@@ -92,6 +97,7 @@ function DiscoverNavigator() {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+                environmentBannerShown: false,
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
