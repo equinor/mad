@@ -39,6 +39,7 @@ importers:
       '@babel/core': ^7.21.4
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-components': workspace:*
+      '@equinor/mad-insights': workspace:*
       '@equinor/mad-navigation': workspace:*
       '@equinor/react-native-skia-draw': workspace:*
       '@expo/vector-icons': ^13.0.0
@@ -63,6 +64,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       react-native: 0.72.3
+      react-native-device-info: ^10.9.0
       react-native-gesture-handler: ~2.12.0
       react-native-reanimated: ~3.3.0
       react-native-safe-area-context: 4.6.3
@@ -74,6 +76,7 @@ importers:
       uuid: ^3.0.0
     dependencies:
       '@equinor/mad-components': link:../../packages/components
+      '@equinor/mad-insights': link:../../packages/insights
       '@equinor/mad-navigation': link:../../packages/navigation
       '@equinor/react-native-skia-draw': link:../../packages/skia-draw
       '@expo/vector-icons': 13.0.0
@@ -95,6 +98,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-native: 0.72.3_dyjrdn4cwwk5zc2yxh6dginkjq
+      react-native-device-info: 10.9.0_react-native@0.72.3
       react-native-gesture-handler: 2.12.1_6syixf76bqx5r4tgwtwyqyssoi
       react-native-reanimated: 3.3.0_c45zjcyxv4v5qicydpgeee2qeq
       react-native-safe-area-context: 4.6.3_6syixf76bqx5r4tgwtwyqyssoi
@@ -152,6 +156,25 @@ importers:
       eslint-plugin-react: 7.32.2
       eslint-plugin-react-hooks: 4.6.0
       eslint-plugin-simple-import-sort: 10.0.0
+
+  packages/insights:
+    specifiers:
+      '@equinor/eslint-config-mad': workspace:*
+      '@microsoft/applicationinsights-react-js': ^17.0.0
+      '@microsoft/applicationinsights-react-native': ^4.0.0
+      '@microsoft/applicationinsights-web': ^3.0.2
+      '@types/crypto-js': ^4.1.2
+      crypto-js: ^4.1.1
+      history: ^5.3.0
+    dependencies:
+      '@microsoft/applicationinsights-react-js': 17.0.0_history@5.3.0
+      '@microsoft/applicationinsights-react-native': 4.0.0
+      '@microsoft/applicationinsights-web': 3.0.2
+      crypto-js: 4.1.1
+      history: 5.3.0
+    devDependencies:
+      '@equinor/eslint-config-mad': link:../eslint-config-mad
+      '@types/crypto-js': 4.1.2
 
   packages/navigation:
     specifiers:
@@ -2873,6 +2896,148 @@ packages:
       read-yaml-file: 1.1.0
     dev: true
 
+  /@microsoft/applicationinsights-analytics-js/3.0.2:
+    resolution: {integrity: sha512-vrgEiT6cKC2Yb0Y6rCp9CXjFStlRZLI/IhIiBEGYaUfzoytLxUj6F/AizUDYBuNQfE+CTYe0jNyqf+RJgEMkJQ==}
+    peerDependencies:
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.0.2
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-channel-js/3.0.2:
+    resolution: {integrity: sha512-jDBNKbCHsJgmpv0CKNhJ/uN9ZphvfGdb93Svk+R4LjO8L3apNNMbDDPxBvXXi0uigRmA1TBcmyBG4IRKjabGhw==}
+    peerDependencies:
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.0.2
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-async': 0.3.0
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-common/3.0.2:
+    resolution: {integrity: sha512-y+WXWop+OVim954Cu1uyYMnNx6PWO8okHpZIQi/1YSqtqaYdtJVPv4P0AVzwJdohxzVfgzKvqj9nec/VWqE2Zg==}
+    peerDependencies:
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-core-js/3.0.2:
+    resolution: {integrity: sha512-WQhVhzlRlLDrQzn3OShCW/pL3BW5WC57t0oywSknX3q7lMzI3jDg7Ihh0iuIcNTzGCTbDkuqr4d6IjEDWIMtJQ==}
+    peerDependencies:
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-async': 0.3.0
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-dependencies-js/3.0.2:
+    resolution: {integrity: sha512-b/YTonnbghg9DOFsLg4zdbYPafW8fPIzV+nZxfPPpxjA1LGvPhZz/zVx9YYWJg2RBXjojLQoJxLf1ro5eNGVig==}
+    peerDependencies:
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.0.2
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-async': 0.3.0
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-properties-js/3.0.2:
+    resolution: {integrity: sha512-PFqicp8q4Tc0hqfPjwfqKo12gEqTk1l4lMyUUIU7ugE1XOuDkZcMPha05KnZWKj+F4zQXJcetcAHoVkyoyCFQw==}
+    peerDependencies:
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.0.2
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-react-js/17.0.0_history@5.3.0:
+    resolution: {integrity: sha512-uKsBEvZDx+588I92gMNFfEinnajrLxxIo4JQMef1QZfGQIurgJPeMO+nGBO8n15nMiJ23j8jfAo1E2mmC9qmBA==}
+    peerDependencies:
+      history: '>= 4.10.1'
+      react: '>= 17.0.1'
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.0.2
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      history: 5.3.0
+    dev: false
+
+  /@microsoft/applicationinsights-react-native/4.0.0:
+    resolution: {integrity: sha512-q/rF25QZLUJ0DFLMdjsI8vqyzTcMrQjAUIi11rzGvIQ8MZ+Epjkhh213wdIMsxqxgjiGQH41Rmfs/j4WB6YVlQ==}
+    peerDependencies:
+      react-native: '*'
+      react-native-device-info: '>=5.2.1'
+      tslib: '*'
+    peerDependenciesMeta:
+      react-native-device-info:
+        optional: true
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.0.2
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-shims/3.0.1:
+    resolution: {integrity: sha512-DKwboF47H1nb33rSUfjqI6ryX29v+2QWcTrRvcQDA32AZr5Ilkr7whOOSsD1aBzwqX0RJEIP1Z81jfE3NBm/Lg==}
+    dependencies:
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/applicationinsights-web/3.0.2:
+    resolution: {integrity: sha512-pf2zz/3mmGy1RoyaiLZwhHoE2mFZ+AWR3Zf7xPW7HjTG7dEE4BnovNyW3f9Eu6WWkcHUAHmS/ATzqvVlpB3W6A==}
+    peerDependencies:
+      tslib: '*'
+    dependencies:
+      '@microsoft/applicationinsights-analytics-js': 3.0.2
+      '@microsoft/applicationinsights-channel-js': 3.0.2
+      '@microsoft/applicationinsights-common': 3.0.2
+      '@microsoft/applicationinsights-core-js': 3.0.2
+      '@microsoft/applicationinsights-dependencies-js': 3.0.2
+      '@microsoft/applicationinsights-properties-js': 3.0.2
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.2
+      '@nevware21/ts-async': 0.3.0
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@microsoft/dynamicproto-js/2.0.2:
+    resolution: {integrity: sha512-MB8trWaFREpmb037k/d0bB7T2BP7Ai24w1e1tbz3ASLB0/lwphsq3Nq8S9I5AsI5vs4zAQT+SB5nC5/dLYTiOg==}
+    dependencies:
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@nevware21/ts-async/0.3.0:
+    resolution: {integrity: sha512-ZUcgUH12LN/F6nzN0cYd0F/rJaMLmXr0EHVTyYfaYmK55bdwE4338uue4UiVoRqHVqNW4KDUrJc49iGogHKeWA==}
+    dependencies:
+      '@nevware21/ts-utils': 0.10.1
+    dev: false
+
+  /@nevware21/ts-utils/0.10.1:
+    resolution: {integrity: sha512-pMny25NnF2/MJwdqC3Iyjm2pGIXNxni4AROpcqDeWa+td9JMUY4bUS9uU9XW+BoBRqTLUL+WURF9SOd/6OQzRg==}
+    dev: false
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -3352,6 +3517,10 @@ packages:
     dependencies:
       '@types/node': 18.17.12
     dev: false
+
+  /@types/crypto-js/4.1.2:
+    resolution: {integrity: sha512-t33RNmTu5ufG/sorROIafiCVJMx3jz95bXUMoPAZcUD14fxMXnuTzqzXZoxpR0tNx2xpw11Dlmem9vGCsrSOfA==}
+    dev: true
 
   /@types/eslint-scope/3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
@@ -5119,6 +5288,10 @@ packages:
 
   /crypt/0.0.2:
     resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+    dev: false
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
     dev: false
 
   /crypto-random-string/1.0.0:
@@ -7052,6 +7225,12 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       source-map: 0.7.4
+    dev: false
+
+  /history/5.3.0:
+    resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
+    dependencies:
+      '@babel/runtime': 7.22.11
     dev: false
 
   /hoist-non-react-statics/3.3.2:
@@ -10432,6 +10611,14 @@ packages:
 
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+
+  /react-native-device-info/10.9.0_react-native@0.72.3:
+    resolution: {integrity: sha512-HqujZoNSkPGYZVs8ZsAwPkdY5UQt2jW0eg/wtW/kKbcAOp0KjUesgG7e1UISY4Z7Bx6LjZeKs0cqDzQI8AlOmw==}
+    peerDependencies:
+      react-native: '*'
+    dependencies:
+      react-native: 0.72.3_dyjrdn4cwwk5zc2yxh6dginkjq
+    dev: false
 
   /react-native-gesture-handler/2.12.1_6syixf76bqx5r4tgwtwyqyssoi:
     resolution: {integrity: sha512-deqh36bw82CFUV9EC4tTo2PP1i9HfCOORGS3Zmv71UYhEZEHkzZv18IZNPB+2Awzj45vLIidZxGYGFxHlDSQ5A==}
