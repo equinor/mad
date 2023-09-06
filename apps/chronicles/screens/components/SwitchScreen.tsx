@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
-import { EDSStyleSheet, Spacer, Typography, useStyles, Switch } from "@equinor/mad-components";
+import { EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
+import { Switch } from "../../../../packages/components/src/components/Switch/";
 
 export const SwitchScreen = () => {
     const styles = useStyles(themeStyles);
     const [isActiveSwitch1, setIsActiveSwitch1] = useState(false);
     const [isActiveSwitch2, setIsActiveSwitch2] = useState(true);
+    const [isActiveSwitchSmall, setIsActiveSwitchSmall] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [isDisabledActiveSwitch, setDisabledActiveSwitch] = useState(true);
 
@@ -15,6 +17,10 @@ export const SwitchScreen = () => {
 
     const handleSwitchChange2 = (newState: boolean) => {
         setIsActiveSwitch2(newState);
+    };
+
+    const handleSmallSwitchChange = (newState: boolean) => {
+        setIsActiveSwitchSmall(newState);
     };
 
     const handleDisabledActiveState = (newState: boolean) => {
@@ -55,6 +61,18 @@ export const SwitchScreen = () => {
                         onChange={handleDisabledActiveState}
                     />
                     <Typography>{"You can't turn me off"}</Typography>
+                </View>
+            </View>
+            <Spacer />
+            <Typography variant="h2">Small</Typography>
+            <View style={styles.SwitchRow}>
+                <View style={styles.switchDescription}>
+                    <Switch.Small
+                        active={isActiveSwitchSmall}
+                        onChange={handleSmallSwitchChange}
+                        color="primary"
+                    />
+                    <Typography>{"This is a small switch"}</Typography>
                 </View>
             </View>
         </ScrollView>
