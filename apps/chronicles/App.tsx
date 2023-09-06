@@ -7,7 +7,8 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import { useWindowDimensions } from "react-native";
-import { appInsightsInit, trackCustom } from "@equinor/mad-insights";
+import { ITelemetryItem, addTelemetryInitializer, appInsightsInit } from "@equinor/mad-insights";
+import * as APP from "./app.json";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -24,7 +25,12 @@ export default function App() {
             instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
             longTermLog: { instrumentationKey: "e91835aa-bcc2-41dd-a79d-352f0df23e1b" },
         });
-        trackCustom("testing");
+        const appVersionEnvelope = (item: ITelemetryItem) => {
+            if (item.data) {
+                item.data["app-version"] = APP.expo.version;
+            }
+        };
+        addTelemetryInitializer(appVersionEnvelope);
     }, []);
 
     if (!isLoadingComplete || !hasLoadedEds) {

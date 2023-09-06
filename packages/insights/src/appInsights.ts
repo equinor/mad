@@ -145,7 +145,7 @@ export const track = async (
     extraData?: ICustomProperties,
 ) => {
     const eventString = `${eventName} ${eventStatus || ""}. ${extraText || ""}`;
-    if (excludeLogFilter(eventString, ["Ping", "ServiceMessage,", "STARTED"])) return;
+    if (excludeLogFilter(eventString, ["Ping", "ServiceMessage"])) return;
     trackEvent({ name: eventString }, extraData);
     if (appInsightsLongTermLog) {
         trackEventLongTerm({ name: eventString }, extraData);

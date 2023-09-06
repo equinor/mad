@@ -9,7 +9,6 @@ import {
     createNativeStackNavigator,
     EnvironmentProvider,
 } from "@equinor/mad-navigation";
-import { NavigationContainer } from "@react-navigation/native";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -35,12 +34,13 @@ import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
+import { NavigationContainerWithTracking } from "./NavigationContainerWithTracking";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
         <EnvironmentProvider environment="qa">
-            <NavigationContainer
+            <NavigationContainerWithTracking
                 linking={LinkingConfiguration}
                 theme={{
                     dark: colorScheme === "dark",
@@ -55,7 +55,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
                 }}
             >
                 <RootNavigator />
-            </NavigationContainer>
+            </NavigationContainerWithTracking>
         </EnvironmentProvider>
     );
 }
