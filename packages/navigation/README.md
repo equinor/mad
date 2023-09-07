@@ -49,12 +49,16 @@ import { createNativeStackNavigator } from "@equinor/mad-navigation";
 
 ### Environment banner
 
-In order for environment banners to work, they need to know which environment they are in
+In order for environment banners to work, they need to know which environment they are in.
 
 If you are using mad-core, this step will be fixed for you. If not, you have to add an
-`EnvironmentProvider` to your application
+`EnvironmentProvider` to your application. `mad-navigation` re-exports `EnvironmentProvider` from
+`mad-components`, and we recommend you to use that version.
 
 ```tsx
+//import environment provider from mad navigation to make sure you are using the correct version
+import { EnvironmentProvider } from "@equinor/mad-navigation";
+
 export default function App() {
     return (
         <SafeAreaProvider>
