@@ -7,7 +7,7 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import { useWindowDimensions } from "react-native";
-import { ITelemetryItem, addTelemetryInitializer, appInsightsInit } from "@equinor/mad-insights";
+import { ITelemetryItem, addTelemetryInitializer, useAppInsights } from "@equinor/mad-insights";
 import * as APP from "./app.json";
 
 export default function App() {
@@ -19,12 +19,11 @@ export default function App() {
     const deviceType = useMemo(() => {
         return width > 576 ? "tablet" : "phone";
     }, [width]);
-
+    useAppInsights({
+        instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
+        longTermLog: { instrumentationKey: "e91835aa-bcc2-41dd-a79d-352f0df23e1b" },
+    });
     useEffect(() => {
-        appInsightsInit({
-            instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
-            longTermLog: { instrumentationKey: "e91835aa-bcc2-41dd-a79d-352f0df23e1b" },
-        });
         const appVersionEnvelope = (item: ITelemetryItem) => {
             if (item.data) {
                 item.data["app-version"] = APP.expo.version;

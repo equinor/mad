@@ -21,18 +21,16 @@ tracking._**
 
 Install `@equinor/mad-insights` and `react-native-device-info`.
 
-Then, you need to initiate appInsights on app startup. This can be done in a `useEffect` in
+Then, you need to initiate appInsights on app startup. This can be done with `useAppInsights` in
 `App.tsx`:
 
 ```tsx
-import { appInsightsInit } from "@equinor/mad-insights";
+import { useAppInsights } from "@equinor/mad-insights";
 
 export default function App() {
-    useEffect(() => {
-        appInsightsInit({
-            instrumentationKey: "KEY FROM ENV CONFIG",
-        });
-    }, []);
+    useAppInsights({
+        instrumentationKey: "KEY FROM ENV CONFIG",
+    });
 
     return <>...</>;
 }
@@ -41,14 +39,12 @@ export default function App() {
 If you want to use connection string instead, replace instrumentationKey with connectionString:
 
 ```tsx
-import { appInsightsInit } from "@equinor/mad-insights";
+import { useAppInsights } from "@equinor/mad-insights";
 
 export default function App() {
-    useEffect(() => {
-        appInsightsInit({
-            connectionString: "CONNECTION STRING FROM ENV CONFIG",
-        });
-    }, []);
+    useAppInsights({
+        connectionString: "CONNECTION STRING FROM ENV CONFIG",
+    });
 
     return <>...</>;
 }
@@ -60,20 +56,18 @@ SHA256 by default, SHA1 is optional and should only be used in special circumsta
 secure).
 
 ```tsx
-import { appInsightsInit } from "@equinor/mad-insights";
+import { useAppInsights } from "@equinor/mad-insights";
 
 export default function App() {
-    useEffect(() => {
-        appInsightsInit({
-            connectionString: "CONNECTION STRING FROM ENV CONFIG",
-            longTermLog: {
-                connectionString: "ANOTHER CONNECTION STRING FROM ENV CONFIG",
+    useAppInsights({
+        connectionString: "CONNECTION STRING FROM ENV CONFIG",
+        longTermLog: {
+            connectionString: "ANOTHER CONNECTION STRING FROM ENV CONFIG",
 
-                //ONLY USE SHA1 IN SPECIAL CIRCUMSTANCES. IT'S _NOT_ SECURE
-                useSHA1: false,
-            },
-        });
-    }, []);
+            //ONLY USE SHA1 IN SPECIAL CIRCUMSTANCES. IT'S _NOT_ SECURE
+            useSHA1: false,
+        },
+    });
 
     return <>...</>;
 }
@@ -168,31 +162,27 @@ Import the function from `@equinor/mad-insights` in order to use our own instanc
 insights.
 
 ```tsx
-import { ITelemetryItem, addTelemetryInitializer, appInsightsInit } from "@equinor/mad-insights";
+import { ITelemetryItem, addTelemetryInitializer, useAppInsights } from "@equinor/mad-insights";
 import * as APP from "./app.json";
 
-
 export default function App() {
+    useAppInsights({
+        instrumentationKey: "SHORT TERM LOG INSTRUMENTATION KEY",
+        longTermLog: { instrumentationKey: "LONG TERM LOG INSTRUMENTATION KEY" },
+    });
     useEffect(() => {
-        appInsightsInit({
-            instrumentationKey: "SHORT TERM LOG INSTRUMENTATION KEY",
-            longTermLog: { instrumentationKey: "LONG TERM LOG INSTRUMENTATION KEY" },
-        });
-
-		// envelope for adding app version to all events
+        // envelope for adding app version to all events
         const appVersionEnvelope = (item: ITelemetryItem) => {
             if (item.data) {
                 item.data["app-version"] = APP.expo.version;
             }
         };
 
-		// add envelope to our application insights instances
+        // add envelope to our application insights instances
         addTelemetryInitializer(appVersionEnvelope);
     }, []);
 
-    return (
-        ...
-    );
+    return <>...</>;
 }
 ```
 
