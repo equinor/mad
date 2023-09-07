@@ -39,7 +39,7 @@ export const CircularProgress = ({ color, value, size = 48, ...rest }: CircularP
 
     const phi = rotationValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [`${(3 / 2) * Math.PI}rad`, `${(7 / 2) * Math.PI}rad`],
+        outputRange: ["-90deg", "270deg"],
     });
 
     return (
