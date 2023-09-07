@@ -100,7 +100,9 @@ export const appInsightsInit = (
 
 export const validateAppInsightsInit = () => {
     if (!appInsightsMain) {
-        throw "mad-insights error: AppInsights has not been initialized. please run appInsightsInit(args) at startup";
+        throw new Error(
+            "mad-insights error: AppInsights has not been initialized. please run appInsightsInit(args) at startup",
+        );
     }
 };
 
