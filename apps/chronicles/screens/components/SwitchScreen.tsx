@@ -72,7 +72,9 @@ export const SwitchScreen = () => {
                         onChange={handleSmallSwitchChange}
                         color="primary"
                     />
-                    <Typography>{"This is a small switch"}</Typography>
+                    <Typography>
+                        {"This is a small switch, with all the same functionality"}
+                    </Typography>
                 </View>
             </View>
         </ScrollView>

@@ -12,9 +12,9 @@ export type SmallSwitchProps = {
     disabled?: boolean;
 };
 
-const KNOB_SIZE = 10;
-const WIDTH = 25;
-const HEIGHT = 10;
+const KNOB_SIZE = 7;
+const WIDTH = 22;
+const HEIGHT = 12;
 
 export const SmallSwitch = forwardRef<View, SmallSwitchProps & ViewProps>(
     (
@@ -49,7 +49,7 @@ export const SmallSwitch = forwardRef<View, SmallSwitchProps & ViewProps>(
 
         const displacement = knobProgressValue.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, WIDTH - KNOB_SIZE],
+            outputRange: [0, WIDTH - KNOB_SIZE - 4],
             extrapolate: "clamp",
         });
 
@@ -122,17 +122,20 @@ const themeStyles = EDSStyleSheet.create((theme, props: SmallSwitchStyleSheetPro
             borderRadius: HEIGHT / 2,
             backgroundColor: disabled
                 ? theme.colors.interactive.disabled
-                : theme.colors.interactive.pressedOverlay,
+                : isActive
+                ? theme.colors.interactive.primary
+                : theme.colors.text.tertiary,
         },
         knob: {
             width: KNOB_SIZE,
+            margin: 2,
             height: KNOB_SIZE,
             borderRadius: KNOB_SIZE / 2,
             backgroundColor: disabled
                 ? disabledKnobColor
                 : isActive
-                ? activeBackgroundColor
-                : knobColor,
+                ? theme.colors.border.light
+                : theme.colors.border.light,
         },
     };
 });
