@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
-import { EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
-import { Switch } from "../../../../packages/components/src/components/Switch/";
+import { EDSStyleSheet, Spacer, Typography, useStyles, Switch } from "@equinor/mad-components";
 
 export const SwitchScreen = () => {
     const styles = useStyles(themeStyles);
     const [isActiveSwitch1, setIsActiveSwitch1] = useState(false);
     const [isActiveSwitch2, setIsActiveSwitch2] = useState(true);
     const [isActiveSwitchSmall, setIsActiveSwitchSmall] = useState(false);
+    const [isDisabledSwitchSmall, setIsDisabledSwitchSmall] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [isDisabledActiveSwitch, setDisabledActiveSwitch] = useState(true);
 
@@ -23,6 +23,10 @@ export const SwitchScreen = () => {
         setIsActiveSwitchSmall(newState);
     };
 
+    const handleSmallSwitchDisabled = (newState: boolean) => {
+        setIsDisabledSwitchSmall(newState);
+    };
+
     const handleDisabledActiveState = (newState: boolean) => {
         setIsDisabled(newState);
         setDisabledActiveSwitch(newState);
@@ -35,7 +39,7 @@ export const SwitchScreen = () => {
         >
             <Typography variant="h2">Variations</Typography>
             <Typography>Select between different states:</Typography>
-            <View style={styles.SwitchRow}>
+            <View style={styles.switchRow}>
                 <View style={styles.switchDescription}>
                     <Switch active={isActiveSwitch1} onChange={handleSwitchChange1} />
                     <Typography>Default Off</Typography>
@@ -49,7 +53,7 @@ export const SwitchScreen = () => {
 
             <Typography variant="h2">Disabled</Typography>
             <Typography>A switch can have multiple states:</Typography>
-            <View style={styles.SwitchRow}>
+            <View style={styles.switchRow}>
                 <View style={styles.switchDescription}>
                     <Switch disabled={isDisabled} />
                     <Typography>{"You can't turn me on"}</Typography>
@@ -65,16 +69,24 @@ export const SwitchScreen = () => {
             </View>
             <Spacer />
             <Typography variant="h2">Small</Typography>
-            <View style={styles.SwitchRow}>
+            <Typography>{"This is a small switch, with all the same functionality"}</Typography>
+            <View style={styles.switchRow}>
                 <View style={styles.switchDescription}>
                     <Switch.Small
                         active={isActiveSwitchSmall}
                         onChange={handleSmallSwitchChange}
                         color="primary"
                     />
-                    <Typography>
-                        {"This is a small switch, with all the same functionality"}
-                    </Typography>
+                    <Typography>Active</Typography>
+                </View>
+                <View style={styles.switchDescription}>
+                    <Switch.Small
+                        active={isDisabledSwitchSmall}
+                        onChange={handleSmallSwitchDisabled}
+                        color="primary"
+                        disabled={isDisabled}
+                    />
+                    <Typography>Disabled</Typography>
                 </View>
             </View>
         </ScrollView>
@@ -86,7 +98,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
     },
-    SwitchRow: {
+    switchRow: {
         paddingVertical: 8,
         flexDirection: "row",
         justifyContent: "space-around",
@@ -94,7 +106,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     switchDescription: {
         flexDirection: "column",
         alignItems: "center",
-        paddingHorizontal: 8,
     },
 }));
 

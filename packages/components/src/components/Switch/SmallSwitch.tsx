@@ -7,31 +7,24 @@ import { useToken } from "../../hooks/useToken";
 
 export type SmallSwitchProps = {
     onChange?: (isActive: boolean) => void;
-    color?: "primary" | "secondary" | "danger";
     active?: boolean;
     disabled?: boolean;
 };
 
 const KNOB_SIZE = 7;
-const WIDTH = 22;
-const HEIGHT = 12;
+const WIDTH = 23;
+const HEIGHT = 23;
 
 export const SmallSwitch = forwardRef<View, SmallSwitchProps & ViewProps>(
-    (
-        { color = "primary", onChange = () => null, active = false, disabled = false, ...rest },
-        ref,
-    ) => {
+    ({ onChange = () => null, active = false, disabled = false, ...rest }, ref) => {
         const styles = useStyles(themeStyles, {
-            color,
             disabled,
             isActive: active,
         });
 
         const token = useToken();
 
-        const knobProgressValue = useRef(
-            new Animated.Value(active ? WIDTH - KNOB_SIZE : 0),
-        ).current;
+        const knobProgressValue = useRef(new Animated.Value(active ? 1 : 0)).current;
 
         const activeKnobAnimation = Animated.timing(knobProgressValue, {
             toValue: 1,
@@ -89,18 +82,15 @@ SmallSwitch.displayName = "Switch.Small";
 
 type SmallSwitchStyleSheetProps = {
     isActive: boolean;
-    color: "primary" | "secondary" | "danger";
     disabled: boolean;
 };
 
 const themeStyles = EDSStyleSheet.create((theme, props: SmallSwitchStyleSheetProps) => {
-    const { color, disabled, isActive } = props;
+    const { disabled, isActive } = props;
 
-    const activeBackgroundColor = theme.colors.interactive[color];
-    const inactiveBackgroundColor = theme.colors.interactive.disabled;
-
-    const knobColor = theme.colors.text.tertiary;
     const disabledKnobColor = theme.colors.text.disabled;
+
+    const backgroundHeight = KNOB_SIZE * 1.78;
 
     return {
         toggleContainer: {
@@ -108,7 +98,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: SmallSwitchStyleSheetPro
             alignItems: "center",
         },
         pressableContainer: {
-            height: HEIGHT + (WIDTH - HEIGHT),
+            height: HEIGHT,
             width: WIDTH,
             padding: 20,
             borderRadius: 100,
@@ -118,7 +108,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: SmallSwitchStyleSheetPro
         },
         statusBackground: {
             width: WIDTH,
-            height: HEIGHT,
+            height: backgroundHeight,
             borderRadius: HEIGHT / 2,
             backgroundColor: disabled
                 ? theme.colors.interactive.disabled

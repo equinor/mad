@@ -37,59 +37,49 @@ export const Switch = forwardRef<View, SwitchProps & ViewProps>(
 
         const token = useToken();
 
-        const knobProgressValue = useRef(
-            new Animated.Value(active ? WIDTH - KNOB_SIZE * 1.7 : 0),
-        ).current;
+        // WIDTH - KNOB_SIZE * 1.7
 
-        const backgroundProgressValue = useRef(new Animated.Value(0)).current;
+        const progressValue = useRef(new Animated.Value(active ? 1 : 0)).current;
 
-        const activeKnobAnimation = Animated.timing(knobProgressValue, {
+        // const backgroundProgressValue = useRef(new Animated.Value(0)).current;
+
+        const activeKnobAnimation = Animated.timing(progressValue, {
             toValue: 1,
             duration: token.timing.animation.slow,
             useNativeDriver: true,
             easing: Easing.inOut(Easing.ease),
         });
 
-        const inactiveKnobAnimation = Animated.timing(knobProgressValue, {
+        const inactiveKnobAnimation = Animated.timing(progressValue, {
             toValue: 0,
             duration: token.timing.animation.slow,
             useNativeDriver: true,
             easing: Easing.inOut(Easing.ease),
         });
 
-        const displacement = knobProgressValue.interpolate({
+        const displacement = progressValue.interpolate({
             inputRange: [0, 1],
             outputRange: [0, WIDTH - KNOB_SIZE * 1.7],
             extrapolate: "clamp",
         });
 
-        const activeBackgroundAnimation = Animated.timing(backgroundProgressValue, {
-            toValue: 1,
-            duration: token.timing.animation.slow,
-            useNativeDriver: true,
-            easing: Easing.inOut(Easing.ease),
-        });
-
-        const inactiveBackgroundAnimation = Animated.timing(backgroundProgressValue, {
-            toValue: 0,
-            duration: token.timing.animation.slow,
-            useNativeDriver: true,
-            easing: Easing.inOut(Easing.ease),
-        });
-
-        const backgroundDisplacement = backgroundProgressValue.interpolate({
+        const backgroundScale = progressValue.interpolate({
             inputRange: [0, 1],
-            outputRange: [0.001, 1],
+            outputRange: [0, 1],
+            extrapolate: "clamp",
+        });
+
+        const backgroundDisplacement = progressValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: [-(WIDTH - KNOB_SIZE) / 2, 0],
             extrapolate: "clamp",
         });
 
         useEffect(() => {
             if (active) {
                 activeKnobAnimation.start();
-                activeBackgroundAnimation.start();
             } else {
                 inactiveKnobAnimation.start();
-                inactiveBackgroundAnimation.start();
             }
         }, [active]);
 
@@ -113,13 +103,9 @@ export const Switch = forwardRef<View, SwitchProps & ViewProps>(
                             {
                                 transform: [
                                     {
-                                        translateX: backgroundProgressValue.interpolate({
-                                            inputRange: [0, 1],
-                                            outputRange: [-(WIDTH - KNOB_SIZE) / 2, 0],
-                                            extrapolate: "clamp",
-                                        }),
+                                        translateX: backgroundDisplacement,
                                     },
-                                    { scaleX: backgroundDisplacement },
+                                    { scaleX: backgroundScale },
                                 ],
                             },
                         ]}
@@ -166,7 +152,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: ToggleStyleSheetProps) =
             height: HEIGHT,
             width: WIDTH,
             padding: 7,
-            borderRadius: 100,
+            borderRadius: WIDTH / 2,
             alignItems: "center",
             justifyContent: "center",
             overflow: "hidden",

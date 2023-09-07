@@ -18,7 +18,6 @@ export type DiscoverStackParamList = {
     Paper: undefined;
     Button: undefined;
     Switch: undefined;
-    SmallSwitch: undefined;
     Popover: undefined;
     Input: undefined;
     TextField: undefined;
