@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "build": "tsup-node",
-        "test": "jest",
+        "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/"
     },
