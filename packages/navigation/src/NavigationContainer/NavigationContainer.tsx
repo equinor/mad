@@ -1,15 +1,18 @@
 import React, { useRef } from "react";
-import { trackNavigation } from "@equinor/mad-insights";
-import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
+import {
+    NavigationContainer as ReactNavigationNavigationContainer,
+    useNavigationContainerRef,
+} from "@react-navigation/native";
 
-/**
- * @todo This component will fit perfectly into it's own package
- * Adds tracking to react navigation
- */
-type NavigationContainerProps<T extends object> = Parameters<typeof NavigationContainer<T>>[0];
-export const NavigationContainerWithTracking = <T extends object>(
-    props: NavigationContainerProps<T>,
-) => {
+type ExtraProps = {
+    onRouteChange?: (currentRoute: string, prevRoute: string | undefined) => void;
+};
+
+export type NavigationContainerProps<T extends object> = Parameters<
+    typeof ReactNavigationNavigationContainer<T>
+>[0] &
+    ExtraProps;
+export const NavigationContainer = <T extends object>(props: NavigationContainerProps<T>) => {
     const navigationRef = useNavigationContainerRef<T>();
     const routeNameRef = useRef<string | undefined>();
 
@@ -19,25 +22,26 @@ export const NavigationContainerWithTracking = <T extends object>(
         if (!currentRoute) return;
         routeNameRef.current = currentRoute.name;
     };
-    const trackStateChange = async () => {
+    const onRouteChange = async () => {
+        if (!props.onRouteChange) return;
         const currentRoute = navigationRef.getCurrentRoute();
         if (!currentRoute) return;
         const previousRouteName = routeNameRef.current;
         const currentRouteName = currentRoute.name;
 
         if (previousRouteName !== currentRouteName) {
-            trackNavigation(currentRouteName);
+            props.onRouteChange(currentRouteName, previousRouteName);
         }
 
         routeNameRef.current = currentRouteName;
     };
     const onStateChange: typeof props.onStateChange = (...args) => {
-        trackStateChange();
+        onRouteChange();
         if (props.onStateChange) props.onStateChange(...args);
     };
 
     return (
-        <NavigationContainer<T>
+        <ReactNavigationNavigationContainer<T>
             {...props}
             ref={navigationRef}
             onReady={onReady}

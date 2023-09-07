@@ -120,6 +120,20 @@ export default function Navigation() {
 }
 ```
 
+Alternatively, if you use `@equinor/mad-navigation`, this part is made easier for you:
+
+```tsx
+import { NavigationContainer } from "@equinor/mad-navigation";
+
+export default function Navigation() {
+    return (
+        <NavigationContainer onRouteChange={currentRouteName => trackNavigation(currentRouteName)}>
+            <RootNavigator />
+        </NavigationContainer>
+    );
+}
+```
+
 **Custom tracking**
 
 If you need to add additional tracking to your app, we have some helper methods for that! The

@@ -8,6 +8,7 @@ import {
     createBottomTabNavigator,
     createNativeStackNavigator,
     EnvironmentProvider,
+    NavigationContainer,
 } from "@equinor/mad-navigation";
 import { ColorSchemeName } from "react-native";
 
@@ -34,13 +35,13 @@ import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
-import { NavigationContainerWithTracking } from "./NavigationContainerWithTracking";
+import { trackNavigation } from "@equinor/mad-insights";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
         <EnvironmentProvider environment="qa">
-            <NavigationContainerWithTracking
+            <NavigationContainer
                 linking={LinkingConfiguration}
                 theme={{
                     dark: colorScheme === "dark",
@@ -53,9 +54,10 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
                         notification: token.colors.interactive.primary,
                     },
                 }}
+                onRouteChange={current => trackNavigation(current)}
             >
                 <RootNavigator />
-            </NavigationContainerWithTracking>
+            </NavigationContainer>
         </EnvironmentProvider>
     );
 }
