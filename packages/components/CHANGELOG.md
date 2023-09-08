@@ -1,5 +1,18 @@
 # @equinor/mad-components
 
+## 0.5.0
+
+### Minor Changes
+
+-   7d96952: BREAKING: 'Environment' component renamed to 'EnvironmentBanner', and no longer accepts
+    props. Use EnvironmentProvider to provide the environment
+
+### Patch Changes
+
+-   c98abdf: fixed the circularprogress component so that it is spinning in place when set to
+    undefined
+-   c7816aa: Added `Switch` and `Switch.Small` components
+
 ## 0.4.2
 
 ### Patch Changes
