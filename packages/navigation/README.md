@@ -6,6 +6,7 @@ better experience for developers.
 ### Features
 
 -   Display environment banners automatically on screens.
+-   Add onRouteChange prop to navigation containers
 -   (more features coming soon)
 
 ### Tested on and confirmed working with these versions
@@ -38,6 +39,8 @@ listed below:
 
 -   `createBottomTabNavigator`
 -   `createNativeStackNavigator`
+
+You can also import `NavigationContainer` from this package if you need a `onRouteChange` prop.
 
 For example:
 
