@@ -54,6 +54,12 @@ export default function DiscoverScreen({
                     iconName="magnify"
                     onPress={() => navigation.navigate("Search")}
                 />
+                <Cell.Navigation
+                    title="Switch"
+                    description="Turn me on and off"
+                    iconName="toggle-switch-off-outline"
+                    onPress={() => navigation.navigate("Switch")}
+                />
             </Cell.Group>
 
             <Spacer />

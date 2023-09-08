@@ -36,6 +36,7 @@ import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
+import { SwitchScreen } from "../screens/components/SwitchScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -105,6 +106,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Paper" component={PaperScreen} />
             <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
             <DiscoverStack.Screen name="Button" component={ButtonScreen} />
+            <DiscoverStack.Screen name="Switch" component={SwitchScreen} />
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
             <DiscoverStack.Screen name="Input" component={InputScreen} />
             <DiscoverStack.Screen name="Search" component={SearchScreen} />

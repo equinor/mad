@@ -1,2 +1,2 @@
-export * from './createBottomTabNavigator'
-export * from './types'
+export * from "./createBottomTabNavigator";
+export * from "./types";
