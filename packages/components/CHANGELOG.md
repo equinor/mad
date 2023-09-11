@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.5.1
+
+### Patch Changes
+
+-   d7e40cd: Added `Cell.Switch`component
+
 ## 0.5.0
 
 ### Minor Changes
