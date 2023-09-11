@@ -117,6 +117,12 @@ export default function DiscoverScreen({
                     iconName="gesture-tap-button"
                     onPress={() => navigation.navigate("ButtonCell")}
                 />
+                <Cell.Navigation
+                    title="Switch Cell"
+                    description="Toggle me!"
+                    iconName="toggle-switch"
+                    onPress={() => navigation.navigate("SwitchCell")}
+                />
             </Cell.Group>
 
             <Spacer />
