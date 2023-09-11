@@ -72,7 +72,7 @@ export const SwitchCell = forwardRef<View, SwitchCellProps>(
                             group="cell"
                             variant="description"
                             numberOfLines={2}
-                            color={disabled ? "textDisabled" : undefined}
+                            color={disabled ? "textDisabled" : "textTertiary"}
                         >
                             {description}
                         </Typography>

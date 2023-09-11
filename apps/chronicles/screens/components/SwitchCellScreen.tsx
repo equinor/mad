@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-    Cell,
-    EDSStyleSheet,
-    Spacer,
-    Typography,
-    useStyles,
-    Switch,
-} from "@equinor/mad-components";
+import { Cell, EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
 export const SwitchCellScreen = () => {
@@ -15,7 +8,6 @@ export const SwitchCellScreen = () => {
     const [activeSwitch1, setActiveSwitch1] = useState(false);
     const [activeSwitch2, setActiveSwitch2] = useState(true);
     const [activeSwitch3, setActiveSwitch3] = useState(false);
-    const [disabledSwitch, setDisabledSwitch] = useState(true);
 
     return (
         <ScrollView
@@ -44,7 +36,7 @@ export const SwitchCellScreen = () => {
                 title="I'm the forbidden switch. No touchy!"
                 isActive={activeSwitch2}
                 onChange={setActiveSwitch2}
-                disabled={disabledSwitch}
+                disabled={true}
             />
             <Spacer />
             <Typography style={styles.explanation}>
