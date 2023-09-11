@@ -3,6 +3,7 @@ import { NavigationCell, NavigationCellProps } from "./NavigationCell";
 import { Cell as _Cell, CellProps } from "./Cell";
 import { CellSwipeItemProps } from "./types";
 import { ButtonCell } from "./ButtonCell";
+import { SwitchCell } from "./SwitchCell";
 
 type CellFamily = typeof _Cell & {
     /**
@@ -17,11 +18,14 @@ type CellFamily = typeof _Cell & {
      * A cell with button interaction.
      */
     Button: typeof ButtonCell;
+
+    Switch: typeof SwitchCell;
 };
 
 const Cell = _Cell as CellFamily;
 Cell.Group = CellGroup;
 Cell.Navigation = NavigationCell;
 Cell.Button = ButtonCell;
+Cell.Switch = SwitchCell;
 
 export { Cell, CellProps, CellGroupProps, NavigationCellProps, CellSwipeItemProps };
