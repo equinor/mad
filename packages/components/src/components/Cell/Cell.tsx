@@ -100,9 +100,9 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         borderTopWidth: props.isFirstCell ? theme.geometry.border.borderWidth : undefined,
         backgroundColor: theme.colors.container.default,
         minHeight: theme.geometry.dimension.cell.minHeight,
+        justifyContent: "center",
     },
     contentContainer: {
-        flex: 1,
         flexDirection: "row",
         gap: theme.spacing.cell.gapHorizontal,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
