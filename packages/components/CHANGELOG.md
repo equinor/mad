@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.5.3
+
+### Patch Changes
+
+-   2e03adc: Fixed Cell styling issue in non-ScrollView containers... again
+
 ## 0.5.2
 
 ### Patch Changes
