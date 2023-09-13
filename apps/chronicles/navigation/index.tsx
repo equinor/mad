@@ -4,9 +4,12 @@
  *
  */
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+    createBottomTabNavigator,
+    createNativeStackNavigator,
+    EnvironmentProvider,
+    NavigationContainer,
+} from "@equinor/mad-navigation";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -31,26 +34,33 @@ import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicator
 import { PortalScreen } from "../screens/components/PortalScreen";
 import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
+import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
+import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
+import { trackNavigation } from "@equinor/mad-insights";
+import { SwitchScreen } from "../screens/components/SwitchScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
-        <NavigationContainer
-            linking={LinkingConfiguration}
-            theme={{
-                dark: colorScheme === "dark",
-                colors: {
-                    primary: token.colors.interactive.primary,
-                    background: token.colors.container.background,
-                    card: token.colors.container.default,
-                    text: token.colors.text.primary,
-                    border: token.colors.border.medium,
-                    notification: token.colors.interactive.primary,
-                },
-            }}
-        >
-            <RootNavigator />
-        </NavigationContainer>
+        <EnvironmentProvider environment="qa">
+            <NavigationContainer
+                linking={LinkingConfiguration}
+                theme={{
+                    dark: colorScheme === "dark",
+                    colors: {
+                        primary: token.colors.interactive.primary,
+                        background: token.colors.container.background,
+                        card: token.colors.container.default,
+                        text: token.colors.text.primary,
+                        border: token.colors.border.medium,
+                        notification: token.colors.interactive.primary,
+                    },
+                }}
+                onRouteChange={current => trackNavigation(current)}
+            >
+                <RootNavigator />
+            </NavigationContainer>
+        </EnvironmentProvider>
     );
 }
 
@@ -90,17 +100,21 @@ function DiscoverNavigator() {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+                environmentBannerShown: false,
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
             <DiscoverStack.Screen name="Paper" component={PaperScreen} />
             <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
             <DiscoverStack.Screen name="Button" component={ButtonScreen} />
+            <DiscoverStack.Screen name="Switch" component={SwitchScreen} />
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
             <DiscoverStack.Screen name="Input" component={InputScreen} />
             <DiscoverStack.Screen name="Search" component={SearchScreen} />
             <DiscoverStack.Screen name="Cell" component={CellScreen} />
             <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />
+            <DiscoverStack.Screen name="ButtonCell" component={ButtonCellScreen} />
+            <DiscoverStack.Screen name="SwitchCell" component={SwitchCellScreen} />
             <DiscoverStack.Screen name="Accordion" component={AccordionScreen} />
             <DiscoverStack.Screen name="Menu" component={MenuScreen} />
             <DiscoverStack.Screen

@@ -1,21 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { EnvironmentContext, EnvironmentContextProps } from "./EnvironmentProvider";
 import { View } from "react-native";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 
-type EnvironmentStyleProps = Pick<EnvironmentProps, "environment">;
+type EnvironmentStyleProps = Pick<EnvironmentContextProps, "environment">;
 
-export type EnvironmentName = "dev" | "test" | "qa" | "prod";
-
-type EnvironmentProps = {
-    /**
-     * A string representing the environment that the banner should be rendered for.
-     */
-    environment: EnvironmentName;
-};
-
-export const Environment = ({ environment }: EnvironmentProps) => {
+export const EnvironmentBanner = () => {
+    const environment = useContext(EnvironmentContext);
     const styles = useStyles(themeStyles, { environment });
 
     if (environment === "prod") return null;

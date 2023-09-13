@@ -39,7 +39,7 @@ export const CellScreen = () => {
                 </Typography>
             </View>
             <Spacer />
-            <Cell style={{ height: 60 }} />
+            <Cell />
             <Spacer />
             <View style={styles.readableContent}>
                 <Typography variant="h2">Groups</Typography>
@@ -51,9 +51,9 @@ export const CellScreen = () => {
             </View>
             <Spacer />
             <Cell.Group title="My first cell group">
-                <Cell style={{ height: 60 }} />
-                <Cell style={{ height: 60 }} />
-                <Cell style={{ height: 60 }} />
+                <Cell />
+                <Cell />
+                <Cell />
             </Cell.Group>
             <Spacer />
             <View style={styles.readableContent}>
@@ -88,9 +88,8 @@ export const CellScreen = () => {
                             <Typography> This is the left adornment</Typography>
                         </View>
                     }
-                    style={{ height: 60 }}
                 />
-                <Cell style={{ height: 60 }}>
+                <Cell>
                     <View style={styles.child}>
                         <Typography>This element is a child of Cell</Typography>
                     </View>
@@ -106,7 +105,6 @@ export const CellScreen = () => {
                             <Typography> Right</Typography>
                         </View>
                     }
-                    style={{ height: 60 }}
                 >
                     <View style={styles.child}>
                         <Typography>Main content</Typography>
@@ -122,8 +120,8 @@ export const CellScreen = () => {
                 </Typography>
             </View>
             <Spacer />
-            <Cell onPress={() => null} style={{ height: 60 }}>
-                <View style={{ justifyContent: "center", flex: 1 }}>
+            <Cell onPress={() => null}>
+                <View style={{ justifyContent: "center" }}>
                     <Typography>This cell responds to touch!</Typography>
                 </View>
             </Cell>
@@ -203,7 +201,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
     },
     child: {
-        flex: 1,
         borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",

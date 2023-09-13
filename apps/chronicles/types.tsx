@@ -17,12 +17,14 @@ export type DiscoverStackParamList = {
     Discover: undefined;
     Paper: undefined;
     Button: undefined;
+    Switch: undefined;
     Popover: undefined;
     Input: undefined;
     TextField: undefined;
     Search: undefined;
     Cell: undefined;
     NavigationCell: undefined;
+    ButtonCell: undefined;
     Accordion: undefined;
     Menu: undefined;
     ProgressIndicator: undefined;

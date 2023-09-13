@@ -1,5 +1,11 @@
 # @equinor/eslint-config-mad
 
+## 0.2.1
+
+### Patch Changes
+
+-   e507ef4: Added eslint comments plugin
+
 ## 0.2.0
 
 ### Minor Changes

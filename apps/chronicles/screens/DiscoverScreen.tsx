@@ -54,6 +54,12 @@ export default function DiscoverScreen({
                     iconName="magnify"
                     onPress={() => navigation.navigate("Search")}
                 />
+                <Cell.Navigation
+                    title="Switch"
+                    description="Turn me on and off"
+                    iconName="toggle-switch-off-outline"
+                    onPress={() => navigation.navigate("Switch")}
+                />
             </Cell.Group>
 
             <Spacer />
@@ -104,6 +110,18 @@ export default function DiscoverScreen({
                     description="Navigate to it by pressing one"
                     iconName="sign-direction"
                     onPress={() => navigation.navigate("NavigationCell")}
+                />
+                <Cell.Navigation
+                    title="Button Cell"
+                    description="Click me!"
+                    iconName="gesture-tap-button"
+                    onPress={() => navigation.navigate("ButtonCell")}
+                />
+                <Cell.Navigation
+                    title="Switch Cell"
+                    description="Toggle me!"
+                    iconName="toggle-switch"
+                    onPress={() => navigation.navigate("SwitchCell")}
                 />
             </Cell.Group>
 
