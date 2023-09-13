@@ -59,18 +59,24 @@ export const CellScreen = () => {
             <View style={styles.readableContent}>
                 <Typography>
                     The clumping behavior applies for any type of cell. The group below contains
-                    three cells: one navigation cell, one normal blank cell and one custom cell made
-                    for this screen. You would typically create app specific cells for your apps
-                    needs.
+                    three cells: one switch cell, one navigation cell and one custom cell made for
+                    this screen. You would typically create app specific cells for your apps needs.
                 </Typography>
             </View>
             <Spacer />
             <Cell.Group>
-                <Cell.Navigation title="This is a navigation cell" onPress={() => null} />
-                <Cell>
-                    <Typography>This is a normal blank cell</Typography>
-                </Cell>
-                <MyCustomCell title="This is a custom cell" />
+                <Cell.Switch
+                    title="This cell is a switch cell"
+                    isActive={false}
+                    onChange={() => null}
+                />
+                <Cell.Navigation
+                    title="This is a navigation cell"
+                    description="And this is its description!"
+                    iconName="navigation-outline"
+                    onPress={() => null}
+                />
+                <MyCustomCell title="And this is a custom cell" />
             </Cell.Group>
             <Spacer />
             <View style={styles.readableContent}>
@@ -85,7 +91,7 @@ export const CellScreen = () => {
                 <Cell
                     leftAdornment={
                         <View style={styles.adornment}>
-                            <Typography> This is the left adornment</Typography>
+                            <Typography>This is the left adornment</Typography>
                         </View>
                     }
                 />
@@ -121,9 +127,7 @@ export const CellScreen = () => {
             </View>
             <Spacer />
             <Cell onPress={() => null}>
-                <View style={{ justifyContent: "center" }}>
-                    <Typography>This cell responds to touch!</Typography>
-                </View>
+                <Typography>This cell responds to touch!</Typography>
             </Cell>
             <Spacer />
             <View style={styles.readableContent}>
@@ -201,6 +205,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
     },
     child: {
+        flex: 1,
         borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
@@ -209,7 +214,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         borderRadius: theme.geometry.border.elementBorderRadius,
     },
     adornment: {
-        flex: 1,
         borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",

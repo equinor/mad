@@ -42,13 +42,13 @@ export const NavigationCell = ({
     const styles = useStyles(themeStyles);
 
     const IconAdornment = () => (
-        <View style={styles.iconContainer}>
+        <View style={styles.adornmentContainer}>
             <Icon name={iconName ?? "dots-square"} color={disabled ? "textDisabled" : undefined} />
         </View>
     );
 
     const DisclosureAdornment = () => (
-        <View style={styles.disclosureContainer}>
+        <View style={styles.adornmentContainer}>
             <Icon name="chevron-right" color={disabled ? "textDisabled" : undefined} />
         </View>
     );
@@ -88,18 +88,10 @@ NavigationCell.displayName = "Cell.Navigation";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     contentContainer: {
-        flex: 1,
         justifyContent: "center",
         gap: theme.spacing.cell.content.titleDescriptionGap,
     },
-    iconContainer: {
-        flex: 1,
+    adornmentContainer: {
         justifyContent: "center",
-        alignItems: "center",
-    },
-    disclosureContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
     },
 }));
