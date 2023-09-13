@@ -33,6 +33,11 @@ export type DiscoverStackParamList = {
     Environment: undefined;
 };
 
+export type TemplateStackParamList = {
+    Template: undefined;
+    Settings: undefined;
+};
+
 export type DiscoverStackScreenProps<Screen extends keyof DiscoverStackParamList> =
     NativeStackScreenProps<DiscoverStackParamList, Screen>;
 
@@ -40,12 +45,15 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
     RootStackParamList,
     Screen
 >;
+export type TemplateStackScreenProps<Screen extends keyof TemplateStackParamList> =
+    NativeStackScreenProps<TemplateStackParamList, Screen>;
 
 export type RootTabParamList = {
     DiscoverTab: undefined;
     IconsTab: undefined;
     DrawTab: undefined;
     SignTab: undefined;
+    TemplateTab: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

@@ -20,6 +20,11 @@ const linking: LinkingOptions<RootStackParamList> = {
                             DiscoverScreen: "discover",
                         },
                     },
+                    Template: {
+                        screens: {
+                            TemplateScreen: "templatescreen",
+                        },
+                    },
                     Icons: {
                         screens: {
                             Icons: "icons",

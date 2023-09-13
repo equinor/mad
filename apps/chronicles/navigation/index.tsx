@@ -15,7 +15,12 @@ import { ColorSchemeName } from "react-native";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
 import IconsScreen from "../screens/IconsScreen";
-import { DiscoverStackParamList, RootStackParamList, RootTabParamList } from "../types";
+import {
+    DiscoverStackParamList,
+    RootStackParamList,
+    RootTabParamList,
+    TemplateStackParamList,
+} from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { DrawScreen } from "../screens/DrawScreen";
 import { SignatureScreen } from "../screens/SignatureTest";
@@ -38,6 +43,8 @@ import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
+import TemplateScreen from "../screens/TemplateScreen";
+import SettingsScreen from "../screens/components/SettingsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -129,6 +136,28 @@ function DiscoverNavigator() {
     );
 }
 
+const TemplateStack = createNativeStackNavigator<TemplateStackParamList>();
+
+function TemplateNavigator() {
+    return (
+        <TemplateStack.Navigator
+            initialRouteName="Template"
+            screenOptions={{
+                headerLargeTitle: true,
+                headerLargeTitleShadowVisible: true,
+                headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
+                headerTitleStyle: { fontFamily: "Equinor-Regular" },
+                headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+                environmentBannerShown: false,
+            }}
+        >
+            <TemplateStack.Screen name="Template" component={TemplateScreen} />
+            <TemplateStack.Screen name="Settings" component={SettingsScreen} />
+            {/* Add other screens to this navigator as needed */}
+        </TemplateStack.Navigator>
+    );
+}
+
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
@@ -154,6 +183,18 @@ function BottomTabNavigator() {
                     ),
                 }}
             />
+            <BottomTab.Screen
+                name="TemplateTab"
+                component={TemplateNavigator}
+                options={{
+                    title: "Template",
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="fit-to-screen" color={color as Color} />
+                    ),
+                }}
+            />
+
             <BottomTab.Screen
                 name="IconsTab"
                 component={IconsScreen}

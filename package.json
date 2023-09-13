@@ -18,6 +18,8 @@
         "dev:insights": "turbo run dev --filter @equinor/mad-insights",
         "build:insights": "turbo run build --filter @equinor/mad-insights",
         "test:insights": "turbo run test --filter @equinor/mad-insights",
+        "dev:screens": "turbo run dev --filter @equinor/mad-screens",
+        "build:screens": "turbo run build --filter @equinor/mad-screens",
         "dev:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
         "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
         "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
