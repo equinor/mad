@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.5.2
+
+### Patch Changes
+
+-   d277791: Fixed a styling issue in `Cell` component that caused the cell to collapse in non
+    scroll views
+
 ## 0.5.1
 
 ### Patch Changes
