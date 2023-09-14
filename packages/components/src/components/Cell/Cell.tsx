@@ -55,7 +55,9 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                 <PressableHighlight disabled={!onPress} onPress={onPress}>
                     <View style={styles.contentContainer}>
                         {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
-                        <View style={styles.children}>{children}</View>
+                        <View style={styles.children}>
+                            <View style={{ flex: 1 }}>{children}</View>
+                        </View>
                         {rightAdornment && <View style={styles.adornment}>{rightAdornment}</View>}
                     </View>
                     {!isLastCell && (
