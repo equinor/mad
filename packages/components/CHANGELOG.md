@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.5.4
+
+### Patch Changes
+
+-   a057c98: Fixed an issue where accordion item chevron did not display properly
+
 ## 0.5.3
 
 ### Patch Changes
