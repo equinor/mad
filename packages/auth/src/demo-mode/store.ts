@@ -1,17 +1,24 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+const actionParentName = "mad-auth";
+
 type DemoModeStore = {
     demoModeEnabled: boolean;
     enableDemoMode: () => void;
     disableDemoMode: () => void;
 };
 const useDemoModeStore = create<DemoModeStore>()(
-    devtools(set => ({
-        demoModeEnabled: false,
-        enableDemoMode: () => set({ demoModeEnabled: true }),
-        disableDemoMode: () => set({ demoModeEnabled: false }),
-    })),
+    devtools(
+        set => ({
+            demoModeEnabled: false,
+            enableDemoMode: () =>
+                set({ demoModeEnabled: true }, false, `${actionParentName}/enableDemoMode`),
+            disableDemoMode: () =>
+                set({ demoModeEnabled: false }, false, `${actionParentName}/disableDemoMode`),
+        }),
+        { anonymousActionType: actionParentName },
+    ),
 );
 
 export const { enableDemoMode, disableDemoMode } = useDemoModeStore.getState();
