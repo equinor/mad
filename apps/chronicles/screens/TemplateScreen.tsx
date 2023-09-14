@@ -15,7 +15,7 @@ export default function TemplateScreen({
             <Cell.Group title="Template screens">
                 <Cell.Navigation
                     title="Settings Screen"
-                    description="Customizeable setting screen based off of config file"
+                    description="Customizable setting screen based off of config file"
                     iconName="cog"
                     onPress={() => navigation.navigate("Settings")}
                 />

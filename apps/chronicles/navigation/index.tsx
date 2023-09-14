@@ -151,7 +151,7 @@ function TemplateNavigator() {
                 environmentBannerShown: false,
             }}
         >
-            <TemplateStack.Screen name="Template" component={TemplateScreen} />
+            <TemplateStack.Screen name="Screens" component={TemplateScreen} />
             <TemplateStack.Screen name="Settings" component={SettingsScreen} />
             {/* Add other screens to this navigator as needed */}
         </TemplateStack.Navigator>
@@ -187,7 +187,7 @@ function BottomTabNavigator() {
                 name="TemplateTab"
                 component={TemplateNavigator}
                 options={{
-                    title: "Template",
+                    title: "Screens",
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="fit-to-screen" color={color as Color} />
