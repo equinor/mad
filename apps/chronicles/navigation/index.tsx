@@ -37,6 +37,8 @@ import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
+import { LoginScreen } from "@equinor/mad-auth/src/LoginScreen";
+import { SettingsScreen } from "../screens/SettingsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -72,6 +74,11 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
     return (
         <RootStack.Navigator>
+            <RootStack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false, environmentBannerShown: true }}
+            />
             <RootStack.Screen
                 name="Root"
                 component={BottomTabNavigator}
@@ -175,6 +182,16 @@ function BottomTabNavigator() {
                     title: "Sign",
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="signature-image" color={color as Color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="Settings"
+                component={SettingsScreen}
+                options={{
+                    title: "Settings",
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="settings-helper" color={color as Color} />
                     ),
                 }}
             />

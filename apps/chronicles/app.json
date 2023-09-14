@@ -27,6 +27,12 @@
         },
         "plugins": [
             [
+                "react-native-msal",
+                {
+                    "androidPackageSignatureHash": "<base64 package signature hash>"
+                }
+            ],
+            [
                 "expo-image-picker",
                 {
                     "photosPermissions": "The app needs access to your photos library in order to process them."
