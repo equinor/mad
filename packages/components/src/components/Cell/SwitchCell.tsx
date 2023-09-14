@@ -92,8 +92,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         gap: theme.spacing.cell.content.titleDescriptionGap,
     },
     iconContainer: {
-        flex: 1,
         justifyContent: "center",
-        alignItems: "center",
     },
 }));
