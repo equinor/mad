@@ -1,3 +1,4 @@
+import React, { useCallback, useEffect, useState } from "react";
 import {
     authenticateInteractively,
     authenticateSilently,
@@ -5,7 +6,6 @@ import {
 } from "../auth";
 import type { MadAuthenticationResult } from "../types";
 import { Button } from "@equinor/mad-components";
-import React, { useCallback, useEffect, useState } from "react";
 import { View, Image, Pressable, ImageSourcePropType } from "react-native";
 import { DemoButton } from "./DemoButton";
 

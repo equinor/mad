@@ -134,8 +134,10 @@ importers:
     specifiers:
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-components': workspace:*
+      zustand: ^4.4.1
     dependencies:
       '@equinor/mad-components': link:../components
+      zustand: 4.4.1
     devDependencies:
       '@equinor/eslint-config-mad': link:../eslint-config-mad
 
@@ -12505,6 +12507,12 @@ packages:
       react: 18.2.0
     dev: false
 
+  /use-sync-external-store/1.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dev: false
+
   /use-sync-external-store/1.2.0_react@18.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
@@ -13014,6 +13022,24 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  /zustand/4.4.1:
+    resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      use-sync-external-store: 1.2.0
+    dev: false
 
   github.com/equinor/react-native-msal/f1069d3b8f6ca911f60af1ddce45c8512bc58714_6syixf76bqx5r4tgwtwyqyssoi:
     resolution: {tarball: https://codeload.github.com/equinor/react-native-msal/tar.gz/f1069d3b8f6ca911f60af1ddce45c8512bc58714}

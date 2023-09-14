@@ -9,6 +9,7 @@ import {
     getMadAuthenticationResult,
 } from "./_internal/translation-layer/translationLayer";
 import { MadAccount, MadAuthenticationResult } from "./types";
+import { DEMO_USER, disableDemoMode, getIsDemoModeEnabled } from "./demo-mode";
 
 let pca: PublicClientApplication | null = null;
 
@@ -23,6 +24,12 @@ async function _getInternalAccount(): Promise<MSALAccount | null> {
         return account;
     }
 
+    return null;
+}
+
+async function _getMadAccountFromMSAL(): Promise<MadAccount | null> {
+    const msalAccount = await _getInternalAccount();
+    if (msalAccount) return getMadAccount(msalAccount);
     return null;
 }
 
@@ -71,9 +78,8 @@ export async function authenticateInteractively(
 }
 
 export async function getAccount(): Promise<MadAccount | null> {
-    const msalAccount = await _getInternalAccount();
-    if (msalAccount) return getMadAccount(msalAccount);
-    return null;
+    if (getIsDemoModeEnabled()) return DEMO_USER;
+    return _getMadAccountFromMSAL();
 }
 
 export async function authenticateSilently(
@@ -106,6 +112,10 @@ export async function authenticateSilently(
 }
 
 export async function signOut(): Promise<boolean> {
+    if (getIsDemoModeEnabled()) {
+        disableDemoMode();
+        return true;
+    }
     if (!pca) {
         throw new Error("Unable to authenticate, authentication client does not exist");
     }

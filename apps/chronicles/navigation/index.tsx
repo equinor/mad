@@ -37,7 +37,7 @@ import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
-import { LoginScreen } from "@equinor/mad-auth/src/LoginScreen";
+import { LoginScreen } from "../screens/LoginScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
