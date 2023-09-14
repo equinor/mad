@@ -166,9 +166,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: AccordionContextType) =>
             paddingVertical: theme.spacing.container.paddingVertical,
         },
         iconContainer: {
-            flex: 1,
             justifyContent: "center",
-            alignItems: "center",
         },
         dividerOuter: {
             position: "absolute",
