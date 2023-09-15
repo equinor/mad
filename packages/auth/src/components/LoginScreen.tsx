@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import {
     authenticateInteractively,
     authenticateSilently,
+    authenticationClientExists,
     initiateAuthenticationClient,
 } from "../auth";
 import type { MadAuthenticationResult } from "../types";
@@ -17,20 +18,34 @@ export type LoginScreenProps = {
 };
 export const LoginScreen = ({ logo, clientId, redirectUri, navigateFn }: LoginScreenProps) => {
     const [logoTapCount, setLogoTapCount] = useState(0);
+    const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
 
     const onAuthenticationSuccessful = useCallback(
-        (res: MadAuthenticationResult | null) => res && navigateFn(),
+        (res: MadAuthenticationResult | null) => {
+            if (res) navigateFn();
+        },
         [navigateFn],
     );
+
+    const withAuthenticationPromiseHandler = (promise: Promise<MadAuthenticationResult | null>) => {
+        setAuthenticationInProgress(true);
+        return promise
+            .then(res => {
+                setAuthenticationInProgress(false);
+                onAuthenticationSuccessful(res);
+            })
+            .catch(() => setAuthenticationInProgress(false));
+    };
 
     useEffect(() => {
         initiateAuthenticationClient({
             clientId,
             redirectUri,
-        }).then(() => authenticateSilently([]).then(onAuthenticationSuccessful));
-    }, [onAuthenticationSuccessful, clientId, redirectUri]);
+        }).then(() => withAuthenticationPromiseHandler(authenticateSilently([])));
+    }, [onAuthenticationSuccessful]);
 
     const displayDemoButton = logoTapCount >= 5;
+    const loginButtonIsDisabled = authenticationInProgress || !authenticationClientExists();
 
     return (
         <View
@@ -47,7 +62,9 @@ export const LoginScreen = ({ logo, clientId, redirectUri, navigateFn }: LoginSc
             </Pressable>
             <Button
                 title="Log in"
-                onPress={() => authenticateInteractively([]).then(onAuthenticationSuccessful)}
+                onPress={() => withAuthenticationPromiseHandler(authenticateInteractively([]))}
+                loading={loginButtonIsDisabled}
+                disabled={loginButtonIsDisabled}
             />
             <DemoButton visible={displayDemoButton} navigateFn={navigateFn} />
         </View>

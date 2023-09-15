@@ -17,7 +17,7 @@ const useDemoModeStore = create<DemoModeStore>()(
             disableDemoMode: () =>
                 set({ demoModeEnabled: false }, false, `${actionParentName}/disableDemoMode`),
         }),
-        { anonymousActionType: actionParentName },
+        { anonymousActionType: actionParentName, name: `mad-auth/demo-mode` },
     ),
 );
 
