@@ -46,7 +46,7 @@ export const CellGroup = ({
                         {title}
                     </Typography>
                 )}
-                <View>{adornment}</View>
+                <View style={{ flex: 1 }}>{adornment}</View>
             </View>
             {Children.map(children, (child, index) => (
                 <CellGroupContext.Provider
@@ -67,7 +67,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingBottom: theme.spacing.cell.group.titleBottomPadding,
         flexDirection: "row",
-        flex: 1,
         justifyContent: "space-between",
         alignItems: "flex-end",
     },

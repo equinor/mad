@@ -10,7 +10,6 @@ export type SwitchProps = {
     color?: "primary" | "secondary" | "danger";
     active?: boolean;
     disabled?: boolean;
-    loading?: boolean;
 };
 
 const KNOB_SIZE = 20;
@@ -19,14 +18,7 @@ const HEIGHT = 60;
 
 export const Switch = forwardRef<View, SwitchProps & ViewProps>(
     (
-        {
-            color = "primary",
-            onChange = () => null,
-            active = false,
-            disabled = false,
-            loading = false,
-            ...rest
-        },
+        { color = "primary", onChange = () => null, active = false, disabled = false, ...rest },
         ref,
     ) => {
         const styles = useStyles(themeStyles, {
@@ -37,11 +29,7 @@ export const Switch = forwardRef<View, SwitchProps & ViewProps>(
 
         const token = useToken();
 
-        // WIDTH - KNOB_SIZE * 1.7
-
         const progressValue = useRef(new Animated.Value(active ? 1 : 0)).current;
-
-        // const backgroundProgressValue = useRef(new Animated.Value(0)).current;
 
         const activeKnobAnimation = Animated.timing(progressValue, {
             toValue: 1,
@@ -90,7 +78,7 @@ export const Switch = forwardRef<View, SwitchProps & ViewProps>(
 
         return (
             <PressableHighlight
-                disabled={disabled || loading}
+                disabled={disabled}
                 onPress={handlePress}
                 style={styles.pressableContainer}
             >

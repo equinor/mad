@@ -52,11 +52,13 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
 
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
-                <PressableHighlight disabled={!onPress} onPress={onPress} style={{ flex: 1 }}>
+                <PressableHighlight disabled={!onPress} onPress={onPress}>
                     <View style={styles.contentContainer}>
-                        {leftAdornment && <View>{leftAdornment}</View>}
-                        <View style={styles.children}>{children}</View>
-                        {rightAdornment && <View>{rightAdornment}</View>}
+                        {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
+                        <View style={styles.children}>
+                            <View style={{ flex: 1 }}>{children}</View>
+                        </View>
+                        {rightAdornment && <View style={styles.adornment}>{rightAdornment}</View>}
                     </View>
                     {!isLastCell && (
                         <View style={styles.dividerOuter}>
@@ -100,9 +102,9 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         borderTopWidth: props.isFirstCell ? theme.geometry.border.borderWidth : undefined,
         backgroundColor: theme.colors.container.default,
         minHeight: theme.geometry.dimension.cell.minHeight,
+        justifyContent: "center",
     },
     contentContainer: {
-        flex: 1,
         flexDirection: "row",
         gap: theme.spacing.cell.gapHorizontal,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
@@ -110,6 +112,10 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
     },
     children: {
         flex: 1,
+        flexDirection: "row",
+    },
+    adornment: {
+        flexDirection: "row",
     },
     dividerOuter: {
         position: "absolute",

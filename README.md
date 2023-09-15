@@ -5,22 +5,22 @@
 </p>
 <br />
 
-[![npm](https://img.shields.io/npm/v/@equinor/mad-components?label=%40equinor%2Fmad-components&logo=npm)](https://www.npmjs.com/package/@equinor/mad-components)
-[![npm](https://img.shields.io/npm/v/@equinor/mad-maintenance-api-ts-wrapper?label=%40equinor%2Fmad-maintenance-api-ts-wrapper&logo=npm)](https://www.npmjs.com/package/@equinor/mad-maintenance-api-ts-wrapper)
-[![npm](https://img.shields.io/npm/v/@equinor/react-native-skia-draw?label=%40equinor%2Freact-native-skia-draw&logo=npm)](https://www.npmjs.com/package/@equinor/react-native-skia-draw)
+
 
 This is a monorepo collecting many of the packages used in the Mobile Application Delivery team.
 
 ## 📦 Apps and packages:
 
-| App / Package                                      | Description                                                                                               |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| [Chronicles](./apps/chronicles/)                   | A storybook-like app for collecting many of the packages in the repo.                                     |
-| [Components](./packages/components)                | React Native component library implementing [EDS](https://loop.equinor.com/en/stories/eds-design-system). |
-| [Skia Draw](./packages/skia-draw)                  | Wrappers and utility components for implementing a drawing library in React Native.                       |
-| [Maintenance API](./packages/api/maintenance-api/) | Typescript wrapper for the [Equinor Maintenance API](https://equinor.github.io/maintenance-api-docs/)     |
-| [TSConfig](./packages/tsconfig)                    | Global TSConfig used in our packages.                                                                     |
-| [ESLint MAD](./packages/eslint-config-mad)         | Linting rules used throughout MAD development.                                                            |
+| App / Package                                      | Description                                                                                               | Status |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------ |
+| [Chronicles](./apps/chronicles/)                   | A storybook-like app for collecting many of the packages in the repo.                                     |        |
+| [Components](./packages/components)                | React Native component library implementing [EDS](https://loop.equinor.com/en/stories/eds-design-system). | [![npm](https://img.shields.io/npm/v/@equinor/mad-components?logo=npm)](https://www.npmjs.com/package/@equinor/mad-components) |
+| [Skia Draw](./packages/skia-draw)                  | Wrappers and utility components for implementing a drawing library in React Native.                       | [![npm](https://img.shields.io/npm/v/@equinor/react-native-skia-draw?logo=npm)](https://www.npmjs.com/package/@equinor/react-native-skia-draw) |
+| [Maintenance API](./packages/api/maintenance-api/) | Typescript wrapper for the [Equinor Maintenance API](https://equinor.github.io/maintenance-api-docs/)     | [![npm](https://img.shields.io/npm/v/@equinor/mad-maintenance-api-ts-wrapper?logo=npm)](https://www.npmjs.com/package/@equinor/mad-maintenance-api-ts-wrapper) |
+| [TSConfig](./packages/tsconfig)                    | Global TSConfig used in our packages.                                                                     |        |
+| [ESLint MAD](./packages/eslint-config-mad)         | Linting rules used throughout MAD development.                                                            | [![npm](https://img.shields.io/npm/v/@equinor/eslint-config-mad?logo=npm)](https://www.npmjs.com/package/@equinor/eslint-config-mad) |
+| [Navigation](./packages/navigation)                | Extension package of react native navigation that adds functionality used in our apps                     | [![npm](https://img.shields.io/npm/v/@equinor/mad-navigation?logo=npm)](https://www.npmjs.com/package/@equinor/mad-navigation) |
+| [Insights](./packages/insights)                                           | Wrapper package providing functionality for adding Azure application insights to your app                 | [![npm](https://img.shields.io/npm/v/@equinor/mad-insights?logo=npm)](https://www.npmjs.com/package/@equinor/mad-insights) | 
 
 ## 👨‍💻 Development
 
