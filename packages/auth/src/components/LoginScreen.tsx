@@ -42,7 +42,7 @@ export const LoginScreen = ({ logo, clientId, redirectUri, navigateFn }: LoginSc
             clientId,
             redirectUri,
         }).then(() => withAuthenticationPromiseHandler(authenticateSilently([])));
-    }, [onAuthenticationSuccessful]);
+    }, []);
 
     const displayDemoButton = logoTapCount >= 5;
     const loginButtonIsDisabled = authenticationInProgress || !authenticationClientExists();
