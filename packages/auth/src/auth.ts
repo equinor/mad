@@ -12,7 +12,7 @@ import { MadAccount, MadAuthenticationResult } from "./types";
 
 let pca: PublicClientApplication | null = null;
 
-async function _getInternalAccount(): Promise<MSALAccount | null> {
+async function _getMsalAccount(): Promise<MSALAccount | null> {
     if (!pca) {
         throw new Error("Unable to authenticate, pca is null");
     }
@@ -27,7 +27,7 @@ async function _getInternalAccount(): Promise<MSALAccount | null> {
 }
 
 async function _getMadAccountFromMSAL(): Promise<MadAccount | null> {
-    const msalAccount = await _getInternalAccount();
+    const msalAccount = await _getMsalAccount();
     if (msalAccount) return getMadAccount(msalAccount);
     return null;
 }
@@ -39,7 +39,7 @@ export type InitiateAuthenticationClientConfig = {
 };
 
 /**
- *
+ * Initiate the authentication client
  * @param {InitiateAuthenticationClientConfig} config
  */
 export async function initiateAuthenticationClient({
@@ -59,10 +59,20 @@ export async function initiateAuthenticationClient({
     await pca.init();
 }
 
+/**
+ * Check if the authentication client exists
+ * @returns {boolean} whether the authentication client exists
+ */
 export function authenticationClientExists(): boolean {
     return !!pca;
 }
 
+/**
+ * Authenticate interactively. This will open an in-app browser, or the Microsoft Authenticator app if the
+ * user has it installed
+ * @param scopes an array of scopes
+ * @returns {MadAuthenticationResult | null} an object containing the access token and the account, or null
+ */
 export async function authenticateInteractively(
     scopes: string[],
 ): Promise<MadAuthenticationResult | null> {
@@ -80,6 +90,11 @@ export async function getAccount(): Promise<MadAccount | null> {
     return _getMadAccountFromMSAL();
 }
 
+/**
+ * Authenticate silently.
+ * @param scopes an array of scopes
+ * @returns {MadAuthenticationResult | null} an object containing the access token and the account, or null
+ */
 export async function authenticateSilently(
     scopes: string[],
 ): Promise<MadAuthenticationResult | null> {
@@ -87,7 +102,7 @@ export async function authenticateSilently(
         throw new Error("Unable to authenticate, authentication client does not exist");
     }
 
-    const msalAccount = await _getInternalAccount();
+    const msalAccount = await _getMsalAccount();
 
     if (msalAccount) {
         const params: MSALSilentParams = {
@@ -109,11 +124,15 @@ export async function authenticateSilently(
     return null;
 }
 
+/**
+ * Sign out the account.
+ * @returns {boolean} whether we successfully signed out.
+ */
 export async function signOut(): Promise<boolean> {
     if (!pca) {
         throw new Error("Unable to authenticate, authentication client does not exist");
     }
-    const account = await _getInternalAccount();
+    const account = await _getMsalAccount();
 
     if (account) {
         const success: boolean = await pca.removeAccount(account);
