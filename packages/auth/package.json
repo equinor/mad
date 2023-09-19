@@ -31,8 +31,7 @@
         "react-native-msal": ">=4.0.4"
     },
     "dependencies": {
-        "@equinor/mad-components": "workspace:*",
-        "zustand": "^4.4.1"
+        "@equinor/mad-components": "workspace:*"
     },
     "devDependencies": {
         "@equinor/eslint-config-mad": "workspace:*"

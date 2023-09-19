@@ -26,32 +26,42 @@ or
 [this guide for iOS setup in a bare react native project](https://github.com/equinor/react-native-msal/blob/main/docs/ios_setup.md).
 Our fork of `react-native-msal` will not work for Android.
 
-Next, add our provided `LoginScreen` to your application (or create your own):
+Next, add our provided `LoginButton` to your application:
 
 ```tsx
-import React from "react";
-import { LoginScreen as MadAuthLoginScreen } from "@equinor/mad-auth";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
-import Logo from "../assets/images/icon.png";
-
 export const LoginScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     return (
-        <MadAuthLoginScreen
-            logo={Logo}
-            redirectUri="your redirect uri can be found in your azure app registration"
-            clientId="your client id can be found in your azure app registration"
-            navigateFn={() => navigation.navigate("Root")}
-        />
+        <View
+            style={{
+                height: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
+            }}
+        >
+            <LoginButton
+                redirectUri="msauth.com.equinor.mad.chronicles://auth"
+                clientId="49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed"
+                onAuthenticationSuccessful={() => navigation.navigate("Root")}
+                enableAutomaticAuthentication
+            />
+        </View>
     );
 };
 ```
 
-This package provides a few basic functions you can use to either make your own login screen, or use
+The `LoginButton` provided by this package uses `@equinor/mad-components`'s `Button` component. You
+can style it however you want. However, if you want to create your own `LoginButton` from scratch,
+you can do so by using the `useAuthenticate` hook. See the implementation of our `LoginButton` if
+you need some inspiration. Alternatively, you can create the login flow logic from scratch using the
+provided functions below.
+
+This package provides a few basic functions you can use to either make your own login button, or use
 throughout the app:
 
-To initiate the authentication client, use this function:
+If you are not using our login button, nor `useAuthenticate`, use this function to initate the
+authentication client:
 
 ```ts
 initiateAuthenticationClient({clientId: string, redirectUri: string, authority?: string}): Promise<void>
@@ -79,4 +89,10 @@ To get account, use this function:
 
 ```ts
 getAccount(): Promise<MadAccount | null>
+```
+
+Alternatively, you can use this hook to get account:
+
+```ts
+useAccount(): MadAccount | null
 ```

@@ -9,7 +9,6 @@ import {
     getMadAuthenticationResult,
 } from "./_internal/translation-layer/translationLayer";
 import { MadAccount, MadAuthenticationResult } from "./types";
-import { DEMO_USER, disableDemoMode, getIsDemoModeEnabled } from "./demo-mode";
 
 let pca: PublicClientApplication | null = null;
 
@@ -78,7 +77,6 @@ export async function authenticateInteractively(
 }
 
 export async function getAccount(): Promise<MadAccount | null> {
-    if (getIsDemoModeEnabled()) return DEMO_USER;
     return _getMadAccountFromMSAL();
 }
 
@@ -112,10 +110,6 @@ export async function authenticateSilently(
 }
 
 export async function signOut(): Promise<boolean> {
-    if (getIsDemoModeEnabled()) {
-        disableDemoMode();
-        return true;
-    }
     if (!pca) {
         throw new Error("Unable to authenticate, authentication client does not exist");
     }
