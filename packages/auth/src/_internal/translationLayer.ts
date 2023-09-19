@@ -1,5 +1,5 @@
 import { MSALAccount, MSALResult } from "react-native-msal";
-import { MadAccount, MadAuthenticationResult } from "../../types";
+import { MadAccount, MadAuthenticationResult } from "../types";
 
 export const getMadAccount = (account: MSALAccount): MadAccount => {
     return {

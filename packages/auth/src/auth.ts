@@ -4,10 +4,7 @@ import PublicClientApplication, {
     MSALSilentParams,
 } from "react-native-msal";
 import type { MSALConfiguration } from "react-native-msal";
-import {
-    getMadAccount,
-    getMadAuthenticationResult,
-} from "./_internal/translation-layer/translationLayer";
+import { getMadAccount, getMadAuthenticationResult } from "./_internal/translationLayer";
 import { MadAccount, MadAuthenticationResult } from "./types";
 
 let pca: PublicClientApplication | null = null;
