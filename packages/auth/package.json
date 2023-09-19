@@ -11,8 +11,9 @@
     },
     "keywords": [
         "react native",
-        "ui",
-        "typescript"
+        "authentication",
+        "typescript",
+        "msal"
     ],
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
