@@ -26,12 +26,7 @@
             }
         },
         "plugins": [
-            [
-                "react-native-msal",
-                {
-                    "androidPackageSignatureHash": "<base64 package signature hash>"
-                }
-            ],
+            ["react-native-msal", {}],
             [
                 "expo-image-picker",
                 {
