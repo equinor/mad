@@ -6,7 +6,7 @@ import { MadAccount } from "../types";
  * get the authenticated account.
  */
 export const useAccount = () => {
-    const [account, setAccount] = useState<MadAccount | null>(null);
+    const [account, setAccount] = useState<MadAccount | null>();
     useEffect(() => {
         getAccount()
             .then(setAccount)
