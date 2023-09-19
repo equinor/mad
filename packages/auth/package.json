@@ -1,7 +1,7 @@
 {
     "name": "@equinor/mad-auth",
     "version": "0.0.1",
-    "description": "The core system used in mad expo project",
+    "description": "A simple wrapper library for react-native-msal",
     "type": "module",
     "scripts": {
         "build": "tsup-node",
