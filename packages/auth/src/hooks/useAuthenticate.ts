@@ -37,10 +37,9 @@ export const useAuthenticate = ({
         setAuthenticationInProgress(true);
         return promise
             .then(res => {
-                setAuthenticationInProgress(false);
                 if (res) onAuthenticationSuccessful(res);
             })
-            .catch(() => setAuthenticationInProgress(false));
+            .finally(() => setAuthenticationInProgress(false));
     };
 
     useEffect(() => {
