@@ -1,0 +1,47 @@
+{
+    "name": "@equinor/mad-error-boundary",
+    "version": "0.0.2",
+    "description": "Error boundary for the mad team",
+    "type": "module",
+    "scripts": {
+        "build": "tsup-node",
+        "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
+        "dev": "tsup-node --watch --clean=false",
+        "lint": "eslint src/"
+    },
+    "keywords": [
+        "react native",
+        "tracking",
+        "logging",
+        "typescript"
+    ],
+    "author": {
+        "name": "Equinor Mobile App Delivery team (MAD)"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/equinor/mad/issues"
+    },
+    "homepage": "https://github.com/equinor/mad/",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "peerDependencies": {
+        "react": ">=16.8",
+        "react-dom": ">=16.8",
+        "react-native": ">=0.68",
+        "react-native-safe-area-context": ">=4.7.2"
+    },
+    "dependencies": {
+        "@equinor/mad-components": "workspace:*",
+        "react-error-boundary": "^4.0.11"
+    },
+    "devDependencies": {
+        "@equinor/eslint-config-mad": "workspace:*"
+    },
+    "files": [
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "dist"
+    ]
+}

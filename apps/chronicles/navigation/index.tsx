@@ -38,6 +38,7 @@ import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
+import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -125,6 +126,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Portal" component={PortalScreen} />
             <DiscoverStack.Screen name="Dialog" component={DialogScreen} />
             <DiscoverStack.Screen name="Environment" component={EnvironmentScreen} />
+            <DiscoverStack.Screen name="ErrorBoundary" component={ErrorBoundaryScreen} />
         </DiscoverStack.Navigator>
     );
 }

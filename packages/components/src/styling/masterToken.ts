@@ -138,6 +138,10 @@ export const masterToken: MasterToken = {
                     dark: colors.interactive_primary_dark_resting,
                 },
             },
+            danger: {
+                light: colors.feedback_danger_light_text,
+                dark: colors.feedback_danger_dark_text,
+            },
             disabled: {
                 light: colors.interactive_disabled_light_text,
                 dark: colors.interactive_disabled_dark_text,

@@ -31,6 +31,7 @@ export type DiscoverStackParamList = {
     Portal: undefined;
     Dialog: undefined;
     Environment: undefined;
+    ErrorBoundary: undefined;
 };
 
 export type DiscoverStackScreenProps<Screen extends keyof DiscoverStackParamList> =

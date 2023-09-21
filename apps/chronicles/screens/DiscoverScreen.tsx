@@ -140,6 +140,12 @@ export default function DiscoverScreen({
                     iconName="island"
                     onPress={() => navigation.navigate("Environment")}
                 />
+                <Cell.Navigation
+                    title="Error boundary"
+                    description="Display an error screen when the app panics"
+                    iconName="alert-decagram-outline"
+                    onPress={() => navigation.navigate("ErrorBoundary")}
+                />
             </Cell.Group>
         </ScrollView>
     );

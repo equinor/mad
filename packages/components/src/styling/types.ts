@@ -86,6 +86,7 @@ export type MasterToken = {
             tertiary: ColorSchemeValues<Color>;
             primaryInverted: ColorSchemeValues<Color>;
             disabled: ColorSchemeValues<Color>;
+            danger: ColorSchemeValues<Color>;
             menu: {
                 resting: ColorSchemeValues<Color>;
                 active: ColorSchemeValues<Color>;

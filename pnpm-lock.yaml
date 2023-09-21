@@ -39,6 +39,7 @@ importers:
       '@babel/core': ^7.21.4
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-components': workspace:*
+      '@equinor/mad-error-boundary': workspace:*
       '@equinor/mad-insights': workspace:*
       '@equinor/mad-navigation': workspace:*
       '@equinor/react-native-skia-draw': workspace:*
@@ -76,6 +77,7 @@ importers:
       uuid: ^3.0.0
     dependencies:
       '@equinor/mad-components': link:../../packages/components
+      '@equinor/mad-error-boundary': link:../../packages/error-boundary
       '@equinor/mad-insights': link:../../packages/insights
       '@equinor/mad-navigation': link:../../packages/navigation
       '@equinor/react-native-skia-draw': link:../../packages/skia-draw
@@ -146,6 +148,25 @@ importers:
       react-native-gesture-handler: 2.12.1_6syixf76bqx5r4tgwtwyqyssoi
       react-native-reanimated: 3.3.0_x5kb7iuew7hmqlcqrgotvtj2h4
       react-native-svg: 13.9.0_6syixf76bqx5r4tgwtwyqyssoi
+    devDependencies:
+      '@equinor/eslint-config-mad': link:../eslint-config-mad
+
+  packages/error-boundary:
+    specifiers:
+      '@equinor/eslint-config-mad': workspace:*
+      '@equinor/mad-components': workspace:*
+      react: '>=16.8'
+      react-dom: '>=16.8'
+      react-error-boundary: ^4.0.11
+      react-native: '>=0.68'
+      react-native-safe-area-context: '>=4.7.2'
+    dependencies:
+      '@equinor/mad-components': link:../components
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-error-boundary: 4.0.11_react@18.2.0
+      react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
+      react-native-safe-area-context: 4.7.2_6syixf76bqx5r4tgwtwyqyssoi
     devDependencies:
       '@equinor/eslint-config-mad': link:../eslint-config-mad
 
@@ -10593,6 +10614,15 @@ packages:
       scheduler: 0.23.0
     dev: false
 
+  /react-error-boundary/4.0.11_react@18.2.0:
+    resolution: {integrity: sha512-U13ul67aP5DOSPNSCWQ/eO0AQEYzEFkVljULQIjMV0KlffTAhxuDoBKdO0pb/JZ8mDhMKFZ9NZi0BmLGUiNphw==}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.22.15
+      react: 18.2.0
+    dev: false
+
   /react-freeze/1.0.3_react@18.2.0:
     resolution: {integrity: sha512-ZnXwLQnGzrDpHBHiC56TXFXvmolPeMjTn1UOm610M4EXGzbEDR7oOIyS2ZiItgbs6eZc4oU/a0hpk8PrcKvv5g==}
     engines: {node: '>=10'}
@@ -10663,6 +10693,16 @@ packages:
 
   /react-native-safe-area-context/4.6.3_6syixf76bqx5r4tgwtwyqyssoi:
     resolution: {integrity: sha512-3CeZM9HFXkuqiU9HqhOQp1yxhXw6q99axPWrT+VJkITd67gnPSU03+U27Xk2/cr9XrLUnakM07kj7H0hdPnFiQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
+    dev: false
+
+  /react-native-safe-area-context/4.7.2_6syixf76bqx5r4tgwtwyqyssoi:
+    resolution: {integrity: sha512-5fy/hRNJ7bI/U2SliOeKf0D80J4lXPc1NsRiNS7Xaz8YTnqlzWib1ViItkwKPfufe54YKzVBMmM32RpdzvO2gg==}
     peerDependencies:
       react: '*'
       react-native: '*'
