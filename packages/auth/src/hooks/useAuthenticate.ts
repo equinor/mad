@@ -14,7 +14,7 @@ export type UseAuthenticateProps = {
     enableAutomaticAuthentication?: boolean;
 };
 
-type ReturnType = {
+type UseAuthenticateResult = {
     authenticate: () => void;
     authenticationInProgress: boolean;
     authenticationClientInitialized: boolean;
@@ -29,7 +29,7 @@ export const useAuthenticate = ({
     clientId,
     redirectUri,
     enableAutomaticAuthentication,
-}: UseAuthenticateProps): ReturnType => {
+}: UseAuthenticateProps): UseAuthenticateResult => {
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
     const [authenticationClientInitialized, setAuthenticationClientInitialized] = useState(false);
 
