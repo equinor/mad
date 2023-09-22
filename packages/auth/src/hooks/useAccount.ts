@@ -8,11 +8,16 @@ import { MadAccount } from "../types";
 export const useAccount = () => {
     const [account, setAccount] = useState<MadAccount | null>();
     useEffect(() => {
-        getAccount()
-            .then(setAccount)
-            .catch(e => {
-                throw new Error("Unable to get account. Is the user logged in?", { cause: e });
-            });
+        const getAndSetAccount = async () => {
+            try {
+                const account = await getAccount();
+                setAccount(account);
+            } catch (e) {
+                throw new Error("Unable to get account", { cause: e });
+            }
+        };
+
+        getAndSetAccount();
     }, []);
     return account;
 };

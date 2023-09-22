@@ -33,17 +33,20 @@ export const useAuthenticate = ({
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
     const [authenticationClientInitialized, setAuthenticationClientInitialized] = useState(false);
 
-    const withAuthenticationPromiseHandler = (promise: Promise<MadAuthenticationResult | null>) => {
+    const withAuthenticationPromiseHandler = async (
+        promise: Promise<MadAuthenticationResult | null>,
+    ) => {
         setAuthenticationInProgress(true);
-        return promise
-            .then(res => {
-                if (res) onAuthenticationSuccessful(res);
-            })
-            .finally(() => setAuthenticationInProgress(false));
+        try {
+            const res = await promise;
+            if (res) onAuthenticationSuccessful(res);
+        } finally {
+            setAuthenticationInProgress(false);
+        }
     };
 
     useEffect(() => {
-        (async () => {
+        const initiateClientAndMaybeAuthenticateSilently = async () => {
             await initiateAuthenticationClient({
                 clientId,
                 redirectUri,
@@ -51,7 +54,9 @@ export const useAuthenticate = ({
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
             if (enableAutomaticAuthentication)
                 withAuthenticationPromiseHandler(authenticateSilently([]));
-        })();
+        };
+
+        initiateClientAndMaybeAuthenticateSilently();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- we want this to run only once
     }, []);
 
