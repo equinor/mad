@@ -18,7 +18,9 @@ export const ErrorBoundaryScreen = () => {
             <Spacer />
 
             <Typography>
-                {"With '@equinor/mad-error-boundary', you can display an error screen to the user."}
+                {
+                    "With the Error Boundary component, you can display an error screen to the user. You can also add an 'onError' callback, to track the error in Application Insights"
+                }
             </Typography>
 
             <Spacer />

@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useEDS, EDSProvider } from "@equinor/mad-components";
-import { ErrorBoundary } from "@equinor/mad-error-boundary";
+import { useEDS, EDSProvider, ErrorBoundary } from "@equinor/mad-components";
 
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
