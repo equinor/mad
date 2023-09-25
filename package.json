@@ -17,6 +17,8 @@
         "build:navigation": "turbo run build --filter @equinor/mad-navigation",
         "dev:insights": "turbo run dev --filter @equinor/mad-insights",
         "build:insights": "turbo run build --filter @equinor/mad-insights",
+        "dev:auth": "turbo run dev --filter @equinor/mad-auth",
+        "build:auth": "turbo run build --filter @equinor/mad-auth",
         "test:insights": "turbo run test --filter @equinor/mad-insights",
         "dev:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
         "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
