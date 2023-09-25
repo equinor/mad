@@ -11,15 +11,14 @@ export const ErrorBoundaryScreen = ({ resetErrorBoundary }: FallbackProps) => {
     return (
         <SafeAreaView style={styles.safeAreaContainer}>
             <View style={styles.container}>
-                <Typography color={styles.title_color.color} style={styles.text}>
+                <Typography color={styles.title_color.color} group="paragraph" variant="body_short">
                     Error
                 </Typography>
-                <Typography style={styles.text}>
-                    Something unexpected happened, and the app crashed. You can restart the app
-                    below.
-                </Typography>
-                <Typography style={styles.text}>
-                    The error information has been forwarded to our team, and we will look into it.
+                <Typography group="paragraph" variant="body_long">
+                    Something unexpected happened, and the app crashed. You can restart the app by
+                    clicking the button below.
+                    {"\n\n"}
+                    If this keeps happening, we recommend creating a Service-Now ticket.
                 </Typography>
                 <Button title="Restart app" onPress={resetErrorBoundary} />
             </View>
@@ -29,14 +28,14 @@ export const ErrorBoundaryScreen = ({ resetErrorBoundary }: FallbackProps) => {
 
 const theme = EDSStyleSheet.create(theme => ({
     title_color: { color: theme.colors.text.danger },
-    text: { lineHeight: 20 },
     safeAreaContainer: {
         backgroundColor: theme.colors.container.background,
     },
     container: {
-        padding: 22,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical,
         justifyContent: "center",
         height: "100%",
-        gap: 22,
+        gap: theme.spacing.spacer.medium,
     },
 }));

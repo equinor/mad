@@ -378,10 +378,25 @@ export const masterToken: MasterToken = {
         },
     },
     typography: {
+        paragraph: {
+            body_short: {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS,
+                lineHeight: FONT_BASIS * 1.25,
+                textAlign: "left",
+            },
+            body_long: {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS,
+                lineHeight: FONT_BASIS * 1.5,
+                textAlign: "left",
+            },
+        },
         basic: {
             h1: {
                 fontFamily: "Equinor-Regular",
                 fontSize: 2 * FONT_BASIS,
+                lineHeight: 2 * FONT_BASIS * 1.25,
                 textAlign: "left",
             },
             h2: {
