@@ -40,7 +40,6 @@ importers:
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-auth': workspace:*
       '@equinor/mad-components': workspace:*
-      '@equinor/mad-error-boundary': workspace:*
       '@equinor/mad-insights': workspace:*
       '@equinor/mad-navigation': workspace:*
       '@equinor/react-native-skia-draw': workspace:*
@@ -80,7 +79,6 @@ importers:
     dependencies:
       '@equinor/mad-auth': link:../../packages/auth
       '@equinor/mad-components': link:../../packages/components
-      '@equinor/mad-error-boundary': link:../../packages/error-boundary
       '@equinor/mad-insights': link:../../packages/insights
       '@equinor/mad-navigation': link:../../packages/navigation
       '@equinor/react-native-skia-draw': link:../../packages/skia-draw
@@ -156,6 +154,7 @@ importers:
       expo-font: '>=10.0.0'
       react: '>=16.8'
       react-dom: '>=16.8'
+      react-error-boundary: ^4.0.11
       react-native: '>=0.68'
       react-native-gesture-handler: '>=2.0'
       react-native-reanimated: '>=2.0'
@@ -165,27 +164,11 @@ importers:
       expo-font: 11.4.0_expo@49.0.9
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-error-boundary: 4.0.11_react@18.2.0
       react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
       react-native-gesture-handler: 2.12.1_6syixf76bqx5r4tgwtwyqyssoi
       react-native-reanimated: 3.3.0_x5kb7iuew7hmqlcqrgotvtj2h4
       react-native-svg: 13.9.0_6syixf76bqx5r4tgwtwyqyssoi
-    devDependencies:
-      '@equinor/eslint-config-mad': link:../eslint-config-mad
-
-  packages/error-boundary:
-    specifiers:
-      '@equinor/eslint-config-mad': workspace:*
-      '@equinor/mad-components': workspace:*
-      react: '>=16.8'
-      react-dom: '>=16.8'
-      react-error-boundary: ^4.0.11
-      react-native: '>=0.68'
-    dependencies:
-      '@equinor/mad-components': link:../components
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-error-boundary: 4.0.11_react@18.2.0
-      react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
     devDependencies:
       '@equinor/eslint-config-mad': link:../eslint-config-mad
 
