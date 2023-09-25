@@ -10,17 +10,15 @@ export const ErrorBoundaryScreen = () => {
             contentContainerStyle={styles.contentContainer}
         >
             <Typography>
-                {
-                    "Sometimes an unrecoverable error happens in the app. Without an error boundary, the app turns blank, which is a bad user experience."
-                }
+                Sometimes an unrecoverable error happens in the app. Without an error boundary, the
+                app turns blank, which is a bad user experience.
             </Typography>
 
             <Spacer />
 
             <Typography>
-                {
-                    "With the Error Boundary component, you can display an error screen to the user. You can also add an 'onError' callback, to track the error in Application Insights"
-                }
+                With the Error Boundary component, you can display an error screen to the user. You
+                can also add an {"'onError'"} callback, to track the error in Application Insights
             </Typography>
 
             <Spacer />
