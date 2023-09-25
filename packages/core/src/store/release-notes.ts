@@ -1,22 +1,25 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import { createStorage } from "./storage";
 
 type ReleaseNotesState = {
     lastDisplayedReleaseNotesVersion: string;
     setLastDisplayedReleaseNotesVersion: (ver: string) => void;
 };
 
-const useLastDisplayedReleaseNotes = create<ReleaseNotesState>()(
+const useReleaseNotesStore = create<ReleaseNotesState>()(
     devtools(
         persist(
             set => ({
                 lastDisplayedReleaseNotesVersion: "-1",
                 setLastDisplayedReleaseNotesVersion: (ver: string) =>
-                    set(_ => ({ lastDisplayedReleaseNotesVersion: ver })),
+                    set(() => ({ lastDisplayedReleaseNotesVersion: ver })),
             }),
             {
                 name: "release-notes",
+                storage: createStorage<ReleaseNotesState>(),
             },
         ),
+        { name: "core/release-notes" },
     ),
 );
