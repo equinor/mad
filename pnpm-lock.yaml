@@ -173,7 +173,10 @@ importers:
   packages/core:
     specifiers:
       '@equinor/eslint-config-mad': workspace:*
+      '@equinor/mad-auth': workspace:*
       '@equinor/mad-components': workspace:*
+      '@equinor/mad-insights': workspace:*
+      '@equinor/mad-navigation': workspace:*
       '@react-native-async-storage/async-storage': '*'
       react: '>=16.8'
       react-dom: '>=16.8'
@@ -181,7 +184,10 @@ importers:
       react-native-msal: '>=4.0.4'
       zustand: ^4.4.1
     dependencies:
+      '@equinor/mad-auth': 'link:'
       '@equinor/mad-components': link:../components
+      '@equinor/mad-insights': link:../insights
+      '@equinor/mad-navigation': link:../navigation
       '@react-native-async-storage/async-storage': 1.19.3_react-native@0.72.3
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
