@@ -15,6 +15,7 @@
     "@equinor/mad-insights": "workspace:*",
     "@equinor/mad-navigation": "workspace:*",
     "@equinor/react-native-skia-draw": "workspace:*",
+    "@equinor/mad-auth": "workspace:*",
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
     "@react-navigation/bottom-tabs": "^6.0.5",
@@ -41,6 +42,7 @@
     "react-native-screens": "~3.22.1",
     "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.7",
+    "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#f1069d3b8f6ca911f60af1ddce45c8512bc58714",
     "uuid": "^3.0.0"
   },
   "devDependencies": {

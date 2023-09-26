@@ -9,6 +9,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
     Root: NavigatorScreenParams<RootTabParamList> | undefined;
+    Login: undefined;
     Modal: undefined;
     NotFound: undefined;
 };
@@ -46,6 +47,7 @@ export type RootTabParamList = {
     IconsTab: undefined;
     DrawTab: undefined;
     SignTab: undefined;
+    Settings: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
