@@ -11,6 +11,11 @@ export const SearchScreen = () => {
                 <Spacer />
                 <Search placeholder="Search" label="Search for something"></Search>
             </View>
+            <View style={styles.container}>
+                <Typography>You can use an Input to add left adornments</Typography>
+                <Spacer />
+                <Search placeholder="Search" label="Search for something" allowCancel />
+            </View>
         </ScrollView>
     );
 };

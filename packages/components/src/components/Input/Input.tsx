@@ -105,8 +105,10 @@ const themedStyles = EDSStyleSheet.create(
             };
         else
             borderStyle = {
-                borderColor: theme.colors.text.tertiary,
-                borderBottomWidth: theme.geometry.border.borderWidth,
+                borderBottomColor: theme.colors.text.tertiary,
+                borderBottomWidth: theme.geometry.border.focusedBorderWidth,
+                borderColor: 'transparent',
+                borderWidth: theme.geometry.border.focusedBorderWidth,
             };
         return {
             contentContainer: {
