@@ -19,6 +19,7 @@ export type ColorSchemeValues<T> = Record<ColorScheme, T>;
 export type DensityValues<T> = Record<Density, T>;
 
 export type TypographyVariantGroupMap = {
+    paragraph: "body_short" | "body_long";
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label" | "input";
     interactive: "button";
     ui: "tooltip";
@@ -86,6 +87,7 @@ export type MasterToken = {
             tertiary: ColorSchemeValues<Color>;
             primaryInverted: ColorSchemeValues<Color>;
             disabled: ColorSchemeValues<Color>;
+            danger: ColorSchemeValues<Color>;
             menu: {
                 resting: ColorSchemeValues<Color>;
                 active: ColorSchemeValues<Color>;

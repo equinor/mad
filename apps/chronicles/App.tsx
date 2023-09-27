@@ -1,13 +1,18 @@
 import React, { useEffect, useMemo } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useEDS, EDSProvider } from "@equinor/mad-components";
+import { useEDS, EDSProvider, ErrorBoundary } from "@equinor/mad-components";
 
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import { useWindowDimensions } from "react-native";
-import { ITelemetryItem, addTelemetryInitializer, useAppInsights } from "@equinor/mad-insights";
+import {
+    ITelemetryItem,
+    addTelemetryInitializer,
+    trackCustom,
+    useAppInsights,
+} from "@equinor/mad-insights";
 import * as APP from "./app.json";
 
 export default function App() {
@@ -38,8 +43,14 @@ export default function App() {
         return (
             <SafeAreaProvider>
                 <EDSProvider colorScheme={colorScheme} density={deviceType}>
-                    <Navigation colorScheme={colorScheme} />
-                    <StatusBar />
+                    <ErrorBoundary
+                        onError={(error, info) =>
+                            trackCustom(`${error.name} - ${error.message}`, { error, info })
+                        }
+                    >
+                        <Navigation colorScheme={colorScheme} />
+                        <StatusBar />
+                    </ErrorBoundary>
                 </EDSProvider>
             </SafeAreaProvider>
         );
