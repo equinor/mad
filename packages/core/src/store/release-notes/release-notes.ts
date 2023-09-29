@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { createStorage } from "./storage";
+import { createStorage } from "../storage";
 
 type ReleaseNotesState = {
     lastDisplayedReleaseNotesVersion: string;
@@ -23,3 +23,9 @@ const useReleaseNotesStore = create<ReleaseNotesState>()(
         { name: "core/release-notes" },
     ),
 );
+
+export const useReleaseNotesVersion = (): ReleaseNotesState => useReleaseNotesStore();
+
+export const getLastDisplayedReleaseNotesVersion = () =>
+    useReleaseNotesStore.getState().lastDisplayedReleaseNotesVersion;
+export const { setLastDisplayedReleaseNotesVersion } = useReleaseNotesStore.getState();
