@@ -1,5 +1,18 @@
 # @equinor/mad-components
 
+## 0.6.0
+
+### Minor Changes
+
+-   2e8e6c7: Added an error boundary component
+-   2e8e6c7: add paragraph/body_long and paragraph/body_short as variants to typography
+
+### Patch Changes
+
+-   622bf95: Updated search. Search bar can now clear text. Added optional cancel button. Fixed
+    flicker bug on search when focused
+-   2e8e6c7: add danger color to the master token
+
 ## 0.5.4
 
 ### Patch Changes
