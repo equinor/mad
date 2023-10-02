@@ -30,7 +30,7 @@ export const Search = ({ cancellable, onCancelPress, ...restProps }: SearchProps
 
     const inputSlide = animationValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, cancelButtonWidth]
+        outputRange: [0, cancelButtonWidth + token.spacing.element.paddingHorizontal]
     });
 
     useEffect(() => {
@@ -87,9 +87,9 @@ export const Search = ({ cancellable, onCancelPress, ...restProps }: SearchProps
             {cancellable && (
                 <Animated.View
                     style={{
-                        opacity: cancelButtonOpacity,
                         position: 'absolute',
                         right: 0,
+                        opacity: cancelButtonOpacity,
                         transform: [{ translateX: cancelButtonTranslateX }]
                     }}
                     onLayout={event => setCancelButtonWidth(event.nativeEvent.layout.width)}
