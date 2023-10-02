@@ -26,10 +26,6 @@ export type InputProps = {
      */
     multiline?: boolean;
     /**
-     * A boolean value indicating whether or not the input component should span across multiple lines of text or wrapped to one line.
-     */
-    allowCancel?: boolean;
-    /**
      * The text to display when the input component is empty.
      */
     placeholder?: string;
@@ -61,7 +57,6 @@ export const Input = forwardRef<TextInput, InputProps>(
             onChange,
             multiline = false,
             disabled = false,
-            allowCancel = false,
             ...rest
         },
         ref,

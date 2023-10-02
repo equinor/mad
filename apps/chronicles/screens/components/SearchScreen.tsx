@@ -1,6 +1,6 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
-import { EDSStyleSheet, useStyles, Typography, Spacer, Search, Button } from "@equinor/mad-components";
+import { ScrollView } from "react-native";
+import { EDSStyleSheet, useStyles, Typography, Spacer, Search } from "@equinor/mad-components";
 
 export const SearchScreen = () => {
     const styles = useStyles(themedStyles);
@@ -14,7 +14,7 @@ export const SearchScreen = () => {
 
             <Typography>Search bar with cancel button</Typography>
             <Spacer amount="small" />
-            <Search placeholder="Search" label="Search for something" allowCancel />
+            <Search placeholder="Search" label="Search for something" cancellable />
         </ScrollView>
     );
 };

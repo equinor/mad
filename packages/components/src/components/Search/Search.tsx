@@ -2,20 +2,21 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { Button, Input, TextFieldProps, useStyles } from "../..";
+import { Button, Input, TextFieldProps, useStyles, useToken } from "../..";
 import { EDSStyleSheet } from "../../styling";
 
 export type SearchProps = Omit<TextFieldProps, "multiline"> & {
-    allowCancel?: boolean;
+    cancellable?: boolean;
     onCancelPress?: () => void;
 };
-export const Search = ({ allowCancel, onCancelPress, ...restProps }: SearchProps) => {
+export const Search = ({ cancellable, onCancelPress, ...restProps }: SearchProps) => {
     const [text, setText] = useState('');
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
     const inputRef = useRef<TextInput | null>(null);
     const animationValue = useRef(new Animated.Value(0)).current;
     const styles = useStyles(themedStyles);
+    const token = useToken();
 
     const cancelButtonOpacity = animationValue.interpolate({
         inputRange: [0, 1],
@@ -33,10 +34,10 @@ export const Search = ({ allowCancel, onCancelPress, ...restProps }: SearchProps
     });
 
     useEffect(() => {
-        if (!allowCancel) return;
+        if (!cancellable) return;
         Animated.timing(animationValue, {
             toValue: isInputFocused ? 1 : 0,
-            duration: 300,
+            duration: token.timing.animation.slow,
             useNativeDriver: false
         }).start();
     }, [isInputFocused]);
@@ -70,21 +71,20 @@ export const Search = ({ allowCancel, onCancelPress, ...restProps }: SearchProps
                         </View>
                     }
                     rightAdornments={
-                        text || allowCancel && text ? (
+                        text ? (
                             <View style={styles.adornment}>
                                 <Button.Icon
                                     name="close"
                                     variant="ghost"
                                     iconSize={18}
                                     onPress={handleClearText}
-
                                 />
                             </View>
                         ) : null
                     }
                 />
             </Animated.View>
-            {allowCancel && (
+            {cancellable && (
                 <Animated.View
                     style={{
                         opacity: cancelButtonOpacity,
