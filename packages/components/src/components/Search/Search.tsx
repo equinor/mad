@@ -1,80 +1,118 @@
-import React, { useRef, useState } from "react";
-import { Text, View } from "react-native";
-import { EDSStyleSheet } from "../../styling";
-import { Button, Input, TextFieldProps, Typography, useStyles } from "../..";
 import { MaterialIcons } from "@expo/vector-icons";
+import React, { useEffect, useRef, useState } from "react";
+import { Animated, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { Button, Input, TextFieldProps, useStyles } from "../..";
+import { EDSStyleSheet } from "../../styling";
 
-// export type SearchProps = Omit<TextFieldProps, "multiline">;
 export type SearchProps = Omit<TextFieldProps, "multiline"> & {
     allowCancel?: boolean;
-    // onFocusChange?: (isFocused: boolean) => void;
+    onCancelPress?: () => void;
 };
-
-export const Search = (props: SearchProps) => {
-    const { allowCancel, ...restProps } = props;
+export const Search = ({ allowCancel, onCancelPress, ...restProps }: SearchProps) => {
     const [text, setText] = useState('');
+    const [isInputFocused, setIsInputFocused] = useState(false);
+    const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
     const inputRef = useRef<TextInput | null>(null);
+    const animationValue = useRef(new Animated.Value(0)).current;
     const styles = useStyles(themedStyles);
 
-    const handleClearText = () => {
+    const cancelButtonOpacity = animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 1]
+    });
+
+    const cancelButtonTranslateX = animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [cancelButtonWidth, 0]
+    });
+
+    const inputSlide = animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, cancelButtonWidth]
+    });
+
+    useEffect(() => {
+        if (!allowCancel) return;
+        Animated.timing(animationValue, {
+            toValue: isInputFocused ? 1 : 0,
+            duration: 300,
+            useNativeDriver: false
+        }).start();
+    }, [isInputFocused]);
+
+
+    const handleCancel = () => {
         setText('');
+        onCancelPress?.();
         inputRef.current?.blur();
     };
 
-    return (
-        <Input
-            {...restProps}
-            ref={inputRef}
-            value={text}
-            onChange={setText}
-            leftAdornments={
-                <View style={styles.adornment}>
-                    <MaterialIcons name="search" size={18} color={styles.icon.color} />
-                </View>
-            }
-            rightAdornments={
-                text && !allowCancel ? (
-                    <View style={styles.adornment}>
-                        <Button.Icon
-                            name="close"
-                            variant="ghost"
-                            iconSize={18}
-                            onPress={handleClearText}
-                        />
-                    </View>
-                ) : null
-            }
+    // FIXME: On web the search field loses focus when the clear text button is pressed. 
+    const handleClearText = () => {
+        setText('');
+        inputRef.current?.focus();
+    }
 
-        />
+    return (
+        <View style={styles.container}>
+            <Animated.View style={{ flex: 1, marginRight: inputSlide }}>
+                <Input
+                    {...restProps}
+                    ref={inputRef}
+                    value={text}
+                    onChange={setText}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
+                    leftAdornments={
+                        <View style={styles.adornment}>
+                            <MaterialIcons name="search" size={18} color={styles.icon.color} />
+                        </View>
+                    }
+                    rightAdornments={
+                        text || allowCancel && text ? (
+                            <View style={styles.adornment}>
+                                <Button.Icon
+                                    name="close"
+                                    variant="ghost"
+                                    iconSize={18}
+                                    onPress={handleClearText}
+
+                                />
+                            </View>
+                        ) : null
+                    }
+                />
+            </Animated.View>
+            {allowCancel && (
+                <Animated.View
+                    style={{
+                        opacity: cancelButtonOpacity,
+                        position: 'absolute',
+                        right: 0,
+                        transform: [{ translateX: cancelButtonTranslateX }]
+                    }}
+                    onLayout={event => setCancelButtonWidth(event.nativeEvent.layout.width)}
+                >
+                    <Button variant="ghost" title="Cancel" onPress={handleCancel} />
+                </Animated.View>
+            )}
+        </View>
     );
 };
 
-/* 
-            { {text && allowCancel && (
-                <Typography onPress={handleClearText} >
-                    Cancel
-                </Typography>
-            )} 
-*/
-
-const themedStyles = EDSStyleSheet.create(theme => {
-    return {
-        container: {
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 8,
-        },
-
-        adornment: {
-            backgroundColor: theme.colors.container.background,
-            justifyContent: "center",
-            alignItems: "center",
-            paddingHorizontal: theme.spacing.element.paddingHorizontal,
-        },
-        icon: {
-            color: theme.colors.text.primary,
-        },
-    };
-});
+const themedStyles = EDSStyleSheet.create(theme => ({
+    container: {
+        flexDirection: "row",
+        alignItems: "flex-end",
+        gap: theme.spacing.element.paddingHorizontal
+    },
+    adornment: {
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: theme.spacing.element.paddingHorizontal,
+    },
+    icon: {
+        color: theme.colors.text.primary,
+    },
+}));

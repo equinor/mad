@@ -1,7 +1,7 @@
-import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import React, { ReactNode, forwardRef, useState } from "react";
-import { EDSStyleSheet } from "../../styling";
+import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import { Label, useStyles } from "../..";
+import { EDSStyleSheet } from "../../styling";
 
 export type InputProps = {
     /**
@@ -26,6 +26,10 @@ export type InputProps = {
      */
     multiline?: boolean;
     /**
+     * A boolean value indicating whether or not the input component should span across multiple lines of text or wrapped to one line.
+     */
+    allowCancel?: boolean;
+    /**
      * The text to display when the input component is empty.
      */
     placeholder?: string;
@@ -42,7 +46,7 @@ export type InputProps = {
      * A component that will be added to the right of the input field.
      */
     rightAdornments?: ReactNode;
-} & TextInputProps;
+} & Omit<TextInputProps, 'onChange'>;
 
 export const Input = forwardRef<TextInput, InputProps>(
     (
@@ -57,47 +61,54 @@ export const Input = forwardRef<TextInput, InputProps>(
             onChange,
             multiline = false,
             disabled = false,
+            allowCancel = false,
             ...rest
         },
         ref,
     ) => {
         const [isSelected, setIsSelected] = useState<boolean>(false);
         const styles = useStyles(themedStyles, { multiline, isSelected });
+
         return (
-            <>
+            <View style={{ flex: 1 }}>
                 {label && <Label style={styles.label} label={label} meta={meta} />}
                 <View style={styles.contentContainer}>
                     {leftAdornments}
-                    <View style={{ flex: 1 }}>
-                        <TextInput
-                            ref={ref}
-                            multiline={multiline}
-                            editable={!disabled}
-                            value={value}
-                            placeholder={placeholder}
-                            onChangeText={onChange}
-                            textAlignVertical="top"
-                            placeholderTextColor={styles.placeholder.color}
-                            onFocus={() => setIsSelected(true)}
-                            onBlur={() => setIsSelected(false)}
-                            style={[styles.textInput, rest.style]}
-                        />
-                    </View>
+                    <TextInput
+                        ref={ref}
+                        multiline={multiline}
+                        editable={!disabled}
+                        value={value}
+                        placeholder={placeholder}
+                        onChangeText={onChange}
+                        textAlignVertical="top"
+                        placeholderTextColor={styles.placeholder.color}
+                        onFocus={(e) => {
+                            setIsSelected(true);
+                            rest.onFocus?.(e);
+                        }}
+                        onBlur={(e) => {
+                            setIsSelected(false);
+                            rest.onBlur?.(e);
+                        }}
+                        style={[
+                            styles.textInput,
+                            rest.style]}
+                    />
                     {rightAdornments}
                 </View>
                 {helperText && <Label style={styles.label} label={helperText} />}
-            </>
+            </View>
         );
     },
 );
 
 Input.displayName = "Input";
-
 const themedStyles = EDSStyleSheet.create(
     (theme, props: { multiline: boolean; isSelected: boolean }) => {
         const { multiline, isSelected } = props;
-
         let borderStyle: ViewStyle;
+
         if (isSelected)
             borderStyle = {
                 borderColor: theme.colors.interactive.primary,
@@ -120,12 +131,15 @@ const themedStyles = EDSStyleSheet.create(
                 paddingHorizontal: theme.spacing.textField.paddingHorizontal,
             },
             textInput: {
+                flex: 1,
                 paddingTop: theme.spacing.textField.paddingVertical,
                 paddingBottom: theme.spacing.textField.paddingVertical,
                 paddingHorizontal: theme.spacing.textField.paddingHorizontal,
                 color: theme.colors.text.primary,
                 ...theme.typography.basic.input,
                 minHeight: multiline ? 80 : undefined,
+                outline: "none",
+                outlineStyle: "none"
             },
             placeholder: {
                 color: theme.colors.text.tertiary,
