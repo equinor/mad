@@ -5,7 +5,7 @@ import { EDSStyleSheet, useStyles, Typography, Input, Spacer, Icon } from "@equi
 export const InputScreen = () => {
     const styles = useStyles(themedStyles);
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
+        <ScrollView contentInsetAdjustmentBehavior="automatic" >
             <View style={styles.container}>
                 <Typography>You can use an Input to add left adornments</Typography>
                 <Spacer />

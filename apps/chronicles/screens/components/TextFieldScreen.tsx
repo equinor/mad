@@ -5,7 +5,7 @@ import { ScrollView, View } from "react-native";
 export const TextFieldScreen = () => {
     const styles = useStyles(themedStyles);
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
+        <ScrollView contentInsetAdjustmentBehavior="automatic" >
             <View style={styles.container}>
                 <Typography>
                     TextField acts as a convenience wrapper for the Input component.

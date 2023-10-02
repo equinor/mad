@@ -1,16 +1,20 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { EDSStyleSheet, useStyles, Typography, Spacer, Search } from "@equinor/mad-components";
 
 export const SearchScreen = () => {
     const styles = useStyles(themedStyles);
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
-            <View style={styles.container}>
-                <Typography>You can use an Input to add left adornments</Typography>
-                <Spacer />
-                <Search placeholder="Search" label="Search for something"></Search>
-            </View>
+        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container}>
+            <Typography>You can use an Input to add left adornments</Typography>
+            <Typography>Standard search bar</Typography>
+            <Spacer amount="small" />
+            <Search placeholder="Search" label="Search for something"></Search>
+            <Spacer amount="large" />
+
+            <Typography>Search bar with cancel button</Typography>
+            <Spacer amount="small" />
+            <Search placeholder="Search" label="Search for something" cancellable />
         </ScrollView>
     );
 };
