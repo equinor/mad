@@ -105,7 +105,6 @@ const themedStyles = EDSStyleSheet.create(theme => ({
     container: {
         flexDirection: "row",
         alignItems: "flex-end",
-        gap: theme.spacing.element.paddingHorizontal
     },
     adornment: {
         justifyContent: "center",
