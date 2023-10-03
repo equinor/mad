@@ -8,6 +8,7 @@
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
+        //"exactOptionalPropertyTypes": true,
         "outDir": "./dist"
     },
     "include": ["./src"],

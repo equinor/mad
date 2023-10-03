@@ -2,15 +2,26 @@ import { EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
 import React from "react";
 import { Image, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
+import { useAppVersion, useAuthConfig, useLoginScreenConfig } from "../../hooks/MadConfigProvider";
+import { useCoreStackNavigation } from "../../hooks/useCoreStackNavigation";
+import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRouteForLoginScreen";
 
-export type LoginScreenProps = { title: string; logo: string };
-export const LoginScreen = ({ title, logo }: LoginScreenProps) => {
+export const LoginScreen = () => {
     const styles = useStyles(theme);
+    const authConfig = useAuthConfig();
+    const navigation = useCoreStackNavigation();
+    const appVersion = useAppVersion();
+    const { title, logo } = useLoginScreenConfig();
     return (
         <View style={styles.container}>
             <Typography variant="h1">{title}</Typography>
-            <Image source={{ uri: logo }} resizeMode="contain" height={200} width={200} />
-            <LoginButton />
+            <Image source={logo} resizeMode="contain" style={{ height: 200, width: 200 }} />
+            <LoginButton
+                {...authConfig}
+                onAuthenticationSuccessful={() =>
+                    navigation.navigate(getNavigationRouteForLoginScreen({ appVersion }))
+                }
+            />
         </View>
     );
 };

@@ -1,28 +1,26 @@
+import { EnvironmentContextProps } from "@equinor/mad-components";
+import { ImageSourcePropType } from "react-native";
+
 export type MadConfig = {
     appVersion: string;
-    servicePortalName: ServicePortalName;
+    servicePortalName: string;
+    environment: EnvironmentContextProps["environment"];
     authentication: {
         clientId: string;
         redirectUri: string;
     };
+    login: {
+        title: string;
+        logo: ImageSourcePropType;
+    };
 };
 
-export type ServicePortalName =
-    | "Asset Facts"
-    | "CodeOfConduct"
-    | "CountryInformation"
-    | "DFU"
-    | "EXPENSE & PAY"
-    | "Ergonomics"
-    | "Flyt"
-    | "HearingTest"
-    | "MS Assessment"
-    | "Notifications"
-    | "OMFunctionalLocationsOCR"
-    | "OmInspection"
-    | "OpsPlan"
-    | "PleaseFix"
-    | "PleaseInspect"
-    | "PleaseMove"
-    | "WorkOrders"
-    | "WorkPermits";
+export type CoreStackParamListBase = {
+    Login: undefined;
+    ReleaseNotes: undefined;
+    Settings: undefined;
+    About: undefined;
+    Feedback: undefined;
+    Root: undefined;
+    NotFound: undefined;
+};

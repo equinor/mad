@@ -1,5 +1,5 @@
 {
-    "name": "@equinor/mad-auth",
+    "name": "@equinor/mad-core",
     "version": "0.0.1",
     "description": "A simple wrapper library for react-native-msal",
     "type": "module",
@@ -30,7 +30,8 @@
         "react-dom": ">=16.8",
         "react-native": ">=0.68",
         "react-native-msal": ">=4.0.4",
-        "@react-native-async-storage/async-storage": "*"
+        "@react-native-async-storage/async-storage": "*",
+        "@react-navigation/native": "^6.1.8"
     },
     "dependencies": {
         "@equinor/mad-components": "workspace:*",

@@ -10,14 +10,14 @@ type LanguageState = {
      */
     defaultLanguage: Language;
     /**
+     * User selected language
+     */
+    selectedLanguage: Language | null;
+    /**
      * Set the default language of the app
      * @param {SupportedLanguageCode} code - language code
      */
     setDefaultLanguage: (code: SupportedLanguageCode) => void;
-    /**
-     * User selected language
-     */
-    selectedLanguage: Language | null;
     /**
      * Set the user selected language of the app
      * @param {SupportedLanguageCode} code - language code

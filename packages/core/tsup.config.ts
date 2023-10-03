@@ -7,6 +7,7 @@ export default defineConfig({
     clean: true,
     dts: false,
     format: "esm",
+    bundle: false,
     tsconfig: "./tsconfig.json",
     async onSuccess() {
         // eslint-disable-next-line no-console

@@ -40,11 +40,13 @@ importers:
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-auth': workspace:*
       '@equinor/mad-components': workspace:*
+      '@equinor/mad-core': workspace:*
       '@equinor/mad-insights': workspace:*
       '@equinor/mad-navigation': workspace:*
       '@equinor/react-native-skia-draw': workspace:*
       '@expo/vector-icons': ^13.0.0
       '@expo/webpack-config': ^18.0.1
+      '@react-native-async-storage/async-storage': ^1.19.3
       '@react-navigation/bottom-tabs': ^6.0.5
       '@react-navigation/native': ^6.0.2
       '@react-navigation/native-stack': ^6.1.0
@@ -77,13 +79,15 @@ importers:
       typescript: ^5.1.3
       uuid: ^3.0.0
     dependencies:
-      '@equinor/mad-auth': link:../../packages/core
+      '@equinor/mad-auth': link:../../packages/auth
       '@equinor/mad-components': link:../../packages/components
+      '@equinor/mad-core': link:../../packages/core
       '@equinor/mad-insights': link:../../packages/insights
       '@equinor/mad-navigation': link:../../packages/navigation
       '@equinor/react-native-skia-draw': link:../../packages/skia-draw
       '@expo/vector-icons': 13.0.0
       '@expo/webpack-config': 18.1.2_expo@49.0.9
+      '@react-native-async-storage/async-storage': 1.19.3_react-native@0.72.3
       '@react-navigation/bottom-tabs': 6.5.8_yu75tq5j2brzsa2nme6433wuti
       '@react-navigation/native': 6.1.7_6syixf76bqx5r4tgwtwyqyssoi
       '@react-navigation/native-stack': 6.9.13_yu75tq5j2brzsa2nme6433wuti
@@ -180,17 +184,19 @@ importers:
       '@equinor/mad-insights': workspace:*
       '@equinor/mad-navigation': workspace:*
       '@react-native-async-storage/async-storage': '*'
+      '@react-navigation/native': ^6.1.8
       react: '>=16.8'
       react-dom: '>=16.8'
       react-native: '>=0.68'
       react-native-msal: '>=4.0.4'
       zustand: ^4.4.1
     dependencies:
-      '@equinor/mad-auth': 'link:'
+      '@equinor/mad-auth': link:../auth
       '@equinor/mad-components': link:../components
       '@equinor/mad-insights': link:../insights
       '@equinor/mad-navigation': link:../navigation
       '@react-native-async-storage/async-storage': 1.19.3_react-native@0.72.3
+      '@react-navigation/native': 6.1.8_6syixf76bqx5r4tgwtwyqyssoi
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
@@ -3510,6 +3516,20 @@ packages:
 
   /@react-navigation/native/6.1.7_6syixf76bqx5r4tgwtwyqyssoi:
     resolution: {integrity: sha512-W6E3+AtTombMucCRo6q7vPmluq8hSjS+IxfazJ/SokOe7ChJX7eLvvralIsJkjFj3iWV1KgOSnHxa6hdiFasBw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      '@react-navigation/core': 6.4.9_react@18.2.0
+      escape-string-regexp: 4.0.0
+      fast-deep-equal: 3.1.3
+      nanoid: 3.3.6
+      react: 18.2.0
+      react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
+    dev: false
+
+  /@react-navigation/native/6.1.8_6syixf76bqx5r4tgwtwyqyssoi:
+    resolution: {integrity: sha512-0alti852nV+8oCVm9H80G6kZvrHoy51+rXBvVCRUs2rNDDozC/xPZs8tyeCJkqdw3cpxZDK8ndXF22uWq28+0Q==}
     peerDependencies:
       react: '*'
       react-native: '*'
