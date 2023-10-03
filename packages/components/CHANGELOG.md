@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.6.1
+
+### Patch Changes
+
+-   89e4a73: fixed Input container styling issue
+
 ## 0.6.0
 
 ### Minor Changes
