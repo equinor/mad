@@ -65,7 +65,7 @@ export const Input = forwardRef<TextInput, InputProps>(
         const styles = useStyles(themedStyles, { multiline, isSelected });
 
         return (
-            <View style={{ flex: 1 }}>
+            <View>
                 {label && <Label style={styles.label} label={label} meta={meta} />}
                 <View style={styles.contentContainer}>
                     {leftAdornments}
