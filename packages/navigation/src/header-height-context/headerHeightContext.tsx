@@ -39,7 +39,7 @@ const _useMadNavigationHeaderHeight = () => {
 
 /**
  * Get the header height
- * @returns a number
+ * @returns {number} header height
  */
 export const useHeaderHeight = () => {
     const context = useContext(HeaderHeightContext);
