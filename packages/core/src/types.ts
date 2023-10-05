@@ -24,3 +24,5 @@ export type CoreStackParamListBase = {
     Root: undefined;
     NotFound: undefined;
 };
+
+export type Environment = "dev" | "test" | "qa" | "prod";

@@ -9,6 +9,9 @@ export default defineConfig({
     format: "esm",
     bundle: false,
     tsconfig: "./tsconfig.json",
+    loader: {
+        ".json": "copy",
+    },
     async onSuccess() {
         // eslint-disable-next-line no-console
         console.log("⚙️ Generating typescript declarations..");

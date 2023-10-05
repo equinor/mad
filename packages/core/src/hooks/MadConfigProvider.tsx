@@ -28,3 +28,13 @@ export const useAppVersion = () => {
     const config = useMadCoreConfig();
     return config.appVersion;
 };
+
+export const useEnvironment = () => {
+    const config = useMadCoreConfig();
+    return config.environment;
+};
+
+export const useServicePortalName = () => {
+    const config = useMadCoreConfig();
+    return config.servicePortalName;
+};

@@ -1,10 +1,11 @@
-import { EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
-import React from "react";
-import { Image, View } from "react-native";
+import { Button, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
+import React, { useState } from "react";
+import { Image, Pressable, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
 import { useAppVersion, useAuthConfig, useLoginScreenConfig } from "../../hooks/MadConfigProvider";
 import { useCoreStackNavigation } from "../../hooks/useCoreStackNavigation";
 import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRouteForLoginScreen";
+import { enableDemoMode } from "../../store/demo-mode";
 
 export const LoginScreen = () => {
     const styles = useStyles(theme);
@@ -12,16 +13,34 @@ export const LoginScreen = () => {
     const navigation = useCoreStackNavigation();
     const appVersion = useAppVersion();
     const { title, logo } = useLoginScreenConfig();
+    const [demoPressCount, setDemoPressCount] = useState(0);
+    const shouldDisplayDemoButton = demoPressCount >= 5;
     return (
         <View style={styles.container}>
             <Typography variant="h1">{title}</Typography>
-            <Image source={logo} resizeMode="contain" style={{ height: 200, width: 200 }} />
-            <LoginButton
-                {...authConfig}
-                onAuthenticationSuccessful={() =>
-                    navigation.navigate(getNavigationRouteForLoginScreen({ appVersion }))
-                }
-            />
+            <Pressable onPress={() => setDemoPressCount(state => state + 1)}>
+                <Image source={logo} resizeMode="contain" style={{ height: 200, width: 200 }} />
+            </Pressable>
+            <View style={{ gap: 8 }}>
+                <LoginButton
+                    {...authConfig}
+                    onAuthenticationSuccessful={() =>
+                        navigation.navigate(getNavigationRouteForLoginScreen({ appVersion }))
+                    }
+                />
+                {shouldDisplayDemoButton && (
+                    <Button
+                        title="Demo"
+                        variant="outlined"
+                        onPress={() => {
+                            enableDemoMode();
+                            navigation.navigate(
+                                getNavigationRouteForLoginScreen({ appVersion, isDemoMode: true }),
+                            );
+                        }}
+                    />
+                )}
+            </View>
         </View>
     );
 };

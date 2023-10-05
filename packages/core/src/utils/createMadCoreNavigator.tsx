@@ -3,8 +3,9 @@ import { EnvironmentProvider, createNativeStackNavigator } from "@equinor/mad-na
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
-import { ReleaseNotesScreen } from "../components/screens/ReleaseNotesScreen";
+import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { MadConfigProvider } from "../hooks/MadConfigProvider";
+import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
@@ -21,15 +22,17 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
         return (
             <MadConfigProvider config={config}>
                 <EnvironmentProvider environment={config.environment}>
-                    <Stack.Navigator {...props} initialRouteName={"Login"}>
-                        <Stack.Screen
-                            name="Login"
-                            component={LoginScreen}
-                            options={{ headerShown: false, environmentBannerShown: true }}
-                        />
-                        <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
-                        {props.children}
-                    </Stack.Navigator>
+                    <AnnouncementsProvider>
+                        <Stack.Navigator {...props} initialRouteName={"Login"}>
+                            <Stack.Screen
+                                name="Login"
+                                component={LoginScreen}
+                                options={{ headerShown: false, environmentBannerShown: true }}
+                            />
+                            <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
+                            {props.children}
+                        </Stack.Navigator>
+                    </AnnouncementsProvider>
                 </EnvironmentProvider>
             </MadConfigProvider>
         );
