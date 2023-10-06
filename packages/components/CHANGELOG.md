@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.6.2
+
+### Patch Changes
+
+-   1499432: fixed input onchange issue
+
 ## 0.6.1
 
 ### Patch Changes
