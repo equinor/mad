@@ -68,8 +68,14 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
                     ref={inputRef}
                     value={text}
                     onChange={onChangeText}
-                    onFocus={() => setIsInputFocused(true)}
-                    onBlur={() => setIsInputFocused(false)}
+                    onFocus={(e) => {
+                        setIsInputFocused(true);
+                        restProps.onFocus?.(e);
+                    }}
+                    onBlur={(e) => {
+                        setIsInputFocused(false)
+                        restProps.onBlur?.(e);
+                    }}
                     leftAdornments={
                         <View style={styles.adornment}>
                             <MaterialIcons name="search" size={18} color={styles.icon.color} />
