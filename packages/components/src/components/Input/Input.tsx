@@ -42,7 +42,7 @@ export type InputProps = {
      * A component that will be added to the right of the input field.
      */
     rightAdornments?: ReactNode;
-} & Omit<TextInputProps, 'onChange'>;
+} & Omit<TextInputProps, 'onChange' | 'onChangeText'>;
 
 export const Input = forwardRef<TextInput, InputProps>(
     (
