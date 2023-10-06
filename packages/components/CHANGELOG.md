@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.6.3
+
+### Patch Changes
+
+-   aba4173: fixed onchange and onblur issue
+
 ## 0.6.2
 
 ### Patch Changes
