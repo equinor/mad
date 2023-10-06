@@ -2,4 +2,4 @@
 "@equinor/mad-components": patch
 ---
 
-fixed Input container styling issue
+fixed input onchange issue
