@@ -48,6 +48,12 @@ export default function DiscoverScreen({
                     iconName="form-textbox"
                     onPress={() => navigation.navigate("Input")}
                 />
+                  <Cell.Navigation
+                    title="Autocomplete"
+                    description="Suggest options as the user types"
+                    iconName="format-list-bulleted-square"
+                    onPress={() => navigation.navigate("Autocomplete")}
+                />
                 <Cell.Navigation
                     title="Search"
                     description="Search for content"
