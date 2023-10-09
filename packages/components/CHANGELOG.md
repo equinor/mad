@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.6.4
+
+### Patch Changes
+
+-   85b85ea: fixed flex layout
+
 ## 0.6.3
 
 ### Patch Changes
