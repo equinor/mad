@@ -2,14 +2,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { Button, Input, TextFieldProps, useStyles, useToken } from "../..";
+import { Button, Input, InputProps, useStyles, useToken } from "../..";
 import { EDSStyleSheet } from "../../styling";
 
-export type SearchProps = Omit<TextFieldProps, "multiline"> & {
+export type SearchProps = Omit<InputProps, "multiline"> & {
     cancellable?: boolean;
     onCancelPress?: () => void;
 };
-export const Search = ({ cancellable, onCancelPress, ...restProps }: SearchProps) => {
+export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: SearchProps) => {
     const [text, setText] = useState('');
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
@@ -55,6 +55,11 @@ export const Search = ({ cancellable, onCancelPress, ...restProps }: SearchProps
         inputRef.current?.focus();
     }
 
+    const onChangeText = (text: string) => {
+        setText(text);
+        onChange?.(text);
+    }
+
     return (
         <View style={styles.container}>
             <Animated.View style={{ flex: 1, marginRight: inputSlide }}>
@@ -62,9 +67,15 @@ export const Search = ({ cancellable, onCancelPress, ...restProps }: SearchProps
                     {...restProps}
                     ref={inputRef}
                     value={text}
-                    onChange={setText}
-                    onFocus={() => setIsInputFocused(true)}
-                    onBlur={() => setIsInputFocused(false)}
+                    onChange={onChangeText}
+                    onFocus={(e) => {
+                        setIsInputFocused(true);
+                        restProps.onFocus?.(e);
+                    }}
+                    onBlur={(e) => {
+                        setIsInputFocused(false)
+                        restProps.onBlur?.(e);
+                    }}
                     leftAdornments={
                         <View style={styles.adornment}>
                             <MaterialIcons name="search" size={18} color={styles.icon.color} />
