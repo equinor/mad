@@ -4,7 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { IconButton } from "../Button/IconButton";
-import { Input, InputProps } from "../Input/Input";
+import { Input, InputProps } from "../Input";
 import { Menu } from "../Menu";
 
 type ToggleOptionProps = {
