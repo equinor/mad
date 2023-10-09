@@ -114,6 +114,7 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
 
 const themedStyles = EDSStyleSheet.create(theme => ({
     container: {
+        flex: 1,
         flexDirection: "row",
         alignItems: "flex-end",
     },
