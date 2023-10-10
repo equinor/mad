@@ -52,6 +52,7 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
     // FIXME: On web the search field loses focus when the clear text button is pressed. 
     const handleClearText = () => {
         setText('');
+        onChange?.('');
         inputRef.current?.focus();
     }
 
