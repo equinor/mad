@@ -2,4 +2,4 @@
 "@equinor/mad-components": patch
 ---
 
-fixed onchange and onblur issue
+fixed clear text button
