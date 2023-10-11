@@ -40,8 +40,7 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
             duration: token.timing.animation.slow,
             useNativeDriver: false
         }).start();
-    }, [isInputFocused]);
-
+    }, [animationValue, cancellable, isInputFocused, token.timing.animation.slow]);
 
     const handleCancel = () => {
         setText('');
@@ -52,6 +51,7 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
     // FIXME: On web the search field loses focus when the clear text button is pressed. 
     const handleClearText = () => {
         setText('');
+        onChange?.('');
         inputRef.current?.focus();
     }
 

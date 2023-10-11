@@ -88,7 +88,9 @@ export const Input = forwardRef<TextInput, InputProps>(
                         }}
                         style={[
                             styles.textInput,
-                            rest.style]}
+                            rest.style,
+                            { outline: "none" },
+                        ]}
                     />
                     {rightAdornments}
                 </View>
@@ -133,8 +135,6 @@ const themedStyles = EDSStyleSheet.create(
                 color: theme.colors.text.primary,
                 ...theme.typography.basic.input,
                 minHeight: multiline ? 80 : undefined,
-                outline: "none",
-                outlineStyle: "none"
             },
             placeholder: {
                 color: theme.colors.text.tertiary,
