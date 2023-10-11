@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.6.5
+
+### Patch Changes
+
+-   adaa7bb: fixed clear text button onchange issues on search
+
 ## 0.6.4
 
 ### Patch Changes
