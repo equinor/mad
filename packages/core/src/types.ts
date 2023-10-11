@@ -17,6 +17,7 @@ export type MadConfig = {
 
 export type CoreStackParamListBase = {
     Login: undefined;
+    WhatsNew: undefined;
     ReleaseNotes: undefined;
     Settings: undefined;
     About: undefined;

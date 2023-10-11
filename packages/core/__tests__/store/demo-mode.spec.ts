@@ -4,7 +4,7 @@ import {
     enableDemoMode,
     getIsDemoModeEnabled,
     useDemoMode,
-} from "../../store/demo-mode";
+} from "../../src/store/demo-mode";
 
 describe("Demo mode", () => {
     it("Should be disabled by default", () => {

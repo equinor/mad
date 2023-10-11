@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ChangeLog, Release } from "./ChangeLog";
-import * as mockData from "./mock-data.json";
+import * as mockData from "../../../static/mock-data/whats-new.json";
 import {
     useAppVersion,
     useEnvironment,
@@ -12,7 +12,10 @@ import { useCoreStackNavigation } from "../../../hooks/useCoreStackNavigation";
 import { useDemoMode } from "../../../store/demo-mode";
 import { fetchReleaseNotes } from "./fetchReleaseNotes";
 
-export const ReleaseNotesScreen = () => {
+/**
+ * This screen will display the latest releasenotes
+ */
+export const WhatsNewScreen = () => {
     const environment = useEnvironment();
     const releaseNotesVersion = useReleaseNotesVersion();
     const servicePortalName = useServicePortalName();

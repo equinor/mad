@@ -16,5 +16,7 @@ export default defineConfig({
         // eslint-disable-next-line no-console
         console.log("⚙️ Generating typescript declarations..");
         spawnSync("tsc", ["--project", "tsconfig.json", "--emitDeclarationOnly", "--declaration"]);
+        console.log("⚙️ Copying static files..");
+        spawnSync("cp", ["-r", "./src/static/", "./dist/static"]);
     },
 });

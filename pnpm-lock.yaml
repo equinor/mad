@@ -281,7 +281,7 @@ importers:
   packages/navigation:
     specifiers:
       '@equinor/eslint-config-mad': workspace:*
-      '@equinor/mad-components': 0.5.3
+      '@equinor/mad-components': workspace:*
       '@react-navigation/bottom-tabs': '>=6'
       '@react-navigation/elements': 1.3.19
       '@react-navigation/native': '>=6'
@@ -290,7 +290,7 @@ importers:
       react-dom: '>=16.8'
       react-native: '>=0.68'
     dependencies:
-      '@equinor/mad-components': 0.5.3_qji3ok5vwrmhlbazocrvbdk4na
+      '@equinor/mad-components': link:../components
       '@react-navigation/bottom-tabs': 6.5.8_4gwhskhyynrcrfstmcall4nr2u
       '@react-navigation/elements': 1.3.19_626t6bmhebeldf75nh6d3awmry
       '@react-navigation/native': 6.1.7_6syixf76bqx5r4tgwtwyqyssoi
@@ -1906,27 +1906,6 @@ packages:
     engines: {node: '>=0.8.0'}
     dependencies:
       '@types/hammerjs': 2.0.41
-    dev: false
-
-  /@equinor/mad-components/0.5.3_qji3ok5vwrmhlbazocrvbdk4na:
-    resolution: {integrity: sha512-IcnLWUw9uHVcx7H3Pjfc4F5/yPRmB+3d6oAy/1GEf+alqxhdx6QnlFujfe0LArIOMkIHvsPo4CpCDkKF6uu/Pw==}
-    peerDependencies:
-      expo-font: '>=10.0.0'
-      react: '>=16.8'
-      react-dom: '>=16.8'
-      react-native: '>=0.68'
-      react-native-gesture-handler: '>=2.0'
-      react-native-reanimated: '>=2.0'
-      react-native-svg: '>=13.0'
-    dependencies:
-      '@floating-ui/react-native': 0.10.1_6syixf76bqx5r4tgwtwyqyssoi
-      expo-font: 11.4.0_expo@49.0.9
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
-      react-native-gesture-handler: 2.12.1_6syixf76bqx5r4tgwtwyqyssoi
-      react-native-reanimated: 3.3.0_x5kb7iuew7hmqlcqrgotvtj2h4
-      react-native-svg: 13.9.0_6syixf76bqx5r4tgwtwyqyssoi
     dev: false
 
   /@esbuild/android-arm/0.18.20:

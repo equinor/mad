@@ -3,7 +3,7 @@ import { EnvironmentProvider, createNativeStackNavigator } from "@equinor/mad-na
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
-import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
+import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { MadConfigProvider } from "../hooks/MadConfigProvider";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
 
@@ -29,7 +29,7 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                                 component={LoginScreen}
                                 options={{ headerShown: false, environmentBannerShown: true }}
                             />
-                            <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
+                            <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
                             {props.children}
                         </Stack.Navigator>
                     </AnnouncementsProvider>

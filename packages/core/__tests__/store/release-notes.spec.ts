@@ -1,9 +1,9 @@
 import { act, renderHook } from "@testing-library/react-native";
-import { useReleaseNotesVersion } from "../../store/release-notes";
+import { useReleaseNotesVersion } from "../../src/store/release-notes";
 import {
     getLastDisplayedReleaseNotesVersion,
     setLastDisplayedReleaseNotesVersion,
-} from "../../store/release-notes/release-notes";
+} from "../../src/store/release-notes/release-notes";
 
 describe("release-notes", () => {
     it("should have a default value of less than '0.0.0'", () => {
@@ -17,7 +17,7 @@ describe("release-notes", () => {
             getLastDisplayedReleaseNotesVersion(),
         );
 
-        result.current.setLastDisplayedReleaseNotesVersion("1.0.0");
+        act(() => result.current.setLastDisplayedReleaseNotesVersion("1.0.0"));
         rerender({});
         expect(
             result.current.lastDisplayedReleaseNotesVersion ===
@@ -25,7 +25,7 @@ describe("release-notes", () => {
         ).toBeTruthy();
         expect(result.current.lastDisplayedReleaseNotesVersion).toBe("1.0.0");
 
-        setLastDisplayedReleaseNotesVersion("2.0.0");
+        act(() => setLastDisplayedReleaseNotesVersion("2.0.0"));
         rerender({});
         expect(
             result.current.lastDisplayedReleaseNotesVersion ===

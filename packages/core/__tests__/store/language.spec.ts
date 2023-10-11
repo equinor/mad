@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react-native";
-import { SupportedLanguageCode, getLanguage, useLanguage } from "../../store/language";
+import { SupportedLanguageCode, getLanguage, useLanguage } from "../../src/store/language";
 
 const norwegianBokmål = { code: "nb", name: "Norwegian" };
 const english = { code: "en", name: "English" };
@@ -48,7 +48,7 @@ describe("Language", () => {
 
     /**
      * This test obviously does not cover all scenarios, but it should cover
-     * The most likely language for a developer to add. If a developer adds a new
+     * The most likely language for a developer to add in equinor context. If a developer adds a new
      * language, we should support it properly and create new tests
      */
     it("Should only accept English and Norwegian as language choices", () => {
