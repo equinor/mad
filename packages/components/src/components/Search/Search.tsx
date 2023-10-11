@@ -8,8 +8,9 @@ import { EDSStyleSheet } from "../../styling";
 export type SearchProps = Omit<InputProps, "multiline"> & {
     cancellable?: boolean;
     onCancelPress?: () => void;
+    textValue?: string;
 };
-export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: SearchProps) => {
+export const Search = ({ cancellable, onCancelPress, onChange, textValue, ...restProps }: SearchProps) => {
     const [text, setText] = useState('');
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
@@ -41,6 +42,12 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
             useNativeDriver: false
         }).start();
     }, [animationValue, cancellable, isInputFocused, token.timing.animation.slow]);
+
+    useEffect(() => {
+        if (textValue) {
+            setText(textValue)
+        }
+    }, [textValue])
 
     const handleCancel = () => {
         setText('');
