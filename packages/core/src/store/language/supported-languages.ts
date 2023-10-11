@@ -9,7 +9,7 @@ export const ALL_SUPPORTED_LANGUAGES = [
         name: "English",
     },
     {
-        code: "no",
+        code: "nb",
         name: "Norwegian",
     },
 ] as const satisfies ReadonlyArray<Language>;

@@ -1,10 +1,10 @@
-import { renderHook } from "@testing-library/react-native";
+import { renderHook, act } from "@testing-library/react-native";
 import {
     disableDemoMode,
     enableDemoMode,
     getIsDemoModeEnabled,
     useDemoMode,
-} from "../store/demo-mode";
+} from "../../store/demo-mode";
 
 describe("Demo mode", () => {
     it("Should be disabled by default", () => {
@@ -13,16 +13,16 @@ describe("Demo mode", () => {
     });
 
     it("Should be possible to enable demo mode", () => {
-        enableDemoMode();
+        act(enableDemoMode);
         const isEnabled = getIsDemoModeEnabled();
         expect(isEnabled).toBe(true);
     });
 
     it("Should be possible to disable demo mode", () => {
-        enableDemoMode();
+        act(enableDemoMode);
         const isEnabled = getIsDemoModeEnabled();
         expect(isEnabled).toBe(true);
-        disableDemoMode();
+        act(disableDemoMode);
         const isEnabled2 = getIsDemoModeEnabled();
         expect(isEnabled2).toBe(false);
     });
@@ -30,11 +30,11 @@ describe("Demo mode", () => {
     it("Should be possible to enable and disable demo mode through the hook", () => {
         const { result, rerender } = renderHook(() => useDemoMode());
 
-        result.current.enableDemoMode();
+        act(() => result.current.enableDemoMode());
         rerender({});
         expect(result.current.isEnabled).toBe(true);
 
-        result.current.disableDemoMode();
+        act(() => result.current.disableDemoMode());
         rerender({});
         expect(result.current.isEnabled).toBe(false);
     });
@@ -43,19 +43,19 @@ describe("Demo mode", () => {
         const { result, rerender } = renderHook(() => useDemoMode());
         expect(result.current.isEnabled).toBe(getIsDemoModeEnabled());
 
-        result.current.enableDemoMode();
+        act(() => result.current.enableDemoMode());
         rerender({});
         expect(result.current.isEnabled).toBe(getIsDemoModeEnabled());
 
-        result.current.disableDemoMode();
+        act(() => result.current.disableDemoMode());
         rerender({});
         expect(result.current.isEnabled).toBe(getIsDemoModeEnabled());
 
-        enableDemoMode();
+        act(enableDemoMode);
         rerender({});
         expect(result.current.isEnabled).toBe(getIsDemoModeEnabled());
 
-        disableDemoMode();
+        act(disableDemoMode);
         rerender({});
         expect(result.current.isEnabled).toBe(getIsDemoModeEnabled());
     });

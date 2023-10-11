@@ -76,12 +76,12 @@ export type UseLanguageReturnType = {
      * Set the default language of the app
      * @param {SupportedLanguageCode} code - language code
      */
-    setSelectedLanguage: LanguageState["setSelectedLanguage"];
+    setDefaultLanguage: LanguageState["setSelectedLanguage"];
     /**
      * Set the user selected language of the app
      * @param {SupportedLanguageCode} code - language code
      */
-    setDefaultLanguage: LanguageState["setDefaultLanguage"];
+    setSelectedLanguage: LanguageState["setDefaultLanguage"];
 };
 export const useLanguage = (): UseLanguageReturnType => {
     const store = useLanguageStore();

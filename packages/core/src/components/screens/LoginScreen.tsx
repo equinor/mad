@@ -6,12 +6,14 @@ import { useAppVersion, useAuthConfig, useLoginScreenConfig } from "../../hooks/
 import { useCoreStackNavigation } from "../../hooks/useCoreStackNavigation";
 import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRouteForLoginScreen";
 import { enableDemoMode } from "../../store/demo-mode";
+import { useReleaseNotesVersion } from "../../store/release-notes/release-notes";
 
 export const LoginScreen = () => {
     const styles = useStyles(theme);
     const authConfig = useAuthConfig();
     const navigation = useCoreStackNavigation();
     const appVersion = useAppVersion();
+    const { lastDisplayedReleaseNotesVersion } = useReleaseNotesVersion();
     const { title, logo } = useLoginScreenConfig();
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
@@ -25,7 +27,12 @@ export const LoginScreen = () => {
                 <LoginButton
                     {...authConfig}
                     onAuthenticationSuccessful={() =>
-                        navigation.navigate(getNavigationRouteForLoginScreen({ appVersion }))
+                        navigation.navigate(
+                            getNavigationRouteForLoginScreen({
+                                appVersion,
+                                lastDisplayedReleaseNotesVersion,
+                            }),
+                        )
                     }
                 />
                 {shouldDisplayDemoButton && (
@@ -35,7 +42,11 @@ export const LoginScreen = () => {
                         onPress={() => {
                             enableDemoMode();
                             navigation.navigate(
-                                getNavigationRouteForLoginScreen({ appVersion, isDemoMode: true }),
+                                getNavigationRouteForLoginScreen({
+                                    appVersion,
+                                    lastDisplayedReleaseNotesVersion,
+                                    isDemoMode: true,
+                                }),
                             );
                         }}
                     />

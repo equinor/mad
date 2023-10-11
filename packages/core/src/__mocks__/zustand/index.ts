@@ -1,6 +1,8 @@
-// __mocks__/zustand.ts
+// this is a mock of zustand that helps resetting zustand between each test. It is copied directly from zustand's website.
+// See https://docs.pmnd.rs/zustand/guides/testing
+
 import * as zustand from "zustand";
-import { act } from "@testing-library/react";
+import { act } from "@testing-library/react-native";
 
 const { create: actualCreate, createStore: actualCreateStore } =
     jest.requireActual<typeof zustand>("zustand");
