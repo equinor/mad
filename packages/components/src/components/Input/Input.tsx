@@ -42,7 +42,7 @@ export type InputProps = {
      * A component that will be added to the right of the input field.
      */
     rightAdornments?: ReactNode;
-} & Omit<TextInputProps, 'onChange'>;
+} & Omit<TextInputProps, 'onChange' | 'onChangeText'>;
 
 export const Input = forwardRef<TextInput, InputProps>(
     (
@@ -88,7 +88,9 @@ export const Input = forwardRef<TextInput, InputProps>(
                         }}
                         style={[
                             styles.textInput,
-                            rest.style]}
+                            rest.style,
+                            { outline: "none" },
+                        ]}
                     />
                     {rightAdornments}
                 </View>
@@ -133,8 +135,6 @@ const themedStyles = EDSStyleSheet.create(
                 color: theme.colors.text.primary,
                 ...theme.typography.basic.input,
                 minHeight: multiline ? 80 : undefined,
-                outline: "none",
-                outlineStyle: "none"
             },
             placeholder: {
                 color: theme.colors.text.tertiary,

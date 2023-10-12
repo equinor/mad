@@ -1,5 +1,40 @@
 # @equinor/mad-navigation
 
+## 0.1.11
+
+### Patch Changes
+
+-   Updated dependencies [bd5ded0]
+    -   @equinor/mad-components@0.6.6
+
+## 0.1.10
+
+### Patch Changes
+
+-   Updated dependencies [adaa7bb]
+    -   @equinor/mad-components@0.6.5
+
+## 0.1.9
+
+### Patch Changes
+
+-   Updated dependencies [85b85ea]
+    -   @equinor/mad-components@0.6.4
+
+## 0.1.8
+
+### Patch Changes
+
+-   Updated dependencies [aba4173]
+    -   @equinor/mad-components@0.6.3
+
+## 0.1.7
+
+### Patch Changes
+
+-   Updated dependencies [1499432]
+    -   @equinor/mad-components@0.6.2
+
 ## 0.1.6
 
 ### Patch Changes
