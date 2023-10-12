@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.6.6
+
+### Patch Changes
+
+-   bd5ded0: Make search get its text value from other sources
+
 ## 0.6.5
 
 ### Patch Changes
