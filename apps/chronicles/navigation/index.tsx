@@ -65,7 +65,6 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     );
 }
 
-//const CoreStack = createNativeStackNavigator();
 const CoreStack = createCoreStackNavigator(config);
 function RootNavigator() {
     return (
@@ -90,14 +89,14 @@ function DiscoverNavigator() {
         <DiscoverStack.Navigator
             initialRouteName="Discover"
             screenOptions={{
-                //headerLargeTitle: true,
-                //headerLargeTitleShadowVisible: true,
+                headerLargeTitle: true,
+                headerLargeTitleShadowVisible: true,
                 headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
                 headerTitleStyle: {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-                environmentBannerShown: true,
+                environmentBannerShown: false,
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
@@ -139,8 +138,6 @@ function BottomTabNavigator() {
             initialRouteName="DiscoverTab"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
-                //unmountOnBlur: true,
-                //lazy: false,
             }}
         >
             <BottomTab.Screen
@@ -160,7 +157,6 @@ function BottomTabNavigator() {
                 options={{
                     title: "Icons",
                     tabBarIcon: ({ color }) => <TabBarIcon name="grid" color={color as Color} />,
-                    headerStyle: { height: 200 },
                 }}
             />
             <BottomTab.Screen
@@ -189,7 +185,6 @@ function BottomTabNavigator() {
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="settings-helper" color={color as Color} />
                     ),
-                    headerStyle: { height: 100 },
                 }}
             />
         </BottomTab.Navigator>
