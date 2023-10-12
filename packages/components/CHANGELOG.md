@@ -1,5 +1,54 @@
 # @equinor/mad-components
 
+## 0.6.6
+
+### Patch Changes
+
+-   bd5ded0: Make search get its text value from other sources
+
+## 0.6.5
+
+### Patch Changes
+
+-   adaa7bb: fixed clear text button onchange issues on search
+
+## 0.6.4
+
+### Patch Changes
+
+-   85b85ea: fixed flex layout
+
+## 0.6.3
+
+### Patch Changes
+
+-   aba4173: fixed onchange and onblur issue
+
+## 0.6.2
+
+### Patch Changes
+
+-   1499432: fixed input onchange issue
+
+## 0.6.1
+
+### Patch Changes
+
+-   89e4a73: fixed Input container styling issue
+
+## 0.6.0
+
+### Minor Changes
+
+-   2e8e6c7: Added an error boundary component
+-   2e8e6c7: add paragraph/body_long and paragraph/body_short as variants to typography
+
+### Patch Changes
+
+-   622bf95: Updated search. Search bar can now clear text. Added optional cancel button. Fixed
+    flicker bug on search when focused
+-   2e8e6c7: add danger color to the master token
+
 ## 0.5.4
 
 ### Patch Changes

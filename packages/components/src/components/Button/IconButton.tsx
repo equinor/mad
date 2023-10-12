@@ -11,6 +11,10 @@ export type IconButtonProps = {
      */
     name: IconName;
     /**
+     * Size of the icon.
+     */
+    iconSize?: number;
+    /**
      * Callback method invoked when the user presses outside the child content.
      */
     onPress?: () => void;
@@ -32,6 +36,7 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
     (
         {
             name,
+            iconSize = 22,
             color = "primary",
             variant = "contained",
             onPress = () => null,
@@ -44,6 +49,7 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
             color,
             variant,
             disabled,
+            iconSize,
         });
 
         return (
@@ -54,7 +60,7 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
                         onPress={onPress}
                         style={styles.pressableContainer}
                     >
-                        <Icon name={name} color={styles.textStyle.color as Color} />
+                        <Icon name={name} size={iconSize} color={styles.textStyle.color as Color} />
                     </PressableHighlight>
                 </View>
             </View>
@@ -68,10 +74,12 @@ type IconButtonStyleSheetProps = {
     color: "primary" | "secondary" | "danger";
     variant: "contained" | "outlined" | "ghost";
     disabled: boolean;
+    iconSize: number;
 };
 
 const themeStyles = EDSStyleSheet.create((theme, props: IconButtonStyleSheetProps) => {
-    const { color, disabled, variant } = props;
+    const { color, disabled, variant, iconSize } = props;
+    const pressableContainerSize = iconSize * 1.3;
 
     let backgroundColor = theme.colors.interactive[color];
     let textColor =
@@ -94,8 +102,8 @@ const themeStyles = EDSStyleSheet.create((theme, props: IconButtonStyleSheetProp
         pressableContainer: {
             justifyContent: "center",
             alignItems: "center",
-            width: theme.geometry.dimension.button.minHeight,
-            height: theme.geometry.dimension.button.minHeight,
+            width: pressableContainerSize,
+            height: pressableContainerSize,
         },
         textStyle: {
             color: textColor,
