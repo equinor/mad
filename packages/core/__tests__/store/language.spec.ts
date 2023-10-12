@@ -4,9 +4,6 @@ import { SupportedLanguageCode, getLanguage, useLanguage } from "../../src/store
 const norwegianBokmål = { code: "nb", name: "Norwegian" };
 const english = { code: "en", name: "English" };
 
-jest.mock("@react-native-async-storage/async-storage");
-jest.mock("zustand");
-
 describe("Language", () => {
     it("Should always return a language, even if no language has been set", () => {
         const { result } = renderHook(() => useLanguage());
