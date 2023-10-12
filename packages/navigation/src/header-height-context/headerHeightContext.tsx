@@ -30,14 +30,6 @@ export const HeaderHeightProvider = ({ children }: PropsWithChildren) => {
 };
 
 /**
- * Used within mad navigation to provide the header height
- */
-const _useMadNavigationHeaderHeight = () => {
-    const context = useContext(HeaderHeightContext);
-    return context.setHeight;
-};
-
-/**
  * Get the header height
  * @returns {number} header height
  */
@@ -51,7 +43,7 @@ export const useHeaderHeight = () => {
  */
 export const HeightSender = () => {
     const headerHeight = useReactNavigationHeaderHeight();
-    const setHeight = _useMadNavigationHeaderHeight();
+    const { setHeight } = useContext(HeaderHeightContext);
     useEffect(() => {
         setHeight?.(() => headerHeight);
         // eslint-disable-next-line react-hooks/exhaustive-deps -- we only want this to run when header height changes
