@@ -39,6 +39,7 @@ export const useDrawHandle = (
 
     const setTool = (tool: CanvasTool) => {
         values.toolType.current = tool;
+        rerender();
     };
 
     const undo = () => {

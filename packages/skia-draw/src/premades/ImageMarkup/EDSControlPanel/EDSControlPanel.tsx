@@ -1,10 +1,10 @@
-import { StyleSheet, View, ColorValue } from "react-native";
-import { Menu, Paper, Popover, PressableHighlight, Typography } from "@equinor/mad-components";
+import { StyleSheet, View } from "react-native";
+import { Color, Icon, Paper, Popover, Typography } from "@equinor/mad-components";
 import { SkiaDrawHandle } from "../../../types";
 import React, { MutableRefObject, useRef, useState } from "react";
 import { CanvasTool } from "../../../Canvas/types";
-
-const BUTTON_SIZE = 20;
+import { Circle } from "./Circle";
+import { EDSControlPanelButton } from "./EDSControlPanelButton";
 
 type EDSControlPanelProps = {
     canvasRef: MutableRefObject<SkiaDrawHandle | null>;
@@ -24,6 +24,17 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
 
     const colors = ["red", "white", "black", "blue", "orange", "yellow", "green"];
     const strokeWeights = [5, 10, 15];
+
+    const onPressPenTool = () => {
+        setCurrentTool("pen");
+        canvasRef.current?.setTool("pen");
+        setIsSelectingStrokeWeight(true);
+    };
+
+    const onPressTextTool = () => {
+        setCurrentTool("text");
+        canvasRef.current?.setTool("text");
+    };
 
     const onPressColor = (c: string) => {
         setCurrentColor(c);
@@ -45,39 +56,24 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
         canvasRef.current?.setStrokeWeight(sw);
     };
 
-    const Circle = ({
-        diameter = BUTTON_SIZE,
-        color = "#007079",
-        showBorder = false,
-    }: {
-        diameter?: number;
-        color?: ColorValue;
-        showBorder?: boolean;
-    }) => (
-        <View
-            style={{
-                backgroundColor: color,
-                width: diameter,
-                height: diameter,
-                borderRadius: diameter / 2,
-                borderColor: "lightgray",
-                borderWidth: showBorder ? 1 : undefined,
-            }}
-        />
-    );
-
     return (
         <Paper elevation="sticky" style={styles.container}>
-            <PressableHighlight
-                onPress={() => setIsSelectingStrokeWeight(true)}
+            <EDSControlPanelButton
+                onPress={onPressPenTool}
                 ref={strokeWidthSelectingButton}
-                style={styles.buttonStyle}
-                key={"stroke-width-button"}
+                key={"pen-tool-button"}
             >
-                <Circle diameter={currentStrokeWeight} />
-            </PressableHighlight>
+                <Icon name="brush" color={currentTool === "pen" ? "primary" : "secondary"} />
+            </EDSControlPanelButton>
 
-            <Menu
+            <EDSControlPanelButton onPress={onPressTextTool} key={"text-tool-button"}>
+                <Icon
+                    name="format-textbox"
+                    color={currentTool === "text" ? "primary" : "secondary"}
+                />
+            </EDSControlPanelButton>
+
+            <Popover
                 open={isSelectingStrokeWeight}
                 anchorEl={strokeWidthSelectingButton}
                 onClose={() => setIsSelectingStrokeWeight(false)}
@@ -85,26 +81,24 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
                 style={{ padding: 0 }}
             >
                 {strokeWeights.map(rad => (
-                    <PressableHighlight
-                        key={rad}
-                        onPress={() => onPressStrokeWidth(rad)}
-                        style={styles.buttonStyle}
-                    >
+                    <EDSControlPanelButton key={rad} onPress={() => onPressStrokeWidth(rad)}>
                         <View style={{ margin: 20 }}>
                             <Circle diameter={rad} />
                         </View>
-                    </PressableHighlight>
+                    </EDSControlPanelButton>
                 ))}
-            </Menu>
+            </Popover>
 
-            <PressableHighlight
+            <EDSControlPanelButton
                 onPress={() => setIsSelectingColor(true)}
                 ref={colorSelectingButton}
-                style={styles.buttonStyle}
                 key={"color-button"}
             >
-                <Circle color={currentColor} showBorder />
-            </PressableHighlight>
+                <Icon
+                    name={currentColor === "white" ? "water-outline" : "water"}
+                    color={currentColor === "white" ? "secondary" : (currentColor as Color)}
+                />
+            </EDSControlPanelButton>
             <Popover
                 open={isSelectingColor}
                 anchorEl={colorSelectingButton}
@@ -113,32 +107,25 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
                 style={{ padding: 0 }}
             >
                 {colors.map(col => (
-                    <PressableHighlight
-                        key={col}
-                        onPress={() => onPressColor(col)}
-                        style={styles.buttonStyle}
-                    >
+                    <EDSControlPanelButton key={col} onPress={() => onPressColor(col)}>
                         <View style={{ margin: 20 }}>
                             <Circle color={col} showBorder />
                         </View>
-                    </PressableHighlight>
+                    </EDSControlPanelButton>
                 ))}
             </Popover>
 
-            <PressableHighlight
-                onPress={() => onPressUndo()}
-                key={"undo-button"}
-                style={styles.buttonStyle}
-            >
-                <Typography color="secondary">undo</Typography>
-            </PressableHighlight>
-            <PressableHighlight
-                onPress={() => onPressClear()}
-                key={"clear-button"}
-                style={styles.buttonStyle}
-            >
-                <Typography color="danger">clear</Typography>
-            </PressableHighlight>
+            <EDSControlPanelButton onPress={onPressUndo} key={"undo-button"}>
+                <Typography group="interactive" variant="button" color="secondary">
+                    undo
+                </Typography>
+            </EDSControlPanelButton>
+
+            <EDSControlPanelButton onPress={onPressClear} key={"clear-button"}>
+                <Typography group="interactive" variant="button" color="danger">
+                    clear
+                </Typography>
+            </EDSControlPanelButton>
         </Paper>
     );
 };
@@ -155,16 +142,5 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         justifyContent: "space-evenly",
         alignItems: "center",
-    },
-    buttonStyle: {
-        flex: 1,
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    circle: {
-        height: BUTTON_SIZE,
-        width: BUTTON_SIZE,
-        borderRadius: BUTTON_SIZE / 2,
     },
 });

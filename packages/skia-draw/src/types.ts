@@ -1,12 +1,14 @@
 import { Color, SkPath, SkRect } from "@shopify/react-native-skia";
 import { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { PropsWithChildren } from "react";
+import { CanvasTool } from "./Canvas/types";
 
 export type SkiaDrawHandle = {
     setColor: (color: Color) => void;
     setStrokeWeight: (weight: number) => void;
     undo: () => void;
     clear: () => void;
+    setTool: (tool: CanvasTool) => void;
     makeImageSnapshot: (rect?: SkRect) => SkiaDrawSnapshot | undefined;
 };
 

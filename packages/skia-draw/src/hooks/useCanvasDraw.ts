@@ -64,8 +64,8 @@ export const useCanvasDraw = (setup: CanvasSetup) => {
                       currentPenPaths.current[id] = {
                           type: "pen",
                           path: newPath,
-                          color: "white",
-                          strokeWidth: strokeWeight.current,
+                          color: "cyan",
+                          strokeWidth: 40,
                       };
                       rerender();
                   },
@@ -84,12 +84,13 @@ export const useCanvasDraw = (setup: CanvasSetup) => {
                       rerender();
                   },
               },
-        [toolType],
+        [toolType.current],
     );
 
     return {
         currentPenPaths,
         canvasHistory,
+        currentTool: toolType.current,
         touchHandler,
     };
 };

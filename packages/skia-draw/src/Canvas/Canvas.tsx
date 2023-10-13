@@ -17,7 +17,7 @@ const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildre
     ref,
 ) => {
     const skiaCanvasRef = useCanvasRef();
-    const { currentPenPaths, canvasHistory, touchHandler } = useCanvasDraw({
+    const { currentPenPaths, canvasHistory, currentTool, touchHandler } = useCanvasDraw({
         initialDrawColor,
         initialStrokeWidth,
         ref,
