@@ -35,7 +35,7 @@ const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildre
             {canvasHistory.current
                 .concat(Object.values(currentPenPaths.current))
                 .map((pathData, index) => (
-                    <CanvasElement key={index} data={pathData} />
+                    <CanvasElement key={index} data={pathData} currentTool={currentTool} />
                 ))}
             {renderChildrenOnTop && children}
         </SkiaCanvas>

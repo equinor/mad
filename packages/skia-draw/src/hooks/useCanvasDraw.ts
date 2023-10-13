@@ -1,9 +1,10 @@
-import { Color, Skia, SkiaDomView, useTouchHandler, useValue } from "@shopify/react-native-skia";
+import { Color, SkiaDomView, useTouchHandler, useValue } from "@shopify/react-native-skia";
 import { ForwardedRef, RefObject } from "react";
 import { SkiaDrawHandle } from "../types";
 import { useRerender } from "./useRerender";
 import { useDrawHandle } from "./useDrawHandle";
 import { CanvasData, CanvasTool, PenData } from "../Canvas/types";
+import { createTouchHandlers } from "../Canvas/touchHandlers";
 
 type CanvasSetup = {
     initialDrawColor: Color;
@@ -29,61 +30,13 @@ export const useCanvasDraw = (setup: CanvasSetup) => {
     });
 
     const touchHandler = useTouchHandler(
-        toolType.current === "pen"
-            ? {
-                  onStart: ({ x, y, id }) => {
-                      const newPath = Skia.Path.Make();
-                      newPath.moveTo(x, y);
-                      currentPenPaths.current[id] = {
-                          type: "pen",
-                          path: newPath,
-                          color: toolColor.current,
-                          strokeWidth: strokeWeight.current,
-                      };
-                      rerender();
-                  },
-                  onActive: ({ x, y, id }) => {
-                      currentPenPaths.current = {
-                          ...currentPenPaths.current,
-                          [id]: {
-                              ...currentPenPaths.current[id],
-                              path: currentPenPaths.current[id].path.lineTo(x, y),
-                          },
-                      };
-                  },
-                  onEnd: ({ id }) => {
-                      canvasHistory.current.push(currentPenPaths.current[id]);
-                      delete currentPenPaths.current[id];
-                      rerender();
-                  },
-              }
-            : {
-                  onStart: ({ x, y, id }) => {
-                      const newPath = Skia.Path.Make();
-                      newPath.moveTo(x, y);
-                      currentPenPaths.current[id] = {
-                          type: "pen",
-                          path: newPath,
-                          color: "cyan",
-                          strokeWidth: 40,
-                      };
-                      rerender();
-                  },
-                  onActive: ({ x, y, id }) => {
-                      currentPenPaths.current = {
-                          ...currentPenPaths.current,
-                          [id]: {
-                              ...currentPenPaths.current[id],
-                              path: currentPenPaths.current[id].path.lineTo(x, y),
-                          },
-                      };
-                  },
-                  onEnd: ({ id }) => {
-                      canvasHistory.current.push(currentPenPaths.current[id]);
-                      delete currentPenPaths.current[id];
-                      rerender();
-                  },
-              },
+        createTouchHandlers(toolType.current, {
+            canvasHistory,
+            currentPenPaths,
+            toolColor,
+            strokeWeight,
+            rerender,
+        }),
         [toolType.current],
     );
 

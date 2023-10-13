@@ -1,12 +1,13 @@
 import React from "react";
 import { Path, Text } from "@shopify/react-native-skia";
-import { CanvasData } from "./types";
+import { CanvasData, CanvasTool } from "./types";
 
 type CanvasElementProps = {
     data: CanvasData;
+    currentTool: CanvasTool;
 };
 
-export const CanvasElement = ({ data }: CanvasElementProps) => {
+export const CanvasElement = ({ data, currentTool }: CanvasElementProps) => {
     switch (data.type) {
         case "pen":
             return (
