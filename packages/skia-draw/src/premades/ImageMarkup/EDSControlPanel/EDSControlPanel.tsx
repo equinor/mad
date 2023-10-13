@@ -1,16 +1,23 @@
 import { StyleSheet, View, ColorValue } from "react-native";
-import { Paper, Popover, PressableHighlight, Typography } from "@equinor/mad-components";
-import { SkiaDrawHandle } from "../../types";
+import { Menu, Paper, Popover, PressableHighlight, Typography } from "@equinor/mad-components";
+import { SkiaDrawHandle } from "../../../types";
 import React, { MutableRefObject, useRef, useState } from "react";
+import { CanvasTool } from "../../../Canvas/types";
 
 const BUTTON_SIZE = 20;
 
-export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHandle | null> }) => {
+type EDSControlPanelProps = {
+    canvasRef: MutableRefObject<SkiaDrawHandle | null>;
+};
+
+export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
     const [isSelectingColor, setIsSelectingColor] = useState<boolean>(false);
     const [currentColor, setCurrentColor] = useState<string>("red");
 
     const [isSelectingStrokeWeight, setIsSelectingStrokeWeight] = useState<boolean>(false);
     const [currentStrokeWeight, setCurrentStrokeWeight] = useState<number>(10);
+
+    const [currentTool, setCurrentTool] = useState<CanvasTool>("pen");
 
     const colorSelectingButton = useRef<View>(null);
     const strokeWidthSelectingButton = useRef<View>(null);
@@ -21,21 +28,21 @@ export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHan
     const onPressColor = (c: string) => {
         setCurrentColor(c);
         setIsSelectingColor(false);
-        props.canvasRef.current?.setColor(c);
+        canvasRef.current?.setColor(c);
     };
 
     const onPressUndo = () => {
-        props.canvasRef.current?.undo();
+        canvasRef.current?.undo();
     };
 
     const onPressClear = () => {
-        props.canvasRef.current?.clear();
+        canvasRef.current?.clear();
     };
 
     const onPressStrokeWidth = (sw: number) => {
         setCurrentStrokeWeight(sw);
         setIsSelectingStrokeWeight(false);
-        props.canvasRef.current?.setStrokeWeight(sw);
+        canvasRef.current?.setStrokeWeight(sw);
     };
 
     const Circle = ({
@@ -70,7 +77,7 @@ export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHan
                 <Circle diameter={currentStrokeWeight} />
             </PressableHighlight>
 
-            <Popover
+            <Menu
                 open={isSelectingStrokeWeight}
                 anchorEl={strokeWidthSelectingButton}
                 onClose={() => setIsSelectingStrokeWeight(false)}
@@ -88,7 +95,7 @@ export const EDSControlPanel = (props: { canvasRef: MutableRefObject<SkiaDrawHan
                         </View>
                     </PressableHighlight>
                 ))}
-            </Popover>
+            </Menu>
 
             <PressableHighlight
                 onPress={() => setIsSelectingColor(true)}

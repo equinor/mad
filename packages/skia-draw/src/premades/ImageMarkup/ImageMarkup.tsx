@@ -1,5 +1,5 @@
 import { View, StyleSheet, ViewProps } from "react-native";
-import { Canvas } from "../../Canvas";
+import { Canvas } from "../../Canvas/Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
 import React, { useImperativeHandle, useMemo, useRef, useState, forwardRef } from "react";
 import { SkiaDrawHandle, SnapshotHandle } from "../../types";

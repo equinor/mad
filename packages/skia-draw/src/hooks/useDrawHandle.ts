@@ -1,11 +1,13 @@
 import { ForwardedRef, RefObject, useImperativeHandle } from "react";
-import { PathData, SkiaDrawHandle } from "../types";
+import { SkiaDrawHandle } from "../types";
 import { Color, SkiaDomView, SkiaMutableValue, SkRect } from "@shopify/react-native-skia";
 import { useRerender } from "./useRerender";
+import { CanvasData, CanvasTool } from "../Canvas/types";
 
 type MutableDrawValues = {
-    pathHistory: SkiaMutableValue<PathData[]>;
-    drawColor: SkiaMutableValue<Color>;
+    toolType: SkiaMutableValue<CanvasTool>;
+    canvasHistory: SkiaMutableValue<CanvasData[]>;
+    toolColor: SkiaMutableValue<Color>;
     strokeWeight: SkiaMutableValue<number>;
 };
 /**
@@ -22,25 +24,30 @@ export const useDrawHandle = (
     useImperativeHandle(ref, () => ({
         setColor,
         setStrokeWeight,
+        setTool,
         undo,
         clear,
         makeImageSnapshot,
     }));
     const setColor = (c: Color) => {
-        values.drawColor.current = c;
+        values.toolColor.current = c;
     };
 
     const setStrokeWeight = (n: number) => {
         values.strokeWeight.current = n;
     };
 
+    const setTool = (tool: CanvasTool) => {
+        values.toolType.current = tool;
+    };
+
     const undo = () => {
-        values.pathHistory.current.pop();
+        values.canvasHistory.current.pop();
         rerender();
     };
 
     const clear = () => {
-        values.pathHistory.current = [];
+        values.canvasHistory.current = [];
         rerender();
     };
 

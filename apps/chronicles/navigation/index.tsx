@@ -75,7 +75,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
     return (
-        <RootStack.Navigator>
+        <RootStack.Navigator initialRouteName="Root">
             <RootStack.Screen
                 name="Login"
                 component={LoginScreen}
@@ -147,7 +147,7 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
-            initialRouteName="DiscoverTab"
+            initialRouteName="DrawTab"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
             }}

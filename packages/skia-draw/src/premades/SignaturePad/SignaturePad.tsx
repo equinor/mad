@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
-import { Canvas } from "../../Canvas";
+import { Canvas } from "../../Canvas/Canvas";
 import { SignaturePadProps, SkiaDrawHandle, SnapshotHandle } from "../../types";
 import { View, StyleSheet, Text } from "react-native";
 import { SkRect } from "@shopify/react-native-skia";

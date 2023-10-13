@@ -47,16 +47,3 @@ export type CanvasProps = {
     style?: StyleProp<ViewStyle>;
     onLayout?: ViewProps["onLayout"];
 };
-
-/**
- * Mode for canvas
- */
-export type CanvasDrawMode = "draw" | "shape";
-
-export type PathData = {
-    path: SkPath;
-    color: Color;
-    strokeWidth: number;
-};
-
-export type IdentifiablePathData = Record<string, PathData>;
