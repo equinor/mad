@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { LayoutRectangle, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
@@ -160,7 +160,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
                     style={styles.menuContainer}
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
-                        {filteredOptions.map((option, index) =>
+                        {filteredOptions.map(option =>
                             type === "single-select"
                                 ? renderSingleSelectItem(option)
                                 : renderMultiSelectItem(
