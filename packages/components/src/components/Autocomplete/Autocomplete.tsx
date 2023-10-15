@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { LayoutRectangle, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
@@ -7,11 +7,20 @@ import { IconButton } from "../Button/IconButton";
 import { Input, InputProps } from "../Input";
 import { Menu } from "../Menu";
 
-type ToggleOptionProps = {
-    title: string;
-    active: boolean;
-    iconName: "radiobox-marked" | "radiobox-blank";
-    onPress: () => void;
+type SingleSelect = {
+    type?: "single-select";
+    /**
+     * A callback method invoked when the user selects an option from the autocomplete.
+     */
+    onSelect: (value: string) => void;
+};
+
+type MultiSelect = {
+    type: "multi-select";
+    /**
+     * A callback method invoked when the user selects an option from the autocomplete.
+     */
+    onSelect: (value: string[]) => void;
 };
 
 type AutocompleteProps = {
@@ -20,10 +29,6 @@ type AutocompleteProps = {
      */
     options: string[];
     /**
-     * A callback method invoked when the user selects an option from the autocomplete.
-     */
-    onSelect: (option: string) => void;
-    /**
      * A label above the input field.
      */
     label?: string;
@@ -31,8 +36,8 @@ type AutocompleteProps = {
      * A placeholder for the input field.
      */
     placeholder?: string;
-    toggleOptions?: ToggleOptionProps[];
-} & InputProps;
+} & InputProps &
+    (SingleSelect | MultiSelect);
 
 export const Autocomplete: React.FC<AutocompleteProps> = ({
     options,
@@ -40,11 +45,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     onChange,
     label,
     placeholder,
-    toggleOptions,
+    type = "single-select",
     ...restProps
 }) => {
     const [inputValue, setInputValue] = useState("");
-    const [filteredOptions, setFilteredOptions] = useState(options);
+    const filteredOptions = useMemo(() => {
+        return options.filter(option => option.toLowerCase().includes(inputValue.toLowerCase()));
+    }, [inputValue, options]);
+
     const handleMenuOpen = () => {
         setIsOptionsVisible(true);
         inputRef.current && inputRef.current.focus();
@@ -71,18 +79,39 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
             setSelectedToggleOptions(prev => [...prev, optionTitle]);
         }
     };
-    const handleClearSelectedOptions = () => {
-        setSelectedToggleOptions([]);
+
+    const renderSingleSelectItem = (option: string) => {
+        const onSingleSelect = onSelect as (value: string) => void;
+        return (
+            <Menu.Item
+                key={option}
+                title={option}
+                onPress={() => {
+                    setInputValue(option);
+                    onSingleSelect(option);
+                    setIsOptionsVisible(false);
+                }}
+            />
+        );
     };
 
-    useEffect(() => {
-        setFilteredOptions(
-            options.filter(option => option.toLowerCase().includes(inputValue.toLowerCase())),
+    const renderMultiSelectItem = (option: string, active: boolean) => {
+        return (
+            <Menu.Item
+                key={option}
+                title={option}
+                active={active}
+                closeMenuOnClick={false}
+                iconName={active ? "radiobox-marked" : "radiobox-blank"}
+                onPress={() => {
+                    handleToggleOptionPress(option);
+                }}
+            />
         );
-    }, [inputValue]);
+    };
 
     return (
-        <View style={styles.container}>
+        <View>
             <Input
                 ref={inputRef}
                 {...restProps}
@@ -104,15 +133,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
                 onBlur={() => setTimeout(() => setIsOptionsVisible(false), 150)}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
-                        {/* {selectedToggleOptions.length > 0 && (
-                            <IconButton
-                                name="close"
-                                variant="ghost"
-                                iconSize={18}
-                                onPress={handleClearSelectedOptions}
-                            />
-                        )} */}
-
                         {inputValue ? (
                             <IconButton
                                 name="close"
@@ -140,49 +160,15 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
                     style={styles.menuContainer}
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
-                        {toggleOptions
-                            ? toggleOptions.map(option => (
-                                  <Menu.Item
-                                      key={option.title}
-                                      title={option.title}
-                                      active={option.active}
-                                      closeMenuOnClick={false}
-                                      iconName={option.iconName}
-                                      onPress={() => {
-                                          handleToggleOptionPress(option.title);
-                                          option.onPress();
-                                      }}
-                                  />
-                              ))
-                            : filteredOptions.map((option, index) => (
-                                  <Menu.Item
-                                      key={index}
-                                      title={option}
-                                      onPress={() => {
-                                          setInputValue(option);
-                                          onSelect(option);
-                                          setIsOptionsVisible(false);
-                                      }}
-                                  />
-                              ))}
-                    </ScrollView>
-
-                    {/* <FlatList
-                        data={filteredOptions}
-                        keyExtractor={item => item}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                style={styles.option}
-                                onPress={() => {
-                                    setInputValue(item);
-                                    onSelect(item);
-                                    setIsOptionsVisible(false);
-                                }}
-                            >
-                                <Text style={styles.optionText}>{item}</Text>
-                            </TouchableOpacity>
+                        {filteredOptions.map((option, index) =>
+                            type === "single-select"
+                                ? renderSingleSelectItem(option)
+                                : renderMultiSelectItem(
+                                      option,
+                                      selectedToggleOptions.includes(option),
+                                  ),
                         )}
-                    /> */}
+                    </ScrollView>
                 </Menu>
             )}
         </View>
@@ -191,18 +177,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
 const themedStyles = EDSStyleSheet.create(
     (theme, { inputLayout }: { inputLayout?: LayoutRectangle }) => ({
-        container: {
-            // styles for the container of the component
-        },
-        option: {
-            padding: 15,
-            borderColor: theme.colors.text.tertiary,
-        },
-        optionText: {
-            color: theme.colors.text.primary,
-            ...theme.typography.basic.input,
-            fontSize: 18,
-        },
         menuContainer: {
             maxHeight: 300,
             width: inputLayout?.width || "100%",
