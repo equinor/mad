@@ -78,7 +78,7 @@ export const AutocompleteScreen = () => {
                     label="Unearth your Ground Critters"
                     placeholder="Who's scuttling below?"
                     onSelect={selectedOption => console.log(`Unearthed: ${selectedOption}`)}
-                    type="multi-select"
+                    multiple
                 />
             </View>
         </ScrollView>

@@ -8,7 +8,7 @@ import { Input, InputProps } from "../Input";
 import { Menu } from "../Menu";
 
 type SingleSelect = {
-    type?: "single-select";
+    multiple?: false;
     /**
      * A callback method invoked when the user selects an option from the autocomplete.
      */
@@ -16,7 +16,7 @@ type SingleSelect = {
 };
 
 type MultiSelect = {
-    type: "multi-select";
+    multiple: true;
     /**
      * A callback method invoked when the user selects an option from the autocomplete.
      */
@@ -45,7 +45,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     onChange,
     label,
     placeholder,
-    type = "single-select",
+    multiple = false,
     ...restProps
 }) => {
     const [inputValue, setInputValue] = useState("");
@@ -117,14 +117,15 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     };
 
     return (
-        <View>
+        <View
+            onLayout={event => {
+                const layout = event.nativeEvent.layout;
+                setInputLayout(layout);
+            }}
+        >
             <Input
                 ref={inputRef}
                 {...restProps}
-                onLayout={event => {
-                    const layout = event.nativeEvent.layout;
-                    setInputLayout(layout);
-                }}
                 value={`${
                     selectedToggleOptions.length ? selectedToggleOptions.join(", ") + ", " : ""
                 }${inputValue}`}
@@ -171,7 +172,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
                         {filteredOptions.map(option =>
-                            type === "single-select"
+                            !multiple
                                 ? renderSingleSelectItem(option)
                                 : renderMultiSelectItem(
                                       option,
