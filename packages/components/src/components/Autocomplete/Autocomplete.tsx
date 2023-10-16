@@ -68,9 +68,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     const [selectedToggleOptions, setSelectedToggleOptions] = useState<string[]>([]);
     const styles = useStyles(themedStyles, { inputLayout });
 
-    const handleClearText = () => {
-        setInputValue("");
+    const handleClearSingleText = () => {
         handleMenuClose();
+        setInputValue("");
+    };
+
+    const handleClearMultiText = () => {
+        handleMenuClose();
+        setSelectedToggleOptions([]);
     };
     const handleToggleOptionPress = (optionTitle: string) => {
         if (selectedToggleOptions.includes(optionTitle)) {
@@ -102,8 +107,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
                 title={option}
                 active={active}
                 closeMenuOnClick={false}
-                iconName={active ? "radiobox-marked" : "radiobox-blank"}
+                iconName={active ? "checkbox-marked" : "checkbox-blank-outline"}
                 onPress={() => {
+                    setInputValue("");
                     handleToggleOptionPress(option);
                 }}
             />
@@ -119,26 +125,30 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
                     const layout = event.nativeEvent.layout;
                     setInputLayout(layout);
                 }}
-                value={`${inputValue}${
-                    inputValue && selectedToggleOptions.length ? ", " : ""
-                }${selectedToggleOptions.join(", ")}`}
+                value={`${
+                    selectedToggleOptions.length ? selectedToggleOptions.join(", ") + ", " : ""
+                }${inputValue}`}
                 label={label}
                 placeholder={placeholder}
                 onChange={text => {
-                    setInputValue(text);
-                    if (onChange) onChange(text);
+                    const newText = text.replace(
+                        new RegExp(`^${selectedToggleOptions.join(", ")},?\\s?`),
+                        "",
+                    );
+                    setInputValue(newText);
+                    if (onChange) onChange(newText);
                     setIsOptionsVisible(true);
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => setTimeout(() => setIsOptionsVisible(false), 150)}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
-                        {inputValue ? (
+                        {inputValue || selectedToggleOptions.length > 0 ? (
                             <IconButton
                                 name="close"
                                 variant="ghost"
                                 iconSize={18}
-                                onPress={handleClearText}
+                                onPress={inputValue ? handleClearSingleText : handleClearMultiText}
                                 style={styles.closeIcon}
                             />
                         ) : null}
