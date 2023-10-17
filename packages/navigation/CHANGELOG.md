@@ -1,5 +1,14 @@
 # @equinor/mad-navigation
 
+## 0.1.12
+
+### Patch Changes
+
+-   8090ec9: added HeaderHeightProvider and useHeaderHeight hook
+-   Updated dependencies [b5d2d61]
+-   Updated dependencies [8da4b13]
+    -   @equinor/mad-components@0.6.7
+
 ## 0.1.11
 
 ### Patch Changes
