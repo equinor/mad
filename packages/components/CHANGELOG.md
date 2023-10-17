@@ -1,5 +1,13 @@
 # @equinor/mad-components
 
+## 0.6.7
+
+### Patch Changes
+
+-   b5d2d61: Adjusted the pressable container around the icon button to its original size
+-   8da4b13: Added autocomplete component. Gives suggestions based on input. Options can be
+    toggleable.
+
 ## 0.6.6
 
 ### Patch Changes
