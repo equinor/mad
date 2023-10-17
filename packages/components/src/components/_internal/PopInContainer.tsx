@@ -16,7 +16,7 @@ export const PopInContainer = forwardRef<View, PropsWithChildren & ViewProps>(
         useEffect(() => {
             popInAnimation.start();
             return () => popInAnimation.reset();
-        }, [popInAnimation]);
+        }, []);
 
         return (
             <Animated.View

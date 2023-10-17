@@ -25,6 +25,8 @@ export type DiscoverStackParamList = {
     Search: undefined;
     Cell: undefined;
     NavigationCell: undefined;
+    Autocomplete: undefined;
+    SwitchCell: undefined;
     ButtonCell: undefined;
     Accordion: undefined;
     Menu: undefined;
