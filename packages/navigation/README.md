@@ -130,6 +130,31 @@ not work as expected._
 >
 ```
 
+### Header Height Provider
+
+`@react-navigation/elements` has a `useHeaderHeight` hook you can use to get the header height, but
+this hook only works within the navigation system. If you need access to the header height outside
+of the navigation system, add a `HeaderHeightProvider` to your App.
+
+```tsx
+import { HeaderHeightProvider } from "@equinor/mad-navigation";
+
+export default function App() {
+    return (
+        <SafeAreaProvider>
+            <HeaderHeightProvider>
+                <EDSProvider colorScheme={colorScheme} density={deviceType}>
+                    <Navigation colorScheme={colorScheme} />
+                    <StatusBar />
+                </EDSProvider>
+            </HeaderHeightProvider>
+        </SafeAreaProvider>
+    );
+}
+```
+
+Then use the `useHeaderHeight` hook from `@equinor/mad-navigation` to access the header height.
+
 ### Development
 
 This package has custom navigators created by following

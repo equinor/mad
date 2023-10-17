@@ -8,8 +8,9 @@ import { EDSStyleSheet } from "../../styling";
 export type SearchProps = Omit<InputProps, "multiline"> & {
     cancellable?: boolean;
     onCancelPress?: () => void;
+    textValue?: string;
 };
-export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: SearchProps) => {
+export const Search = ({ cancellable, onCancelPress, onChange, textValue, ...restProps }: SearchProps) => {
     const [text, setText] = useState('');
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
@@ -40,8 +41,13 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
             duration: token.timing.animation.slow,
             useNativeDriver: false
         }).start();
-    }, [isInputFocused]);
+    }, [animationValue, cancellable, isInputFocused, token.timing.animation.slow]);
 
+    useEffect(() => {
+        if (textValue) {
+            setText(textValue)
+        }
+    }, [textValue])
 
     const handleCancel = () => {
         setText('');
@@ -52,6 +58,7 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
     // FIXME: On web the search field loses focus when the clear text button is pressed. 
     const handleClearText = () => {
         setText('');
+        onChange?.('');
         inputRef.current?.focus();
     }
 
@@ -114,6 +121,7 @@ export const Search = ({ cancellable, onCancelPress, onChange, ...restProps }: S
 
 const themedStyles = EDSStyleSheet.create(theme => ({
     container: {
+        flex: 1,
         flexDirection: "row",
         alignItems: "flex-end",
     },
