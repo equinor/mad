@@ -1,5 +1,12 @@
 import React, { ReactNode, forwardRef, useState } from "react";
-import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
+import {
+    NativeSyntheticEvent,
+    TextInput,
+    TextInputProps,
+    TextInputFocusEventData,
+    View,
+    ViewStyle,
+} from "react-native";
 import { Label, useStyles } from "../..";
 import { EDSStyleSheet } from "../../styling";
 
@@ -42,7 +49,7 @@ export type InputProps = {
      * A component that will be added to the right of the input field.
      */
     rightAdornments?: ReactNode;
-} & Omit<TextInputProps, 'onChange' | 'onChangeText'>;
+} & Omit<TextInputProps, "onChange" | "onChangeText">;
 
 export const Input = forwardRef<TextInput, InputProps>(
     (
@@ -64,12 +71,23 @@ export const Input = forwardRef<TextInput, InputProps>(
         const [isSelected, setIsSelected] = useState<boolean>(false);
         const styles = useStyles(themedStyles, { multiline, isSelected });
 
+        const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+            setIsSelected(true);
+            rest.onFocus && rest.onFocus(e);
+        };
+
+        const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+            setIsSelected(false);
+            rest.onBlur && rest.onBlur(e);
+        };
+
         return (
             <View>
                 {label && <Label style={styles.label} label={label} meta={meta} />}
                 <View style={styles.contentContainer}>
                     {leftAdornments}
                     <TextInput
+                        {...rest}
                         ref={ref}
                         multiline={multiline}
                         editable={!disabled}
@@ -78,19 +96,9 @@ export const Input = forwardRef<TextInput, InputProps>(
                         onChangeText={onChange}
                         textAlignVertical="top"
                         placeholderTextColor={styles.placeholder.color}
-                        onFocus={(e) => {
-                            setIsSelected(true);
-                            rest.onFocus?.(e);
-                        }}
-                        onBlur={(e) => {
-                            setIsSelected(false);
-                            rest.onBlur?.(e);
-                        }}
-                        style={[
-                            styles.textInput,
-                            rest.style,
-                            { outline: "none" },
-                        ]}
+                        onFocus={onFocus}
+                        onBlur={onBlur}
+                        style={[styles.textInput, rest.style]}
                     />
                     {rightAdornments}
                 </View>
@@ -115,7 +123,7 @@ const themedStyles = EDSStyleSheet.create(
             borderStyle = {
                 borderBottomColor: theme.colors.text.tertiary,
                 borderBottomWidth: theme.geometry.border.focusedBorderWidth,
-                borderColor: 'transparent',
+                borderColor: "transparent",
                 borderWidth: theme.geometry.border.focusedBorderWidth,
             };
         return {
@@ -135,6 +143,8 @@ const themedStyles = EDSStyleSheet.create(
                 color: theme.colors.text.primary,
                 ...theme.typography.basic.input,
                 minHeight: multiline ? 80 : undefined,
+                outline: "none",
+                outlineStyle: "none",
             },
             placeholder: {
                 color: theme.colors.text.tertiary,

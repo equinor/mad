@@ -41,6 +41,7 @@ import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
 import { createCoreStackNavigator } from "@equinor/mad-core";
 import { config } from "../mad.config";
+import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -106,6 +107,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Switch" component={SwitchScreen} />
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
             <DiscoverStack.Screen name="Input" component={InputScreen} />
+            <DiscoverStack.Screen name="Autocomplete" component={AutocompleteScreen} />
             <DiscoverStack.Screen name="Search" component={SearchScreen} />
             <DiscoverStack.Screen name="Cell" component={CellScreen} />
             <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />

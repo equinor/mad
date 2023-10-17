@@ -8,6 +8,7 @@ export * from "./components/Spacer";
 export * from "./components/TextField";
 export * from "./components/Label";
 export * from "./components/Input";
+export * from "./components/Autocomplete";
 export * from "./components/Search";
 export * from "./components/Cell";
 export * from "./components/Icon";
