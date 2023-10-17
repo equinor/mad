@@ -55,7 +55,7 @@ export const AutocompleteScreen = () => {
                     options={awesomeAnimals}
                     label="Click me and spot a Jungle Creature"
                     placeholder="Type a name and see who's lurking..."
-                    onSelect={selectedOption => console.log(`Spotted: ${selectedOption}`)}
+                    onSelect={() => null}
                 />
             </View>
             <View style={styles.container}>
@@ -65,7 +65,7 @@ export const AutocompleteScreen = () => {
                     options={awesomeAnimals}
                     label="Find a Tree-dweller"
                     placeholder="Who's swinging in the trees?"
-                    onSelect={selectedOption => console.log(`Found: ${selectedOption}`)}
+                    onSelect={() => null}
                 />
             </View>
             <View style={styles.container}>
@@ -77,7 +77,7 @@ export const AutocompleteScreen = () => {
                     options={awesomeAnimals}
                     label="Unearth your Ground Critters"
                     placeholder="Who's scuttling below?"
-                    onSelect={selectedOption => console.log(`Unearthed: ${selectedOption}`)}
+                    onSelect={() => null}
                     multiple
                 />
             </View>

@@ -39,7 +39,7 @@ type AutocompleteProps = {
 } & InputProps &
     (SingleSelect | MultiSelect);
 
-export const Autocomplete: React.FC<AutocompleteProps> = ({
+export const Autocomplete = ({
     options,
     onSelect,
     onChange,
@@ -47,7 +47,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     placeholder,
     multiple = false,
     ...restProps
-}) => {
+}: AutocompleteProps) => {
     const [inputValue, setInputValue] = useState("");
     const filteredOptions = useMemo(() => {
         return options.filter(option => option.toLowerCase().includes(inputValue.toLowerCase()));
@@ -186,6 +186,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     );
 };
 
+Autocomplete.displayName = "Autocomplete";
 const themedStyles = EDSStyleSheet.create(
     (theme, { inputLayout }: { inputLayout?: LayoutRectangle }) => ({
         menuContainer: {
