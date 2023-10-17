@@ -228,6 +228,7 @@ importers:
       '@equinor/eslint-config-mad': workspace:*
       '@equinor/mad-components': workspace:*
       '@react-navigation/bottom-tabs': '>=6'
+      '@react-navigation/elements': 1.3.19
       '@react-navigation/native': '>=6'
       '@react-navigation/native-stack': '>=6'
       react: '>=16.8'
@@ -236,6 +237,7 @@ importers:
     dependencies:
       '@equinor/mad-components': link:../components
       '@react-navigation/bottom-tabs': 6.5.8_yu75tq5j2brzsa2nme6433wuti
+      '@react-navigation/elements': 1.3.19_626t6bmhebeldf75nh6d3awmry
       '@react-navigation/native': 6.1.7_6syixf76bqx5r4tgwtwyqyssoi
       '@react-navigation/native-stack': 6.9.13_yu75tq5j2brzsa2nme6433wuti
       react: 18.2.0
@@ -3775,36 +3777,18 @@ packages:
       react-native-safe-area-context: 4.6.3_6syixf76bqx5r4tgwtwyqyssoi
     dev: false
 
-  /@react-navigation/elements/1.3.18_qhqvkna2lkrt5erlapyppyzsri:
-    resolution: {integrity: sha512-/0hwnJkrr415yP0Hf4PjUKgGyfshrvNUKFXN85Mrt1gY49hy9IwxZgrrxlh0THXkPeq8q4VWw44eHDfAcQf20Q==}
+  /@react-navigation/elements/1.3.19_626t6bmhebeldf75nh6d3awmry:
+    resolution: {integrity: sha512-7hLvSYKPuDS070pza5gd43WDX7QgfuEmuTWNbCJhKdWlLudYmq3qzxGCBwCfO2dEI6+p8tla5wruaWiGKAbTYw==}
     peerDependencies:
       '@react-navigation/native': ^6.0.0
       react: '*'
       react-native: '*'
       react-native-safe-area-context: '>= 3.0.0'
     dependencies:
-      '@react-navigation/native': 6.1.7_3vcvnrf7libeci574xklu6s5tm
+      '@react-navigation/native': 6.1.7_6syixf76bqx5r4tgwtwyqyssoi
       react: 18.2.0
-      react-native: 0.72.5_tgztsytquzuuo4elw3d7obzrjm
-      react-native-safe-area-context: 4.6.3_3vcvnrf7libeci574xklu6s5tm
-    dev: false
-
-  /@react-navigation/native-stack/6.9.13_nxjeb7lswxseqtgmmzonzajhqm:
-    resolution: {integrity: sha512-ejlepMrvFneewL+XlXHHhn+6y3lwvavM4/R7XwBV0XJxCymujexK+7Vkg7UcvJ1lx4CRhOcyBSNfGmdNIHREyQ==}
-    peerDependencies:
-      '@react-navigation/native': ^6.0.0
-      react: '*'
-      react-native: '*'
-      react-native-safe-area-context: '>= 3.0.0'
-      react-native-screens: '>= 3.0.0'
-    dependencies:
-      '@react-navigation/elements': 1.3.18_qhqvkna2lkrt5erlapyppyzsri
-      '@react-navigation/native': 6.1.7_3vcvnrf7libeci574xklu6s5tm
-      react: 18.2.0
-      react-native: 0.72.5_tgztsytquzuuo4elw3d7obzrjm
-      react-native-safe-area-context: 4.6.3_3vcvnrf7libeci574xklu6s5tm
-      react-native-screens: 3.22.1_3vcvnrf7libeci574xklu6s5tm
-      warn-once: 0.1.1
+      react-native: 0.72.3_tgztsytquzuuo4elw3d7obzrjm
+      react-native-safe-area-context: 4.6.3_6syixf76bqx5r4tgwtwyqyssoi
     dev: false
 
   /@react-navigation/native-stack/6.9.13_yu75tq5j2brzsa2nme6433wuti:

@@ -79,7 +79,7 @@ type IconButtonStyleSheetProps = {
 
 const themeStyles = EDSStyleSheet.create((theme, props: IconButtonStyleSheetProps) => {
     const { color, disabled, variant, iconSize } = props;
-    const pressableContainerSize = iconSize * 1.3;
+    const pressableContainerSize = iconSize * 1.8;
 
     let backgroundColor = theme.colors.interactive[color];
     let textColor =
