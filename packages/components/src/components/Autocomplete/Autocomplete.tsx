@@ -122,6 +122,7 @@ export const Autocomplete = ({
                 const layout = event.nativeEvent.layout;
                 setInputLayout(layout);
             }}
+            style={{ flexGrow: 1 }}
         >
             <Input
                 ref={inputRef}
@@ -165,6 +166,7 @@ export const Autocomplete = ({
             />
             {isOptionsVisible && (
                 <Menu
+                    placement="bottom-start"
                     anchorEl={inputRef}
                     open={isOptionsVisible}
                     onClose={handleMenuClose}
