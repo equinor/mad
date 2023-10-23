@@ -1,9 +1,10 @@
 import { authenticateSilently } from "@equinor/mad-auth";
 import { getMadCommonBaseUrl, getMadCommonScopes } from "../../../utils/madCommonUtils";
 import { Release } from "./ChangeLog";
+import { Environment } from "../../../types";
 
 export const fetchReleaseNotes = async (
-    env: "dev" | "test" | "qa" | "prod",
+    env: Environment,
     servicePortalName: string,
     appVersion: string,
 ): Promise<Release> => {
