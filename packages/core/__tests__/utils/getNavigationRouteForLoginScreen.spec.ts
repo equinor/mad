@@ -76,4 +76,17 @@ describe("getNavigationRouteForLoginScreen", () => {
         });
         expect(val8).toBe("WhatsNew");
     });
+
+    it("Should always return 'WhatsNew' if lastDisplayedReleaseNotesVersion is null", () => {
+        const val1 = getNavigationRouteForLoginScreen({
+            appVersion: "0.0.0",
+            lastDisplayedReleaseNotesVersion: null,
+        });
+        expect(val1).toBe("WhatsNew");
+        const val2 = getNavigationRouteForLoginScreen({
+            appVersion: "",
+            lastDisplayedReleaseNotesVersion: null,
+        });
+        expect(val2).toBe("WhatsNew");
+    });
 });

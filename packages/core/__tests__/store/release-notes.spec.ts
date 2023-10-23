@@ -6,9 +6,9 @@ import {
 } from "../../src/store/release-notes/release-notes";
 
 describe("release-notes", () => {
-    it("should have a default value of less than '0.0.0'", () => {
+    it("should have a default value of null", () => {
         const { result } = renderHook(() => useReleaseNotesVersion());
-        expect(result.current.lastDisplayedReleaseNotesVersion < "0.0.0").toBeTruthy();
+        expect(result.current.lastDisplayedReleaseNotesVersion).toBe(null);
     });
 
     it("should be possible to read and update the value with and without the hook", () => {

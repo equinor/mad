@@ -1,6 +1,6 @@
 export type GetNavigationRouteForLoginScreenOptions = {
     appVersion: string;
-    lastDisplayedReleaseNotesVersion: string;
+    lastDisplayedReleaseNotesVersion: string | null;
     isDemoMode?: boolean;
 };
 export type GetNavigationRouteForLoginScreenReturnType = "WhatsNew" | "Root";
@@ -10,7 +10,8 @@ export const getNavigationRouteForLoginScreen = ({
     isDemoMode,
 }: GetNavigationRouteForLoginScreenOptions): GetNavigationRouteForLoginScreenReturnType => {
     if (isDemoMode) return "WhatsNew";
-    if (lastDisplayedReleaseNotesVersion < appVersion) return "WhatsNew";
+    if (!lastDisplayedReleaseNotesVersion || lastDisplayedReleaseNotesVersion < appVersion)
+        return "WhatsNew";
     return "Root";
 };
 
