@@ -43,7 +43,7 @@ export const TextField = forwardRef<TextInput, TextFieldProps>(
     ({ unit, helperText, label, meta, helperIcon, inputIcon, ...rest }, ref) => {
         const styles = useStyles(themeStyles, { variant: rest.variant });
         return (
-            <View>
+            <View style={{ flexGrow: 1 }}>
                 {label && <Label style={styles.label} label={label} meta={meta} />}
                 <Input
                     ref={ref}
