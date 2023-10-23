@@ -94,5 +94,4 @@ const themeStyles = EDSStyleSheet.create((theme, props: TextFieldStyleProps) => 
     iconColor: {
         color: props.variant ? theme.colors.interactive[props.variant] : theme.colors.textPrimary,
     },
-    inputIcon: {},
 }));
