@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.6.8
+
+### Patch Changes
+
+-   e8d96f6: Added styling fixes for Autocomplete component
+
 ## 0.6.7
 
 ### Patch Changes
