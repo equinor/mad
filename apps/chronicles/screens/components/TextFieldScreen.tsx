@@ -35,9 +35,9 @@ export const TextFieldScreen = () => {
                 </Typography>
                 <Spacer />
                 <TextField
-                    label="Speak your opinion"
-                    placeholder="Anything goes here"
-                    helperText="I am helping you"
+                    label="You can add labels.."
+                    placeholder="This is a placeholder"
+                    helperText="..and helper text."
                 />
                 <Spacer />
                 <Typography>You may add units and meta to it</Typography>
@@ -57,14 +57,14 @@ export const TextFieldScreen = () => {
                 <Spacer />
                 <TextField
                     label="This textfield showcases icons.."
-                    placeholder="..it has an icon to the right.."
-                    helperText="and an icon next to the helpertext."
+                    placeholder="..it has an icon in the inputfield.."
+                    helperText="..and an icon next to the helpertext."
                     unit="(mm)"
                     helperIcon={"face-agent"}
                     inputIcon={"star-face"}
                 />
                 <Spacer />
-                <Typography>You can use a TextField to handle validation</Typography>
+                <Typography>You can use a TextField to handle validation.</Typography>
                 <Spacer />
                 <TextField
                     inputIcon={validationIcon}
