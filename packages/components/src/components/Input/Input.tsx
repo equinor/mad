@@ -7,22 +7,10 @@ import {
     View,
     ViewStyle,
 } from "react-native";
-import { Label, useStyles } from "../..";
+import { useStyles } from "../..";
 import { EDSStyleSheet } from "../../styling";
 
 export type InputProps = {
-    /**
-     * A small label text to add to the input field.
-     */
-    label?: string;
-    /**
-     * Secondary small label text to add to the input field.
-     */
-    meta?: string;
-    /**
-     * A description to add to the input field. Use this when more information around the input field is required.
-     */
-    helperText?: string;
     /**
      * A callback method invoked when the input component registeres a change of text content.
      * @param contents A string representing the new text in the input field.
@@ -49,6 +37,14 @@ export type InputProps = {
      * A component that will be added to the right of the input field.
      */
     rightAdornments?: ReactNode;
+    /**
+     * A variant to use for the validation of the input field.
+     */
+    variant?: "danger" | "warning" | "success";
+    /**
+     * A component that will be added to the left of the helper text.
+     */
+    helperIcon?: ReactNode;
 } & Omit<TextInputProps, "onChange" | "onChangeText">;
 
 export const Input = forwardRef<TextInput, InputProps>(
@@ -56,20 +52,18 @@ export const Input = forwardRef<TextInput, InputProps>(
         {
             leftAdornments,
             rightAdornments,
-            label,
-            meta,
-            helperText,
             value,
             placeholder,
             onChange,
             multiline = false,
             disabled = false,
+            variant,
             ...rest
         },
         ref,
     ) => {
         const [isSelected, setIsSelected] = useState<boolean>(false);
-        const styles = useStyles(themedStyles, { multiline, isSelected });
+        const styles = useStyles(themedStyles, { multiline, isSelected, variant });
 
         const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
             setIsSelected(true);
@@ -82,50 +76,77 @@ export const Input = forwardRef<TextInput, InputProps>(
         };
 
         return (
-            <View>
-                {label && <Label style={styles.label} label={label} meta={meta} />}
-                <View style={styles.contentContainer}>
-                    {leftAdornments}
-                    <TextInput
-                        {...rest}
-                        ref={ref}
-                        multiline={multiline}
-                        editable={!disabled}
-                        value={value}
-                        placeholder={placeholder}
-                        onChangeText={onChange}
-                        textAlignVertical="top"
-                        placeholderTextColor={styles.placeholder.color}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        style={[styles.textInput, rest.style]}
-                    />
-                    {rightAdornments}
-                </View>
-                {helperText && <Label style={styles.label} label={helperText} />}
+            <View style={styles.contentContainer}>
+                {leftAdornments}
+                <TextInput
+                    {...rest}
+                    ref={ref}
+                    multiline={multiline}
+                    editable={!disabled}
+                    value={value}
+                    placeholder={placeholder}
+                    onChangeText={onChange}
+                    textAlignVertical="top"
+                    placeholderTextColor={styles.placeholder.color}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    style={[styles.textInput, rest.style]}
+                />
+                {rightAdornments}
             </View>
         );
     },
 );
 
 Input.displayName = "Input";
+
 const themedStyles = EDSStyleSheet.create(
-    (theme, props: { multiline: boolean; isSelected: boolean }) => {
-        const { multiline, isSelected } = props;
+    (
+        theme,
+        props: {
+            multiline: boolean;
+            isSelected: boolean;
+            variant?: "danger" | "warning" | "success";
+        },
+    ) => {
+        const { multiline, isSelected, variant } = props;
         let borderStyle: ViewStyle;
 
-        if (isSelected)
-            borderStyle = {
-                borderColor: theme.colors.interactive.primary,
-                borderWidth: theme.geometry.border.focusedBorderWidth,
-            };
-        else
-            borderStyle = {
-                borderBottomColor: theme.colors.text.tertiary,
-                borderBottomWidth: theme.geometry.border.focusedBorderWidth,
-                borderColor: "transparent",
-                borderWidth: theme.geometry.border.focusedBorderWidth,
-            };
+        switch (variant) {
+            case "danger":
+                borderStyle = {
+                    borderColor: theme.colors.interactive.danger,
+                    borderWidth: theme.geometry.border.focusedBorderWidth,
+                };
+                break;
+            case "warning":
+                borderStyle = {
+                    borderColor: theme.colors.interactive.warning,
+                    borderWidth: theme.geometry.border.focusedBorderWidth,
+                };
+                break;
+            case "success":
+                borderStyle = {
+                    borderColor: theme.colors.interactive.success,
+                    borderWidth: theme.geometry.border.focusedBorderWidth,
+                };
+                break;
+            default:
+                if (isSelected) {
+                    borderStyle = {
+                        borderColor: theme.colors.interactive.primary,
+                        borderWidth: theme.geometry.border.focusedBorderWidth,
+                    };
+                } else {
+                    borderStyle = {
+                        borderBottomColor: theme.colors.text.tertiary,
+                        borderBottomWidth: theme.geometry.border.focusedBorderWidth,
+                        borderColor: "transparent",
+                        borderWidth: theme.geometry.border.focusedBorderWidth,
+                    };
+                }
+        }
+
         return {
             contentContainer: {
                 flexDirection: "row",
@@ -144,7 +165,6 @@ const themedStyles = EDSStyleSheet.create(
                 ...theme.typography.basic.input,
                 minHeight: multiline ? 80 : undefined,
                 outline: "none",
-                outlineStyle: "none",
             },
             placeholder: {
                 color: theme.colors.text.tertiary,
