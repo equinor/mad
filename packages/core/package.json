@@ -1,7 +1,7 @@
 {
     "name": "@equinor/mad-core",
     "version": "0.0.1",
-    "description": "A simple wrapper library for react-native-msal",
+    "description": "Core library for the Mobile App Delivery team",
     "type": "module",
     "scripts": {
         "build": "tsup-node",
@@ -11,9 +11,9 @@
     },
     "keywords": [
         "react native",
-        "authentication",
-        "typescript",
-        "msal"
+        "mad",
+        "expo",
+        "equinor"
     ],
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
