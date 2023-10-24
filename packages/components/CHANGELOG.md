@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.6.9
+
+### Patch Changes
+
+-   a29275a: Change Autocomplete to use TextField instead of Input
+-   26fbbbe: added variant prop for validation handling in input component
+
 ## 0.6.8
 
 ### Patch Changes
