@@ -1,5 +1,10 @@
 import { renderHook, act } from "@testing-library/react-native";
-import { SupportedLanguageCode, getLanguage, useLanguage } from "../../src/store/language";
+import {
+    getLanguage,
+    getSupportedLanguages,
+    setSupportedLanguages,
+    useLanguage,
+} from "../../src/store/language";
 
 const norwegianBokmål = { code: "nb", name: "Norwegian" };
 const english = { code: "en", name: "English" };
@@ -17,9 +22,71 @@ describe("Language", () => {
         expect(getLanguage()).toMatchObject(english);
     });
 
-    it("Should be possible to change the default language", () => {
-        const { result, rerender } = renderHook(() => useLanguage());
+    it("Should be possible set supported languages.", () => {
+        const { rerender } = renderHook(() => useLanguage());
+        rerender({});
+        expect(getSupportedLanguages()).toStrictEqual([]);
+        act(() =>
+            setSupportedLanguages([
+                {
+                    code: "pt",
+                    name: "Portuguese",
+                },
+                {
+                    code: "nb",
+                    name: "Norwegian",
+                },
+            ]),
+        );
+        rerender({});
+        expect(getSupportedLanguages()).toStrictEqual([
+            {
+                code: "pt",
+                name: "Portuguese",
+            },
+            {
+                code: "nb",
+                name: "Norwegian",
+            },
+        ]);
+    });
 
+    it("Should update the default language if default language is not a supported language", () => {
+        const { result, rerender } = renderHook(() => useLanguage());
+        rerender({});
+        act(() =>
+            setSupportedLanguages([
+                {
+                    code: "pt",
+                    name: "Portuguese",
+                },
+                {
+                    code: "nb",
+                    name: "Norwegian",
+                },
+            ]),
+        );
+        rerender({});
+        expect(result.current.language).toStrictEqual({
+            code: "pt",
+            name: "Portuguese",
+        });
+    });
+
+    it("Should be possible to change the default language to any supported language", () => {
+        const { result, rerender } = renderHook(() => useLanguage());
+        act(() =>
+            setSupportedLanguages([
+                {
+                    code: "pt",
+                    name: "Portuguese",
+                },
+                {
+                    code: "nb",
+                    name: "Norwegian",
+                },
+            ]),
+        );
         act(() => result.current.setDefaultLanguage("nb"));
         rerender({});
         expect(result.current.language).toMatchObject(norwegianBokmål);
@@ -28,6 +95,18 @@ describe("Language", () => {
 
     it("Should return the user selected language if it exists", () => {
         const { result, rerender } = renderHook(() => useLanguage());
+        act(() =>
+            setSupportedLanguages([
+                {
+                    code: "en",
+                    name: "English",
+                },
+                {
+                    code: "nb",
+                    name: "Norwegian",
+                },
+            ]),
+        );
 
         expect(result.current.language).toMatchObject(english);
         expect(getLanguage()).toMatchObject(english);
@@ -41,36 +120,5 @@ describe("Language", () => {
         rerender({});
         expect(result.current.language).toMatchObject(norwegianBokmål);
         expect(getLanguage()).toMatchObject(norwegianBokmål);
-    });
-
-    /**
-     * This test obviously does not cover all scenarios, but it should cover
-     * The most likely language for a developer to add in equinor context. If a developer adds a new
-     * language, we should support it properly and create new tests
-     */
-    it("Should only accept English and Norwegian as language choices", () => {
-        const { result, rerender } = renderHook(() => useLanguage());
-
-        // Portuguese
-        act(() => result.current.setSelectedLanguage("pt" as SupportedLanguageCode));
-        act(() => result.current.setDefaultLanguage("pt" as SupportedLanguageCode));
-        // Chinese
-        act(() => result.current.setSelectedLanguage("zh" as SupportedLanguageCode));
-        act(() => result.current.setDefaultLanguage("zh" as SupportedLanguageCode));
-        // Swedish
-        act(() => result.current.setSelectedLanguage("sv" as SupportedLanguageCode));
-        act(() => result.current.setDefaultLanguage("sv" as SupportedLanguageCode));
-        // French
-        act(() => result.current.setSelectedLanguage("fr" as SupportedLanguageCode));
-        act(() => result.current.setDefaultLanguage("fr" as SupportedLanguageCode));
-        // German
-        act(() => result.current.setSelectedLanguage("de" as SupportedLanguageCode));
-        act(() => result.current.setDefaultLanguage("de" as SupportedLanguageCode));
-        // Dutch
-        act(() => result.current.setSelectedLanguage("nl" as SupportedLanguageCode));
-        act(() => result.current.setDefaultLanguage("nl" as SupportedLanguageCode));
-        rerender({});
-        expect(result.current.language).toMatchObject(english);
-        expect(getLanguage()).toMatchObject(english);
     });
 });

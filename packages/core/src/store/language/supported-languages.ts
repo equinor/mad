@@ -1,9 +1,9 @@
 import { Language } from "../types";
 
 /**
- * Supported languages. All languages in this list should be supported by our common screens
+ * Supported languages for the core package
  */
-export const ALL_SUPPORTED_LANGUAGES = [
+export const CORE_SUPPORTED_LANGUAGES = [
     {
         code: "en",
         name: "English",
@@ -14,4 +14,4 @@ export const ALL_SUPPORTED_LANGUAGES = [
     },
 ] as const satisfies ReadonlyArray<Language>;
 
-export type SupportedLanguageCode = (typeof ALL_SUPPORTED_LANGUAGES)[number]["code"];
+export type SupportedLanguageCode = (typeof CORE_SUPPORTED_LANGUAGES)[number]["code"];

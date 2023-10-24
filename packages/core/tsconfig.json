@@ -11,6 +11,6 @@
         "exactOptionalPropertyTypes": true,
         "outDir": "./dist"
     },
-    "include": ["./src", "__tests__", "__mocks__"],
-    "exclude": ["__tests__", "dist"]
+    "include": ["./src"],
+    "exclude": ["__tests__", "__mocks__", "dist"]
 }
