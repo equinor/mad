@@ -7,12 +7,12 @@ import { IconButton } from "../Button/IconButton";
 import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
 
-type SingleSelect = {
-    multiple?: false;
+type MultiSelect = {
+    multiple: true;
     /**
      * A callback method invoked when the user selects an option from the autocomplete.
      */
-    onSelect: (value: string) => void;
+    onSelect: (value: string[]) => void;
 };
 
 type AutocompleteProps = {
@@ -27,7 +27,7 @@ type AutocompleteProps = {
     selectedOptions?: string[];
     onOptionsChange: (options: string[]) => void;
 } & TextFieldProps &
-    SingleSelect;
+    MultiSelect;
 
 export const Autocomplete = ({
     options,
@@ -36,6 +36,7 @@ export const Autocomplete = ({
     onOptionsChange,
     onSelect,
     onChange,
+    multiple = false,
     ...restProps
 }: AutocompleteProps) => {
     const isControlled = selectedOptions !== undefined;
@@ -60,9 +61,10 @@ export const Autocomplete = ({
     const [isOptionsVisible, setIsOptionsVisible] = useState(false);
     const inputRef = useRef<TextInput>(null);
     const [inputLayout, setInputLayout] = useState<LayoutRectangle | undefined>();
+    const [selectedToggleOptions, setSelectedToggleOptions] = useState<string[]>([]);
     const styles = useStyles(themedStyles, { inputLayout });
 
-    const handleClearText = () => {
+    const handleClearSingleText = () => {
         handleMenuClose();
         if (isControlled) {
             onOptionsChange([]);
@@ -71,7 +73,26 @@ export const Autocomplete = ({
         }
     };
 
-    const renderItem = (option: string) => {
+    const handleClearMultiText = () => {
+        handleMenuClose();
+        setSelectedToggleOptions([]);
+    };
+    const handleToggleOptionPress = (optionTitle: string) => {
+        let newOptions = [];
+        if (finalSelectedOptions.includes(optionTitle)) {
+            newOptions = finalSelectedOptions.filter(title => title !== optionTitle);
+        } else {
+            newOptions = [...finalSelectedOptions, optionTitle];
+        }
+
+        if (isControlled) {
+            onOptionsChange(newOptions);
+        } else {
+            setInternalSelectedOptions(newOptions);
+        }
+    };
+
+    const renderSingleSelectItem = (option: string) => {
         const onSingleSelect = onSelect as (value: string) => void;
         return (
             <Menu.Item
@@ -85,6 +106,22 @@ export const Autocomplete = ({
                     }
                     onSingleSelect(option);
                     setIsOptionsVisible(false);
+                }}
+            />
+        );
+    };
+
+    const renderMultiSelectItem = (option: string, active: boolean) => {
+        return (
+            <Menu.Item
+                key={option}
+                title={option}
+                active={active}
+                closeMenuOnClick={false}
+                iconName={active ? "checkbox-marked" : "checkbox-blank-outline"}
+                onPress={() => {
+                    setInputValue("");
+                    handleToggleOptionPress(option);
                 }}
             />
         );
@@ -121,15 +158,19 @@ export const Autocomplete = ({
                 }
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
-                        {finalSelectedOptions.length > 0 && (
-                                <IconButton
-                                    name="close"
-                                    variant="ghost"
-                                    iconSize={18}
-                                    onPress={handleClearText}
-                                    style={styles.closeIcon}
-                                />,
-                            )}
+                        {finalSelectedOptions.length > 0 || selectedToggleOptions.length > 0 ? (
+                            <IconButton
+                                name="close"
+                                variant="ghost"
+                                iconSize={18}
+                                onPress={
+                                    finalSelectedOptions
+                                        ? handleClearSingleText
+                                        : handleClearMultiText
+                                }
+                                style={styles.closeIcon}
+                            />
+                        ) : null}
                         <IconButton
                             name={isOptionsVisible ? "menu-up" : "menu-down"}
                             variant="ghost"
@@ -149,7 +190,9 @@ export const Autocomplete = ({
                     style={styles.menuContainer}
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
-                        {filteredOptions.map(option => renderItem(option))}
+                        {filteredOptions.map(option =>
+                            renderMultiSelectItem(option, finalSelectedOptions.includes(option)),
+                        )}
                     </ScrollView>
                 </Menu>
             )}
@@ -157,7 +200,7 @@ export const Autocomplete = ({
     );
 };
 
-Autocomplete.displayName = "Autocomplete";
+Autocomplete.displayName = "Autocomplete.Multiselect";
 const themedStyles = EDSStyleSheet.create(
     (theme, { inputLayout }: { inputLayout?: LayoutRectangle }) => ({
         menuContainer: {

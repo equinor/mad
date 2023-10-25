@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext, useCallback } from "react";
 import { ScrollView, View } from "react-native";
 import {
     EDSStyleSheet,
@@ -6,6 +6,7 @@ import {
     Typography,
     Spacer,
     Autocomplete,
+    Button,
 } from "@equinor/mad-components";
 
 const awesomeAnimals = [
@@ -43,6 +44,15 @@ const awesomeAnimals = [
 
 export const AutocompleteScreen = () => {
     const styles = useStyles(themedStyles);
+    const [selectedAnimals, setSelectedAnimals] = useState([]);
+
+    const handleOptionsChange = newOptions => {
+        setSelectedAnimals(newOptions);
+    };
+
+    const clearSelection = () => {
+        setSelectedAnimals([]);
+    };
 
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
@@ -68,7 +78,7 @@ export const AutocompleteScreen = () => {
                     onSelect={() => null}
                 />
             </View>
-            <View style={styles.container}>
+            {/* <View style={styles.container}>
                 <Typography>
                     Delve into the Jungle Undergrowth and select multiple animals
                 </Typography>
@@ -81,6 +91,18 @@ export const AutocompleteScreen = () => {
                     multiple
                 />
             </View>
+            <View style={styles.container}>
+                <Autocomplete
+                    multiple
+                    options={awesomeAnimals}
+                    selectedOptions={selectedAnimals}
+                    onOptionsChange={handleOptionsChange}
+                    label="Click me and spot a Jungle Creature"
+                    placeholder="Type a name and see who's lurking..."
+                />
+                <Spacer />
+                {selectedAnimals.length > 0 && <Button title="Clear" onPress={clearSelection} />}
+            </View> */}
         </ScrollView>
     );
 };
