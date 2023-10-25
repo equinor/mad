@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ChangeLog, Release } from "./ChangeLog";
 import * as mockData from "../../../static/mock-data/whats-new.json";
-import {
-    useAppVersion,
-    useEnvironment,
-    useServicePortalName,
-} from "../../../hooks/MadConfigProvider";
+import { useAppVersion, useEnvironment, useServicePortalName } from "../../../store/mad-config";
 import { useReleaseNotesVersion } from "../../../store/release-notes/release-notes";
 import { CircularProgress } from "@equinor/mad-components";
 import { useCoreStackNavigation } from "../../../hooks/useCoreStackNavigation";

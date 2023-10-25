@@ -4,7 +4,6 @@ import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
-import { MadConfigProvider } from "../hooks/MadConfigProvider";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
@@ -20,21 +19,19 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
 ) => {
     const MadCoreNavigator = (props: Omit<NavigatorProps, "initialRouteName">) => {
         return (
-            <MadConfigProvider config={config}>
-                <EnvironmentProvider environment={config.environment}>
-                    <AnnouncementsProvider>
-                        <Stack.Navigator {...props} initialRouteName={"Login"}>
-                            <Stack.Screen
-                                name="Login"
-                                component={LoginScreen}
-                                options={{ headerShown: false, environmentBannerShown: true }}
-                            />
-                            <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
-                            {props.children}
-                        </Stack.Navigator>
-                    </AnnouncementsProvider>
-                </EnvironmentProvider>
-            </MadConfigProvider>
+            <EnvironmentProvider environment={config.environment}>
+                <AnnouncementsProvider>
+                    <Stack.Navigator {...props} initialRouteName={"Login"}>
+                        <Stack.Screen
+                            name="Login"
+                            component={LoginScreen}
+                            options={{ headerShown: false, environmentBannerShown: true }}
+                        />
+                        <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
+                        {props.children}
+                    </Stack.Navigator>
+                </AnnouncementsProvider>
+            </EnvironmentProvider>
         );
     };
     return MadCoreNavigator;

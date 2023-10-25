@@ -2,7 +2,7 @@ import { Button, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-compo
 import React, { useState } from "react";
 import { Image, Pressable, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
-import { useAppVersion, useAuthConfig, useLoginScreenConfig } from "../../hooks/MadConfigProvider";
+import { useAppVersion, useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { useCoreStackNavigation } from "../../hooks/useCoreStackNavigation";
 import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRouteForLoginScreen";
 import { enableDemoMode } from "../../store/demo-mode";

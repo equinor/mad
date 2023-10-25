@@ -2,35 +2,13 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { createStorage } from "../storage";
 import { Language } from "../types";
-import { CORE_SUPPORTED_LANGUAGES } from "./supported-languages";
+import { getConfig } from "../mad-config";
 
 type LanguageState = {
-    /**
-     * Languages supported by the app
-     */
-    supportedLanguages: Language[];
-    /**
-     * Set languages supported by the app. If initial default language is not in the
-     */
-    setSupportedLanguages: (languages: Language[]) => void;
-    /**
-     * Get supported languages for the app
-     * @returns {Language[]} supported languages
-     */
-    getSupportedLanguages: () => Language[];
-    /**
-     * Default language for the app.
-     */
-    defaultLanguage: Language;
     /**
      * User selected language
      */
     selectedLanguage: Language | null;
-    /**
-     * Set the default language of the app
-     * @param {string} code - language code
-     */
-    setDefaultLanguage: (code: string) => void;
     /**
      * Set the user selected language of the app
      * @param {string} code - language code
@@ -43,42 +21,27 @@ type LanguageState = {
     getLanguage: () => Language;
 };
 
-const initialDefaultLanguage = CORE_SUPPORTED_LANGUAGES[0];
+const getSupportedLanguages = () => getConfig().language.supportedLanguages;
+const getDefaultLanguage = () => {
+    const supportedLanguages = getSupportedLanguages();
+    const defaultLanguageCode = getConfig().language.defaultLanguageCode;
+    if (supportedLanguages.length === 0) throw new Error("There are no supported languages");
+    if (!defaultLanguageCode) return supportedLanguages[0];
+    const defaultLanguage = supportedLanguages.find(
+        language => language.code === defaultLanguageCode,
+    );
+    if (!defaultLanguage)
+        throw new Error("defaultLanguageCode was not found within supported languages");
+    return defaultLanguage;
+};
 
 const useLanguageStore = create<LanguageState>()(
     devtools(
         persist(
             (set, get) => ({
-                supportedLanguages: [],
-                setSupportedLanguages: languageCodes => {
-                    if (languageCodes.length === 0) return;
-                    set(() => {
-                        return { supportedLanguages: languageCodes };
-                    });
-                    const { defaultLanguage } = get();
-                    if (languageCodes.includes(defaultLanguage)) return;
-                    set(() => ({ defaultLanguage: languageCodes[0] }));
-                },
-                getSupportedLanguages: () => {
-                    const { supportedLanguages } = get();
-                    return supportedLanguages;
-                },
-
-                defaultLanguage: initialDefaultLanguage,
-                setDefaultLanguage: code => {
-                    const { supportedLanguages } = get();
-                    const newDefaultLanguage = supportedLanguages.find(
-                        language => language.code === code,
-                    );
-                    if (!newDefaultLanguage) return;
-                    set(() => ({
-                        defaultLanguage: newDefaultLanguage,
-                    }));
-                },
-
                 selectedLanguage: null,
                 setSelectedLanguage: code => {
-                    const { supportedLanguages } = get();
+                    const supportedLanguages = getSupportedLanguages();
                     set(() => ({
                         selectedLanguage:
                             supportedLanguages.find(language => language.code === code) || null,
@@ -86,8 +49,8 @@ const useLanguageStore = create<LanguageState>()(
                 },
 
                 getLanguage: () => {
-                    const { selectedLanguage, defaultLanguage } = get();
-                    return selectedLanguage || defaultLanguage;
+                    const { selectedLanguage } = get();
+                    return selectedLanguage || getDefaultLanguage();
                 },
             }),
             {
@@ -101,35 +64,28 @@ const useLanguageStore = create<LanguageState>()(
 
 export type UseLanguageReturnType = {
     /**
-     * selected language, or default language if no language is selected
+     * Selected language, or default language if no language is selected
      */
     language: Language;
     /**
-     * get supported languages for the app
+     * Get supported languages for the app
      */
     getSupportedLanguages: () => Language[];
     /**
-     * Set the default language of the app
-     * @param {SupportedLanguageCode} code - language code
+     * Get the default language of the app
      */
-    setDefaultLanguage: LanguageState["setSelectedLanguage"];
+    getDefaultLanguage: () => Language;
     /**
      * Set the user selected language of the app
      * @param {SupportedLanguageCode} code - language code
      */
-    setSelectedLanguage: LanguageState["setDefaultLanguage"];
+    setSelectedLanguage: LanguageState["setSelectedLanguage"];
 };
 export const useLanguage = (): UseLanguageReturnType => {
     const store = useLanguageStore();
     const language = store.getLanguage();
-    const { setSelectedLanguage, setDefaultLanguage, getSupportedLanguages } = store;
-    return { language, setDefaultLanguage, setSelectedLanguage, getSupportedLanguages };
+    const { setSelectedLanguage } = store;
+    return { language, getDefaultLanguage, setSelectedLanguage, getSupportedLanguages };
 };
 
-export const {
-    getLanguage,
-    setDefaultLanguage,
-    setSelectedLanguage,
-    setSupportedLanguages,
-    getSupportedLanguages,
-} = useLanguageStore.getState();
+export const { getLanguage, setSelectedLanguage } = useLanguageStore.getState();
