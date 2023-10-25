@@ -7,6 +7,7 @@ export type LoginButtonProps = Omit<ButtonProps, "onPress" | "loading" | "disabl
     redirectUri: string;
     onAuthenticationSuccessful: () => void;
     title?: ButtonProps["title"];
+    scopes?: string[];
     enableAutomaticAuthentication?: boolean;
 };
 export const LoginButton = ({
@@ -14,6 +15,7 @@ export const LoginButton = ({
     redirectUri,
     onAuthenticationSuccessful,
     enableAutomaticAuthentication,
+    scopes = [],
     title = "Log in",
     ...rest
 }: LoginButtonProps) => {
@@ -22,6 +24,7 @@ export const LoginButton = ({
             clientId,
             redirectUri,
             onAuthenticationSuccessful,
+            scopes,
             enableAutomaticAuthentication,
         });
 
