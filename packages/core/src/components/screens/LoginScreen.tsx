@@ -34,6 +34,8 @@ export const LoginScreen = () => {
                             }),
                         )
                     }
+                    enableAutomaticAuthentication
+                    scopes={authConfig.scopes || []}
                 />
                 {shouldDisplayDemoButton && (
                     <Button

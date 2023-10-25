@@ -13,6 +13,7 @@ export type MadConfig = {
     authentication: {
         clientId: string;
         redirectUri: string;
+        scopes?: string[];
     };
     login: {
         title: string;

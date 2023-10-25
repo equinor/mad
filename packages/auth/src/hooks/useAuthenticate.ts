@@ -11,6 +11,7 @@ export type UseAuthenticateProps = {
     onAuthenticationSuccessful: (res: MadAuthenticationResult) => void;
     redirectUri: string;
     clientId: string;
+    scopes: string[];
     enableAutomaticAuthentication?: boolean;
 };
 
@@ -28,6 +29,7 @@ export const useAuthenticate = ({
     onAuthenticationSuccessful,
     clientId,
     redirectUri,
+    scopes,
     enableAutomaticAuthentication,
 }: UseAuthenticateProps): UseAuthenticateResult => {
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
@@ -53,7 +55,7 @@ export const useAuthenticate = ({
             });
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
             if (enableAutomaticAuthentication)
-                withAuthenticationPromiseHandler(authenticateSilently([]));
+                withAuthenticationPromiseHandler(authenticateSilently(scopes));
         };
 
         initiateClientAndMaybeAuthenticateSilently();
@@ -62,7 +64,7 @@ export const useAuthenticate = ({
 
     return {
         authenticationInProgress,
-        authenticate: () => withAuthenticationPromiseHandler(authenticateInteractively([])),
+        authenticate: () => withAuthenticationPromiseHandler(authenticateInteractively(scopes)),
         authenticationClientInitialized:
             authenticationClientExists() && authenticationClientInitialized,
     };

@@ -4,8 +4,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { IconButton } from "../Button/IconButton";
-import { Input, InputProps } from "../Input";
 import { Menu } from "../Menu";
+import { TextField, TextFieldProps } from "../TextField";
 
 type SingleSelect = {
     multiple?: false;
@@ -28,22 +28,13 @@ type AutocompleteProps = {
      * Options list that will be displayed in the autocomplete.
      */
     options: string[];
-    /**
-     * A label above the input field.
-     */
-    label?: string;
-    /**
-     * A placeholder for the input field.
-     */
-    placeholder?: string;
-} & InputProps &
+} & TextFieldProps &
     (SingleSelect | MultiSelect);
 
 export const Autocomplete = ({
     options,
     onSelect,
     onChange,
-    label,
     placeholder,
     multiple = false,
     ...restProps
@@ -122,14 +113,14 @@ export const Autocomplete = ({
                 const layout = event.nativeEvent.layout;
                 setInputLayout(layout);
             }}
+            style={{ flexGrow: 1 }}
         >
-            <Input
+            <TextField
                 ref={inputRef}
                 {...restProps}
                 value={`${
                     selectedToggleOptions.length ? selectedToggleOptions.join(", ") + ", " : ""
                 }${inputValue}`}
-                label={label}
                 placeholder={placeholder}
                 onChange={text => {
                     const newText = text.replace(
@@ -165,6 +156,7 @@ export const Autocomplete = ({
             />
             {isOptionsVisible && (
                 <Menu
+                    placement="bottom-start"
                     anchorEl={inputRef}
                     open={isOptionsVisible}
                     onClose={handleMenuClose}

@@ -4,8 +4,9 @@ import { EDSStyleSheet, useStyles, Typography, Input, Spacer, Icon } from "@equi
 
 export const InputScreen = () => {
     const styles = useStyles(themedStyles);
+
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic" >
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
             <View style={styles.container}>
                 <Typography>You can use an Input to add left adornments</Typography>
                 <Spacer />
@@ -15,10 +16,8 @@ export const InputScreen = () => {
                             <Icon name="face-agent" />
                         </View>
                     }
-                    label="Say something"
                     placeholder="Anything goes here"
-                    helperText="Some help"
-                ></Input>
+                />
 
                 <Spacer />
                 <Typography>Right adornments</Typography>
@@ -41,7 +40,6 @@ export const InputScreen = () => {
                             <Icon name="face-mask" color="#FFFFFF" />
                         </View>
                     }
-                    label="Say something"
                     placeholder="Anything goes here"
                 ></Input>
                 <Spacer />
@@ -58,9 +56,16 @@ export const InputScreen = () => {
                             <Icon name="backspace" />
                         </View>
                     }
-                    label="Say something"
                     placeholder="Anything goes here"
                 ></Input>
+                <Spacer />
+                <Typography>These come in different variants</Typography>
+                <Spacer />
+                <Input placeholder="Placeholder danger" variant="danger" />
+                <Spacer />
+                <Input placeholder="Placeholder warning" variant="warning" />
+                <Spacer />
+                <Input placeholder="Placeholder success" variant="success" />
             </View>
         </ScrollView>
     );
