@@ -2,6 +2,9 @@ import React from "react";
 import { Button } from "../../Button";
 import { Typography } from "../../Typography";
 import { Dialog } from "../index";
+import { DialogHeader } from "../DialogHeader";
+import { DialogActions } from "../DialogActions";
+import { DialogCustomContent } from "../DialogCustomContent";
 import { _useDialogService } from "./dialogServiceStore";
 
 /**
@@ -14,11 +17,11 @@ export const DialogServiceProvider = () => {
     const isDialogOpen = !!dialogContent;
     return (
         <Dialog isOpen={isDialogOpen}>
-            <Dialog.Header>{dialogContent?.title}</Dialog.Header>
-            <Dialog.CustomContent>
+            <DialogHeader>{dialogContent?.title}</DialogHeader>
+            <DialogCustomContent>
                 <Typography>{dialogContent?.message}</Typography>
-            </Dialog.CustomContent>
-            <Dialog.Actions align="right">
+            </DialogCustomContent>
+            <DialogActions align="right">
                 {dialogContent?.buttons.map((button, index) => (
                     <Button
                         key={index}
@@ -39,7 +42,7 @@ export const DialogServiceProvider = () => {
                         iconName={button.icon}
                     />
                 ))}
-            </Dialog.Actions>
+            </DialogActions>
         </Dialog>
     );
 };
