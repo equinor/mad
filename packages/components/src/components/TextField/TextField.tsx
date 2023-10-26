@@ -89,9 +89,9 @@ const themeStyles = EDSStyleSheet.create((theme, props: TextFieldStyleProps) => 
     },
     label: {
         paddingHorizontal: theme.spacing.textField.paddingHorizontal,
-        color: props.variant ? theme.colors.interactive[props.variant] : theme.colors.textTeritary,
+        color: props.variant ? theme.colors.interactive[props.variant] : theme.colors.text.tertiary,
     },
     iconColor: {
-        color: props.variant ? theme.colors.interactive[props.variant] : theme.colors.textPrimary,
+        color: props.variant ? theme.colors.interactive[props.variant] : theme.colors.text.primary,
     },
 }));

@@ -24,16 +24,17 @@ export const isTextColor = (obj: string): obj is EDSTextColor =>
  * @param theme The current theme of the application.
  * @returns A resolved color.
  */
-export function resolveColor(color: Color, theme: Theme) {
+export function resolveColor(color: Color, theme: Theme): Color {
     if (isEDSColor(color)) return theme.colors.interactive[color];
     if (isTextColor(color)) {
-        const textColorToThemeKeyMap: Record<EDSTextColor, keyof typeof theme.colors.text> = {
+        const textColorToThemeKeyMap = {
             textPrimary: "primary",
             textSecondary: "secondary",
             textTertiary: "tertiary",
             textInverted: "primaryInverted",
             textDisabled: "disabled",
-        } as const;
+        } as const satisfies Record<EDSTextColor, keyof typeof theme.colors.text>;
+
         return theme.colors.text[textColorToThemeKeyMap[color]];
     }
     return color;
