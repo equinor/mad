@@ -42,7 +42,12 @@ const awesomeAnimals = [
     "Tamarin",
 ];
 
-const awesomeAnimalsAsObjects = [
+type Animal = {
+    id: number;
+    name: string;
+};
+
+const awesomeAnimalsAsObjects: Animal = [
     { id: 1, name: "Snow Leopard" },
     { id: 2, name: "Red Panda" },
     { id: 3, name: "Platypus" },
@@ -82,6 +87,7 @@ export const AutocompleteScreen = () => {
                     placeholder="Type a name and see who's lurking..."
                     onSelect={setSelectedJungleObject}
                     selectedOption={selectedJungleObject}
+                    transformItem={item => item.name}
                 />
             </View>
             {/* <View style={styles.container}>

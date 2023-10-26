@@ -27,7 +27,7 @@ export const Autocomplete = <T,>({
     transformItem,
     ...restProps
 }: AutocompleteProps<T>) => {
-    const [inputValue, setInputValue] = useState(selectedOption ?? "");
+    const [inputValue, setInputValue] = useState<string>(selectedOption ?? "");
     const filteredOptions = useMemo(
         () =>
             options.filter(option => {
@@ -63,12 +63,14 @@ export const Autocomplete = <T,>({
     };
 
     const renderItem = (option: string) => {
+        const itemString = transformItem ? transformItem(option) : (option as unknown as string);
+
         return (
             <Menu.Item
                 key={option}
                 title={option}
                 onPress={() => {
-                    setInputValue(option);
+                    setInputValue(itemString);
                     onSelect(option);
                     setIsOptionsVisible(false);
                 }}
