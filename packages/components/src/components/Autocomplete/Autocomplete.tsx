@@ -6,47 +6,36 @@ import { EDSStyleSheet } from "../../styling";
 import { IconButton } from "../Button/IconButton";
 import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
+import { GenericAutocompleteProps } from "./types";
 
-type SingleSelect = {
-    multiple?: false;
+type AutocompleteProps<T> = {
     /**
      * A callback method invoked when the user selects an option from the autocomplete.
      */
-    onSelect: (value: string) => void;
-};
-
-type AutocompleteProps = {
+    onSelect: (value: T | undefined) => void;
     /**
-     * Options list that will be displayed in the autocomplete.
+     * The currently selected option.
      */
-    options: string[];
-    /**
-     * An array of options that will be selected when the autocomplete is rendered.
-     */
-    initialSelectedOptions?: string[];
-    selectedOptions?: string[];
-    onOptionsChange: (options: string[]) => void;
+    selectedOption: T | undefined;
 } & TextFieldProps &
-    SingleSelect;
+    GenericAutocompleteProps<T>;
 
-export const Autocomplete = ({
+export const Autocomplete = <T,>({
     options,
-    initialSelectedOptions = [],
-    selectedOptions,
-    onOptionsChange,
+    selectedOption,
     onSelect,
-    onChange,
+    transformItem,
     ...restProps
-}: AutocompleteProps) => {
-    const isControlled = selectedOptions !== undefined;
-    const [internalSelectedOptions, setInternalSelectedOptions] = useState(
-        isControlled ? [] : initialSelectedOptions,
+}: AutocompleteProps<T>) => {
+    const [inputValue, setInputValue] = useState(selectedOption ?? "");
+    const filteredOptions = useMemo(
+        () =>
+            options.filter(option => {
+                const transformedItem = transformItem ? transformItem(option) : (option as string);
+                return transformedItem.toLowerCase().includes(inputValue.toLowerCase());
+            }),
+        [inputValue, options, transformItem],
     );
-    const finalSelectedOptions = isControlled ? selectedOptions : internalSelectedOptions;
-    const [inputValue, setInputValue] = useState("");
-    const filteredOptions = useMemo(() => {
-        return options.filter(option => option.toLowerCase().includes(inputValue.toLowerCase()));
-    }, [inputValue, options]);
 
     const handleMenuOpen = () => {
         setIsOptionsVisible(true);
@@ -54,6 +43,11 @@ export const Autocomplete = ({
     };
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
+        if (selectedOption) {
+            setInputValue(selectedOption);
+        } else {
+            setInputValue("");
+        }
         inputRef.current && inputRef.current.blur();
     };
 
@@ -64,26 +58,18 @@ export const Autocomplete = ({
 
     const handleClearText = () => {
         handleMenuClose();
-        if (isControlled) {
-            onOptionsChange([]);
-        } else {
-            setInternalSelectedOptions([]);
-        }
+        setInputValue("");
+        onSelect(undefined);
     };
 
     const renderItem = (option: string) => {
-        const onSingleSelect = onSelect as (value: string) => void;
         return (
             <Menu.Item
                 key={option}
                 title={option}
                 onPress={() => {
-                    if (isControlled) {
-                        onOptionsChange([option]);
-                    } else {
-                        setInternalSelectedOptions([option]);
-                    }
-                    onSingleSelect(option);
+                    setInputValue(option);
+                    onSelect(option);
                     setIsOptionsVisible(false);
                 }}
             />
@@ -101,35 +87,29 @@ export const Autocomplete = ({
             <TextField
                 ref={inputRef}
                 {...restProps}
-                value={`${
-                    finalSelectedOptions.length ? finalSelectedOptions.join(", ") + " " : ""
-                }${inputValue}`}
+                value={inputValue}
                 onChange={text => {
-                    const newText = text.replace(
-                        new RegExp(`^${finalSelectedOptions.join(", ")},?\\s?`),
-                        "",
-                    );
-                    setInputValue(newText);
-                    if (onChange) onChange(newText);
+                    setInputValue(text);
                     setIsOptionsVisible(true);
+                    if (text === "") {
+                        onSelect(undefined);
+                    }
                 }}
                 onFocus={handleMenuOpen}
-                onBlur={() =>
-                    setTimeout(() => {
-                        setIsOptionsVisible(false), setInputValue("");
-                    }, 150)
-                }
+                onBlur={() => {
+                    setIsOptionsVisible(false);
+                }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
-                        {finalSelectedOptions.length > 0 && (
-                                <IconButton
-                                    name="close"
-                                    variant="ghost"
-                                    iconSize={18}
-                                    onPress={handleClearText}
-                                    style={styles.closeIcon}
-                                />,
-                            )}
+                        {selectedOption && (
+                            <IconButton
+                                name="close"
+                                variant="ghost"
+                                iconSize={18}
+                                onPress={handleClearText}
+                                style={styles.closeIcon}
+                            />
+                        )}
                         <IconButton
                             name={isOptionsVisible ? "menu-up" : "menu-down"}
                             variant="ghost"

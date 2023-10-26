@@ -7,23 +7,12 @@ import { IconButton } from "../Button/IconButton";
 import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
 
-type MultiSelect = {
-    multiple: true;
-    /**
-     * A callback method invoked when the user selects an option from the autocomplete.
-     */
-    onSelect: (value: string[]) => void;
-};
-
-type AutocompleteProps = {
-    /**
-     * Options list that will be displayed in the autocomplete.
-     */
-    options: string[];
+type MultiSelectAutocompleteProps = {
     /**
      * An array of options that will be selected when the autocomplete is rendered.
      */
     initialSelectedOptions?: string[];
+    onSelect: (value: string[]) => void;
     selectedOptions?: string[];
     onOptionsChange: (options: string[]) => void;
 } & TextFieldProps &
@@ -38,7 +27,7 @@ export const Autocomplete = ({
     onChange,
     multiple = false,
     ...restProps
-}: AutocompleteProps) => {
+}: MultiSelectAutocompleteProps) => {
     const isControlled = selectedOptions !== undefined;
     const [internalSelectedOptions, setInternalSelectedOptions] = useState(
         isControlled ? [] : initialSelectedOptions,

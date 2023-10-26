@@ -42,17 +42,32 @@ const awesomeAnimals = [
     "Tamarin",
 ];
 
+const awesomeAnimalsAsObjects = [
+    { id: 1, name: "Snow Leopard" },
+    { id: 2, name: "Red Panda" },
+    { id: 3, name: "Platypus" },
+    { id: 4, name: "Narwhal" },
+    { id: 5, name: "Axolotl" },
+    { id: 6, name: "Mantis Shrimp" },
+    { id: 7, name: "Tarsier" },
+    { id: 8, name: "Fennec Fox" },
+    { id: 9, name: "Komodo Dragon" },
+    { id: 10, name: "Okapi" },
+];
+
 export const AutocompleteScreen = () => {
     const styles = useStyles(themedStyles);
-    const [selectedAnimals, setSelectedAnimals] = useState([]);
+    // const [selectedAnimals, setSelectedAnimals] = useState([]);
+    const [selectedJungleCreature, setSelectedJungleCreature] = useState<string>();
+    const [selectedJungleObject, setSelectedJungleObject] = useState();
 
-    const handleOptionsChange = newOptions => {
-        setSelectedAnimals(newOptions);
-    };
+    // const handleOptionsChange = newOptions => {
+    //     setSelectedAnimals(newOptions);
+    // };
 
-    const clearSelection = () => {
-        setSelectedAnimals([]);
-    };
+    // const clearSelection = () => {
+    //     setSelectedAnimals([]);
+    // };
 
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
@@ -62,13 +77,14 @@ export const AutocompleteScreen = () => {
                 <Typography>Discover the hidden creatures of the Autocomplete.</Typography>
                 <Spacer />
                 <Autocomplete
-                    options={awesomeAnimals}
+                    options={awesomeAnimalsAsObjects}
                     label="Click me and spot a Jungle Creature"
                     placeholder="Type a name and see who's lurking..."
-                    onSelect={() => null}
+                    onSelect={setSelectedJungleObject}
+                    selectedOption={selectedJungleObject}
                 />
             </View>
-            <View style={styles.container}>
+            {/* <View style={styles.container}>
                 <Typography>Explore the Jungle Canopy</Typography>
                 <Spacer />
                 <Autocomplete
@@ -77,7 +93,7 @@ export const AutocompleteScreen = () => {
                     placeholder="Who's swinging in the trees?"
                     onSelect={() => null}
                 />
-            </View>
+            </View> */}
             {/* <View style={styles.container}>
                 <Typography>
                     Delve into the Jungle Undergrowth and select multiple animals
