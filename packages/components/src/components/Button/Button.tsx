@@ -8,6 +8,7 @@ import { ButtonGroupContext } from "./ButtonGroup";
 import { ToggleButtonContext } from "./ToggleButton";
 import { Icon, IconName } from "../Icon";
 import { DotProgress } from "../ProgressIndicator";
+import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
 
 export type ButtonProps = {
     /**
@@ -130,14 +131,11 @@ const themeStyles = EDSStyleSheet.create((theme, props: ButtonStyleSheetProps) =
 
     variant = isToggleButton ? (toggleStatus ? "contained" : "outlined") : variant;
 
-    let backgroundColor = theme.colors.interactive[color];
+    const backgroundColor = getBackgroundColorForButton(theme, variant, color, disabled);
     let textColor =
         variant === "contained"
             ? theme.colors.text.primaryInverted
             : theme.colors.interactive[color];
-
-    backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
-    backgroundColor = variant !== "contained" ? "transparent" : backgroundColor;
     textColor = disabled ? theme.colors.text.disabled : textColor;
 
     const leftRadius = !groupData.isFirstItem ? 0 : theme.geometry.border.elementBorderRadius;
