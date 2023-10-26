@@ -41,10 +41,6 @@ export type InputProps = {
      * A variant to use for the validation of the input field.
      */
     variant?: "danger" | "warning" | "success";
-    /**
-     * A component that will be added to the left of the helper text.
-     */
-    helperIcon?: ReactNode;
 } & Omit<TextInputProps, "onChange" | "onChangeText">;
 
 export const Input = forwardRef<TextInput, InputProps>(
