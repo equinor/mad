@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
 import {
     EDSStyleSheet,
@@ -61,18 +61,9 @@ const awesomeAnimalsAsObjects: Animal[] = [
 
 export const AutocompleteScreen = () => {
     const styles = useStyles(themedStyles);
-    // const [selectedAnimals, setSelectedAnimals] = useState([]);
     const [selectedJungleCreature, setSelectedJungleCreature] = useState<string>();
     const [selectedJungleObject, setSelectedJungleObject] = useState<Animal>();
     const [selectedJungleObjectList, setSelectedJungleObjectList] = useState<Animal[]>([]);
-
-    // const handleOptionsChange = newOptions => {
-    //     setSelectedAnimals(newOptions);
-    // };
-
-    // const clearSelection = () => {
-    //     setSelectedAnimals([]);
-    // };
 
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
@@ -113,41 +104,6 @@ export const AutocompleteScreen = () => {
                     transformItem={item => item.name}
                 />
             </View>
-            {/* <View style={styles.container}>
-                <Typography>Explore the Jungle Canopy</Typography>
-                <Spacer />
-                <Autocomplete
-                    options={awesomeAnimals}
-                    label="Find a Tree-dweller"
-                    placeholder="Who's swinging in the trees?"
-                    onSelect={() => null}
-                />
-            </View> */}
-            {/* <View style={styles.container}>
-                <Typography>
-                    Delve into the Jungle Undergrowth and select multiple animals
-                </Typography>
-                <Spacer />
-                <Autocomplete
-                    options={awesomeAnimals}
-                    label="Unearth your Ground Critters"
-                    placeholder="Who's scuttling below?"
-                    onSelect={() => null}
-                    multiple
-                />
-            </View>
-            <View style={styles.container}>
-                <Autocomplete
-                    multiple
-                    options={awesomeAnimals}
-                    selectedOptions={selectedAnimals}
-                    onOptionsChange={handleOptionsChange}
-                    label="Click me and spot a Jungle Creature"
-                    placeholder="Type a name and see who's lurking..."
-                />
-                <Spacer />
-                {selectedAnimals.length > 0 && <Button title="Clear" onPress={clearSelection} />}
-            </View> */}
         </ScrollView>
     );
 };

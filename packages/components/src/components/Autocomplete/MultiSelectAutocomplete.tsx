@@ -61,20 +61,6 @@ export const MultiSelectAutocomplete = <T,>({
         setInputValue("");
         onSelect([]);
     };
-    // const handleToggleOptionPress = (optionTitle: string) => {
-    //     let newOptions = [];
-    //     if (finalSelectedOptions.includes(optionTitle)) {
-    //         newOptions = finalSelectedOptions.filter(title => title !== optionTitle);
-    //     } else {
-    //         newOptions = [...finalSelectedOptions, optionTitle];
-    //     }
-
-    //     if (isControlled) {
-    //         onOptionsChange(newOptions);
-    //     } else {
-    //         setInternalSelectedOptions(newOptions);
-    //     }
-    // };
 
     const renderMultiSelectItem = (option: T, active: boolean | undefined) => {
         const stringifiedOption = transformItem?.(option) ?? (option as string);
@@ -115,15 +101,6 @@ export const MultiSelectAutocomplete = <T,>({
                         onSelect([]);
                     }
                 }}
-                // onChange={text => {
-                //     const newText = text.replace(
-                //         new RegExp(`^${(selectedOptions || []).join(", ")},?\\s?`),
-                //         "",
-                //     );
-                //     setInputValue(newText);
-                //     if (onChange) onChange(newText);
-                //     setIsOptionsVisible(true);
-                // }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
                     setIsOptionsVisible(false), setInputValue("");
