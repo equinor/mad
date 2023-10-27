@@ -1,4 +1,4 @@
-import { getDateFromIsoString, getShortDate } from "../../../utils/dateUtils";
+import { getShortDate } from "../../../utils/dateUtils";
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import RenderHtml, { defaultSystemFonts } from "react-native-render-html";
@@ -26,7 +26,7 @@ type ChangelogProps = {
 export const ChangeLog = ({ release, onPressAffirm }: ChangelogProps) => {
     const [width, setWidth] = useState(0);
     const html = { html: converter.makeHtml(release.releaseNote) };
-    const date = getDateFromIsoString(release.releaseDate);
+    const date = new Date(release.releaseDate);
     const shortDate = getShortDate(date);
 
     return (
