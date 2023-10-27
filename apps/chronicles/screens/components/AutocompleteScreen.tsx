@@ -46,7 +46,7 @@ type Animal = {
     name: string;
 };
 
-const awesomeAnimalsAsObjects: Animal[] = [
+const animals: Animal[] = [
     { id: 1, name: "Snow Leopard" },
     { id: 2, name: "Red Panda" },
     { id: 3, name: "Platypus" },
@@ -61,9 +61,9 @@ const awesomeAnimalsAsObjects: Animal[] = [
 
 export const AutocompleteScreen = () => {
     const styles = useStyles(themedStyles);
-    const [selectedJungleCreature, setSelectedJungleCreature] = useState<string>();
-    const [selectedJungleObject, setSelectedJungleObject] = useState<Animal>();
-    const [selectedJungleObjectList, setSelectedJungleObjectList] = useState<Animal[]>([]);
+    const [selectedAwesomeAnimal, setSelectedAwesomeAnimal] = useState<string>();
+    const [selectedAnimal, setSelectedAnimal] = useState<Animal>();
+    const [selectedAnimals, setSelectedAnimals] = useState<Animal[]>([]);
 
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
@@ -76,19 +76,19 @@ export const AutocompleteScreen = () => {
                     options={awesomeAnimals}
                     label="Click me and spot a Jungle Creature"
                     placeholder="Type a name and see who's lurking..."
-                    onSelect={animal => setSelectedJungleCreature(animal)}
-                    selectedOption={selectedJungleCreature}
+                    onSelect={animal => setSelectedAwesomeAnimal(animal)}
+                    selectedOption={selectedAwesomeAnimal}
                 />
             </View>
             <View style={styles.container}>
                 <Typography>The autocomplete can accept all types of options.</Typography>
                 <Spacer />
                 <Autocomplete
-                    options={awesomeAnimalsAsObjects}
+                    options={animals}
                     label="Click me and spot a Jungle Creature"
                     placeholder="Type a name and see who's lurking..."
-                    onSelect={animal => setSelectedJungleObject(animal)}
-                    selectedOption={selectedJungleObject}
+                    onSelect={animal => setSelectedAnimal(animal)}
+                    selectedOption={selectedAnimal}
                     transformItem={item => `${item.id} - ${item.name}`}
                 />
             </View>
@@ -96,11 +96,11 @@ export const AutocompleteScreen = () => {
                 <Typography>This is a autocomplete with multiple selections.</Typography>
                 <Spacer />
                 <Autocomplete.MultiSelect
-                    options={awesomeAnimalsAsObjects}
+                    options={animals}
                     label="Click me and spot multiple Jungle Creatures"
                     placeholder="Type a name and see who's lurking..."
-                    onSelect={animal => setSelectedJungleObjectList(animal)}
-                    selectedOptions={selectedJungleObjectList}
+                    onSelect={animal => setSelectedAnimals(animal)}
+                    selectedOptions={selectedAnimals}
                     transformItem={item => item.name}
                 />
             </View>
