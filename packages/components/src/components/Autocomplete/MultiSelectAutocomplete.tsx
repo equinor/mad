@@ -15,14 +15,12 @@ type MultiSelectAutocompleteProps<T> = {
      */
     onSelect: (value: T[]) => void;
     selectedOptions: T[];
-    // onOptionsChange: (options: string[]) => void;
 } & Omit<TextFieldProps, "helperIcon" | "inputIcon"> &
     GenericAutocompleteProps<T>;
 
 export const MultiSelectAutocomplete = <T,>({
     options,
     selectedOptions,
-    // onOptionsChange,
     onSelect,
     transformItem,
     ...restProps
