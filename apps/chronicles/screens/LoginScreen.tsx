@@ -6,6 +6,7 @@ import { View } from "react-native";
 
 export const LoginScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    navigation.navigate("Root");
     return (
         <View
             style={{
