@@ -5,16 +5,19 @@ import { EDSStyleSheet, useStyles, Typography, Spacer, Search } from "@equinor/m
 export const SearchScreen = () => {
     const styles = useStyles(themedStyles);
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.container}>
+        <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            contentContainerStyle={styles.container}
+        >
             <Typography>You can use an Input to add left adornments</Typography>
             <Typography>Standard search bar</Typography>
             <Spacer amount="small" />
-            <Search placeholder="Search" label="Search for something"></Search>
+            <Search placeholder="Search"></Search>
             <Spacer amount="large" />
 
             <Typography>Search bar with cancel button</Typography>
             <Spacer amount="small" />
-            <Search placeholder="Search" label="Search for something" cancellable />
+            <Search placeholder="Search" cancellable />
         </ScrollView>
     );
 };
