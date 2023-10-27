@@ -4,7 +4,7 @@
     "description": "Application Insights implementation for the mad team",
     "type": "module",
     "scripts": {
-        "build": "tsup-node",
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/"

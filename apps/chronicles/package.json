@@ -8,10 +8,9 @@
     "web": "expo start --web",
     "build": "npx expo prebuild --platform ios",
     "ios": "expo run:ios",
-    "lint": "eslint . && tsc --noEmit"
+    "lint": "tsc --noEmit && eslint ."
   },
   "dependencies": {
-    "@equinor/mad-core": "workspace:*",
     "@equinor/mad-components": "workspace:*",
     "@equinor/mad-insights": "workspace:*",
     "@equinor/mad-navigation": "workspace:*",
