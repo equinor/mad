@@ -4,7 +4,7 @@
     "description": "A React Native drawing library running on SKIA",
     "type": "module",
     "scripts": {
-        "build": "tsup-node",
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/"
     },

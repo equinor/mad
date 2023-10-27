@@ -6,7 +6,7 @@
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "test": "jest",
-        "dev": "tsup-node --watch --clean=false && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
+        "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/"
     },
     "keywords": [
