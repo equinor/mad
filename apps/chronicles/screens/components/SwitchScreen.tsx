@@ -72,18 +72,13 @@ export const SwitchScreen = () => {
             <Typography>{"This is a small switch, with all the same functionality"}</Typography>
             <View style={styles.switchRow}>
                 <View style={styles.switchDescription}>
-                    <Switch.Small
-                        active={isActiveSwitchSmall}
-                        onChange={handleSmallSwitchChange}
-                        color="primary"
-                    />
+                    <Switch.Small active={isActiveSwitchSmall} onChange={handleSmallSwitchChange} />
                     <Typography>Active</Typography>
                 </View>
                 <View style={styles.switchDescription}>
                     <Switch.Small
                         active={isDisabledSwitchSmall}
                         onChange={handleSmallSwitchDisabled}
-                        color="primary"
                         disabled={isDisabled}
                     />
                     <Typography>Disabled</Typography>

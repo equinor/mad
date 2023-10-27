@@ -194,7 +194,7 @@ export type MasterToken = {
     };
 };
 
-type WithoutThemeOptionValues<TToken> = {
+export type WithoutThemeOptionValues<TToken> = {
     [K in keyof TToken]: TToken[K] extends ColorSchemeValues<infer U>
         ? U
         : TToken[K] extends DensityValues<infer V>

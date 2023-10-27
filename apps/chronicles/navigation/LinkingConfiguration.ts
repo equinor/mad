@@ -15,12 +15,12 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
             Root: {
                 screens: {
-                    Discover: {
+                    DiscoverTab: {
                         screens: {
-                            DiscoverScreen: "discover",
+                            Discover: "discover",
                         },
                     },
-                    Icons: {
+                    IconsTab: {
                         screens: {
                             Icons: "icons",
                         },

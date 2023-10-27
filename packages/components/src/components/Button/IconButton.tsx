@@ -4,6 +4,7 @@ import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
 import { Icon, IconName } from "../Icon";
+import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
 
 export type IconButtonProps = {
     /**
@@ -81,14 +82,11 @@ const themeStyles = EDSStyleSheet.create((theme, props: IconButtonStyleSheetProp
     const { color, disabled, variant, iconSize } = props;
     const pressableContainerSize = iconSize * 1.8;
 
-    let backgroundColor = theme.colors.interactive[color];
+    const backgroundColor = getBackgroundColorForButton(theme, variant, color, disabled);
     let textColor =
         variant === "contained"
             ? theme.colors.text.primaryInverted
             : theme.colors.interactive[color];
-
-    backgroundColor = disabled ? theme.colors.interactive.disabled : backgroundColor;
-    backgroundColor = variant !== "contained" ? "transparent" : backgroundColor;
     textColor = disabled ? theme.colors.text.disabled : textColor;
 
     return {
