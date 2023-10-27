@@ -17,7 +17,7 @@ importers:
       tslib: ^2.5.0
       tsup: ^7.0.0
       turbo: ^1.10.6
-      typescript: ^5.1.3
+      typescript: 5.3.0-beta
     devDependencies:
       '@changesets/cli': 2.26.2
       '@equinor/eslint-config-mad': link:packages/eslint-config-mad
@@ -26,13 +26,13 @@ importers:
       eslint: 8.48.0
       jest: 29.6.4_v5qag4bu7yd4vl7sd6rt2doplm
       prettier: 3.0.1
-      ts-jest: 29.1.1_ipawwdeiu4snrmytuuo7hin43q
-      ts-node: 10.9.1_ku3bfpblyktmqekrycpv262tuu
+      ts-jest: 29.1.1_5py5qlvsynaw6hcq2gzbxqa2qq
+      ts-node: 10.9.1_7alvkxdxnb6owz2sws7lqqsthe
       tsconfig: link:packages/tsconfig
       tslib: 2.6.2
-      tsup: 7.2.0_hfdmlrzibtmt4doqdgifo5kmom
+      tsup: 7.2.0_vrcv4ryifuabvrbbmgct4tu4da
       turbo: 1.10.13
-      typescript: 5.2.2
+      typescript: 5.3.0-beta
 
   apps/chronicles:
     specifiers:
@@ -8062,7 +8062,7 @@ packages:
       pretty-format: 29.6.3
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_ku3bfpblyktmqekrycpv262tuu
+      ts-node: 10.9.1_7alvkxdxnb6owz2sws7lqqsthe
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -10152,7 +10152,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.1.0
-      ts-node: 10.9.1_ku3bfpblyktmqekrycpv262tuu
+      ts-node: 10.9.1_7alvkxdxnb6owz2sws7lqqsthe
       yaml: 2.3.2
     dev: true
 
@@ -12145,7 +12145,7 @@ packages:
   /ts-interface-checker/0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /ts-jest/29.1.1_ipawwdeiu4snrmytuuo7hin43q:
+  /ts-jest/29.1.1_5py5qlvsynaw6hcq2gzbxqa2qq:
     resolution: {integrity: sha512-D6xjnnbP17cC85nliwGiL+tpoKN0StpgE0TeOjXQTU6MVCfsB4v7aW05CgQ/1OywGb0x/oy9hHFnN+sczTiRaA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -12176,11 +12176,11 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.5.4
-      typescript: 5.2.2
+      typescript: 5.3.0-beta
       yargs-parser: 21.1.1
     dev: true
 
-  /ts-node/10.9.1_ku3bfpblyktmqekrycpv262tuu:
+  /ts-node/10.9.1_7alvkxdxnb6owz2sws7lqqsthe:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -12206,7 +12206,7 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.2.2
+      typescript: 5.3.0-beta
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
@@ -12227,7 +12227,7 @@ packages:
   /tslib/2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
-  /tsup/7.2.0_hfdmlrzibtmt4doqdgifo5kmom:
+  /tsup/7.2.0_vrcv4ryifuabvrbbmgct4tu4da:
     resolution: {integrity: sha512-vDHlczXbgUvY3rWvqFEbSqmC1L7woozbzngMqTtL2PGBODTtWlRwGDDawhvWzr5c1QjKe4OAKqJGfE1xeXUvtQ==}
     engines: {node: '>=16.14'}
     hasBin: true
@@ -12257,7 +12257,7 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.34.0
       tree-kill: 1.2.2
-      typescript: 5.2.2
+      typescript: 5.3.0-beta
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -12446,6 +12446,12 @@ packages:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  /typescript/5.3.0-beta:
+    resolution: {integrity: sha512-SiTeC1C8wAS6v2SD05iyfojeuIkUZIbb8suZz0d4BR+RErwpG+05iolat+VjM9hqXSrjb3xutEBzh4X3NJ7Jgw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
 
   /ua-parser-js/1.0.35:
     resolution: {integrity: sha512-fKnGuqmTBnIE+/KXSzCn4db8RTigUzw1AN0DmdU6hJovUTbYJKyqj+8Mt1c4VfRDnOVJnENmfYkIPZ946UrSAA==}
