@@ -18,7 +18,7 @@ export const getBackgroundColorForButton = (
     variant: Variant,
     color: ButtonColorVariant,
     disabled: boolean,
-): number => {
+) => {
     if (variant !== "contained") return "transparent";
     if (disabled) return theme.colors.interactive.disabled;
     return theme.colors.interactive[color];
