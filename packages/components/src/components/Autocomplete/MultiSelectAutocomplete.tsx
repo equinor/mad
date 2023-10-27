@@ -6,37 +6,42 @@ import { EDSStyleSheet } from "../../styling";
 import { IconButton } from "../Button/IconButton";
 import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
+import { GenericAutocompleteProps } from "./types";
+import { Autocomplete } from "./Autocomplete";
 
-type MultiSelectAutocompleteProps = {
+type MultiSelectAutocompleteProps<T> = {
     /**
      * An array of options that will be selected when the autocomplete is rendered.
      */
-    initialSelectedOptions?: string[];
-    onSelect: (value: string[]) => void;
-    selectedOptions?: string[];
-    onOptionsChange: (options: string[]) => void;
-} & TextFieldProps &
-    MultiSelect;
+    onSelect: (value: T[]) => void;
+    selectedOptions: T[];
+    // onOptionsChange: (options: string[]) => void;
+} & Omit<TextFieldProps, "helperIcon" | "inputIcon"> &
+    GenericAutocompleteProps<T>;
 
-export const Autocomplete = ({
+export const MultiSelectAutocomplete = <T,>({
     options,
-    initialSelectedOptions = [],
     selectedOptions,
-    onOptionsChange,
+    // onOptionsChange,
     onSelect,
-    onChange,
-    multiple = false,
+    transformItem,
     ...restProps
-}: MultiSelectAutocompleteProps) => {
-    const isControlled = selectedOptions !== undefined;
-    const [internalSelectedOptions, setInternalSelectedOptions] = useState(
-        isControlled ? [] : initialSelectedOptions,
+}: MultiSelectAutocompleteProps<T>) => {
+    const [inputValue, setInputValue] = useState<string>(selectedOptions?.join(", ") ?? "");
+
+    const filteredOptions = useMemo(
+        () =>
+            options.filter(option => {
+                const transformedItem = transformItem ? transformItem(option) : (option as string);
+                return transformedItem.toLowerCase().includes(inputValue.toLowerCase());
+            }),
+        [inputValue, options, transformItem],
     );
-    const finalSelectedOptions = isControlled ? selectedOptions : internalSelectedOptions;
-    const [inputValue, setInputValue] = useState("");
-    const filteredOptions = useMemo(() => {
-        return options.filter(option => option.toLowerCase().includes(inputValue.toLowerCase()));
-    }, [inputValue, options]);
+
+    const [isOptionsVisible, setIsOptionsVisible] = useState<boolean>(false);
+    const inputRef = useRef<TextInput>(null);
+    const [inputLayout, setInputLayout] = useState<LayoutRectangle | undefined>();
+    const styles = useStyles(themedStyles, { inputLayout });
 
     const handleMenuOpen = () => {
         setIsOptionsVisible(true);
@@ -44,73 +49,48 @@ export const Autocomplete = ({
     };
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
+        if (selectedOptions) {
+            setInputValue(selectedOptions?.join(", "));
+        } else {
+            setInputValue("");
+        }
         inputRef.current && inputRef.current.blur();
     };
-
-    const [isOptionsVisible, setIsOptionsVisible] = useState(false);
-    const inputRef = useRef<TextInput>(null);
-    const [inputLayout, setInputLayout] = useState<LayoutRectangle | undefined>();
-    const [selectedToggleOptions, setSelectedToggleOptions] = useState<string[]>([]);
-    const styles = useStyles(themedStyles, { inputLayout });
-
-    const handleClearSingleText = () => {
+    const handleClearText = () => {
         handleMenuClose();
-        if (isControlled) {
-            onOptionsChange([]);
-        } else {
-            setInternalSelectedOptions([]);
-        }
+        setInputValue("");
+        onSelect([]);
     };
+    // const handleToggleOptionPress = (optionTitle: string) => {
+    //     let newOptions = [];
+    //     if (finalSelectedOptions.includes(optionTitle)) {
+    //         newOptions = finalSelectedOptions.filter(title => title !== optionTitle);
+    //     } else {
+    //         newOptions = [...finalSelectedOptions, optionTitle];
+    //     }
 
-    const handleClearMultiText = () => {
-        handleMenuClose();
-        setSelectedToggleOptions([]);
-    };
-    const handleToggleOptionPress = (optionTitle: string) => {
-        let newOptions = [];
-        if (finalSelectedOptions.includes(optionTitle)) {
-            newOptions = finalSelectedOptions.filter(title => title !== optionTitle);
-        } else {
-            newOptions = [...finalSelectedOptions, optionTitle];
-        }
+    //     if (isControlled) {
+    //         onOptionsChange(newOptions);
+    //     } else {
+    //         setInternalSelectedOptions(newOptions);
+    //     }
+    // };
 
-        if (isControlled) {
-            onOptionsChange(newOptions);
-        } else {
-            setInternalSelectedOptions(newOptions);
-        }
-    };
-
-    const renderSingleSelectItem = (option: string) => {
-        const onSingleSelect = onSelect as (value: string) => void;
+    const renderMultiSelectItem = (option: T, active: boolean | undefined) => {
+        const stringifiedOption = transformItem?.(option) ?? (option as string);
         return (
             <Menu.Item
-                key={option}
-                title={option}
-                onPress={() => {
-                    if (isControlled) {
-                        onOptionsChange([option]);
-                    } else {
-                        setInternalSelectedOptions([option]);
-                    }
-                    onSingleSelect(option);
-                    setIsOptionsVisible(false);
-                }}
-            />
-        );
-    };
-
-    const renderMultiSelectItem = (option: string, active: boolean) => {
-        return (
-            <Menu.Item
-                key={option}
-                title={option}
+                key={stringifiedOption}
+                title={stringifiedOption}
                 active={active}
                 closeMenuOnClick={false}
                 iconName={active ? "checkbox-marked" : "checkbox-blank-outline"}
                 onPress={() => {
                     setInputValue("");
-                    handleToggleOptionPress(option);
+                    if (active) {
+                        return onSelect(selectedOptions.filter(o => o !== option));
+                    }
+                    onSelect([...selectedOptions, option]);
                 }}
             />
         );
@@ -127,39 +107,38 @@ export const Autocomplete = ({
             <TextField
                 ref={inputRef}
                 {...restProps}
-                value={`${
-                    finalSelectedOptions.length ? finalSelectedOptions.join(", ") + " " : ""
-                }${inputValue}`}
+                value={inputValue}
                 onChange={text => {
-                    const newText = text.replace(
-                        new RegExp(`^${finalSelectedOptions.join(", ")},?\\s?`),
-                        "",
-                    );
-                    setInputValue(newText);
-                    if (onChange) onChange(newText);
+                    setInputValue(text);
                     setIsOptionsVisible(true);
+                    if (text === "") {
+                        onSelect([]);
+                    }
                 }}
+                // onChange={text => {
+                //     const newText = text.replace(
+                //         new RegExp(`^${(selectedOptions || []).join(", ")},?\\s?`),
+                //         "",
+                //     );
+                //     setInputValue(newText);
+                //     if (onChange) onChange(newText);
+                //     setIsOptionsVisible(true);
+                // }}
                 onFocus={handleMenuOpen}
-                onBlur={() =>
-                    setTimeout(() => {
-                        setIsOptionsVisible(false), setInputValue("");
-                    }, 150)
-                }
+                onBlur={() => {
+                    setIsOptionsVisible(false), setInputValue("");
+                }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
-                        {finalSelectedOptions.length > 0 || selectedToggleOptions.length > 0 ? (
+                        {!!selectedOptions.length && (
                             <IconButton
                                 name="close"
                                 variant="ghost"
                                 iconSize={18}
-                                onPress={
-                                    finalSelectedOptions
-                                        ? handleClearSingleText
-                                        : handleClearMultiText
-                                }
+                                onPress={handleClearText}
                                 style={styles.closeIcon}
                             />
-                        ) : null}
+                        )}
                         <IconButton
                             name={isOptionsVisible ? "menu-up" : "menu-down"}
                             variant="ghost"
@@ -168,6 +147,11 @@ export const Autocomplete = ({
                             style={styles.menuIcon}
                         />
                     </View>
+                }
+                placeholder={
+                    selectedOptions.length
+                        ? selectedOptions.map(o => transformItem?.(o) ?? o).join(", ")
+                        : "Choose an option"
                 }
             />
             {isOptionsVisible && (
@@ -180,7 +164,7 @@ export const Autocomplete = ({
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
                         {filteredOptions.map(option =>
-                            renderMultiSelectItem(option, finalSelectedOptions.includes(option)),
+                            renderMultiSelectItem(option, selectedOptions?.includes(option)),
                         )}
                     </ScrollView>
                 </Menu>

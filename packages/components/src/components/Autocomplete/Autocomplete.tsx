@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { LayoutRectangle, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
@@ -17,7 +17,7 @@ type AutocompleteProps<T> = {
      * The currently selected option.
      */
     selectedOption: T | undefined;
-} & TextFieldProps &
+} & Omit<TextFieldProps, "helperIcon" | "inputIcon"> &
     GenericAutocompleteProps<T>;
 
 export const Autocomplete = <T,>({
@@ -27,7 +27,15 @@ export const Autocomplete = <T,>({
     transformItem,
     ...restProps
 }: AutocompleteProps<T>) => {
-    const [inputValue, setInputValue] = useState<string>(selectedOption ?? "");
+    const internalTransform = useCallback(
+        (item: T | undefined): string => {
+            if (!item) return "";
+            return transformItem?.(item) ?? (item as string);
+        },
+        [transformItem],
+    );
+    const [inputValue, setInputValue] = useState<string>(internalTransform(selectedOption));
+
     const filteredOptions = useMemo(
         () =>
             options.filter(option => {
@@ -37,6 +45,11 @@ export const Autocomplete = <T,>({
         [inputValue, options, transformItem],
     );
 
+    const [isOptionsVisible, setIsOptionsVisible] = useState(false);
+    const inputRef = useRef<TextInput>(null);
+    const [inputLayout, setInputLayout] = useState<LayoutRectangle | undefined>();
+    const styles = useStyles(themedStyles, { inputLayout });
+
     const handleMenuOpen = () => {
         setIsOptionsVisible(true);
         inputRef.current && inputRef.current.focus();
@@ -44,33 +57,26 @@ export const Autocomplete = <T,>({
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
         if (selectedOption) {
-            setInputValue(selectedOption);
+            setInputValue(selectedOption as string);
         } else {
             setInputValue("");
         }
         inputRef.current && inputRef.current.blur();
     };
-
-    const [isOptionsVisible, setIsOptionsVisible] = useState(false);
-    const inputRef = useRef<TextInput>(null);
-    const [inputLayout, setInputLayout] = useState<LayoutRectangle | undefined>();
-    const styles = useStyles(themedStyles, { inputLayout });
-
     const handleClearText = () => {
         handleMenuClose();
         setInputValue("");
         onSelect(undefined);
     };
 
-    const renderItem = (option: string) => {
-        const itemString = transformItem ? transformItem(option) : (option as unknown as string);
-
+    const renderItem = (option: T) => {
+        const stringifiedOption = internalTransform(option);
         return (
             <Menu.Item
-                key={option}
-                title={option}
+                key={stringifiedOption}
+                title={stringifiedOption}
                 onPress={() => {
-                    setInputValue(itemString);
+                    setInputValue(stringifiedOption);
                     onSelect(option);
                     setIsOptionsVisible(false);
                 }}
