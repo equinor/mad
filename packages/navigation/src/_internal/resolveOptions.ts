@@ -22,7 +22,7 @@ export const resolveOptions = <T extends MadBaseOptions>(
 ): MadBaseOptions => {
     const resolvedScreenOptions = resolveScreenOptions(unresolvedScreenOptions, route, navigation);
     if (!resolvedScreenOptions && !descriptor.options)
-        return { headerShown: undefined, environmentBannerShown: undefined };
+        return { headerShown: undefined, customSubHeaderShown: undefined };
     if (!resolvedScreenOptions && descriptor.options) return descriptor.options;
     if (!descriptor.options && resolvedScreenOptions) return resolvedScreenOptions;
     return { ...resolvedScreenOptions, ...descriptor.options };

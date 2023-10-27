@@ -1,10 +1,11 @@
 import React from "react";
-import { EnvironmentProvider, createNativeStackNavigator } from "@equinor/mad-navigation";
+import { EnvironmentProvider } from "@equinor/mad-components";
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
+import { createNativeStackNavigator } from "../components/navigation";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
@@ -25,7 +26,7 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                         <Stack.Screen
                             name="Login"
                             component={LoginScreen}
-                            options={{ headerShown: false, environmentBannerShown: true }}
+                            options={{ headerShown: false, customSubHeaderShown: true }}
                         />
                         <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
                         {props.children}
