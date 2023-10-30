@@ -95,7 +95,7 @@ export const AutocompleteScreen = () => {
             <View style={styles.container}>
                 <Typography>This is a autocomplete with multiple selections.</Typography>
                 <Spacer />
-                <Autocomplete.MultiSelect
+                <Autocomplete.Multiselect
                     options={animals}
                     label="Click me and spot multiple Jungle Creatures"
                     placeholder="Type a name and see who's lurking..."

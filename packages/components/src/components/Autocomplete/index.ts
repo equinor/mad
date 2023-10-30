@@ -1,11 +1,11 @@
 import { Autocomplete as _Autocomplete } from "./Autocomplete";
-import { MultiSelectAutocomplete } from "./MultiSelectAutocomplete";
+import { MultiselectAutocomplete as MultiselectAutocomplete } from "./MultiselectAutocomplete";
 
 type AutocompleteFamily = typeof _Autocomplete & {
-    MultiSelect: typeof MultiSelectAutocomplete;
+    Multiselect: typeof MultiselectAutocomplete;
 };
 
 const Autocomplete = _Autocomplete as AutocompleteFamily;
-Autocomplete.MultiSelect = MultiSelectAutocomplete;
+Autocomplete.Multiselect = MultiselectAutocomplete;
 
 export { Autocomplete };

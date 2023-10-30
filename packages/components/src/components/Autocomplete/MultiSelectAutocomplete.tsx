@@ -9,23 +9,23 @@ import { TextField, TextFieldProps } from "../TextField";
 import { GenericAutocompleteProps } from "./types";
 import { Autocomplete } from "./Autocomplete";
 
-type MultiSelectAutocompleteProps<T> = {
+type MultiselectAutocompleteProps<T> = {
     /**
-     * An array of options that will be selected when the autocomplete is rendered.
+     * A callback method invoked when the user selects an option from the autocomplete.
      */
     onSelect: (value: T[]) => void;
     selectedOptions: T[];
 } & Omit<TextFieldProps, "helperIcon" | "inputIcon"> &
     GenericAutocompleteProps<T>;
 
-export const MultiSelectAutocomplete = <T,>({
+export const MultiselectAutocomplete = <T,>({
     options,
     selectedOptions,
     onSelect,
     transformItem,
     ...restProps
-}: MultiSelectAutocompleteProps<T>) => {
-    const [inputValue, setInputValue] = useState<string>(selectedOptions?.join(", ") ?? "");
+}: MultiselectAutocompleteProps<T>) => {
+    const [inputValue, setInputValue] = useState<string>("");
 
     const filteredOptions = useMemo(
         () =>
@@ -48,7 +48,7 @@ export const MultiSelectAutocomplete = <T,>({
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
         if (selectedOptions) {
-            setInputValue(selectedOptions?.join(", "));
+            setInputValue("");
         } else {
             setInputValue("");
         }
@@ -60,7 +60,7 @@ export const MultiSelectAutocomplete = <T,>({
         onSelect([]);
     };
 
-    const renderMultiSelectItem = (option: T, active: boolean | undefined) => {
+    const renderMultiselectItem = (option: T, active: boolean | undefined) => {
         const stringifiedOption = transformItem?.(option) ?? (option as string);
         return (
             <Menu.Item
@@ -139,7 +139,7 @@ export const MultiSelectAutocomplete = <T,>({
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
                         {filteredOptions.map(option =>
-                            renderMultiSelectItem(option, selectedOptions?.includes(option)),
+                            renderMultiselectItem(option, selectedOptions?.includes(option)),
                         )}
                     </ScrollView>
                 </Menu>
