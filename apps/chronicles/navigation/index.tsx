@@ -7,7 +7,6 @@ import React from "react";
 import {
     createBottomTabNavigator,
     createNativeStackNavigator,
-    EnvironmentProvider,
     NavigationContainer,
 } from "@equinor/mad-navigation";
 import { ColorSchemeName } from "react-native";
@@ -15,7 +14,7 @@ import { ColorSchemeName } from "react-native";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
 import IconsScreen from "../screens/IconsScreen";
-import { DiscoverStackParamList, RootStackParamList, RootTabParamList } from "../types";
+import { DiscoverStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { DrawScreen } from "../screens/DrawScreen";
 import { SignatureScreen } from "../screens/SignatureTest";
@@ -39,61 +38,49 @@ import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
 import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
-import { LoginScreen } from "../screens/LoginScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
+import { createCoreStackNavigator } from "@equinor/mad-core";
+import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
-
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
-        <EnvironmentProvider environment="qa">
-            <NavigationContainer
-                linking={LinkingConfiguration}
-                theme={{
-                    dark: colorScheme === "dark",
-                    colors: {
-                        primary: token.colors.interactive.primary,
-                        background: token.colors.container.background,
-                        card: token.colors.container.default,
-                        text: token.colors.text.primary,
-                        border: token.colors.border.medium,
-                        notification: token.colors.interactive.primary,
-                    },
-                }}
-                onRouteChange={current => trackNavigation(current)}
-            >
-                <RootNavigator />
-            </NavigationContainer>
-        </EnvironmentProvider>
+        <NavigationContainer
+            linking={LinkingConfiguration}
+            theme={{
+                dark: colorScheme === "dark",
+                colors: {
+                    primary: token.colors.interactive.primary,
+                    background: token.colors.container.background,
+                    card: token.colors.container.default,
+                    text: token.colors.text.primary,
+                    border: token.colors.border.medium,
+                    notification: token.colors.interactive.primary,
+                },
+            }}
+            onRouteChange={current => trackNavigation(current)}
+        >
+            <RootNavigator />
+        </NavigationContainer>
     );
 }
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
-const RootStack = createNativeStackNavigator<RootStackParamList>();
-
+const CoreStack = createCoreStackNavigator(config);
 function RootNavigator() {
     return (
-        <RootStack.Navigator>
-            <RootStack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{ headerShown: false, environmentBannerShown: true }}
-            />
-            <RootStack.Screen
+        <CoreStack.Navigator>
+            <CoreStack.Screen
                 name="Root"
                 component={BottomTabNavigator}
                 options={{ headerShown: false }}
             />
-            <RootStack.Screen
+            <CoreStack.Screen
                 name="NotFound"
                 component={NotFoundScreen}
                 options={{ title: "Oops!" }}
             />
-        </RootStack.Navigator>
+        </CoreStack.Navigator>
     );
 }
 

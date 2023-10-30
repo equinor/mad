@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@equinor/mad-components": "workspace:*",
+    "@equinor/mad-core": "workspace:*",
     "@equinor/mad-insights": "workspace:*",
     "@equinor/mad-navigation": "workspace:*",
     "@equinor/react-native-skia-draw": "workspace:*",
@@ -43,7 +44,8 @@
     "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.7",
     "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#f1069d3b8f6ca911f60af1ddce45c8512bc58714",
-    "uuid": "^3.0.0"
+    "uuid": "^3.0.0",
+    "@react-native-async-storage/async-storage": "^1.19.3"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",

@@ -1,0 +1,61 @@
+{
+    "name": "@equinor/mad-core",
+    "version": "0.0.1",
+    "description": "Core library for the Mobile App Delivery team",
+    "type": "module",
+    "scripts": {
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
+        "test": "jest",
+        "dev": "tsup-node --watch --clean=false",
+        "lint": "eslint src/"
+    },
+    "keywords": [
+        "react native",
+        "mad",
+        "expo",
+        "equinor"
+    ],
+    "author": {
+        "name": "Equinor Mobile App Delivery team (MAD)"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/equinor/mad/issues"
+    },
+    "homepage": "https://github.com/equinor/mad/",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "peerDependencies": {
+        "@react-native-async-storage/async-storage": "*",
+        "@react-navigation/native": "^6.1.8",
+        "react": ">=16.8",
+        "react-dom": ">=16.8",
+        "react-native": ">=0.68",
+        "react-native-msal": ">=4.0.4"
+    },
+    "dependencies": {
+        "@equinor/mad-auth": "workspace:*",
+        "@equinor/mad-components": "workspace:*",
+        "@equinor/mad-insights": "workspace:*",
+        "@equinor/mad-navigation": "workspace:*",
+        "@react-navigation/elements": "1.3.19",
+        "react-native-render-html": "6.3.4",
+        "showdown": "2.1.0",
+        "zustand": "^4.4.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.21.4",
+        "@equinor/eslint-config-mad": "workspace:*",
+        "@testing-library/jest-native": "^5.4.3",
+        "@testing-library/react": "^14.0.0",
+        "@testing-library/react-native": "^12.3.0",
+        "@types/showdown": "^2.0.0",
+        "react-test-renderer": "18.1.0"
+    },
+    "files": [
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "dist"
+    ]
+}
