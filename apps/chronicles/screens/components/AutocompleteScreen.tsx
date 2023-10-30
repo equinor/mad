@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
 import {
     EDSStyleSheet,
@@ -41,8 +41,29 @@ const awesomeAnimals = [
     "Tamarin",
 ];
 
+type Animal = {
+    id: number;
+    name: string;
+};
+
+const animals: Animal[] = [
+    { id: 1, name: "Snow Leopard" },
+    { id: 2, name: "Red Panda" },
+    { id: 3, name: "Platypus" },
+    { id: 4, name: "Narwhal" },
+    { id: 5, name: "Axolotl" },
+    { id: 6, name: "Mantis Shrimp" },
+    { id: 7, name: "Tarsier" },
+    { id: 8, name: "Fennec Fox" },
+    { id: 9, name: "Komodo Dragon" },
+    { id: 10, name: "Okapi" },
+];
+
 export const AutocompleteScreen = () => {
     const styles = useStyles(themedStyles);
+    const [selectedAwesomeAnimal, setSelectedAwesomeAnimal] = useState<string>();
+    const [selectedAnimal, setSelectedAnimal] = useState<Animal>();
+    const [selectedAnimals, setSelectedAnimals] = useState<Animal[]>([]);
 
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
@@ -55,30 +76,32 @@ export const AutocompleteScreen = () => {
                     options={awesomeAnimals}
                     label="Click me and spot a Jungle Creature"
                     placeholder="Type a name and see who's lurking..."
-                    onSelect={() => null}
+                    onSelect={animal => setSelectedAwesomeAnimal(animal)}
+                    selectedOption={selectedAwesomeAnimal}
                 />
             </View>
             <View style={styles.container}>
-                <Typography>Explore the Jungle Canopy</Typography>
+                <Typography>The autocomplete can accept all types of options.</Typography>
                 <Spacer />
                 <Autocomplete
-                    options={awesomeAnimals}
-                    label="Find a Tree-dweller"
-                    placeholder="Who's swinging in the trees?"
-                    onSelect={() => null}
+                    options={animals}
+                    label="Click me and spot a Jungle Creature"
+                    placeholder="Type a name and see who's lurking..."
+                    onSelect={animal => setSelectedAnimal(animal)}
+                    selectedOption={selectedAnimal}
+                    transformItem={item => `${item.id} - ${item.name}`}
                 />
             </View>
             <View style={styles.container}>
-                <Typography>
-                    Delve into the Jungle Undergrowth and select multiple animals
-                </Typography>
+                <Typography>This is a autocomplete with multiple selections.</Typography>
                 <Spacer />
-                <Autocomplete
-                    options={awesomeAnimals}
-                    label="Unearth your Ground Critters"
-                    placeholder="Who's scuttling below?"
-                    onSelect={() => null}
-                    multiple
+                <Autocomplete.Multiselect
+                    options={animals}
+                    label="Click me and spot multiple Jungle Creatures"
+                    placeholder="Type a name and see who's lurking..."
+                    onSelect={animal => setSelectedAnimals(animal)}
+                    selectedOptions={selectedAnimals}
+                    transformItem={item => item.name}
                 />
             </View>
         </ScrollView>
