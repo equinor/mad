@@ -1,7 +1,6 @@
 import { EnvironmentContextProps } from "@equinor/mad-components";
 import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
-import { SettingsScreenConfiguration } from "./components/screens/settings/types";
 
 export type MadConfig = {
     /**
@@ -60,7 +59,6 @@ export type MadConfig = {
          */
         logo: ImageSourcePropType;
     };
-    settings: SettingsScreenConfiguration;
     about?: {
         /**
          * Endpoints used by the app

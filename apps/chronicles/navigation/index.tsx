@@ -38,11 +38,11 @@ import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
 import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
-import { SettingsScreen } from "../screens/SettingsScreen";
 import { createCoreStackNavigator } from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
+import { SampleSettingsScreen } from "./SettingsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -81,6 +81,7 @@ function RootNavigator() {
                 component={NotFoundScreen}
                 options={{ title: "Oops!" }}
             />
+            <CoreStack.Screen name="Settings" component={SampleSettingsScreen} />
         </CoreStack.Navigator>
     );
 }

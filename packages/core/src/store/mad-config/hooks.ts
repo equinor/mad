@@ -1,4 +1,3 @@
-import { SettingsScreenConfiguration } from "../../components/screens/settings/types";
 import { getPremadeSettings } from "../../utils/getPremadeSettings";
 import { useMadConfig } from "./mad-config";
 
@@ -27,8 +26,8 @@ export const useServicePortalName = () => {
     return config.servicePortalName;
 };
 
-export const useSettingsScreenConfig = (): SettingsScreenConfiguration => {
+export const useSettingsScreenPremadeConfig = () => {
     const config = useMadConfig();
     const premadeSettings = getPremadeSettings(config);
-    return [premadeSettings, ...config.settings];
+    return premadeSettings;
 };

@@ -6,7 +6,10 @@ export const config: MadConfig = {
     servicePortalName: "Chronicles",
     environment: "test",
     language: {
-        supportedLanguages: [{ code: "en", name: "English" }],
+        supportedLanguages: [
+            { code: "en", name: "English" },
+            { code: "nb", name: "Norwegian" },
+        ],
     },
     authentication: {
         redirectUri: "msauth.com.equinor.mad.chronicles://auth",
@@ -17,39 +20,11 @@ export const config: MadConfig = {
         title: "Chronicles",
         logo: Logo,
     },
-    about: {
-        endpoints: [],
-        buildNumber: "1",
-    },
     serviceNow: {
         whatever: "",
     },
-    settings: [
-        {
-            title: "test",
-            items: [
-                {
-                    name: "navigation",
-                    description: "With description",
-                    iconName: "ab-testing",
-                    onPress: () => undefined,
-                    title: "Navigation test",
-                },
-                {
-                    name: "button",
-                    iconName: "ab-testing",
-                    onPress: () => undefined,
-                    title: "Button test",
-                    color: "danger",
-                },
-                {
-                    name: "switch",
-                    title: "Switch test",
-                    iconName: "ab-testing",
-                    isActive: true,
-                    onChange: () => undefined,
-                },
-            ],
-        },
-    ],
+    about: {
+        endpoints: [],
+        buildNumber: "",
+    },
 };

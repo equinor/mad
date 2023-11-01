@@ -5,7 +5,6 @@ import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
-import { SettingsScreen } from "../components/screens/settings";
 import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { AboutScreen } from "../components/screens/AboutScreen";
 import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen";
@@ -32,7 +31,6 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                             options={{ headerShown: false, environmentBannerShown: true }}
                         />
                         <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
-                        <Stack.Screen name="Settings" component={SettingsScreen} />
                         <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
                         {config.about && <Stack.Screen name="About" component={AboutScreen} />}
                         {config.serviceNow && (

@@ -7,7 +7,8 @@ export const useSignOut = () => {
     const navigation = useCoreStackNavigation();
     const signOutFn = useCallback(async () => {
         try {
-            await signOut();
+            const result = await signOut();
+            if (!result) throw new Error("Unable to sign out");
             navigation.navigate("Login");
         } catch (_) {
             alert("Error", "Unable to sign out", [
