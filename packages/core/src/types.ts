@@ -1,6 +1,7 @@
 import { EnvironmentContextProps } from "@equinor/mad-components";
 import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
+import { SettingsScreenConfiguration } from "./components/screens/settings/types";
 
 export type MadConfig = {
     /**
@@ -58,6 +59,21 @@ export type MadConfig = {
          * App logo. Used in login screen
          */
         logo: ImageSourcePropType;
+    };
+    settings: SettingsScreenConfiguration;
+    about?: {
+        /**
+         * Endpoints used by the app
+         */
+        endpoints: string[];
+        /**
+         * Build number of the app.
+         */
+        buildNumber: string;
+    };
+    serviceNow?: {
+        //TODO
+        whatever: string;
     };
 };
 
