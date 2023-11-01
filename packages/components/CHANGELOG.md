@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.8.0
+
+### Minor Changes
+
+-   fb69a74: Fixed flex issues on search
+
 ## 0.7.0
 
 ### Minor Changes
