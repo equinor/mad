@@ -1,6 +1,7 @@
 import { EnvironmentContextProps } from "@equinor/mad-components";
 import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
+import { AppInsightsInitConfig } from "@equinor/mad-insights";
 
 export type MadConfig = {
     /**
@@ -59,6 +60,10 @@ export type MadConfig = {
          */
         logo: ImageSourcePropType;
     };
+    /**
+     * App insights config used for initializing application insights service(s)
+     */
+    applicationInsights: AppInsightsInitConfig;
 };
 
 export type CoreStackParamListBase = {

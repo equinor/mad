@@ -10,38 +10,27 @@ import { createBrowserHistory } from "history";
 import { Platform } from "react-native";
 
 import { obfuscateUser } from "./encrypt";
+import { AppInsightsInitConfig, Envelope } from "./types";
 
 let appInsightsMain: ApplicationInsights;
 let appInsightsLongTermLog: ApplicationInsights;
+let hasBeenInitialized = false;
 let reactPluginWeb: ReactPlugin;
 let useSHA1: boolean;
+const envelopeBacklog: Envelope[] = [];
 
 /**
  * Initialize appInsights. This should be called at app startup (useEffect inside App.tsx might be a good place to put it).
  * You need to provide a connectionString OR instrumentationKey.
  * @example initializeTracking({connectionString: "STRING"})
  * @example initializeTracking({instrumentationKey: "STRING"})
- * @param payload: { connectionString } OR { instrumentationKey }
+ * @param config: { connectionString } OR { instrumentationKey }
  */
-export const appInsightsInit = (
-    payload: (
-        | { connectionString: string; instrumentationKey?: undefined }
-        | { instrumentationKey: string; connectionString?: undefined }
-    ) & {
-        /**
-         * Long term log hides user id
-         */
-        longTermLog?: (
-            | { connectionString: string; instrumentationKey?: undefined }
-            | { instrumentationKey: string; connectionString?: undefined }
-        ) & {
-            /**@deprecated ONLY use in special circumstances. SHA1 is _NOT_ secure*/
-            useSHA1?: boolean;
-        };
-    },
-) => {
-    const { connectionString, instrumentationKey } = payload;
-    useSHA1 = payload.longTermLog?.useSHA1 || false;
+export const appInsightsInit = (config: AppInsightsInitConfig) => {
+    const { connectionString, instrumentationKey } = config;
+    useSHA1 = config.longTermLog?.useSHA1 || false;
+    if (hasBeenInitialized) return;
+    hasBeenInitialized = true;
 
     if (Platform.OS === "web") {
         const browserHistory = createBrowserHistory();
@@ -57,11 +46,11 @@ export const appInsightsInit = (
                 },
             },
         });
-        if (payload.longTermLog) {
+        if (config.longTermLog) {
             appInsightsLongTermLog = new ApplicationInsights({
                 config: {
-                    connectionString: payload.longTermLog.connectionString,
-                    instrumentationKey: payload.longTermLog.instrumentationKey,
+                    connectionString: config.longTermLog.connectionString,
+                    instrumentationKey: config.longTermLog.instrumentationKey,
                     disableFetchTracking: false,
                     extensions: [reactPluginWeb],
                     extensionConfig: {
@@ -82,12 +71,12 @@ export const appInsightsInit = (
                 extensions: [RNPlugin],
             },
         });
-        if (payload.longTermLog) {
+        if (config.longTermLog) {
             appInsightsLongTermLog = new ApplicationInsights({
                 config: {
                     disableFetchTracking: false,
-                    connectionString: payload.longTermLog.connectionString,
-                    instrumentationKey: payload.longTermLog.instrumentationKey,
+                    connectionString: config.longTermLog.connectionString,
+                    instrumentationKey: config.longTermLog.instrumentationKey,
                     extensions: [RNPlugin],
                 },
             });
@@ -95,8 +84,13 @@ export const appInsightsInit = (
         }
         appInsightsMain.loadAppInsights();
     }
+
+    envelopeBacklog.forEach(addTelemetryInitializer);
+
     track(metricKeys.APP_STARTED);
 };
+
+export const appInsightsHasBeenInitialized = () => hasBeenInitialized;
 
 export const validateAppInsightsInit = () => {
     if (!appInsightsMain) {
@@ -154,7 +148,11 @@ export const track = async (
     }
 };
 
-export const addTelemetryInitializer = (envelope: (item: ITelemetryItem) => boolean | void) => {
+export const addTelemetryInitializer = (envelope: Envelope) => {
+    if (!hasBeenInitialized) {
+        envelopeBacklog.push(envelope);
+        return;
+    }
     appInsightsMain.addTelemetryInitializer(envelope);
     appInsightsLongTermLog.addTelemetryInitializer(envelope);
 };
