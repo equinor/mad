@@ -84,7 +84,7 @@ const whatsNewStyles = EDSStyleSheet.create((theme) => ({
     },
     footer: {
         alignItems: "flex-end",
-        marginRight: theme.spacing.container.paddingHorizontal,
-        marginBottom: theme.spacing.container.paddingVertical,
+        marginHorizontal: theme.spacing.container.paddingHorizontal,
+        marginVertical: theme.spacing.container.paddingVertical,
     },
 }));

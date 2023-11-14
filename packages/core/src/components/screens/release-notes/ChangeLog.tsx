@@ -1,6 +1,6 @@
 import { getShortDate } from "../../../utils/dateUtils";
 import React, { useState } from "react";
-import { View } from "react-native";
+import {ScrollView, View} from "react-native";
 import RenderHtml, { defaultSystemFonts } from "react-native-render-html";
 import * as showdown from "showdown";
 import { Typography, Cell, EDSStyleSheet, useStyles } from "@equinor/mad-components";
@@ -29,6 +29,7 @@ export const ChangeLog = ({ release }: ReleaseProps) => {
 
 
     return (
+        <ScrollView>
         <Cell style={styles.container}>
             <Typography style={styles.versionHeader}>{release.version}</Typography>
             <Typography style={styles.subtitleHeader}>{shortDate}</Typography>
@@ -50,6 +51,7 @@ export const ChangeLog = ({ release }: ReleaseProps) => {
                 />
             </View>
         </Cell>
+        </ScrollView>
     );
 };
 
