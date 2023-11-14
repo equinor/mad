@@ -2,6 +2,7 @@
     "app": "App name",
     "version": "1.1.0",
     "modified": "2022-12-09T07:04:55+0000",
-    "releaseNote": "- Minor bug fixes",
+    "releaseNote": "- This is a list\n- This is the second part of the list\n- Something\n    - something else",
+
     "releaseDate": "2022-12-09T07:04:55+0000"
 }

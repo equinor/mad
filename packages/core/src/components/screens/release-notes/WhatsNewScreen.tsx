@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { ChangeLog, Release } from "./ChangeLog";
 import * as mockData from "../../../static/mock-data/whats-new.json";
 import { useAppVersion, useEnvironment, useServicePortalName } from "../../../store/mad-config";
-import { useReleaseNotesVersion } from "../../../store/release-notes/release-notes";
-import { CircularProgress } from "@equinor/mad-components";
+import { useReleaseNotesVersion } from "../../../store/release-notes";
+import { Button, CircularProgress } from "@equinor/mad-components";
 import { useCoreStackNavigation } from "../../../hooks/useCoreStackNavigation";
 import { useDemoMode } from "../../../store/demo-mode";
 import { fetchReleaseNotes } from "./fetchReleaseNotes";
+import { StyleSheet, View } from "react-native";
 
 /**
  * This screen will display the latest releasenotes
@@ -47,12 +48,52 @@ export const WhatsNewScreen = () => {
     }
 
     return (
-        <ChangeLog
-            release={release}
-            onPressAffirm={() => {
-                releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
-                navigate();
-            }}
-        />
+        <View style={styles.container}>
+            <ChangeLog release={release} />
+            <View style={styles.footer}>
+                <Button
+                    title="OK"
+                    onPress={() => {
+                        releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
+                        navigate();
+                    }}
+                    style={{ width: 81 }}
+                />
+            </View>
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    spinnerContainer: {
+        display: "flex",
+        justifyContent: "center"
+    },
+    container: {
+        display: "flex",
+        paddingTop: 48,
+        height: "100%",
+        justifyContent: "space-between",
+    },
+    titleHeader: {
+        marginVertical: 15,
+    },
+    changelogItem: {
+        marginBottom: 15,
+        marginTop: 20,
+        paddingHorizontal: 20,
+    },
+    versionHeader: {
+        marginVertical: 15,
+    },
+    subtitleHeader: {
+        fontSize: 18,
+        marginVertical: 5,
+        color: "#333333",
+    },
+    footer: {
+        alignItems: "flex-end",
+        marginRight: 32,
+        marginBottom: 16,
+    },
+});
