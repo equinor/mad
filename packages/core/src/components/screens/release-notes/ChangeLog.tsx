@@ -16,11 +16,11 @@ export type Release = {
     releaseDate: string;
 };
 
-type ReleaseProps = {
+type ChangeLogProps = {
     release: Release;
 };
 
-export const ChangeLog = ({ release }: ReleaseProps) => {
+export const ChangeLog = ({ release }: ChangeLogProps) => {
     const styles = useStyles(changeLogStyles);
     const [width, setWidth] = useState(0);
     const html = { html: converter.makeHtml(release.releaseNote) };
