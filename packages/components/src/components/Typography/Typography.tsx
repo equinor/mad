@@ -48,7 +48,13 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
 } & TextProps;
 
 export type TextChildren = {
-    children: string | string[] | number | undefined | null;
+    children:
+        | string
+        | number
+        | null
+        | undefined
+        | React.JSX.Element
+        | (string | string[] | number | null | undefined | React.JSX.Element)[];
 };
 
 const TypographyInner = <TGroup extends TypographyGroup>({
