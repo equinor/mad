@@ -20,6 +20,7 @@ export { alert } from "./components/Dialog";
 export * from "./components/Environment";
 export * from "./components/Switch";
 export * from "./components/ErrorBoundary";
+export * from "./components/Selection";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";
