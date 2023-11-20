@@ -2,6 +2,9 @@ import React from "react";
 import { Icon } from "../Icon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { PressableHighlight } from "../PressableHighlight";
+import { colors } from "../../styling";
+import { StyleSheet } from "react-native";
+
 
 export type RadioProps = {
     /**
@@ -11,7 +14,7 @@ export type RadioProps = {
     /**
      * Color theme of the button.
      */
-    color?: "primary" | "secondary" | "danger";
+    color?: "primary" | "secondary" | "warning" | "danger" | "success";
     /**
      * whether the button is in its disabled state.
      */
@@ -34,7 +37,7 @@ export const Radio = ({
 }: RadioProps) => {
     return (
         <PressableHighlight
-            style={{backgroundColor: "rgba(0,0,0,0)"}}
+            style={[styles.pressableHighlight, {borderRadius: size}]}
             onPress={() => {
                 onPress(disabled ? checked : !checked);
             }}
@@ -43,12 +46,21 @@ export const Radio = ({
             <Icon
                 name={
                     (checked
-                        ? "radio-button-checked"
-                        : "radio-button-unchecked") as keyof typeof MaterialCommunityIcons.glyphMap
+                        ? "radiobox-marked"
+                        : "radiobox-blank") as keyof typeof MaterialCommunityIcons.glyphMap
                 }
                 size={size}
-                color={color}
+                color={disabled ? colors.interactive_disabled_light_text : color}
             />
         </PressableHighlight>
     );
 };
+
+const styles = StyleSheet.create({
+        pressableHighlight: {
+            padding: 7,
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+        },
+});

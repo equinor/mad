@@ -5,7 +5,7 @@ import { EDSStyleSheet } from "../../styling";
 import { Icon, IconName } from "../Icon";
 import { Cell, CellProps } from "./Cell";
 import { Typography } from "../Typography";
-import { Switch } from "../Switch";
+import { Switch } from "../SelectionControls";
 
 type SwitchColor = "textPrimary" | "danger" | "warning" | "textDisabled"; // Add more as needed
 

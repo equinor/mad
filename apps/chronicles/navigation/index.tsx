@@ -36,7 +36,7 @@ import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
-import { SwitchScreen } from "../screens/components/SwitchScreen";
+import { SelectionControlsScreen } from "../screens/components/SelectionControlsScreen";
 import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
 import { createCoreStackNavigator } from "@equinor/mad-core";
@@ -104,7 +104,11 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Paper" component={PaperScreen} />
             <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
             <DiscoverStack.Screen name="Button" component={ButtonScreen} />
-            <DiscoverStack.Screen name="Switch" component={SwitchScreen} />
+            <DiscoverStack.Screen
+                name="SelectionControls"
+                component={SelectionControlsScreen}
+                options={{ headerTitle: "Selection Controls" }}
+            />
             <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
             <DiscoverStack.Screen name="Input" component={InputScreen} />
             <DiscoverStack.Screen name="Autocomplete" component={AutocompleteScreen} />
