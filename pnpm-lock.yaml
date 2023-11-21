@@ -2261,7 +2261,7 @@ packages:
       '@expo/json-file': 8.2.37
       '@expo/metro-config': 0.10.7
       '@expo/osascript': 2.0.33
-      '@expo/package-manager': 1.1.2
+      '@expo/package-manager': 1.0.2
       '@expo/plist': 0.0.20
       '@expo/prebuild-config': 6.2.6(expo-modules-autolinking@1.5.1)
       '@expo/rudder-sdk-node': 1.1.1
@@ -2286,6 +2286,7 @@ packages:
       graphql-tag: 2.12.6(graphql@15.8.0)
       https-proxy-agent: 5.0.1
       internal-ip: 4.3.0
+      is-root: 2.1.0
       js-yaml: 3.14.1
       json-schema-deref-sync: 0.13.0
       md5-file: 3.2.3
@@ -2620,7 +2621,7 @@ packages:
     resolution: {integrity: sha512-nlYVzcheaOZdxSt31he16f/ZgcdS3BT4BjEU85TwgFUdUJngjhT9wcmmkvXmOYz0o0NBMtZCkX8S0Z2Ta3yuNQ==}
     engines: {node: '>=12'}
     peerDependencies:
-      expo: ^49.0.7
+      expo: ^48.0.17
     dependencies:
       '@babel/core': 7.22.15
       babel-loader: 8.3.0(@babel/core@7.22.15)(webpack@5.88.2)
@@ -13359,7 +13360,6 @@ packages:
     id: github.com/equinor/react-native-msal/09d309a958a29fddb4bc146859cca4ebdc1ce276
     name: react-native-msal
     version: 1.0.6
-    prepare: true
     requiresBuild: true
     peerDependencies:
       react: '*'
