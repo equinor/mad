@@ -209,8 +209,8 @@ importers:
         specifier: '>=0.68'
         version: 0.72.3(@babel/core@7.22.15)(@babel/preset-env@7.22.15)(react@18.2.0)
       react-native-msal:
-        specifier: '>=4.0.4'
-        version: 4.0.4(react-native@0.72.3)(react@18.2.0)
+        specifier: git+https://github.com/equinor/react-native-msal.git#09d309a958a29fddb4bc146859cca4ebdc1ce276
+        version: github.com/equinor/react-native-msal/09d309a958a29fddb4bc146859cca4ebdc1ce276(react-native@0.72.3)(react@18.2.0)
     devDependencies:
       '@equinor/eslint-config-mad':
         specifier: workspace:*
@@ -13352,6 +13352,25 @@ packages:
       '@types/react': 18.2.21
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
+
+  github.com/equinor/react-native-msal/09d309a958a29fddb4bc146859cca4ebdc1ce276(react-native@0.72.3)(react@18.2.0):
+    resolution: {tarball: https://codeload.github.com/equinor/react-native-msal/tar.gz/09d309a958a29fddb4bc146859cca4ebdc1ce276}
+    id: github.com/equinor/react-native-msal/09d309a958a29fddb4bc146859cca4ebdc1ce276
+    name: react-native-msal
+    version: 1.0.6
+    prepare: true
+    requiresBuild: true
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      '@azure/msal-browser': 2.38.2
+      '@expo/config-plugins': 7.2.5
+      react: 18.2.0
+      react-native: 0.72.3(@babel/core@7.22.15)(@babel/preset-env@7.22.15)(react@18.2.0)
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   github.com/equinor/react-native-msal/f1069d3b8f6ca911f60af1ddce45c8512bc58714(react-native@0.72.3)(react@18.2.0):
