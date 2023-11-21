@@ -1,10 +1,10 @@
 {
     "name": "@equinor/mad-components",
-    "version": "0.6.7",
+    "version": "0.8.0",
     "description": "A React Native component library implementing the Equinor Design System.",
     "type": "module",
     "scripts": {
-        "build": "tsup-node",
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "test": "jest",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/"

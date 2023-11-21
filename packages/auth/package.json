@@ -1,10 +1,10 @@
 {
     "name": "@equinor/mad-auth",
-    "version": "0.0.9",
+    "version": "0.0.13",
     "description": "A simple wrapper library for react-native-msal",
     "type": "module",
     "scripts": {
-        "build": "tsup-node",
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "test": "jest",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/"

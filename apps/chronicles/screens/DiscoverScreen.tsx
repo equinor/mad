@@ -38,17 +38,17 @@ export default function DiscoverScreen({
                 />
                 <Cell.Navigation
                     title="Text Field"
-                    description="Enter and edit text"
+                    description="Fancier input field"
                     iconName="card-text-outline"
                     onPress={() => navigation.navigate("TextField")}
                 />
                 <Cell.Navigation
                     title="Input"
-                    description="Fancier text input"
+                    description="Enter and edit text"
                     iconName="form-textbox"
                     onPress={() => navigation.navigate("Input")}
                 />
-                  <Cell.Navigation
+                <Cell.Navigation
                     title="Autocomplete"
                     description="Suggest options as the user types"
                     iconName="format-list-bulleted-square"

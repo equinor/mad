@@ -22,7 +22,7 @@ export const SettingsScreen = () => {
             <Typography variant="h2">Username: {account?.username || "Undefined"}</Typography>
             <Button
                 title="Sign out"
-                onPress={() => signOut().then(res => res && navigation.navigate("Login"))}
+                onPress={() => signOut().finally(() => navigation.navigate("Login"))}
             />
         </View>
     );

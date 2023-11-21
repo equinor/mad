@@ -1,5 +1,37 @@
 # @equinor/mad-auth
 
+## 0.0.13
+
+### Patch Changes
+
+-   Updated dependencies [fb69a74]
+    -   @equinor/mad-components@0.8.0
+
+## 0.0.12
+
+### Patch Changes
+
+-   5a071fb: added scopes prop to the login button
+-   Updated dependencies [c2f7949]
+-   Updated dependencies [b8b7a72]
+-   Updated dependencies [c2f7949]
+    -   @equinor/mad-components@0.7.0
+
+## 0.0.11
+
+### Patch Changes
+
+-   Updated dependencies [a29275a]
+-   Updated dependencies [26fbbbe]
+    -   @equinor/mad-components@0.6.9
+
+## 0.0.10
+
+### Patch Changes
+
+-   Updated dependencies [e8d96f6]
+    -   @equinor/mad-components@0.6.8
+
 ## 0.0.9
 
 ### Patch Changes
