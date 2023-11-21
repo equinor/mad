@@ -8,8 +8,10 @@ import EquinorLightItalic from "../assets/fonts/Equinor-LightItalic.otf";
 import EquinorMedium from "../assets/fonts/Equinor-Medium.otf";
 import EquinorMediumItalic from "../assets/fonts/Equinor-MediumItalic.otf";
 import EquinorRegular from "../assets/fonts/Equinor-Regular.otf";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const fontMap = {
+    ...MaterialCommunityIcons.font,
     "Equinor-Bold": EquinorBold,
     "Equinor-BoldItalic": EquinorBoldItalic,
     "Equinor-Italic": EquinorItalic,
