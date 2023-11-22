@@ -1,11 +1,12 @@
-import { Color, Skia, SkiaMutableValue, TouchHandlers } from "@shopify/react-native-skia";
+import { Color, Skia, TouchHandlers } from "@shopify/react-native-skia";
 import { CanvasData, CanvasTool, PenData } from "./types";
+import { MutableRefObject } from "react";
 
 type TouchHandlerData = {
-    canvasHistory: SkiaMutableValue<CanvasData[]>;
-    currentPenPaths: SkiaMutableValue<Record<string, PenData>>;
-    toolColor: SkiaMutableValue<Color>;
-    strokeWeight: SkiaMutableValue<number>;
+    canvasHistory: MutableRefObject<CanvasData[]>;
+    currentPenPaths: MutableRefObject<Record<number, PenData>>;
+    toolColor: Color;
+    strokeWeight: number;
     rerender: () => void;
 };
 
@@ -20,11 +21,15 @@ function createPenTouchHandlers({
         onStart: ({ x, y, id }) => {
             const newPath = Skia.Path.Make();
             newPath.moveTo(x, y);
-            currentPenPaths.current[id] = {
+            const newData: PenData = {
                 type: "pen",
                 path: newPath,
-                color: toolColor.current,
-                strokeWidth: strokeWeight.current,
+                color: toolColor,
+                strokeWidth: strokeWeight,
+            }
+            currentPenPaths.current = {
+                ...currentPenPaths.current,
+                [id]: newData,
             };
             rerender();
         },
@@ -38,8 +43,10 @@ function createPenTouchHandlers({
             };
         },
         onEnd: ({ id }) => {
-            canvasHistory.current.push(currentPenPaths.current[id]);
-            delete currentPenPaths.current[id];
+            canvasHistory.current = [...canvasHistory.current, currentPenPaths.current[id]];
+            const currentPathCopy = {...currentPenPaths.current};
+            delete currentPathCopy[id];
+            currentPenPaths.current = currentPathCopy;
             rerender();
         },
     };
@@ -59,8 +66,6 @@ export function createTouchHandlers(tool: CanvasTool, data: TouchHandlerData): T
             return createPenTouchHandlers(data);
         case "text":
             return createTextTouchHandlers(data);
-
-        default:
-            return createPenTouchHandlers(data);
     }
+    return createPenTouchHandlers(data);
 }

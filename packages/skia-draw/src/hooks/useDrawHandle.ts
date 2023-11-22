@@ -1,14 +1,13 @@
-import { ForwardedRef, RefObject, useImperativeHandle } from "react";
+import { ForwardedRef, MutableRefObject, RefObject, useImperativeHandle } from "react";
 import { SkiaDrawHandle } from "../types";
-import { Color, SkiaDomView, SkiaMutableValue, SkRect } from "@shopify/react-native-skia";
+import { Color, SkiaDomView, SkRect } from "@shopify/react-native-skia";
 import { useRerender } from "./useRerender";
 import { CanvasData, CanvasTool } from "../Canvas/types";
 
-type MutableDrawValues = {
-    toolType: SkiaMutableValue<CanvasTool>;
-    canvasHistory: SkiaMutableValue<CanvasData[]>;
-    toolColor: SkiaMutableValue<Color>;
-    strokeWeight: SkiaMutableValue<number>;
+type CanvasSetters = {
+    setToolColor: (newColor: Color) => void;
+    setStrokeWeight: (newWeight: number) => void;
+    setToolType: (newTool: CanvasTool) => void;
 };
 /**
  * responsible for providing the methods available in the ref object, like setColor, undo, etc.
@@ -18,7 +17,8 @@ type MutableDrawValues = {
 export const useDrawHandle = (
     ref: ForwardedRef<SkiaDrawHandle>,
     skiaCanvasRef: RefObject<SkiaDomView>,
-    values: MutableDrawValues,
+    canvasHistory: MutableRefObject<CanvasData[]>,
+    setters: CanvasSetters,
 ) => {
     const rerender = useRerender();
     useImperativeHandle(ref, () => ({
@@ -30,25 +30,24 @@ export const useDrawHandle = (
         makeImageSnapshot,
     }));
     const setColor = (c: Color) => {
-        values.toolColor.current = c;
+        setters.setToolColor(c); 
     };
 
     const setStrokeWeight = (n: number) => {
-        values.strokeWeight.current = n;
+        setters.setStrokeWeight(n)
     };
 
     const setTool = (tool: CanvasTool) => {
-        values.toolType.current = tool;
-        rerender();
+        setters.setToolType(tool);
     };
 
     const undo = () => {
-        values.canvasHistory.current.pop();
+        canvasHistory.current.pop();
         rerender();
     };
 
     const clear = () => {
-        values.canvasHistory.current = [];
+        canvasHistory.current = [];
         rerender();
     };
 

@@ -32,9 +32,9 @@
         "@equinor/eslint-config-mad": "workspace:*"
     },
     "peerDependencies": {
-        "@shopify/react-native-skia": "^0.1.141",
+        "@shopify/react-native-skia": "^0.1.209",
         "react": ">=18.0",
-        "react-native": ">=0.64"
+        "react-native": ">=0.70"
     },
     "files": [
         "CODE_OF_CONDUCT.md",

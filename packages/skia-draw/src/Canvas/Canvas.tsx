@@ -1,4 +1,4 @@
-import { Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
+import { Canvas as SkiaCanvas, useCanvasRef, Text } from "@shopify/react-native-skia";
 
 import { useCanvasDraw } from "../hooks/useCanvasDraw";
 import { CanvasProps, SkiaDrawHandle } from "../types";
@@ -23,7 +23,6 @@ const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildre
         ref,
         skiaCanvasRef,
     });
-
     return (
         <SkiaCanvas
             ref={skiaCanvasRef}
@@ -34,8 +33,8 @@ const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildre
             {!renderChildrenOnTop && children}
             {canvasHistory.current
                 .concat(Object.values(currentPenPaths.current))
-                .map((pathData, index) => (
-                    <CanvasElement key={index} data={pathData} currentTool={currentTool} />
+                .map((elementData, index) => (
+                    <CanvasElement key={index} data={elementData} currentTool={currentTool} />
                 ))}
             {renderChildrenOnTop && children}
         </SkiaCanvas>

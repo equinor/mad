@@ -1,5 +1,5 @@
-import { Color, SkiaDomView, useTouchHandler, useValue } from "@shopify/react-native-skia";
-import { ForwardedRef, RefObject } from "react";
+import { Color, SkiaDomView, useTouchHandler } from "@shopify/react-native-skia";
+import { ForwardedRef, RefObject, useRef, useState } from "react";
 import { SkiaDrawHandle } from "../types";
 import { useRerender } from "./useRerender";
 import { useDrawHandle } from "./useDrawHandle";
@@ -14,36 +14,35 @@ type CanvasSetup = {
 };
 
 export const useCanvasDraw = (setup: CanvasSetup) => {
-    const toolColor = useValue<Color>(setup.initialDrawColor);
-    const strokeWeight = useValue<number>(setup.initialStrokeWidth);
-    const currentPenPaths = useValue<Record<string, PenData>>({});
-    const canvasHistory = useValue<CanvasData[]>([]);
-    const toolType = useValue<CanvasTool>("pen");
+    const [toolColor, setToolColor] = useState<Color>(setup.initialDrawColor);
+    const [strokeWeight, setStrokeWeight] = useState<number>(setup.initialStrokeWidth);
+    const [toolType, setToolType] = useState<CanvasTool>("pen");
+    const currentPenPaths = useRef<Record<number, PenData>>({});
+    const canvasHistory = useRef<CanvasData[]>([]);
 
     const rerender = useRerender();
 
-    useDrawHandle(setup.ref, setup.skiaCanvasRef, {
-        toolColor,
-        strokeWeight,
-        canvasHistory,
-        toolType,
+    useDrawHandle(setup.ref, setup.skiaCanvasRef, canvasHistory, {
+        setToolColor,
+        setStrokeWeight,
+        setToolType,
     });
 
     const touchHandler = useTouchHandler(
-        createTouchHandlers(toolType.current, {
+        createTouchHandlers(toolType, {
             canvasHistory,
             currentPenPaths,
             toolColor,
             strokeWeight,
             rerender,
         }),
-        [toolType.current],
+        [toolType, strokeWeight, toolColor],
     );
 
     return {
         currentPenPaths,
         canvasHistory,
-        currentTool: toolType.current,
+        currentTool: toolType,
         touchHandler,
     };
 };
