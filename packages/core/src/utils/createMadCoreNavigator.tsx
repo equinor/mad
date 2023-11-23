@@ -20,7 +20,7 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
     Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>,
     config: MadConfig,
 ) => {
-    const MadCoreNavigator = (props: Omit<NavigatorProps, "initialRouteName">) => {
+    function MadCoreNavigator(props: Omit<NavigatorProps, "initialRouteName">) {
         return (
             <EnvironmentProvider environment={config.environment}>
                 <AnnouncementsProvider>
@@ -30,8 +30,12 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                             component={LoginScreen}
                             options={{ headerShown: false, environmentBannerShown: true }}
                         />
-                        <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
                         <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
+                        <Stack.Screen
+                        name="WhatsNew"
+                        component={WhatsNewScreen}
+                        options={{headerTitle: "What's New"}}
+                    />
                         {config.about && <Stack.Screen name="About" component={AboutScreen} />}
                         {config.serviceNow && (
                             <Stack.Screen name="Feedback" component={CreateIncidentScreen} />
@@ -41,6 +45,6 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                 </AnnouncementsProvider>
             </EnvironmentProvider>
         );
-    };
+    }
     return MadCoreNavigator;
 };

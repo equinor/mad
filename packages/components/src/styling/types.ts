@@ -21,7 +21,7 @@ export type DensityValues<T> = Record<Density, T>;
 export type TypographyVariantGroupMap = {
     paragraph: "body_short" | "body_long";
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label" | "input";
-    interactive: "button";
+    interactive: "button" | "link";
     ui: "tooltip";
     cell: "groupTitle" | "title" | "description";
 };
@@ -39,6 +39,8 @@ export type TypographyStyle = Pick<
     | "textAlign"
     | "lineHeight"
     | "paddingTop"
+    | "color"
+    | "textDecorationLine"
 >;
 export type ShadowStyle = Pick<
     ViewStyle,
