@@ -109,8 +109,8 @@ const themeStyles = EDSStyleSheet.create(
         const typography = (theme.typography as never)[group][variant] as TypographyStyle;
 
         const textStyle: TextStyle = {
+             color: resolveColor(color, theme),
             ...typography,
-            color: resolveColor(color, theme),
             fontFamily: resolveFontName(bold, italic, typography.fontFamily ?? "Equinor-Regular"),
         };
         return {
