@@ -2,7 +2,7 @@ import React from "react";
 import { SettingsScreen, SettingsScreenConfiguration } from "@equinor/mad-core";
 
 export const SampleSettingsScreen = () => {
-    const myConfig: SettingsScreenConfiguration = [
+    const appSpecificSettingsConfig: SettingsScreenConfiguration = [
         {
             items: [
                 {
@@ -29,5 +29,5 @@ export const SampleSettingsScreen = () => {
         },
     ];
 
-    return <SettingsScreen config={myConfig} />;
+    return <SettingsScreen config={appSpecificSettingsConfig} />;
 };
