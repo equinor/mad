@@ -2,7 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { Button, Input, InputProps, useStyles, useToken } from "../..";
+import { Button, InputProps, TextField, useStyles, useToken } from "../..";
 import { EDSStyleSheet } from "../../styling";
 
 export type SearchProps = Omit<InputProps, "multiline"> & {
@@ -10,8 +10,14 @@ export type SearchProps = Omit<InputProps, "multiline"> & {
     onCancelPress?: () => void;
     textValue?: string;
 };
-export const Search = ({ cancellable, onCancelPress, onChange, textValue, ...restProps }: SearchProps) => {
-    const [text, setText] = useState('');
+export const Search = ({
+    cancellable,
+    onCancelPress,
+    onChange,
+    textValue,
+    ...restProps
+}: SearchProps) => {
+    const [text, setText] = useState("");
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
     const inputRef = useRef<TextInput | null>(null);
@@ -21,17 +27,17 @@ export const Search = ({ cancellable, onCancelPress, onChange, textValue, ...res
 
     const cancelButtonOpacity = animationValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, 1]
+        outputRange: [0, 1],
     });
 
     const cancelButtonTranslateX = animationValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [cancelButtonWidth, 0]
+        outputRange: [cancelButtonWidth, 0],
     });
 
     const inputSlide = animationValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, cancelButtonWidth + token.spacing.element.paddingHorizontal]
+        outputRange: [0, cancelButtonWidth + token.spacing.element.paddingHorizontal],
     });
 
     useEffect(() => {
@@ -39,48 +45,48 @@ export const Search = ({ cancellable, onCancelPress, onChange, textValue, ...res
         Animated.timing(animationValue, {
             toValue: isInputFocused ? 1 : 0,
             duration: token.timing.animation.slow,
-            useNativeDriver: false
+            useNativeDriver: false,
         }).start();
     }, [animationValue, cancellable, isInputFocused, token.timing.animation.slow]);
 
     useEffect(() => {
         if (textValue) {
-            setText(textValue)
+            setText(textValue);
         }
-    }, [textValue])
+    }, [textValue]);
 
     const handleCancel = () => {
-        setText('');
+        setText("");
         onCancelPress?.();
         inputRef.current?.blur();
     };
 
-    // FIXME: On web the search field loses focus when the clear text button is pressed. 
+    // FIXME: On web the search field loses focus when the clear text button is pressed.
     const handleClearText = () => {
-        setText('');
-        onChange?.('');
+        setText("");
+        onChange?.("");
         inputRef.current?.focus();
-    }
+    };
 
     const onChangeText = (text: string) => {
         setText(text);
         onChange?.(text);
-    }
+    };
 
     return (
         <View style={styles.container}>
             <Animated.View style={{ flex: 1, marginRight: inputSlide }}>
-                <Input
+                <TextField
                     {...restProps}
                     ref={inputRef}
                     value={text}
                     onChange={onChangeText}
-                    onFocus={(e) => {
+                    onFocus={e => {
                         setIsInputFocused(true);
                         restProps.onFocus?.(e);
                     }}
-                    onBlur={(e) => {
-                        setIsInputFocused(false)
+                    onBlur={e => {
+                        setIsInputFocused(false);
                         restProps.onBlur?.(e);
                     }}
                     leftAdornments={
@@ -105,10 +111,10 @@ export const Search = ({ cancellable, onCancelPress, onChange, textValue, ...res
             {cancellable && (
                 <Animated.View
                     style={{
-                        position: 'absolute',
+                        position: "absolute",
                         right: 0,
                         opacity: cancelButtonOpacity,
-                        transform: [{ translateX: cancelButtonTranslateX }]
+                        transform: [{ translateX: cancelButtonTranslateX }],
                     }}
                     onLayout={event => setCancelButtonWidth(event.nativeEvent.layout.width)}
                 >
@@ -121,7 +127,7 @@ export const Search = ({ cancellable, onCancelPress, onChange, textValue, ...res
 
 const themedStyles = EDSStyleSheet.create(theme => ({
     container: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection: "row",
         alignItems: "flex-end",
     },

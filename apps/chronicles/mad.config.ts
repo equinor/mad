@@ -4,7 +4,7 @@ import Logo from "./assets/images/icon.png";
 export const config: MadConfig = {
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
-    environment: "test",
+    environment: "prod",
     language: {
         supportedLanguages: [{ code: "en", name: "English" }],
     },

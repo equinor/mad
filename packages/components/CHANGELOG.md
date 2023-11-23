@@ -1,5 +1,23 @@
 # @equinor/mad-components
 
+## 0.8.0
+
+### Minor Changes
+
+-   fb69a74: Fixed flex issues on search
+
+## 0.7.0
+
+### Minor Changes
+
+-   b8b7a72: changed autocomplete to have sub component `multiselect`. Removed `Multiselect` prop in
+    `autocomplete` component. Use `autocomplete.multiselect` instead.
+
+### Patch Changes
+
+-   c2f7949: fix typescript errors
+-   c2f7949: fix label and iconColor errors in TextField component
+
 ## 0.6.9
 
 ### Patch Changes

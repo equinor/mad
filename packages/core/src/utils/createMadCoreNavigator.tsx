@@ -18,22 +18,25 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
     Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>,
     config: MadConfig,
 ) => {
-    const MadCoreNavigator = (props: Omit<NavigatorProps, "initialRouteName">) => {
-        return (
-            <EnvironmentProvider environment={config.environment}>
-                <AnnouncementsProvider>
-                    <Stack.Navigator {...props} initialRouteName={"Login"}>
-                        <Stack.Screen
-                            name="Login"
-                            component={LoginScreen}
-                            options={{ headerShown: false, customSubHeaderShown: true }}
-                        />
-                        <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
-                        {props.children}
-                    </Stack.Navigator>
-                </AnnouncementsProvider>
-            </EnvironmentProvider>
-        );
-    };
+    function MadCoreNavigator(props: Omit<NavigatorProps, "initialRouteName">) {
+        return <EnvironmentProvider environment={config.environment}>
+            <AnnouncementsProvider>
+                <Stack.Navigator {...props} initialRouteName={"Login"}>
+                    <Stack.Screen
+                        name="Login"
+                        component={LoginScreen}
+                        options={{headerShown: false, customSubHeaderShown: true}}
+                    />
+                    <Stack.Screen
+                        name="WhatsNew"
+                        component={WhatsNewScreen}
+                        options={{headerTitle: "What's New"}}
+                    />
+                    {props['children']}
+                </Stack.Navigator>
+            </AnnouncementsProvider>
+        </EnvironmentProvider>;
+    }
     return MadCoreNavigator;
+
 };

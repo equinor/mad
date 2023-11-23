@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-auth",
-    "version": "0.0.11",
+    "version": "0.0.13",
     "description": "A simple wrapper library for react-native-msal",
     "type": "module",
     "scripts": {

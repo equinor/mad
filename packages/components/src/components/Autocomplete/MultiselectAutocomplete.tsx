@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { LayoutRectangle, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
@@ -7,34 +7,25 @@ import { IconButton } from "../Button/IconButton";
 import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
 import { GenericAutocompleteProps } from "./types";
+import { Autocomplete } from "./Autocomplete";
 
-type AutocompleteProps<T> = {
+type MultiselectAutocompleteProps<T> = {
     /**
      * A callback method invoked when the user selects an option from the autocomplete.
      */
-    onSelect: (value: T | undefined) => void;
-    /**
-     * The currently selected option.
-     */
-    selectedOption: T | undefined;
+    onSelect: (value: T[]) => void;
+    selectedOptions: T[];
 } & Omit<TextFieldProps, "helperIcon" | "inputIcon"> &
     GenericAutocompleteProps<T>;
 
-export const Autocomplete = <T,>({
+export const MultiselectAutocomplete = <T,>({
     options,
-    selectedOption,
+    selectedOptions,
     onSelect,
     transformItem,
     ...restProps
-}: AutocompleteProps<T>) => {
-    const internalTransform = useCallback(
-        (item: T | undefined): string => {
-            if (!item) return "";
-            return transformItem?.(item) ?? (item as string);
-        },
-        [transformItem],
-    );
-    const [inputValue, setInputValue] = useState<string>(internalTransform(selectedOption));
+}: MultiselectAutocompleteProps<T>) => {
+    const [inputValue, setInputValue] = useState<string>("");
 
     const filteredOptions = useMemo(
         () =>
@@ -45,7 +36,7 @@ export const Autocomplete = <T,>({
         [inputValue, options, transformItem],
     );
 
-    const [isOptionsVisible, setIsOptionsVisible] = useState(false);
+    const [isOptionsVisible, setIsOptionsVisible] = useState<boolean>(false);
     const inputRef = useRef<TextInput>(null);
     const [inputLayout, setInputLayout] = useState<LayoutRectangle | undefined>();
     const styles = useStyles(themedStyles, { inputLayout });
@@ -56,8 +47,8 @@ export const Autocomplete = <T,>({
     };
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
-        if (selectedOption) {
-            setInputValue(selectedOption as string);
+        if (selectedOptions) {
+            setInputValue("");
         } else {
             setInputValue("");
         }
@@ -66,19 +57,24 @@ export const Autocomplete = <T,>({
     const handleClearText = () => {
         handleMenuClose();
         setInputValue("");
-        onSelect(undefined);
+        onSelect([]);
     };
 
-    const renderItem = (option: T) => {
-        const stringifiedOption = internalTransform(option);
+    const renderMultiselectItem = (option: T, active: boolean | undefined) => {
+        const stringifiedOption = transformItem?.(option) ?? (option as string);
         return (
             <Menu.Item
                 key={stringifiedOption}
                 title={stringifiedOption}
+                active={active}
+                closeMenuOnClick={false}
+                iconName={active ? "checkbox-marked" : "checkbox-blank-outline"}
                 onPress={() => {
-                    setInputValue(stringifiedOption);
-                    onSelect(option);
-                    setIsOptionsVisible(false);
+                    setInputValue("");
+                    if (active) {
+                        return onSelect(selectedOptions.filter(o => o !== option));
+                    }
+                    onSelect([...selectedOptions, option]);
                 }}
             />
         );
@@ -100,16 +96,16 @@ export const Autocomplete = <T,>({
                     setInputValue(text);
                     setIsOptionsVisible(true);
                     if (text === "") {
-                        onSelect(undefined);
+                        onSelect([]);
                     }
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
-                    setIsOptionsVisible(false);
+                    setIsOptionsVisible(false), setInputValue("");
                 }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
-                        {selectedOption && (
+                        {!!selectedOptions.length && (
                             <IconButton
                                 name="close"
                                 variant="ghost"
@@ -127,6 +123,11 @@ export const Autocomplete = <T,>({
                         />
                     </View>
                 }
+                placeholder={
+                    selectedOptions.length
+                        ? selectedOptions.map(o => transformItem?.(o) ?? o).join(", ")
+                        : "Choose an option"
+                }
             />
             {isOptionsVisible && (
                 <Menu
@@ -137,7 +138,9 @@ export const Autocomplete = <T,>({
                     style={styles.menuContainer}
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
-                        {filteredOptions.map(option => renderItem(option))}
+                        {filteredOptions.map(option =>
+                            renderMultiselectItem(option, selectedOptions?.includes(option)),
+                        )}
                     </ScrollView>
                 </Menu>
             )}
@@ -145,7 +148,7 @@ export const Autocomplete = <T,>({
     );
 };
 
-Autocomplete.displayName = "Autocomplete";
+Autocomplete.displayName = "Autocomplete.Multiselect";
 const themedStyles = EDSStyleSheet.create(
     (theme, { inputLayout }: { inputLayout?: LayoutRectangle }) => ({
         menuContainer: {
