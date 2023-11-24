@@ -15,7 +15,7 @@ export function createMadDescriptors<T extends MadDescriptorsBase, U extends Mad
     descriptorKeys.forEach(key => {
         const descriptor = descriptors[key];
         const originalRender = descriptor.render;
-        const customRender = getCustomRenderFunction(originalRender);
+        const customRender: typeof originalRender = getCustomRenderFunction(originalRender);
         const showEnvironmentBanner = shouldDisplayEnvironmentBanner(
             descriptor,
             unresolvedScreenOptions,

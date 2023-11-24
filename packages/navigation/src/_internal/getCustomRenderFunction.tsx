@@ -7,10 +7,13 @@ import { View } from "react-native";
  * @param originalRender the original render function, found in the descriptor
  * @returns new render function
  */
-export const getCustomRenderFunction = (originalRender: () => ReactNode) => (
-    <>
-        <EnvironmentBanner />
-        <HeightSender />
-        <View style={{ flex: 1 }}>{originalRender()}</View>
-    </>
-);
+export const getCustomRenderFunction = (originalRender: () => ReactNode) => {
+    const customRender = () => (
+        <>
+            <EnvironmentBanner />
+            <HeightSender />
+            <View style={{ flex: 1 }}>{originalRender()}</View>
+        </>
+    );
+    return customRender;
+ }
