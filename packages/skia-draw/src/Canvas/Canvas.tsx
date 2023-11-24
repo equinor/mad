@@ -1,9 +1,10 @@
-import { Canvas as SkiaCanvas, useCanvasRef, Text } from "@shopify/react-native-skia";
+import { Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
 
 import { useCanvasDraw } from "../hooks/useCanvasDraw";
 import { CanvasProps, SkiaDrawHandle } from "../types";
 import React, { forwardRef, ForwardRefRenderFunction, PropsWithChildren } from "react";
 import { CanvasElement } from "./CanvasElement";
+import { KeyboardAvoidingView, TextInput } from "react-native";
 
 const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildren<CanvasProps>> = (
     {

@@ -1,9 +1,10 @@
-import { View, StyleSheet, ViewProps } from "react-native";
+import { View, StyleSheet, ViewProps, KeyboardAvoidingView } from "react-native";
 import { Canvas } from "../../Canvas/Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
 import React, { useImperativeHandle, useMemo, useRef, useState, forwardRef } from "react";
 import { SkiaDrawHandle, SnapshotHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
+import { Input } from "@equinor/mad-components";
 
 export type ImageMarkupProps = {
     markupImage?: string;
@@ -35,6 +36,7 @@ export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>((props, 
         );
         return { width, height };
     }, [image, contentDim]);
+
     return (
         <View
             onLayout={event =>
@@ -69,6 +71,7 @@ export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>((props, 
                     </Canvas>
                 )}
             </View>
+            
             <View style={styles.overlay} pointerEvents="box-none">
                 <EDSControlPanel canvasRef={canvasRef} />
             </View>

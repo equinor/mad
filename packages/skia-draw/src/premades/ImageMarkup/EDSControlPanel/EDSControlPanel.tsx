@@ -1,5 +1,5 @@
-import { StyleSheet, View } from "react-native";
-import { Color, Icon, Paper, Popover, Typography } from "@equinor/mad-components";
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
+import { Color, Icon, Input, Paper, Popover, Typography } from "@equinor/mad-components";
 import { SkiaDrawHandle } from "../../../types";
 import React, { MutableRefObject, useRef, useState } from "react";
 import { CanvasTool } from "../../../Canvas/types";
@@ -19,12 +19,14 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
 
     const [currentTool, setCurrentTool] = useState<CanvasTool>("pen");
 
+    const [isEditingText, setIsEditingText] = useState<boolean>(false);
+    
     const colorSelectingButton = useRef<View>(null);
     const strokeWidthSelectingButton = useRef<View>(null);
-
+    
     const colors = ["red", "white", "black", "blue", "orange", "yellow", "green"];
     const strokeWeights = [5, 10, 15];
-
+    
     const onPressPenTool = () => {
         setCurrentTool("pen");
         canvasRef.current?.setTool("pen");
@@ -57,76 +59,79 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
     };
 
     return (
-        <Paper elevation="sticky" style={styles.container}>
-            <EDSControlPanelButton
-                onPress={onPressPenTool}
-                ref={strokeWidthSelectingButton}
-                key={"pen-tool-button"}
-            >
-                <Icon name="brush" color={currentTool === "pen" ? "primary" : "secondary"} />
-            </EDSControlPanelButton>
+        <KeyboardAvoidingView style={styles.container}>
+            {currentTool === "text" && <Input value={"whassup"}/>}
+            <Paper elevation="sticky" style={styles.paperContainer}>
+                <EDSControlPanelButton
+                    onPress={onPressPenTool}
+                    ref={strokeWidthSelectingButton}
+                    key={"pen-tool-button"}
+                >
+                    <Icon name="brush" color={currentTool === "pen" ? "primary" : "secondary"} />
+                </EDSControlPanelButton>
 
-            <EDSControlPanelButton onPress={onPressTextTool} key={"text-tool-button"}>
-                <Icon
-                    name="format-textbox"
-                    color={currentTool === "text" ? "primary" : "secondary"}
-                />
-            </EDSControlPanelButton>
+                <EDSControlPanelButton onPress={onPressTextTool} key={"text-tool-button"}>
+                    <Icon
+                        name="format-textbox"
+                        color={currentTool === "text" ? "primary" : "secondary"}
+                    />
+                </EDSControlPanelButton>
 
-            <Popover
-                open={isSelectingStrokeWeight}
-                anchorEl={strokeWidthSelectingButton}
-                onClose={() => setIsSelectingStrokeWeight(false)}
-                placement="top"
-                style={{ padding: 0 }}
-            >
-                {strokeWeights.map(rad => (
-                    <EDSControlPanelButton key={rad} onPress={() => onPressStrokeWidth(rad)}>
-                        <View style={{ margin: 20 }}>
-                            <Circle diameter={rad} />
-                        </View>
-                    </EDSControlPanelButton>
-                ))}
-            </Popover>
+                <Popover
+                    open={isSelectingStrokeWeight}
+                    anchorEl={strokeWidthSelectingButton}
+                    onClose={() => setIsSelectingStrokeWeight(false)}
+                    placement="top"
+                    style={{ padding: 0 }}
+                >
+                    {strokeWeights.map(rad => (
+                        <EDSControlPanelButton key={rad} onPress={() => onPressStrokeWidth(rad)}>
+                            <View style={{ margin: 20 }}>
+                                <Circle diameter={rad} />
+                            </View>
+                        </EDSControlPanelButton>
+                    ))}
+                </Popover>
 
-            <EDSControlPanelButton
-                onPress={() => setIsSelectingColor(true)}
-                ref={colorSelectingButton}
-                key={"color-button"}
-            >
-                <Icon
-                    name={currentColor === "white" ? "water-outline" : "water"}
-                    color={currentColor === "white" ? "secondary" : (currentColor as Color)}
-                />
-            </EDSControlPanelButton>
-            <Popover
-                open={isSelectingColor}
-                anchorEl={colorSelectingButton}
-                onClose={() => setIsSelectingColor(false)}
-                placement="top"
-                style={{ padding: 0 }}
-            >
-                {colors.map(col => (
-                    <EDSControlPanelButton key={col} onPress={() => onPressColor(col)}>
-                        <View style={{ margin: 20 }}>
-                            <Circle color={col} showBorder />
-                        </View>
-                    </EDSControlPanelButton>
-                ))}
-            </Popover>
+                <EDSControlPanelButton
+                    onPress={() => setIsSelectingColor(true)}
+                    ref={colorSelectingButton}
+                    key={"color-button"}
+                >
+                    <Icon
+                        name={currentColor === "white" ? "water-outline" : "water"}
+                        color={currentColor === "white" ? "secondary" : (currentColor as Color)}
+                    />
+                </EDSControlPanelButton>
+                <Popover
+                    open={isSelectingColor}
+                    anchorEl={colorSelectingButton}
+                    onClose={() => setIsSelectingColor(false)}
+                    placement="top"
+                    style={{ padding: 0 }}
+                >
+                    {colors.map(col => (
+                        <EDSControlPanelButton key={col} onPress={() => onPressColor(col)}>
+                            <View style={{ margin: 20 }}>
+                                <Circle color={col} showBorder />
+                            </View>
+                        </EDSControlPanelButton>
+                    ))}
+                </Popover>
 
-            <EDSControlPanelButton onPress={onPressUndo} key={"undo-button"}>
-                <Typography group="interactive" variant="button" color="secondary">
-                    undo
-                </Typography>
-            </EDSControlPanelButton>
+                <EDSControlPanelButton onPress={onPressUndo} key={"undo-button"}>
+                    <Typography group="interactive" variant="button" color="secondary">
+                        undo
+                    </Typography>
+                </EDSControlPanelButton>
 
-            <EDSControlPanelButton onPress={onPressClear} key={"clear-button"}>
-                <Typography group="interactive" variant="button" color="danger">
-                    clear
-                </Typography>
-            </EDSControlPanelButton>
-        </Paper>
+                <EDSControlPanelButton onPress={onPressClear} key={"clear-button"}>
+                    <Typography group="interactive" variant="button" color="danger">
+                        clear
+                    </Typography>
+                </EDSControlPanelButton>
+            </Paper>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -135,12 +140,15 @@ EDSControlPanel.displayName = "EDSControlPanel";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        maxWidth: 500,
+    },
+    paperContainer: {
+        flex: 1,
         height: 60,
         width: "100%",
-        maxWidth: 500,
         flexDirection: "row",
         borderRadius: 15,
         justifyContent: "space-evenly",
         alignItems: "center",
-    },
+    }
 });

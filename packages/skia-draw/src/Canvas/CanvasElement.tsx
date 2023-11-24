@@ -22,6 +22,6 @@ export const CanvasElement = ({ data, currentTool }: CanvasElementProps) => {
                 />
             );
         case "text":
-            return <Text font={null} text={data.text} x={data.position.x} y={data.position.y} />;
+            return <Text text={data.text} color={data.color} x={data.position.x} y={data.position.y} />;
     }
 };
