@@ -1,6 +1,6 @@
 import { Color, SkPath } from "@shopify/react-native-skia";
 
-export type CanvasTool = "pen" | "eraser" | "text";
+export type CanvasTool = "pen" | "text";
 
 type GenericCanvasData<T extends CanvasTool> = {
     type: T;
