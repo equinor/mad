@@ -32,7 +32,8 @@
         "dev:all": "turbo run dev",
         "lint:all": "turbo run lint --continue --",
         "format:all": "prettier --write .",
-        "publish:all": "turbo run build && changeset version && changeset publish"
+        "publish:all": "turbo run build && changeset version && changeset publish",
+        "clean:all": "turbo run clean"
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
