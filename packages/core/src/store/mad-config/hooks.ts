@@ -1,3 +1,4 @@
+import { getPremadeSettings } from "../../utils/getPremadeSettings";
 import { useMadConfig } from "./mad-config";
 
 export const useAuthConfig = () => {
@@ -23,4 +24,10 @@ export const useEnvironment = () => {
 export const useServicePortalName = () => {
     const config = useMadConfig();
     return config.servicePortalName;
+};
+
+export const useSettingsScreenPremadeConfig = () => {
+    const config = useMadConfig();
+    const premadeSettings = getPremadeSettings(config);
+    return premadeSettings;
 };

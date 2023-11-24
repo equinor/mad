@@ -59,6 +59,20 @@ export type MadConfig = {
          */
         logo: ImageSourcePropType;
     };
+    about?: {
+        /**
+         * Endpoints used by the app
+         */
+        endpoints: string[];
+        /**
+         * Build number of the app.
+         */
+        buildNumber: string;
+    };
+    serviceNow?: {
+        //TODO
+        whatever: string;
+    };
 };
 
 export type CoreStackParamListBase = {

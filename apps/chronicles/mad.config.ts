@@ -6,7 +6,10 @@ export const config: MadConfig = {
     servicePortalName: "Chronicles",
     environment: "prod",
     language: {
-        supportedLanguages: [{ code: "en", name: "English" }],
+        supportedLanguages: [
+            { code: "en", name: "English" },
+            { code: "nb", name: "Norwegian" },
+        ],
     },
     authentication: {
         redirectUri: "msauth.com.equinor.mad.chronicles://auth",
@@ -16,5 +19,12 @@ export const config: MadConfig = {
     login: {
         title: "Chronicles",
         logo: Logo,
+    },
+    serviceNow: {
+        whatever: "",
+    },
+    about: {
+        endpoints: [],
+        buildNumber: "",
     },
 };

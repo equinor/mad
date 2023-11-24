@@ -38,10 +38,11 @@ import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
 import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
-import { SettingsScreen } from "../screens/SettingsScreen";
 import { createCoreStackNavigator } from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
+import { GoToSettingsButton } from "../components/GoToSettingsButton";
+import { SampleSettingsScreen } from "./SettingsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -80,6 +81,7 @@ function RootNavigator() {
                 component={NotFoundScreen}
                 options={{ title: "Oops!" }}
             />
+            <CoreStack.Screen name="Settings" component={SampleSettingsScreen} />
         </CoreStack.Navigator>
     );
 }
@@ -98,6 +100,7 @@ function DiscoverNavigator() {
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
                 environmentBannerShown: false,
+                headerRight: () => <GoToSettingsButton marginRight={-12} />,
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
@@ -140,6 +143,7 @@ function BottomTabNavigator() {
             initialRouteName="DiscoverTab"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
+                headerRight: () => <GoToSettingsButton marginRight={8} />,
             }}
         >
             <BottomTab.Screen
@@ -176,16 +180,6 @@ function BottomTabNavigator() {
                     title: "Sign",
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="signature-image" color={color as Color} />
-                    ),
-                }}
-            />
-            <BottomTab.Screen
-                name="Settings"
-                component={SettingsScreen}
-                options={{
-                    title: "Settings",
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="settings-helper" color={color as Color} />
                     ),
                 }}
             />

@@ -7,7 +7,7 @@ import { Cell, CellProps } from "./Cell";
 import { Typography } from "../Typography";
 import { Switch } from "../Switch";
 
-type SwitchColor = "textPrimary" | "danger" | "warning" | "textDisabled"; // Add more as needed
+export type SwitchColor = "textPrimary" | "danger" | "warning" | "textDisabled"; // Add more as needed
 
 export type SwitchCellProps = {
     isActive: boolean;
