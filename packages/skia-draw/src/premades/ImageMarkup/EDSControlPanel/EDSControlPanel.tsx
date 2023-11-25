@@ -1,79 +1,59 @@
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { Color, Icon, Input, Paper, Popover, Typography } from "@equinor/mad-components";
-import { SkiaDrawHandle } from "../../../types";
-import React, { MutableRefObject, useRef, useState } from "react";
-import { CanvasTool } from "../../../Canvas/types";
+import React, { useRef, useState } from "react";
 import { Circle } from "./Circle";
 import { EDSControlPanelButton } from "./EDSControlPanelButton";
+import { useCanvasControl } from "../../../hooks/useCanvasControl";
 
-type EDSControlPanelProps = {
-    canvasRef: MutableRefObject<SkiaDrawHandle | null>;
-};
+export const EDSControlPanel = () => {
+    const { toolColor, setToolColor, setStrokeWeight, toolType, setToolType, undo, clear } =
+        useCanvasControl();
 
-export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
     const [isSelectingColor, setIsSelectingColor] = useState<boolean>(false);
-    const [currentColor, setCurrentColor] = useState<string>("red");
-
     const [isSelectingStrokeWeight, setIsSelectingStrokeWeight] = useState<boolean>(false);
-    const [currentStrokeWeight, setCurrentStrokeWeight] = useState<number>(10);
-
-    const [currentTool, setCurrentTool] = useState<CanvasTool>("pen");
-
     const [isEditingText, setIsEditingText] = useState<boolean>(false);
-    
+
     const colorSelectingButton = useRef<View>(null);
     const strokeWidthSelectingButton = useRef<View>(null);
-    
+
     const colors = ["red", "white", "black", "blue", "orange", "yellow", "green"];
     const strokeWeights = [5, 10, 15];
-    
+
     const onPressPenTool = () => {
-        setCurrentTool("pen");
-        canvasRef.current?.setTool("pen");
+        setToolType("pen");
         setIsSelectingStrokeWeight(true);
     };
 
     const onPressTextTool = () => {
-        setCurrentTool("text");
-        canvasRef.current?.setTool("text");
+        setToolType("text");
     };
 
     const onPressColor = (c: string) => {
-        setCurrentColor(c);
+        setToolColor(c);
         setIsSelectingColor(false);
-        canvasRef.current?.setColor(c);
-    };
-
-    const onPressUndo = () => {
-        canvasRef.current?.undo();
-    };
-
-    const onPressClear = () => {
-        canvasRef.current?.clear();
     };
 
     const onPressStrokeWidth = (sw: number) => {
-        setCurrentStrokeWeight(sw);
+        setStrokeWeight(sw);
         setIsSelectingStrokeWeight(false);
-        canvasRef.current?.setStrokeWeight(sw);
     };
 
     return (
         <KeyboardAvoidingView style={styles.container}>
-            {currentTool === "text" && <Input value={"whassup"}/>}
+            {toolType === "text" && <Input value={"whassup"} />}
             <Paper elevation="sticky" style={styles.paperContainer}>
                 <EDSControlPanelButton
                     onPress={onPressPenTool}
                     ref={strokeWidthSelectingButton}
                     key={"pen-tool-button"}
                 >
-                    <Icon name="brush" color={currentTool === "pen" ? "primary" : "secondary"} />
+                    <Icon name="brush" color={toolType === "pen" ? "primary" : "secondary"} />
                 </EDSControlPanelButton>
 
                 <EDSControlPanelButton onPress={onPressTextTool} key={"text-tool-button"}>
                     <Icon
                         name="format-textbox"
-                        color={currentTool === "text" ? "primary" : "secondary"}
+                        color={toolType === "text" ? "primary" : "secondary"}
                     />
                 </EDSControlPanelButton>
 
@@ -99,8 +79,8 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
                     key={"color-button"}
                 >
                     <Icon
-                        name={currentColor === "white" ? "water-outline" : "water"}
-                        color={currentColor === "white" ? "secondary" : (currentColor as Color)}
+                        name={toolColor === "white" ? "water-outline" : "water"}
+                        color={toolColor === "white" ? "secondary" : (toolColor as Color)}
                     />
                 </EDSControlPanelButton>
                 <Popover
@@ -119,13 +99,13 @@ export const EDSControlPanel = ({ canvasRef }: EDSControlPanelProps) => {
                     ))}
                 </Popover>
 
-                <EDSControlPanelButton onPress={onPressUndo} key={"undo-button"}>
+                <EDSControlPanelButton onPress={undo} key={"undo-button"}>
                     <Typography group="interactive" variant="button" color="secondary">
                         undo
                     </Typography>
                 </EDSControlPanelButton>
 
-                <EDSControlPanelButton onPress={onPressClear} key={"clear-button"}>
+                <EDSControlPanelButton onPress={clear} key={"clear-button"}>
                     <Typography group="interactive" variant="button" color="danger">
                         clear
                     </Typography>
@@ -150,5 +130,5 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         justifyContent: "space-evenly",
         alignItems: "center",
-    }
+    },
 });

@@ -1,32 +1,25 @@
-import { Color, SkiaDomView, useTouchHandler } from "@shopify/react-native-skia";
-import { ForwardedRef, RefObject, useRef, useState } from "react";
-import { SkiaDrawHandle } from "../types";
+import { SkiaDomView, useTouchHandler } from "@shopify/react-native-skia";
+import { ForwardedRef, RefObject, useRef } from "react";
 import { useRerender } from "./useRerender";
-import { useDrawHandle } from "./useDrawHandle";
-import { CanvasData, CanvasTool, PenData } from "../Canvas/types";
+import { useCanvasControlHandle } from "./useDrawHandle";
+import { CanvasData, PenData } from "../Canvas/types";
 import { createTouchHandlers } from "../Canvas/touchHandlers";
+import { CanvasControls } from "../CanvasControlProvider";
+import { useCanvasControl } from "./useCanvasControl";
 
 type CanvasSetup = {
-    initialDrawColor: Color;
-    initialStrokeWidth: number;
-    ref: ForwardedRef<SkiaDrawHandle>;
+    ref: ForwardedRef<CanvasControls>;
     skiaCanvasRef: RefObject<SkiaDomView>;
 };
 
-export const useCanvasDraw = (setup: CanvasSetup) => {
-    const [toolColor, setToolColor] = useState<Color>(setup.initialDrawColor);
-    const [strokeWeight, setStrokeWeight] = useState<number>(setup.initialStrokeWidth);
-    const [toolType, setToolType] = useState<CanvasTool>("pen");
+export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
+    const { toolColor, strokeWeight, toolType } = useCanvasControl();
     const currentPenPaths = useRef<Record<number, PenData>>({});
     const canvasHistory = useRef<CanvasData[]>([]);
 
     const rerender = useRerender();
 
-    useDrawHandle(setup.ref, setup.skiaCanvasRef, canvasHistory, {
-        setToolColor,
-        setStrokeWeight,
-        setToolType,
-    });
+    useCanvasControlHandle(ref, skiaCanvasRef, canvasHistory);
 
     const touchHandler = useTouchHandler(
         createTouchHandlers(toolType, {

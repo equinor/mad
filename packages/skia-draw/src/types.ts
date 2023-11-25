@@ -1,18 +1,5 @@
-import { Color, SkPath, SkRect } from "@shopify/react-native-skia";
 import { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { PropsWithChildren } from "react";
-import { CanvasTool } from "./Canvas/types";
-
-export type SkiaDrawHandle = {
-    setColor: (color: Color) => void;
-    setStrokeWeight: (weight: number) => void;
-    undo: () => void;
-    clear: () => void;
-    setTool: (tool: CanvasTool) => void;
-    makeImageSnapshot: (rect?: SkRect) => SkiaDrawSnapshot | undefined;
-};
-
-export type SnapshotHandle = Pick<Partial<SkiaDrawHandle>, "makeImageSnapshot">;
 
 export type SkiaDrawSnapshot = {
     /**
@@ -31,16 +18,6 @@ export type SignaturePadProps = PropsWithChildren<{
 }>;
 
 export type CanvasProps = {
-    /**
-     * Set color for all drawings (paths, shapes, text).
-     */
-    initialDrawColor?: Color;
-
-    /**
-     * Set stroke weight for paths and shapes.
-     */
-    initialStrokeWidth?: number;
-
     /**
      * Set this to true if you want to render children of the canvas on top of the drawing instead of behind
      */

@@ -1,6 +1,6 @@
-import type { Color } from "@shopify/react-native-skia";
+import type { Color, SkRect } from "@shopify/react-native-skia";
 import type { CanvasTool } from "../Canvas/types";
-import { Canvas } from "../Canvas/Canvas";
+import { SkiaDrawSnapshot } from "../types";
 
 export type CanvasControlProviderProps = {
     /**
@@ -18,7 +18,7 @@ export type CanvasControlProviderProps = {
     /**
      * The ref to the canvas component.
      */
-    canvasRef: React.RefObject<typeof Canvas>;
+    canvasRef: React.RefObject<CanvasControls>;
 };
 
 export type CanvasControlContextValues = {
@@ -49,5 +49,13 @@ export type CanvasControlContextValues = {
     /**
      * The ref to the canvas component.
      */
-    canvasRef: React.RefObject<typeof Canvas> | null;
+    canvasRef: React.RefObject<CanvasControls> | null;
 };
+
+export type CanvasControls = {
+    undo: () => void;
+    clear: () => void;
+    makeImageSnapshot: (rect?: SkRect) => SkiaDrawSnapshot | undefined;
+};
+
+export type CanvasImageControls = Pick<Partial<CanvasControls>, "makeImageSnapshot">;

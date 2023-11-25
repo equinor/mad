@@ -1,26 +1,17 @@
 import { Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
 
 import { useCanvasDraw } from "../hooks/useCanvasDraw";
-import { CanvasProps, SkiaDrawHandle } from "../types";
+import { CanvasProps } from "../types";
 import React, { forwardRef, ForwardRefRenderFunction, PropsWithChildren } from "react";
 import { CanvasElement } from "./CanvasElement";
-import { KeyboardAvoidingView, TextInput } from "react-native";
+import { CanvasControls } from "../CanvasControlProvider";
 
-const CanvasComponent: ForwardRefRenderFunction<SkiaDrawHandle, PropsWithChildren<CanvasProps>> = (
-    {
-        initialDrawColor = "white",
-        initialStrokeWidth = 10,
-        children,
-        renderChildrenOnTop,
-        style,
-        onLayout,
-    },
+const CanvasComponent: ForwardRefRenderFunction<CanvasControls, PropsWithChildren<CanvasProps>> = (
+    { children, renderChildrenOnTop, style, onLayout },
     ref,
 ) => {
     const skiaCanvasRef = useCanvasRef();
     const { currentPenPaths, canvasHistory, currentTool, touchHandler } = useCanvasDraw({
-        initialDrawColor,
-        initialStrokeWidth,
         ref,
         skiaCanvasRef,
     });

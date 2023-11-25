@@ -26,7 +26,7 @@ function createPenTouchHandlers({
                 path: newPath,
                 color: toolColor,
                 strokeWidth: strokeWeight,
-            }
+            };
             currentPenPaths.current = {
                 ...currentPenPaths.current,
                 [id]: newData,
@@ -44,7 +44,7 @@ function createPenTouchHandlers({
         },
         onEnd: ({ id }) => {
             canvasHistory.current = [...canvasHistory.current, currentPenPaths.current[id]];
-            const currentPathCopy = {...currentPenPaths.current};
+            const currentPathCopy = { ...currentPenPaths.current };
             delete currentPathCopy[id];
             currentPenPaths.current = currentPathCopy;
             rerender();
@@ -67,5 +67,4 @@ export function createTouchHandlers(tool: CanvasTool, data: TouchHandlerData): T
         case "text":
             return createTextTouchHandlers(data);
     }
-    return createPenTouchHandlers(data);
 }

@@ -1,45 +1,24 @@
 import { ForwardedRef, MutableRefObject, RefObject, useImperativeHandle } from "react";
-import { SkiaDrawHandle } from "../types";
-import { Color, SkiaDomView, SkRect } from "@shopify/react-native-skia";
+import { SkiaDomView, SkRect } from "@shopify/react-native-skia";
 import { useRerender } from "./useRerender";
-import { CanvasData, CanvasTool } from "../Canvas/types";
+import { CanvasData } from "../Canvas/types";
+import { CanvasControls } from "../CanvasControlProvider";
 
-type CanvasSetters = {
-    setToolColor: (newColor: Color) => void;
-    setStrokeWeight: (newWeight: number) => void;
-    setToolType: (newTool: CanvasTool) => void;
-};
 /**
- * responsible for providing the methods available in the ref object, like setColor, undo, etc.
- * @param ref ForwardedRef<SkiaDrawHandle>
- * @param values MutableDrawValues
+ * responsible for providing the methods available in the ref object like undo, clear, etc.
+ * @param ref ForwardedRef<CanvasControls>
  */
-export const useDrawHandle = (
-    ref: ForwardedRef<SkiaDrawHandle>,
+export const useCanvasControlHandle = (
+    ref: ForwardedRef<CanvasControls>,
     skiaCanvasRef: RefObject<SkiaDomView>,
     canvasHistory: MutableRefObject<CanvasData[]>,
-    setters: CanvasSetters,
 ) => {
     const rerender = useRerender();
     useImperativeHandle(ref, () => ({
-        setColor,
-        setStrokeWeight,
-        setTool,
         undo,
         clear,
         makeImageSnapshot,
     }));
-    const setColor = (c: Color) => {
-        setters.setToolColor(c); 
-    };
-
-    const setStrokeWeight = (n: number) => {
-        setters.setStrokeWeight(n)
-    };
-
-    const setTool = (tool: CanvasTool) => {
-        setters.setToolType(tool);
-    };
 
     const undo = () => {
         canvasHistory.current.pop();
