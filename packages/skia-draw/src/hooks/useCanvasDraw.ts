@@ -13,7 +13,7 @@ type CanvasSetup = {
 };
 
 export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
-    const { toolColor, strokeWeight, toolType } = useCanvasControl();
+    const { toolColor, strokeWeight, toolType, font, text } = useCanvasControl();
     const currentPenPaths = useRef<Record<number, PenData>>({});
     const canvasHistory = useRef<CanvasData[]>([]);
 
@@ -27,9 +27,11 @@ export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
             currentPenPaths,
             toolColor,
             strokeWeight,
+            text,
+            font,
             rerender,
         }),
-        [toolType, strokeWeight, toolColor],
+        [toolType, strokeWeight, toolColor, font, text],
     );
 
     return {

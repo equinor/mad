@@ -1,4 +1,4 @@
-import { Color, SkPath } from "@shopify/react-native-skia";
+import { Color, SkFont, SkPath } from "@shopify/react-native-skia";
 
 export type CanvasTool = "pen" | "text";
 
@@ -13,7 +13,7 @@ export type PenData = GenericCanvasData<"pen"> & {
 };
 
 export type TextData = GenericCanvasData<"text"> & {
-    size: number;
+    font: SkFont;
     color: Color;
     text: string;
     position: { x: number; y: number };

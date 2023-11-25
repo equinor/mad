@@ -1,13 +1,34 @@
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
-import { Color, Icon, Input, Paper, Popover, Typography } from "@equinor/mad-components";
+import {
+    Color,
+    EDSStyleSheet,
+    Icon,
+    Input,
+    Paper,
+    Popover,
+    TextField,
+    Typography,
+    useStyles,
+} from "@equinor/mad-components";
 import React, { useRef, useState } from "react";
 import { Circle } from "./Circle";
 import { EDSControlPanelButton } from "./EDSControlPanelButton";
 import { useCanvasControl } from "../../../hooks/useCanvasControl";
 
 export const EDSControlPanel = () => {
-    const { toolColor, setToolColor, setStrokeWeight, toolType, setToolType, undo, clear } =
-        useCanvasControl();
+    const {
+        toolColor,
+        setToolColor,
+        setStrokeWeight,
+        toolType,
+        setToolType,
+        text,
+        setText,
+        undo,
+        clear,
+    } = useCanvasControl();
+
+    const styles = useStyles(themeStyles);
 
     const [isSelectingColor, setIsSelectingColor] = useState<boolean>(false);
     const [isSelectingStrokeWeight, setIsSelectingStrokeWeight] = useState<boolean>(false);
@@ -40,7 +61,14 @@ export const EDSControlPanel = () => {
 
     return (
         <KeyboardAvoidingView style={styles.container}>
-            {toolType === "text" && <Input value={"whassup"} />}
+            {toolType === "text" && (
+                <TextField
+                    value={text}
+                    placeholder="Type text to enter here"
+                    onChange={setText}
+                    helperText="Click the canvas to add your text"
+                />
+            )}
             <Paper elevation="sticky" style={styles.paperContainer}>
                 <EDSControlPanelButton
                     onPress={onPressPenTool}
@@ -117,18 +145,21 @@ export const EDSControlPanel = () => {
 
 EDSControlPanel.displayName = "EDSControlPanel";
 
-const styles = StyleSheet.create({
+const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
         flex: 1,
         maxWidth: 500,
     },
     paperContainer: {
-        flex: 1,
         height: 60,
+        flex: 1,
         width: "100%",
         flexDirection: "row",
         borderRadius: 15,
         justifyContent: "space-evenly",
         alignItems: "center",
     },
-});
+    paddedContainer: {
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+    },
+}));

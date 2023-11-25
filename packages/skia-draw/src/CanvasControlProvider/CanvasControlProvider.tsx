@@ -10,6 +10,8 @@ const defaultContextValues: CanvasControlContextValues = {
     setStrokeWeight: () => null,
     toolType: "pen",
     setToolType: () => null,
+    text: "",
+    setText: () => null,
     canvasRef: null,
 };
 
@@ -25,6 +27,7 @@ export const CanvasControlProvider = ({
     const [toolColor, setToolColor] = useState<Color>(initialToolColor);
     const [strokeWeight, setStrokeWeight] = useState<number>(initialStrokeWeight);
     const [toolType, setToolType] = useState<CanvasTool>(initialToolType);
+    const [text, setText] = useState<string>("");
 
     return (
         <CanvasControlContext.Provider
@@ -35,6 +38,8 @@ export const CanvasControlProvider = ({
                 setStrokeWeight,
                 toolType,
                 setToolType,
+                text,
+                setText,
                 canvasRef,
             }}
         >

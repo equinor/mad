@@ -47,6 +47,14 @@ export type CanvasControlContextValues = {
      */
     setToolType: (toolType: CanvasTool) => void;
     /**
+     * The text in store for placing on the canvas.
+     */
+    text: string;
+    /**
+     * Sets the text in store for placing on the canvas.
+     */
+    setText: (text: string) => void;
+    /**
      * The ref to the canvas component.
      */
     canvasRef: React.RefObject<CanvasControls> | null;

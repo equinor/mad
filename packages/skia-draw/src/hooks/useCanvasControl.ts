@@ -1,5 +1,7 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { CanvasControlContext } from "../CanvasControlProvider/CanvasControlProvider";
+import { matchFont, useFont } from "@shopify/react-native-skia";
+import { Platform } from "react-native";
 
 /**
  * Hook that taps into the CanvasControlContext to provide common getters, setters and canvas control methods.
@@ -14,6 +16,8 @@ export const useCanvasControl = () => {
         setStrokeWeight,
         toolType,
         setToolType,
+        text,
+        setText,
         canvasRef,
     } = useContext(CanvasControlContext);
 
@@ -25,6 +29,16 @@ export const useCanvasControl = () => {
     const undo = () => canvasRef?.current?.undo() ?? createNoHandlerWarning("undo");
     const clear = () => canvasRef?.current?.clear() ?? createNoHandlerWarning("clear");
 
+    const font = useMemo(() => {
+        const fontFamily = Platform.select({ ios: "Helvetica", default: "serif" });
+        return matchFont({
+            fontFamily,
+            fontSize: 16,
+            fontStyle: "normal",
+            fontWeight: "bold",
+        });
+    }, []);
+
     return {
         toolColor,
         setToolColor,
@@ -32,6 +46,9 @@ export const useCanvasControl = () => {
         setStrokeWeight,
         toolType,
         setToolType,
+        text,
+        setText,
+        font,
         undo,
         clear,
     };
