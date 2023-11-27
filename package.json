@@ -33,7 +33,7 @@
         "lint:all": "turbo run lint --continue --",
         "format:all": "prettier --write .",
         "publish:all": "turbo run build && changeset version && changeset publish",
-        "clean:all": "turbo run clean"
+        "clean:all": "turbo run clean && rm -rf node_modules/"
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
