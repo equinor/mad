@@ -17,6 +17,8 @@
             "cache": false
         },
         "test": {},
-        "clean": {}
+        "clean": {
+            "cache": false
+        }
     }
 }
