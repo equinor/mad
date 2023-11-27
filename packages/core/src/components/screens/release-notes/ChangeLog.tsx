@@ -1,5 +1,5 @@
 import { getShortDate } from "../../../utils/dateUtils";
-import React, { useState } from "react";
+import React, {useMemo, useState} from "react";
 import {ScrollView, View} from "react-native";
 import RenderHtml, { defaultSystemFonts } from "react-native-render-html";
 import * as showdown from "showdown";
@@ -23,7 +23,7 @@ type ChangeLogProps = {
 export const ChangeLog = ({ release }: ChangeLogProps) => {
     const styles = useStyles(changeLogStyles);
     const [width, setWidth] = useState(0);
-    const html = { html: converter.makeHtml(release.releaseNote) };
+    const html = useMemo(() => ({ html: converter.makeHtml(release.releaseNote) }), [release]);
     const date = new Date(release.releaseDate);
     const shortDate = getShortDate(date);
 
