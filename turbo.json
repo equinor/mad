@@ -16,6 +16,9 @@
         "generate": {
             "cache": false
         },
-        "test": {}
+        "test": {},
+        "clean": {
+            "cache": false
+        }
     }
 }
