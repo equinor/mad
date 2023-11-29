@@ -1,5 +1,5 @@
-import React from "react";
-import { EnvironmentProvider, createNativeStackNavigator } from "@equinor/mad-navigation";
+import React, { ReactNode } from "react";
+import { EnvironmentProvider, createNativeStackNavigator, CreateNativeStackNavigatorType } from "@equinor/mad-navigation";
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
@@ -12,15 +12,21 @@ import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
 type PropsOf<T extends GeneralFunction> = Parameters<T>[0];
-type StackType = ReturnType<typeof createNativeStackNavigator>;
+type StackType = ReturnType<CreateNativeStackNavigatorType>;
 // @ts-expect-error this works, I don't know why it complains
 type NavigatorProps = PropsOf<StackType["Navigator"]>;
+type CoreNavigatorProps = Omit<NavigatorProps, "initialRouteName">
 
-export const createMadCoreNavigator = <T extends ParamListBase>(
+type CreateMadCoreNavigatorType = <T extends ParamListBase>(
+    Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>,
+    config: MadConfig,
+) => (props: CoreNavigatorProps) => ReactNode
+
+export const createMadCoreNavigator: CreateMadCoreNavigatorType = <T extends ParamListBase>(
     Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>,
     config: MadConfig,
 ) => {
-    function MadCoreNavigator(props: Omit<NavigatorProps, "initialRouteName">) {
+    const MadCoreNavigator = (props: CoreNavigatorProps) => {
         return (
             <EnvironmentProvider environment={config.environment}>
                 <AnnouncementsProvider>

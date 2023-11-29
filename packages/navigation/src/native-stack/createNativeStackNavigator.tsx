@@ -88,3 +88,5 @@ export const createNativeStackNavigator = createNavigatorFactory<
     NativeStackNavigationEventMap,
     typeof NativeStackNavigator
 >(NativeStackNavigator);
+
+export type CreateNativeStackNavigatorType = typeof createNativeStackNavigator
