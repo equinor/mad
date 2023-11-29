@@ -1,5 +1,18 @@
 # @equinor/react-native-skia-draw
 
+## 0.2.27
+
+### Patch Changes
+
+-   Updated dependencies [c8d9131]
+-   Updated dependencies [a22023e]
+-   Updated dependencies [a57a362]
+-   Updated dependencies [a22023e]
+-   Updated dependencies [a0999d4]
+-   Updated dependencies [bda6748]
+-   Updated dependencies [08eeb85]
+    -   @equinor/mad-components@0.8.1
+
 ## 0.2.26
 
 ### Patch Changes
