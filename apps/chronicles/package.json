@@ -44,7 +44,7 @@
     "react-native-screens": "~3.22.1",
     "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.7",
-    "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#f1069d3b8f6ca911f60af1ddce45c8512bc58714",
+    "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#410a475cabd3dd011d5b3fc3c0068afb14522a5f",
     "uuid": "^3.0.0",
     "@react-native-async-storage/async-storage": "^1.19.3"
   },
