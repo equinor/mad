@@ -1,5 +1,21 @@
 # @equinor/mad-components
 
+## 0.8.1
+
+### Patch Changes
+
+-   c8d9131: Fixed flexing issue in `LinearProgress`
+-   a22023e: export SwitchColor type
+-   a57a362: `useEDS`: Added `MaterialCommunityIcons` to the list of loaded fonts since our icons
+    use it. This means that you no longer need to specifically load `MaterialCommunityIcons` in your
+    project, often found in `useCachedResources`.
+-   a22023e: Export buttoncellprops and switchcellprops
+-   a0999d4: Added Typography link variant to interactive group
+-   bda6748: `Button`: The `style` prop is now passed to the outermost component to make it behave
+    as expected. We now export `ButtonSpecificProps` which was previously named `ButtonProps`.
+    `ButtonProps` is still exported and consists of the types `ButtonSpecificProps` and `ViewProps`.
+-   08eeb85: Changed type of Typography child props to include JSX elements
+
 ## 0.8.0
 
 ### Minor Changes
