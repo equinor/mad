@@ -2,12 +2,12 @@
   "name": "@equinor/mad-chronicles",
   "version": "1.1.1",
   "scripts": {
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "dev": "expo run:ios",
+    "start": "npx expo start --dev-client",
+    "android": "npx expo run:android",
+    "dev": "npx expo run:ios",
     "web": "npx expo start --web",
     "build": "npx expo prebuild --platform ios",
-    "ios": "expo run:ios",
+    "ios": "npx expo run:ios",
     "lint": "tsc --noEmit && eslint .",
     "clean": "rm -rf node_modules/ && rm -rf ios/"
   },
