@@ -38,11 +38,18 @@ export type MadConfig = {
         clientId: string;
         /**
          * Redirect uri of your application.
-         * You can find and modify your application's client Id in your application's
+         * You can find and modify your application's registered redirect URIs in your application's
          * App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
         redirectUri: string;
+        /**
+         * Redirect uri for the web wersion of your application
+         * You can find and modify your application's registered redirect URIs in your application's
+         * App registration in Azure.
+         * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
+         */
+        redirectUriWeb?: string;
         /**
          * Scope to use for interactive login. You can find information about your application's
          * available scopes in your application's App registration in Azure.
@@ -64,6 +71,20 @@ export type MadConfig = {
      * App insights config used for initializing application insights service(s)
      */
     applicationInsights: AppInsightsInitConfig;
+    about?: {
+        /**
+         * Endpoints used by the app
+         */
+        endpoints: string[];
+        /**
+         * Build number of the app.
+         */
+        buildNumber: string;
+    };
+    serviceNow?: {
+        //TODO
+        whatever: string;
+    };
 };
 
 export type CoreStackParamListBase = {

@@ -1,12 +1,13 @@
 {
     "name": "@equinor/react-native-skia-draw",
-    "version": "0.2.26",
+    "version": "0.2.27",
     "description": "A React Native drawing library running on SKIA",
     "type": "module",
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "dev": "tsup-node --watch --clean=false",
-        "lint": "eslint src/"
+        "lint": "eslint src/",
+        "clean": "rm -rf node_modules/ && rm -rf dist/"
     },
     "keywords": [
         "react native",

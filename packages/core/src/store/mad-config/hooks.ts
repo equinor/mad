@@ -1,8 +1,26 @@
+import { getPremadeSettings } from "../../utils/getPremadeSettings";
 import { useMadConfig } from "./mad-config";
+import { getRedirectUriFromAuthConfig } from "../../utils/getRedirectUriFromAuthConfig";
+import { MadConfig } from "../../types";
 
-export const useAuthConfig = () => {
-    const config = useMadConfig();
-    return config.authentication;
+export type AuthConfig = {
+    clientId: MadConfig["authentication"]["clientId"]
+    scopes: MadConfig["authentication"]["scopes"]
+    /**
+     * resolved redirectUri. This can either be `redirectUri` or `redirectUriWeb` from the mad config, depending on which platform
+     * you're running on.
+     */
+    redirectUri: string
+}
+export const useAuthConfig = (): AuthConfig => {
+    const {authentication} = useMadConfig();
+    const {clientId, scopes} = authentication;
+    const redirectUri = getRedirectUriFromAuthConfig(authentication);
+    return {
+        clientId,
+        scopes,
+        redirectUri
+    }
 };
 
 export const useLoginScreenConfig = () => {
@@ -23,4 +41,10 @@ export const useEnvironment = () => {
 export const useServicePortalName = () => {
     const config = useMadConfig();
     return config.servicePortalName;
+};
+
+export const useSettingsScreenPremadeConfig = () => {
+    const config = useMadConfig();
+    const premadeSettings = getPremadeSettings(config);
+    return premadeSettings;
 };

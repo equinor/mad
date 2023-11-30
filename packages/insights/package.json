@@ -7,7 +7,8 @@
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
         "dev": "tsup-node --watch --clean=false",
-        "lint": "eslint src/"
+        "lint": "eslint src/",
+        "clean": "rm -rf node_modules/ && rm -rf dist/"
     },
     "keywords": [
         "react native",

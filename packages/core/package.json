@@ -1,13 +1,14 @@
 {
     "name": "@equinor/mad-core",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Core library for the Mobile App Delivery team",
     "type": "module",
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "test": "jest",
         "dev": "tsup-node --watch --clean=false",
-        "lint": "eslint src/"
+        "lint": "eslint src/",
+        "clean": "rm -rf node_modules/ && rm -rf dist/"
     },
     "keywords": [
         "react native",
