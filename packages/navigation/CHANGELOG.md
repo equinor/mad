@@ -1,5 +1,20 @@
 # @equinor/mad-navigation
 
+## 0.1.17
+
+### Patch Changes
+
+-   65d6d69: fix render bug
+-   4c301e1: Implemented WhatsNewScreen into core package, created ChangeLog component
+-   Updated dependencies [c8d9131]
+-   Updated dependencies [a22023e]
+-   Updated dependencies [a57a362]
+-   Updated dependencies [a22023e]
+-   Updated dependencies [a0999d4]
+-   Updated dependencies [bda6748]
+-   Updated dependencies [08eeb85]
+    -   @equinor/mad-components@0.8.1
+
 ## 0.1.16
 
 ### Patch Changes

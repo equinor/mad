@@ -1,13 +1,14 @@
 {
     "name": "@equinor/mad-navigation",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "description": "Navigation package built on top of React Navigation",
     "type": "module",
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "test": "jest",
         "dev": "tsup-node --watch --clean=false",
-        "lint": "eslint src/"
+        "lint": "eslint src/",
+        "clean": "rm -rf node_modules/ && rm -rf dist/"
     },
     "keywords": [
         "react native",

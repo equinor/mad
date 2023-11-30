@@ -10,7 +10,7 @@ import { Icon, IconName } from "../Icon";
 import { DotProgress } from "../ProgressIndicator";
 import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
 
-export type ButtonProps = {
+export type ButtonSpecificProps = {
     /**
      * Label text of the button.
      */
@@ -45,7 +45,9 @@ export type ButtonProps = {
     iconPosition?: "leading" | "trailing";
 };
 
-export const Button = forwardRef<View, ButtonProps & ViewProps>(
+export type ButtonProps = ButtonSpecificProps & ViewProps;
+
+export const Button = forwardRef<View, ButtonProps>(
     (
         {
             title,
@@ -88,27 +90,25 @@ export const Button = forwardRef<View, ButtonProps & ViewProps>(
         );
 
         return (
-            <View>
-                <View ref={ref} style={[styles.colorContainer, rest.style]}>
-                    <PressableHighlight
-                        disabled={disabled}
-                        onPress={isToggleButton ? toggleData.toggle : onPress}
-                        style={styles.pressableContainer}
-                    >
-                        <View style={styles.labelContainer}>
-                            {loading ? (
-                                <DotProgress
-                                    color={
-                                        disabled || variant !== "contained" ? "primary" : "neutral"
-                                    }
-                                    size={12}
-                                />
-                            ) : (
-                                ButtonContent()
-                            )}
-                        </View>
-                    </PressableHighlight>
-                </View>
+            <View ref={ref} style={[styles.colorContainer, rest.style]}>
+                <PressableHighlight
+                    disabled={disabled}
+                    onPress={isToggleButton ? toggleData.toggle : onPress}
+                    style={styles.pressableContainer}
+                >
+                    <View style={styles.labelContainer}>
+                        {loading ? (
+                            <DotProgress
+                                color={
+                                    disabled || variant !== "contained" ? "primary" : "neutral"
+                                }
+                                size={12}
+                            />
+                        ) : (
+                            ButtonContent()
+                        )}
+                    </View>
+                </PressableHighlight>
             </View>
         );
     },
