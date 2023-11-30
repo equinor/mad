@@ -5,7 +5,7 @@ import { MadConfig } from "../../types";
 
 export type AuthConfig = {
     clientId: MadConfig["authentication"]["clientId"]
-    scopes?: MadConfig["authentication"]["scopes"]
+    scopes: MadConfig["authentication"]["scopes"]
     /**
      * resolved redirectUri. This can either be `redirectUri` or `redirectUriWeb` from the mad config, depending on which platform
      * you're running on.
