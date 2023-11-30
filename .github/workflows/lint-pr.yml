@@ -30,7 +30,7 @@ jobs:
               with:
                   version: 7
 
-            - name: 🌈 Setup Node.js 16
+            - name: 🌈 Setup Node.js 18
               uses: actions/setup-node@v3
               with:
                   node-version: 18
