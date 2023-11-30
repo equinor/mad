@@ -1,9 +1,21 @@
 import { getPremadeSettings } from "../../utils/getPremadeSettings";
 import { useMadConfig } from "./mad-config";
+import { getRedirectUriFromAuthConfig } from "../../utils/getRedirectUriFromAuthConfig";
 
-export const useAuthConfig = () => {
-    const config = useMadConfig();
-    return config.authentication;
+export type AuthConfig = {
+    clientId: string
+    redirectUri: string
+    scopes?: string[] | undefined
+}
+export const useAuthConfig = (): AuthConfig => {
+    const {authentication} = useMadConfig();
+    const {clientId, scopes} = authentication;
+    const redirectUri = getRedirectUriFromAuthConfig(authentication);
+    return {
+        clientId,
+        scopes,
+        redirectUri
+    }
 };
 
 export const useLoginScreenConfig = () => {

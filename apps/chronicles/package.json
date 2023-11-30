@@ -5,7 +5,7 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "dev": "expo run:ios",
-    "web": "expo start --web",
+    "web": "npx expo start --web",
     "build": "npx expo prebuild --platform ios",
     "ios": "expo run:ios",
     "lint": "tsc --noEmit && eslint .",

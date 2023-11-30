@@ -7,5 +7,12 @@
     },
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "eslint.validate": ["typescript", "typescriptreact", "javascript"]
+    "eslint.validate": [
+        "typescript",
+        "typescriptreact",
+        "javascript"
+    ],
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    }
 }
