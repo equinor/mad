@@ -1,4 +1,4 @@
-import { Button as _Button, ButtonProps } from "./Button";
+import { Button as _Button, ButtonProps, ButtonSpecificProps } from "./Button";
 import { ButtonGroup, ButtonGroupProps } from "./ButtonGroup";
 import { ToggleButton, ToggleButtonProps } from "./ToggleButton";
 import { IconButton, IconButtonProps } from "./IconButton";
@@ -23,4 +23,4 @@ Button.Group = ButtonGroup;
 Button.Toggle = ToggleButton;
 Button.Icon = IconButton;
 
-export { Button, ButtonProps, ButtonGroupProps, ToggleButtonProps, IconButtonProps };
+export { Button, ButtonProps, ButtonSpecificProps, ButtonGroupProps, ToggleButtonProps, IconButtonProps };

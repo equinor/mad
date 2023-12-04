@@ -18,8 +18,9 @@ export type PopoverProps = {
     open: boolean;
     /**
      * A callback method invoked when a user closes the popover.
+     * If not provided, the popover will respond to outside presses.
      */
-    onClose: () => void;
+    onClose?: () => void;
     /**
      * The positioning of the popover around the anchor element.
      */
