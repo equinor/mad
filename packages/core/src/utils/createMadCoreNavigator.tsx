@@ -1,11 +1,12 @@
 import React from "react";
-import { EnvironmentProvider, createNativeStackNavigator } from "@equinor/mad-navigation";
+import { EnvironmentProvider } from "@equinor/mad-components";
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
 import { AppInsightsInitializer } from "@equinor/mad-insights";
+import { createNativeStackNavigator } from "../components/navigation";
 import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { AboutScreen } from "../components/screens/AboutScreen";
 import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen";
@@ -30,20 +31,20 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                         <Stack.Screen
                             name="Login"
                             component={LoginScreen}
-                            options={{ headerShown: false, environmentBannerShown: true }}
+                            options={{headerShown: false, customSubHeaderShown: true}}
                         />
                         <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
                         <Stack.Screen
-                        name="WhatsNew"
-                        component={WhatsNewScreen}
-                        options={{headerTitle: "What's New"}}
-                    />
-                        {config.about && <Stack.Screen name="About" component={AboutScreen} />}
-                        {config.serviceNow && (
-                            <Stack.Screen name="Feedback" component={CreateIncidentScreen} />
-                        )}
-                        {props.children}
-                    </Stack.Navigator>
+                            name="WhatsNew"
+                            component={WhatsNewScreen}
+                            options={{headerTitle: "What's New"}}
+                        />
+                            {config.about && <Stack.Screen name="About" component={AboutScreen} />}
+                            {config.serviceNow && (
+                                <Stack.Screen name="Feedback" component={CreateIncidentScreen} />
+                            )}
+                            {props.children}
+                        </Stack.Navigator>
                 </AnnouncementsProvider>
             </EnvironmentProvider>
         </AppInsightsInitializer>
