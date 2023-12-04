@@ -18,6 +18,7 @@ import type { BottomTabNavigationEventMap } from "@react-navigation/bottom-tabs"
 import { BottomTabView } from "@react-navigation/bottom-tabs";
 import { createMadDescriptors } from "../_internal/createMadDescriptors";
 import type { BottomTabNavigationConfig, MadBottomTabNavigationOptions } from "./types";
+import { MadCustomFactoryProps } from "../_internal/types";
 
 type Props = DefaultNavigatorOptions<
     ParamListBase,
@@ -26,7 +27,8 @@ type Props = DefaultNavigatorOptions<
     BottomTabNavigationEventMap
 > &
     TabRouterOptions &
-    BottomTabNavigationConfig;
+    BottomTabNavigationConfig &
+    MadCustomFactoryProps;
 
 function BottomTabNavigator({
     id,
@@ -36,6 +38,7 @@ function BottomTabNavigator({
     screenListeners,
     screenOptions,
     sceneContainerStyle,
+    customSubHeader,
     ...rest
 }: Props) {
     const { state, descriptors, navigation, NavigationContent } = useNavigationBuilder<
@@ -53,7 +56,7 @@ function BottomTabNavigator({
         screenOptions,
     });
 
-    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions);
+    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions, customSubHeader);
 
     return (
         <NavigationContent>
@@ -68,9 +71,10 @@ function BottomTabNavigator({
     );
 }
 
-export const createBottomTabNavigator = createNavigatorFactory<
-    TabNavigationState<ParamListBase>,
-    MadBottomTabNavigationOptions,
-    BottomTabNavigationEventMap,
-    typeof BottomTabNavigator
->(BottomTabNavigator);
+export const createBottomTabNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
+    createNavigatorFactory<
+        TabNavigationState<ParamListBase>,
+        MadBottomTabNavigationOptions,
+        BottomTabNavigationEventMap,
+        typeof BottomTabNavigator
+    >(props => <BottomTabNavigator {...props} customSubHeader={customSubHeader} />);
