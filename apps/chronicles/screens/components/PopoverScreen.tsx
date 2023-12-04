@@ -16,11 +16,11 @@ export const PopoverScreen = () => {
     const secondButtonRef = useRef<View>(null);
     const [isSecondPopoverOpen, setIsSecondPopoverOpen] = useState(false);
 
-    const style = useStyles(themeStyles);
+    const styles = useStyles(themeStyles);
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={style.contentContainer}
+            contentContainerStyle={styles.contentContainer}
         >
             <Typography>
                 {"The popover component displays modally on top of your content and positions " +
@@ -73,7 +73,7 @@ export const PopoverScreen = () => {
                 />
             </Popover>
             <Spacer />
-            <View style={{ width: "100%", flexDirection: "row", justifyContent: "center" }}>
+            <View style={styles.interactiveButtonContainer}>
                 <Button variant="outlined" title="...with me..." />
                 <Spacer.Horizontal />
                 <Button variant="outlined" title="...or me" />
@@ -86,5 +86,10 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     contentContainer: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
+    },
+    interactiveButtonContainer: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "center",
     },
 }));
