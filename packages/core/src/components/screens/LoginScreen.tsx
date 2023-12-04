@@ -7,6 +7,7 @@ import { useCoreStackNavigation } from "../../hooks/useCoreStackNavigation";
 import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRouteForLoginScreen";
 import { enableDemoMode } from "../../store/demo-mode";
 import { useReleaseNotesVersion } from "../../store/release-notes/release-notes";
+import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
 
 export const LoginScreen = () => {
     const styles = useStyles(theme);
@@ -26,13 +27,18 @@ export const LoginScreen = () => {
             <View style={{ gap: 8 }}>
                 <LoginButton
                     {...authConfig}
-                    onAuthenticationSuccessful={() =>
+                    onAuthenticationSuccessful={(_, type) => {
+                        if (type === "AUTOMATIC") track(metricKeys.AUTHENTICATION_AUTOMATIC);
+                        else track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
                         navigation.navigate(
                             getNavigationRouteForLoginScreen({
                                 appVersion,
                                 lastDisplayedReleaseNotesVersion,
                             }),
-                        )
+                        );
+                    }}
+                    onAuthenticationFailed={error =>
+                        track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, { error })
                     }
                     enableAutomaticAuthentication
                     scopes={authConfig.scopes || []}
@@ -42,6 +48,7 @@ export const LoginScreen = () => {
                         title="Demo"
                         variant="outlined"
                         onPress={() => {
+                            track(metricKeys.AUTHENTICATION_DEMO);
                             enableDemoMode();
                             navigation.navigate(
                                 getNavigationRouteForLoginScreen({

@@ -62,9 +62,6 @@ importers:
       '@equinor/mad-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@equinor/mad-insights':
-        specifier: workspace:*
-        version: link:../../packages/insights
       '@equinor/mad-navigation':
         specifier: workspace:*
         version: link:../../packages/navigation
