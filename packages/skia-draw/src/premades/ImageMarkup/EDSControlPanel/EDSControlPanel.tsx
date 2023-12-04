@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, View } from "react-native";
 import {
     Color,
     EDSStyleSheet,
@@ -36,6 +36,7 @@ export const EDSControlPanel = () => {
 
     const colorSelectingButton = useRef<View>(null);
     const strokeWidthSelectingButton = useRef<View>(null);
+    const textToolSelectingButton = useRef<View>(null);
 
     const colors = ["red", "white", "black", "blue", "orange", "yellow", "green"];
     const strokeWeights = [5, 10, 15];
