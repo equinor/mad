@@ -57,7 +57,7 @@ export const PopoverScreen = () => {
                 onPress={() => setIsSecondPopoverOpen(!isSecondPopoverOpen)}
             />
             <Popover open={isSecondPopoverOpen} anchorEl={secondButtonRef} placement="top">
-                <Typography>{"But remember to provide a way to close it!"}</Typography>
+                <Typography>But remember to provide a way to close it!</Typography>
                 <Spacer amount="small" />
                 <Button
                     title="click me to close the popover"
