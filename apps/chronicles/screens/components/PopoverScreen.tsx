@@ -31,9 +31,7 @@ export const PopoverScreen = () => {
             <Button
                 title="Trigger popover"
                 ref={firstButtonRef}
-                onPress={() => {
-                    setIsFirstPopoverOpen(!isFirstPopoverOpen);
-                }}
+                onPress={() => setIsFirstPopoverOpen(!isFirstPopoverOpen)}
             />
             <Popover
                 open={isFirstPopoverOpen}
@@ -43,7 +41,6 @@ export const PopoverScreen = () => {
             >
                 <Typography>This is a popover</Typography>
             </Popover>
-
             <Spacer amount="large" />
             <Typography>
                 {"If you want to have the popover stay open while interacting " +
@@ -57,9 +54,7 @@ export const PopoverScreen = () => {
             <Button
                 title="My popover won't stop you from interacting.."
                 ref={secondButtonRef}
-                onPress={() => {
-                    setIsSecondPopoverOpen(!isFirstPopoverOpen);
-                }}
+                onPress={() => setIsSecondPopoverOpen(!isSecondPopoverOpen)}
             />
             <Popover open={isSecondPopoverOpen} anchorEl={secondButtonRef} placement="top">
                 <Typography>{"But remember to provide a way to close it!"}</Typography>
