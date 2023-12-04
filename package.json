@@ -51,7 +51,7 @@
         "typescript": "5.3.0-beta"
     },
     "engines": {
-        "node": ">=16.0.0"
+        "node": ">=18"
     },
     "packageManager": "pnpm@7.31.0"
 }

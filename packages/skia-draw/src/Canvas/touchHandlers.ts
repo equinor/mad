@@ -1,10 +1,12 @@
-import { Color, SkFont, Skia, TouchHandlers, useFont } from "@shopify/react-native-skia";
+import { Color, SkFont, Skia, TouchHandlers } from "@shopify/react-native-skia";
 import { CanvasData, CanvasTool, PenData, TextData } from "./types";
 import { MutableRefObject } from "react";
+import { isInPaddedTextBoundingBox, measureText } from "../utility/boundingTextBox";
 
 type TouchHandlerData = {
     canvasHistory: MutableRefObject<CanvasData[]>;
     currentPenPaths: MutableRefObject<Record<number, PenData>>;
+    draggingText: MutableRefObject<TextData | undefined>;
     font: SkFont;
     toolColor: Color;
     strokeWeight: number;
@@ -56,6 +58,7 @@ function createPenTouchHandlers({
 
 function createTextTouchHandlers({
     canvasHistory,
+    draggingText,
     toolColor,
     text,
     font,
@@ -63,22 +66,27 @@ function createTextTouchHandlers({
 }: TouchHandlerData): TouchHandlers {
     return {
         onStart: ({ x, y }) => {
-            const pressedText = canvasHistory.current
+            const pressedTextIndex = canvasHistory.current
                 .filter(item => item.type === "text")
-                .find(item => {
-                    const text = item as TextData;
-                    const width = text.font.getTextWidth(text.text);
-                    const height = text.font.getSize();
-                    return (
-                        x >= text.position.x &&
-                        x <= text.position.x + width &&
-                        y >= text.position.y &&
-                        y <= text.position.y + height
-                    );
+                .findIndex(item => {
+                    const textItem = item as TextData;
+                    return isInPaddedTextBoundingBox({
+                        text: textItem.text,
+                        textPosition: textItem.position,
+                        pointPosition: { x, y },
+                        font,
+                    });
                 });
-            if (pressedText) {
+
+            if (pressedTextIndex !== -1) {
+                draggingText.current = canvasHistory.current.at(pressedTextIndex) as TextData;
+                canvasHistory.current = canvasHistory.current.filter(
+                    (_, index) => index !== pressedTextIndex,
+                );
+                rerender();
                 return;
             }
+            if (!text) return;
             const newText: TextData = {
                 type: "text",
                 font,
@@ -91,6 +99,29 @@ function createTextTouchHandlers({
             };
             canvasHistory.current = [...canvasHistory.current, newText];
             rerender();
+        },
+        onActive: ({ x, y }) => {
+            if (!draggingText.current) {
+                return;
+            }
+
+            draggingText.current = {
+                ...draggingText.current,
+                position: {
+                    x:
+                        x -
+                        measureText(draggingText.current.text, draggingText.current.font).width / 2,
+                    y,
+                },
+            };
+            rerender();
+        },
+        onEnd: () => {
+            if (!draggingText.current) {
+                return;
+            }
+            canvasHistory.current = [...canvasHistory.current, draggingText.current];
+            draggingText.current = undefined;
         },
     };
 }
