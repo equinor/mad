@@ -2,10 +2,10 @@ import { resolveOptions } from "./resolveOptions";
 import { MadBaseOptions, MadDescriptorBase, UnresolvedScreenOptions } from "./types";
 
 /**
- * Calculate whether the environment banner should be displayed or not
+ * Calculate whether the custom sub-header should be displayed or not
  * @param descriptor descriptor from the descriptors object provided by React Navigation
  * @param unresolvedScreenOptions unresolved screen options provided by React Navigation
- * @returns whether the environment banner should be returned or not
+ * @returns whether the custom sub-header should be returned or not
  */
 export const shouldDisplayCustomSubHeader = <T extends MadBaseOptions>(
     descriptor: MadDescriptorBase,

@@ -5,7 +5,7 @@ export type MadDescriptorsBase = Record<string, MadDescriptorBase>;
 
 export type MadBaseOptions = { headerShown?: boolean; customSubHeaderShown?: boolean };
 
-export type MadCustomFactoryProps = { customSubHeader?: () => React.ReactNode };
+export type MadCustomFactoryProps = { customSubHeader?: () => ReactNode };
 
 export type MadDescriptorBase = {
     navigation: unknown;
