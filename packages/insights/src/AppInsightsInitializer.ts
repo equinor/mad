@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { AppInsightsInitConfig } from "./types";
 import { useAppInsights } from "./useAppInsights";
 
