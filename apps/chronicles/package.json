@@ -20,7 +20,7 @@
     "@equinor/react-native-skia-draw": "workspace:*",
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^19.0.0",
-    "@react-native-async-storage/async-storage": "^1.18.2",
+    "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
@@ -46,8 +46,7 @@
     "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.7",
     "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#410a475cabd3dd011d5b3fc3c0068afb14522a5f",
-    "uuid": "^3.0.0",
-    "@react-native-async-storage/async-storage": "^1.19.3"
+    "uuid": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
