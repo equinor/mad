@@ -2,6 +2,7 @@ import { getPremadeSettings } from "../../utils/getPremadeSettings";
 import { useMadConfig } from "./mad-config";
 import { getRedirectUriFromAuthConfig } from "../../utils/getRedirectUriFromAuthConfig";
 import { MadConfig } from "../../types";
+import { useDictionary } from "../../language/useDictionary";
 
 export type AuthConfig = {
     clientId: MadConfig["authentication"]["clientId"]
@@ -45,6 +46,7 @@ export const useServicePortalName = () => {
 
 export const useSettingsScreenPremadeConfig = () => {
     const config = useMadConfig();
-    const premadeSettings = getPremadeSettings(config);
+    const dictionary = useDictionary()
+    const premadeSettings = getPremadeSettings(config, dictionary);
     return premadeSettings;
 };

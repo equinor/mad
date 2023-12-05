@@ -2,44 +2,45 @@ import {
     SettingsScreenCellConfigurationItem,
     SettingsScreenSectionProps,
 } from "../components/screens/settings/types";
+import { CoreDictionary } from "../language/types";
 import { MadConfig } from "../types";
 
-const releaseNotes: SettingsScreenCellConfigurationItem = {
+const getReleaseNotesConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "format-list-bulleted",
-    title: "Release notes",
-    onPress: navigation => navigation.navigate("ReleaseNotes"),
-};
+    title: dictionary.releaseNotes.releaseNotes,
+    onPress: (navigation) => navigation.navigate("ReleaseNotes"),
+});
 
-const about: SettingsScreenCellConfigurationItem = {
+const getAboutConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "information-outline",
-    title: "About",
+    title: dictionary.settings.aboutApp,
     onPress: navigation => navigation.navigate("About"),
-};
+});
 
-const serviceNow: SettingsScreenCellConfigurationItem = {
+const getServiceNowConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "chat-alert-outline",
-    title: "Feedback",
+    title: dictionary.settings.feedback,
     onPress: navigation => navigation.navigate("Feedback"),
-};
+});
 
-const language: SettingsScreenCellConfigurationItem = {
+const getLanguageConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "chat-processing-outline",
-    title: "Language",
+    title: dictionary.settings.language,
     onPress: navigation => navigation.navigate("NotFound"),
-};
+});
 
 export type PremadeSettings = ReturnType<typeof getPremadeSettings>;
-export const getPremadeSettings = (config: MadConfig) => {
-    const premadeCommonNavigationItems = [releaseNotes];
-    if (config.about) premadeCommonNavigationItems.push(about);
-    if (config.serviceNow) premadeCommonNavigationItems.push(serviceNow);
+export const getPremadeSettings = (config: MadConfig, dictionary: CoreDictionary) => {
+    const premadeCommonNavigationItems = [getReleaseNotesConfig(dictionary)];
+    if (config.about) premadeCommonNavigationItems.push(getAboutConfig(dictionary));
+    if (config.serviceNow) premadeCommonNavigationItems.push(getServiceNowConfig(dictionary));
 
     const premadeLanguageSection: SettingsScreenSectionProps | undefined =
-        config.language.supportedLanguages.length >= 2 ? { items: [language] } : undefined;
+        config.language.supportedLanguages.length >= 2 ? { items: [getLanguageConfig(dictionary)] } : undefined;
     const premadeCommonNavigationSection: SettingsScreenSectionProps = {
         items: premadeCommonNavigationItems,
     };
