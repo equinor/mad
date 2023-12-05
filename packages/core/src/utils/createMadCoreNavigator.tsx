@@ -6,10 +6,10 @@ import { CoreStackParamListBase, MadConfig } from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
 import { AppInsightsInitializer } from "@equinor/mad-insights";
-import { createNativeStackNavigator } from "../components/navigation";
+import { createNativeStackNavigator } from "../components";
 import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { AboutScreen } from "../components/screens/AboutScreen";
-import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen";
+import { CreateIncidentScreen } from "../components/screens/create-incident/CreateIncidentScreen";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
