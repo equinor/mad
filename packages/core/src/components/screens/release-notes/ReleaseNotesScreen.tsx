@@ -64,8 +64,9 @@ export const ReleaseNotesScreen = () => {
                             title={`${releaseNote.version} - ${getShortDate(
                                 new Date(releaseNote.releaseDate),
                             )}`}
+                            chevronPosition={"right"}
                         >
-                            <ChangeLog release={releaseNote} />
+                            <ChangeLog release={releaseNote} showTitleAndVersion={false}/>
                         </Accordion.Item>
                     ))}
                 </Accordion>
