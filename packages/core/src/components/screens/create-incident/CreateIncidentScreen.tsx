@@ -1,14 +1,73 @@
-import React from "react";
-import { Cell, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
-import { View } from "react-native";
+import React, { useState } from "react";
+import {
+    Button,
+    Cell,
+    EDSStyleSheet,
+    TextField,
+    Typography,
+    useStyles,
+    colors,
+} from "@equinor/mad-components";
+import { View, LayoutAnimation } from "react-native";
 import { UserInfo } from "./UserInfo";
 import { useAccountOrDemoAccount } from "../../../hooks";
 import * as Device from "expo-device";
 import * as Localization from "expo-localization";
+import { useEnvironment, useServiceNowConfigurationItem } from "../../../store/mad-config";
+import { createIncident } from "./createIncident";
+import {getMadCommonBaseUrl} from "../../../utils/madCommonUtils";
 
 export const CreateIncidentScreen = () => {
     const styles = useStyles(createIncidentStyles);
     const account = useAccountOrDemoAccount();
+    const serviceNowConfigurationItem = useServiceNowConfigurationItem();
+    const environment = useEnvironment();
+    const baseurl = getMadCommonBaseUrl(environment);
+    const [error, setError] = useState<string | null>(null);
+    const [ticketNumber, setTicketNumber] = useState<string | null>(null);
+    const [ticketTitle, setTicketTitle] = useState<string | null>(null);
+    const [ticketDescription, setTicketDescription] = useState<string | null>(null);
+    const [isSending, setIsSending] = useState(false);
+    const onSubmit = () => {
+        setIsSending(true);
+        const data = {
+            callerEmail: account?.username,
+            title: ticketTitle,
+            description: createDescription(),
+        };
+        createIncident(data, environment, serviceNowConfigurationItem)
+            .then(response => {
+                LayoutAnimation.configureNext({
+                    duration: 500,
+                    update: {
+                        type: LayoutAnimation.Types.easeInEaseOut,
+                    },
+                    create: {
+                        type: LayoutAnimation.Types.easeInEaseOut,
+                        property: LayoutAnimation.Properties.opacity,
+                    },
+                });
+                setTicketNumber(response.result.details.number);
+                setTicketDescription(null);
+                setTicketTitle(null);
+                setIsSending(false);
+            })
+            .catch(setError)
+            .finally(() => setIsSending(false));
+    };
+
+    const createDescription = () => {
+        let description = "";
+
+        description += `User: ${account?.username}\n`;
+        description += `Device Brand: ${Device.brand}\n`;
+        description += `Device: ${Device.deviceName}\n`;
+        description += `Operating System: ${Device.osVersion}\n`;
+        description += `Time Zone: ${Localization.timezone}\n`;
+        description += `Locale: ${Localization.locale}\n`;
+
+        return `${description}\n${ticketDescription}`;
+    };
 
     return (
         <View style={styles.container}>
@@ -26,6 +85,43 @@ export const CreateIncidentScreen = () => {
                 <UserInfo infoType={"Operating System"} infoValue={Device.osVersion} />
                 <UserInfo infoType={"Time Zone"} infoValue={Localization.timezone} />
                 <UserInfo infoType={"Area"} infoValue={Localization.locale} />
+                {ticketNumber && (
+                    <View style={[styles.popupBox, { borderColor: "green" }]}>
+                        <Typography>{`Ticket number: ${ticketNumber}`}</Typography>
+                    </View>
+                )}
+                {error && (
+                    <View style={[styles.popupBox, { borderColor: "red" }]}>
+                        <Typography>
+                            {`An error occurred creating your ticket: ${error}`}
+                        </Typography>
+                    </View>
+                )}
+                <View style={styles.titleField}>
+                    <TextField
+                        onChange={setTicketTitle}
+                        placeholder={"Write a title for the Service Now ticket"}
+                        disabled={isSending}
+                    />
+                </View>
+                <View style={styles.titleField}>
+                    <TextField
+                        multiline
+                        onChange={setTicketDescription}
+                        placeholder={
+                            "Write a complete description of your issue. You do not need to provide information about your device."
+                        }
+                        disabled={isSending}
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        disabled={!ticketTitle || !ticketDescription || isSending}
+                        onPress={onSubmit}
+                        style={{ width: 81 }}
+                        title={"Send"}
+                    ></Button>
+                </View>
             </Cell>
         </View>
     );
@@ -38,5 +134,21 @@ const createIncidentStyles = EDSStyleSheet.create(theme => ({
     },
     topTextContainer: {
         paddingBottom: theme.geometry.dimension.cell.minHeight,
+    },
+    titleField: {
+        marginVertical: theme.spacing.textField.paddingVertical * 3,
+    },
+    multiTextField: {
+        height: theme.geometry.dimension.dialog.minHeight,
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+    },
+    popupBox: {
+        padding: 24,
+        marginTop: 16,
+        borderWidth: 2,
+        borderRadius: 4,
     },
 }));

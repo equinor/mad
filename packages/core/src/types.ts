@@ -14,6 +14,12 @@ export type MadConfig = {
      */
     servicePortalName: string;
     /**
+     * ServiceNow Configuration Item (cmdb_ci) of the app.
+     * Will be used to create ServiceNow tickets for the correlating application.
+     * @see https://portal.azure.com/#@StatoilSRM.onmicrosoft.com/resource/subscriptions/2ad1b087-ffb8-4cf3-bcc2-8caeebfcd3f3/resourceGroups/mad-test/providers/Microsoft.Storage/storageAccounts/madtest62alhixjcodkm/storagebrowser
+     */
+    serviceNowConfigurationItem: string;
+    /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
     environment: EnvironmentContextProps["environment"];

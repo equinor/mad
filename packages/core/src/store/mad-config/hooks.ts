@@ -43,6 +43,11 @@ export const useServicePortalName = () => {
     return config.servicePortalName;
 };
 
+export const useServiceNowConfigurationItem = () => {
+    const config = useMadConfig();
+    return config.serviceNowConfigurationItem;
+}
+
 export const useSettingsScreenPremadeConfig = () => {
     const config = useMadConfig();
     const premadeSettings = getPremadeSettings(config);
