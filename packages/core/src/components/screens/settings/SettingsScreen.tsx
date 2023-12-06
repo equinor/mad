@@ -7,7 +7,7 @@ import { useSettingsScreenPremadeConfig } from "../../../store/mad-config";
 import { useAccountOrDemoAccount } from "../../../hooks";
 import { SettingsScreenConfiguration } from "./types";
 import { getFinalSettingsConfig } from "../../../utils/getFinalSettingsConfig";
-import { useScreentitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
+import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 import { useDictionary } from "../../../language/useDictionary";
 
 export type SettingsScreenProps = {
@@ -23,7 +23,7 @@ export type SettingsScreenProps = {
     clean?: boolean;
 };
 export const SettingsScreen = ({ config = [], clean = false }: SettingsScreenProps) => {
-    useScreentitleFromDictionary(dic => dic.settings.title);
+    useScreenTitleFromDictionary(dic => dic.settings.title);
     const dictionary = useDictionary();
     const signOut = useSignOut();
     const premadeConfig = useSettingsScreenPremadeConfig();

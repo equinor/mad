@@ -3,7 +3,7 @@ import { useCoreStackNavigation } from "./useCoreStackNavigation"
 import { CoreDictionary } from "../language/types";
 import { useDictionary } from "../language/useDictionary";
 
-export const useScreentitleFromDictionary = (pickFn: (dictionary: CoreDictionary) => string) => {
+export const useScreenTitleFromDictionary = (pickFn: (dictionary: CoreDictionary) => string) => {
     const dictionary = useDictionary();
     useScreenTitle(pickFn(dictionary))
 }  
