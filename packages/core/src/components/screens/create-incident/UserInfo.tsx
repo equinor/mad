@@ -4,7 +4,7 @@ import {EDSStyleSheet, Typography, useStyles} from "@equinor/mad-components";
 
 type UserInfoProps = {
     infoType: string,
-    infoValue: string
+    infoValue: string | null | undefined
 }
 export function UserInfo({infoType, infoValue}: UserInfoProps) {
     const styles = useStyles(UserInfoStyles);
@@ -27,9 +27,10 @@ const UserInfoStyles = EDSStyleSheet.create(theme => ({
         flexDirection: "row",
         borderBottomWidth: 1,
         borderBottomColor: theme.colors.border.medium,
+        marginVertical: theme.spacing.textField.paddingVertical,
     },
     infoContainer: {
-        width: 164,
         height: 24,
+        flexBasis: "25%"
     }
 }));

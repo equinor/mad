@@ -98,6 +98,9 @@ importers:
       expo-constants:
         specifier: ~14.4.2
         version: 14.4.2(expo@49.0.21)
+      expo-device:
+        specifier: ~5.4.0
+        version: 5.4.0(expo@49.0.21)
       expo-font:
         specifier: ~11.4.0
         version: 11.4.0(expo@49.0.21)
@@ -107,6 +110,9 @@ importers:
       expo-linking:
         specifier: ~5.0.2
         version: 5.0.2(expo@49.0.21)
+      expo-localization:
+        specifier: ~14.3.0
+        version: 14.3.0(expo@49.0.21)
       expo-splash-screen:
         specifier: ~0.20.4
         version: 0.20.5(expo-modules-autolinking@1.5.1)(expo@49.0.21)
@@ -270,6 +276,12 @@ importers:
       '@react-navigation/native':
         specifier: ^6.1.8
         version: 6.1.9(react-native@0.72.3)(react@18.2.0)
+      expo-device:
+        specifier: '>=5.4.0'
+        version: 5.4.0(expo@49.0.21)
+      expo-localization:
+        specifier: '>=14.3.0'
+        version: 14.3.0(expo@49.0.21)
       react:
         specifier: '>=16.8'
         version: 18.2.0
@@ -6810,6 +6822,15 @@ packages:
       - supports-color
     dev: false
 
+  /expo-device@5.4.0(expo@49.0.21):
+    resolution: {integrity: sha512-TQxSVPrC6njCbzZ9Cqpc1lGLIjPmO1zBIbqW7CTqBPD1dOIMrgQvt7lZZhkHh3pWzoZznH283sSYqCvy3XcURw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.5)
+      ua-parser-js: 0.7.37
+    dev: false
+
   /expo-file-system@15.4.5(expo@49.0.21):
     resolution: {integrity: sha512-xy61KaTaDgXhT/dllwYDHm3ch026EyO8j4eC6wSVr/yE12MMMxAC09yGwy4f7kkOs6ztGVQF5j7ldRzNLN4l0Q==}
     peerDependencies:
@@ -6864,6 +6885,15 @@ packages:
     transitivePeerDependencies:
       - expo
       - supports-color
+    dev: false
+
+  /expo-localization@14.3.0(expo@49.0.21):
+    resolution: {integrity: sha512-TML3TeVtwpfuSNwbhBspC9XsGJaa0TWJNh+UaR/35YP9fQiaJfVWUMSrAq84ba6rY1Pm3kti07LV8UUa505oqg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.21(@babel/core@7.23.5)
+      rtl-detect: 1.1.2
     dev: false
 
   /expo-modules-autolinking@1.5.1:
@@ -11532,6 +11562,10 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /rtl-detect@1.1.2:
+    resolution: {integrity: sha512-PGMBq03+TTG/p/cRB7HCLKJ1MgDIi07+QU1faSjiYRfmY5UsAttV9Hs08jDAHVwcOwmVLcSJkpwyfXszVjWfIQ==}
+    dev: false
+
   /run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
@@ -12774,6 +12808,10 @@ packages:
     resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  /ua-parser-js@0.7.37:
+    resolution: {integrity: sha512-xV8kqRKM+jhMvcHWUKthV9fNebIzrNy//2O9ZwWcfiBFR5f25XVZPLlEajk/sf3Ra15V92isyQqnIEXRDaZWEA==}
+    dev: false
 
   /ua-parser-js@1.0.37:
     resolution: {integrity: sha512-bhTyI94tZofjo+Dn8SN6Zv8nBDvyXTymAdM3LDI/0IboIUwTu1rEhW7v2TfiVsoYWgkQ4kOVqnI8APUFbIQIFQ==}

@@ -29,6 +29,8 @@
     "peerDependencies": {
         "@react-native-async-storage/async-storage": "*",
         "@react-navigation/native": "^6.1.8",
+        "expo-device": ">=5.4.0",
+        "expo-localization": ">=14.3.0",
         "react": ">=16.8",
         "react-dom": ">=16.8",
         "react-native": ">=0.68",
