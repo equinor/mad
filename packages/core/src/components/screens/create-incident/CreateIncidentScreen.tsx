@@ -6,7 +6,6 @@ import {
     TextField,
     Typography,
     useStyles,
-    colors,
 } from "@equinor/mad-components";
 import { View, LayoutAnimation } from "react-native";
 import { UserInfo } from "./UserInfo";
@@ -14,16 +13,14 @@ import { useAccountOrDemoAccount } from "../../../hooks";
 import * as Device from "expo-device";
 import * as Localization from "expo-localization";
 import { useEnvironment, useServiceNowConfigurationItem } from "../../../store/mad-config";
-import { createIncident } from "./createIncident";
-import {getMadCommonBaseUrl} from "../../../utils/madCommonUtils";
+import {createIncident, CreateIncidentResponse} from "./createIncident";
 
 export const CreateIncidentScreen = () => {
     const styles = useStyles(createIncidentStyles);
     const account = useAccountOrDemoAccount();
     const serviceNowConfigurationItem = useServiceNowConfigurationItem();
     const environment = useEnvironment();
-    const baseurl = getMadCommonBaseUrl(environment);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string | CreateIncidentResponse |null>(null);
     const [ticketNumber, setTicketNumber] = useState<string | null>(null);
     const [ticketTitle, setTicketTitle] = useState<string | null>(null);
     const [ticketDescription, setTicketDescription] = useState<string | null>(null);
@@ -47,7 +44,11 @@ export const CreateIncidentScreen = () => {
                         property: LayoutAnimation.Properties.opacity,
                     },
                 });
-                setTicketNumber(response.result.details.number);
+                if(response?.result){
+                    setTicketNumber(response.result.details.number);
+                } else {
+                    setError(response);
+                }
                 setTicketDescription(null);
                 setTicketTitle(null);
                 setIsSending(false);

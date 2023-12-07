@@ -8,14 +8,14 @@ type IncidentData = {
     description: string;
 };
 
-type CreateIncidentResponse = {
+export type CreateIncidentResponse = {
     result: {
         status: string,
         details: {
             number: string,
         }
     }
-}
+};
 
 export const createIncident = async (
     data: IncidentData,
