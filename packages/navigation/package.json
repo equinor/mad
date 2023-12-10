@@ -27,16 +27,16 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@react-navigation/elements": "1.3.19"
+        "@react-navigation/elements": "1.3.21"
     },
     "peerDependencies": {
-        "react": ">=16.8",
-        "react-dom": ">=16.8",
-        "react-native": ">=0.68",
+        "react": ">=18.0",
+        "react-dom": ">=18.0",
+        "react-native": ">=0.70",
         "@react-navigation/native": ">=6",
         "@react-navigation/native-stack": ">=6",
         "@react-navigation/bottom-tabs": ">=6",
-        "@react-navigation/elements": "1.3.19"
+        "@react-navigation/elements": "1.3.21"
     },
     "devDependencies": {
         "@equinor/eslint-config-mad": "workspace:*"
