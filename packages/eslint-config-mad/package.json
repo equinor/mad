@@ -11,9 +11,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@typescript-eslint/eslint-plugin": "^5.21.0",
-        "@typescript-eslint/parser": "^5.21.0",
-        "eslint-config-prettier": "^9.0.0",
+        "eslint-config-prettier": "^9.1.0",
         "eslint-import-resolver-typescript": "^3.6.1",
         "eslint-plugin-eslint-comments": "^3.2.0",
         "eslint-plugin-import": "^2.29.0",
@@ -22,7 +20,17 @@
         "eslint-plugin-simple-import-sort": "^10.0.0"
     },
     "peerDependencies": {
+        "@typescript-eslint/eslint-plugin": "^6.13.2",
+        "@typescript-eslint/parser": "^6.13.2",
         "eslint": "^8"
+    },
+    "peerDependenciesMeta": {
+        "@typescript-eslint/eslint-plugin": {
+            "optional": true
+        },
+        "@typescript-eslint/parser":  {
+            "optional": true
+        }
     },
     "publishConfig": {
         "access": "public"

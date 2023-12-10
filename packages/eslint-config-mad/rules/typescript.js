@@ -1,5 +1,8 @@
 module.exports = {
-    extends: ["plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
+    extends: [
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked"
+    ],
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint"],
     settings: {
