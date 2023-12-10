@@ -3,7 +3,9 @@ import { RouteProp, ParamListBase } from "@react-navigation/native";
 
 export type MadDescriptorsBase = Record<string, MadDescriptorBase>;
 
-export type MadBaseOptions = { headerShown?: boolean; environmentBannerShown?: boolean };
+export type MadBaseOptions = { headerShown?: boolean; customSubHeaderShown?: boolean };
+
+export type MadCustomFactoryProps = { customSubHeader?: () => ReactNode };
 
 export type MadDescriptorBase = {
     navigation: unknown;
@@ -12,7 +14,7 @@ export type MadDescriptorBase = {
     render: () => ReactNode;
 };
 
-export type MadNavigationOptions = { environmentBannerShown?: boolean };
+export type MadNavigationOptions = { customSubHeaderShown?: boolean };
 
 export type UnresolvedScreenOptions<Options extends MadNavigationOptions> =
     | Options

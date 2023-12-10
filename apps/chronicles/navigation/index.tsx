@@ -4,11 +4,6 @@
  *
  */
 import React from "react";
-import {
-    createBottomTabNavigator,
-    createNativeStackNavigator,
-    NavigationContainer,
-} from "@equinor/mad-navigation";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -35,10 +30,14 @@ import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
-import { trackNavigation } from "@equinor/mad-insights";
 import { SwitchScreen } from "../screens/components/SwitchScreen";
 import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
-import { createCoreStackNavigator } from "@equinor/mad-core";
+import {
+    createBottomTabNavigator,
+    createNativeStackNavigator,
+    createCoreStackNavigator,
+    NavigationContainer
+} from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
@@ -60,7 +59,6 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
                     notification: token.colors.interactive.primary,
                 },
             }}
-            onRouteChange={current => trackNavigation(current)}
         >
             <RootNavigator />
         </NavigationContainer>
@@ -99,7 +97,7 @@ function DiscoverNavigator() {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-                environmentBannerShown: false,
+                customSubHeaderShown: false,
                 headerRight: () => <GoToSettingsButton marginRight={-12} />,
             }}
         >

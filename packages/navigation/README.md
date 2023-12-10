@@ -5,7 +5,7 @@ better experience for developers.
 
 ### Features
 
--   Display environment banners automatically on screens.
+-   Display custom sub-headers automatically on screens.
 -   Add onRouteChange prop to navigation containers
 -   (more features coming soon)
 
@@ -28,17 +28,34 @@ running a newer version of v6 and some features are missing, create an issue_
 You also have to install the navigators you want to use, e.g `@react-navigation/bottom-tabs` and
 `@react-navigation/native-stack`
 
-If you want environment banners to display, you also need to install `@equinor/mad-components`
-version 0.5.0 or higher (unless you use `mad-core`)
-
 ### Usage
 
-Follow [React Navigation’s documentation](https://reactnavigation.org/docs/getting-started/). When
-you get to the point where you are creating a navigator, import any of our supported navigators
-listed below:
+If you want to add custom sub-headers to your navigation system, you first have to create custom
+navigator-creator functions. You can do so with `createBottomTabNavigatorFactory` and
+`createNativeStackNavigatorFactory`.
 
--   `createBottomTabNavigator`
--   `createNativeStackNavigator`
+Step 1: Create your custom sub-header:
+
+```tsx
+import { Text } from "react-native";
+export const CustomSubHeader = () => <Text>This is a custom sub-header</Text>;
+```
+
+Step 2: Create your new navigator-creator functions:
+
+```tsx
+import {
+    createBottomTabNavigatorFactory,
+    createNativeStackNavigatorFactory,
+} from "@equinor/mad-navigation";
+import { CustomSubHeader } from "path/to/subHeader";
+
+export const createBottomTabNavigator = createBottomTabNavigatorFactory(CustomSubHeader);
+export const createNativeStackNavigator = createNativeStackNavigatorFactory(CustomSubHeader);
+```
+
+Follow [React Navigation’s documentation](https://reactnavigation.org/docs/getting-started/). When
+you get to the point where you are creating a navigator, import your custom navigator-creators.
 
 You can also import `NavigationContainer` from this package if you need a `onRouteChange` prop.
 
@@ -47,53 +64,25 @@ For example:
 ```tsx
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //replace the above line with the line below
-import { createNativeStackNavigator } from "@equinor/mad-navigation";
+import { createNativeStackNavigator } from "path/to/createNativeStackNavigator";
 ```
 
-### Environment banner
-
-In order for environment banners to work, they need to know which environment they are in.
-
-If you are using mad-core, this step will be fixed for you. If not, you have to add an
-`EnvironmentProvider` to your application. `mad-navigation` re-exports `EnvironmentProvider` from
-`mad-components`, and we recommend you to use that version.
-
-```tsx
-//import environment provider from mad navigation to make sure you are using the correct version
-import { EnvironmentProvider } from "@equinor/mad-navigation";
-
-export default function App() {
-    return (
-        <SafeAreaProvider>
-            <EDSProvider colorScheme={colorScheme} density={deviceType}>
-                <EnvironmentProvider environment={environment}>
-                    <Navigation colorScheme={colorScheme} />
-                    <StatusBar />
-                </EnvironmentProvider>
-            </EDSProvider>
-        </SafeAreaProvider>
-    );
-}
-```
-
-For more information on how environment banners work, please refer to the mad-components docs
-
-Once the environment provider is set up, you should see environment banners in your application. By
-default, the environment banner will display if navigator’s header is displayed. if you want to
-overwrite this behaviour, use the custom `environmentBannerShown` option. This option can be applied
-in the `Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop
+Once you've finished the steps above, you should see your custom sub-header in your application. By
+default, the sub-header will display if navigator’s header is displayed. if you want to overwrite
+this behaviour, use the custom `customSubHeaderShown` option. This option can be applied in the
+`Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop
 
 ```tsx
 <Stack.Navigator
     screenOptions={{
         // add it here
-        environmentBannerShown: false,
+        customSubHeaderShown: false,
     }}
 >
     <Stack.Group
         screenOptions={{
             // or here
-            environmentBannerShown: true,
+            customSubHeaderShown: true,
         }}
     >
         <Stack.Screen
@@ -101,18 +90,18 @@ in the `Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOp
             component={DiscoverScreen}
             options={{
                 // or here
-                environmentBannerShown: false,
+                customSubHeaderShown: false,
             }}
         />
     </Stack.Group>
 </Stack.Navigator>
 ```
 
-_CAUTION: Environment banners will not work properly if `headerLargeTitle` is set to true, and
+_CAUTION: sub-headers will not work properly if `headerLargeTitle` is set to true, and
 `headerLargeTitle` make it hard for elements in your application to calculate header height. It is
 therefore not recommended to use `headerLargeTitle`. If you still decide to use it, we recommend
-disabling environment banners where it is used, as the environment banner may cause the header to
-not work as expected._
+disabling sub-headers where it is used, as the sub-headers may cause the header to not work as
+expected._
 
 ```tsx
 <DiscoverStack.Navigator
@@ -125,7 +114,7 @@ not work as expected._
             fontFamily: "Equinor-Regular",
         },
         headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-        environmentBannerShown: false,
+        customSubHeaderShown: false,
     }}
 >
 ```

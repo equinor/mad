@@ -1,6 +1,7 @@
 import { MadBaseOptions, MadDescriptorsBase, UnresolvedScreenOptions } from "./types";
-import { shouldDisplayEnvironmentBanner } from "./shouldDisplayEnvironmentBanner";
+import { shouldDisplayCustomSubHeader } from "./shouldDisplayCustomSubHeader";
 import { getCustomRenderFunction } from "./getCustomRenderFunction";
+import { ReactNode } from "react";
 
 /**
  * This function takes react navigation's descriptors and inject custom components into the render function.
@@ -9,20 +10,21 @@ import { getCustomRenderFunction } from "./getCustomRenderFunction";
 export function createMadDescriptors<T extends MadDescriptorsBase, U extends MadBaseOptions>(
     descriptors: T,
     unresolvedScreenOptions: UnresolvedScreenOptions<U>,
+    customSubHeader?: () => ReactNode,
 ) {
     const newDescriptors: typeof descriptors = { ...descriptors };
     const descriptorKeys = Object.keys(descriptors) as Array<keyof typeof descriptors>;
     descriptorKeys.forEach(key => {
         const descriptor = descriptors[key];
         const originalRender = descriptor.render;
-        const customRender: typeof originalRender = getCustomRenderFunction(originalRender);
-        const showEnvironmentBanner = shouldDisplayEnvironmentBanner(
+        const customRender = getCustomRenderFunction(originalRender, customSubHeader);
+        const showCustomSubHeader = shouldDisplayCustomSubHeader(
             descriptor,
             unresolvedScreenOptions,
         );
         newDescriptors[key] = {
             ...descriptor,
-            render: showEnvironmentBanner ? customRender : originalRender,
+            render: showCustomSubHeader ? customRender : originalRender,
         };
     });
     return newDescriptors;

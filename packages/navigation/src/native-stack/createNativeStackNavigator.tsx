@@ -26,6 +26,7 @@ function NativeStackNavigator({
     children,
     screenListeners,
     screenOptions,
+    customSubHeader,
     ...rest
 }: NativeStackNavigatorProps) {
     const { state, descriptors, navigation, NavigationContent } = useNavigationBuilder<
@@ -68,7 +69,7 @@ function NativeStackNavigator({
         [navigation, state.index, state.key],
     );
 
-    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions);
+    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions, customSubHeader);
 
     return (
         <NavigationContent>
@@ -82,9 +83,10 @@ function NativeStackNavigator({
     );
 }
 
-export const createNativeStackNavigator = createNavigatorFactory<
-    StackNavigationState<ParamListBase>,
-    MadNativeStackNavigationOptions,
-    NativeStackNavigationEventMap,
-    typeof NativeStackNavigator
->(NativeStackNavigator);
+export const createNativeStackNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
+    createNavigatorFactory<
+        StackNavigationState<ParamListBase>,
+        MadNativeStackNavigationOptions,
+        NativeStackNavigationEventMap,
+        typeof NativeStackNavigator
+    >(props => <NativeStackNavigator {...props} customSubHeader={customSubHeader} />);

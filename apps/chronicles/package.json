@@ -15,7 +15,6 @@
     "@equinor/mad-auth": "workspace:*",
     "@equinor/mad-components": "workspace:*",
     "@equinor/mad-core": "workspace:*",
-    "@equinor/mad-insights": "workspace:*",
     "@equinor/mad-navigation": "workspace:*",
     "@equinor/react-native-skia-draw": "workspace:*",
     "@expo/vector-icons": "^13.0.0",
