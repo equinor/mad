@@ -1,4 +1,4 @@
-import { useFonts } from "expo-font";
+import { FontSource, useFonts } from "expo-font";
 
 import EquinorBold from "../assets/fonts/Equinor-Bold.otf";
 import EquinorBoldItalic from "../assets/fonts/Equinor-BoldItalic.otf";
@@ -12,14 +12,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const fontMap = {
     ...MaterialCommunityIcons.font,
-    "Equinor-Bold": EquinorBold,
-    "Equinor-BoldItalic": EquinorBoldItalic,
-    "Equinor-Italic": EquinorItalic,
-    "Equinor-Light": EquinorLight,
-    "Equinor-LightItalic": EquinorLightItalic,
-    "Equinor-Medium": EquinorMedium,
-    "Equinor-MediumItalic": EquinorMediumItalic,
-    "Equinor-Regular": EquinorRegular,
+    "Equinor-Bold": EquinorBold as FontSource,
+    "Equinor-BoldItalic": EquinorBoldItalic as FontSource,
+    "Equinor-Italic": EquinorItalic as FontSource,
+    "Equinor-Light": EquinorLight as FontSource,
+    "Equinor-LightItalic": EquinorLightItalic as FontSource,
+    "Equinor-Medium": EquinorMedium as FontSource,
+    "Equinor-MediumItalic": EquinorMediumItalic as FontSource,
+    "Equinor-Regular": EquinorRegular as FontSource,
 };
 
 /**

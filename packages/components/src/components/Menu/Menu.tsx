@@ -1,4 +1,5 @@
-import { Placement, flip, offset, shift, useFloating } from "@floating-ui/react-native";
+import { flip, offset, shift, useFloating } from "@floating-ui/react-native";
+import type { Placement } from "@floating-ui/react-native";
 import React, { createContext } from "react";
 import { View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";

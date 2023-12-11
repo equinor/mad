@@ -13,7 +13,7 @@ import {
     StackRouterOptions,
     useNavigationBuilder,
 } from "@react-navigation/native";
-import * as React from "react";
+import React, { useEffect } from "react";
 
 import type { NativeStackNavigationEventMap } from "@react-navigation/native-stack";
 import { NativeStackView } from "@react-navigation/native-stack";
@@ -43,9 +43,10 @@ function NativeStackNavigator({
         screenOptions,
     });
 
-    React.useEffect(
+    useEffect(
         () =>
             // @ts-expect-error: there may not be a tab navigator in parent
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call -- don't really know how do deal with this error :/
             navigation?.addListener?.("tabPress", (e: unknown) => {
                 const isFocused = navigation.isFocused();
 

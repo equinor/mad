@@ -6,7 +6,7 @@ export type PortalHostProps = {
     /**
      * Identifier for portals to push content to.
      */
-    name: "root" | string;
+    name: "root" | Omit<string, "root">;
     /**
      * Determines whether or not the portal content is rendered before or after the children of the portal host
      */
@@ -22,8 +22,8 @@ const PortalHostComponent = ({
     const { registerHost, unregisterHost, hosts } = useContext(PortalContext);
 
     useEffect(() => {
-        registerHost(name);
-        return () => unregisterHost(name);
+        registerHost(name as string);
+        return () => unregisterHost(name as string);
         // eslint-disable-next-line react-hooks/exhaustive-deps -- adding methods to deps cause max recursion error
     }, [name]);
 

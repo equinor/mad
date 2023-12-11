@@ -45,7 +45,7 @@ export const useDrawHandle = (
     };
 
     const makeImageSnapshot = (rect?: SkRect) => {
-        const skImage = skiaCanvasRef.current?.makeImageSnapshot(rect) || undefined;
+        const skImage = skiaCanvasRef.current?.makeImageSnapshot(rect) ?? undefined;
         if (skImage === undefined) return undefined;
         const b64Data = skImage.encodeToBase64();
         const uri = `data:image/png;base64,${b64Data}`;

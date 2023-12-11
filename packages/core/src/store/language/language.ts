@@ -44,13 +44,13 @@ const useLanguageStore = create<LanguageState>()(
                     const supportedLanguages = getSupportedLanguages();
                     set(() => ({
                         selectedLanguage:
-                            supportedLanguages.find(language => language.code === code) || null,
+                            supportedLanguages.find(language => language.code === code) ?? null,
                     }));
                 },
 
                 getLanguage: () => {
                     const { selectedLanguage } = get();
-                    return selectedLanguage || getDefaultLanguage();
+                    return selectedLanguage ?? getDefaultLanguage();
                 },
             }),
             {

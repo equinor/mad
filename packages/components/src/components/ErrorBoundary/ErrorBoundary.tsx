@@ -15,6 +15,7 @@ export type ErrorBoundaryProps = Pick<ReactErrorBoundaryProps, "onError" | "chil
  */
 export function ErrorBoundary({ children, onError }: ErrorBoundaryProps) {
     const fallbackRender = ({ error, resetErrorBoundary }: FallbackProps) => (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- any type comes from external library
         <ErrorBoundaryScreen error={error} resetErrorBoundary={resetErrorBoundary} />
     );
     return (

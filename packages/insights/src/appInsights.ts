@@ -4,7 +4,6 @@ import {
     ApplicationInsights,
     ICustomProperties,
     IEventTelemetry,
-    ITelemetryItem,
 } from "@microsoft/applicationinsights-web";
 import { createBrowserHistory } from "history";
 import { Platform } from "react-native";
@@ -28,7 +27,7 @@ const envelopeBacklog: Envelope[] = [];
  */
 export const appInsightsInit = (config: AppInsightsInitConfig) => {
     const { connectionString, instrumentationKey } = config;
-    useSHA1 = config.longTermLog?.useSHA1 || false;
+    useSHA1 = config.longTermLog?.useSHA1 ?? false;
     if (hasBeenInitialized) return;
     hasBeenInitialized = true;
 
@@ -87,7 +86,7 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
 
     envelopeBacklog.forEach(addTelemetryInitializer);
 
-    track(metricKeys.APP_STARTED);
+    void track(metricKeys.APP_STARTED);
 };
 
 export const appInsightsHasBeenInitialized = () => hasBeenInitialized;
@@ -104,8 +103,8 @@ export const setUsername = (username: string, userIdentifier: string | undefined
     validateAppInsightsInit();
     appInsightsMain.setAuthenticatedUserContext(username, userIdentifier, true);
     if (appInsightsLongTermLog) {
-        const obfuscatedUserName = obfuscateUser(userIdentifier || "", username, useSHA1).id;
-        const obfuscatedUserId = obfuscateUser(username, userIdentifier || "", useSHA1).id;
+        const obfuscatedUserName = obfuscateUser(userIdentifier ?? "", username, useSHA1).id;
+        const obfuscatedUserId = obfuscateUser(username, userIdentifier ?? "", useSHA1).id;
         appInsightsLongTermLog.setAuthenticatedUserContext(
             obfuscatedUserName,
             obfuscatedUserId,
@@ -134,13 +133,13 @@ const trackEventLongTerm = (
  * @param {string} [modifier] - extra text in the name of the event
  * @param {Object} [extraData] - object to send as a customDimension property. Detailed information should be sent here
  */
-export const track = async (
+export const track = (
     eventName: metricKeys,
     eventStatus?: metricStatus,
     extraText?: string,
     extraData?: ICustomProperties,
 ) => {
-    const eventString = `${eventName} ${eventStatus || ""}. ${extraText || ""}`;
+    const eventString = `${eventName} ${eventStatus ?? ""}. ${extraText ?? ""}`;
     if (excludeLogFilter(eventString, ["Ping", "ServiceMessage"])) return;
     trackEvent({ name: eventString }, extraData);
     if (appInsightsLongTermLog) {
@@ -157,7 +156,7 @@ export const addTelemetryInitializer = (envelope: Envelope) => {
     appInsightsLongTermLog.addTelemetryInitializer(envelope);
 };
 
-const excludeLogFilter = (eventString: string, excludeStrings: Array<string>): boolean =>
+const excludeLogFilter = (eventString: string, excludeStrings: string[]): boolean =>
     excludeStrings.some(excludeString => eventString.includes(excludeString));
 
 /**
@@ -173,7 +172,7 @@ export const trackShortTerm = (
     extraText?: string,
     extraData?: ICustomProperties,
 ) => {
-    const eventString = `${eventName} ${eventStatus || ""}. ${extraText || ""}`;
+    const eventString = `${eventName} ${eventStatus ?? ""}. ${extraText ?? ""}`;
 
     trackEvent({ name: eventString }, extraData);
 };
@@ -193,7 +192,7 @@ export const trackLongTerm = (
     extraText?: string,
     extraData?: ICustomProperties,
 ) => {
-    const eventString = `${eventName} ${eventStatus || ""}. ${extraText || ""}`;
+    const eventString = `${eventName} ${eventStatus ?? ""}. ${extraText ?? ""}`;
     trackEventLongTerm({ name: eventString }, extraData);
 };
 
@@ -222,11 +221,11 @@ export const trackCustom = (text: string, extraData?: ICustomProperties) => {
  */
 export const handleAppStatusChange = (nextState: appStateStatus) => {
     switch (nextState) {
-        case "active": {
+        case appStateStatus.ACTIVE: {
             track(metricKeys.APP_ACTIVE);
             break;
         }
-        case "background": {
+        case appStateStatus.BACKGROUND: {
             track(metricKeys.APP_BACKGROUND);
             break;
         }

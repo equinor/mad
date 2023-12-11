@@ -12,6 +12,6 @@ export const CORE_SUPPORTED_LANGUAGES = [
         code: "nb",
         name: "Norwegian",
     },
-] as const satisfies ReadonlyArray<Language>;
+] as const satisfies readonly Language[];
 
 export type SupportedLanguageCode = (typeof CORE_SUPPORTED_LANGUAGES)[number]["code"];
