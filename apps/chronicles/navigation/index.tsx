@@ -30,9 +30,7 @@ import { DialogScreen } from "../screens/components/DialogScreen";
 import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
 import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
-import { trackNavigation } from "@equinor/mad-insights";
 import { SelectionControlsScreen } from "../screens/components/SelectionControlsScreen";
-import { SwitchScreen } from "../screens/components/SwitchScreen";
 import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
 import {
     createBottomTabNavigator,
