@@ -11,4 +11,13 @@ module.exports = {
             node: true,
         },
     },
+    rules: {
+        "@typescript-eslint/consistent-type-definitions": [
+            "warn",
+            "type"
+        ],
+        "@typescript-eslint/no-unused-vars": [
+            "warn"
+        ],
+    }
 };

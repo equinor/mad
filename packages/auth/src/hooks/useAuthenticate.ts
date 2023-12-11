@@ -62,17 +62,17 @@ export const useAuthenticate = ({
             });
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
             if (enableAutomaticAuthentication)
-                withAuthenticationPromiseHandler(authenticateSilently(scopes), "AUTOMATIC");
+                void withAuthenticationPromiseHandler(authenticateSilently(scopes), "AUTOMATIC");
         };
 
-        initiateClientAndMaybeAuthenticateSilently();
+        void initiateClientAndMaybeAuthenticateSilently();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- we want this to run only once
     }, []);
 
     return {
         authenticationInProgress,
         authenticate: () =>
-            withAuthenticationPromiseHandler(authenticateInteractively(scopes), "MANUAL"),
+            void withAuthenticationPromiseHandler(authenticateInteractively(scopes), "MANUAL"),
         authenticationClientInitialized:
             authenticationClientExists() && authenticationClientInitialized,
     };

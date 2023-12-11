@@ -28,8 +28,12 @@ export const LoginScreen = () => {
                 <LoginButton
                     {...authConfig}
                     onAuthenticationSuccessful={(_, type) => {
-                        if (type === "AUTOMATIC") track(metricKeys.AUTHENTICATION_AUTOMATIC);
-                        else track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
+                        if (type === "AUTOMATIC") {
+                            void track(metricKeys.AUTHENTICATION_AUTOMATIC);
+                        }
+                        else {
+                            void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
+                        }
                         navigation.navigate(
                             getNavigationRouteForLoginScreen({
                                 appVersion,
@@ -38,17 +42,17 @@ export const LoginScreen = () => {
                         );
                     }}
                     onAuthenticationFailed={error =>
-                        track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, { error })
+                        void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, { error })
                     }
                     enableAutomaticAuthentication
-                    scopes={authConfig.scopes || []}
+                    scopes={authConfig.scopes ?? []}
                 />
                 {shouldDisplayDemoButton && (
                     <Button
                         title="Demo"
                         variant="outlined"
                         onPress={() => {
-                            track(metricKeys.AUTHENTICATION_DEMO);
+                            void track(metricKeys.AUTHENTICATION_DEMO);
                             enableDemoMode();
                             navigation.navigate(
                                 getNavigationRouteForLoginScreen({

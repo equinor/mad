@@ -8,17 +8,17 @@ export default function useCachedResources() {
     useEffect(() => {
         async function loadResourcesAndDataAsync() {
             try {
-                SplashScreen.preventAutoHideAsync();
+                await SplashScreen.preventAutoHideAsync();
             } catch (e) {
                 // We might want to provide this error information to an error reporting service
                 console.warn(e);
             } finally {
                 setLoadingComplete(true);
-                SplashScreen.hideAsync();
+                await SplashScreen.hideAsync();
             }
         }
 
-        loadResourcesAndDataAsync();
+        void loadResourcesAndDataAsync();
     }, []);
 
     return isLoadingComplete;

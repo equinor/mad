@@ -18,7 +18,8 @@ export const fetchReleaseNotes = async (
             Authorization: `Bearer ${authenticationResponse.accessToken}`,
         }),
     });
-    return await fetchResponse.json();
+    const result = await fetchResponse.json() as Release;
+    return result;
 };
 
 export const fetchAllReleaseNotes = async (
@@ -35,5 +36,6 @@ export const fetchAllReleaseNotes = async (
             Authorization: `Bearer ${authenticationResponse.accessToken}`,
         }),
     });
-    return await fetchResponse.json();
+    const result = await fetchResponse.json() as Release[];
+    return result;
 };

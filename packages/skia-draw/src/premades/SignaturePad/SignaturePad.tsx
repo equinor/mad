@@ -9,9 +9,9 @@ export const SignaturePad = forwardRef<SnapshotHandle, SignaturePadProps>((props
     const canvasRef = useRef<SkiaDrawHandle>(null);
     useImperativeHandle(ref, () => ({
         makeImageSnapshot: (rect?: SkRect) =>
-            canvasRef.current?.makeImageSnapshot(rect) || undefined,
+            canvasRef.current?.makeImageSnapshot(rect) ?? undefined,
     }));
-    const canvasStyle = StyleSheet.flatten([styles.canvas, { height: props.height || 200 }]);
+    const canvasStyle = StyleSheet.flatten([styles.canvas, { height: props.height ?? 200 }]);
 
     return (
         <View style={styles.container}>
