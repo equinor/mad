@@ -1,4 +1,5 @@
-import { arrow, flip, offset, Placement, shift, useFloating } from "@floating-ui/react-native";
+import { arrow, flip, offset, shift, useFloating } from "@floating-ui/react-native";
+import type { Placement } from "@floating-ui/react-native";
 import React, { useRef } from "react";
 import { View, ViewProps } from "react-native";
 import { Paper } from "../Paper";

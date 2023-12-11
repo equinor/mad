@@ -19,7 +19,7 @@ export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>((props, 
 
     const canvasRef = useRef<SkiaDrawHandle>(null);
     useImperativeHandle(ref, () => ({
-        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() || undefined,
+        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() ?? undefined,
     }));
     const image = useImage(props.markupImage);
     const canvasDim: Dimensions | undefined = useMemo(() => {

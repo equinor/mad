@@ -22,7 +22,7 @@ export const NavigationContainer = <T extends object>(props: NavigationContainer
         if (!currentRoute) return;
         routeNameRef.current = currentRoute.name;
     };
-    const onRouteChange = async () => {
+    const onRouteChange = () => {
         if (!props.onRouteChange) return;
         const currentRoute = navigationRef.getCurrentRoute();
         if (!currentRoute) return;

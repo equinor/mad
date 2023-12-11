@@ -27,14 +27,14 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "peerDependencies": {
-        "react": ">=16.8",
-        "react-dom": ">=16.8",
-        "react-native": ">=0.68",
+        "react": ">=18.0",
+        "react-dom": ">=18.0",
+        "react-native": ">=0.70",
         "react-native-device-info": "^10.8.0"
     },
     "dependencies": {
         "@microsoft/applicationinsights-react-js": "^17.0.0",
-        "@microsoft/applicationinsights-react-native": "^4.0.0",
+        "@microsoft/applicationinsights-react-native": "^4.0.2",
         "@microsoft/applicationinsights-web": "^3.0.2",
         "crypto-js": "^4.1.1",
         "history": "^5.3.0"

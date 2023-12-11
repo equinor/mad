@@ -44,7 +44,7 @@ export const SettingsScreen = ({ config = [], clean = false }: SettingsScreenPro
             <View style={{ flexDirection: "row-reverse" }}>
                 <Button
                     title={dictionary.settings.logOut}
-                    onPress={signOut}
+                    onPress={() => void signOut()}
                     style={{
                         marginHorizontal: 30,
                         width: 100,
