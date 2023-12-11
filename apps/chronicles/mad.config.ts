@@ -11,6 +11,7 @@ export const config: MadConfig = {
             { code: "nb", name: "Norwegian" },
             { code: "pt", name: "Portuguese" },
         ],
+        skipOnboarding: false
     },
     authentication: {
         redirectUri: "msauth.com.equinor.mad.chronicles://auth",

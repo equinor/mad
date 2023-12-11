@@ -8,6 +8,7 @@ import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import { useWindowDimensions } from "react-native";
 import * as APP from "./app.json";
+[].sort
 
 export default function App() {
     const isLoadingComplete = useCachedResources();

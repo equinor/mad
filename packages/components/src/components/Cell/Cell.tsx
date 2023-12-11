@@ -56,7 +56,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                     <View style={styles.contentContainer}>
                         {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
                         <View style={styles.children}>
-                            <View style={{ flex: 1 }}>{children}</View>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>{children}</View>
                         </View>
                         {rightAdornment && <View style={styles.adornment}>{rightAdornment}</View>}
                     </View>
