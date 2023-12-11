@@ -1,6 +1,7 @@
 import { useLanguage } from "../store/language"
 import * as enDictionary from "./en.json"
 import * as nbDictionary from "./nb.json"
+import * as ptDictionary from './pt.json'
 import { CoreDictionary } from "./types";
 
 export const useDictionary = (): CoreDictionary => {
@@ -9,6 +10,8 @@ export const useDictionary = (): CoreDictionary => {
         case "no":
         case "nb":
             return withEnglishFallback(nbDictionary)
+        case "pt":
+            return withEnglishFallback(ptDictionary)
         default:
             return enDictionary
     }
