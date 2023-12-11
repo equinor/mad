@@ -7,6 +7,8 @@ import { useSettingsScreenPremadeConfig } from "../../../store/mad-config";
 import { useAccountOrDemoAccount } from "../../../hooks";
 import { SettingsScreenConfiguration } from "./types";
 import { getFinalSettingsConfig } from "../../../utils/getFinalSettingsConfig";
+import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
+import { useDictionary } from "../../../language/useDictionary";
 
 export type SettingsScreenProps = {
     /**
@@ -21,6 +23,8 @@ export type SettingsScreenProps = {
     clean?: boolean;
 };
 export const SettingsScreen = ({ config = [], clean = false }: SettingsScreenProps) => {
+    useScreenTitleFromDictionary(dic => dic.settings.title);
+    const dictionary = useDictionary();
     const signOut = useSignOut();
     const premadeConfig = useSettingsScreenPremadeConfig();
     const account = useAccountOrDemoAccount();
@@ -34,12 +38,12 @@ export const SettingsScreen = ({ config = [], clean = false }: SettingsScreenPro
                 <SettingsSection key={index} {...section} />
             ))}
             <View style={{ padding: 30 }}>
-                <Typography bold={true}>Logged in as</Typography>
+                <Typography bold={true}>{dictionary.settings.loggedInAs}</Typography>
                 <Typography>{account?.username}</Typography>
             </View>
             <View style={{ flexDirection: "row-reverse" }}>
                 <Button
-                    title="Log out"
+                    title={dictionary.settings.logOut}
                     onPress={signOut}
                     style={{
                         marginHorizontal: 30,
