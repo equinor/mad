@@ -8,9 +8,11 @@ import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRoute
 import { enableDemoMode } from "../../store/demo-mode";
 import { useReleaseNotesVersion } from "../../store/release-notes/release-notes";
 import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
+import { useDictionary } from "../../language/useDictionary";
 
 export const LoginScreen = () => {
     const styles = useStyles(theme);
+    const dictionary = useDictionary();
     const authConfig = useAuthConfig();
     const navigation = useCoreStackNavigation();
     const appVersion = useAppVersion();
@@ -44,12 +46,13 @@ export const LoginScreen = () => {
                     onAuthenticationFailed={error =>
                         void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, { error })
                     }
+                    title={dictionary.login.logIn}
                     enableAutomaticAuthentication
                     scopes={authConfig.scopes ?? []}
                 />
                 {shouldDisplayDemoButton && (
                     <Button
-                        title="Demo"
+                        title={dictionary.login.demo}
                         variant="outlined"
                         onPress={() => {
                             void track(metricKeys.AUTHENTICATION_DEMO);
