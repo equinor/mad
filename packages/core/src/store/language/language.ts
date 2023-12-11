@@ -82,7 +82,7 @@ export type UseLanguageReturnType = {
     getDefaultLanguage: () => Language;
     /**
      * Set the user selected language of the app
-     * @param {SupportedLanguageCode} code - language code
+     * @param {string} code - language code
      */
     setSelectedLanguage: LanguageState["setSelectedLanguage"];
 };
