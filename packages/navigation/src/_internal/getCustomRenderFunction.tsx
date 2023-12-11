@@ -1,17 +1,20 @@
 import React, { ReactNode } from "react";
-import { EnvironmentBanner } from "@equinor/mad-components";
 import { HeightSender } from "../header-height-context";
+import { View } from "react-native";
 /**
- * Custom render function that displays an environment banner
+ * Custom render function that displays a custom sub-header
  * @param originalRender the original render function, found in the descriptor
  * @returns new render function
  */
-export const getCustomRenderFunction = (originalRender: () => ReactNode) => {
+export const getCustomRenderFunction = (
+    originalRender: () => ReactNode,
+    CustomSubHeader?: () => ReactNode,
+) => {
     const customRender = () => (
         <>
-            <EnvironmentBanner />
+            {CustomSubHeader && <CustomSubHeader />}
             <HeightSender />
-            {originalRender()}
+            <View style={{ flex: 1 }}>{originalRender()}</View>
         </>
     );
     return customRender;

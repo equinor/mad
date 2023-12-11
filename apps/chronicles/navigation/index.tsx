@@ -4,11 +4,6 @@
  *
  */
 import React from "react";
-import {
-    createBottomTabNavigator,
-    createNativeStackNavigator,
-    NavigationContainer,
-} from "@equinor/mad-navigation";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -37,11 +32,18 @@ import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
 import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
 import { trackNavigation } from "@equinor/mad-insights";
 import { SelectionControlsScreen } from "../screens/components/SelectionControlsScreen";
+import { SwitchScreen } from "../screens/components/SwitchScreen";
 import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
-import { SettingsScreen } from "../screens/SettingsScreen";
-import { createCoreStackNavigator } from "@equinor/mad-core";
+import {
+    createBottomTabNavigator,
+    createNativeStackNavigator,
+    createCoreStackNavigator,
+    NavigationContainer
+} from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
+import { GoToSettingsButton } from "../components/GoToSettingsButton";
+import { SampleSettingsScreen } from "./SettingsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -59,7 +61,6 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
                     notification: token.colors.interactive.primary,
                 },
             }}
-            onRouteChange={current => trackNavigation(current)}
         >
             <RootNavigator />
         </NavigationContainer>
@@ -80,6 +81,7 @@ function RootNavigator() {
                 component={NotFoundScreen}
                 options={{ title: "Oops!" }}
             />
+            <CoreStack.Screen name="Settings" component={SampleSettingsScreen} />
         </CoreStack.Navigator>
     );
 }
@@ -97,7 +99,8 @@ function DiscoverNavigator() {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-                environmentBannerShown: false,
+                customSubHeaderShown: false,
+                headerRight: () => <GoToSettingsButton marginRight={-12} />,
             }}
         >
             <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
@@ -144,6 +147,7 @@ function BottomTabNavigator() {
             initialRouteName="DiscoverTab"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
+                headerRight: () => <GoToSettingsButton marginRight={8} />,
             }}
         >
             <BottomTab.Screen
@@ -180,16 +184,6 @@ function BottomTabNavigator() {
                     title: "Sign",
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="signature-image" color={color as Color} />
-                    ),
-                }}
-            />
-            <BottomTab.Screen
-                name="Settings"
-                component={SettingsScreen}
-                options={{
-                    title: "Settings",
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="settings-helper" color={color as Color} />
                     ),
                 }}
             />

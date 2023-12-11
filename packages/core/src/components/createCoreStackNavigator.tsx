@@ -1,5 +1,5 @@
 import { CoreStackParamListBase, MadConfig } from "../types";
-import { createNativeStackNavigator } from "@equinor/mad-navigation";
+import { createNativeStackNavigator } from "./navigation";
 import { createMadCoreNavigator } from "../utils/createMadCoreNavigator";
 import { setConfig } from "../store/mad-config";
 

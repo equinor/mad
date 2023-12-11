@@ -48,7 +48,13 @@ export type TypographyProps<TGroup extends TypographyGroup = "basic"> = {
 } & TextProps;
 
 export type TextChildren = {
-    children: string | string[] | number | undefined | null;
+    children:
+        | string
+        | number
+        | null
+        | undefined
+        | React.JSX.Element
+        | (string | string[] | number | null | undefined | React.JSX.Element)[];
 };
 
 const TypographyInner = <TGroup extends TypographyGroup>({
@@ -103,8 +109,8 @@ const themeStyles = EDSStyleSheet.create(
         const typography = (theme.typography as never)[group][variant] as TypographyStyle;
 
         const textStyle: TextStyle = {
+             color: resolveColor(color, theme),
             ...typography,
-            color: resolveColor(color, theme),
             fontFamily: resolveFontName(bold, italic, typography.fontFamily ?? "Equinor-Regular"),
         };
         return {

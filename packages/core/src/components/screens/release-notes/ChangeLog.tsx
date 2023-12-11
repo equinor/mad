@@ -1,14 +1,11 @@
-import { getShortDate } from "../../../utils/dateUtils";
-import React, { useState } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import React, { useMemo, useState } from "react";
+import { View } from "react-native";
 import RenderHtml, { defaultSystemFonts } from "react-native-render-html";
 import * as showdown from "showdown";
-import { Typography, Button } from "@equinor/mad-components";
+import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
 
-const featureTitle = "What's new";
-const affirmText = "OK";
 const converter = new showdown.Converter();
-const systemFonts = [...defaultSystemFonts, "Equinor-Regular", "Equinor-Medium"];
+const systemFonts = [...defaultSystemFonts, "Equinor-Regular"];
 
 export type Release = {
     app: string;
@@ -18,81 +15,50 @@ export type Release = {
     releaseDate: string;
 };
 
-type ChangelogProps = {
+type ChangeLogProps = {
     release: Release;
-    onPressAffirm: () => void;
 };
 
-export const ChangeLog = ({ release, onPressAffirm }: ChangelogProps) => {
+export const ChangeLog = ({ release }: ChangeLogProps) => {
+    const styles = useStyles(changeLogStyles);
     const [width, setWidth] = useState(0);
-    const html = { html: converter.makeHtml(release.releaseNote) };
-    const date = new Date(release.releaseDate);
-    const shortDate = getShortDate(date);
+    const html = useMemo(() => ({ html: converter.makeHtml(release.releaseNote) }), [release]);
 
     return (
-        <View style={styles.container}>
-            <Typography style={styles.titleHeader} variant="h4">
-                {featureTitle}
-            </Typography>
-            <ScrollView style={styles.changelogItem}>
-                <Typography style={styles.versionHeader}>{release.version}</Typography>
-                <Typography style={styles.subtitleHeader}>{shortDate}</Typography>
-                <View
-                    onLayout={event => {
-                        const { width } = event.nativeEvent.layout;
-                        setWidth(width);
+        <>
+            <View
+                onLayout={event => {
+                    const { width } = event.nativeEvent.layout;
+                    setWidth(width);
+                }}
+            >
+                <RenderHtml
+                    contentWidth={width}
+                    source={html}
+                    systemFonts={systemFonts}
+                    tagsStyles={{
+                        ul: styles.list,
+                        // @ts-expect-error Type Mismatch between react-native TextStyle and react-native-render-html
+                        li: styles.listItems,
                     }}
-                >
-                    <RenderHtml
-                        contentWidth={width}
-                        source={html}
-                        systemFonts={systemFonts}
-                        tagsStyles={{
-                            li: {
-                                marginBottom: 10,
-                                fontFamily: "Equinor-Medium",
-                                fontSize: 18,
-                                color: "#333333",
-                            },
-                        }}
-                    />
-                </View>
-            </ScrollView>
-            <View style={styles.footer}>
-                <Button title={affirmText} onPress={onPressAffirm} />
+                />
             </View>
-        </View>
+        </>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 50,
-        justifyContent: "center",
+const changeLogStyles = EDSStyleSheet.create(theme => ({
+    list: {
+        display: "flex",
+        listStyleType: "square",
+        alignItems: "flex-start",
+        paddingLeft: theme.spacing.container.paddingHorizontal,
+        marginVertical: theme.spacing.textField.paddingVertical,
+        color: theme.colors.text.primary,
     },
-    titleHeader: {
-        marginVertical: 15,
+    listItems: {
+        ...theme.typography.paragraph.body_short,
+        marginHorizontal: theme.spacing.textField.paddingHorizontal,
+        paddingBottom: theme.spacing.textField.paddingVertical,
     },
-    changelogItem: {
-        marginBottom: 15,
-        marginTop: 20,
-        paddingHorizontal: 20,
-    },
-    versionHeader: {
-        marginVertical: 15,
-    },
-    subtitleHeader: {
-        fontSize: 18,
-        marginVertical: 5,
-        color: "#333333",
-    },
-    footer: {
-        height: 80,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        borderColor: "#808080",
-        borderTopWidth: 0.5,
-    },
-});
+}));

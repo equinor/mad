@@ -1,10 +1,15 @@
 import React from "react";
-import { EnvironmentProvider, createNativeStackNavigator } from "@equinor/mad-navigation";
+import { EnvironmentProvider } from "@equinor/mad-components";
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
+import { AppInsightsInitializer } from "@equinor/mad-insights";
+import { createNativeStackNavigator } from "../components/navigation";
+import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
+import { AboutScreen } from "../components/screens/AboutScreen";
+import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
@@ -17,22 +22,32 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
     Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>,
     config: MadConfig,
 ) => {
-    const MadCoreNavigator = (props: Omit<NavigatorProps, "initialRouteName">) => {
+    function MadCoreNavigator(props: Omit<NavigatorProps, "initialRouteName">) {
         return (
+        <AppInsightsInitializer config={config.applicationInsights}>
             <EnvironmentProvider environment={config.environment}>
                 <AnnouncementsProvider>
                     <Stack.Navigator {...props} initialRouteName={"Login"}>
                         <Stack.Screen
                             name="Login"
                             component={LoginScreen}
-                            options={{ headerShown: false, environmentBannerShown: true }}
+                            options={{headerShown: false, customSubHeaderShown: true}}
                         />
-                        <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
-                        {props.children}
-                    </Stack.Navigator>
+                        <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
+                        <Stack.Screen
+                            name="WhatsNew"
+                            component={WhatsNewScreen}
+                        />
+                            {config.about && <Stack.Screen name="About" component={AboutScreen} />}
+                            {config.serviceNow && (
+                                <Stack.Screen name="Feedback" component={CreateIncidentScreen} />
+                            )}
+                            {props.children}
+                        </Stack.Navigator>
                 </AnnouncementsProvider>
             </EnvironmentProvider>
+        </AppInsightsInitializer>
         );
-    };
+    }
     return MadCoreNavigator;
 };

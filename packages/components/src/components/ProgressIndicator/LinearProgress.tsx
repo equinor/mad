@@ -29,7 +29,7 @@ export const LinearProgress = ({ value, ...rest }: LinearProgressProps) => {
     });
 
     return (
-        <View style={[{ flex: 1, borderRadius: STROKE_WIDTH / 2, overflow: "hidden" }, rest.style]}>
+        <View style={[{ borderRadius: STROKE_WIDTH / 2, overflow: "hidden" }, rest.style]}>
             <Svg height={STROKE_WIDTH} width="100%">
                 <Rect
                     x="0"

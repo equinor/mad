@@ -448,6 +448,14 @@ export const masterToken: MasterToken = {
                 fontSize: 0.875 * FONT_BASIS,
                 textAlign: "left",
             },
+            link: {
+                fontFamily: "Equinor-Regular",
+                lineHeight: 1.5 * FONT_BASIS,
+                fontSize: FONT_BASIS,
+                color: colors.interactive_primary_light_resting,
+                textDecorationLine: "underline",
+                textAlign: "left"
+            }
         },
         cell: {
             groupTitle: {
