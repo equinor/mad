@@ -9,6 +9,7 @@ export const config: MadConfig = {
         supportedLanguages: [
             { code: "en", name: "English" },
             { code: "nb", name: "Norwegian" },
+            { code: "pt", name: "Portuguese" },
         ],
     },
     authentication: {
