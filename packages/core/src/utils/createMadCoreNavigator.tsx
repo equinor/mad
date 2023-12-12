@@ -37,7 +37,6 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                         <Stack.Screen
                             name="WhatsNew"
                             component={WhatsNewScreen}
-                            options={{headerTitle: "What's New"}}
                         />
                             {config.about && <Stack.Screen name="About" component={AboutScreen} />}
                             {config.serviceNow && (

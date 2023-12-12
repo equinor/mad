@@ -153,7 +153,7 @@ const themedStyles = EDSStyleSheet.create(
     (theme, { inputLayout }: { inputLayout?: LayoutRectangle }) => ({
         menuContainer: {
             maxHeight: 300,
-            width: inputLayout?.width || "100%",
+            width: inputLayout?.width ?? "100%",
         },
         adornmentContainer: {
             flexDirection: "row",

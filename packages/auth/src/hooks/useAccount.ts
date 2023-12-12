@@ -17,7 +17,7 @@ export const useAccount = () => {
             }
         };
 
-        getAndSetAccount();
+        void getAndSetAccount();
     }, []);
     return account;
 };

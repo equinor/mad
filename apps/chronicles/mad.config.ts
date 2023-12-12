@@ -1,5 +1,6 @@
 import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
+import { ImageSourcePropType } from "react-native";
 
 export const config: MadConfig = {
     appVersion: "1.0.0",
@@ -10,6 +11,7 @@ export const config: MadConfig = {
         supportedLanguages: [
             { code: "en", name: "English" },
             { code: "nb", name: "Norwegian" },
+            { code: "pt", name: "Portuguese" },
         ],
     },
     authentication: {
@@ -20,7 +22,7 @@ export const config: MadConfig = {
     },
     login: {
         title: "Chronicles",
-        logo: Logo,
+        logo: Logo as ImageSourcePropType,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",

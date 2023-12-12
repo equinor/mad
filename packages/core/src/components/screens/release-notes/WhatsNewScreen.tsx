@@ -16,11 +16,13 @@ import { useDemoMode } from "../../../store/demo-mode";
 import { fetchReleaseNotes } from "./fetchReleaseNotes";
 import { ScrollView, View } from "react-native";
 import { getShortDate } from "../../../utils/dateUtils";
+import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 
 /**
  * This screen will display the latest releasenotes
  */
 export const WhatsNewScreen = () => {
+    useScreenTitleFromDictionary(dic => dic.releaseNotes.whatsNew);
     const styles = useStyles(whatsNewStyles);
     const environment = useEnvironment();
     const releaseNotesVersion = useReleaseNotesVersion();

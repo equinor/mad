@@ -10,8 +10,10 @@ import { ChangeLog, Release } from "./ChangeLog";
 import { getShortDate } from "../../../utils/dateUtils";
 import { ScrollView, View } from "react-native";
 import { useReleaseNotes } from "../../../hooks/UseReleaseNotes";
+import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 
 export const ReleaseNotesScreen = () => {
+    useScreenTitleFromDictionary(dic => dic.releaseNotes.releaseNotes);
     const styles = useStyles(releaseNoteStyles);
     const { releaseNotes, isFetching, error } = useReleaseNotes();
 

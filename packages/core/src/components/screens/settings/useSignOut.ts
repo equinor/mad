@@ -14,7 +14,7 @@ export const useSignOut = () => {
             navigation.navigate("Login");
         } catch (_) {
             alert("Error", "Unable to sign out", [
-                { text: "Try again", isPreferred: true, onPress: signOutFn },
+                { text: "Try again", isPreferred: true, onPress: () => void signOutFn() },
                 { text: "Cancel", onPress: () => undefined },
             ]);
         }

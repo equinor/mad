@@ -17,12 +17,12 @@ export const SettingsScreen = () => {
     return (
         <View style={{ height: "100%", padding: 16, justifyContent: "center", gap: 24 }}>
             <Typography variant="h1">User info</Typography>
-            <Typography variant="h2">Identifier: {account?.identifier || "Undefined"}</Typography>
-            <Typography variant="h2">Name: {account?.name || "Undefined"}</Typography>
-            <Typography variant="h2">Username: {account?.username || "Undefined"}</Typography>
+            <Typography variant="h2">Identifier: {account?.identifier ?? "Undefined"}</Typography>
+            <Typography variant="h2">Name: {account?.name ?? "Undefined"}</Typography>
+            <Typography variant="h2">Username: {account?.username ?? "Undefined"}</Typography>
             <Button
                 title="Sign out"
-                onPress={() => signOut().finally(() => navigation.navigate("Login"))}
+                onPress={() => void signOut().finally(() => navigation.navigate("Login"))}
             />
         </View>
     );
