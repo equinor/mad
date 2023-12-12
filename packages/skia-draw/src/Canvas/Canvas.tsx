@@ -1,4 +1,4 @@
-import { Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
+import { Rect, Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
 
 import { useCanvasDraw } from "../hooks/useCanvasDraw";
 import { CanvasProps } from "../types";
@@ -31,6 +31,7 @@ const CanvasComponent: ForwardRefRenderFunction<CanvasControls, PropsWithChildre
                     <CanvasElement key={index} data={elementData} currentTool={currentTool} />
                 ))}
             {renderChildrenOnTop && children}
+            <Rect x={100} y={100} width={100} height={100} color={"red"}/>
         </SkiaCanvas>
     );
 };

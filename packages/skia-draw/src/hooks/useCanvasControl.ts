@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
 import { CanvasControlContext } from "../CanvasControlProvider/CanvasControlProvider";
-import { matchFont, useFont } from "@shopify/react-native-skia";
+import { matchFont } from "@shopify/react-native-skia";
 import { Platform } from "react-native";
 
 /**
