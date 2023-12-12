@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {setConfig, SettingsScreen, SettingsScreenConfiguration} from "@equinor/mad-core";
 import {config, testConfig} from "../mad.config";
 import {useMadConfig} from "@equinor/mad-core/dist/store/mad-config";
 
 export const SampleSettingsScreen = () => {
     const currentConfig = useMadConfig();
+    const [isActive, setIsActive] = useState(true);
     const appSpecificSettingsConfig: SettingsScreenConfiguration = [
         {
             items: [
@@ -30,12 +31,15 @@ export const SampleSettingsScreen = () => {
                 },
                 {
                     name: "switch",
-                    title: `Toggle Environment: ${currentConfig.environment}`,
+                    title: "Toggle Environment",
                     onChange: () => {
                         currentConfig.environment === "prod" ? setConfig(testConfig): setConfig(config);
+                        setIsActive(!isActive);
                     },
-                    isActive: true,
-                    iconName: "cog"
+                    isActive: isActive,
+                    iconName: "cog",
+                    switchSize: 18,
+                    description: `Current Environment:  ${currentConfig.environment}`
                 }
             ],
         },
