@@ -13,7 +13,7 @@ export function createMadDescriptors<T extends MadDescriptorsBase, U extends Mad
     customSubHeader?: () => ReactNode,
 ) {
     const newDescriptors: typeof descriptors = { ...descriptors };
-    const descriptorKeys = Object.keys(descriptors) as Array<keyof typeof descriptors>;
+    const descriptorKeys = Object.keys(descriptors) as (keyof typeof descriptors)[];
     descriptorKeys.forEach(key => {
         const descriptor = descriptors[key];
         const originalRender = descriptor.render;

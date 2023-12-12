@@ -68,19 +68,17 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                 </PressableHighlight>
             </View>
         );
-        return leftSwipeGroup || rightSwipeGroup ? (
+        return (!!leftSwipeGroup || !!rightSwipeGroup) ? (
             <Swipeable
                 overshootFriction={8}
                 containerStyle={{ backgroundColor: styles.container.backgroundColor }}
                 renderLeftActions={() =>
-                    leftSwipeGroup &&
-                    leftSwipeGroup.map((swipeItem, index) => (
+                    leftSwipeGroup?.map((swipeItem, index) => (
                         <CellSwipeItem key={`leftSwipeItem_${index}`} {...swipeItem} />
                     ))
                 }
                 renderRightActions={() =>
-                    rightSwipeGroup &&
-                    rightSwipeGroup.map((swipeItem, index) => (
+                    rightSwipeGroup?.map((swipeItem, index) => (
                         <CellSwipeItem key={`rightSwipeItem_${index}`} {...swipeItem} />
                     ))
                 }

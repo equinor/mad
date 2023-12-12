@@ -61,10 +61,10 @@ export default function DiscoverScreen({
                     onPress={() => navigation.navigate("Search")}
                 />
                 <Cell.Navigation
-                    title="Switch"
+                    title="Selection Controls"
                     description="Turn me on and off"
                     iconName="toggle-switch-off-outline"
-                    onPress={() => navigation.navigate("Switch")}
+                    onPress={() => navigation.navigate("SelectionControls")}
                 />
             </Cell.Group>
 

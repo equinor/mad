@@ -24,7 +24,7 @@ export const ImageMarkup = forwardRef<CanvasImageControls, ImageMarkupProps>((pr
     const canvasRef = useRef<CanvasControls>(null);
 
     useImperativeHandle(ref, () => ({
-        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() || undefined,
+        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() ?? undefined,
     }));
 
     const image = useImage(props.markupImage);

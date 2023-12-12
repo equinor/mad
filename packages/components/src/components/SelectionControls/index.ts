@@ -1,5 +1,6 @@
 import { Switch as _Switch, SwitchProps } from "./Switch";
 import { SmallSwitch, SmallSwitchProps } from "./SmallSwitch";
+import { Radio, RadioProps } from "./Radio";
 
 type SwitchFamily = typeof _Switch & {
     Small: typeof SmallSwitch;
@@ -8,4 +9,4 @@ type SwitchFamily = typeof _Switch & {
 const Switch = _Switch as SwitchFamily;
 Switch.Small = SmallSwitch;
 
-export { Switch, SwitchProps, SmallSwitchProps };
+export { Switch, Radio, SwitchProps, SmallSwitchProps, RadioProps };

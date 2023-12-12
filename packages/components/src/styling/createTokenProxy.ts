@@ -8,13 +8,15 @@ import type {
 } from "./types";
 import { masterToken } from "./masterToken";
 
-function keyEquality(obj1: object, obj2: object) {
+function keyEquality(obj1: unknown, obj2: unknown) {
+    if (!obj1 || !obj2) return false;
+    if (typeof obj1 !== "object" || typeof obj2 !== "object") return false;
     const obj1Keys = Object.keys(obj1).sort();
     const obj2Keys = Object.keys(obj2).sort();
     return JSON.stringify(obj1Keys) === JSON.stringify(obj2Keys);
 }
 
-function isColorSchemeValuesObject(obj: object): obj is ColorSchemeValues<unknown> {
+function isColorSchemeValuesObject(obj: unknown): obj is ColorSchemeValues<unknown> {
     const template: ColorSchemeValues<unknown> = {
         light: undefined as unknown,
         dark: undefined as unknown,
@@ -22,7 +24,7 @@ function isColorSchemeValuesObject(obj: object): obj is ColorSchemeValues<unknow
     return keyEquality(obj, template);
 }
 
-function isDensityValuesObject(obj: object): obj is DensityValues<unknown> {
+function isDensityValuesObject(obj: unknown): obj is DensityValues<unknown> {
     const template: DensityValues<unknown> = {
         tablet: undefined as unknown,
         phone: undefined as unknown,
@@ -40,9 +42,9 @@ function isDensityValuesObject(obj: object): obj is DensityValues<unknown> {
 export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {
     const handler: ProxyHandler<object> = {
         get: function (target, property, receiver) {
-            const value = Reflect.get(target, property, receiver);
+            const value: unknown = Reflect.get(target, property, receiver);
 
-            if (typeof value === "object" && !Array.isArray(value)) {
+            if (typeof value === "object" && !Array.isArray(value) && !!value) {
                 if (isColorSchemeValuesObject(value) || isDensityValuesObject(value)) {
                     return (
                         (value as ColorSchemeValues<unknown>)[scheme] ??

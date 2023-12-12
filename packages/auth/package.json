@@ -27,10 +27,10 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "peerDependencies": {
-        "react": ">=16.8",
-        "react-dom": ">=16.8",
-        "react-native": ">=0.68",
-        "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#09d309a958a29fddb4bc146859cca4ebdc1ce276"
+        "react": ">=18.0",
+        "react-dom": ">=18.0",
+        "react-native": ">=0.70",
+        "react-native-msal": "*"
     },
     "dependencies": {
         "@equinor/mad-components": "workspace:*"
