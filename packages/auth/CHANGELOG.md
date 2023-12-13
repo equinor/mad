@@ -1,5 +1,19 @@
 # @equinor/mad-auth
 
+## 0.1.0
+
+### Minor Changes
+
+-   936e5e0: `onAuthenticationSuccessful` now has type as second argument. added
+    `onAuthenticationFailed` prop
+
+### Patch Changes
+
+-   Updated dependencies [38e818d]
+-   Updated dependencies [cf131da]
+-   Updated dependencies [e941e2e]
+    -   @equinor/mad-components@0.8.2
+
 ## 0.0.14
 
 ### Patch Changes
