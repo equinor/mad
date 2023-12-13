@@ -5,7 +5,7 @@ import {useMadConfig} from "@equinor/mad-core/dist/store/mad-config";
 
 export const SampleSettingsScreen = () => {
     const currentConfig = useMadConfig();
-    const [isActive, setIsActive] = useState(true);
+    const [isActive, setIsActive] = useState(currentConfig.environment === "prod");
     const appSpecificSettingsConfig: SettingsScreenConfiguration = [
         {
             items: [
@@ -38,7 +38,7 @@ export const SampleSettingsScreen = () => {
                     },
                     isActive: isActive,
                     iconName: "cog",
-                    switchSize: 18,
+                    switchSize: "normal",
                     description: `Current Environment:  ${currentConfig.environment}`
                 }
             ],
