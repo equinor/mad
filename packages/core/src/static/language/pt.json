@@ -44,6 +44,7 @@
     "common": {
         "submit": "Enviar",
         "ok": "OK",
-        "done": "Feito"
+        "done": "Feito",
+        "save": "Salvar"
     }
 }

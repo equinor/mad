@@ -1,7 +1,7 @@
 import { useLanguage } from "../store/language"
-import * as enDictionary from "./en.json"
-import * as nbDictionary from "./nb.json"
-import * as ptDictionary from './pt.json'
+import * as enDictionary from "../static/language/en.json"
+import * as nbDictionary from "../static/language/nb.json"
+import * as ptDictionary from '../static/language/pt.json'
 import { CoreDictionary } from "./types";
 
 export const useDictionary = (): CoreDictionary => {

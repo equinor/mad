@@ -27,6 +27,10 @@ export type MadConfig = {
          * If `defaultLanguageCode` is not provided, the first language in `supportedLanguages` will be considered default.
          */
         defaultLanguageCode?: string;
+        /**
+         * Core navigates to a language selection screen by default if needed. Set this to true if you want to override this behaviour
+         */
+        skipOnboarding?: boolean
     };
     authentication: {
         /**
@@ -90,6 +94,8 @@ export type MadConfig = {
 export type CoreStackParamListBase = {
     Login: undefined;
     WhatsNew: undefined;
+    SelectLanguage: undefined;
+    SelectLanguageOnboarding: undefined;
     ReleaseNotes: undefined;
     Settings: undefined;
     About: undefined;

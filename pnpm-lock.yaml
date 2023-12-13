@@ -141,8 +141,8 @@ importers:
         specifier: ~2.12.0
         version: 2.12.1(react-native@0.72.6)(react@18.2.0)
       react-native-msal:
-        specifier: git+https://github.com/equinor/react-native-msal.git#410a475cabd3dd011d5b3fc3c0068afb14522a5f
-        version: github.com/equinor/react-native-msal/410a475cabd3dd011d5b3fc3c0068afb14522a5f(react-native@0.72.6)(react@18.2.0)
+        specifier: git+https://github.com/equinor/react-native-msal.git#38c1bac756b8019e3b7f916893a7f588c811e407
+        version: github.com/equinor/react-native-msal/38c1bac756b8019e3b7f916893a7f588c811e407(react-native@0.72.6)(react@18.2.0)
       react-native-reanimated:
         specifier: ~3.3.0
         version: 3.3.0(@babel/core@7.23.6)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.6)(react@18.2.0)
@@ -13485,6 +13485,7 @@ packages:
     id: github.com/equinor/react-native-msal/410a475cabd3dd011d5b3fc3c0068afb14522a5f
     name: react-native-msal
     version: 1.0.6
+    prepare: true
     requiresBuild: true
     peerDependencies:
       react: '*'
