@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, DependencyList } from "react";
 import { ImageStyle, TextStyle, ViewStyle, StyleSheet } from "react-native";
 
 const createStyleSheet = (style: ViewStyle | ImageStyle | TextStyle) =>
@@ -12,7 +12,7 @@ const createStyleSheet = (style: ViewStyle | ImageStyle | TextStyle) =>
  */
 export const useDynamicStyle = (
     style: () => ViewStyle | ImageStyle | TextStyle,
-    dependencies?: React.DependencyList,
+    dependencies: DependencyList,
 ) => {
     const [currentStyle, setCurrentStyle] = useState(style());
     useMemo(() => {

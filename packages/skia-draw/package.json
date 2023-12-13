@@ -30,10 +30,11 @@
         "@equinor/mad-components": "workspace:*"
     },
     "devDependencies": {
+        "@types/react": "~18.2.43",
         "@equinor/eslint-config-mad": "workspace:*"
     },
     "peerDependencies": {
-        "@shopify/react-native-skia": "^0.1.157",
+        "@shopify/react-native-skia": "0.1.225",
         "react": ">=18.0",
         "react-native": ">=0.70"
     },
