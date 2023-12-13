@@ -1,6 +1,7 @@
 import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
+import { getBuildNumber } from "./settings";
 
 export const config: MadConfig = {
     appVersion: "1.0.0",
@@ -31,7 +32,7 @@ export const config: MadConfig = {
         whatever: "",
     },
     about: {
-        endpoints: [],
-        buildNumber: "",
+        endpoints: ["https://api.statoil.com/app/mad/test/api/v1"],
+        buildNumber: getBuildNumber(),
     },
 };
