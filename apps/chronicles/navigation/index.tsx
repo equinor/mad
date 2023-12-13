@@ -142,7 +142,7 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
-            initialRouteName="DrawTab"
+            initialRouteName="DiscoverTab"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
                 headerRight: () => <GoToSettingsButton marginRight={8} />,
