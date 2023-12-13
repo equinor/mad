@@ -21,5 +21,4 @@ export type TextData = GenericCanvasData<"text"> & {
 
 export type CanvasData = PenData | TextData;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- this is a type guard
-export const isPenData = (obj: any): obj is PenData => obj.type  === "pen";
+export const isPenData = (obj: unknown): obj is PenData => !!obj && typeof obj == "object" && "type" in obj && obj.type === "pen";
