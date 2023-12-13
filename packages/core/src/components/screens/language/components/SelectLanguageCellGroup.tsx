@@ -10,7 +10,7 @@ export const SelectLanguageCellGroup = ({selectedLanguageCodeDraft, setSelectedL
     const onPress = (code: string) => () => setSelectedLanguageCodeDraft(code)
     return <Cell.Group>
         {supportedLanguages.map(language => 
-            <Cell key={language.code} rightAdornment={<Radio checked={language.code === selectedLanguageCodeDraft} onPress={onPress(language.code)} />} onPress={onPress(language.code)}>
+            <Cell key={language.code} rightAdornment={<Radio checked={language.code === selectedLanguageCodeDraft} />} onPress={onPress(language.code)}>
                 <Typography>{language.name}</Typography>
             </Cell>
             )}
