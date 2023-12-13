@@ -1,12 +1,12 @@
 import React from "react";
-import { EnvironmentProvider } from "@equinor/mad-components";
+import { EnvironmentProvider } from "../components/EnvironmentProvider";
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
 import { CoreStackParamListBase, MadConfig } from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
 import { AppInsightsInitializer } from "@equinor/mad-insights";
-import { createNativeStackNavigator } from "../components/navigation";
+import { createNativeStackNavigator } from "../components";
 import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { AboutScreen } from "../components/screens/AboutScreen";
 import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen";
@@ -25,7 +25,7 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
     function MadCoreNavigator(props: Omit<NavigatorProps, "initialRouteName">) {
         return (
         <AppInsightsInitializer config={config.applicationInsights}>
-            <EnvironmentProvider environment={config.environment}>
+            <EnvironmentProvider>
                 <AnnouncementsProvider>
                     <Stack.Navigator {...props} initialRouteName={"Login"}>
                         <Stack.Screen
