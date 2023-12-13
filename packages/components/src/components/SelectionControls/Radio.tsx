@@ -29,7 +29,7 @@ export type RadioProps = {
     size?: number;
 };
 export const Radio = ({
-    onPress = () => null,
+    onPress,
     checked = false,
     disabled = false,
     size = 24,
@@ -39,9 +39,9 @@ export const Radio = ({
         <PressableHighlight
             style={[styles.pressableHighlight, {borderRadius: size}]}
             onPress={() => {
-                onPress(disabled ? checked : !checked);
+                onPress?.(disabled ? checked : !checked);
             }}
-            disabled={disabled}
+            disabled={!onPress || disabled}
         >
             <Icon
                 name={

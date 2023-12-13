@@ -1,3 +1,3 @@
-import * as englishDictionary from "./en.json"
+import * as englishDictionary from "../static/language/en.json"
 
 export type CoreDictionary = typeof englishDictionary
