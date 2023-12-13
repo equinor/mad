@@ -40,7 +40,6 @@ export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
         currentPenPaths,
         canvasHistory,
         draggingText,
-        currentTool: toolType,
         touchHandler,
     };
 };

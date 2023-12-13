@@ -3,10 +3,8 @@ import {
     Color,
     EDSStyleSheet,
     Icon,
-    Input,
     Paper,
     Popover,
-    TextField,
     Typography,
     useStyles,
 } from "@equinor/mad-components";
@@ -14,6 +12,7 @@ import React, { useRef, useState } from "react";
 import { Circle } from "./Circle";
 import { EDSControlPanelButton } from "./EDSControlPanelButton";
 import { useCanvasControl } from "../../../hooks/useCanvasControl";
+import { TextInputBubble } from "./TextInputBubble";
 
 export const EDSControlPanel = () => {
     const {
@@ -32,7 +31,7 @@ export const EDSControlPanel = () => {
 
     const [isSelectingColor, setIsSelectingColor] = useState<boolean>(false);
     const [isSelectingStrokeWeight, setIsSelectingStrokeWeight] = useState<boolean>(false);
-    const [isEditingText, setIsEditingText] = useState<boolean>(false);
+    const [isShowingTextBubble, setIsShowingTextBubble] = useState<boolean>(false);
 
     const colorSelectingButton = useRef<View>(null);
     const strokeWidthSelectingButton = useRef<View>(null);
@@ -44,10 +43,12 @@ export const EDSControlPanel = () => {
     const onPressPenTool = () => {
         setToolType("pen");
         setIsSelectingStrokeWeight(true);
+        setIsShowingTextBubble(false);
     };
 
     const onPressTextTool = () => {
         setToolType("text");
+        setIsShowingTextBubble(state => !state);
     };
 
     const onPressColor = (c: string) => {
@@ -62,14 +63,8 @@ export const EDSControlPanel = () => {
 
     return (
         <KeyboardAvoidingView style={styles.container}>
-            {toolType === "text" && (
-                <TextField
-                    value={text}
-                    placeholder="Type text to enter here"
-                    onChange={setText}
-                    helperText="Click the canvas to add your text"
-                />
-            )}
+            <TextInputBubble open={isShowingTextBubble} anchorEl={textToolSelectingButton} value={text} onChangeText={setText}/>
+    
             <Paper elevation="sticky" style={styles.paperContainer}>
                 <EDSControlPanelButton
                     onPress={onPressPenTool}
@@ -79,7 +74,7 @@ export const EDSControlPanel = () => {
                     <Icon name="brush" color={toolType === "pen" ? "primary" : "secondary"} />
                 </EDSControlPanelButton>
 
-                <EDSControlPanelButton onPress={onPressTextTool} key={"text-tool-button"}>
+                <EDSControlPanelButton ref={textToolSelectingButton} onPress={onPressTextTool} key={"text-tool-button"}>
                     <Icon
                         name="format-textbox"
                         color={toolType === "text" ? "primary" : "secondary"}

@@ -67,12 +67,10 @@ function createTextTouchHandlers({
     return {
         onStart: ({ x, y }) => {
             const pressedTextIndex = canvasHistory.current
-                .filter(item => item.type === "text")
                 .findIndex(item => {
-                    const textItem = item as TextData;
-                    return isInPaddedTextBoundingBox({
-                        text: textItem.text,
-                        textPosition: textItem.position,
+                    return item.type === "text" && isInPaddedTextBoundingBox({
+                        text: item.text,
+                        textPosition: item.position,
                         pointPosition: { x, y },
                         font,
                     });
@@ -104,7 +102,6 @@ function createTextTouchHandlers({
             if (!draggingText.current) {
                 return;
             }
-
             draggingText.current = {
                 ...draggingText.current,
                 position: {
@@ -122,6 +119,7 @@ function createTextTouchHandlers({
             }
             canvasHistory.current = [...canvasHistory.current, draggingText.current];
             draggingText.current = undefined;
+            rerender();
         },
     };
 }

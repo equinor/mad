@@ -1,4 +1,4 @@
-import { Rect, Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
+import { Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
 
 import { useCanvasDraw } from "../hooks/useCanvasDraw";
 import { CanvasProps } from "../types";
@@ -11,7 +11,7 @@ const CanvasComponent: ForwardRefRenderFunction<CanvasControls, PropsWithChildre
     ref,
 ) => {
     const skiaCanvasRef = useCanvasRef();
-    const { currentPenPaths, canvasHistory, draggingText, currentTool, touchHandler } =
+    const { currentPenPaths, canvasHistory, draggingText, touchHandler } =
         useCanvasDraw({
             ref,
             skiaCanvasRef,
@@ -26,12 +26,11 @@ const CanvasComponent: ForwardRefRenderFunction<CanvasControls, PropsWithChildre
             {!renderChildrenOnTop && children}
             {canvasHistory.current
                 .concat(Object.values(currentPenPaths.current))
-                .concat(draggingText.current ? [draggingText.current] : [])
                 .map((elementData, index) => (
-                    <CanvasElement key={index} data={elementData} currentTool={currentTool} />
+                    <CanvasElement key={index} data={elementData} isEditing={false}/>
                 ))}
+            {draggingText.current && <CanvasElement key="textDrag" data={draggingText.current} isEditing={true}/>}
             {renderChildrenOnTop && children}
-            <Rect x={100} y={100} width={100} height={100} color={"red"}/>
         </SkiaCanvas>
     );
 };

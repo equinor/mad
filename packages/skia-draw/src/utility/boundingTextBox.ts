@@ -11,9 +11,7 @@ type BoundingBox = Position & {
 };
 
 export function measureText(text: string, font: SkFont) {
-    // We have to correct for a poorly working measuring function in RN skia
-    const width = font.getTextWidth(text) + text.length * 0.5;
-    const height = font.getSize();
+    const { width, height } = font.measureText(text);
     return { width, height };
 }
 
