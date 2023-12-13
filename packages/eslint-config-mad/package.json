@@ -1,6 +1,6 @@
 {
     "name": "@equinor/eslint-config-mad",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "main": "index.js",
     "exports": {
         ".": "./index.js",
@@ -28,7 +28,7 @@
         "@typescript-eslint/eslint-plugin": {
             "optional": true
         },
-        "@typescript-eslint/parser":  {
+        "@typescript-eslint/parser": {
             "optional": true
         }
     },
