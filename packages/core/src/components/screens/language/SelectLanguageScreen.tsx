@@ -29,7 +29,7 @@ export const SelectLanguageScreen = () => {
         <Spacer />
         <SelectLanguageCellGroup selectedLanguageCodeDraft={selectedLanguageCodeDraft} setSelectedLanguageCodeDraft={setSelectedLanguageCodeDraft}/>
         <View style={styles.submitButtonContainer}>
-            <Button title={dictionary.common.submit} onPress={onPressSubmit} />
+            <Button title={dictionary.common.save} onPress={onPressSubmit} />
         </View>
     </ScrollView>
 }
