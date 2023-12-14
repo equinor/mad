@@ -27,6 +27,10 @@ export const masterToken: MasterToken = {
                 light: colors.ui_background_light_default,
                 dark: colors.ui_background_dark_default,
             },
+            warning: {
+                light: colors.ui_background_light_warning,
+                dark: colors.ui_background_dark_warning
+            },
             elevation: {
                 none: {
                     light: colors.ui_background_light_default,
@@ -146,6 +150,10 @@ export const masterToken: MasterToken = {
                 light: colors.interactive_disabled_light_text,
                 dark: colors.interactive_disabled_dark_text,
             },
+            feedbackWarning: {
+                light: colors.feedback_warning_light_text,
+                dark: colors.feedback_warning_dark_text
+            }
         },
     },
     geometry: {
