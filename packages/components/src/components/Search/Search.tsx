@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, View } from "react-native";
+import { Animated, Platform, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Button, InputProps, TextField, useStyles, useToken } from "../..";
 import { EDSStyleSheet } from "../../styling";
@@ -10,6 +10,7 @@ export type SearchProps = Omit<InputProps, "multiline"> & {
     onCancelPress?: () => void;
     textValue?: string;
 };
+
 export const Search = ({
     cancellable,
     onCancelPress,
@@ -17,13 +18,17 @@ export const Search = ({
     textValue,
     ...restProps
 }: SearchProps) => {
-    const [text, setText] = useState("");
+    const [text, setText] = useState(textValue ?? "");
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
-    const inputRef = useRef<TextInput | null>(null);
-    const animationValue = useRef(new Animated.Value(0)).current;
+
     const styles = useStyles(themedStyles);
     const token = useToken();
+
+    const inputRef = useRef<TextInput>(null);
+    const animationValue = useRef(new Animated.Value(0)).current;
+
+    const iconSize = token.geometry.dimension.icon.size;
 
     const cancelButtonOpacity = animationValue.interpolate({
         inputRange: [0, 1],
@@ -47,13 +52,7 @@ export const Search = ({
             duration: token.timing.animation.slow,
             useNativeDriver: false,
         }).start();
-    }, [animationValue, cancellable, isInputFocused, token.timing.animation.slow]);
-
-    useEffect(() => {
-        if (textValue) {
-            setText(textValue);
-        }
-    }, [textValue]);
+    }, [animationValue, isInputFocused, token.timing.animation.slow, cancellable]);
 
     const handleCancel = () => {
         setText("");
@@ -61,7 +60,6 @@ export const Search = ({
         inputRef.current?.blur();
     };
 
-    // FIXME: On web the search field loses focus when the clear text button is pressed.
     const handleClearText = () => {
         setText("");
         onChange?.("");
@@ -71,6 +69,15 @@ export const Search = ({
     const onChangeText = (text: string) => {
         setText(text);
         onChange?.(text);
+    };
+
+    const handleOnBlur = (e: any) => {
+        if (e.relatedTarget && e.relatedTarget.id === "search-clear-text-button") {
+            e.target.focus();
+            setIsInputFocused(true);
+        } else {
+            setIsInputFocused(false);
+        }
     };
 
     return (
@@ -86,21 +93,32 @@ export const Search = ({
                         restProps.onFocus?.(e);
                     }}
                     onBlur={e => {
-                        setIsInputFocused(false);
-                        restProps.onBlur?.(e);
+                        if (Platform.OS === "web") {
+                            handleOnBlur(e);
+                        }
+                        if (Platform.OS !== "web") {
+                            setIsInputFocused(false);
+                            restProps.onBlur?.(e);
+                        }
                     }}
                     leftAdornments={
-                        <View style={styles.adornment}>
-                            <MaterialIcons name="search" size={18} color={styles.icon.color} />
+                        <View style={styles.iconContainer}>
+                            <MaterialIcons
+                                name="search"
+                                size={iconSize}
+                                color={styles.icon.color}
+                            />
                         </View>
                     }
                     rightAdornments={
                         text ? (
-                            <View style={styles.adornment}>
-                                <Button.Icon
+                            <View style={styles.iconContainer}>
+                                <MaterialIcons
+                                    id="search-clear-text-button"
                                     name="close"
-                                    variant="ghost"
-                                    iconSize={18}
+                                    tabIndex={0}
+                                    color={styles.icon.color}
+                                    size={iconSize}
                                     onPress={handleClearText}
                                 />
                             </View>
@@ -118,25 +136,39 @@ export const Search = ({
                     }}
                     onLayout={event => setCancelButtonWidth(event.nativeEvent.layout.width)}
                 >
-                    <Button variant="ghost" title="Cancel" onPress={handleCancel} />
+                    <Button
+                        variant="ghost"
+                        title="Cancel"
+                        onPressIn={Platform.OS === "web" ? handleCancel : undefined}
+                        onPress={Platform.OS !== "web" ? handleCancel : undefined}
+                    />
                 </Animated.View>
             )}
         </View>
     );
 };
 
-const themedStyles = EDSStyleSheet.create(theme => ({
-    container: {
-        flexGrow: 1,
-        flexDirection: "row",
-        alignItems: "flex-end",
-    },
-    adornment: {
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: theme.spacing.element.paddingHorizontal,
-    },
-    icon: {
-        color: theme.colors.text.primary,
-    },
-}));
+const themedStyles = EDSStyleSheet.create(theme => {
+    return {
+        container: {
+            flexGrow: 1,
+            flexDirection: "row",
+            alignItems: "flex-end",
+        },
+        adornment: {
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: theme.spacing.element.paddingHorizontal,
+        },
+        iconContainer: {
+            zIndex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: theme.spacing.button.paddingHorizontal,
+            paddingVertical: theme.spacing.button.paddingVertical,
+        },
+        icon: {
+            color: theme.colors.interactive.primary,
+        },
+    };
+});

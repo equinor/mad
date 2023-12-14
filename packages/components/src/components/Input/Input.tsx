@@ -1,9 +1,10 @@
 import React, { ReactNode, forwardRef, useState } from "react";
 import {
     NativeSyntheticEvent,
+    Platform,
     TextInput,
-    TextInputProps,
     TextInputFocusEventData,
+    TextInputProps,
     View,
     ViewStyle,
 } from "react-native";
@@ -108,6 +109,26 @@ const themedStyles = EDSStyleSheet.create(
         const { multiline, isSelected, variant } = props;
         let borderStyle: ViewStyle;
 
+        const baseTextInputStyle = {
+            flex: 1,
+            paddingTop: theme.spacing.textField.paddingVertical,
+            paddingBottom: theme.spacing.textField.paddingVertical,
+            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
+            color: theme.colors.text.primary,
+            ...theme.typography.basic.input,
+            minHeight: multiline ? 80 : undefined,
+        };
+
+        // TextInput have a default outlineStyle on web that causes a red border to
+        // appear when focused. This is not the case for native. We therefore need to check
+        // the platform first before appling the style in order to prevent console warnings.
+        const webTextInputStyle =
+            Platform.OS === "web"
+                ? {
+                      outlineStyle: "none",
+                  }
+                : {};
+
         switch (variant) {
             case "danger":
                 borderStyle = {
@@ -153,14 +174,8 @@ const themedStyles = EDSStyleSheet.create(
                 paddingHorizontal: theme.spacing.textField.paddingHorizontal,
             },
             textInput: {
-                flex: 1,
-                paddingTop: theme.spacing.textField.paddingVertical,
-                paddingBottom: theme.spacing.textField.paddingVertical,
-                paddingHorizontal: theme.spacing.textField.paddingHorizontal,
-                color: theme.colors.text.primary,
-                ...theme.typography.basic.input,
-                minHeight: multiline ? 80 : undefined,
-                outline: "none",
+                ...baseTextInputStyle,
+                ...webTextInputStyle,
             },
             placeholder: {
                 color: theme.colors.text.tertiary,
