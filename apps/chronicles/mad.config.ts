@@ -32,7 +32,7 @@ export const config: MadConfig = {
         whatever: "",
     },
     about: {
-        endpoints: ["https://api.statoil.com/app/mad/test/api/v1"],
+        endpoints: [],
         buildNumber: getBuildNumber(),
     },
 };
