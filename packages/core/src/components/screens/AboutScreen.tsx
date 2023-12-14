@@ -1,12 +1,13 @@
 import React from "react";
 import { Cell, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
-import { useMadConfig } from "../../store/mad-config";
+import { useEnvironment, useMadConfig } from "../../store/mad-config";
 
 export const AboutScreen = () => {
     const config = useMadConfig();
     const styles = useStyles(themeStyles)
-    const environment = config.environment.charAt(0).toUpperCase() + config.environment.slice(1);
+    const environment = useEnvironment();
+    const environmentName  = environment.charAt(0).toUpperCase() + environment.slice(1);
     
     return (
         <ScrollView
@@ -22,7 +23,7 @@ export const AboutScreen = () => {
                                 <Typography>App version</Typography>
                             </View>
                             <View style={styles.columnContainer}>
-                                <Typography>{environment}</Typography>
+                                <Typography>{environmentName}</Typography>
                                 <Typography>{config.about?.buildNumber}</Typography>
                                 <Typography>{config.appVersion}</Typography>
                             </View>
