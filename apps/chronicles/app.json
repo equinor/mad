@@ -26,7 +26,12 @@
             }
         },
         "plugins": [
-            ["react-native-msal", {}],
+            [
+                "react-native-msal",
+                {
+                    
+                }
+            ],
             [
                 "expo-image-picker",
                 {

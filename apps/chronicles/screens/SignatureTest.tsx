@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { Button, Typography } from "@equinor/mad-components";
-import { SnapshotHandle, SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
-import { SignaturePad } from "@equinor/react-native-skia-draw";
+import { SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
+import { SignaturePad, CanvasImageControls  } from "@equinor/react-native-skia-draw";
 import { Circle } from "@shopify/react-native-skia";
 
 type Dimensions = { width: number; height: number };
@@ -23,7 +23,7 @@ export const SignatureScreen = () => {
         });
     }, [image]);
 
-    const drawRef = useRef<SnapshotHandle>(null);
+    const drawRef = useRef<CanvasImageControls>(null);
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.resultsContainer}>

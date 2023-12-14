@@ -1,6 +1,7 @@
 import React, { forwardRef, useRef } from "react";
 import { Animated, Pressable, PressableProps, View, ViewStyle, StyleSheet } from "react-native";
 import { useToken } from "../../hooks/useToken";
+import { DisabledPressable } from "./DisabledPressable";
 
 export type PressableHightlightProps = {
     /**
@@ -47,8 +48,10 @@ export const PressableHighlight = forwardRef<
             }).start();
         };
 
+        const PressableComponent = disabled ? DisabledPressable : Pressable;
+
         return (
-            <Pressable
+            <PressableComponent
                 ref={ref}
                 style={style}
                 onPressIn={() => !disabled && handlePressIn()}
@@ -66,7 +69,7 @@ export const PressableHighlight = forwardRef<
                     ]}
                 />
                 {children}
-            </Pressable>
+            </PressableComponent>
         );
     },
 );

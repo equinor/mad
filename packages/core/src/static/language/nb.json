@@ -44,6 +44,7 @@
     "common": {
         "submit": "Velg",
         "ok": "OK",
-        "done": "Ferdig"
+        "done": "Ferdig",
+        "save": "Lagre"
     }
 }

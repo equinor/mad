@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from "../components/navigation";
 import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { AboutScreen } from "../components/screens/AboutScreen";
 import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen";
+import { SelectLanguageScreen } from "../components/screens/language/SelectLanguageScreen";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
@@ -42,6 +43,10 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                             {config.serviceNow && (
                                 <Stack.Screen name="Feedback" component={CreateIncidentScreen} />
                             )}
+                            {config.language.supportedLanguages.length > 1 && <>
+                                <Stack.Screen name="SelectLanguage" component={SelectLanguageScreen} />
+                                <Stack.Screen name="SelectLanguageOnboarding" component={SelectLanguageScreen} options={{headerBackVisible: false}} />
+                            </>}
                             {props.children}
                         </Stack.Navigator>
                 </AnnouncementsProvider>
