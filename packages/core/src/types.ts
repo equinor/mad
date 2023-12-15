@@ -12,11 +12,12 @@ export type MadConfig = {
      * service portal name of the app. Will be used to find the correct resource for service messages and release notes.
      * @see https://web-mad-service-portal-web-prod.radix.equinor.com/
      */
-    servicePortalName: string;
+    servicePortalName: EnvironmentValues<string>;
     /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
-    environment: EnvironmentContextProps["environment"];
+    currentEnvironment: EnvironmentContextProps["environment"];
+    environments: EnvironmentValues<EnvironmentContextProps["environment"]>;
     language: {
         /**
          * Supported languages of the app.
@@ -30,7 +31,7 @@ export type MadConfig = {
         /**
          * Core navigates to a language selection screen by default if needed. Set this to true if you want to override this behaviour
          */
-        skipOnboarding?: boolean
+        skipOnboarding?: boolean;
     };
     authentication: {
         /**
@@ -59,7 +60,7 @@ export type MadConfig = {
          * available scopes in your application's App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        scopes?: string[];
+        scopes: EnvironmentValues<string[]>;
     };
     login: {
         /**
@@ -105,3 +106,14 @@ export type CoreStackParamListBase = {
 };
 
 export type Environment = "dev" | "test" | "qa" | "prod";
+export type EnvironmentValues<T> = Partial<Record<Environment, T>>;
+
+export type WithoutEnvironmentOptionValues<TToken> = {
+    [K in keyof TToken]: TToken[K] extends EnvironmentValues<infer U>
+        ? U
+        : TToken[K] extends object
+        ? WithoutEnvironmentOptionValues<TToken[K]>
+        : TToken[K];
+};
+
+export type EnvironmentContext = WithoutEnvironmentOptionValues<MadConfig>;

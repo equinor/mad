@@ -1,7 +1,7 @@
 import { renderHook, act } from "@testing-library/react-native";
 import { getLanguage, useLanguage } from "../../src/store/language";
 import { getConfig, setConfig } from "../../src/store/mad-config";
-import { MadConfig } from "../../src/types";
+import { MadConfig } from "../../src";
 import { ImageSourcePropType } from "react-native";
 import { Language } from "../../src/store/types";
 
@@ -12,7 +12,7 @@ const getSupportedLanguages = () => getConfig().language.supportedLanguages;
 const mockConfig: MadConfig = {
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
-    environment: "test",
+    environments: "test",
     language: {
         supportedLanguages: [{ code: "en", name: "English" }],
     },

@@ -1,6 +1,8 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
-import { MadConfig } from "../../types";
+import {create} from "zustand";
+import {devtools} from "zustand/middleware";
+import {EnvironmentContext, MadConfig} from "../../types";
+import {createEnvironmentProxy} from "../../utils/createEnvironmentProxy";
+import {useMemo} from "react";
 
 type MadConfigState = {
     config: MadConfig | null;
@@ -20,17 +22,25 @@ const useMadConfigStore = create<MadConfigState>()(
 const MAD_CONFIG_NOT_FOUND_ERROR =
     "Mad config has not been provided! Make sure you use 'createCoreStackNavigator' to provide your config";
 
-export const useMadConfig = (): MadConfig => {
+export const useMadConfig = (): EnvironmentContext => {
     const config = useMadConfigStore().config;
     if (!config) throw new Error(MAD_CONFIG_NOT_FOUND_ERROR);
-    return config;
+    return useMemo(() => {
+        return createEnvironmentProxy(config.currentEnvironment);
+    }, [config]);
 };
 
-export const getConfig = (): MadConfig => {
+export const getConfig = (): EnvironmentContext => {
+    const config = useMadConfigStore.getState().config;
+    if (!config) throw new Error(MAD_CONFIG_NOT_FOUND_ERROR);
+    return createEnvironmentProxy(config.currentEnvironment);
+};
+
+export const getPureConfig = (): MadConfig => {
     const config = useMadConfigStore.getState().config;
     if (!config) throw new Error(MAD_CONFIG_NOT_FOUND_ERROR);
     return config;
-};
+}
 
 export const setConfig = (config: MadConfig) => {
     useMadConfigStore.getState().setConfig(config);

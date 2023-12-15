@@ -1,9 +1,9 @@
 import {
     SettingsScreenCellConfigurationItem,
     SettingsScreenSectionProps,
-} from "../components/screens/settings/types";
+} from "../components";
 import { CoreDictionary } from "../language/types";
-import { MadConfig } from "../types";
+import {EnvironmentContext} from "../types";
 
 const getReleaseNotesConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
@@ -34,7 +34,7 @@ const getLanguageConfig = (dictionary: CoreDictionary): SettingsScreenCellConfig
 });
 
 export type PremadeSettings = ReturnType<typeof getPremadeSettings>;
-export const getPremadeSettings = (config: MadConfig, dictionary: CoreDictionary) => {
+export const getPremadeSettings = (config: EnvironmentContext, dictionary: CoreDictionary) => {
     const premadeCommonNavigationItems = [getReleaseNotesConfig(dictionary)];
     if (config.about) premadeCommonNavigationItems.push(getAboutConfig(dictionary));
     if (config.serviceNow) premadeCommonNavigationItems.push(getServiceNowConfig(dictionary));
