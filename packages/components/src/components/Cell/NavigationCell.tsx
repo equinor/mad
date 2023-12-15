@@ -29,6 +29,9 @@ export type NavigationCellProps = {
      * Name of the icon to use as a left adornment.
      */
     iconName?: IconName;
+    additionalTitles?: {
+        title: string;
+    }[];
 } & Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
 
 export const NavigationCell = ({
@@ -37,6 +40,7 @@ export const NavigationCell = ({
     disabled = false,
     description,
     iconName,
+    additionalTitles,
     ...cellProps
 }: NavigationCellProps) => {
     const styles = useStyles(themeStyles);
@@ -61,24 +65,39 @@ export const NavigationCell = ({
             {...cellProps}
         >
             <View style={styles.contentContainer}>
-                <Typography
-                    group="cell"
-                    variant="title"
-                    numberOfLines={1}
-                    color={disabled ? "textDisabled" : undefined}
-                >
-                    {title}
-                </Typography>
-                {description && (
+                <View style={styles.singleCellContainer}>
                     <Typography
                         group="cell"
-                        variant="description"
-                        numberOfLines={2}
-                        color={disabled ? "textDisabled" : "textTertiary"}
+                        variant="title"
+                        numberOfLines={1}
+                        color={disabled ? "textDisabled" : undefined}
                     >
-                        {description}
+                        {title}
                     </Typography>
-                )}
+                    {description && (
+                        <Typography
+                            group="cell"
+                            variant="description"
+                            numberOfLines={2}
+                            color={disabled ? "textDisabled" : "textTertiary"}
+                        >
+                            {description}
+                        </Typography>
+                    )}
+                </View>
+                {title &&
+                    additionalTitles?.map((text, index) => (
+                        <Typography
+                            style={{ justifyContent: "flex-start" }}
+                            key={index}
+                            group="cell"
+                            variant="title"
+                            numberOfLines={1}
+                            color="textTertiary"
+                        >
+                            {text.title}
+                        </Typography>
+                    ))}
             </View>
         </Cell>
     );
@@ -87,11 +106,16 @@ export const NavigationCell = ({
 NavigationCell.displayName = "Cell.Navigation";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
-    contentContainer: {
+    singleCellContainer: {
         justifyContent: "center",
         gap: theme.spacing.cell.content.titleDescriptionGap,
     },
     adornmentContainer: {
         justifyContent: "center",
+    },
+    contentContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        flex: 1,
     },
 }));
