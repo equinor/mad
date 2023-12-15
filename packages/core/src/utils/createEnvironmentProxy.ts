@@ -15,7 +15,7 @@ export function createEnvironmentProxy(scheme: EnvironmentContextProps["environm
             const value: unknown = Reflect.get(target, property, receiver);
             if (typeof value === "object" && !Array.isArray(value) && !!value) {
                 if (isEnvironmentValuesObject(value)) {
-                    return value[scheme];
+                    return (value as Partial<Record<Environment, unknown>>)[scheme];
                 }
                 return new Proxy(value, handler);
             }

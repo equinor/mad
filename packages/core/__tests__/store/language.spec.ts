@@ -10,6 +10,7 @@ const english = { code: "en", name: "English" };
 
 const getSupportedLanguages = () => getConfig().language.supportedLanguages;
 const mockConfig: MadConfig = {
+    currentEnvironment: "test",
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     environments: "test",
@@ -24,7 +25,7 @@ const mockConfig: MadConfig = {
     login: {
         title: "Chronicles",
         logo: "whatever doesn't matter in this test" as ImageSourcePropType,
-    },
+    }
 };
 
 const setSupportedLanguagesAndMaybeDefaultLanguageCode = (
