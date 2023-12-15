@@ -1,12 +1,11 @@
 import { View, StyleSheet, Image } from "react-native";
-import { ImageMarkup } from "@equinor/react-native-skia-draw";
+import { CanvasImageControls, ImageMarkup } from "@equinor/react-native-skia-draw";
 import { Button, Typography } from "@equinor/mad-components";
 import * as ImagePicker from "expo-image-picker";
 import React, { useRef, useState } from "react";
-import { SnapshotHandle } from "@equinor/react-native-skia-draw/dist/types";
 
 export const DrawScreen = () => {
-    const canvasHandle = useRef<SnapshotHandle>(null);
+    const canvasHandle = useRef<CanvasImageControls>(null);
     const [originalImage, setOriginalImage] = useState<string>();
     const [modifiedImage, setModifiedImage] = useState<string>();
 
@@ -27,8 +26,7 @@ export const DrawScreen = () => {
             setModifiedImage(image?.uri);
         }
     };
-
-    return (
+    return ( 
         <View style={{ flex: 1 }}>
             <ImageMarkup
                 ref={canvasHandle}

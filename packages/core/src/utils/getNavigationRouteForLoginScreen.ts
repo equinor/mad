@@ -1,9 +1,12 @@
+import { CoreStackParamListBase } from "../types";
+import { getNavigationRouteForWhatsNewScreen } from "./getNavigationRouteForWhatsNewScreen";
+
 export type GetNavigationRouteForLoginScreenOptions = {
     appVersion: string;
     lastDisplayedReleaseNotesVersion: string | null;
     isDemoMode?: boolean;
 };
-export type GetNavigationRouteForLoginScreenReturnType = "WhatsNew" | "Root";
+export type GetNavigationRouteForLoginScreenReturnType = keyof CoreStackParamListBase;
 export const getNavigationRouteForLoginScreen = ({
     appVersion,
     lastDisplayedReleaseNotesVersion,
@@ -12,7 +15,7 @@ export const getNavigationRouteForLoginScreen = ({
     if (isDemoMode) return "WhatsNew";
     if (!lastDisplayedReleaseNotesVersion || lastDisplayedReleaseNotesVersion < appVersion)
         return "WhatsNew";
-    return "Root";
+    return getNavigationRouteForWhatsNewScreen();
 };
 
 export const _getNavigationRouteForLoginScreenPure = {};

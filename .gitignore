@@ -38,6 +38,7 @@ dist
 # expo build
 .expo
 ios
+android
 
 # Snyk cache
 .dccache

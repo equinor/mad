@@ -30,7 +30,7 @@ const getLanguageConfig = (dictionary: CoreDictionary): SettingsScreenCellConfig
     name: "navigation",
     iconName: "chat-processing-outline",
     title: dictionary.settings.language,
-    onPress: navigation => navigation.navigate("NotFound"),
+    onPress: navigation => navigation.navigate("SelectLanguage"),
 });
 
 export type PremadeSettings = ReturnType<typeof getPremadeSettings>;

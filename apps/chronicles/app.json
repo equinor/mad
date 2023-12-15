@@ -17,7 +17,8 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "com.equinor.mad.chronicles"
+            "bundleIdentifier": "com.equinor.mad.chronicles",
+            "buildNumber": "20231224.1"
         },
         "android": {
             "adaptiveIcon": {
@@ -26,7 +27,12 @@
             }
         },
         "plugins": [
-            ["react-native-msal", {}],
+            [
+                "react-native-msal",
+                {
+                    
+                }
+            ],
             [
                 "expo-image-picker",
                 {
@@ -36,7 +42,8 @@
         ],
         "web": {
             "favicon": "./assets/images/favicon.png",
-            "bundler": "metro"
+            "bundler": "metro",
+            "buildNumber": "20231224.2"
         }
     }
 }

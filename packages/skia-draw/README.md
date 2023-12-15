@@ -36,13 +36,13 @@ The library currently exposes two ready-made (reffered to as premades) solutions
 The Signature Pad component comes with a signature field, a clear button and the ability to create
 snapshots. A simple implementation looks like this:
 
-```ts
+```tsx
 import { Button } from "react-native";
-import { SignaturePad } from "@equinor/react-native-skia-draw";
-import { SnapshotHandle, SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
+import { SignaturePad, CanvasImageControls } from "@equinor/react-native-skia-draw";
+import { SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
 
 const MySignaturePad = () => {
-    const drawRef = useRef<SnapshotHandle>(null);
+    const drawRef = useRef<CanvasImageControls>(null);
     const [myImage, setMyImage] = useState<SkiaDrawSnapshot>();
 
     const takeSnapshot = () => {
@@ -82,10 +82,10 @@ The Image Markup component comes with a simple control panel for some markup ope
 size, color selection, clear and undo), and the ability to draw on top of an imported image. A
 simple implementation looks like this:
 
-```ts
+```tsx
 import { Button } from "react-native";
-import { ImageMarkup } from "@equinor/react-native-skia-draw";
-import { SnapshotHandle, SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
+import { ImageMarkup, CanvasImageControls } from "@equinor/react-native-skia-draw";
+import { SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
 
 const MyImageMarkup = ({
     myImageAsAnEncodedString,
@@ -93,7 +93,7 @@ const MyImageMarkup = ({
 {
     myImageAsAnEncodedString: string;
 }) => {
-    const drawRef = useRef<SnapshotHandle>(null);
+    const drawRef = useRef<CanvasImageControls>(null);
     const [myImage, setMyImage] = useState<SkiaDrawSnapshot>();
 
     const takeSnapshot = () => {
@@ -128,3 +128,46 @@ for information on how to do this.
 
 Note that React Native Skia has an own setup process for working on the web. Make sure to follow
 this when adding any solution from this packace to your React Native web project.
+
+## Custom implementations
+In addition to the premades listed above, this library also lets you create your own design using your own components to control the canvas.
+Start by making sure that you wrap both your control panel and the canvas inside a `CanvasControlProvider`:
+
+```tsx
+import { CanvasControlProvider, Canvas } from "@equinor/react-native-skia-draw";
+
+export const MyCustomControlledCanvas = () => (
+    <CanvasControlProvider>
+        <MyCustomControlPanel />
+        <Canvas />
+    </CanvasControlProvider>
+)
+```
+
+Then, in your custom control panel, tap into the canvas using the controls exported from the `useCanvasControl()` hook:
+
+```tsx
+import { useCanvasControl } from "@equinor/react-native-skia-draw";
+
+export const MyCustomControlPanel = () => {
+    const {
+        toolColor,
+        setToolColor,
+        strokeWeight,
+        setStrokeWeight,
+        toolType,
+        setToolType,
+        text,
+        setText,
+        font,
+        undo,
+        clear,
+    } = useCanvasControl();
+    
+    return (
+        <>
+            {/* custom ui here */}
+        </>
+    )
+}
+```
