@@ -1,19 +1,27 @@
-import {create} from "zustand";
-import {devtools} from "zustand/middleware";
-import {EnvironmentContext, MadConfig} from "../../types";
-import {createEnvironmentProxy} from "../../utils/createEnvironmentProxy";
-import {useMemo} from "react";
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import { EnvironmentContext, MadConfig } from "../../types";
+import { createEnvironmentProxy } from "../../utils/createEnvironmentProxy";
+import { useMemo } from "react";
+import { EnvironmentName } from "@equinor/mad-components/dist/components/Environment/types";
 
 type MadConfigState = {
     config: MadConfig | null;
     setConfig: (config: MadConfig) => void;
+    setEnvironment: (env: EnvironmentName) => void;
 };
 
 const useMadConfigStore = create<MadConfigState>()(
     devtools(
         set => ({
             config: null,
+            environment: "prod",
             setConfig: config => set(() => ({ config: config })),
+            setEnvironment: env => {
+                const newConfig = getPureConfig();
+                newConfig.currentEnvironment = env;
+                set(() => ({ config: newConfig }))
+            },
         }),
         { name: "core/config" },
     ),
@@ -40,8 +48,12 @@ export const getPureConfig = (): MadConfig => {
     const config = useMadConfigStore.getState().config;
     if (!config) throw new Error(MAD_CONFIG_NOT_FOUND_ERROR);
     return config;
-}
+};
 
 export const setConfig = (config: MadConfig) => {
     useMadConfigStore.getState().setConfig(config);
+};
+
+export const setEnvironment = (env: EnvironmentName) => {
+    useMadConfigStore.getState().setEnvironment(env);
 };
