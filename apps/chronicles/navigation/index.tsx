@@ -42,6 +42,7 @@ import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
+import { ChipScreen } from "../screens/components/ChipScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -129,6 +130,8 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Dialog" component={DialogScreen} />
             <DiscoverStack.Screen name="Environment" component={EnvironmentScreen} />
             <DiscoverStack.Screen name="ErrorBoundary" component={ErrorBoundaryScreen} />
+            <DiscoverStack.Screen name="Chip" component={ChipScreen} />
+
         </DiscoverStack.Navigator>
     );
 }
