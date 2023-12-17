@@ -496,6 +496,7 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.75 * FONT_BASIS,
                 textAlign: "center",
+                lineHeight: FONT_BASIS
             }
         },
     },

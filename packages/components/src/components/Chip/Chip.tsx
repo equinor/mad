@@ -4,6 +4,8 @@ import { Color, EDSStyleSheet } from "../../styling";
 import { View } from "react-native";
 import { Typography } from "../Typography";
 import { PressableHighlight } from "../PressableHighlight";
+import { Icon, IconName } from "../Icon";
+import { Button } from "../Button";
 
 export type ChipProps = {
     title: string;
@@ -11,21 +13,38 @@ export type ChipProps = {
     disabled?: boolean;
     onPress?: () => void;
     onDelete?: () => void;
+    iconName?: IconName;
 }
 
+export const ICON_SIZE = 16;
 export const Chip = ({
     title,
     variant = "default",
     disabled = false,
     onPress,
     onDelete,
+    iconName,
 }: ChipProps) => {
     const styles = useStyles(themeStyles, {variant, disabled})
 
+    const iconColor = variant === "error" ? "danger" : "primary";
     return (
         <View style={styles.chipContainer}>
             <PressableHighlight style={styles.pressableContainer} onPress={onPress} disabled={disabled || !onPress}>
-                <Typography style={styles.text} group="ui" variant="chipAndBadge">{title}</Typography>
+                <View style={styles.chipContent}>
+                    {iconName && 
+                        <Icon name={iconName} size={ICON_SIZE} style={styles.text}/>
+                    }
+                    <Typography style={styles.text} group="ui" variant="chipAndBadge">{title}</Typography>
+                    {onDelete && 
+                        <View>
+                            <View style={styles.dummyElement}/>
+                            <View style={styles.floatingCloseButton}>
+                                <Button.Icon name="close" iconSize={ICON_SIZE} variant="ghost" color={iconColor} disabled={disabled} onPress={onDelete}/>
+                            </View>
+                        </View>
+                    }
+                </View>
             </PressableHighlight>
         </View>
     );
@@ -55,8 +74,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: ChipTokenProps) => {
     return {
         chipContainer: {
             alignSelf: "flex-start",
-            flexDirection: "row",
-            alignItems: "center",
+            justifyContent: "center",
             backgroundColor: disabled ? theme.colors.interactive.disabled : variantToBackgroundColor[variant],
             borderRadius: 9999,
             borderColor: theme.colors.interactive.danger,
@@ -67,8 +85,24 @@ const themeStyles = EDSStyleSheet.create((theme, props: ChipTokenProps) => {
             paddingVertical,
             paddingHorizontal: theme.spacing.chip.paddingHorizontal,            
         },
+        chipContent: {
+            alignItems: "center",
+            flexDirection: "row",
+            gap: theme.spacing.button.iconGap,
+        },
         text: {
             color: disabled ? theme.colors.text.disabled : variantToTextColor[variant],
         },
+        dummyElement: {
+            width: ICON_SIZE,
+            height: ICON_SIZE,
+        },
+        floatingCloseButton: {
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+        }
     }
 });
