@@ -36,7 +36,7 @@ import {
     createBottomTabNavigator,
     createNativeStackNavigator,
     createCoreStackNavigator,
-    NavigationContainer
+    NavigationContainer,
 } from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
@@ -131,7 +131,6 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Environment" component={EnvironmentScreen} />
             <DiscoverStack.Screen name="ErrorBoundary" component={ErrorBoundaryScreen} />
             <DiscoverStack.Screen name="Chip" component={ChipScreen} />
-
         </DiscoverStack.Navigator>
     );
 }
