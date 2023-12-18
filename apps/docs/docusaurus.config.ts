@@ -52,8 +52,9 @@ const config: Config = {
         navbar: {
             title: "MAD",
             logo: {
-                alt: "My Site Logo",
-                src: "img/logo.svg",
+                alt: "the mad logo",
+                src: "img/mad-head-light.svg",
+                srcDark: "img/mad-head-dark.svg",
             },
             items: [
                 {
