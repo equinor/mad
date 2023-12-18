@@ -57,6 +57,7 @@ export type MasterToken = {
         container: {
             background: ColorSchemeValues<Color>;
             default: ColorSchemeValues<Color>;
+            warning: ColorSchemeValues<Color>;
             elevation: {
                 none: ColorSchemeValues<Color>;
                 aboveScrim: ColorSchemeValues<Color>;
@@ -94,6 +95,7 @@ export type MasterToken = {
                 resting: ColorSchemeValues<Color>;
                 active: ColorSchemeValues<Color>;
             };
+            feedbackWarning: ColorSchemeValues<Color>
         };
     };
     geometry: {

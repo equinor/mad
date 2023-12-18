@@ -65,6 +65,7 @@ export const colors = {
     ui_background_dark_default: "#132634",
     ui_background_dark_darken: "#00000047",
     ui_background_dark_light: "#1D2731",
+    ui_background_dark_warning: "#7F4600",
     ui_background_dark_lighten: "#FFFFFF28",
     ui_background_dark_negative: "#DEE5E7",
     ui_background_dark_none_plus_above_scrim: "#132634",
