@@ -34,7 +34,7 @@ export type ChipProps = {
     iconName?: IconName;
 };
 
-export const ICON_SIZE = 16;
+const ICON_SIZE = 16;
 
 export const Chip = ({
     title,
