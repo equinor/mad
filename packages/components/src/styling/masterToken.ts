@@ -296,6 +296,16 @@ export const masterToken: MasterToken = {
                 phone: spacings.small,
             },
         },
+        chip: {
+            paddingHorizontal: {
+                tablet: spacings.small,
+                phone: spacings.small,
+            },
+            paddingVertical: {
+                tablet: spacings.x_small,
+                phone: spacings.x_small,
+            }
+        },
         button: {
             paddingHorizontal: {
                 tablet: spacings.medium,
@@ -472,6 +482,7 @@ export const masterToken: MasterToken = {
             description: {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.75 * FONT_BASIS,
+                lineHeight: FONT_BASIS,
                 textAlign: "left",
             },
         },
@@ -481,6 +492,12 @@ export const masterToken: MasterToken = {
                 fontSize: 0.7 * FONT_BASIS,
                 textAlign: "left",
             },
+            chipAndBadge: {
+                fontFamily: "Equinor-Medium",
+                fontSize: 0.75 * FONT_BASIS,
+                textAlign: "center",
+                lineHeight: FONT_BASIS
+            }
         },
     },
     timing: {
