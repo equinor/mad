@@ -1,5 +1,6 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import type { Config } from "@docusaurus/types";
+import type { Options as DocGenOption } from "docusaurus-plugin-react-docgen-typescript";
 import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
@@ -95,7 +96,7 @@ const config: Config = {
                     items: [
                         {
                             label: "Tutorial",
-                            to: "/docs/intro",
+                            to: "/docs/docusaurus/intro",
                         },
                     ],
                 },
@@ -116,6 +117,20 @@ const config: Config = {
             darkTheme: prismThemes.dracula,
         },
     } satisfies Preset.ThemeConfig,
+
+    plugins: [
+        [
+            "docusaurus-plugin-react-docgen-typescript",
+            {
+                src: ["../../packages/components/src/components/**/*.tsx"],
+                parserOptions: {
+                    propFilter: (prop, component) => {
+                        return !prop.parent;
+                    },
+                },
+            } as DocGenOption,
+        ],
+    ],
 };
 
 export default config;
