@@ -1,5 +1,19 @@
 # @equinor/mad-core
 
+## 0.2.0
+
+### Minor Changes
+
+-   8e0178c: Added `AboutScreen`
+
+### Patch Changes
+
+-   bcb1f75: Now exports `authenticateSilently`
+-   Updated dependencies [59860d3]
+-   Updated dependencies [6f62312]
+    -   @equinor/mad-components@0.8.3
+    -   @equinor/mad-auth@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
