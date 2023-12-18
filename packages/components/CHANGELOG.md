@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.8.3
+
+### Patch Changes
+
+-   59860d3: Create `Chip` component!
+-   6f62312: adjusted animation for the circular progess
+
 ## 0.8.2
 
 ### Patch Changes
