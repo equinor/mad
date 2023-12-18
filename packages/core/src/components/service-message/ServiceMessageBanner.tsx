@@ -77,7 +77,7 @@ export const ServiceMessageBanner = () => {
                                 variant="label"
                                 bold
                                 color={styles.text.color}
-                                style={{ marginTop: 8, textDecorationLine: "underline" }}
+                                style={{ marginTop: 8 }}
                             >
                                 Swipe left to remove
                             </Typography>
