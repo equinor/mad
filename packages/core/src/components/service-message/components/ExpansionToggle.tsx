@@ -11,7 +11,6 @@ export const ExpansionToggle = ({isExpanded}: ExpansionToggleProps) => {
 const theme = EDSStyleSheet.create((themeStyles) => ({
     icon: {
         color: themeStyles.colors.text.feedbackWarning,
-        marginRight: -16,
         marginTop: 12
     }
 }))

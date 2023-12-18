@@ -36,8 +36,7 @@ export const ServiceMessageBanner = () => {
 const theme = EDSStyleSheet.create((themeStyles) => ({
     container: {
         backgroundColor: themeStyles.colors.container.warning,
-        paddingHorizontal: themeStyles.spacing.container.paddingHorizontal,
-        paddingVertical: themeStyles.spacing.container.paddingVertical,
+        padding: themeStyles.spacing.dialog.padding,
         flexDirection: "row",
         justifyContent: "space-between"
     },
