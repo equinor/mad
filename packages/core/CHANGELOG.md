@@ -1,5 +1,19 @@
 # @equinor/mad-core
 
+## 0.3.0
+
+### Minor Changes
+
+-   97dca15: Added support for service-messages!
+
+### Patch Changes
+
+-   e9e74b0: export demo mode and language related utilities
+-   Updated dependencies [97dca15]
+-   Updated dependencies [97dca15]
+    -   @equinor/mad-components@0.8.4
+    -   @equinor/mad-auth@0.1.2
+
 ## 0.2.0
 
 ### Minor Changes
