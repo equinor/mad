@@ -1,4 +1,4 @@
-import React,{ PropsWithChildren, useContext } from "react";
+import React, { PropsWithChildren, useContext } from "react";
 import { useFetchServiceMessage } from "./hooks/useFetchServiceMessage";
 
 const ServiceMessageContext = React.createContext<ReturnType<typeof useFetchServiceMessage>>({
@@ -9,15 +9,17 @@ const ServiceMessageContext = React.createContext<ReturnType<typeof useFetchServ
     setExpansionEnabled: () => undefined,
     isExpanded: false,
     setIsExpanded: () => undefined,
-    isError: false
+    isError: false,
 });
 
-export const ServiceMessageProvider = ({children}:PropsWithChildren) => {
+export const ServiceMessageProvider = ({ children }: PropsWithChildren) => {
     const serviceMessageState = useFetchServiceMessage();
 
-    return <ServiceMessageContext.Provider value={serviceMessageState}>
-        {children}
-    </ServiceMessageContext.Provider>
-}
+    return (
+        <ServiceMessageContext.Provider value={serviceMessageState}>
+            {children}
+        </ServiceMessageContext.Provider>
+    );
+};
 
 export const useServiceMessageState = () => useContext(ServiceMessageContext);

@@ -12,42 +12,45 @@ export const useFetchServiceMessage = () => {
 
     const lastInterval = useRef<NodeJS.Timeout>();
 
-
     useEffect(() => {
         function fetchServiceMessage() {
-          const { environment, servicePortalName } = getConfig();
-          fetch(
-            `${getMadCommonBaseUrl(environment)}/ServiceMessage/${servicePortalName}`
-          )
-            .then((res) =>
-              res.json().then((data: ServiceMessage) => {
-                if (!data.message) return;
-                if (
-                  !serviceMessage ||
-                    data.alertName !== serviceMessage.alertName
-                ) {
-                  setServiceMessage(data);
-                  setIsDismissed(false);
-                  setExpansionEnabled(false);
-                  setIsExpanded(false);
-                  setIsError(false)
-                }
-              })
-            )
-            .catch(() => {
-              setIsError(true);
-            });
+            const { environment, servicePortalName } = getConfig();
+            fetch(`${getMadCommonBaseUrl(environment)}/ServiceMessage/${servicePortalName}`)
+                .then(res =>
+                    res.json().then((data: ServiceMessage) => {
+                        if (!data.message) return;
+                        if (!serviceMessage || data.alertName !== serviceMessage.alertName) {
+                            setServiceMessage(data);
+                            setIsDismissed(false);
+                            setExpansionEnabled(false);
+                            setIsExpanded(false);
+                            setIsError(false);
+                        }
+                    }),
+                )
+                .catch(() => {
+                    setIsError(true);
+                });
         }
-    
+
         if (!lastInterval.current) fetchServiceMessage();
         if (lastInterval.current) clearInterval(lastInterval.current);
         lastInterval.current = setInterval(() => {
-          fetchServiceMessage();
+            fetchServiceMessage();
         }, 60000);
-    
+
         return () => {
-          clearInterval(lastInterval.current);
+            clearInterval(lastInterval.current);
         };
-      }, [serviceMessage]);
-      return {serviceMessage, isDismissed, setIsDismissed, expansionEnabled, setExpansionEnabled, isExpanded, setIsExpanded, isError}
-}
+    }, [serviceMessage]);
+    return {
+        serviceMessage,
+        isDismissed,
+        setIsDismissed,
+        expansionEnabled,
+        setExpansionEnabled,
+        isExpanded,
+        setIsExpanded,
+        isError,
+    };
+};

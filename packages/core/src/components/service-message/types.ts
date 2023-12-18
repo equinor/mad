@@ -6,4 +6,4 @@ export type ServiceMessage = {
     urlString: string | null;
     fromDate: string | null;
     toDate: string | null;
-  };
+};
