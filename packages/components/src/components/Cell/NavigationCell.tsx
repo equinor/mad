@@ -29,6 +29,9 @@ export type NavigationCellProps = {
      * Name of the icon to use as a left adornment.
      */
     iconName?: IconName;
+    /**
+     * Additional titles to be shown in the cell.
+     */
     additionalTitles?: {
         title: string;
     }[];
@@ -65,7 +68,7 @@ export const NavigationCell = ({
             {...cellProps}
         >
             <View style={styles.contentContainer}>
-                <View style={styles.singleCellContainer}>
+                <View style={styles.titleDescriptionContainer}>
                     <Typography
                         group="cell"
                         variant="title"
@@ -106,7 +109,7 @@ export const NavigationCell = ({
 NavigationCell.displayName = "Cell.Navigation";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
-    singleCellContainer: {
+    titleDescriptionContainer: {
         justifyContent: "center",
         gap: theme.spacing.cell.content.titleDescriptionGap,
     },
