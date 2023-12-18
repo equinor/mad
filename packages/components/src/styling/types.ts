@@ -22,7 +22,7 @@ export type TypographyVariantGroupMap = {
     paragraph: "body_short" | "body_long";
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label" | "input";
     interactive: "button" | "link";
-    ui: "tooltip";
+    ui: "tooltip" | "chipAndBadge";
     cell: "groupTitle" | "title" | "description";
 };
 export type TypographyGroup = keyof TypographyVariantGroupMap;
@@ -144,6 +144,10 @@ export type MasterToken = {
             paddingVertical: DensityValues<number>;
         };
         element: {
+            paddingHorizontal: DensityValues<number>;
+            paddingVertical: DensityValues<number>;
+        };
+        chip: {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;
         };

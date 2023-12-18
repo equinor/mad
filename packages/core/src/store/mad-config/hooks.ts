@@ -44,6 +44,11 @@ export const useServicePortalName = () => {
     return config.servicePortalName;
 };
 
+export const useAbout = () => {
+    const config = useMadConfig();
+    return config.about;
+}
+
 export const useSettingsScreenPremadeConfig = () => {
     const config = useMadConfig();
     const dictionary = useDictionary()

@@ -1,6 +1,7 @@
 import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
+import { getBuildNumber } from "./settings";
 
 export const config: MadConfig = {
     appVersion: "1.0.0",
@@ -33,6 +34,6 @@ export const config: MadConfig = {
     },
     about: {
         endpoints: [],
-        buildNumber: "",
+        buildNumber: getBuildNumber(),
     },
 };
