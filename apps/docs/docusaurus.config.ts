@@ -37,8 +37,7 @@ const config: Config = {
                     sidebarPath: "./sidebars.ts",
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
-                    editUrl:
-                        "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+                    editUrl: "https://github.com/equinor/mad/tree/main/apps/docs/shared",
                 },
                 theme: {
                     customCss: "./src/css/custom.css",
@@ -51,17 +50,34 @@ const config: Config = {
         // Replace with your project's social card
         image: "img/docusaurus-social-card.jpg",
         navbar: {
-            title: "My Site",
+            title: "MAD",
             logo: {
                 alt: "My Site Logo",
                 src: "img/logo.svg",
             },
             items: [
                 {
+                    type: "dropdown",
+                    position: "left",
+                    label: "Packages",
+                    items: [
+                        {
+                            type: "docSidebar",
+                            sidebarId: "coreSidebar",
+                            label: "MAD Core",
+                        },
+                        {
+                            type: "docSidebar",
+                            sidebarId: "componentsSidebar",
+                            label: "Components",
+                        },
+                    ],
+                },
+                {
                     type: "docSidebar",
                     sidebarId: "tutorialSidebar",
                     position: "left",
-                    label: "Tutorial",
+                    label: "Docusaurus tutorial",
                 },
                 {
                     href: "https://github.com/facebook/docusaurus",
@@ -83,28 +99,11 @@ const config: Config = {
                     ],
                 },
                 {
-                    title: "Community",
-                    items: [
-                        {
-                            label: "Stack Overflow",
-                            href: "https://stackoverflow.com/questions/tagged/docusaurus",
-                        },
-                        {
-                            label: "Discord",
-                            href: "https://discordapp.com/invite/docusaurus",
-                        },
-                        {
-                            label: "Twitter",
-                            href: "https://twitter.com/docusaurus",
-                        },
-                    ],
-                },
-                {
                     title: "More",
                     items: [
                         {
                             label: "GitHub",
-                            href: "https://github.com/facebook/docusaurus",
+                            href: "https://github.com/equinor/mad",
                         },
                     ],
                 },
