@@ -48,6 +48,21 @@ export const NavigationCellScreen = () => {
             />
             <Spacer />
             <View style={styles.readableContent}>
+                <Typography>...and even additional titles!</Typography>
+            </View>
+            <Cell.Navigation
+                title="This is a navigation cell with additional titles This is a navigation cell with additional titles"
+                description="And this is still its description!"
+                additionalTitles={[
+                    "Additional Title One",
+                    "Additional Title Two",
+                    "Additional Title Three",
+                ]}
+                iconName="navigation-outline"
+                onPress={() => null}
+            />
+            <Spacer />
+            <View style={styles.readableContent}>
                 <Typography>
                     Should the text labels take up to much space, the cell will limit the title to
                     be no more than one line and the description to two lines.

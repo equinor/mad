@@ -76,17 +76,6 @@ export const CellScreen = () => {
                     iconName="navigation-outline"
                     onPress={() => null}
                 />
-                <Cell.Navigation
-                    title="This is a navigation cell with additional titles"
-                    description="And this is still its description!"
-                    additionalTitles={[
-                        { title: "Additional Title One" },
-                        { title: "Additional Title Two" },
-                        { title: "Additional Title Three" },
-                    ]}
-                    iconName="navigation-outline"
-                    onPress={() => null}
-                />
                 <MyCustomCell title="And this is a custom cell" />
             </Cell.Group>
             <Spacer />

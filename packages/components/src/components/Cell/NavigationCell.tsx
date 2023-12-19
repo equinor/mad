@@ -1,11 +1,10 @@
 import React from "react";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { Icon, IconName } from "../Icon";
 import { Cell, CellProps } from "./Cell";
 import { Typography } from "../Typography";
-
 export type NavigationCellProps = {
     /**
      * Title of the navigation cell.
@@ -32,11 +31,8 @@ export type NavigationCellProps = {
     /**
      * Additional titles to be shown in the cell.
      */
-    additionalTitles?: {
-        title: string;
-    }[];
+    additionalTitles?: string[];
 } & Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
-
 export const NavigationCell = ({
     title,
     onPress,
@@ -47,19 +43,34 @@ export const NavigationCell = ({
     ...cellProps
 }: NavigationCellProps) => {
     const styles = useStyles(themeStyles);
-
     const IconAdornment = () => (
         <View style={styles.adornmentContainer}>
             <Icon name={iconName ?? "dots-square"} color={disabled ? "textDisabled" : undefined} />
         </View>
     );
-
     const DisclosureAdornment = () => (
         <View style={styles.adornmentContainer}>
             <Icon name="chevron-right" color={disabled ? "textDisabled" : undefined} />
         </View>
     );
-
+    const renderAdditionalTitles = () => {
+        return (
+            <View style={styles.additionalTitlesContainer}>
+                {additionalTitles?.map((text, index) => (
+                    <Typography
+                        style={{ justifyContent: "flex-start" }}
+                        key={index}
+                        group="cell"
+                        variant="title"
+                        numberOfLines={1}
+                        color="textTertiary"
+                    >
+                        {text}
+                    </Typography>
+                ))}
+            </View>
+        );
+    };
     return (
         <Cell
             leftAdornment={iconName ? IconAdornment() : undefined}
@@ -87,38 +98,42 @@ export const NavigationCell = ({
                             {description}
                         </Typography>
                     )}
+                    <View style={styles.additionalTitlesContainer}>
+                        {title && Platform.OS !== "web" && renderAdditionalTitles()}
+                    </View>
                 </View>
-                {title &&
-                    additionalTitles?.map((text, index) => (
-                        <Typography
-                            style={{ justifyContent: "flex-start" }}
-                            key={index}
-                            group="cell"
-                            variant="title"
-                            numberOfLines={1}
-                            color="textTertiary"
-                        >
-                            {text.title}
-                        </Typography>
-                    ))}
+                {title && Platform.OS === "web" && (
+                    <>
+                        <View style={styles.spacer} />
+                        {renderAdditionalTitles()}
+                        <View style={[styles.spacer]} />
+                    </>
+                )}
             </View>
         </Cell>
     );
 };
-
 NavigationCell.displayName = "Cell.Navigation";
-
 const themeStyles = EDSStyleSheet.create(theme => ({
+    contentContainer: {
+        flexDirection: "row",
+        gap: theme.spacing.cell.content.titleDescriptionGap,
+    },
     titleDescriptionContainer: {
-        justifyContent: "center",
+        flex: Platform.OS !== "web" ? 1 : 0.55,
+        gap: theme.spacing.cell.content.titleDescriptionGap,
+    },
+    additionalTitlesContainer: {
+        flex: Platform.OS !== "web" ? 1 : 0.4,
+        flexWrap: Platform.OS !== "web" ? "wrap" : "nowrap",
+        flexDirection: "row",
+        justifyContent: "space-between",
         gap: theme.spacing.cell.content.titleDescriptionGap,
     },
     adornmentContainer: {
         justifyContent: "center",
     },
-    contentContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        flex: 1,
+    spacer: {
+        flex: 0.04,
     },
 }));
