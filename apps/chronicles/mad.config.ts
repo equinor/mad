@@ -13,15 +13,20 @@ export const config: MadConfig = {
             { code: "nb", name: "Norwegian" },
             { code: "pt", name: "Portuguese" },
         ],
-        skipOnboarding: false
+        skipOnboarding: false,
     },
     authentication: {
-        redirectUri: "msauth.com.equinor.mad.chronicles://auth",
-        redirectUriWeb: "http://localhost:8081",
-        clientId: "49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed",
-        scopes: {
-            prod: ["0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"],
-            test: ["830a7388-cd89-4e25-a631-bd615bf225a4/user_impersonation"],
+        prod: {
+            redirectUri: "msauth.com.equinor.mad.chronicles://auth",
+            redirectUriWeb: "http://localhost:8081",
+            clientId: "49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed",
+            scopes: ["0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"],
+        },
+        test: {
+            redirectUri: "msauth.com.equinor.mad.chronicles://auth",
+            redirectUriWeb: "http://localhost:8081",
+            clientId: "49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed",
+            scopes: ["830a7388-cd89-4e25-a631-bd615bf225a4/user_impersonation"],
         },
     },
     login: {

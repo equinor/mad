@@ -2,7 +2,7 @@ import React from "react";
 import { EnvironmentProvider } from "../components/EnvironmentProvider";
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
-import { CoreStackParamListBase, MadConfig } from "../types";
+import {CoreStackParamListBase, EnvironmentContext} from "../types";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { AnnouncementsProvider } from "../components/AnnouncementsProvider";
 import { AppInsightsInitializer } from "@equinor/mad-insights";
@@ -22,7 +22,7 @@ type NavigatorProps = PropsOf<StackType["Navigator"]>;
 
 export const createMadCoreNavigator = <T extends ParamListBase>(
     Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>,
-    config: MadConfig,
+    config: EnvironmentContext,
 ) => {
     function MadCoreNavigator(props: Omit<NavigatorProps, "initialRouteName">) {
         return (

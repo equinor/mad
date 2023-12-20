@@ -16,7 +16,7 @@ export type MadConfig = {
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
     currentEnvironment: Environment;
-    language: {
+    language: EnvironmentValues<{
         /**
          * Supported languages of the app.
          */
@@ -25,69 +25,69 @@ export type MadConfig = {
          * Default language of the app. This language will be returned by useLanguage hook and getLanguage function if user has not selected a language.
          * If `defaultLanguageCode` is not provided, the first language in `supportedLanguages` will be considered default.
          */
-        defaultLanguageCode?: EnvironmentValues<string>;
+        defaultLanguageCode?: string;
         /**
          * Core navigates to a language selection screen by default if needed. Set this to true if you want to override this behaviour
          */
-        skipOnboarding?: EnvironmentValues<boolean>;
-    };
-    authentication: {
+        skipOnboarding?: boolean;
+    }>;
+    authentication: EnvironmentValues<{
         /**
          * Client Id of the application. Used for login.
          * You can find your application's client Id in your application's
          * App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        clientId: EnvironmentValues<string>;
+        clientId: string;
         /**
          * Redirect uri of your application.
          * You can find and modify your application's registered redirect URIs in your application's
          * App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        redirectUri: EnvironmentValues<string>;
+        redirectUri: string;
         /**
          * Redirect uri for the web wersion of your application
          * You can find and modify your application's registered redirect URIs in your application's
          * App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        redirectUriWeb?: EnvironmentValues<string>;
+        redirectUriWeb?: string;
         /**
          * Scope to use for interactive login. You can find information about your application's
          * available scopes in your application's App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        scopes: EnvironmentValues<string[]>;
-    };
-    login: {
+        scopes: string[];
+    }>;
+    login: EnvironmentValues<{
         /**
          * Title of the app. Used in login screen
          */
-        title: EnvironmentValues<string>;
+        title: string;
         /**
          * App logo. Used in login screen
          */
-        logo: EnvironmentValues<ImageSourcePropType>;
-    };
+        logo: ImageSourcePropType;
+    }>;
     /**
      * App insights config used for initializing application insights service(s)
      */
-    applicationInsights: AppInsightsInitConfig;
-    about: {
+    applicationInsights: EnvironmentValues<AppInsightsInitConfig>;
+    about?: EnvironmentValues<{
         /**
          * Endpoints used by the app
          */
-        endpoints?: EnvironmentValues<string[]>;
+        endpoints: string[];
         /**
          * Build number of the app.
          */
-        buildNumber?: EnvironmentValues<string>;
-    };
-    serviceNow?: {
+        buildNumber: string;
+    }>;
+    serviceNow?: EnvironmentValues<{
         //TODO
         whatever: string;
-    };
+    }>;
 };
 
 export type CoreStackParamListBase = {
@@ -108,13 +108,7 @@ export type Environment = "dev" | "test" | "qa" | "prod";
 export type EnvironmentValues<T> = Partial<Record<Environment, T>> | T;
 
 export type WithoutEnvironmentOptionValues<TToken> = {
-    [K in keyof TToken]: TToken[K] extends EnvironmentValues<(infer U)[]> ?
-        U[]
-        : TToken[K] extends object
-            ? WithoutEnvironmentOptionValues<TToken[K]>
-            : TToken[K] extends EnvironmentValues<infer U>
-                ? U
-                : TToken[K];
+    [K in keyof TToken]: TToken[K] extends EnvironmentValues<infer U> ? U : TToken[K];
 };
 
 export type EnvironmentContext = WithoutEnvironmentOptionValues<MadConfig>;
