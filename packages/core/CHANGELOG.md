@@ -1,5 +1,12 @@
 # @equinor/mad-core
 
+## 0.3.2
+
+### Patch Changes
+
+-   3d8b22f: `createCoreStackNavigator`: now accepts paramlist as a generic argument (just like
+    `createNativeStackNavigator`)
+
 ## 0.3.1
 
 ### Patch Changes
