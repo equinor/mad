@@ -22,7 +22,7 @@ export type TypographyVariantGroupMap = {
     paragraph: "body_short" | "body_long";
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label" | "input";
     interactive: "button" | "link";
-    ui: "tooltip";
+    ui: "tooltip" | "chipAndBadge";
     cell: "groupTitle" | "title" | "description";
 };
 export type TypographyGroup = keyof TypographyVariantGroupMap;
@@ -57,6 +57,7 @@ export type MasterToken = {
         container: {
             background: ColorSchemeValues<Color>;
             default: ColorSchemeValues<Color>;
+            warning: ColorSchemeValues<Color>;
             elevation: {
                 none: ColorSchemeValues<Color>;
                 aboveScrim: ColorSchemeValues<Color>;
@@ -94,6 +95,7 @@ export type MasterToken = {
                 resting: ColorSchemeValues<Color>;
                 active: ColorSchemeValues<Color>;
             };
+            feedbackWarning: ColorSchemeValues<Color>
         };
     };
     geometry: {
@@ -142,6 +144,10 @@ export type MasterToken = {
             paddingVertical: DensityValues<number>;
         };
         element: {
+            paddingHorizontal: DensityValues<number>;
+            paddingVertical: DensityValues<number>;
+        };
+        chip: {
             paddingHorizontal: DensityValues<number>;
             paddingVertical: DensityValues<number>;
         };

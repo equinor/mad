@@ -35,6 +35,7 @@ export type DiscoverStackParamList = {
     Dialog: undefined;
     Environment: undefined;
     ErrorBoundary: undefined;
+    Chip: undefined;
 };
 
 export type DiscoverStackScreenProps<Screen extends keyof DiscoverStackParamList> =

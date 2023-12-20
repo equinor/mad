@@ -4,6 +4,7 @@ import { Cell as _Cell, CellProps } from "./Cell";
 import { CellSwipeItemProps } from "./types";
 import { ButtonCell, ButtonCellProps } from "./ButtonCell";
 import { SwitchCell,SwitchCellProps } from "./SwitchCell";
+import { CellSwipeItem } from "./CellSwipeItem";
 
 type CellFamily = typeof _Cell & {
     /**
@@ -28,4 +29,4 @@ Cell.Navigation = NavigationCell;
 Cell.Button = ButtonCell;
 Cell.Switch = SwitchCell;
 
-export { Cell, CellProps, CellGroupProps, NavigationCellProps, CellSwipeItemProps, SwitchCellProps, ButtonCellProps };
+export { Cell, CellProps, CellGroupProps, NavigationCellProps, CellSwipeItemProps, CellSwipeItem, SwitchCellProps, ButtonCellProps };

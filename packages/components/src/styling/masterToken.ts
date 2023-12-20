@@ -27,6 +27,10 @@ export const masterToken: MasterToken = {
                 light: colors.ui_background_light_default,
                 dark: colors.ui_background_dark_default,
             },
+            warning: {
+                light: colors.ui_background_light_warning,
+                dark: colors.ui_background_dark_warning
+            },
             elevation: {
                 none: {
                     light: colors.ui_background_light_default,
@@ -146,6 +150,10 @@ export const masterToken: MasterToken = {
                 light: colors.interactive_disabled_light_text,
                 dark: colors.interactive_disabled_dark_text,
             },
+            feedbackWarning: {
+                light: colors.feedback_warning_light_text,
+                dark: colors.feedback_warning_dark_text
+            }
         },
     },
     geometry: {
@@ -295,6 +303,16 @@ export const masterToken: MasterToken = {
                 tablet: spacings.small,
                 phone: spacings.small,
             },
+        },
+        chip: {
+            paddingHorizontal: {
+                tablet: spacings.small,
+                phone: spacings.small,
+            },
+            paddingVertical: {
+                tablet: spacings.x_small,
+                phone: spacings.x_small,
+            }
         },
         button: {
             paddingHorizontal: {
@@ -472,6 +490,7 @@ export const masterToken: MasterToken = {
             description: {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.75 * FONT_BASIS,
+                lineHeight: FONT_BASIS,
                 textAlign: "left",
             },
         },
@@ -481,6 +500,12 @@ export const masterToken: MasterToken = {
                 fontSize: 0.7 * FONT_BASIS,
                 textAlign: "left",
             },
+            chipAndBadge: {
+                fontFamily: "Equinor-Medium",
+                fontSize: 0.75 * FONT_BASIS,
+                textAlign: "center",
+                lineHeight: FONT_BASIS
+            }
         },
     },
     timing: {

@@ -14,6 +14,12 @@ export default function DiscoverScreen({
 
             <Cell.Group title="data display">
                 <Cell.Navigation
+                    title="Chip"
+                    description="Small labels often used in filters!"
+                    iconName="chip"
+                    onPress={() => navigation.navigate("Chip")}
+                />
+                <Cell.Navigation
                     title="Popover"
                     description="Container floating over some reference element"
                     iconName="party-popper"

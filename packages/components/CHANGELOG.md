@@ -1,5 +1,19 @@
 # @equinor/mad-components
 
+## 0.8.4
+
+### Patch Changes
+
+-   97dca15: Added container `warning` color, and text `feedbackWarning` color to masterToken
+-   97dca15: Now exports `CellSwipeItem`
+
+## 0.8.3
+
+### Patch Changes
+
+-   59860d3: Create `Chip` component!
+-   6f62312: adjusted animation for the circular progess
+
 ## 0.8.2
 
 ### Patch Changes
