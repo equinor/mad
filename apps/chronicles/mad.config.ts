@@ -7,10 +7,6 @@ export const config: MadConfig = {
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     currentEnvironment: "prod",
-    environments: {
-        prod: "prod",
-        test: "test",
-    },
     language: {
         supportedLanguages: [
             { code: "en", name: "English" },
@@ -33,7 +29,9 @@ export const config: MadConfig = {
         logo: Logo as ImageSourcePropType,
     },
     applicationInsights: {
-        instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
+        instrumentationKey: {
+            prod: "f1859360-4aa2-425f-b494-2d7320de6832"
+        },
         longTermLog: { instrumentationKey: "e91835aa-bcc2-41dd-a79d-352f0df23e1b" },
     },
     serviceNow: {

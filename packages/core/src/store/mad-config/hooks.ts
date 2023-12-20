@@ -1,11 +1,10 @@
-import {getPremadeSettings} from "../../utils/getPremadeSettings";
-import {useMadConfig} from "./mad-config";
-import {getRedirectUriFromAuthConfig} from "../../utils/getRedirectUriFromAuthConfig";
-import {MadConfig} from "../../types";
-import {useDictionary} from "../../language/useDictionary";
+import { getPremadeSettings } from "../../utils/getPremadeSettings";
+import { useMadConfig } from "./mad-config";
+import { getRedirectUriFromAuthConfig } from "../../utils/getRedirectUriFromAuthConfig";
+import { useDictionary } from "../../language/useDictionary";
 
 export type AuthConfig = {
-    clientId: MadConfig["authentication"]["clientId"];
+    clientId: string;
     scopes: string[];
     /**
      * resolved redirectUri. This can either be `redirectUri` or `redirectUriWeb` from the mad config, depending on which platform
@@ -15,8 +14,12 @@ export type AuthConfig = {
 };
 export const useAuthConfig = (): AuthConfig => {
     const config = useMadConfig();
-    const authentication = config.authentication;
-    const { clientId, redirectUri: redirectUriConfig, redirectUriWeb, scopes } = authentication;
+    const {
+        clientId,
+        redirectUri: redirectUriConfig,
+        redirectUriWeb,
+        scopes,
+    } = config.authentication;
     const redirectUri = getRedirectUriFromAuthConfig(clientId, redirectUriConfig, redirectUriWeb);
     return {
         clientId,

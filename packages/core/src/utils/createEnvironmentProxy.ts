@@ -1,13 +1,20 @@
 import {Environment, EnvironmentContext, EnvironmentValues, MadConfig} from "../types";
 import { getPureConfig} from "../store/mad-config";
 
-function isEnvironmentValuesObject(object: unknown): object is EnvironmentValues<unknown> {
-    if (!object) return false;
-    const template: Environment[] = ["dev", "test", "qa", "prod"];
-    const objectKeys = Object.keys(object);
-    return objectKeys.every(key => template.includes(key as Environment));
+function isEnvironmentValuesObject(obj: unknown): obj is EnvironmentValues<unknown>{
+    if (!obj) return false;
+    const template = ["dev", "test", "qa", "prod"];
+    const objectKeys = Object.keys(obj);
+    return objectKeys.every(key => template.includes(key));
 }
 
+/**
+ * Given the currently selected environment (dev, test, qa, prod),
+ * this method creates proxies for the "mad config" so that it resolves to the correct environment values.
+ * This handles all configuration possibilities, from 0 to 4 different environments.
+ * @param scheme The environment scheme of the application.
+ * @returns A proxied config with all values resolved to the provided schemes.
+ */
 export function createEnvironmentProxy(scheme: Environment) {
     const handler: ProxyHandler<object> = {
         get: function (target, property, receiver) {

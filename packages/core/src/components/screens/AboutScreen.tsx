@@ -10,7 +10,7 @@ export const AboutScreen = () => {
     const environmentName  = environment.charAt(0).toUpperCase() + environment.slice(1);
     const appVersion = useAppVersion();
     const about = useAbout();
-    const endpoints = [getMadCommonBaseUrl(environment)].concat(about?.endpoints ?? []);
+    const endpoints = [getMadCommonBaseUrl(environment)].concat(about.endpoints ?? []);
     
     return (
         <ScrollView

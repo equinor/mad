@@ -6,7 +6,7 @@ export type MadConfig = {
     /**
      * Version of the app. Will be displayed in the about screen, and will be used for release notes
      */
-    appVersion: string;
+    appVersion: EnvironmentValues<string>;
     /**
      * service portal name of the app. Will be used to find the correct resource for service messages and release notes.
      * @see https://web-mad-service-portal-web-prod.radix.equinor.com/
@@ -16,7 +16,6 @@ export type MadConfig = {
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
     currentEnvironment: Environment;
-    environments: EnvironmentValues<Environment>;
     language: {
         /**
          * Supported languages of the app.
@@ -26,11 +25,11 @@ export type MadConfig = {
          * Default language of the app. This language will be returned by useLanguage hook and getLanguage function if user has not selected a language.
          * If `defaultLanguageCode` is not provided, the first language in `supportedLanguages` will be considered default.
          */
-        defaultLanguageCode?: string;
+        defaultLanguageCode: EnvironmentValues<string | undefined>;
         /**
          * Core navigates to a language selection screen by default if needed. Set this to true if you want to override this behaviour
          */
-        skipOnboarding?: boolean;
+        skipOnboarding: EnvironmentValues<boolean | undefined>;
     };
     authentication: {
         /**
@@ -53,7 +52,7 @@ export type MadConfig = {
          * App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        redirectUriWeb?: EnvironmentValues<string>;
+        redirectUriWeb: EnvironmentValues<string | undefined>;
         /**
          * Scope to use for interactive login. You can find information about your application's
          * available scopes in your application's App registration in Azure.
@@ -65,25 +64,25 @@ export type MadConfig = {
         /**
          * Title of the app. Used in login screen
          */
-        title: string;
+        title: EnvironmentValues<string>;
         /**
          * App logo. Used in login screen
          */
-        logo: ImageSourcePropType;
+        logo: EnvironmentValues<ImageSourcePropType>;
     };
     /**
      * App insights config used for initializing application insights service(s)
      */
     applicationInsights: AppInsightsInitConfig;
-    about?: {
+    about: {
         /**
          * Endpoints used by the app
          */
-        endpoints: string[];
+        endpoints: EnvironmentValues<string[] | undefined>;
         /**
          * Build number of the app.
          */
-        buildNumber: string;
+        buildNumber: EnvironmentValues<string | undefined>;
     };
     serviceNow?: {
         //TODO
@@ -105,14 +104,17 @@ export type CoreStackParamListBase = {
 };
 
 export type Environment = "dev" | "test" | "qa" | "prod";
+
 export type EnvironmentValues<T> = Partial<Record<Environment, T>> | T;
 
 export type WithoutEnvironmentOptionValues<TToken> = {
-    [K in keyof TToken]: TToken[K] extends EnvironmentValues<infer U>
-        ? U
+    [K in keyof TToken]: TToken[K] extends EnvironmentValues<(infer U)[]> ?
+        U[]
         : TToken[K] extends object
-        ? WithoutEnvironmentOptionValues<TToken[K]>
-        : TToken[K];
+            ? WithoutEnvironmentOptionValues<TToken[K]>
+            : TToken[K] extends EnvironmentValues<infer U>
+                ? U
+                : TToken[K];
 };
 
 export type EnvironmentContext = WithoutEnvironmentOptionValues<MadConfig>;
