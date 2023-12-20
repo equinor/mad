@@ -1,4 +1,4 @@
-import {Environment, EnvironmentContext, EnvironmentValues, MadConfig} from "../types";
+import {Environment, EnvironmentContextualConfig, EnvironmentValues, MadConfig} from "../types";
 import { getPureConfig} from "../store/mad-config";
 
 function isEnvironmentValuesObject(obj: unknown): obj is EnvironmentValues<unknown>{
@@ -28,5 +28,5 @@ export function createEnvironmentProxy(scheme: Environment) {
             return value;
         },
     };
-    return new Proxy<MadConfig>(getPureConfig(), handler) as unknown as EnvironmentContext;
+    return new Proxy<MadConfig>(getPureConfig(), handler) as unknown as EnvironmentContextualConfig;
 }

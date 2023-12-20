@@ -1,9 +1,9 @@
-import { MadConfig } from "@equinor/mad-core";
+import {EnvironmentContextualConfig} from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
 import { getBuildNumber } from "./settings";
 
-export const config: MadConfig = {
+export const config: EnvironmentContextualConfig = {
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     currentEnvironment: "prod",

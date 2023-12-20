@@ -111,4 +111,4 @@ export type WithoutEnvironmentOptionValues<TToken> = {
     [K in keyof TToken]: TToken[K] extends EnvironmentValues<infer U> ? U : TToken[K];
 };
 
-export type EnvironmentContext = WithoutEnvironmentOptionValues<MadConfig>;
+export type EnvironmentContextualConfig = WithoutEnvironmentOptionValues<MadConfig>;
