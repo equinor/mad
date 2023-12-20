@@ -1,6 +1,7 @@
 import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
-import { AppInsightsInitConfig } from "@equinor/mad-insights";
+import { ITelemetryItem } from "@microsoft/applicationinsights-web";
+
 
 export type MadConfig = {
     /**
@@ -20,7 +21,7 @@ export type MadConfig = {
         /**
          * Supported languages of the app.
          */
-        supportedLanguages: Language[];
+        supportedLanguages: EnvironmentValues<Language[]>;
         /**
          * Default language of the app. This language will be returned by useLanguage hook and getLanguage function if user has not selected a language.
          * If `defaultLanguageCode` is not provided, the first language in `supportedLanguages` will be considered default.
@@ -86,7 +87,7 @@ export type MadConfig = {
     };
     serviceNow?: {
         //TODO
-        whatever: string;
+        whatever: EnvironmentValues<string>;
     };
 };
 
@@ -118,3 +119,21 @@ export type WithoutEnvironmentOptionValues<TToken> = {
 };
 
 export type EnvironmentContext = WithoutEnvironmentOptionValues<MadConfig>;
+
+export type AppInsightsInitConfig = (
+    | { connectionString: EnvironmentValues<string>; instrumentationKey?: undefined }
+    | { instrumentationKey: EnvironmentValues<string>; connectionString?: undefined }
+    ) & {
+    /**
+     * Long term log hides user id
+     */
+    longTermLog: (
+        | { connectionString: EnvironmentValues<string>; instrumentationKey?: undefined }
+        | { instrumentationKey: EnvironmentValues<string>; connectionString?: undefined }
+        ) & {
+        /**@deprecated ONLY use in special circumstances. SHA1 is _NOT_ secure*/
+        useSHA1?: boolean;
+    };
+};
+
+export type Envelope = (item: ITelemetryItem) => boolean | void;
