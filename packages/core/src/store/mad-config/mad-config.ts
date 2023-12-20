@@ -1,21 +1,19 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { EnvironmentContext, MadConfig } from "../../types";
+import {Environment, EnvironmentContext, MadConfig} from "../../types";
 import { createEnvironmentProxy } from "../../utils/createEnvironmentProxy";
 import { useMemo } from "react";
-import { EnvironmentName } from "@equinor/mad-components/dist/components/Environment/types";
 
 type MadConfigState = {
     config: MadConfig | null;
     setConfig: (config: MadConfig) => void;
-    setEnvironment: (env: EnvironmentName) => void;
+    setEnvironment: (env: Environment) => void;
 };
 
 const useMadConfigStore = create<MadConfigState>()(
     devtools(
         set => ({
             config: null,
-            environment: "prod",
             setConfig: config => set(() => ({ config: config })),
             setEnvironment: env => {
                 const newConfig = getPureConfig();
@@ -54,6 +52,6 @@ export const setConfig = (config: MadConfig) => {
     useMadConfigStore.getState().setConfig(config);
 };
 
-export const setEnvironment = (env: EnvironmentName) => {
+export const setEnvironment = (env: Environment) => {
     useMadConfigStore.getState().setEnvironment(env);
 };

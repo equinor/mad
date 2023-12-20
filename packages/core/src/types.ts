@@ -1,4 +1,3 @@
-import { EnvironmentContextProps } from "@equinor/mad-components";
 import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
 import { AppInsightsInitConfig } from "@equinor/mad-insights";
@@ -16,8 +15,8 @@ export type MadConfig = {
     /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
-    currentEnvironment: EnvironmentContextProps["environment"];
-    environments: EnvironmentValues<EnvironmentContextProps["environment"]>;
+    currentEnvironment: Environment;
+    environments: EnvironmentValues<Environment>;
     language: {
         /**
          * Supported languages of the app.
@@ -75,7 +74,7 @@ export type MadConfig = {
     /**
      * App insights config used for initializing application insights service(s)
      */
-    applicationInsights?: AppInsightsInitConfig;
+    applicationInsights: AppInsightsInitConfig;
     about?: {
         /**
          * Endpoints used by the app

@@ -37,7 +37,7 @@ export const useAppVersion = () => {
 
 export const useEnvironment = () => {
     const config = useMadConfig();
-    return config.environments;
+    return config.currentEnvironment;
 };
 
 export const useServicePortalName = () => {

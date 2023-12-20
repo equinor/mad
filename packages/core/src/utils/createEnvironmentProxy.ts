@@ -1,6 +1,5 @@
 import {Environment, EnvironmentContext, EnvironmentValues, MadConfig} from "../types";
 import { getPureConfig} from "../store/mad-config";
-import {EnvironmentContextProps} from "@equinor/mad-components";
 
 function isEnvironmentValuesObject(object: unknown): object is EnvironmentValues<unknown> {
     if (!object) return false;
@@ -9,7 +8,7 @@ function isEnvironmentValuesObject(object: unknown): object is EnvironmentValues
     return objectKeys.every(key => template.includes(key as Environment));
 }
 
-export function createEnvironmentProxy(scheme: EnvironmentContextProps["environment"]) {
+export function createEnvironmentProxy(scheme: Environment) {
     const handler: ProxyHandler<object> = {
         get: function (target, property, receiver) {
             const value: unknown = Reflect.get(target, property, receiver);
