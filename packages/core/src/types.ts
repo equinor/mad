@@ -25,11 +25,11 @@ export type MadConfig = {
          * Default language of the app. This language will be returned by useLanguage hook and getLanguage function if user has not selected a language.
          * If `defaultLanguageCode` is not provided, the first language in `supportedLanguages` will be considered default.
          */
-        defaultLanguageCode: EnvironmentValues<string | undefined>;
+        defaultLanguageCode?: EnvironmentValues<string>;
         /**
          * Core navigates to a language selection screen by default if needed. Set this to true if you want to override this behaviour
          */
-        skipOnboarding: EnvironmentValues<boolean | undefined>;
+        skipOnboarding?: EnvironmentValues<boolean>;
     };
     authentication: {
         /**
@@ -52,7 +52,7 @@ export type MadConfig = {
          * App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        redirectUriWeb: EnvironmentValues<string | undefined>;
+        redirectUriWeb?: EnvironmentValues<string>;
         /**
          * Scope to use for interactive login. You can find information about your application's
          * available scopes in your application's App registration in Azure.
@@ -78,11 +78,11 @@ export type MadConfig = {
         /**
          * Endpoints used by the app
          */
-        endpoints: EnvironmentValues<string[] | undefined>;
+        endpoints?: EnvironmentValues<string[]>;
         /**
          * Build number of the app.
          */
-        buildNumber: EnvironmentValues<string | undefined>;
+        buildNumber?: EnvironmentValues<string>;
     };
     serviceNow?: {
         //TODO
