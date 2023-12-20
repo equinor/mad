@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.3.1
+
+### Patch Changes
+
+-   7c9c6da: export most of `mad-insights`' exports
+
 ## 0.3.0
 
 ### Minor Changes
