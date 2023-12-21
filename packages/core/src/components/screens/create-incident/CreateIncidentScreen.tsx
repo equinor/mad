@@ -94,6 +94,7 @@ export const CreateIncidentScreen = () => {
                 {error && (
                     <View style={[styles.popupBox, styles.popupDanger]}>
                         <Typography>
+                            {/* eslint-disable-next-line @typescript-eslint/no-base-to-string,@typescript-eslint/restrict-template-expressions */}
                             {`An error occurred creating your ticket: ${error}`}
                         </Typography>
                     </View>
@@ -155,9 +156,9 @@ const createIncidentStyles = EDSStyleSheet.create(theme => ({
         borderRadius: 4,
     },
     popupDanger: {
-        borderColor: theme.colors.interactive.danger
+        borderColor: theme.colors.interactive.danger,
     },
     popupSuccess: {
-        borderColor: theme.colors.interactive.success
-    }
+        borderColor: theme.colors.interactive.success,
+    },
 }));
