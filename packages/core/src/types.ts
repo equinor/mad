@@ -12,12 +12,7 @@ export type MadConfig = {
      * @see https://web-mad-service-portal-web-prod.radix.equinor.com/
      */
     servicePortalName: EnvironmentValues<string>;
-    /**
-     * ServiceNow Configuration Item (cmdb_ci) of the app.
-     * Will be used to create ServiceNow tickets for the correlating application.
-     * @see https://portal.azure.com/#@StatoilSRM.onmicrosoft.com/resource/subscriptions/2ad1b087-ffb8-4cf3-bcc2-8caeebfcd3f3/resourceGroups/mad-test/providers/Microsoft.Storage/storageAccounts/madtest62alhixjcodkm/storagebrowser
-     */
-    serviceNowConfigurationItem: EnvironmentValues<string>;
+
     /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
@@ -90,10 +85,12 @@ export type MadConfig = {
          */
         buildNumber: string;
     }>;
-    serviceNow?: EnvironmentValues<{
-        //TODO
-        whatever: string;
-    }>;
+    /**
+     * ServiceNow Configuration Item (cmdb_ci) of the app.
+     * Will be used to create ServiceNow tickets for the correlating application.
+     * @see https://portal.azure.com/#@StatoilSRM.onmicrosoft.com/resource/subscriptions/2ad1b087-ffb8-4cf3-bcc2-8caeebfcd3f3/resourceGroups/mad-test/providers/Microsoft.Storage/storageAccounts/madtest62alhixjcodkm/storagebrowser
+     */
+    serviceNow?: EnvironmentValues<string>;
 };
 
 export type CoreStackParamListBase = {

@@ -12,18 +12,18 @@ import { UserInfo } from "./UserInfo";
 import { useAccountOrDemoAccount } from "../../../hooks";
 import * as Device from "expo-device";
 import * as Localization from "expo-localization";
-import { useEnvironment, useServiceNowConfigurationItem } from "../../../store/mad-config";
-import {createIncident, CreateIncidentResponse} from "./createIncident";
+import { useEnvironment, useServiceNow } from "../../../store/mad-config";
+import { createIncident, CreateIncidentResponse } from "./createIncident";
 
 export const CreateIncidentScreen = () => {
     const styles = useStyles(createIncidentStyles);
     const account = useAccountOrDemoAccount();
-    const serviceNowConfigurationItem = useServiceNowConfigurationItem();
+    const serviceNowConfigurationItem = useServiceNow();
     const environment = useEnvironment();
-    const [error, setError] = useState<string | CreateIncidentResponse |null>(null);
-    const [ticketNumber, setTicketNumber] = useState<string | null>(null);
-    const [ticketTitle, setTicketTitle] = useState<string | null>(null);
-    const [ticketDescription, setTicketDescription] = useState<string | null>(null);
+    const [error, setError] = useState<string | CreateIncidentResponse | null>(null);
+    const [ticketNumber, setTicketNumber] = useState<string | undefined>(undefined);
+    const [ticketTitle, setTicketTitle] = useState<string | undefined>(undefined);
+    const [ticketDescription, setTicketDescription] = useState<string | undefined>(undefined);
     const [isSending, setIsSending] = useState(false);
     const onSubmit = () => {
         setIsSending(true);
@@ -44,13 +44,13 @@ export const CreateIncidentScreen = () => {
                         property: LayoutAnimation.Properties.opacity,
                     },
                 });
-                if(response?.result){
+                if (response.result.details.number) {
                     setTicketNumber(response.result.details.number);
                 } else {
                     setError(response);
                 }
-                setTicketDescription(null);
-                setTicketTitle(null);
+                setTicketDescription(undefined);
+                setTicketTitle(undefined);
                 setIsSending(false);
             })
             .catch(setError)
@@ -87,12 +87,12 @@ export const CreateIncidentScreen = () => {
                 <UserInfo infoType={"Time Zone"} infoValue={Localization.timezone} />
                 <UserInfo infoType={"Area"} infoValue={Localization.locale} />
                 {ticketNumber && (
-                    <View style={[styles.popupBox, { borderColor: "green" }]}>
+                    <View style={[styles.popupBox, styles.popupSuccess]}>
                         <Typography>{`Ticket number: ${ticketNumber}`}</Typography>
                     </View>
                 )}
                 {error && (
-                    <View style={[styles.popupBox, { borderColor: "red" }]}>
+                    <View style={[styles.popupBox, styles.popupDanger]}>
                         <Typography>
                             {`An error occurred creating your ticket: ${error}`}
                         </Typography>
@@ -101,6 +101,7 @@ export const CreateIncidentScreen = () => {
                 <View style={styles.titleField}>
                     <TextField
                         onChange={setTicketTitle}
+                        value={ticketTitle}
                         placeholder={"Write a title for the Service Now ticket"}
                         disabled={isSending}
                     />
@@ -112,6 +113,7 @@ export const CreateIncidentScreen = () => {
                         placeholder={
                             "Write a complete description of your issue. You do not need to provide information about your device."
                         }
+                        value={ticketDescription}
                         disabled={isSending}
                     />
                 </View>
@@ -152,4 +154,10 @@ const createIncidentStyles = EDSStyleSheet.create(theme => ({
         borderWidth: 2,
         borderRadius: 4,
     },
+    popupDanger: {
+        borderColor: theme.colors.interactive.danger
+    },
+    popupSuccess: {
+        borderColor: theme.colors.interactive.success
+    }
 }));

@@ -4,7 +4,7 @@ import { Environment } from "../../../types";
 
 type IncidentData = {
     callerEmail: string | undefined;
-    title: string | null;
+    title: string | undefined;
     description: string;
 };
 
@@ -20,13 +20,13 @@ export type CreateIncidentResponse = {
 export const createIncident = async (
     data: IncidentData,
     env: Environment,
-    serviceNowConfigurationItem: string,
+    serviceNow: string | undefined,
 ): Promise<CreateIncidentResponse> => {
     const baseUrl = getMadCommonBaseUrl(env);
     const scopes = getMadCommonScopes(env);
     const authenticationResponse = await authenticateSilently(scopes);
     if(!authenticationResponse) throw new Error("Unable to authenticate silently");
-    const fetchResponse = await fetch(`${baseUrl}ServiceNow/apps/${serviceNowConfigurationItem}/incidents`, {
+    const fetchResponse = await fetch(`${baseUrl}ServiceNow/apps/${serviceNow}/incidents`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: new Headers({
@@ -35,5 +35,5 @@ export const createIncident = async (
             Authorization: `Bearer ${authenticationResponse.accessToken}`,
         }),
     });
-    return await fetchResponse.json();
+    return await fetchResponse.json().then((result: string) => JSON.parse(result) as CreateIncidentResponse) ;
 };

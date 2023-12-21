@@ -53,9 +53,9 @@ export const useAbout = () => {
     return config.about;
 };
 
-export const useServiceNowConfigurationItem = () => {
+export const useServiceNow = () => {
     const config = useMadConfig();
-    return config.serviceNowConfigurationItem;
+    return config.serviceNow;
 }
 
 export const useSettingsScreenPremadeConfig = () => {
