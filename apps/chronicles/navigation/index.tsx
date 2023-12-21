@@ -9,7 +9,7 @@ import { ColorSchemeName } from "react-native";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
 import IconsScreen from "../screens/IconsScreen";
-import { DiscoverStackParamList, RootTabParamList } from "../types";
+import { DiscoverStackParamList, RootStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { DrawScreen } from "../screens/DrawScreen";
 import { SignatureScreen } from "../screens/SignatureTest";
@@ -66,7 +66,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     );
 }
 
-const CoreStack = createCoreStackNavigator(config);
+const CoreStack = createCoreStackNavigator<RootStackParamList>(config);
 function RootNavigator() {
     return (
         <CoreStack.Navigator>
