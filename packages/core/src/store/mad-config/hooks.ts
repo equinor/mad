@@ -1,27 +1,31 @@
 import { getPremadeSettings } from "../../utils/getPremadeSettings";
 import { useMadConfig } from "./mad-config";
 import { getRedirectUriFromAuthConfig } from "../../utils/getRedirectUriFromAuthConfig";
-import { MadConfig } from "../../types";
 import { useDictionary } from "../../language/useDictionary";
 
 export type AuthConfig = {
-    clientId: MadConfig["authentication"]["clientId"]
-    scopes: MadConfig["authentication"]["scopes"]
+    clientId: string;
+    scopes: string[];
     /**
      * resolved redirectUri. This can either be `redirectUri` or `redirectUriWeb` from the mad config, depending on which platform
      * you're running on.
      */
-    redirectUri: string
-}
+    redirectUri: string;
+};
 export const useAuthConfig = (): AuthConfig => {
-    const {authentication} = useMadConfig();
-    const {clientId, scopes} = authentication;
-    const redirectUri = getRedirectUriFromAuthConfig(authentication);
+    const config = useMadConfig();
+    const {
+        clientId,
+        redirectUri: redirectUriConfig,
+        redirectUriWeb,
+        scopes,
+    } = config.authentication;
+    const redirectUri = getRedirectUriFromAuthConfig(clientId, redirectUriConfig, redirectUriWeb);
     return {
         clientId,
         scopes,
-        redirectUri
-    }
+        redirectUri,
+    };
 };
 
 export const useLoginScreenConfig = () => {
@@ -36,7 +40,7 @@ export const useAppVersion = () => {
 
 export const useEnvironment = () => {
     const config = useMadConfig();
-    return config.environment;
+    return config.currentEnvironment;
 };
 
 export const useServicePortalName = () => {
@@ -47,11 +51,10 @@ export const useServicePortalName = () => {
 export const useAbout = () => {
     const config = useMadConfig();
     return config.about;
-}
+};
 
 export const useSettingsScreenPremadeConfig = () => {
     const config = useMadConfig();
-    const dictionary = useDictionary()
-    const premadeSettings = getPremadeSettings(config, dictionary);
-    return premadeSettings;
+    const dictionary = useDictionary();
+    return getPremadeSettings(config, dictionary);
 };

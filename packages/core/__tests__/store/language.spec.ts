@@ -1,18 +1,18 @@
 import { renderHook, act } from "@testing-library/react-native";
-import { getLanguage, useLanguage } from "../../src/store/language";
-import { getConfig, setConfig } from "../../src/store/mad-config";
+import { getLanguage, useLanguage } from "../../src/store/language/language";
+import { getConfig, setConfig } from "../../src/store/mad-config/mad-config";
 import { MadConfig } from "../../src/types";
-import { ImageSourcePropType } from "react-native";
 import { Language } from "../../src/store/types";
+import { ImageSourcePropType } from "react-native";
 
-const norwegianBokmål = { code: "nb", name: "Norwegian" };
+const norwegianBokmal = { code: "nb", name: "Norwegian" };
 const english = { code: "en", name: "English" };
 
-const getSupportedLanguages = () => getConfig().language.supportedLanguages;
 const mockConfig: MadConfig = {
+    applicationInsights: { instrumentationKey: "undefined" },
+    currentEnvironment: "test",
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
-    environment: "test",
     language: {
         supportedLanguages: [{ code: "en", name: "English" }],
     },
@@ -24,7 +24,7 @@ const mockConfig: MadConfig = {
     login: {
         title: "Chronicles",
         logo: "whatever doesn't matter in this test" as ImageSourcePropType,
-    },
+    }
 };
 
 const setSupportedLanguagesAndMaybeDefaultLanguageCode = (
@@ -70,8 +70,8 @@ describe("Language", () => {
             ]),
         );
         const { result } = renderHook(() => useLanguage());
-        expect(result.current.language).toMatchObject(norwegianBokmål);
-        expect(getLanguage()).toMatchObject(norwegianBokmål);
+        expect(result.current.language).toMatchObject(norwegianBokmal);
+        expect(getLanguage()).toMatchObject(norwegianBokmal);
     });
 
     it("Should have a default language equal to language in the supportedLanguages array with defaultLanguageCode as code, if defaultLanguageCode is provided", () => {
@@ -115,7 +115,7 @@ describe("Language", () => {
 
         act(() => result.current.setSelectedLanguage("nb"));
         rerender({});
-        expect(result.current.language).toMatchObject(norwegianBokmål);
-        expect(getLanguage()).toMatchObject(norwegianBokmål);
+        expect(result.current.language).toMatchObject(norwegianBokmal);
+        expect(getLanguage()).toMatchObject(norwegianBokmal);
     });
 });

@@ -5,26 +5,26 @@ import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 
-type EnvironmentStyleProps = Pick<EnvironmentContextProps, "environment">;
+type EnvironmentStyleProps = Pick<EnvironmentContextProps, "currentEnvironment">;
 
 export const EnvironmentBanner = () => {
-    const environment = useContext(EnvironmentContext);
-    const styles = useStyles(themeStyles, { environment });
+    const currentEnvironment = useContext(EnvironmentContext);
+    const styles = useStyles(themeStyles, { currentEnvironment });
 
-    if (environment === "prod") return null;
+    if (currentEnvironment === "prod") return null;
 
     return (
         <View style={styles.container}>
-            <Typography color={styles.text.color}>{environment} environment</Typography>
+            <Typography color={styles.text.color}>{currentEnvironment} environment</Typography>
         </View>
     );
 };
 
 const themeStyles = EDSStyleSheet.create((theme, props: EnvironmentStyleProps) => {
-    const { environment } = props;
+    const { currentEnvironment } = props;
     let backgroundColor = "#00000000";
-    if (environment !== "prod") {
-        backgroundColor = theme.colors.environment[environment];
+    if (currentEnvironment !== "prod") {
+        backgroundColor = theme.colors.environment[currentEnvironment];
     }
 
     return {

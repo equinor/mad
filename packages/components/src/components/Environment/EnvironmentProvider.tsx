@@ -7,15 +7,15 @@ export type EnvironmentContextProps = {
     /**
      * A string representing the environment that the banner should be rendered for.
      */
-    environment: EnvironmentName;
+    currentEnvironment: EnvironmentName;
 };
 
 /**
  * Provides the environment value to all environment banners in the app.
  */
 export const EnvironmentProvider = ({
-    environment,
+    currentEnvironment,
     children,
 }: PropsWithChildren<EnvironmentContextProps>) => (
-    <EnvironmentContext.Provider value={environment}>{children}</EnvironmentContext.Provider>
+    <EnvironmentContext.Provider value={currentEnvironment}>{children}</EnvironmentContext.Provider>
 );
