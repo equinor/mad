@@ -1,5 +1,11 @@
 # @equinor/mad-navigation
 
+## 0.2.1
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.8.5
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 0.8.4
 
 ### Patch Changes
