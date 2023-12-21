@@ -8,8 +8,17 @@ import { TabsContext } from "./Tabs";
 import { Icon, IconName } from "../Icon";
 
 export type TabProps = PropsWithChildren & {
+    /**
+     * Title of the tab.
+     */
     title: string;
+    /**
+     * Optional icon name. If provided, the tab title will have an icon rendered on its left side.
+     */
     iconName?: IconName;
+    /**
+     * Whether or not the tab should be disabled. This ignores touch and renders the tab in a disabled state.
+     */
     disabled?: boolean;
 };
 
@@ -18,12 +27,14 @@ export const Tab = ({ title, disabled = false, iconName }: TabProps) => {
     const styles = useStyles(themeStyles, { isSelected, disabled });
 
     return (
-        <PressableHighlight onPress={onPressTab} style={styles.pressableContainer}>
+        <PressableHighlight onPress={onPressTab} disabled={disabled}>
             <View style={styles.container}>
-                {iconName && <Icon name={iconName} style={styles.text} />}
-                <Typography style={styles.text} group="navigation" variant="menuTab">
-                    {title}
-                </Typography>
+                <View style={styles.labelRow}>
+                    {iconName && <Icon name={iconName} style={styles.text} />}
+                    <Typography style={styles.text} group="navigation" variant="menuTab">
+                        {title}
+                    </Typography>
+                </View>
             </View>
         </PressableHighlight>
     );
@@ -41,30 +52,29 @@ const themeStyles = EDSStyleSheet.create((theme, props: TabItemStyleProps) => {
     const paddingTop = verticalPadding;
     const paddingBottom = verticalPadding - theme.geometry.border.tabsBorderWidth;
 
-    const disabledColor = disabled ? theme.colors.text.disabled : undefined;
+    const disabledTextColor = disabled ? theme.colors.text.disabled : undefined;
+    const disabledBorderColor = disabled ? theme.colors.border.light : undefined;
     const borderColor = isSelected ? theme.colors.interactive.primary : theme.colors.border.medium;
 
     return {
-        pressableContainer: {
-            flex: 1,
-            backgroundColor: theme.colors.container.default,
-        },
         container: {
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
             paddingTop,
             paddingBottom,
             minWidth: theme.geometry.dimension.tabs.minWidth,
             paddingHorizontal: theme.spacing.tabs.paddingHorizontal,
             borderBottomWidth: theme.geometry.border.tabsBorderWidth,
-            borderBottomColor: disabledColor ?? borderColor,
+            borderBottomColor: disabledBorderColor ?? borderColor,
+        },
+        labelRow: {
+            flexDirection: "row",
+            alignItems: "center",
+            gap: theme.spacing.button.iconGap,
+            height: theme.geometry.dimension.icon.size,
         },
         text: {
             color:
-                disabledColor ?? isSelected
-                    ? theme.colors.interactive.primary
-                    : theme.colors.text.primary,
+                disabledTextColor ??
+                (isSelected ? theme.colors.interactive.primary : theme.colors.text.primary),
         },
     };
 });

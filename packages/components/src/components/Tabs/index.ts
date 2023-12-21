@@ -3,7 +3,7 @@ import { Tab, TabProps } from "./Tab";
 
 type TabsFamily = typeof _Tabs & {
     /**
-     * A container for grouping buttons. The child buttons of this container visually clump together.
+     * A single tab component. Use this inside a {@link Tabs} component.
      */
     Tab: typeof Tab;
 };

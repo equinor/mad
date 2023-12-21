@@ -6,7 +6,7 @@ export const TabsScreen = () => {
     const styles = useStyles(themeStyles);
 
     return (
-        <Tabs>
+        <Tabs scrollable>
             <Tabs.Tab title="First tab">
                 <ScrollView contentContainerStyle={styles.tabContentContainer}>
                     <Typography>
@@ -31,8 +31,9 @@ export const TabsScreen = () => {
                 <ScrollView contentContainerStyle={styles.tabContentContainer}>
                     <Typography>
                         On smaller devices, tabs might end up taking more horizontal space than what
-                        they are allowed. When this happens, the tabs become horizontally
-                        scrollable.
+                        they are allowed. When this happens, use the scrollable prop to make the
+                        tabs scrollable. Tapping any tab in this mode automatically scrolls to make
+                        it fit in screen.
                     </Typography>
                 </ScrollView>
             </Tabs.Tab>
