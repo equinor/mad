@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography, useStyles, EDSStyleSheet, Tabs } from "@equinor/mad-components";
-import { ScrollView } from "react-native";
+import { ScrollView, useWindowDimensions } from "react-native";
 
 export const TabsScreen = () => {
     const styles = useStyles(themeStyles);
-
+    const { width } = useWindowDimensions();
     return (
-        <Tabs scrollable>
-            <Tabs.Tab title="First tab">
+        <Tabs scrollable={width < 576}>
+            <Tabs.Tab title="Read this tab first">
                 <ScrollView contentContainerStyle={styles.tabContentContainer}>
                     <Typography>
                         The Tabs component is not meant to replace react native navigation tabs, but
@@ -15,7 +15,7 @@ export const TabsScreen = () => {
                     </Typography>
                 </ScrollView>
             </Tabs.Tab>
-            <Tabs.Tab title="With icon" iconName="simple-icons">
+            <Tabs.Tab title="With icon" iconName="trophy-award">
                 <ScrollView contentContainerStyle={styles.tabContentContainer}>
                     <Typography>They can be configured with or without icons.</Typography>
                 </ScrollView>

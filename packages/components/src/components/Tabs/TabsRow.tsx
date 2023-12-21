@@ -1,14 +1,10 @@
-import React, { createContext, useRef } from "react";
+import React, { useRef } from "react";
 import { View } from "react-native";
-import { TabsChildrenType, TabsContextType } from "./types";
+import { TabsChildrenType } from "./types";
 import { ScrollView } from "react-native-gesture-handler";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-
-const TabsContext = createContext<TabsContextType>({
-    onPressTab: () => null,
-    isSelected: false,
-});
+import { TabsContext } from "./TabsContext";
 
 type TabsRowProps = {
     activeTabIndex: number;

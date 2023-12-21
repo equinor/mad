@@ -4,7 +4,7 @@ import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
 import { Typography } from "../Typography";
 import { PressableHighlight } from "../PressableHighlight";
-import { TabsContext } from "./Tabs";
+import { TabsContext } from "./TabsContext";
 import { Icon, IconName } from "../Icon";
 
 export type TabProps = PropsWithChildren & {
@@ -31,7 +31,12 @@ export const Tab = ({ title, disabled = false, iconName }: TabProps) => {
             <View style={styles.container}>
                 <View style={styles.labelRow}>
                     {iconName && <Icon name={iconName} style={styles.text} />}
-                    <Typography style={styles.text} group="navigation" variant="menuTab">
+                    <Typography
+                        numberOfLines={1}
+                        style={styles.text}
+                        group="navigation"
+                        variant="menuTab"
+                    >
                         {title}
                     </Typography>
                 </View>
@@ -67,6 +72,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: TabItemStyleProps) => {
         },
         labelRow: {
             flexDirection: "row",
+            justifyContent: "center",
             alignItems: "center",
             gap: theme.spacing.button.iconGap,
             height: theme.geometry.dimension.icon.size,
