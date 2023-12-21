@@ -1,5 +1,11 @@
 # @equinor/mad-insights
 
+## 0.1.1
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @equinor/mad-auth
 
+## 0.1.3
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+-   Updated dependencies [b025c9b]
+    -   @equinor/mad-components@0.8.5
+
 ## 0.1.2
 
 ### Patch Changes
