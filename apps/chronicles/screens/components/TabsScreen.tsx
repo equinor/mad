@@ -1,0 +1,48 @@
+import React from "react";
+import { Typography, useStyles, EDSStyleSheet, Tabs } from "@equinor/mad-components";
+import { ScrollView } from "react-native";
+
+export const TabsScreen = () => {
+    const styles = useStyles(themeStyles);
+
+    return (
+        <Tabs>
+            <Tabs.Tab title="First tab">
+                <ScrollView contentContainerStyle={styles.tabContentContainer}>
+                    <Typography>
+                        The Tabs component is not meant to replace react native navigation tabs, but
+                        provide a nice method for adding sub-screen navigation to your apps!
+                    </Typography>
+                </ScrollView>
+            </Tabs.Tab>
+            <Tabs.Tab title="With icon" iconName="simple-icons">
+                <ScrollView contentContainerStyle={styles.tabContentContainer}>
+                    <Typography>They can be configured with or without icons.</Typography>
+                </ScrollView>
+            </Tabs.Tab>
+            <Tabs.Tab title="Disabled" disabled>
+                <ScrollView contentContainerStyle={styles.tabContentContainer}>
+                    <Typography>
+                        If you can see this, it means the Tabs are not working correctly!
+                    </Typography>
+                </ScrollView>
+            </Tabs.Tab>
+            <Tabs.Tab title="Scrollable">
+                <ScrollView contentContainerStyle={styles.tabContentContainer}>
+                    <Typography>
+                        On smaller devices, tabs might end up taking more horizontal space than what
+                        they are allowed. When this happens, the tabs become horizontally
+                        scrollable.
+                    </Typography>
+                </ScrollView>
+            </Tabs.Tab>
+        </Tabs>
+    );
+};
+
+const themeStyles = EDSStyleSheet.create(theme => ({
+    tabContentContainer: {
+        paddingVertical: theme.spacing.container.paddingVertical,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+    },
+}));

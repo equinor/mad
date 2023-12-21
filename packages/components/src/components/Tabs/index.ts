@@ -1,14 +1,14 @@
 import { TabsProps, Tabs as _Tabs } from "./Tabs";
-import { TabItem, TabItemProps } from "./Tab";
+import { Tab, TabProps } from "./Tab";
 
 type TabsFamily = typeof _Tabs & {
     /**
      * A container for grouping buttons. The child buttons of this container visually clump together.
      */
-    Tab: typeof TabItem;
+    Tab: typeof Tab;
 };
 
 const Tabs = _Tabs as TabsFamily;
-Tabs.Tab = TabItem;
+Tabs.Tab = Tab;
 
-export { Tabs, TabsProps, TabItemProps };
+export { Tabs, TabsProps, TabProps as TabItemProps };

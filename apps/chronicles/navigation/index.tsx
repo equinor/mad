@@ -43,6 +43,7 @@ import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
 import { ChipScreen } from "../screens/components/ChipScreen";
+import { TabsScreen } from "../screens/components/TabsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -131,6 +132,11 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Environment" component={EnvironmentScreen} />
             <DiscoverStack.Screen name="ErrorBoundary" component={ErrorBoundaryScreen} />
             <DiscoverStack.Screen name="Chip" component={ChipScreen} />
+            <DiscoverStack.Screen
+                name="Tabs"
+                component={TabsScreen}
+                options={{ headerLargeTitle: false }}
+            />
         </DiscoverStack.Navigator>
     );
 }

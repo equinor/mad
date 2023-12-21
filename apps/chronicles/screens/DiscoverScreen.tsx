@@ -89,6 +89,12 @@ export default function DiscoverScreen({
                     iconName="arrow-collapse-vertical"
                     onPress={() => navigation.navigate("Accordion")}
                 />
+                <Cell.Navigation
+                    title="Tabs"
+                    description="Because spaces didn't make the cut"
+                    iconName="tab"
+                    onPress={() => navigation.navigate("Tabs")}
+                />
             </Cell.Group>
 
             <Spacer />
