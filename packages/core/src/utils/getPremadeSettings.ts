@@ -1,9 +1,9 @@
 import {
     SettingsScreenCellConfigurationItem,
     SettingsScreenSectionProps,
-} from "../components/screens/settings/types";
+} from "../components";
 import { CoreDictionary } from "../language/types";
-import { MadConfig } from "../types";
+import {EnvironmentContextualConfig} from "../types";
 
 const getReleaseNotesConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
@@ -30,11 +30,11 @@ const getLanguageConfig = (dictionary: CoreDictionary): SettingsScreenCellConfig
     name: "navigation",
     iconName: "chat-processing-outline",
     title: dictionary.settings.language,
-    onPress: navigation => navigation.navigate("NotFound"),
+    onPress: navigation => navigation.navigate("SelectLanguage"),
 });
 
 export type PremadeSettings = ReturnType<typeof getPremadeSettings>;
-export const getPremadeSettings = (config: MadConfig, dictionary: CoreDictionary) => {
+export const getPremadeSettings = (config: EnvironmentContextualConfig, dictionary: CoreDictionary) => {
     const premadeCommonNavigationItems = [getReleaseNotesConfig(dictionary)];
     if (config.about) premadeCommonNavigationItems.push(getAboutConfig(dictionary));
     if (config.serviceNow) premadeCommonNavigationItems.push(getServiceNowConfig(dictionary));

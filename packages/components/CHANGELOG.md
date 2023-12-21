@@ -1,5 +1,29 @@
 # @equinor/mad-components
 
+## 0.8.4
+
+### Patch Changes
+
+-   97dca15: Added container `warning` color, and text `feedbackWarning` color to masterToken
+-   97dca15: Now exports `CellSwipeItem`
+
+## 0.8.3
+
+### Patch Changes
+
+-   59860d3: Create `Chip` component!
+-   6f62312: adjusted animation for the circular progess
+
+## 0.8.2
+
+### Patch Changes
+
+-   38e818d: Added support for ignoring outside presses on the `Popover` component
+-   cf131da: Implemented Radio component. Added showcase to Chronicles
+-   e941e2e: `PressableHighlight`: Allows for press event propagation if disabled `Radio`: Allows
+    for press event propagation if `onPress` prop is not defined `Cell`: cell children now in center
+    (fixes issue with text not being centered when there is only one line of text)
+
 ## 0.8.1
 
 ### Patch Changes

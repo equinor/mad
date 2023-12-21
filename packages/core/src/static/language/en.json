@@ -1,0 +1,50 @@
+{
+    "login": {
+        "logIn": "Log in",
+        "demo": "Demo"
+    },
+    "releaseNotes": {
+        "whatsNew": "What's new",
+        "releaseNotes": "Release notes"
+    },
+    "createIncident": {
+        "title": "Create incident in ServiceNow",
+        "info": "We collect information about your device as part of our incident handling process. By submitting, you agree to share the following information:",
+        "placeholderTitle": "Write a title for the ServiceNow ticket",
+        "placeholderDescription": "Write a complete description of your issue. You do not need to provide information about your device",
+        "created1": "Incident ",
+        "created2": " created.",
+        "error": "An error occurred creating your ticket: "
+    },
+    "information": {
+        "user": "User",
+        "deviceBrand": "Device brand",
+        "device": "Device",
+        "OS": "Operating system",
+        "timezone": "Timezone",
+        "locale": "Locale"
+    },
+    "language": {
+        "language": "Language",
+        "English": "English",
+        "Norwegian": "Norwegian"
+    },
+    "settings": {
+        "title": "Settings",
+        "aboutApp": "About App",
+        "feedback": "Feedback",
+        "loggedInAs": "Logged in as:",
+        "language": "Language",
+        "logOut": "Log out",
+        "back": "Back"
+    },
+    "serviceMessage": {
+        "couldNotRetrieve": "Could not retrieve service message"
+    },
+    "common": {
+        "submit": "Submit",
+        "ok": "OK",
+        "done": "Done",
+        "save": "Save"
+    }
+}

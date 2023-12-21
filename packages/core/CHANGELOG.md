@@ -1,5 +1,73 @@
 # @equinor/mad-core
 
+## 0.3.2
+
+### Patch Changes
+
+-   3d8b22f: `createCoreStackNavigator`: now accepts paramlist as a generic argument (just like
+    `createNativeStackNavigator`)
+
+## 0.3.1
+
+### Patch Changes
+
+-   7c9c6da: export most of `mad-insights`' exports
+
+## 0.3.0
+
+### Minor Changes
+
+-   97dca15: Added support for service-messages!
+
+### Patch Changes
+
+-   e9e74b0: export demo mode and language related utilities
+-   Updated dependencies [97dca15]
+-   Updated dependencies [97dca15]
+    -   @equinor/mad-components@0.8.4
+    -   @equinor/mad-auth@0.1.2
+
+## 0.2.0
+
+### Minor Changes
+
+-   8e0178c: Added `AboutScreen`
+
+### Patch Changes
+
+-   bcb1f75: Now exports `authenticateSilently`
+-   Updated dependencies [59860d3]
+-   Updated dependencies [6f62312]
+    -   @equinor/mad-components@0.8.3
+    -   @equinor/mad-auth@0.1.1
+
+## 0.1.0
+
+### Minor Changes
+
+-   936e5e0: Added application insights support. Now exports NavigationContainer and ErrorBoundary
+    with tracking
+
+### Patch Changes
+
+-   64325cd: Implemented Release Notes Screen from Settings
+-   00d02ca: Norwegian and english support
+-   f96b8e4: `MadConfig`: added redirectUriWeb
+-   106a9a8: Portuguese language added
+-   ab71601: now exports `createBottomTabNavigator` and `createNativeStackNavigator`, with
+    environment-banner as a sub-header
+-   e941e2e: Can now select language
+-   Updated dependencies [ab71601]
+-   Updated dependencies [936e5e0]
+-   Updated dependencies [38e818d]
+-   Updated dependencies [cf131da]
+-   Updated dependencies [936e5e0]
+-   Updated dependencies [e941e2e]
+    -   @equinor/mad-navigation@0.2.0
+    -   @equinor/mad-insights@0.1.0
+    -   @equinor/mad-components@0.8.2
+    -   @equinor/mad-auth@0.1.0
+
 ## 0.0.4
 
 ### Patch Changes

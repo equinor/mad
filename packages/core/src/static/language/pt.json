@@ -1,0 +1,50 @@
+{
+    "login": {
+        "logIn": "Conecte-se",
+        "demo": "Demonstração"
+    },
+    "releaseNotes": {
+        "whatsNew": "What's new",
+        "releaseNotes": "Notas de lançamento"
+    },
+    "createIncident": {
+        "title": "Criar incidente no ServiceNow",
+        "info": "Coletamos informações sobre seu dispositivo como parte do nosso processo de tratamento de incidentes. Ao enviar, você concorda em compartilhar as seguintes informações:",
+        "placeholderTitle": "Escreva um título para o chamado no ServiceNow",
+        "placeholderDescription": "Escreva uma descrição completa do seu problema. Você não precisa fornecer informações sobre seu dispositivo",
+        "created1": "Incidente ",
+        "created2": " criado.",
+        "error": "Ocorreu um erro ao criar seu chamado: "
+    },
+    "information": {
+        "user": "Usuário",
+        "deviceBrand": "Marca do dispositivo",
+        "device": "Dispositivo",
+        "OS": "Sistema operacional",
+        "timezone": "Fuso horário",
+        "locale": "Localidade"
+    },
+    "language": {
+        "language": "Idioma",
+        "English": "Inglês",
+        "Norwegian": "Norueguês"
+    },
+    "settings": {
+        "title": "Configurações",
+        "aboutApp": "Sobre o aplicativo",
+        "feedback": "Deixar feedback",
+        "loggedInAs": "Conectado com:",
+        "language": "Idioma",
+        "logOut": "Sair",
+        "back": "Voltar"
+    },
+    "serviceMessage": {
+        "couldNotRetrieve": "Não foi possível recuperar a mensagem de serviço"
+    },
+    "common": {
+        "submit": "Enviar",
+        "ok": "OK",
+        "done": "Feito",
+        "save": "Salvar"
+    }
+}

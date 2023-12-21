@@ -19,6 +19,7 @@ type LanguageState = {
      * @returns {Language} selected language or default language
      */
     getLanguage: () => Language;
+    getIsLanguageSelected: () => boolean;
 };
 
 const getSupportedLanguages = () => getConfig().language.supportedLanguages;
@@ -52,6 +53,10 @@ const useLanguageStore = create<LanguageState>()(
                     const { selectedLanguage } = get();
                     return selectedLanguage ?? getDefaultLanguage();
                 },
+                getIsLanguageSelected: () => {
+                    const { selectedLanguage } = get();
+                    return !!selectedLanguage;
+                },
             }),
             {
                 name: "language",
@@ -77,7 +82,7 @@ export type UseLanguageReturnType = {
     getDefaultLanguage: () => Language;
     /**
      * Set the user selected language of the app
-     * @param {SupportedLanguageCode} code - language code
+     * @param {string} code - language code
      */
     setSelectedLanguage: LanguageState["setSelectedLanguage"];
 };
@@ -88,4 +93,5 @@ export const useLanguage = (): UseLanguageReturnType => {
     return { language, getDefaultLanguage, setSelectedLanguage, getSupportedLanguages };
 };
 
-export const { getLanguage, setSelectedLanguage } = useLanguageStore.getState();
+export const { getLanguage, setSelectedLanguage, getIsLanguageSelected } =
+    useLanguageStore.getState();

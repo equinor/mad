@@ -1,4 +1,3 @@
-import { EnvironmentContextProps } from "@equinor/mad-components";
 import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
 import { AppInsightsInitConfig } from "@equinor/mad-insights";
@@ -7,12 +6,12 @@ export type MadConfig = {
     /**
      * Version of the app. Will be displayed in the about screen, and will be used for release notes
      */
-    appVersion: string;
+    appVersion: EnvironmentValues<string>;
     /**
      * service portal name of the app. Will be used to find the correct resource for service messages and release notes.
      * @see https://web-mad-service-portal-web-prod.radix.equinor.com/
      */
-    servicePortalName: string;
+    servicePortalName: EnvironmentValues<string>;
     /**
      * ServiceNow Configuration Item (cmdb_ci) of the app.
      * Will be used to create ServiceNow tickets for the correlating application.
@@ -22,8 +21,8 @@ export type MadConfig = {
     /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
-    environment: EnvironmentContextProps["environment"];
-    language: {
+    currentEnvironment: Environment;
+    language: EnvironmentValues<{
         /**
          * Supported languages of the app.
          */
@@ -33,8 +32,12 @@ export type MadConfig = {
          * If `defaultLanguageCode` is not provided, the first language in `supportedLanguages` will be considered default.
          */
         defaultLanguageCode?: string;
-    };
-    authentication: {
+        /**
+         * Core navigates to a language selection screen by default if needed. Set this to true if you want to override this behaviour
+         */
+        skipOnboarding?: boolean;
+    }>;
+    authentication: EnvironmentValues<{
         /**
          * Client Id of the application. Used for login.
          * You can find your application's client Id in your application's
@@ -61,9 +64,9 @@ export type MadConfig = {
          * available scopes in your application's App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        scopes?: string[];
-    };
-    login: {
+        scopes: string[];
+    }>;
+    login: EnvironmentValues<{
         /**
          * Title of the app. Used in login screen
          */
@@ -72,12 +75,12 @@ export type MadConfig = {
          * App logo. Used in login screen
          */
         logo: ImageSourcePropType;
-    };
+    }>;
     /**
      * App insights config used for initializing application insights service(s)
      */
-    applicationInsights: AppInsightsInitConfig;
-    about?: {
+    applicationInsights: EnvironmentValues<AppInsightsInitConfig>;
+    about?: EnvironmentValues<{
         /**
          * Endpoints used by the app
          */
@@ -86,16 +89,18 @@ export type MadConfig = {
          * Build number of the app.
          */
         buildNumber: string;
-    };
-    serviceNow?: {
+    }>;
+    serviceNow?: EnvironmentValues<{
         //TODO
         whatever: string;
-    };
+    }>;
 };
 
 export type CoreStackParamListBase = {
     Login: undefined;
     WhatsNew: undefined;
+    SelectLanguage: undefined;
+    SelectLanguageOnboarding: undefined;
     ReleaseNotes: undefined;
     Settings: undefined;
     About: undefined;
@@ -105,3 +110,11 @@ export type CoreStackParamListBase = {
 };
 
 export type Environment = "dev" | "test" | "qa" | "prod";
+
+export type EnvironmentValues<T> = Partial<Record<Environment, T>> | T;
+
+export type WithoutEnvironmentOptionValues<TToken> = {
+    [K in keyof TToken]: TToken[K] extends EnvironmentValues<infer U> ? U : TToken[K];
+};
+
+export type EnvironmentContextualConfig = WithoutEnvironmentOptionValues<MadConfig>;

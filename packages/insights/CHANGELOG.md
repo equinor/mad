@@ -1,5 +1,12 @@
 # @equinor/mad-insights
 
+## 0.1.0
+
+### Minor Changes
+
+-   936e5e0: Added the ability to use `addTelemetryInitializer` before initializing application
+    insights
+
 ## 0.0.2
 
 ### Patch Changes

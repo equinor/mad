@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useCoreStackNavigation } from "./useCoreStackNavigation"
 import { CoreDictionary } from "../language/types";
 import { useDictionary } from "../language/useDictionary";
@@ -11,7 +11,7 @@ export const useScreenTitleFromDictionary = (pickFn: (dictionary: CoreDictionary
 const useScreenTitle = (title:string) => {
     const navigation = useCoreStackNavigation();
     
-    useEffect(() => {
+    useLayoutEffect(() => {
         navigation.setOptions({title})
     }, [title, navigation])
 }

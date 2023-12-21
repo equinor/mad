@@ -1,0 +1,50 @@
+{
+    "login": {
+        "logIn": "Logg inn",
+        "demo": "Demo"
+    },
+    "releaseNotes": {
+        "whatsNew": "Hva er nytt",
+        "releaseNotes": "Utgivelsesnotater"
+    },
+    "createIncident": {
+        "title": "Opprett sak i ServiceNow",
+        "info": "Vi samler inn informasjon om din enhet som en del av vår saksbehandlingsprosess. Ved å sende inn samtykker du i å dele følgende informasjon:",
+        "placeholderTitle": "Skriv inn sakstittel",
+        "placeholderDescription": "Skriv inn en komplett beskrivelse av saken din. Du trenger ikke oppgi informasjon om din brukerenhet.",
+        "created1": "Sak ",
+        "created2": " opprettet.",
+        "error": "En feil oppstod ved opprettelse av din sak: "
+    },
+    "information": {
+        "user": "Bruker",
+        "deviceBrand": "Enhetsmerke",
+        "device": "Enhet",
+        "OS": "Operativsystem",
+        "timezone": "Tidssone",
+        "locale": "Område"
+    },
+    "language": {
+        "language": "Språk",
+        "English": "Engelsk",
+        "Norwegian": "Norsk"
+    },
+    "settings": {
+        "title": "Innstillinger",
+        "aboutApp": "Om Appen",
+        "feedback": "Gi tilbakemelding",
+        "loggedInAs": "Logget inn som:",
+        "language": "Språk",
+        "logOut": "Logg av",
+        "back": "Tilbake"
+    },
+    "serviceMessage": {
+        "couldNotRetrieve": "Kunne ikke hente tjenestemelding"
+    },
+    "common": {
+        "submit": "Velg",
+        "ok": "OK",
+        "done": "Ferdig",
+        "save": "Lagre"
+    }
+}

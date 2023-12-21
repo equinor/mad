@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-core",
-    "version": "0.0.4",
+    "version": "0.3.2",
     "description": "Core library for the Mobile App Delivery team",
     "type": "module",
     "scripts": {
@@ -34,6 +34,7 @@
         "react": ">=18.0",
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
+        "react-native-gesture-handler": "^2.14.0",
         "react-native-msal": "*"
     },
     "dependencies": {

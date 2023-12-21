@@ -9,7 +9,7 @@ import { ColorSchemeName } from "react-native";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
 import IconsScreen from "../screens/IconsScreen";
-import { DiscoverStackParamList, RootTabParamList } from "../types";
+import { DiscoverStackParamList, RootStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { DrawScreen } from "../screens/DrawScreen";
 import { SignatureScreen } from "../screens/SignatureTest";
@@ -36,12 +36,13 @@ import {
     createBottomTabNavigator,
     createNativeStackNavigator,
     createCoreStackNavigator,
-    NavigationContainer
+    NavigationContainer,
 } from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
+import { ChipScreen } from "../screens/components/ChipScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -65,7 +66,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     );
 }
 
-const CoreStack = createCoreStackNavigator(config);
+const CoreStack = createCoreStackNavigator<RootStackParamList>(config);
 function RootNavigator() {
     return (
         <CoreStack.Navigator>
@@ -129,6 +130,7 @@ function DiscoverNavigator() {
             <DiscoverStack.Screen name="Dialog" component={DialogScreen} />
             <DiscoverStack.Screen name="Environment" component={EnvironmentScreen} />
             <DiscoverStack.Screen name="ErrorBoundary" component={ErrorBoundaryScreen} />
+            <DiscoverStack.Screen name="Chip" component={ChipScreen} />
         </DiscoverStack.Navigator>
     );
 }
