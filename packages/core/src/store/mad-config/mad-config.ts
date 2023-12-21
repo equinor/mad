@@ -31,9 +31,10 @@ const MAD_CONFIG_NOT_FOUND_ERROR =
 export const useMadConfig = (): EnvironmentContextualConfig => {
     const config = useMadConfigStore().config;
     if (!config) throw new Error(MAD_CONFIG_NOT_FOUND_ERROR);
+    console.log(config.currentEnvironment);
     return useMemo(() => {
         return createEnvironmentProxy(config.currentEnvironment);
-    }, [config]);
+    }, [config, config.currentEnvironment]);
 };
 
 export const getConfig = (): EnvironmentContextualConfig => {

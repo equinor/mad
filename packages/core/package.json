@@ -29,10 +29,10 @@
     "peerDependencies": {
         "@react-native-async-storage/async-storage": "*",
         "@react-navigation/native": "^6.1.8",
-        "react-native-gesture-handler": "^2.14.0",
         "react": ">=18.0",
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
+        "react-native-gesture-handler": "^2.14.0",
         "react-native-msal": "*"
     },
     "dependencies": {

@@ -1,15 +1,15 @@
 import { renderHook, act } from "@testing-library/react-native";
-import { getLanguage, useLanguage } from "../../src";
-import { getConfig, setConfig } from "../../src/store/mad-config";
-import { MadConfig } from "../../src";
-import { ImageSourcePropType } from "react-native";
+import { getLanguage, useLanguage } from "../../src/store/language/language";
+import { getConfig, setConfig } from "../../src/store/mad-config/mad-config";
+import { MadConfig } from "../../src/types";
 import { Language } from "../../src/store/types";
+import { ImageSourcePropType } from "react-native";
 
 const norwegianBokmal = { code: "nb", name: "Norwegian" };
 const english = { code: "en", name: "English" };
 
 const mockConfig: MadConfig = {
-    applicationInsights: undefined,
+    applicationInsights: { instrumentationKey: "undefined" },
     currentEnvironment: "test",
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
