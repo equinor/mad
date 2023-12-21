@@ -53,6 +53,11 @@ export const useAbout = () => {
     return config.about;
 };
 
+export const useServiceNow = () => {
+    const config = useMadConfig();
+    return config.serviceNow;
+}
+
 export const useSettingsScreenPremadeConfig = () => {
     const config = useMadConfig();
     const dictionary = useDictionary();

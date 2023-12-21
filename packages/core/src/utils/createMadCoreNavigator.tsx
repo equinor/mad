@@ -9,7 +9,7 @@ import { AppInsightsInitializer } from "@equinor/mad-insights";
 import { createNativeStackNavigator } from "../components";
 import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { AboutScreen } from "../components/screens/AboutScreen";
-import { CreateIncidentScreen } from "../components/screens/CreateIncidentScreen";
+import { CreateIncidentScreen } from "../components/screens/create-incident/CreateIncidentScreen";
 import { SelectLanguageScreen } from "../components/screens/language/SelectLanguageScreen";
 import { ServiceMessageProvider } from "../components/service-message/ServiceMessageProvider";
 import {useMadConfig} from "../store";
