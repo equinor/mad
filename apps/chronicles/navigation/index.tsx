@@ -24,6 +24,7 @@ import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
 import { ComponentsStackParamList, RootTabParamList } from "../types/navigation";
 import { ComponentScreen } from "../screens/components/ComponentScreen";
+import { ComponentName } from "../types/components";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -84,7 +85,14 @@ function DiscoverNavigator() {
             }}
         >
             <ComponentsStack.Screen name="Discover" component={DiscoverScreen} />
-            <ComponentsStack.Screen name="Component" component={ComponentScreen} />
+            <ComponentsStack.Screen
+                name="Component"
+                component={ComponentScreen}
+                options={({ route }) => ({
+                    title: ComponentName[route.params.name],
+                    ...(route.params.screenOptions ?? {}),
+                })}
+            />
         </ComponentsStack.Navigator>
     );
 }

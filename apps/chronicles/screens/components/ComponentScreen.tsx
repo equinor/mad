@@ -12,22 +12,17 @@ export type ComponentsScreenProps = {
 
 export const ComponentScreen = ({ navigation, route }: ComponentsScreenProps) => {
     useEffect(() => {
-        const headerBackButton = navigation.canGoBack()
-            ? undefined
-            : () => (
-                  <Button
-                      title="Components"
-                      variant="ghost"
-                      iconName="arrow-left"
-                      onPress={() => navigation.navigate("Discover")}
-                  />
-              );
+        if (navigation.canGoBack()) return;
         navigation.setOptions({
-            title: ComponentName[route.params.name],
-            headerLeft: headerBackButton,
-            ...(route.params.screenOptions ?? {}),
+            headerLeft: () => (
+                <Button
+                    title="Components"
+                    variant="ghost"
+                    iconName="arrow-left"
+                    onPress={() => navigation.navigate("Discover")}
+                />
+            ),
         });
     }, [route, navigation]);
-    console.log("GOT HERE", ComponentConfig[route.params.name]);
     return ComponentConfig[route.params.name]();
 };
