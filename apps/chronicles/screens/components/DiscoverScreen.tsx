@@ -1,168 +1,166 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import { DiscoverStackParamList } from "../types";
 
 import { Cell, Spacer } from "@equinor/mad-components";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ComponentNavigationCell } from "../../components/ComponentNavigationCell";
 
-export default function DiscoverScreen({
-    navigation,
-}: NativeStackScreenProps<DiscoverStackParamList>) {
+export default function DiscoverScreen() {
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
             <Spacer />
 
             <Cell.Group title="data display">
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Chip"
                     description="Small labels often used in filters!"
                     iconName="chip"
-                    onPress={() => navigation.navigate("Chip")}
+                    componentName="chip"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Popover"
                     description="Container floating over some reference element"
                     iconName="party-popper"
-                    onPress={() => navigation.navigate("Popover")}
+                    componentName="popover"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Menu"
                     description="Select from a list of options in a popover"
                     iconName="menu"
-                    onPress={() => navigation.navigate("Menu")}
+                    componentName="menu"
                 />
             </Cell.Group>
 
             <Spacer />
 
             <Cell.Group title="inputs">
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Button"
                     description="Buttons, buttons, and more buttons!"
                     iconName="gesture-tap-button"
-                    onPress={() => navigation.navigate("Button")}
+                    componentName="button"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Text Field"
                     description="Fancier input field"
                     iconName="card-text-outline"
-                    onPress={() => navigation.navigate("TextField")}
+                    componentName="textField"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Input"
                     description="Enter and edit text"
                     iconName="form-textbox"
-                    onPress={() => navigation.navigate("Input")}
+                    componentName="input"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Autocomplete"
                     description="Suggest options as the user types"
                     iconName="format-list-bulleted-square"
-                    onPress={() => navigation.navigate("Autocomplete")}
+                    componentName="autocomplete"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Search"
                     description="Search for content"
                     iconName="magnify"
-                    onPress={() => navigation.navigate("Search")}
+                    componentName="search"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Selection Controls"
                     description="Turn me on and off"
                     iconName="toggle-switch-off-outline"
-                    onPress={() => navigation.navigate("SelectionControls")}
+                    componentName="selectionControls"
                 />
             </Cell.Group>
 
             <Spacer />
 
             <Cell.Group title="surfaces">
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Paper"
                     description="Multiple elevations and shadows"
                     iconName="paper-roll-outline"
-                    onPress={() => navigation.navigate("Paper")}
+                    componentName="paper"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Accordion"
                     description="Collapsable and expandable containers"
                     iconName="arrow-collapse-vertical"
-                    onPress={() => navigation.navigate("Accordion")}
+                    componentName="accordion"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Tabs"
                     description="Because spaces didn't make the cut"
                     iconName="tab"
-                    onPress={() => navigation.navigate("Tabs")}
+                    componentName="tabs"
+                    screenOptions={{ headerLargeTitle: false }}
                 />
             </Cell.Group>
 
             <Spacer />
 
             <Cell.Group title="feedback">
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Progress Indicators"
                     description="Multiple ways to tell the user that stuff is happening"
                     iconName="loading"
-                    onPress={() => navigation.navigate("ProgressIndicator")}
+                    componentName="progressIndicator"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Dialog"
                     description="When the user has to take action"
                     iconName="menu"
-                    onPress={() => navigation.navigate("Dialog")}
+                    componentName="dialog"
                 />
             </Cell.Group>
 
             <Spacer />
 
             <Cell.Group title="cells">
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Cell"
                     description="This screen is filled with them!"
                     iconName="table-row"
-                    onPress={() => navigation.navigate("Cell")}
+                    componentName="cell"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Navigation Cell"
                     description="Navigate to it by pressing one"
                     iconName="sign-direction"
-                    onPress={() => navigation.navigate("NavigationCell")}
+                    componentName="navigationCell"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Button Cell"
                     description="Click me!"
                     iconName="gesture-tap-button"
-                    onPress={() => navigation.navigate("ButtonCell")}
+                    componentName="buttonCell"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Switch Cell"
                     description="Toggle me!"
                     iconName="toggle-switch"
-                    onPress={() => navigation.navigate("SwitchCell")}
+                    componentName="switchCell"
                 />
             </Cell.Group>
 
             <Spacer />
 
             <Cell.Group title="utility">
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Portal"
                     description="Send react nodes up the render tree!"
                     iconName="cake"
-                    onPress={() => navigation.navigate("Portal")}
+                    componentName="portal"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Environment"
                     description="Visualizes your app environment"
                     iconName="island"
-                    onPress={() => navigation.navigate("Environment")}
+                    componentName="environment"
                 />
-                <Cell.Navigation
+                <ComponentNavigationCell
                     title="Error boundary"
                     description="Display an error screen when the app panics"
                     iconName="alert-decagram-outline"
-                    onPress={() => navigation.navigate("ErrorBoundary")}
+                    componentName="errorBoundary"
                 />
             </Cell.Group>
         </ScrollView>

@@ -3,7 +3,7 @@ import { signOut, useAccount } from "@equinor/mad-auth";
 import { Button, Typography } from "@equinor/mad-components";
 import { View } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList } from "../types/navigation";
 
 /**
  *∏

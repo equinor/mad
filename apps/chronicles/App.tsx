@@ -5,9 +5,9 @@ import { useEDS, EDSProvider } from "@equinor/mad-components";
 import { Envelope, addTelemetryInitializer, ErrorBoundary } from "@equinor/mad-core";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
-import Navigation from "./navigation";
 import { useWindowDimensions } from "react-native";
 import * as APP from "./app.json";
+import Navigation from "./navigation";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
