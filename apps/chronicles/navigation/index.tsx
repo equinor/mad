@@ -22,7 +22,11 @@ import {
 import { config } from "../mad.config";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
-import { ComponentsStackParamList, RootTabParamList } from "../types/navigation";
+import {
+    ComponentsStackParamList,
+    RootStackParamList,
+    RootTabParamList,
+} from "../types/navigation";
 import { ComponentScreen } from "../screens/components/ComponentScreen";
 import { ComponentName } from "../types/components";
 

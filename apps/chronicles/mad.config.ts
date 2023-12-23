@@ -1,4 +1,4 @@
-import {MadConfig} from "@equinor/mad-core";
+import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
 import { getBuildNumber } from "./settings";

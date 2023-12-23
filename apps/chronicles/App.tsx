@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from "react";
+import Navigation from "./navigation";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useEDS, EDSProvider } from "@equinor/mad-components";
@@ -7,7 +8,6 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import { useWindowDimensions } from "react-native";
 import * as APP from "./app.json";
-import Navigation from "./navigation";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
