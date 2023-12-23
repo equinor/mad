@@ -14,8 +14,8 @@ export const useFetchServiceMessage = () => {
 
     useEffect(() => {
         function fetchServiceMessage() {
-            const { environment, servicePortalName } = getConfig();
-            fetch(`${getMadCommonBaseUrl(environment)}/ServiceMessage/${servicePortalName}`)
+            const { currentEnvironment, servicePortalName } = getConfig();
+            fetch(`${getMadCommonBaseUrl(currentEnvironment)}/ServiceMessage/${servicePortalName}`)
                 .then(res =>
                     res.json().then((data: ServiceMessage) => {
                         if (!data.message) return;

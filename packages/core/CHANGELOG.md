@@ -1,5 +1,24 @@
 # @equinor/mad-core
 
+## 0.3.3
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+-   009f521: Added support for environment switching
+-   Updated dependencies [b025c9b]
+    -   @equinor/mad-components@0.8.5
+    -   @equinor/mad-navigation@0.2.1
+    -   @equinor/mad-insights@0.1.1
+    -   @equinor/mad-auth@0.1.3
+
+## 0.3.2
+
+### Patch Changes
+
+-   3d8b22f: `createCoreStackNavigator`: now accepts paramlist as a generic argument (just like
+    `createNativeStackNavigator`)
+
 ## 0.3.1
 
 ### Patch Changes

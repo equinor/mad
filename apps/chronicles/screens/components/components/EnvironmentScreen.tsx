@@ -23,15 +23,15 @@ export const EnvironmentScreen = () => {
                 }
             </Typography>
             <Spacer />
-            <EnvironmentProvider environment="dev">
+            <EnvironmentProvider currentEnvironment="dev">
                 <EnvironmentBanner />
             </EnvironmentProvider>
             <Spacer />
-            <EnvironmentProvider environment="test">
+            <EnvironmentProvider currentEnvironment="test">
                 <EnvironmentBanner />
             </EnvironmentProvider>
             <Spacer />
-            <EnvironmentProvider environment="qa">
+            <EnvironmentProvider currentEnvironment="qa">
                 <EnvironmentBanner />
             </EnvironmentProvider>
         </ScrollView>

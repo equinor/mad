@@ -48,7 +48,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     );
 }
 
-const CoreStack = createCoreStackNavigator(config);
+const CoreStack = createCoreStackNavigator<RootStackParamList>(config);
 function RootNavigator() {
     return (
         <CoreStack.Navigator>

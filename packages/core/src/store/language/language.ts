@@ -54,9 +54,9 @@ const useLanguageStore = create<LanguageState>()(
                     return selectedLanguage ?? getDefaultLanguage();
                 },
                 getIsLanguageSelected: () => {
-                    const {selectedLanguage} = get();
+                    const { selectedLanguage } = get();
                     return !!selectedLanguage;
-                }
+                },
             }),
             {
                 name: "language",
@@ -93,4 +93,5 @@ export const useLanguage = (): UseLanguageReturnType => {
     return { language, getDefaultLanguage, setSelectedLanguage, getSupportedLanguages };
 };
 
-export const { getLanguage, setSelectedLanguage, getIsLanguageSelected } = useLanguageStore.getState();
+export const { getLanguage, setSelectedLanguage, getIsLanguageSelected } =
+    useLanguageStore.getState();

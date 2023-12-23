@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.17.2
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 1.17.1
 
 ### Patch Changes
