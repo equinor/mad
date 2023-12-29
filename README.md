@@ -92,27 +92,6 @@ that we use
 [semantic](https://gist.githubusercontent.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716/raw/e75b1b9536ee5ee82e2ec0ba8948d8f8238488c3/semantic-commit-messages.md)
 pull request titles. These are verified automatically during PR linting.
 
-## 🔗 Useful Links
-
-### 🚀 Turborepo
-
-Learn more about the power of Turborepo:
-
--   [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
--   [Caching](https://turbo.build/repo/docs/core-concepts/caching)
--   [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
--   [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
--   [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
--   [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
-
-### 🛠️ Repository tools
-
-Check out the docs for some of the tools we use throughout the repository:
-
--   [Changesets](https://github.com/changesets/changesets) - Versioning
--   [Jest](https://jestjs.io) - Testing
--   [tsup](https://tsup.egoist.dev) - Building
-
 ### 🚧 Handling Deprecated Code
 
 When a piece of code is marked as deprecated, it means that it's not recommended for use and may be
@@ -133,3 +112,24 @@ removed in a future update. Here are the rules that are followed for deprecated 
 
 3. **Alternative Solutions**: Whenever possible, an alternative solution will be provided in the
    deprecation comment.
+
+## 🔗 Useful Links
+
+### 🚀 Turborepo
+
+Learn more about the power of Turborepo:
+
+-   [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
+-   [Caching](https://turbo.build/repo/docs/core-concepts/caching)
+-   [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
+-   [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
+-   [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
+-   [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+
+### 🛠️ Repository tools
+
+Check out the docs for some of the tools we use throughout the repository:
+
+-   [Changesets](https://github.com/changesets/changesets) - Versioning
+-   [Jest](https://jestjs.io) - Testing
+-   [tsup](https://tsup.egoist.dev) - Building
