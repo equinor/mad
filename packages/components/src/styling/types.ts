@@ -78,6 +78,11 @@ export type MasterToken = {
             pressedOverlay: ColorSchemeValues<Color>;
             selectedHighlight: ColorSchemeValues<Color>;
         };
+        feedback: {
+            success: ColorSchemeValues<Color>;
+            warning: ColorSchemeValues<Color>;
+            danger: ColorSchemeValues<Color>;
+        };
         environment: {
             dev: ColorSchemeValues<Color>;
             test: ColorSchemeValues<Color>;

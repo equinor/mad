@@ -72,14 +72,23 @@ export const masterToken: MasterToken = {
                 light: colors.interactive_secondary_light_resting,
                 dark: colors.interactive_secondary_dark_resting,
             },
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.success` instead.
+             */
             success: {
                 light: colors.feedback_success_light_resting,
                 dark: colors.feedback_success_dark_resting,
             },
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.warning` instead.
+             */
             warning: {
                 light: colors.feedback_warning_light_resting,
                 dark: colors.feedback_warning_dark_resting,
             },
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.danger` instead.
+             */
             danger: {
                 light: colors.feedback_danger_light_resting,
                 dark: colors.feedback_danger_dark_resting,
@@ -95,6 +104,20 @@ export const masterToken: MasterToken = {
             selectedHighlight: {
                 light: colors.interactive_primary_light_selected_highlight,
                 dark: colors.interactive_primary_dark_resting,
+            },
+        },
+        feedback: {
+            success: {
+                light: colors.feedback_success_light_resting,
+                dark: colors.feedback_success_dark_resting,
+            },
+            warning: {
+                light: colors.feedback_warning_light_resting,
+                dark: colors.feedback_warning_dark_resting,
+            },
+            danger: {
+                light: colors.feedback_danger_light_resting,
+                dark: colors.feedback_danger_dark_resting,
             },
         },
         environment: {
