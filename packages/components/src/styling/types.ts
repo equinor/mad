@@ -24,6 +24,7 @@ export type TypographyVariantGroupMap = {
     interactive: "button" | "link";
     ui: "tooltip" | "chipAndBadge";
     cell: "groupTitle" | "title" | "description";
+    navigation: "menuTab";
 };
 export type TypographyGroup = keyof TypographyVariantGroupMap;
 export type TypographyVariant<TKey extends TypographyGroup> = TypographyVariantGroupMap[TKey];
@@ -118,6 +119,7 @@ export type MasterToken = {
             containerBorderRadius: number;
             borderWidth: number;
             focusedBorderWidth: number;
+            tabsBorderWidth: number;
         };
         dimension: {
             icon: {
@@ -146,6 +148,9 @@ export type MasterToken = {
                 header: {
                     height: DensityValues<number>;
                 };
+            };
+            tabs: {
+                minWidth: DensityValues<number>;
             };
         };
         shadow: {
@@ -200,6 +205,10 @@ export type MasterToken = {
             small: DensityValues<number>;
             medium: DensityValues<number>;
             large: DensityValues<number>;
+        };
+        tabs: {
+            paddingVerical: DensityValues<number>;
+            paddingHorizontal: DensityValues<number>;
         };
     };
     typography: {

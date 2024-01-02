@@ -2,7 +2,7 @@ import React, { Children, ReactNode, createContext } from "react";
 import { Typography } from "../Typography";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-import { useValidChildrenIndexes } from "../../hooks/useValidChildrenIndexes";
+import { useValidChildrenIndexes } from "../../hooks/useValidChildren";
 import { View } from "react-native";
 
 export type CellGroupContextType = {
