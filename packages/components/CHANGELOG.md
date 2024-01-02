@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.8.6
+
+### Patch Changes
+
+-   a5607df: Created `Tabs` component!
+-   0d6c310: update color scheme for feedback and added deprecation
+
 ## 0.8.5
 
 ### Patch Changes
