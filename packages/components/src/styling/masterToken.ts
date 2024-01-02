@@ -97,6 +97,20 @@ export const masterToken: MasterToken = {
                 dark: colors.interactive_primary_dark_resting,
             },
         },
+        feedback: {
+            success: {
+                light: colors.feedback_success_light_resting,
+                dark: colors.feedback_success_dark_resting,
+            },
+            warning: {
+                light: colors.feedback_warning_light_resting,
+                dark: colors.feedback_warning_dark_resting,
+            },
+            danger: {
+                light: colors.feedback_danger_light_resting,
+                dark: colors.feedback_danger_dark_resting,
+            },
+        },
         environment: {
             dev: {
                 light: colors.infographic_primary_energy_red_21,

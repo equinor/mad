@@ -156,9 +156,9 @@ const createIncidentStyles = EDSStyleSheet.create(theme => ({
         borderRadius: 4,
     },
     popupDanger: {
-        borderColor: theme.colors.interactive.danger,
+        borderColor: theme.colors.feedback.danger,
     },
     popupSuccess: {
-        borderColor: theme.colors.interactive.success,
+        borderColor: theme.colors.feedback.success,
     },
 }));

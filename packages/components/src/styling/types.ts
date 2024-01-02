@@ -72,12 +72,26 @@ export type MasterToken = {
         interactive: {
             primary: ColorSchemeValues<Color>;
             secondary: ColorSchemeValues<Color>;
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.success` instead.
+             */
             success: ColorSchemeValues<Color>;
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.warning` instead.
+             */
             warning: ColorSchemeValues<Color>;
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.danger` instead.
+             */
             danger: ColorSchemeValues<Color>;
             disabled: ColorSchemeValues<Color>;
             pressedOverlay: ColorSchemeValues<Color>;
             selectedHighlight: ColorSchemeValues<Color>;
+        };
+        feedback: {
+            success: ColorSchemeValues<Color>;
+            warning: ColorSchemeValues<Color>;
+            danger: ColorSchemeValues<Color>;
         };
         environment: {
             dev: ColorSchemeValues<Color>;

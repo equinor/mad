@@ -96,7 +96,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: ChipTokenProps) => {
     const variantToTextColor: Record<typeof variant, Color> = {
         default: theme.colors.interactive.primary,
         active: theme.colors.interactive.primary,
-        error: theme.colors.interactive.danger,
+        error: theme.colors.feedback.danger,
     };
     const basePaddingVertical = theme.spacing.chip.paddingVertical;
     const paddingVertical =
@@ -112,7 +112,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: ChipTokenProps) => {
                 ? theme.colors.interactive.disabled
                 : variantToBackgroundColor[variant],
             borderRadius: 9999,
-            borderColor: theme.colors.interactive.danger,
+            borderColor: theme.colors.feedback.danger,
             borderWidth: variant === "error" ? theme.geometry.border.borderWidth : undefined,
             overflow: "hidden",
         },

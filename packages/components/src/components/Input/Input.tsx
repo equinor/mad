@@ -111,19 +111,19 @@ const themedStyles = EDSStyleSheet.create(
         switch (variant) {
             case "danger":
                 borderStyle = {
-                    borderColor: theme.colors.interactive.danger,
+                    borderColor: theme.colors.feedback.danger,
                     borderWidth: theme.geometry.border.focusedBorderWidth,
                 };
                 break;
             case "warning":
                 borderStyle = {
-                    borderColor: theme.colors.interactive.warning,
+                    borderColor: theme.colors.feedback.warning,
                     borderWidth: theme.geometry.border.focusedBorderWidth,
                 };
                 break;
             case "success":
                 borderStyle = {
-                    borderColor: theme.colors.interactive.success,
+                    borderColor: theme.colors.feedback.success,
                     borderWidth: theme.geometry.border.focusedBorderWidth,
                 };
                 break;
