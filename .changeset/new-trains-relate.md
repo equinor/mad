@@ -3,4 +3,4 @@
 "@equinor/mad-core": patch
 ---
 
-update color scheme for feedback in components and added deprecation
+update color scheme for feedback and added deprecation
