@@ -29,7 +29,7 @@ export const masterToken: MasterToken = {
             },
             warning: {
                 light: colors.ui_background_light_warning,
-                dark: colors.ui_background_dark_warning
+                dark: colors.ui_background_dark_warning,
             },
             elevation: {
                 none: {
@@ -152,8 +152,8 @@ export const masterToken: MasterToken = {
             },
             feedbackWarning: {
                 light: colors.feedback_warning_light_text,
-                dark: colors.feedback_warning_dark_text
-            }
+                dark: colors.feedback_warning_dark_text,
+            },
         },
     },
     geometry: {
@@ -162,6 +162,7 @@ export const masterToken: MasterToken = {
             containerBorderRadius: 24,
             borderWidth: 1,
             focusedBorderWidth: 2,
+            tabsBorderWidth: 2,
         },
         dimension: {
             icon: {
@@ -216,6 +217,12 @@ export const masterToken: MasterToken = {
                         tablet: 50,
                         phone: 50,
                     },
+                },
+            },
+            tabs: {
+                minWidth: {
+                    tablet: spacings.xxx_large,
+                    phone: spacings.x_large,
                 },
             },
         },
@@ -312,7 +319,7 @@ export const masterToken: MasterToken = {
             paddingVertical: {
                 tablet: spacings.x_small,
                 phone: spacings.x_small,
-            }
+            },
         },
         button: {
             paddingHorizontal: {
@@ -394,6 +401,16 @@ export const masterToken: MasterToken = {
                 phone: 34,
             },
         },
+        tabs: {
+            paddingVerical: {
+                tablet: spacings.medium,
+                phone: spacings.medium,
+            },
+            paddingHorizontal: {
+                tablet: spacings.medium,
+                phone: spacings.medium,
+            },
+        },
     },
     typography: {
         paragraph: {
@@ -472,8 +489,8 @@ export const masterToken: MasterToken = {
                 fontSize: FONT_BASIS,
                 color: colors.interactive_primary_light_resting,
                 textDecorationLine: "underline",
-                textAlign: "left"
-            }
+                textAlign: "left",
+            },
         },
         cell: {
             groupTitle: {
@@ -504,8 +521,15 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.75 * FONT_BASIS,
                 textAlign: "center",
-                lineHeight: FONT_BASIS
-            }
+                lineHeight: FONT_BASIS,
+            },
+        },
+        navigation: {
+            menuTab: {
+                fontFamily: "Equinor-Medium",
+                fontSize: FONT_BASIS,
+                letterSpacing: 0.2,
+            },
         },
     },
     timing: {

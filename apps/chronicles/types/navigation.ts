@@ -5,7 +5,11 @@
 
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+    NativeStackNavigationOptions,
+    NativeStackScreenProps,
+} from "@react-navigation/native-stack";
+import { ComponentType } from "./components";
 
 export type RootStackParamList = {
     Root: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -14,32 +18,16 @@ export type RootStackParamList = {
     NotFound: undefined;
 };
 
-export type DiscoverStackParamList = {
+export type ComponentsStackParamList = {
     Discover: undefined;
-    Paper: undefined;
-    Button: undefined;
-    SelectionControls: undefined;
-    Popover: undefined;
-    Input: undefined;
-    TextField: undefined;
-    Search: undefined;
-    Cell: undefined;
-    NavigationCell: undefined;
-    Autocomplete: undefined;
-    SwitchCell: undefined;
-    ButtonCell: undefined;
-    Accordion: undefined;
-    Menu: undefined;
-    ProgressIndicator: undefined;
-    Portal: undefined;
-    Dialog: undefined;
-    Environment: undefined;
-    ErrorBoundary: undefined;
-    Chip: undefined;
+    Component: {
+        name: ComponentType;
+        screenOptions?: Partial<NativeStackNavigationOptions>;
+    };
 };
 
-export type DiscoverStackScreenProps<Screen extends keyof DiscoverStackParamList> =
-    NativeStackScreenProps<DiscoverStackParamList, Screen>;
+export type DiscoverStackScreenProps<Screen extends keyof ComponentsStackParamList> =
+    NativeStackScreenProps<ComponentsStackParamList, Screen>;
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
     RootStackParamList,
@@ -47,7 +35,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 >;
 
 export type RootTabParamList = {
-    DiscoverTab: undefined;
+    Components: undefined;
     IconsTab: undefined;
     DrawTab: undefined;
     SignTab: undefined;
@@ -58,6 +46,6 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
     BottomTabScreenProps<RootTabParamList, Screen>,
     CompositeScreenProps<
         NativeStackScreenProps<RootStackParamList>,
-        NativeStackScreenProps<DiscoverStackParamList>
+        NativeStackScreenProps<ComponentsStackParamList>
     >
 >;
