@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.26.0
+
+### Minor Changes
+
+-   f10b003: Upgrade to maintenance api 1.26
+
 ## 1.17.2
 
 ### Patch Changes
