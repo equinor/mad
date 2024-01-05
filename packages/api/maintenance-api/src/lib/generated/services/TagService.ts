@@ -2,23 +2,22 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { Tag } from '../models/Tag';
-import type { TagAddClass } from '../models/TagAddClass';
-import type { TagBasic } from '../models/TagBasic';
-import type { TagCreate } from '../models/TagCreate';
-import type { TagHierachyItem } from '../models/TagHierachyItem';
-import type { TagHierachyItemDeprecated } from '../models/TagHierachyItemDeprecated';
-import type { TagJsonPatch } from '../models/TagJsonPatch';
-import type { TagSearch } from '../models/TagSearch';
+import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { Tag } from "../models/Tag";
+import type { TagAddClass } from "../models/TagAddClass";
+import type { TagBasic } from "../models/TagBasic";
+import type { TagCreate } from "../models/TagCreate";
+import type { TagHierachyItem } from "../models/TagHierachyItem";
+import type { TagHierachyItemDeprecated } from "../models/TagHierachyItemDeprecated";
+import type { TagJsonPatch } from "../models/TagJsonPatch";
+import type { TagSearch } from "../models/TagSearch";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class TagService {
-
     /**
      * Tag - Lookup
      * ### Overview
@@ -102,92 +101,106 @@ export class TagService {
         includeStatusDetails = false,
         includeLinearData = false,
     }: {
-        plantId: string,
-        tagId: string,
+        plantId: string;
+        tagId: string;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Include work orders. If include-work-order-types is not supplied, all supported types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Include installed equipment
          */
-        includeInstalledEquipment?: boolean,
+        includeInstalledEquipment?: boolean;
         /**
          * Include possible detection methods, failure modes and failure mechanisms
          */
-        includeCatalogProfileDetails?: boolean,
+        includeCatalogProfileDetails?: boolean;
         /**
          * Include Maintenance Plan items this functional location is part of
          */
-        includeMaintenancePlanItems?: boolean,
+        includeMaintenancePlanItems?: boolean;
         /**
          * Include measuring points for this tag
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Include bill of materials (also known as structure list) for tag and installed equipment
          */
-        includeBillOfMaterials?: boolean,
+        includeBillOfMaterials?: boolean;
         /**
          * Include equipment or tag attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include URL references for equipment or tag
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include linear data
          */
-        includeLinearData?: boolean,
+        includeLinearData?: boolean;
     }): CancelablePromise<Tag | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tags/{tag-id}',
+            method: "GET",
+            url: "/plants/{plant-id}/tags/{tag-id}",
             path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
+                "plant-id": plantId,
+                "tag-id": tagId,
             },
             query: {
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types": includeMaintenanceRecordTypes,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-installed-equipment": includeInstalledEquipment,
+                "include-catalog-profile-details": includeCatalogProfileDetails,
+                "include-maintenance-plan-items": includeMaintenancePlanItems,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-characteristics": includeCharacteristics,
+                "include-bill-of-materials": includeBillOfMaterials,
+                "include-attachments": includeAttachments,
+                "include-url-references": includeUrlReferences,
+                "include-status-details": includeStatusDetails,
+                "include-linear-data": includeLinearData,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -228,22 +241,22 @@ export class TagService {
         tagId,
         requestBody,
     }: {
-        plantId: string,
-        tagId: string,
+        plantId: string;
+        tagId: string;
         /**
          * The information to be updated
          */
-        requestBody: Array<TagJsonPatch>,
+        requestBody: Array<TagJsonPatch>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/plants/{plant-id}/tags/{tag-id}',
+            method: "PATCH",
+            url: "/plants/{plant-id}/tags/{tag-id}",
             path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
+                "plant-id": plantId,
+                "tag-id": tagId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update tag`,
@@ -278,23 +291,23 @@ export class TagService {
         tagId,
         requestBody,
     }: {
-        plantId: string,
-        tagId: string,
+        plantId: string;
+        tagId: string;
         /**
          * Characteristics to add to tag.
          */
-        requestBody: Array<TagAddClass>,
+        requestBody: Array<TagAddClass>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/plants/{plant-id}/tags/{tag-id}/characteristics',
+            method: "POST",
+            url: "/plants/{plant-id}/tags/{tag-id}/characteristics",
             path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
+                "plant-id": plantId,
+                "tag-id": tagId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
@@ -314,22 +327,22 @@ export class TagService {
         tagId,
         requestBody,
     }: {
-        plantId: string,
-        tagId: string,
+        plantId: string;
+        tagId: string;
         /**
          * Characteristics to be updated, based on JsonPatch standard
          */
-        requestBody: Array<CharacteristicsUpdate>,
+        requestBody: Array<CharacteristicsUpdate>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/plants/{plant-id}/tags/{tag-id}/characteristics',
+            method: "PATCH",
+            url: "/plants/{plant-id}/tags/{tag-id}/characteristics",
             path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
+                "plant-id": plantId,
+                "tag-id": tagId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to characteristics`,
@@ -371,25 +384,25 @@ export class TagService {
         filter,
         rootTags,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Filter to limit the tag hierachy by
          */
-        filter?: 'filter-by-root-tags',
+        filter?: "filter-by-root-tags";
         /**
          * Comma-separated list of tags (without tagPlantId prefix)
          */
-        rootTags?: string,
+        rootTags?: string;
     }): CancelablePromise<Array<TagHierachyItemDeprecated> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tag-hierachy',
+            method: "GET",
+            url: "/plants/{plant-id}/tag-hierachy",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'filter': filter,
-                'root-tags': rootTags,
+                filter: filter,
+                "root-tags": rootTags,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -421,25 +434,25 @@ export class TagService {
         filter,
         rootTagIdAnyOf,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Filter to limit the tag hierachy by
          */
-        filter?: 'by-root-tags',
+        filter?: "by-root-tags";
         /**
          * Comma-separated list of tags (without tagPlantId prefix)
          */
-        rootTagIdAnyOf?: string,
+        rootTagIdAnyOf?: string;
     }): CancelablePromise<Array<TagHierachyItem> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tag-hierarchy',
+            method: "GET",
+            url: "/plants/{plant-id}/tag-hierarchy",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'filter': filter,
-                'root-tag-id-any-of': rootTagIdAnyOf,
+                filter: filter,
+                "root-tag-id-any-of": rootTagIdAnyOf,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -475,25 +488,28 @@ export class TagService {
         plantId,
         requestBody,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Tag to create
          */
-        requestBody: TagCreate,
-    }): CancelablePromise<ProblemDetails | (TagBasic & {
-        /**
-         * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
-         */
-        maintenanceConceptId?: string;
-    })> {
+        requestBody: TagCreate;
+    }): CancelablePromise<
+        | ProblemDetails
+        | (TagBasic & {
+              /**
+               * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
+               */
+              maintenanceConceptId?: string;
+          })
+    > {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/plants/{plant-id}/tags',
+            method: "POST",
+            url: "/plants/{plant-id}/tags",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Bad request, for example if missing required properties`,
                 403: `User does not have sufficient rights to create tag.`,
@@ -557,7 +573,7 @@ export class TagService {
      */
     public static searchTags({
         plantId,
-        filter = 'by-tag-prefix',
+        filter = "by-tag-prefix",
         tagPrefix,
         tagIdsAnyOf,
         externalSystemReference,
@@ -579,122 +595,135 @@ export class TagService {
         perPage = 100,
         page = 1,
     }: {
-        plantId: string,
-        filter?: 'by-tag-ids' | 'by-tag-prefix' | 'by-external-system-reference' | null,
+        plantId: string;
+        filter?: "by-tag-ids" | "by-tag-prefix" | "by-external-system-reference" | null;
         /**
          * The first few characters of the tag, required if filter is empty or `by-tag-prefix`
          */
-        tagPrefix?: string | null,
+        tagPrefix?: string | null;
         /**
          * The tagIds as a comma separated list, required if filter is `by-tag-ids`
          */
-        tagIdsAnyOf?: Array<string>,
+        tagIdsAnyOf?: Array<string>;
         /**
          * Required if filter is `by-external-system-reference`
          */
-        externalSystemReference?: string | null,
+        externalSystemReference?: string | null;
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        includeMaintenanceRecordTypes?: Array<
+            | "failure-report"
+            | "activity-report"
+            | "certification-report"
+            | "technical-information-update-request"
+            | "technical-clarification"
+            | "modification-proposal"
+        >;
         /**
          * Include work orders. If include-work-order-types is not supplied, all supported types are returned
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrders?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Include installed equipment
          */
-        includeInstalledEquipment?: boolean,
+        includeInstalledEquipment?: boolean;
         /**
          * Include possible detection methods, failure modes and failure mechanisms
          */
-        includeCatalogProfileDetails?: boolean,
+        includeCatalogProfileDetails?: boolean;
         /**
          * Include Maintenance Plan items this functional location is part of
          */
-        includeMaintenancePlanItems?: boolean,
+        includeMaintenancePlanItems?: boolean;
         /**
          * Include measuring points for this tag
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
          */
-        includeCharacteristics?: boolean,
+        includeCharacteristics?: boolean;
         /**
          * Include bill of materials (also known as structure list) for tag and installed equipment
          */
-        includeBillOfMaterials?: boolean,
+        includeBillOfMaterials?: boolean;
         /**
          * Include equipment or tag attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include URL references for equipment or tag
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include linear data
          */
-        includeLinearData?: boolean,
+        includeLinearData?: boolean;
         /**
          * Results to return pr page
          */
-        perPage?: number,
+        perPage?: number;
         /**
          * Page to fetch
          */
-        page?: number,
+        page?: number;
     }): CancelablePromise<Array<TagSearch> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tags',
+            method: "GET",
+            url: "/plants/{plant-id}/tags",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             query: {
-                'filter': filter,
-                'tag-prefix': tagPrefix,
-                'tag-ids-any-of': tagIdsAnyOf,
-                'external-system-reference': externalSystemReference,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
-                'per-page': perPage,
-                'page': page,
+                filter: filter,
+                "tag-prefix": tagPrefix,
+                "tag-ids-any-of": tagIdsAnyOf,
+                "external-system-reference": externalSystemReference,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-record-types": includeMaintenanceRecordTypes,
+                "include-work-orders": includeWorkOrders,
+                "include-work-order-types": includeWorkOrderTypes,
+                "include-installed-equipment": includeInstalledEquipment,
+                "include-catalog-profile-details": includeCatalogProfileDetails,
+                "include-maintenance-plan-items": includeMaintenancePlanItems,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-characteristics": includeCharacteristics,
+                "include-bill-of-materials": includeBillOfMaterials,
+                "include-attachments": includeAttachments,
+                "include-url-references": includeUrlReferences,
+                "include-status-details": includeStatusDetails,
+                "include-linear-data": includeLinearData,
+                "per-page": perPage,
+                page: page,
             },
             errors: {
                 400: `Request is missing required parameters`,
             },
         });
     }
-
 }

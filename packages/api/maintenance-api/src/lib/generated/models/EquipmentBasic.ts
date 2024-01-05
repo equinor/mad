@@ -12,4 +12,3 @@ export type EquipmentBasic = {
     warrantyStartDate: string | null;
     warrantyEndDate: string | null;
 };
-

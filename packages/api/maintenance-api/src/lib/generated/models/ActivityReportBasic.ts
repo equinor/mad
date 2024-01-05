@@ -18,4 +18,3 @@ export type ActivityReportBasic = {
      */
     activeStatusIds: string;
 };
-

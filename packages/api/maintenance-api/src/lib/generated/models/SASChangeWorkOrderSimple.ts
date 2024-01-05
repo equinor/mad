@@ -56,4 +56,3 @@ export type SASChangeWorkOrderSimple = {
      */
     cmrIndicator?: boolean;
 };
-

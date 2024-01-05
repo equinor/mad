@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Characteristic } from './Characteristic';
+import type { Characteristic } from "./Characteristic";
 
 export type MaintenanceRecordItemMetadata = {
     metadataId: string;
@@ -19,4 +19,3 @@ export type MaintenanceRecordItemMetadata = {
      */
     characteristics?: Array<Characteristic>;
 };
-

@@ -3,6 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TechnicalClarificationSimple = {
-};
-
+export type TechnicalClarificationSimple = {};

@@ -34,4 +34,3 @@ export type WorkOrderMaterialAdd = {
      */
     materialGroup?: string;
 };
-

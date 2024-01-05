@@ -8,4 +8,3 @@ export type EquipmentListItem = {
     equipmentCategoryId: string;
     catalogProfileId: string;
 };
-

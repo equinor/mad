@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
-import type { MaintenanceRecordTask } from './MaintenanceRecordTask';
-import type { ModificationProposalBasic } from './ModificationProposalBasic';
-import type { Status } from './Status';
+import type { Attachment } from "./Attachment";
+import type { MaintenanceRecordTask } from "./MaintenanceRecordTask";
+import type { ModificationProposalBasic } from "./ModificationProposalBasic";
+import type { Status } from "./Status";
 
-export type ModificationProposal = (ModificationProposalBasic & {
+export type ModificationProposal = ModificationProposalBasic & {
     /**
      * The internal id of the person who created the maintenance record. The id represents the employee id of the person.
      */
@@ -33,5 +33,4 @@ export type ModificationProposal = (ModificationProposalBasic & {
      * All statuses possible with information about activation
      */
     statuses?: Array<Status>;
-});
-
+};

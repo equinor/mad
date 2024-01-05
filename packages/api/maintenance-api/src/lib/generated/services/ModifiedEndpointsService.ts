@@ -2,27 +2,26 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ActivityReport } from '../models/ActivityReport';
-import type { ActivityReportBasic } from '../models/ActivityReportBasic';
-import type { ActivityReportCreate } from '../models/ActivityReportCreate';
-import type { CorrectiveWorkOrder } from '../models/CorrectiveWorkOrder';
-import type { ModificationWorkOrder } from '../models/ModificationWorkOrder';
-import type { PreventiveWorkOrder } from '../models/PreventiveWorkOrder';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { ProjectWorkOrder } from '../models/ProjectWorkOrder';
-import type { SASChangeWorkOrder } from '../models/SASChangeWorkOrder';
-import type { SubseaWorkOrder } from '../models/SubseaWorkOrder';
-import type { TagBasic } from '../models/TagBasic';
-import type { TagCreate } from '../models/TagCreate';
-import type { User } from '../models/User';
-import type { WorkOrderInPlan } from '../models/WorkOrderInPlan';
+import type { ActivityReport } from "../models/ActivityReport";
+import type { ActivityReportBasic } from "../models/ActivityReportBasic";
+import type { ActivityReportCreate } from "../models/ActivityReportCreate";
+import type { CorrectiveWorkOrder } from "../models/CorrectiveWorkOrder";
+import type { ModificationWorkOrder } from "../models/ModificationWorkOrder";
+import type { PreventiveWorkOrder } from "../models/PreventiveWorkOrder";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { ProjectWorkOrder } from "../models/ProjectWorkOrder";
+import type { SASChangeWorkOrder } from "../models/SASChangeWorkOrder";
+import type { SubseaWorkOrder } from "../models/SubseaWorkOrder";
+import type { TagBasic } from "../models/TagBasic";
+import type { TagCreate } from "../models/TagCreate";
+import type { User } from "../models/User";
+import type { WorkOrderInPlan } from "../models/WorkOrderInPlan";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class ModifiedEndpointsService {
-
     /**
      * Work order plan - Get
      * ### Overview
@@ -86,65 +85,72 @@ export class ModifiedEndpointsService {
         /**
          * Planning plant to retrieve work order plan for
          */
-        planningPlantId: string,
+        planningPlantId: string;
         /**
          * Filter to limit the work order plan by
          */
-        filter: 'by-plan-period' | 'by-person-responsible',
+        filter: "by-plan-period" | "by-person-responsible";
         /**
          * Start of plan period (`/plants/{plant-id}?include-baseline-plans=true` can be used as a reference )
          */
-        planPeriodStartDate?: string,
+        planPeriodStartDate?: string;
         /**
          * Duration of plan period
          */
-        planPeriodDuration?: string,
+        planPeriodDuration?: string;
         /**
          * Email address for responsible person
          */
-        personResponsibleEmail?: string,
+        personResponsibleEmail?: string;
         /**
          * Include completed work order operations
          */
-        includeCompletedWorkOrderOperations?: boolean,
+        includeCompletedWorkOrderOperations?: boolean;
         /**
          * Include person responsible information in response
          */
-        includePersonResponsible?: boolean,
+        includePersonResponsible?: boolean;
         /**
          * Limit to specific work order types (any-of). Default includes all types
          */
-        workOrderTypesAnyOf?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        workOrderTypesAnyOf?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
         /**
          * Comma-separated list of work-center-id
          */
-        workCenterIdAnyOf?: string,
+        workCenterIdAnyOf?: string;
         /**
          * Comma-separated list of revision-id
          */
-        revisionIdAnyOf?: string,
+        revisionIdAnyOf?: string;
         /**
          * Comma-separated list of location-id
          */
-        locationIdAnyOf?: string,
+        locationIdAnyOf?: string;
     }): CancelablePromise<Array<WorkOrderInPlan> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-order-plan/{planning-plant-id}',
+            method: "GET",
+            url: "/work-order-plan/{planning-plant-id}",
             path: {
-                'planning-plant-id': planningPlantId,
+                "planning-plant-id": planningPlantId,
             },
             query: {
-                'filter': filter,
-                'plan-period-start-date': planPeriodStartDate,
-                'plan-period-duration': planPeriodDuration,
-                'person-responsible-email': personResponsibleEmail,
-                'include-completed-work-order-operations': includeCompletedWorkOrderOperations,
-                'include-person-responsible': includePersonResponsible,
-                'work-order-types-any-of': workOrderTypesAnyOf,
-                'work-center-id-any-of': workCenterIdAnyOf,
-                'revision-id-any-of': revisionIdAnyOf,
-                'location-id-any-of': locationIdAnyOf,
+                filter: filter,
+                "plan-period-start-date": planPeriodStartDate,
+                "plan-period-duration": planPeriodDuration,
+                "person-responsible-email": personResponsibleEmail,
+                "include-completed-work-order-operations": includeCompletedWorkOrderOperations,
+                "include-person-responsible": includePersonResponsible,
+                "work-order-types-any-of": workOrderTypesAnyOf,
+                "work-center-id-any-of": workCenterIdAnyOf,
+                "revision-id-any-of": revisionIdAnyOf,
+                "location-id-any-of": locationIdAnyOf,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -278,80 +284,80 @@ export class ModifiedEndpointsService {
         includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include Work order service operations
          */
-        includeServiceOperations?: boolean,
+        includeServiceOperations?: boolean;
         /**
          * Include technical feedback required to be completed as part of work order execution.
          */
-        includeTechnicalFeedback?: boolean,
+        includeTechnicalFeedback?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list and technical feedback)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include details for maintenance plan
          */
-        includeMaintenancePlanDetails?: boolean,
+        includeMaintenancePlanDetails?: boolean;
         /**
          * Include Work order attachments (including PRT attachments)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
         /**
          * Include related measuring points from PRT
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean,
+        includeMeasurements?: boolean;
     }): CancelablePromise<PreventiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/preventive-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/preventive-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
-                'include-technical-feedback': includeTechnicalFeedback,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-plan-details': includeMaintenancePlanDetails,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
+                "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
+                "include-technical-feedback": includeTechnicalFeedback,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-maintenance-plan-details": includeMaintenancePlanDetails,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -476,75 +482,75 @@ export class ModifiedEndpointsService {
         includeLastMeasurement = false,
         includeMeasurements = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include Work order service operations
          */
-        includeServiceOperations?: boolean,
+        includeServiceOperations?: boolean;
         /**
          * Include technical feedback required to be completed as part of work order execution.
          */
-        includeTechnicalFeedback?: boolean,
+        includeTechnicalFeedback?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include Work order attachments (including PRT attachments)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
         /**
          * Include related measuring points from PRT
          */
-        includeMeasuringPoints?: boolean,
+        includeMeasuringPoints?: boolean;
         /**
          * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
-        includeLastMeasurement?: boolean,
+        includeLastMeasurement?: boolean;
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean,
+        includeMeasurements?: boolean;
     }): CancelablePromise<CorrectiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/corrective-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/corrective-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
-                'include-technical-feedback': includeTechnicalFeedback,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
+                "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
+                "include-technical-feedback": includeTechnicalFeedback,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`correctiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -618,55 +624,55 @@ export class ModifiedEndpointsService {
         includeTagDetails = false,
         includeRelatedTags = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include Work order service operations
          */
-        includeServiceOperations?: boolean,
+        includeServiceOperations?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include Work order attachments (on header and for operation)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
     }): CancelablePromise<ProjectWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/project-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/project-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
+                "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`projectWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -736,55 +742,55 @@ export class ModifiedEndpointsService {
         includeTagDetails = false,
         includeRelatedTags = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include Work order service operations
          */
-        includeServiceOperations?: boolean,
+        includeServiceOperations?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include Work order attachments (on header and for operation)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
     }): CancelablePromise<ModificationWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/modification-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/modification-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
+                "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`modificationWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -848,50 +854,50 @@ export class ModifiedEndpointsService {
         includeStatusDetails = false,
         includeRelatedTags = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include Work order service operations
          */
-        includeServiceOperations?: boolean,
+        includeServiceOperations?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include Work order attachments (on header and for operation)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include person responsible information in response
          */
-        includePersonResponsible?: boolean,
+        includePersonResponsible?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
     }): CancelablePromise<SubseaWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/subsea-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/subsea-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
-                'include-materials': includeMaterials,
-                'include-attachments': includeAttachments,
-                'include-person-responsible': includePersonResponsible,
-                'include-status-details': includeStatusDetails,
-                'include-related-tags': includeRelatedTags,
+                "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
+                "include-materials": includeMaterials,
+                "include-attachments": includeAttachments,
+                "include-person-responsible": includePersonResponsible,
+                "include-status-details": includeStatusDetails,
+                "include-related-tags": includeRelatedTags,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`subseaWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -929,25 +935,28 @@ export class ModifiedEndpointsService {
         plantId,
         requestBody,
     }: {
-        plantId: string,
+        plantId: string;
         /**
          * Tag to create
          */
-        requestBody: TagCreate,
-    }): CancelablePromise<ProblemDetails | (TagBasic & {
-        /**
-         * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
-         */
-        maintenanceConceptId?: string;
-    })> {
+        requestBody: TagCreate;
+    }): CancelablePromise<
+        | ProblemDetails
+        | (TagBasic & {
+              /**
+               * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
+               */
+              maintenanceConceptId?: string;
+          })
+    > {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/plants/{plant-id}/tags',
+            method: "POST",
+            url: "/plants/{plant-id}/tags",
             path: {
-                'plant-id': plantId,
+                "plant-id": plantId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Bad request, for example if missing required properties`,
                 403: `User does not have sufficient rights to create tag.`,
@@ -1018,55 +1027,55 @@ export class ModifiedEndpointsService {
         includeTagDetails = false,
         includeRelatedTags = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include Work order service operations
          */
-        includeServiceOperations?: boolean,
+        includeServiceOperations?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include Work order attachments (on header and for operation)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
     }): CancelablePromise<SASChangeWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/sas-change-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/sas-change-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
+                "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`sasChangeWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -1128,45 +1137,45 @@ export class ModifiedEndpointsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed information for activities
          */
-        includeActivities?: boolean,
+        includeActivities?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
         /**
          * Include URL references for activity report. See `POST /maintenance-record-relationships/{record-id}/url-references`
          */
-        includeUrlReferences?: boolean,
+        includeUrlReferences?: boolean;
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean,
+        includeMeasurements?: boolean;
     }): CancelablePromise<ActivityReport | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/activity-reports/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/activity-reports/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-status-details': includeStatusDetails,
-                'include-activities': includeActivities,
-                'include-attachments': includeAttachments,
-                'include-created-by-details': includeCreatedByDetails,
-                'include-url-references': includeUrlReferences,
-                'include-measurements': includeMeasurements,
+                "include-status-details": includeStatusDetails,
+                "include-activities": includeActivities,
+                "include-attachments": includeAttachments,
+                "include-created-by-details": includeCreatedByDetails,
+                "include-url-references": includeUrlReferences,
+                "include-measurements": includeMeasurements,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1211,13 +1220,13 @@ export class ModifiedEndpointsService {
         /**
          * Activity report to create
          */
-        requestBody: ActivityReportCreate,
+        requestBody: ActivityReportCreate;
     }): CancelablePromise<ProblemDetails | ActivityReportBasic> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/activity-reports',
+            method: "POST",
+            url: "/maintenance-records/activity-reports",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 403: `User does not have sufficient rights to create a activity report`,
             },
@@ -1245,20 +1254,19 @@ export class ModifiedEndpointsService {
         /**
          * Include information on authorization user has for API
          */
-        includeAuthorizations?: boolean,
+        includeAuthorizations?: boolean;
         /**
          * Include information if user is discipline responsible
          */
-        includeIsDisciplineResponsible?: boolean,
+        includeIsDisciplineResponsible?: boolean;
     }): CancelablePromise<User | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/user',
+            method: "GET",
+            url: "/user",
             query: {
-                'include-authorizations': includeAuthorizations,
-                'include-is-discipline-responsible': includeIsDisciplineResponsible,
+                "include-authorizations": includeAuthorizations,
+                "include-is-discipline-responsible": includeIsDisciplineResponsible,
             },
         });
     }
-
 }

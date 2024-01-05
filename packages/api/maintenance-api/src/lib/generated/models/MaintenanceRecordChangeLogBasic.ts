@@ -19,4 +19,3 @@ export type MaintenanceRecordChangeLogBasic = {
      */
     newValue: string;
 };
-

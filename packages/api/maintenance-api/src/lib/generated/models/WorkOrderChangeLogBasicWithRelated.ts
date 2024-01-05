@@ -3,11 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderChangeLogBasic } from './WorkOrderChangeLogBasic';
+import type { WorkOrderChangeLogBasic } from "./WorkOrderChangeLogBasic";
 
-export type WorkOrderChangeLogBasicWithRelated = (WorkOrderChangeLogBasic & {
+export type WorkOrderChangeLogBasicWithRelated = WorkOrderChangeLogBasic & {
     _links: {
         related?: string;
     };
-});
-
+};

@@ -41,4 +41,3 @@ export type MeasuringPointCreate = {
      */
     qualitativeCodeGroupId?: string;
 };
-

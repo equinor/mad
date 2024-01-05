@@ -8,4 +8,3 @@ export type TaskCode = {
     taskCode: string;
     taskCodeHelpText: string;
 };
-

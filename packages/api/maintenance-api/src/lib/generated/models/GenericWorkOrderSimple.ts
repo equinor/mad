@@ -51,4 +51,3 @@ export type GenericWorkOrderSimple = {
      */
     cmrIndicator?: boolean;
 };
-

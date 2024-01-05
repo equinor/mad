@@ -62,4 +62,3 @@ export type PreventiveWorkOrderSimple = {
      */
     cmrIndicator?: boolean;
 };
-

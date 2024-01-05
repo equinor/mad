@@ -3,14 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { SASChangeWorkOrderSimple } from './SASChangeWorkOrderSimple';
-import type { WorkOrderOperationSimple } from './WorkOrderOperationSimple';
+import type { SASChangeWorkOrderSimple } from "./SASChangeWorkOrderSimple";
+import type { WorkOrderOperationSimple } from "./WorkOrderOperationSimple";
 
-export type SASChangeWorkOrderWithOperationSelf = (SASChangeWorkOrderSimple & {
+export type SASChangeWorkOrderWithOperationSelf = SASChangeWorkOrderSimple & {
     text?: string | null;
     _links: {
         self?: string;
     };
     operations: Array<WorkOrderOperationSimple>;
-});
-
+};

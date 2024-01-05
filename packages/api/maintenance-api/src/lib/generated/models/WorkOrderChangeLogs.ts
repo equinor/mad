@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderChangeLogBasicWithRelated } from './WorkOrderChangeLogBasicWithRelated';
+import type { WorkOrderChangeLogBasicWithRelated } from "./WorkOrderChangeLogBasicWithRelated";
 
 export type WorkOrderChangeLogs = {
     correctiveWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
@@ -13,4 +13,3 @@ export type WorkOrderChangeLogs = {
     projectWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
     subseaWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
 };
-

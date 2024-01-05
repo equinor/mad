@@ -3,12 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceRecordMinimal } from './MaintenanceRecordMinimal';
+import type { MaintenanceRecordMinimal } from "./MaintenanceRecordMinimal";
 
-export type MaintenanceRecordMinimalWithActiveStatusIds = (MaintenanceRecordMinimal & {
+export type MaintenanceRecordMinimalWithActiveStatusIds = MaintenanceRecordMinimal & {
     /**
      * Active statuses for the maintenance record with space as separating character
      */
     activeStatusIds?: string;
-});
-
+};

@@ -2,15 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Class } from '../models/Class';
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { Class } from "../models/Class";
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class MasterDataForCharacteristicsService {
-
     /**
      * Class - Lookup
      * ### Overview
@@ -32,17 +31,17 @@ export class MasterDataForCharacteristicsService {
         classId,
         classType,
     }: {
-        classId: string,
-        classType: '002' | '003' | '015' | '037',
+        classId: string;
+        classType: "002" | "003" | "015" | "037";
     }): CancelablePromise<Class | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/characteristics/{class-id}',
+            method: "GET",
+            url: "/characteristics/{class-id}",
             path: {
-                'class-id': classId,
+                "class-id": classId,
             },
             query: {
-                'class-type': classType,
+                "class-type": classType,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -50,5 +49,4 @@ export class MasterDataForCharacteristicsService {
             },
         });
     }
-
 }

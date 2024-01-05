@@ -7,4 +7,3 @@ export type TagCharacteristicAdd = {
     characteristicId: string;
     valueId: string;
 };
-

@@ -2,19 +2,18 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ModificationProposal } from '../models/ModificationProposal';
-import type { ModificationProposalBasic } from '../models/ModificationProposalBasic';
-import type { ModificationProposalCreate } from '../models/ModificationProposalCreate';
-import type { ModificationProposalJsonUpdate } from '../models/ModificationProposalJsonUpdate';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { StatusUpdateJsonPatch } from '../models/StatusUpdateJsonPatch';
+import type { ModificationProposal } from "../models/ModificationProposal";
+import type { ModificationProposalBasic } from "../models/ModificationProposalBasic";
+import type { ModificationProposalCreate } from "../models/ModificationProposalCreate";
+import type { ModificationProposalJsonUpdate } from "../models/ModificationProposalJsonUpdate";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { StatusUpdateJsonPatch } from "../models/StatusUpdateJsonPatch";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class ModificationProposalsService {
-
     /**
      * Modification Proposal - Lookup
      * ### Overview
@@ -54,35 +53,35 @@ export class ModificationProposalsService {
         includeAttachments = false,
         includeCreatedByDetails = false,
     }: {
-        recordId: string,
+        recordId: string;
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean,
+        includeTasks?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include attachments
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean,
+        includeCreatedByDetails?: boolean;
     }): CancelablePromise<ModificationProposal | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/modification-proposals/{record-id}',
+            method: "GET",
+            url: "/maintenance-records/modification-proposals/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             query: {
-                'include-tasks': includeTasks,
-                'include-status-details': includeStatusDetails,
-                'include-attachments': includeAttachments,
-                'include-created-by-details': includeCreatedByDetails,
+                "include-tasks": includeTasks,
+                "include-status-details": includeStatusDetails,
+                "include-attachments": includeAttachments,
+                "include-created-by-details": includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -107,20 +106,20 @@ export class ModificationProposalsService {
         recordId,
         requestBody,
     }: {
-        recordId: string,
+        recordId: string;
         /**
          * Details on how to update modification proposal
          */
-        requestBody: Array<ModificationProposalJsonUpdate>,
+        requestBody: Array<ModificationProposalJsonUpdate>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/maintenance-records/modification-proposals/{record-id}',
+            method: "PATCH",
+            url: "/maintenance-records/modification-proposals/{record-id}",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 403: `User does not have sufficient rights to update activity report`,
                 404: `The specified resource was not found`,
@@ -162,13 +161,13 @@ export class ModificationProposalsService {
         /**
          * Modification proposal to create
          */
-        requestBody: ModificationProposalCreate,
+        requestBody: ModificationProposalCreate;
     }): CancelablePromise<ProblemDetails | ModificationProposalBasic> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/modification-proposals',
+            method: "POST",
+            url: "/maintenance-records/modification-proposals",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 403: `User does not have sufficient rights to create a modification proposal`,
             },
@@ -219,22 +218,22 @@ export class ModificationProposalsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string,
-        statusId: string,
+        recordId: string;
+        statusId: string;
         /**
          * Modification proposal status to update
          */
-        requestBody: Array<StatusUpdateJsonPatch>,
+        requestBody: Array<StatusUpdateJsonPatch>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/maintenance-records/modification-proposals/{record-id}/statuses/{status-id}',
+            method: "PATCH",
+            url: "/maintenance-records/modification-proposals/{record-id}/statuses/{status-id}",
             path: {
-                'record-id': recordId,
-                'status-id': statusId,
+                "record-id": recordId,
+                "status-id": statusId,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: "application/json-patch+json",
             errors: {
                 403: `User does not have sufficient rights to update activity report`,
                 404: `The specified resource was not found`,
@@ -254,19 +253,19 @@ export class ModificationProposalsService {
         recordId,
         formData,
     }: {
-        recordId: string,
+        recordId: string;
         formData?: {
             files?: Array<Blob>;
-        },
+        };
     }): CancelablePromise<any | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/modification-proposals/{record-id}/attachments',
+            method: "POST",
+            url: "/maintenance-records/modification-proposals/{record-id}/attachments",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             formData: formData,
-            mediaType: 'multipart/form-data',
+            mediaType: "multipart/form-data",
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
@@ -292,17 +291,16 @@ export class ModificationProposalsService {
         recordId,
         attachmentId,
     }: {
-        recordId: string,
-        attachmentId: string,
+        recordId: string;
+        attachmentId: string;
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/modification-proposals/{record-id}/attachments/{attachment-id}',
+            method: "GET",
+            url: "/maintenance-records/modification-proposals/{record-id}/attachments/{attachment-id}",
             path: {
-                'record-id': recordId,
-                'attachment-id': attachmentId,
+                "record-id": recordId,
+                "attachment-id": attachmentId,
             },
         });
     }
-
 }

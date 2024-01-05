@@ -3,14 +3,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
-import type { ServiceOperation } from './ServiceOperation';
-import type { Status } from './Status';
-import type { SubseaWorkOrderBasic } from './SubseaWorkOrderBasic';
-import type { SubseaWorkOrderOperation } from './SubseaWorkOrderOperation';
-import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
+import type { Attachment } from "./Attachment";
+import type { ServiceOperation } from "./ServiceOperation";
+import type { Status } from "./Status";
+import type { SubseaWorkOrderBasic } from "./SubseaWorkOrderBasic";
+import type { SubseaWorkOrderOperation } from "./SubseaWorkOrderOperation";
+import type { TagRelatedToWorkOrder } from "./TagRelatedToWorkOrder";
 
-export type SubseaWorkOrder = (SubseaWorkOrderBasic & {
+export type SubseaWorkOrder = SubseaWorkOrderBasic & {
     /**
      * Value only returned if include-person-responsible=true. The internal id of the person responsible for the processing of the subsea work order. The id represents the employee id of the person.
      */
@@ -33,5 +33,4 @@ export type SubseaWorkOrder = (SubseaWorkOrderBasic & {
      * Related equipment
      */
     tagsRelated?: Array<TagRelatedToWorkOrder>;
-});
-
+};

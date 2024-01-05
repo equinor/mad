@@ -3,13 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
-import type { CertificationReportBasic } from './CertificationReportBasic';
-import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
-import type { Status } from './Status';
-import type { TagBasic } from './TagBasic';
+import type { Attachment } from "./Attachment";
+import type { CertificationReportBasic } from "./CertificationReportBasic";
+import type { MeasuringPointFromTagLookup } from "./MeasuringPointFromTagLookup";
+import type { Status } from "./Status";
+import type { TagBasic } from "./TagBasic";
 
-export type CertificationReport = (CertificationReportBasic & {
+export type CertificationReport = CertificationReportBasic & {
     /**
      * The internal id of the person who created the maintenance record. The id represents the employee id of the person.
      */
@@ -32,5 +32,4 @@ export type CertificationReport = (CertificationReportBasic & {
     attachments?: Array<Attachment>;
     tagDetails?: TagBasic | null;
     measuringPoints?: Array<MeasuringPointFromTagLookup>;
-});
-
+};

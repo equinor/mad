@@ -10,4 +10,3 @@ export type Characteristic = {
     value: string;
     classId: string;
 };
-

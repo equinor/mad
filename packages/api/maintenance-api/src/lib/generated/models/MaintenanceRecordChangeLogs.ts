@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceRecordChangeLogBasicWithRelated } from './MaintenanceRecordChangeLogBasicWithRelated';
+import type { MaintenanceRecordChangeLogBasicWithRelated } from "./MaintenanceRecordChangeLogBasicWithRelated";
 
 export type MaintenanceRecordChangeLogs = {
     modificationProposalsChanged?: Array<MaintenanceRecordChangeLogBasicWithRelated>;
@@ -13,4 +13,3 @@ export type MaintenanceRecordChangeLogs = {
     technicalInformationUpdateRequestsChanged?: Array<MaintenanceRecordChangeLogBasicWithRelated>;
     technicalClarificationsChanged?: Array<MaintenanceRecordChangeLogBasicWithRelated>;
 };
-

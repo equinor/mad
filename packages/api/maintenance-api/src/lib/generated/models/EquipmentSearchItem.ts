@@ -3,18 +3,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CorrectiveWorkOrderSimpleWithRelationship } from './CorrectiveWorkOrderSimpleWithRelationship';
-import type { EquipmentBasicV2 } from './EquipmentBasicV2';
-import type { EquipmentCharacteristic } from './EquipmentCharacteristic';
-import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
-import type { ModificationWorkOrderSimpleWithRelationship } from './ModificationWorkOrderSimpleWithRelationship';
-import type { PreventiveWorkOrderSimpleWithRelationship } from './PreventiveWorkOrderSimpleWithRelationship';
-import type { ProjectWorkOrderSimpleWithRelationship } from './ProjectWorkOrderSimpleWithRelationship';
-import type { SASChangeWorkOrderSimpleWithRelationship } from './SASChangeWorkOrderSimpleWithRelationship';
-import type { SimpleMaintenanceRecordsList } from './SimpleMaintenanceRecordsList';
-import type { SubseaWorkOrderSimpleWithRelationship } from './SubseaWorkOrderSimpleWithRelationship';
+import type { CorrectiveWorkOrderSimpleWithRelationship } from "./CorrectiveWorkOrderSimpleWithRelationship";
+import type { EquipmentBasicV2 } from "./EquipmentBasicV2";
+import type { EquipmentCharacteristic } from "./EquipmentCharacteristic";
+import type { MeasuringPointFromTagLookup } from "./MeasuringPointFromTagLookup";
+import type { ModificationWorkOrderSimpleWithRelationship } from "./ModificationWorkOrderSimpleWithRelationship";
+import type { PreventiveWorkOrderSimpleWithRelationship } from "./PreventiveWorkOrderSimpleWithRelationship";
+import type { ProjectWorkOrderSimpleWithRelationship } from "./ProjectWorkOrderSimpleWithRelationship";
+import type { SASChangeWorkOrderSimpleWithRelationship } from "./SASChangeWorkOrderSimpleWithRelationship";
+import type { SimpleMaintenanceRecordsList } from "./SimpleMaintenanceRecordsList";
+import type { SubseaWorkOrderSimpleWithRelationship } from "./SubseaWorkOrderSimpleWithRelationship";
 
-export type EquipmentSearchItem = (EquipmentBasicV2 & {
+export type EquipmentSearchItem = EquipmentBasicV2 & {
     characteristics?: Array<EquipmentCharacteristic>;
     maintenanceRecords?: SimpleMaintenanceRecordsList;
     measuringPoints?: Array<MeasuringPointFromTagLookup>;
@@ -27,5 +27,4 @@ export type EquipmentSearchItem = (EquipmentBasicV2 & {
         subseaWorkOrders?: Array<SubseaWorkOrderSimpleWithRelationship>;
     };
     subEquipment?: Array<EquipmentBasicV2>;
-});
-
+};

@@ -3,6 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type WorkOrderOperationInPlan = {
-};
-
+export type WorkOrderOperationInPlan = {};

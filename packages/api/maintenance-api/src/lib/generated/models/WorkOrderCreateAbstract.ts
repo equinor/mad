@@ -29,4 +29,3 @@ export type WorkOrderCreateAbstract = {
     locationId?: string;
     text?: string;
 };
-

@@ -42,7 +42,7 @@ export type TechnicalInformationUpdateRequestBasic = {
      * * null - No priority defined
      *
      */
-    priorityId: 'H' | 'N' | null;
+    priorityId: "H" | "N" | null;
     /**
      * Field used to assist in grouping/sorting of technical information update requests. Unstructured field used non-consistently between plants
      */
@@ -57,4 +57,3 @@ export type TechnicalInformationUpdateRequestBasic = {
     activeStatusIds: string;
     createdDateTime: string | null;
 };
-

@@ -17,4 +17,3 @@ export type ObjectLinkageCreate = {
      */
     equipmentId?: string;
 };
-

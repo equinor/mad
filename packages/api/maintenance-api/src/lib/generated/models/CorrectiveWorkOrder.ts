@@ -3,17 +3,17 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
-import type { CorrectiveWorkOrderBasic } from './CorrectiveWorkOrderBasic';
-import type { CorrectiveWorkOrderOperation } from './CorrectiveWorkOrderOperation';
-import type { MaintenanceRecordMinimalWithActiveStatusIds } from './MaintenanceRecordMinimalWithActiveStatusIds';
-import type { Measurement } from './Measurement';
-import type { ServiceOperation } from './ServiceOperation';
-import type { Status } from './Status';
-import type { TagBasic } from './TagBasic';
-import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
+import type { Attachment } from "./Attachment";
+import type { CorrectiveWorkOrderBasic } from "./CorrectiveWorkOrderBasic";
+import type { CorrectiveWorkOrderOperation } from "./CorrectiveWorkOrderOperation";
+import type { MaintenanceRecordMinimalWithActiveStatusIds } from "./MaintenanceRecordMinimalWithActiveStatusIds";
+import type { Measurement } from "./Measurement";
+import type { ServiceOperation } from "./ServiceOperation";
+import type { Status } from "./Status";
+import type { TagBasic } from "./TagBasic";
+import type { TagRelatedToWorkOrder } from "./TagRelatedToWorkOrder";
 
-export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
+export type CorrectiveWorkOrder = CorrectiveWorkOrderBasic & {
     operations?: Array<CorrectiveWorkOrderOperation>;
     serviceOperations?: Array<ServiceOperation>;
     /**
@@ -37,5 +37,4 @@ export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
-});
-
+};

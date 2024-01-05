@@ -2,17 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
-import type { MaintenanceRecordItemMetadataCreate } from '../models/MaintenanceRecordItemMetadataCreate';
-import type { MetadataAddClass } from '../models/MetadataAddClass';
-import type { ProblemDetails } from '../models/ProblemDetails';
+import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
+import type { MaintenanceRecordItemMetadataCreate } from "../models/MaintenanceRecordItemMetadataCreate";
+import type { MetadataAddClass } from "../models/MetadataAddClass";
+import type { ProblemDetails } from "../models/ProblemDetails";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class NewEndpointsService {
-
     /**
      * Activity report - Add additional metadata
      * ### Overview
@@ -31,20 +30,20 @@ export class NewEndpointsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string,
+        recordId: string;
         /**
          * Update to make for metadata
          */
-        requestBody: Array<MaintenanceRecordItemMetadataCreate>,
+        requestBody: Array<MaintenanceRecordItemMetadataCreate>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/activity-reports/{record-id}/additional-metadata',
+            method: "POST",
+            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata",
             path: {
-                'record-id': recordId,
+                "record-id": recordId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 403: `User does not have sufficient rights to update failure report`,
                 404: `The specified resource was not found`,
@@ -78,23 +77,23 @@ export class NewEndpointsService {
         metadataId,
         requestBody,
     }: {
-        recordId: string,
-        metadataId: string,
+        recordId: string;
+        metadataId: string;
         /**
          * Characteristics to add to metadata.
          */
-        requestBody: Array<MetadataAddClass>,
+        requestBody: Array<MetadataAddClass>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics',
+            method: "POST",
+            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
             path: {
-                'record-id': recordId,
-                'metadata-id': metadataId,
+                "record-id": recordId,
+                "metadata-id": metadataId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
@@ -114,22 +113,22 @@ export class NewEndpointsService {
         metadataId,
         requestBody,
     }: {
-        recordId: string,
-        metadataId: string,
+        recordId: string;
+        metadataId: string;
         /**
          * Characteristics to be updated, based on JsonPatch standard
          */
-        requestBody: Array<CharacteristicsUpdate>,
+        requestBody: Array<CharacteristicsUpdate>;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics',
+            method: "PATCH",
+            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
             path: {
-                'record-id': recordId,
-                'metadata-id': metadataId,
+                "record-id": recordId,
+                "metadata-id": metadataId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to characteristics`,
@@ -138,5 +137,4 @@ export class NewEndpointsService {
             },
         });
     }
-
 }

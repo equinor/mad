@@ -10,4 +10,3 @@ export type TagCharacteristic = {
     value: string;
     classId: string;
 };
-

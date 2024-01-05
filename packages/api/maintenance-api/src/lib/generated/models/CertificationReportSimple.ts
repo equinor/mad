@@ -40,4 +40,3 @@ export type CertificationReportSimple = {
     activeStatusIds: string;
     createdDateTime: string | null;
 };
-

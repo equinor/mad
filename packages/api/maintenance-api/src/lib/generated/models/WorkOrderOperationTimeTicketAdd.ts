@@ -31,4 +31,3 @@ export type WorkOrderOperationTimeTicketAdd = {
      */
     text?: string;
 };
-

@@ -51,7 +51,7 @@ export type CorrectiveWorkOrderSimple = {
      * * `D` - Done
      *
      */
-    priorityId: 'L' | 'M' | 'H' | 'U' | 'D';
+    priorityId: "L" | "M" | "H" | "U" | "D";
     costs: number;
     costsCurrency: string;
     /**
@@ -65,4 +65,3 @@ export type CorrectiveWorkOrderSimple = {
      */
     cmrIndicator?: boolean;
 };
-

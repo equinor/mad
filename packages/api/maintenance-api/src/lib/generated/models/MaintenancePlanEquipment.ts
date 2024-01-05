@@ -15,4 +15,3 @@ export type MaintenancePlanEquipment = {
      */
     sortField: string;
 };
-

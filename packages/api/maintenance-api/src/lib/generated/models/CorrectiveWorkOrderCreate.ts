@@ -3,10 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderCreateAbstract } from './WorkOrderCreateAbstract';
-import type { WorkOrderOperationCreate } from './WorkOrderOperationCreate';
+import type { WorkOrderCreateAbstract } from "./WorkOrderCreateAbstract";
+import type { WorkOrderOperationCreate } from "./WorkOrderOperationCreate";
 
-export type CorrectiveWorkOrderCreate = (WorkOrderCreateAbstract & {
+export type CorrectiveWorkOrderCreate = WorkOrderCreateAbstract & {
     title: string;
     workCenterId: string;
     workCenterPlantId: string;
@@ -18,5 +18,4 @@ export type CorrectiveWorkOrderCreate = (WorkOrderCreateAbstract & {
      */
     externalPartnerWorkOrderId?: string;
     operations?: Array<WorkOrderOperationCreate>;
-});
-
+};

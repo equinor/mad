@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Service } from './Service';
+import type { Service } from "./Service";
 
 export type ServiceOperation = {
     /**
@@ -35,4 +35,3 @@ export type ServiceOperation = {
     isEquipmentRental?: boolean;
     services?: Array<Service>;
 };
-

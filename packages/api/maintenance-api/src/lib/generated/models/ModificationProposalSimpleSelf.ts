@@ -3,12 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ModificationProposalSimple } from './ModificationProposalSimple';
+import type { ModificationProposalSimple } from "./ModificationProposalSimple";
 
-export type ModificationProposalSimpleSelf = (ModificationProposalSimple & {
-    maintenanceRecordTypeId: 'modificationProposal';
+export type ModificationProposalSimpleSelf = ModificationProposalSimple & {
+    maintenanceRecordTypeId: "modificationProposal";
     _links: {
         self?: string;
     };
-});
-
+};

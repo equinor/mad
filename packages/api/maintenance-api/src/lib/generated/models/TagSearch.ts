@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Tag } from './Tag';
+import type { Tag } from "./Tag";
 
-export type TagSearch = (Tag & {
+export type TagSearch = Tag & {
     semiModelId?: string;
-});
-
+};

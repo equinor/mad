@@ -3,22 +3,22 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CatalogProfileDetails } from './CatalogProfileDetails';
-import type { CorrectiveWorkOrderSimpleWithRelationship } from './CorrectiveWorkOrderSimpleWithRelationship';
-import type { EquipmentAttachment } from './EquipmentAttachment';
-import type { EquipmentBasicV2 } from './EquipmentBasicV2';
-import type { EquipmentCharacteristic } from './EquipmentCharacteristic';
-import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
-import type { ModificationWorkOrderSimpleWithRelationship } from './ModificationWorkOrderSimpleWithRelationship';
-import type { PreventiveWorkOrderSimpleWithRelationship } from './PreventiveWorkOrderSimpleWithRelationship';
-import type { ProjectWorkOrderSimpleWithRelationship } from './ProjectWorkOrderSimpleWithRelationship';
-import type { SASChangeWorkOrderSimpleWithRelationship } from './SASChangeWorkOrderSimpleWithRelationship';
-import type { SimpleMaintenanceRecordsList } from './SimpleMaintenanceRecordsList';
-import type { Status } from './Status';
-import type { SubseaWorkOrderSimpleWithRelationship } from './SubseaWorkOrderSimpleWithRelationship';
-import type { URLReferenceWithCharacteristics } from './URLReferenceWithCharacteristics';
+import type { CatalogProfileDetails } from "./CatalogProfileDetails";
+import type { CorrectiveWorkOrderSimpleWithRelationship } from "./CorrectiveWorkOrderSimpleWithRelationship";
+import type { EquipmentAttachment } from "./EquipmentAttachment";
+import type { EquipmentBasicV2 } from "./EquipmentBasicV2";
+import type { EquipmentCharacteristic } from "./EquipmentCharacteristic";
+import type { MeasuringPointFromTagLookup } from "./MeasuringPointFromTagLookup";
+import type { ModificationWorkOrderSimpleWithRelationship } from "./ModificationWorkOrderSimpleWithRelationship";
+import type { PreventiveWorkOrderSimpleWithRelationship } from "./PreventiveWorkOrderSimpleWithRelationship";
+import type { ProjectWorkOrderSimpleWithRelationship } from "./ProjectWorkOrderSimpleWithRelationship";
+import type { SASChangeWorkOrderSimpleWithRelationship } from "./SASChangeWorkOrderSimpleWithRelationship";
+import type { SimpleMaintenanceRecordsList } from "./SimpleMaintenanceRecordsList";
+import type { Status } from "./Status";
+import type { SubseaWorkOrderSimpleWithRelationship } from "./SubseaWorkOrderSimpleWithRelationship";
+import type { URLReferenceWithCharacteristics } from "./URLReferenceWithCharacteristics";
 
-export type Equipment = (EquipmentBasicV2 & {
+export type Equipment = EquipmentBasicV2 & {
     /**
      * The category the equipment belongs to. `G` = Tank Customer equipment, `M` = Machines/Equipment, `P` = Production resources/tools, `Q` = Test/measurement equipment, `R` = Process Equipment, `S` = Customer equipment, `T` = IT Equipment, `U` = Subsea Equipment, `W` = Wind Operation Certified Equip, `Y` = Tool Crib
      */
@@ -60,5 +60,4 @@ export type Equipment = (EquipmentBasicV2 & {
     catalogProfileDetails?: CatalogProfileDetails;
     measuringPoints?: Array<MeasuringPointFromTagLookup>;
     subEquipment?: Array<EquipmentBasicV2>;
-});
-
+};

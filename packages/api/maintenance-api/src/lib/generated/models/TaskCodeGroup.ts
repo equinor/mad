@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TaskCode } from './TaskCode';
+import type { TaskCode } from "./TaskCode";
 
 export type TaskCodeGroup = {
     taskCodeGroupId: string;
@@ -13,4 +13,3 @@ export type TaskCodeGroup = {
      */
     taskCodes: Array<TaskCode>;
 };
-

@@ -2,21 +2,20 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { GenericWorkOrderJsonPatch } from '../models/GenericWorkOrderJsonPatch';
-import type { ProblemDetails } from '../models/ProblemDetails';
-import type { SASChangeWorkOrder } from '../models/SASChangeWorkOrder';
-import type { SASChangeWorkOrderBasic } from '../models/SASChangeWorkOrderBasic';
-import type { SASChangeWorkOrderCreate } from '../models/SASChangeWorkOrderCreate';
-import type { SASChangeWorkOrderSimple } from '../models/SASChangeWorkOrderSimple';
-import type { StatusUpdate } from '../models/StatusUpdate';
-import type { WorkOrderOperationCreate } from '../models/WorkOrderOperationCreate';
+import type { GenericWorkOrderJsonPatch } from "../models/GenericWorkOrderJsonPatch";
+import type { ProblemDetails } from "../models/ProblemDetails";
+import type { SASChangeWorkOrder } from "../models/SASChangeWorkOrder";
+import type { SASChangeWorkOrderBasic } from "../models/SASChangeWorkOrderBasic";
+import type { SASChangeWorkOrderCreate } from "../models/SASChangeWorkOrderCreate";
+import type { SASChangeWorkOrderSimple } from "../models/SASChangeWorkOrderSimple";
+import type { StatusUpdate } from "../models/StatusUpdate";
+import type { WorkOrderOperationCreate } from "../models/WorkOrderOperationCreate";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class SasChangeWorkOrdersService {
-
     /**
      * SAS Change Work order - Attachment download
      * Download single attachment for SAS Change Work order
@@ -28,15 +27,15 @@ export class SasChangeWorkOrdersService {
         workOrderId,
         attachmentId,
     }: {
-        workOrderId: string,
-        attachmentId: string,
+        workOrderId: string;
+        attachmentId: string;
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/sas-change-work-orders/{work-order-id}/attachments/{attachment-id}',
+            method: "GET",
+            url: "/work-orders/sas-change-work-orders/{work-order-id}/attachments/{attachment-id}",
             path: {
-                'work-order-id': workOrderId,
-                'attachment-id': attachmentId,
+                "work-order-id": workOrderId,
+                "attachment-id": attachmentId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -107,55 +106,55 @@ export class SasChangeWorkOrdersService {
         includeTagDetails = false,
         includeRelatedTags = false,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Include Work order operations
          */
-        includeOperations?: boolean,
+        includeOperations?: boolean;
         /**
          * Include Work order service operations
          */
-        includeServiceOperations?: boolean,
+        includeServiceOperations?: boolean;
         /**
          * Include materials for Work order operations
          */
-        includeMaterials?: boolean,
+        includeMaterials?: boolean;
         /**
          * Include related maintenance records (from object list)
          */
-        includeMaintenanceRecords?: boolean,
+        includeMaintenanceRecords?: boolean;
         /**
          * Include Work order attachments (on header and for operation)
          */
-        includeAttachments?: boolean,
+        includeAttachments?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean,
+        includeStatusDetails?: boolean;
         /**
          * Include detailed for the main tag of the Work order
          */
-        includeTagDetails?: boolean,
+        includeTagDetails?: boolean;
         /**
          * Include related tags (from object list)
          */
-        includeRelatedTags?: boolean,
+        includeRelatedTags?: boolean;
     }): CancelablePromise<SASChangeWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/sas-change-work-orders/{work-order-id}',
+            method: "GET",
+            url: "/work-orders/sas-change-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
-                'include-materials': includeMaterials,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-attachments': includeAttachments,
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-related-tags': includeRelatedTags,
+                "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
+                "include-materials": includeMaterials,
+                "include-maintenance-records": includeMaintenanceRecords,
+                "include-attachments": includeAttachments,
+                "include-status-details": includeStatusDetails,
+                "include-tag-details": includeTagDetails,
+                "include-related-tags": includeRelatedTags,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`sasChangeWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -215,20 +214,20 @@ export class SasChangeWorkOrdersService {
         workOrderId,
         requestBody,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * The information to be updated
          */
-        requestBody: GenericWorkOrderJsonPatch,
+        requestBody: GenericWorkOrderJsonPatch;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-orders/sas-change-work-orders/{work-order-id}',
+            method: "PATCH",
+            url: "/work-orders/sas-change-work-orders/{work-order-id}",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update work order operation`,
@@ -260,22 +259,22 @@ export class SasChangeWorkOrdersService {
         statusId,
         requestBody,
     }: {
-        workOrderId: string,
-        statusId: string,
+        workOrderId: string;
+        statusId: string;
         /**
          * Work order status to update
          */
-        requestBody: StatusUpdate,
+        requestBody: StatusUpdate;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-orders/sas-change-work-orders/{work-order-id}/statuses/{status-id}',
+            method: "PATCH",
+            url: "/work-orders/sas-change-work-orders/{work-order-id}/statuses/{status-id}",
             path: {
-                'work-order-id': workOrderId,
-                'status-id': statusId,
+                "work-order-id": workOrderId,
+                "status-id": statusId,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 403: `User does not have sufficient rights to update Work order`,
                 404: `The specified resource was not found`,
@@ -355,48 +354,48 @@ export class SasChangeWorkOrdersService {
         /**
          * Filter to limit the SAS Change work order by
          */
-        filter: 'open-by-plant' | 'recent-status-activations' | 'by-cost-wbs' | 'by-cost-network',
+        filter: "open-by-plant" | "recent-status-activations" | "by-cost-wbs" | "by-cost-network";
         /**
          * Status
          */
-        statusId?: string,
+        statusId?: string;
         /**
          * Plant identifier
          */
-        plantId?: string,
+        plantId?: string;
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
-        locationId?: string,
+        locationId?: string;
         /**
          * System id to filter by
          */
-        systemId?: string,
+        systemId?: string;
         /**
          * Define how many days from the current day to include results for. 0 if only include for today
          */
-        maxDaysSinceActivation?: number,
+        maxDaysSinceActivation?: number;
         /**
          * Required parameter if `filter=by-cost-wbs`
          */
-        costWbsId?: string,
+        costWbsId?: string;
         /**
          * Required parameter if `filter=by-cost-network`
          */
-        costNetworkId?: string,
+        costNetworkId?: string;
     }): CancelablePromise<Array<SASChangeWorkOrderSimple> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/sas-change-work-orders',
+            method: "GET",
+            url: "/work-orders/sas-change-work-orders",
             query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'location-id': locationId,
-                'system-id': systemId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'cost-wbs-id': costWbsId,
-                'cost-network-id': costNetworkId,
+                filter: filter,
+                "status-id": statusId,
+                "plant-id": plantId,
+                "location-id": locationId,
+                "system-id": systemId,
+                "max-days-since-activation": maxDaysSinceActivation,
+                "cost-wbs-id": costWbsId,
+                "cost-network-id": costNetworkId,
             },
         });
     }
@@ -429,13 +428,13 @@ export class SasChangeWorkOrdersService {
         /**
          * SAS Change Work order to create
          */
-        requestBody: SASChangeWorkOrderCreate,
+        requestBody: SASChangeWorkOrderCreate;
     }): CancelablePromise<ProblemDetails | SASChangeWorkOrderBasic> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/sas-change-work-orders',
+            method: "POST",
+            url: "/work-orders/sas-change-work-orders",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to create a SAS Change Work order`,
@@ -464,21 +463,21 @@ export class SasChangeWorkOrdersService {
         workOrderId,
         requestBody,
     }: {
-        workOrderId: string,
+        workOrderId: string;
         /**
          * Operations to add to existing Work order
          */
-        requestBody: Array<WorkOrderOperationCreate>,
+        requestBody: Array<WorkOrderOperationCreate>;
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/sas-change-work-orders/{work-order-id}/operations',
+            method: "POST",
+            url: "/work-orders/sas-change-work-orders/{work-order-id}/operations",
             path: {
-                'work-order-id': workOrderId,
+                "work-order-id": workOrderId,
             },
             body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
+            mediaType: "application/json",
+            responseHeader: "Location",
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add operations to work order`,
@@ -487,5 +486,4 @@ export class SasChangeWorkOrdersService {
             },
         });
     }
-
 }

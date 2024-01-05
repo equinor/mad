@@ -60,4 +60,3 @@ export type ProjectWorkOrderSimple = {
      */
     cmrIndicator?: boolean;
 };
-

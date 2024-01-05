@@ -12,4 +12,3 @@ export type MaintenanceRecordItemMetadataCreate = {
     failureMechanismId?: string;
     failureMechanismGroupId?: string;
 };
-

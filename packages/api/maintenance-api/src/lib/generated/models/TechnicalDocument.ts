@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
-import type { URLReference } from './URLReference';
+import type { Attachment } from "./Attachment";
+import type { URLReference } from "./URLReference";
 
 export type TechnicalDocument = {
     documentId?: string;
@@ -31,4 +31,3 @@ export type TechnicalDocument = {
      */
     urlReferences?: Array<URLReference>;
 };
-

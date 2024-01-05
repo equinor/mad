@@ -10,4 +10,3 @@ export type WorkOrderOperationMaterialNeedsCreate = {
     materialId: string;
     quantity: number;
 };
-

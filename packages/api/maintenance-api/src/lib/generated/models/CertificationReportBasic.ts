@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CertificationReportSimple } from './CertificationReportSimple';
+import type { CertificationReportSimple } from "./CertificationReportSimple";
 
-export type CertificationReportBasic = (CertificationReportSimple & {
+export type CertificationReportBasic = CertificationReportSimple & {
     text: string;
-});
-
+};

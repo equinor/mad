@@ -13,4 +13,3 @@ export type Service = {
     costElement?: string;
     scopeOfWork?: string;
 };
-
