@@ -1,7 +1,9 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
+import type { BaselinePlanBasic } from "./BaselinePlanBasic";
 import type { CatalogProfile } from "./CatalogProfile";
 import type { FunctionalSystem } from "./FunctionalSystem";
 import type { Location } from "./Location";
@@ -40,6 +42,10 @@ export type Plant = PlantBasic & {
      * Surface degradations factors for plant
      */
     surfaceDegradationFactors?: Array<SurfaceDegradationFactor>;
+    /**
+     * Baseline plans for plant
+     */
+    baselinePlans?: Array<BaselinePlanBasic>;
     /**
      * An identifier to the revision (shutdown or campaign work)
      */

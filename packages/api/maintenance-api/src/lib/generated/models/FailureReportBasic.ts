@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -21,16 +22,6 @@ export type FailureReportBasic = {
      */
     locationId: string;
     location: string;
-    /**
-     * Deprecated 01.2021 - Use locationId instead
-     * @deprecated
-     */
-    areaId: string;
-    /**
-     * Deprecated 01.2021 - Use location instead
-     * @deprecated
-     */
-    area: string;
     systemId: string;
     failureImpactId: "D" | "S" | "U" | "X" | null;
     failureImpact: string;

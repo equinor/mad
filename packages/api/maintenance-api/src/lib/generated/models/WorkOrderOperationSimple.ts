@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -17,6 +18,11 @@ export type WorkOrderOperationSimple = {
     text: string | null;
     standardTextTemplate: string;
     isCompleted: boolean;
+    isExcludedFromWorkOrderPlan: boolean;
+    /**
+     * Required process conditions for each operation
+     */
+    systemCondition: string;
     /**
      * Duration as defined in ISO8601
      */
@@ -58,7 +64,7 @@ export type WorkOrderOperationSimple = {
     /**
      * Calculation key defines which of the fields plannedWorkHours,capacityCount and plannedDuration are derived based on the values of the two others. If calculation key is `CALC_KEY_MANUAL`, all fields are filled in manually.
      */
-    calculationKey?:
+    calculationKey:
         | "CALC_KEY_MANUAL"
         | "CALC_KEY_DURATION"
         | "CALC_KEY_PLANNED_HOURS"
@@ -66,4 +72,5 @@ export type WorkOrderOperationSimple = {
         | null;
     tagId?: string | null;
     tagPlantId?: string;
+    isServiceOperation?: boolean;
 };

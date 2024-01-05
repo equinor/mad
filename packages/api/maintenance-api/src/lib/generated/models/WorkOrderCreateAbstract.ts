@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -26,10 +27,5 @@ export type WorkOrderCreateAbstract = {
      * Structured location within the plant where the tag is located
      */
     locationId?: string;
-    /**
-     * Deprecated 01.2021 - Use locationId instead
-     * @deprecated
-     */
-    areaId?: string;
     text?: string;
 };

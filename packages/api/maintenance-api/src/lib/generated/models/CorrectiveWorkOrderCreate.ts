@@ -1,9 +1,10 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
 import type { WorkOrderCreateAbstract } from "./WorkOrderCreateAbstract";
-import type { WorkOrderOperationListCreate } from "./WorkOrderOperationListCreate";
+import type { WorkOrderOperationCreate } from "./WorkOrderOperationCreate";
 
 export type CorrectiveWorkOrderCreate = WorkOrderCreateAbstract & {
     title: string;
@@ -16,5 +17,5 @@ export type CorrectiveWorkOrderCreate = WorkOrderCreateAbstract & {
      * Work order id as represented in external partner system
      */
     externalPartnerWorkOrderId?: string;
-    operations?: Array<WorkOrderOperationListCreate>;
+    operations?: Array<WorkOrderOperationCreate>;
 };

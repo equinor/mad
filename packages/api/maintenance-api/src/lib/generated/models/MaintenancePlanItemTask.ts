@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -22,5 +23,6 @@ export type MaintenancePlanItemTask = {
      * Status of the task list `1` = Created, `2` = Released for order, `3` = Released for costing, `4` = Released f(general), `5` = Maintenance Concept (Plant)
      */
     statusId: string;
+    changedDateTime?: string;
     operations: Array<TaskWorkOrderOperation>;
 };

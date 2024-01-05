@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -48,6 +49,9 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release v1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
+     * ### Update release v1.21.0
+     * Added property `area` to tag details.
+     *
      * @returns TechnicalInformationUpdateRequest Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -82,7 +86,7 @@ export class TechnicalInformationUpdateRequestsService {
          */
         includeTagDetails?: boolean;
         /**
-         * Include person responsible information in response. If user does not have significant rights, this will return a `403` response
+         * Include person responsible information in response
          */
         includePersonResponsible?: boolean;
         /**
@@ -124,7 +128,9 @@ export class TechnicalInformationUpdateRequestsService {
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
-     * @returns TechnicalInformationUpdateRequestBasic Success, the technical information update request has been updated
+     * ### Update release v1.21.0
+     * Added support for property `sortField`.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -140,9 +146,7 @@ export class TechnicalInformationUpdateRequestsService {
          * Details on how to update technical information update request
          */
         requestBody: Array<TechnicalInformationUpdateRequestJsonPatch>;
-    }): CancelablePromise<
-        TechnicalInformationUpdateRequestBasic | ProblemDetails
-    > {
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
             method: "PATCH",
             url: "/maintenance-records/technical-information-update-requests/{record-id}",
@@ -152,8 +156,70 @@ export class TechnicalInformationUpdateRequestsService {
             body: requestBody,
             mediaType: "application/json",
             errors: {
-                400: `Bad request. For example that an empty text property was supplied`,
+                400: `Bad request. For example that an empty value for text property was supplied`,
                 403: `User does not have sufficient rights to update the technical information update request`,
+            },
+        });
+    }
+
+    /**
+     * Technical information update request - Update status
+     * Update status of technical information update request.
+     *
+     * The statuses available for the failure report can be found by querying `/maintenance-records/technical-information-update-requests/{record-id}?include-status-details=true`.
+     *
+     *
+     * ### Important information
+     * Possible statuses to set are:
+     *
+     * System Stat:
+     * - NOPR - Notification in process
+     * - NOCO - Notification completed
+     *
+     * User statuses (without status number, all of them can be activated and deactivated):
+     * - CANC Cancelled
+     * - CRTE Created
+     * - DRFT Draft
+     * - RTND Returned - Wait for info.
+     * - PROJ Project related - M5
+     * - MMPC Material Management Pre Coding
+     * - IWOS Included in Work Order Scope
+     *
+     * Deactivation works for all statuses, except system statuses OSTS, NOPR, NOCO
+     *
+     * Equinor's governing document [GL1561 - Work orders and notifications types](https://docmap.equinor.com/Docmap/page/doc/dmDocAll.html?DOCVIEW=FALSE?DOCKEYID=525791) provides some additional information.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateTechnicalInformationUpdateStatus({
+        recordId,
+        statusId,
+        requestBody,
+    }: {
+        /**
+         * The recordId of the technical information update.
+         */
+        recordId: string;
+        statusId: string;
+        /**
+         * Technical information update status to update
+         */
+        requestBody: Array<StatusUpdateJsonPatch>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/maintenance-records/technical-information-update-requests/{record-id}/statuses/{status-id}",
+            path: {
+                "record-id": recordId,
+                "status-id": statusId,
+            },
+            body: requestBody,
+            mediaType: "application/json-patch+json",
+            errors: {
+                403: `User does not have sufficient rights to update technical information update request`,
+                404: `The specified resource was not found`,
+                409: `Technical information update request is locked by other user`,
             },
         });
     }
@@ -308,11 +374,7 @@ export class TechnicalInformationUpdateRequestsService {
         /**
          * Filter to limit the technical information update requests by
          */
-        filter:
-            | "recent-status-activations"
-            | "open-by-plant"
-            | "by-tag"
-            | "by-person-responsible";
+        filter: "recent-status-activations" | "open-by-plant" | "by-tag" | "by-person-responsible";
         /**
          * Include person responsible information in response
          */
@@ -322,7 +384,7 @@ export class TechnicalInformationUpdateRequestsService {
          */
         statusId?: string;
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
         /**
@@ -362,9 +424,7 @@ export class TechnicalInformationUpdateRequestsService {
          * Email of the person responsible in urlencoded format
          */
         personResponsibleEmail?: string;
-    }): CancelablePromise<
-        Array<TechnicalInformationUpdateRequestBasic> | ProblemDetails
-    > {
+    }): CancelablePromise<Array<TechnicalInformationUpdateRequestBasic> | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
             url: "/maintenance-records/technical-information-update-requests",
@@ -408,9 +468,7 @@ export class TechnicalInformationUpdateRequestsService {
          * Technical information update request to create
          */
         requestBody: TechnicalInformationUpdateRequestCreate;
-    }): CancelablePromise<
-        ProblemDetails | TechnicalInformationUpdateRequestBasic
-    > {
+    }): CancelablePromise<ProblemDetails | TechnicalInformationUpdateRequestBasic> {
         return __request(OpenAPI, {
             method: "POST",
             url: "/maintenance-records/technical-information-update-requests",
