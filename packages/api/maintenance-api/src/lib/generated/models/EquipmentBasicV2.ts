@@ -1,10 +1,11 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { EquipmentMinimal } from "./EquipmentMinimal";
+import type { EquipmentMinimal } from './EquipmentMinimal';
 
-export type EquipmentBasicV2 = EquipmentMinimal & {
+export type EquipmentBasicV2 = (EquipmentMinimal & {
     manufacturer?: string;
     modelNumber?: string;
     serialNumber: string;
@@ -41,4 +42,5 @@ export type EquipmentBasicV2 = EquipmentMinimal & {
      * Field used to assist in grouping/sorting
      */
     sortField: string;
-};
+});
+

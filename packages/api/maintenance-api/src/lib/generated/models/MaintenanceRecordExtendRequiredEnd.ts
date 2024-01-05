@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -18,9 +19,10 @@ export type MaintenanceRecordExtendRequiredEnd = {
     /**
      * The activity code defines the reason for the extension. `A121`= Lack of resources, `A122`= Lack of spares, `A123`=Maintenance access and `A124`=Failure development time
      */
-    activityCodeId: "A121" | "A122" | "A123" | "A124";
+    activityCodeId: 'A121' | 'A122' | 'A123' | 'A124';
     /**
      * The group the activityCodeId belongs to. Currently, only a single value is possible
      */
-    activityCodeGroupId: "PM-ACB-1";
+    activityCodeGroupId: 'PM-ACB-1';
 };
+

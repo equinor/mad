@@ -1,14 +1,16 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { RelationshipURLReferencesAdd } from "../models/RelationshipURLReferencesAdd";
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { RelationshipURLReferencesAdd } from '../models/RelationshipURLReferencesAdd';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class MaintenanceRecordRelationshipsService {
+
     /**
      * Maintenance record relationships -  Add URL reference
      * ### Overview
@@ -20,7 +22,7 @@ export class MaintenanceRecordRelationshipsService {
      *
      * URL references are stored in the Document Management System (DMS). If there exist a DMS document for the provided characteristics it will be reused, otherwise a new DMS document will be created.
      *
-     * The following characteristicsId can be used:
+     * The following characteristicId can be used:
      * - `DISCIPLINE_B30`
      * - `ADDITIONAL_REFERENCE_B30`
      * - `DATE_OF_DOCUMENT_B30` (Date of photo / report)
@@ -37,25 +39,25 @@ export class MaintenanceRecordRelationshipsService {
         /**
          * Id of the maintenance record (can be any type)
          */
-        recordId: string;
+        recordId: string,
         /**
          * Define URL reference to add relationship
          */
-        requestBody: RelationshipURLReferencesAdd;
+        requestBody: RelationshipURLReferencesAdd,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-record-relationships/{record-id}/url-references",
+            method: 'POST',
+            url: '/maintenance-record-relationships/{record-id}/url-references',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights for updating maintenance record`,
                 404: `The specified resource was not found`,
-                409: `Maintenance record is locked by other user, characteristicsId used are not suitable for the maintenance record type or type of maintenance record not supported`,
+                409: `Maintenance record is locked by other user, characteristicId used are not suitable for the maintenance record type or type of maintenance record not supported`,
             },
         });
     }
@@ -77,18 +79,18 @@ export class MaintenanceRecordRelationshipsService {
         /**
          * Id of the maintenance record (can be any type)
          */
-        recordId: string;
+        recordId: string,
         /**
          * Id of the URL reference
          */
-        urlReferenceId: string;
+        urlReferenceId: string,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "DELETE",
-            url: "/maintenance-record-relationships/{record-id}/url-references/{url-reference-id}",
+            method: 'DELETE',
+            url: '/maintenance-record-relationships/{record-id}/url-references/{url-reference-id}',
             path: {
-                "record-id": recordId,
-                "url-reference-id": urlReferenceId,
+                'record-id': recordId,
+                'url-reference-id': urlReferenceId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -98,4 +100,5 @@ export class MaintenanceRecordRelationshipsService {
             },
         });
     }
+
 }

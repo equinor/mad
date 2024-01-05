@@ -1,11 +1,12 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderCreateAbstract } from "./WorkOrderCreateAbstract";
-import type { WorkOrderOperationCreate } from "./WorkOrderOperationCreate";
+import type { WorkOrderCreateAbstract } from './WorkOrderCreateAbstract';
+import type { WorkOrderOperationCreate } from './WorkOrderOperationCreate';
 
-export type SASChangeWorkOrderCreate = WorkOrderCreateAbstract & {
+export type SASChangeWorkOrderCreate = (WorkOrderCreateAbstract & {
     tagId: string | null;
     tagPlantId: string;
     title: string;
@@ -20,4 +21,5 @@ export type SASChangeWorkOrderCreate = WorkOrderCreateAbstract & {
     costNetworkId?: string;
     costNetworkOperationId?: string;
     operations: Array<WorkOrderOperationCreate>;
-};
+});
+

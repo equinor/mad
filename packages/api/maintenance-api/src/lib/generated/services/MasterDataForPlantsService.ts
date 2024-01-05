@@ -1,22 +1,25 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Area } from "../models/Area";
-import type { CatalogProfile } from "../models/CatalogProfile";
-import type { Location } from "../models/Location";
-import type { PlannerGroup } from "../models/PlannerGroup";
-import type { PlanningPlantRevision } from "../models/PlanningPlantRevision";
-import type { Plant } from "../models/Plant";
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { SurfaceDegradationFactor } from "../models/SurfaceDegradationFactor";
-import type { User } from "../models/User";
-import type { WorkCenter } from "../models/WorkCenter";
+import type { CatalogProfile } from '../models/CatalogProfile';
+import type { Location } from '../models/Location';
+import type { PlannerGroup } from '../models/PlannerGroup';
+import type { PlanningPlantRevision } from '../models/PlanningPlantRevision';
+import type { Plant } from '../models/Plant';
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { RevisionWorkOrderOperation } from '../models/RevisionWorkOrderOperation';
+import type { SurfaceDegradationFactor } from '../models/SurfaceDegradationFactor';
+import type { TextTemplate } from '../models/TextTemplate';
+import type { User } from '../models/User';
+import type { WorkCenter } from '../models/WorkCenter';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class MasterDataForPlantsService {
+
     /**
      * @deprecated
      * Tag catalog profiles - Get
@@ -38,13 +41,13 @@ export class MasterDataForPlantsService {
     public static getTagCatalogProfile({
         plantId,
     }: {
-        plantId: string;
+        plantId: string,
     }): CancelablePromise<Array<CatalogProfile> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/tag-catalog-profiles",
+            method: 'GET',
+            url: '/plants/{plant-id}/tag-catalog-profiles',
             path: {
-                "plant-id": plantId,
+                'plant-id': plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -70,44 +73,13 @@ export class MasterDataForPlantsService {
     public static getLocations({
         plantId,
     }: {
-        plantId: string;
+        plantId: string,
     }): CancelablePromise<Array<Location> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/locations",
+            method: 'GET',
+            url: '/plants/{plant-id}/locations',
             path: {
-                "plant-id": plantId,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * @deprecated
-     * Areas - Get
-     * ### Overview
-     * Get areas
-     *
-     * ### Important information
-     * Endpoint is deprecated as of 01.2021 in order to align with naming across Equinor system.
-     * Use `/plants/{plant-id}?include-locations=true` instead .
-     *
-     * @returns Area Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static getAreas({
-        plantId,
-    }: {
-        plantId: string;
-    }): CancelablePromise<Array<Area> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/areas",
-            path: {
-                "plant-id": plantId,
+                'plant-id': plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -131,13 +103,13 @@ export class MasterDataForPlantsService {
     public static getPlannerGroups({
         plantId,
     }: {
-        plantId: string;
+        plantId: string,
     }): CancelablePromise<Array<PlannerGroup> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/planner-groups",
+            method: 'GET',
+            url: '/plants/{plant-id}/planner-groups',
             path: {
-                "plant-id": plantId,
+                'plant-id': plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -162,13 +134,13 @@ export class MasterDataForPlantsService {
     public static getWorkCenters({
         plantId,
     }: {
-        plantId: string;
+        plantId: string,
     }): CancelablePromise<Array<WorkCenter> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/work-centers",
+            method: 'GET',
+            url: '/plants/{plant-id}/work-centers',
             path: {
-                "plant-id": plantId,
+                'plant-id': plantId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -198,6 +170,9 @@ export class MasterDataForPlantsService {
      *
      * Updated PlanningPlantRevision-model.
      *
+     * ### Update version 1.20.0
+     * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
+     *
      * @returns Plant Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -213,65 +188,68 @@ export class MasterDataForPlantsService {
         includeSurfaceDegradationFactors = false,
         includeRevisions = false,
         includeSystems = false,
+        includeBaselinePlans = false,
     }: {
-        plantId: string;
+        plantId: string,
         /**
          * Include location for plant
          */
-        includeLocations?: boolean;
+        includeLocations?: boolean,
         /**
          * Include work centers for plant
          */
-        includeWorkCenters?: boolean;
+        includeWorkCenters?: boolean,
         /**
          * Include planner groups for plant
          */
-        includePlannerGroups?: boolean;
+        includePlannerGroups?: boolean,
         /**
          * Include tag catalog profiles in use for plant
          */
-        includeTagCatalogProfiles?: boolean;
+        includeTagCatalogProfiles?: boolean,
         /**
          * Include equipment catalog profiles in use for plant
          */
-        includeEquipmentCatalogProfiles?: boolean;
+        includeEquipmentCatalogProfiles?: boolean,
         /**
          * Use this in combination with `include-tag-catalog-profiles=true` and/or `include-equipment-catalog-profiles=true` to improve performance.
          *
          */
-        includeOnlyDefaultCatalogProfiles?: boolean;
+        includeOnlyDefaultCatalogProfiles?: boolean,
         /**
          * Include surface degradations for plant
          */
-        includeSurfaceDegradationFactors?: boolean;
+        includeSurfaceDegradationFactors?: boolean,
         /**
          * Include revisions for plant
          */
-        includeRevisions?: boolean;
+        includeRevisions?: boolean,
         /**
          * Include systems for plant
          */
-        includeSystems?: boolean;
+        includeSystems?: boolean,
+        /**
+         * Include open baseline plans for the planning plant of this plant
+         */
+        includeBaselinePlans?: boolean,
     }): CancelablePromise<Plant | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}",
+            method: 'GET',
+            url: '/plants/{plant-id}',
             path: {
-                "plant-id": plantId,
+                'plant-id': plantId,
             },
             query: {
-                "include-locations": includeLocations,
-                "include-work-centers": includeWorkCenters,
-                "include-planner-groups": includePlannerGroups,
-                "include-tag-catalog-profiles": includeTagCatalogProfiles,
-                "include-equipment-catalog-profiles":
-                    includeEquipmentCatalogProfiles,
-                "include-only-default-catalog-profiles":
-                    includeOnlyDefaultCatalogProfiles,
-                "include-surface-degradation-factors":
-                    includeSurfaceDegradationFactors,
-                "include-revisions": includeRevisions,
-                "include-systems": includeSystems,
+                'include-locations': includeLocations,
+                'include-work-centers': includeWorkCenters,
+                'include-planner-groups': includePlannerGroups,
+                'include-tag-catalog-profiles': includeTagCatalogProfiles,
+                'include-equipment-catalog-profiles': includeEquipmentCatalogProfiles,
+                'include-only-default-catalog-profiles': includeOnlyDefaultCatalogProfiles,
+                'include-surface-degradation-factors': includeSurfaceDegradationFactors,
+                'include-revisions': includeRevisions,
+                'include-systems': includeSystems,
+                'include-baseline-plans': includeBaselinePlans,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -296,6 +274,9 @@ export class MasterDataForPlantsService {
      * ### Examples
      * `/plants/1310/revisions?filter=by-revision-id&revision-id-any-of=OFP,OFP%202022,&include-work-order-operations=true&include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&api-version=v1`
      *
+     * ### Update release v1.19.0
+     * Added parameter `include-text-item-materials`.
+     *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -306,37 +287,104 @@ export class MasterDataForPlantsService {
         revisionIdAnyOf,
         includeWorkOrderOperations = false,
         includeOnlyWorkOrderOperationsWithMaterials = false,
+        includeTextItemMaterials = false,
     }: {
-        plantId: string;
+        plantId: string,
         /**
          * Filter to limit revisions
          */
-        filter: "by-revision-id";
+        filter: 'by-revision-id',
         /**
          * Comma-separated list of revision-id
          */
-        revisionIdAnyOf?: string;
+        revisionIdAnyOf?: string,
         /**
          * Include the work order operations
          */
-        includeWorkOrderOperations?: boolean;
+        includeWorkOrderOperations?: boolean,
         /**
          * Limit the work order operations to only those which have material
          */
-        includeOnlyWorkOrderOperationsWithMaterials?: boolean;
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
+        /**
+         * Include text item materials
+         */
+        includeTextItemMaterials?: boolean,
     }): CancelablePromise<Array<PlanningPlantRevision> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/revisions",
+            method: 'GET',
+            url: '/plants/{plant-id}/revisions',
             path: {
-                "plant-id": plantId,
+                'plant-id': plantId,
             },
             query: {
-                filter: filter,
-                "revision-id-any-of": revisionIdAnyOf,
-                "include-work-order-operations": includeWorkOrderOperations,
-                "include-only-work-order-operations-with-materials":
-                    includeOnlyWorkOrderOperationsWithMaterials,
+                'filter': filter,
+                'revision-id-any-of': revisionIdAnyOf,
+                'include-work-order-operations': includeWorkOrderOperations,
+                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                'include-text-item-materials': includeTextItemMaterials,
+            },
+            errors: {
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Revisions Work Order Operations - Search
+     * ### Overview
+     * Search revision work order operations on a plant.
+     *
+     * Parameters:
+     * - include-work-order-operation-text (default: false)
+     * - include-only-work-order-operations-with-materials (default: false)
+     *
+     * ### Examples
+     * `/plants/1310/revisions/PS01-23?include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&page=1&per-page=10&api-version=v1`
+     *
+     * @returns RevisionWorkOrderOperation Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static searchRevisionWorkOrderOperations({
+        plantId,
+        revisionId,
+        includeOnlyWorkOrderOperationsWithMaterials = false,
+        includeTextItemMaterials = false,
+        perPage,
+        page,
+    }: {
+        plantId: string,
+        revisionId: string,
+        /**
+         * Limit the work order operations to only those which have material
+         */
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
+        /**
+         * Include text item materials
+         */
+        includeTextItemMaterials?: boolean,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<RevisionWorkOrderOperation> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/plants/{plant-id}/revisions/{revision-id}/work-order-operations',
+            path: {
+                'plant-id': plantId,
+                'revision-id': revisionId,
+            },
+            query: {
+                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                'include-text-item-materials': includeTextItemMaterials,
+                'per-page': perPage,
+                'page': page,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -367,6 +415,9 @@ export class MasterDataForPlantsService {
      * ### Update version 1.17.0
      * Added the  `allowSimplifiedTimeAndProgress` flag to represent is the plant is valid for Non-CATS time recording.
      *
+     * ### Update version 1.20.0
+     * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
+     *
      * @returns Plant Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -381,59 +432,63 @@ export class MasterDataForPlantsService {
         includeTagCatalogProfiles = false,
         includeEquipmentCatalogProfiles = false,
         includeSurfaceDegradationFactors = false,
+        includeBaselinePlans = false,
     }: {
         /**
          * Filter to limit plants by
          */
-        filter: "by-plant" | "by-planning-plant";
+        filter: 'by-plant' | 'by-planning-plant',
         /**
          * Plant identifier
          */
-        plantId?: string;
+        plantId?: string,
         /**
          * Plant used to plan the maintenance work. Usually same as `plantId`, but there are some cases were one `planningPlantId` is used across multiple `plantId`.
          */
-        planningPlantId?: string;
+        planningPlantId?: string,
         /**
          * Include location for plant
          */
-        includeLocations?: boolean;
+        includeLocations?: boolean,
         /**
          * Include work centers for plant
          */
-        includeWorkCenters?: boolean;
+        includeWorkCenters?: boolean,
         /**
          * Include planner groups for plant
          */
-        includePlannerGroups?: boolean;
+        includePlannerGroups?: boolean,
         /**
          * Include tag catalog profiles in use for plant
          */
-        includeTagCatalogProfiles?: boolean;
+        includeTagCatalogProfiles?: boolean,
         /**
          * Include equipment catalog profiles in use for plant
          */
-        includeEquipmentCatalogProfiles?: boolean;
+        includeEquipmentCatalogProfiles?: boolean,
         /**
          * Include surface degradations for plant
          */
-        includeSurfaceDegradationFactors?: boolean;
+        includeSurfaceDegradationFactors?: boolean,
+        /**
+         * Include open baseline plans for the planning plant of this plant
+         */
+        includeBaselinePlans?: boolean,
     }): CancelablePromise<Array<Plant> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants",
+            method: 'GET',
+            url: '/plants',
             query: {
-                filter: filter,
-                "plant-id": plantId,
-                "planning-plant-id": planningPlantId,
-                "include-locations": includeLocations,
-                "include-work-centers": includeWorkCenters,
-                "include-planner-groups": includePlannerGroups,
-                "include-tag-catalog-profiles": includeTagCatalogProfiles,
-                "include-equipment-catalog-profiles":
-                    includeEquipmentCatalogProfiles,
-                "include-surface-degradation-factors":
-                    includeSurfaceDegradationFactors,
+                'filter': filter,
+                'plant-id': plantId,
+                'planning-plant-id': planningPlantId,
+                'include-locations': includeLocations,
+                'include-work-centers': includeWorkCenters,
+                'include-planner-groups': includePlannerGroups,
+                'include-tag-catalog-profiles': includeTagCatalogProfiles,
+                'include-equipment-catalog-profiles': includeEquipmentCatalogProfiles,
+                'include-surface-degradation-factors': includeSurfaceDegradationFactors,
+                'include-baseline-plans': includeBaselinePlans,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -454,13 +509,13 @@ export class MasterDataForPlantsService {
     public static getSurfaceDegradationFactors({
         plantId,
     }: {
-        plantId: string;
+        plantId: string,
     }): CancelablePromise<Array<SurfaceDegradationFactor> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/plants/{plant-id}/surface-degradation-factors",
+            method: 'GET',
+            url: '/plants/{plant-id}/surface-degradation-factors',
             path: {
-                "plant-id": plantId,
+                'plant-id': plantId,
             },
         });
     }
@@ -472,6 +527,8 @@ export class MasterDataForPlantsService {
      *
      * If query parameter `include-authorization` is true, the request will check if the user has the necessary basic accesses required for the API. Consumer applications could use the response to display general instructions for applying to access if `authorization.hasAccessToAPI` is false.
      *
+     * ### Update  release 1.26.0
+     * Add query parameter `include-is-discipline-responsible` with default value false. Add parameter `isDisciplineResponsible` to response.
      *
      * @returns User Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -479,18 +536,57 @@ export class MasterDataForPlantsService {
      */
     public static getUser({
         includeAuthorizations = true,
+        includeIsDisciplineResponsible = false,
     }: {
         /**
          * Include information on authorization user has for API
          */
-        includeAuthorizations?: boolean;
+        includeAuthorizations?: boolean,
+        /**
+         * Include information if user is discipline responsible
+         */
+        includeIsDisciplineResponsible?: boolean,
     }): CancelablePromise<User | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/user",
+            method: 'GET',
+            url: '/user',
             query: {
-                "include-authorizations": includeAuthorizations,
+                'include-authorizations': includeAuthorizations,
+                'include-is-discipline-responsible': includeIsDisciplineResponsible,
             },
         });
     }
+
+    /**
+     * Text templates - Search
+     * ### Overview
+     * Get one or more text templates to be used in maintenance records, work orders or maintenance program.
+     *
+     * There is an allowlist for which templates are available through this endpoint and it includes:
+     * - Failure report templates: Pattern `<plant>-M2-<X>` such as `1100-M2` and `1100-M2-X`
+     * - Failure report task templates: `M2_TASK_EXTR`, `M2_TASK_TICO` and `M2_TASK_TICO_ENG`
+     *
+     * The text of the template follows the advanced formatting as described in [Resource text](#section/Modelling-of-resources/Resource-text).
+     *
+     * @returns TextTemplate Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static searchTextTemplates({
+        templateNameAnyOf,
+    }: {
+        /**
+         * Comma-separated list of text templates to return
+         */
+        templateNameAnyOf?: string,
+    }): CancelablePromise<Array<TextTemplate> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/text-templates',
+            query: {
+                'template-name-any-of': templateNameAnyOf,
+            },
+        });
+    }
+
 }

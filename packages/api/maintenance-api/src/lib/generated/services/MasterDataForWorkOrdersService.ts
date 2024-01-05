@@ -1,15 +1,17 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { StandardTextTemplate } from "../models/StandardTextTemplate";
-import type { TechnicalFeedbackStatus } from "../models/TechnicalFeedbackStatus";
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { StandardTextTemplate } from '../models/StandardTextTemplate';
+import type { TechnicalFeedbackStatus } from '../models/TechnicalFeedbackStatus';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class MasterDataForWorkOrdersService {
+
     /**
      * Work orders - Get standard text templates
      * ### Overview
@@ -43,18 +45,18 @@ export class MasterDataForWorkOrdersService {
         /**
          * Filter to limit the failure reports by
          */
-        filter: "by-plant" | "all";
+        filter: 'by-plant' | 'all',
         /**
-         * Plant
+         * Plant identifier
          */
-        plantId?: string;
+        plantId?: string,
     }): CancelablePromise<Array<StandardTextTemplate> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/work-orders/standard-text-templates",
+            method: 'GET',
+            url: '/work-orders/standard-text-templates',
             query: {
-                filter: filter,
-                "plant-id": plantId,
+                'filter': filter,
+                'plant-id': plantId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -66,18 +68,21 @@ export class MasterDataForWorkOrdersService {
     /**
      * Technical feedback - Master data
      * ### Overview
-     * Get a list of all statuses and reasons which can be used in technical feedback.
+     * Get a list of all statuses and reasons which can be used in updating technical feedback.
+     *
+     * ### Related endpoint
+     *
+     * `POST` [/work-order-operations/{operation-id}/technical-feedback/{technical-feedback-id}](#operation/UpdateTechnicalFeedback)
      *
      * @returns TechnicalFeedbackStatus Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static getTechnicalFeedbackMasterData(): CancelablePromise<
-        Array<TechnicalFeedbackStatus> | ProblemDetails
-    > {
+    public static getTechnicalFeedbackMasterData(): CancelablePromise<Array<TechnicalFeedbackStatus> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/work-orders/technical-feedback-master-data",
+            method: 'GET',
+            url: '/work-orders/technical-feedback-master-data',
         });
     }
+
 }

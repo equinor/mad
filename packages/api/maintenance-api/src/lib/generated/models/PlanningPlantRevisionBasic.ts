@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -23,3 +24,4 @@ export type PlanningPlantRevisionBasic = {
     revisionEndDate?: string | null;
     isCompleted?: boolean;
 };
+

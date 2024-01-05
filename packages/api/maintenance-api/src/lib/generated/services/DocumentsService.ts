@@ -1,15 +1,17 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { RelationshipToDocument } from "../models/RelationshipToDocument";
-import type { RelationshipToDocumentsAdd } from "../models/RelationshipToDocumentsAdd";
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { RelationshipToDocument } from '../models/RelationshipToDocument';
+import type { RelationshipToDocumentsAdd } from '../models/RelationshipToDocumentsAdd';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class DocumentsService {
+
     /**
      * Document relationships - Get relationships
      * ### Overview
@@ -31,15 +33,15 @@ export class DocumentsService {
         /**
          * Type of business object to add relationship to documents for
          */
-        relationshipType: "tags";
-        sourceId: string;
+        relationshipType: 'tags',
+        sourceId: string,
     }): CancelablePromise<Array<RelationshipToDocument> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/document-relationships/{relationship-type}/{source-id}",
+            method: 'GET',
+            url: '/document-relationships/{relationship-type}/{source-id}',
             path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
+                'relationship-type': relationshipType,
+                'source-id': sourceId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -79,23 +81,23 @@ export class DocumentsService {
         /**
          * Type of business object to add relationship to documents for
          */
-        relationshipType: "tags";
-        sourceId: string;
+        relationshipType: 'tags',
+        sourceId: string,
         /**
          * Documents to add a relationship to from the `sourceId`
          */
-        requestBody: Array<RelationshipToDocumentsAdd>;
+        requestBody: Array<RelationshipToDocumentsAdd>,
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/document-relationships/{relationship-type}/{source-id}",
+            method: 'POST',
+            url: '/document-relationships/{relationship-type}/{source-id}',
             path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
+                'relationship-type': relationshipType,
+                'source-id': sourceId,
             },
             body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update document`,
@@ -137,23 +139,23 @@ export class DocumentsService {
         /**
          * Type of business object to replace relationships to documents for
          */
-        relationshipType: "tags";
-        sourceId: string;
+        relationshipType: 'tags',
+        sourceId: string,
         /**
          * Documents to replace a relationship to from the `sourceId`
          */
-        requestBody: Array<RelationshipToDocumentsAdd>;
+        requestBody: Array<RelationshipToDocumentsAdd>,
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: "PUT",
-            url: "/document-relationships/{relationship-type}/{source-id}",
+            method: 'PUT',
+            url: '/document-relationships/{relationship-type}/{source-id}',
             path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
+                'relationship-type': relationshipType,
+                'source-id': sourceId,
             },
             body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update document`,
@@ -191,22 +193,22 @@ export class DocumentsService {
         /**
          * Type of business object to remove relationship to documents for
          */
-        relationshipType: "tags";
-        sourceId: string;
+        relationshipType: 'tags',
+        sourceId: string,
         /**
          * Documents to remove a relationship to from the `sourceId`
          */
-        requestBody: Array<RelationshipToDocumentsAdd>;
+        requestBody: Array<RelationshipToDocumentsAdd>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "DELETE",
-            url: "/document-relationships/{relationship-type}/{source-id}",
+            method: 'DELETE',
+            url: '/document-relationships/{relationship-type}/{source-id}',
             path: {
-                "relationship-type": relationshipType,
-                "source-id": sourceId,
+                'relationship-type': relationshipType,
+                'source-id': sourceId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update document`,
@@ -215,4 +217,5 @@ export class DocumentsService {
             },
         });
     }
+
 }

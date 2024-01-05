@@ -1,10 +1,11 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { URLReference } from "./URLReference";
+import type { URLReference } from './URLReference';
 
-export type URLReferenceWithCharacteristics = URLReference & {
+export type URLReferenceWithCharacteristics = (URLReference & {
     /**
      * Characteristics are
      */
@@ -15,4 +16,5 @@ export type URLReferenceWithCharacteristics = URLReference & {
         value?: string;
         classId?: string;
     }>;
-};
+});
+

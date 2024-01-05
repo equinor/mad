@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -16,5 +17,5 @@ export type ActivityReportBasic = {
      * Active statuses for the Failure report with space as separating character
      */
     activeStatusIds: string;
-    createdDateTime: string | null;
 };
+

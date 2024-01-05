@@ -1,18 +1,19 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from "./Attachment";
-import type { FailureReportBasic } from "./FailureReportBasic";
-import type { MaintenanceRecordActivity } from "./MaintenanceRecordActivity";
-import type { MaintenanceRecordItemMetadata } from "./MaintenanceRecordItemMetadata";
-import type { MaintenanceRecordTask } from "./MaintenanceRecordTask";
-import type { Measurement } from "./Measurement";
-import type { Status } from "./Status";
-import type { TagBasic } from "./TagBasic";
-import type { URLReference } from "./URLReference";
+import type { Attachment } from './Attachment';
+import type { FailureReportBasic } from './FailureReportBasic';
+import type { MaintenanceRecordActivity } from './MaintenanceRecordActivity';
+import type { MaintenanceRecordItemMetadata } from './MaintenanceRecordItemMetadata';
+import type { MaintenanceRecordTask } from './MaintenanceRecordTask';
+import type { Measurement } from './Measurement';
+import type { Status } from './Status';
+import type { TagBasic } from './TagBasic';
+import type { URLReference } from './URLReference';
 
-export type FailureReport = FailureReportBasic & {
+export type FailureReport = (FailureReportBasic & {
     /**
      * The internal id of the person who created the maintenance record. The id represents the employee id of the person.
      */
@@ -54,4 +55,5 @@ export type FailureReport = FailureReportBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
-};
+});
+

@@ -1,18 +1,21 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from "./Attachment";
-import type { CorrectiveWorkOrderBasic } from "./CorrectiveWorkOrderBasic";
-import type { CorrectiveWorkOrderOperation } from "./CorrectiveWorkOrderOperation";
-import type { MaintenanceRecordMinimal } from "./MaintenanceRecordMinimal";
-import type { Measurement } from "./Measurement";
-import type { Status } from "./Status";
-import type { TagBasic } from "./TagBasic";
-import type { TagRelatedToWorkOrder } from "./TagRelatedToWorkOrder";
+import type { Attachment } from './Attachment';
+import type { CorrectiveWorkOrderBasic } from './CorrectiveWorkOrderBasic';
+import type { CorrectiveWorkOrderOperation } from './CorrectiveWorkOrderOperation';
+import type { MaintenanceRecordMinimalWithActiveStatusIds } from './MaintenanceRecordMinimalWithActiveStatusIds';
+import type { Measurement } from './Measurement';
+import type { ServiceOperation } from './ServiceOperation';
+import type { Status } from './Status';
+import type { TagBasic } from './TagBasic';
+import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
 
-export type CorrectiveWorkOrder = CorrectiveWorkOrderBasic & {
+export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
     operations?: Array<CorrectiveWorkOrderOperation>;
+    serviceOperations?: Array<ServiceOperation>;
     /**
      * All statuses possible with information about activation
      */
@@ -24,7 +27,7 @@ export type CorrectiveWorkOrder = CorrectiveWorkOrderBasic & {
     /**
      * Related tags
      */
-    maintenanceRecords?: Array<MaintenanceRecordMinimal>;
+    maintenanceRecords?: Array<MaintenanceRecordMinimalWithActiveStatusIds>;
     tagDetails?: TagBasic;
     /**
      * Attachments to Work order header
@@ -34,4 +37,5 @@ export type CorrectiveWorkOrder = CorrectiveWorkOrderBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
-};
+});
+
