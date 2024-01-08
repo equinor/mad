@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -17,7 +18,7 @@ export class ModificationProposalsService {
      * Modification Proposal - Lookup
      * ### Overview
      * Modification proposal initiates the processing of a modification, replacement or maintenance project.
-     * In Equinor for upstream offshore, a modification proposal initiates the business processes 'OM103.01 - Initiate projects on plants in operation' or 'OM103.70.01 - Propose simple modifications in safety and automatiion systems'.
+     * In Equinor for upstream offshore, a modification proposal initiates the business processes 'OM103.01 - Initiate projects on plants in operation' or 'OM103.70.01 - Propose simple modifications in safety and automation systems'.
      * This request looks up a single Modification proposal.
      *
      * ### Update release v1.5.0
@@ -37,6 +38,9 @@ export class ModificationProposalsService {
      *
      * ### Update release v1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * ### Update release v1.24.0
+     * `attachments` now include the property `documentCreatedDate`
      *
      * @returns ModificationProposal Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -130,7 +134,7 @@ export class ModificationProposalsService {
      * Create a new modification proposal maintenance record.
      *
      * Modification proposal initiates the processing of a modification, replacement or maintenance project.
-     * In Equinor for upstream offshore, a modification proposal initiates the business processes 'OM103.01 - Initiate projects on plants in operation' or 'OM103.70.01 - Propose simple modifications in safety and automatiion systems'.
+     * In Equinor for upstream offshore, a modification proposal initiates the business processes 'OM103.01 - Initiate projects on plants in operation' or 'OM103.70.01 - Propose simple modifications in safety and automation systems'.
      *
      * ### Important information
      * The following attributes rely on master data:
@@ -143,6 +147,9 @@ export class ModificationProposalsService {
      *
      * ### Update release v1.9.0
      * Renamed property plannerGroupPlantId to planningPlantId.
+     *
+     * ### Update release v1.21.0
+     * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ModificationProposalBasic Created

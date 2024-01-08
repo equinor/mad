@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -15,4 +16,8 @@ export type User = {
      */
     isUserTypeSupported: boolean;
     authorization?: UserAuthorizations;
+    /**
+     * Is the user a discipline responsible user.
+     */
+    isDisciplineResponsible?: boolean;
 };

@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -58,4 +59,5 @@ export type Equipment = EquipmentBasicV2 & {
     };
     catalogProfileDetails?: CatalogProfileDetails;
     measuringPoints?: Array<MeasuringPointFromTagLookup>;
+    subEquipment?: Array<EquipmentBasicV2>;
 };

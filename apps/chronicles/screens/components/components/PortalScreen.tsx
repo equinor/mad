@@ -88,7 +88,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     orangeContainer: {
         borderRadius: theme.geometry.border.elementBorderRadius,
         borderWidth: theme.geometry.border.focusedBorderWidth,
-        borderColor: theme.colors.interactive.warning,
+        borderColor: theme.colors.feedback.warning,
         paddingHorizontal: theme.spacing.element.paddingHorizontal,
         paddingVertical: theme.spacing.element.paddingVertical,
         borderStyle: "dashed",
@@ -96,7 +96,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     greenContainer: {
         borderRadius: theme.geometry.border.elementBorderRadius,
         borderWidth: theme.geometry.border.focusedBorderWidth,
-        borderColor: theme.colors.interactive.success,
+        borderColor: theme.colors.feedback.success,
         paddingHorizontal: theme.spacing.element.paddingHorizontal,
         paddingVertical: theme.spacing.element.paddingVertical,
         borderStyle: "dashed",

@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -45,7 +46,7 @@ export class MasterDataForWorkOrdersService {
          */
         filter: "by-plant" | "all";
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
     }): CancelablePromise<Array<StandardTextTemplate> | ProblemDetails> {
@@ -66,7 +67,11 @@ export class MasterDataForWorkOrdersService {
     /**
      * Technical feedback - Master data
      * ### Overview
-     * Get a list of all statuses and reasons which can be used in technical feedback.
+     * Get a list of all statuses and reasons which can be used in updating technical feedback.
+     *
+     * ### Related endpoint
+     *
+     * `POST` [/work-order-operations/{operation-id}/technical-feedback/{technical-feedback-id}](#operation/UpdateTechnicalFeedback)
      *
      * @returns TechnicalFeedbackStatus Success
      * @returns ProblemDetails Response for other HTTP status codes

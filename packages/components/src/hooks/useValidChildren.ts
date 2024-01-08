@@ -9,6 +9,21 @@ const getValidIndexes = (children: React.ReactNode) => {
     );
 };
 
+const getValidChildren = (children: React.ReactNode) => {
+    const validChildrenArray: React.ReactNode[] = [];
+    Children.forEach(children, child => isValidElement(child) && validChildrenArray.push(child));
+    return validChildrenArray;
+};
+
+/**
+ * Calculates and returns the valid children of a react node children object.
+ * @param children Children to calculate validity for.
+ * @returns An array of valid children.
+ */
+export const useValidChildren = (children: React.ReactNode) => {
+    return useMemo(() => getValidChildren(children), [children]);
+};
+
 /**
  * Calculates whether or not the provided children are valid react elements.
  * @param children Children to calculate validity for.

@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -100,6 +101,9 @@ export class MaintenancePlansService {
      * ### Update release v1.14.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release v1.20.0
+     * Added the field `changedDateTime` on maintenanceItem and on taskList. The value of the field on the task list level represents the latest date at which the taskList or any of its operations has been changed, added, or deleted.
      *
      * @returns MaintenancePlanItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -459,9 +463,7 @@ export class MaintenancePlansService {
          * The id of the task within the maintenance plant item
          */
         taskId: string;
-    }): CancelablePromise<
-        Array<MaintenancePlanForSearchByTask> | ProblemDetails
-    > {
+    }): CancelablePromise<Array<MaintenancePlanForSearchByTask> | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
             url: "/maintenance-plans",

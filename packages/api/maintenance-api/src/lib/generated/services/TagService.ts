@@ -1,6 +1,8 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
 import type { ProblemDetails } from "../models/ProblemDetails";
 import type { Tag } from "../models/Tag";
 import type { TagAddClass } from "../models/TagAddClass";
@@ -8,6 +10,8 @@ import type { TagBasic } from "../models/TagBasic";
 import type { TagCreate } from "../models/TagCreate";
 import type { TagHierachyItem } from "../models/TagHierachyItem";
 import type { TagHierachyItemDeprecated } from "../models/TagHierachyItemDeprecated";
+import type { TagJsonPatch } from "../models/TagJsonPatch";
+import type { TagSearch } from "../models/TagSearch";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
@@ -18,9 +22,6 @@ export class TagService {
      * Tag - Lookup
      * ### Overview
      * Lookup a single tag with related information
-     *
-     * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
      *
      * ### Update release v0.9.0
      * Added `include-measuring-points` and `include-last-measurement` query parameters.
@@ -69,6 +70,14 @@ export class TagService {
      *
      * Added property `workCenterId`
      *
+     * ### Update release v1.21.0
+     * Added property `area`.
+     *
+     * ### Update release v1.24.0
+     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
+     *
+     * Added property `cmrIndicator` for WorkOrders
+     *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -95,7 +104,7 @@ export class TagService {
         plantId: string;
         tagId: string;
         /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
         includeMaintenanceRecords?: boolean;
         /**
@@ -110,7 +119,7 @@ export class TagService {
             | "modification-proposal"
         >;
         /**
-         * Include work orders. If include-work-order-types is not supplied, all support types are returned
+         * Include work orders. If include-work-order-types is not supplied, all supported types are returned
          */
         includeWorkOrders?: boolean;
         /**
@@ -141,7 +150,7 @@ export class TagService {
          */
         includeMeasuringPoints?: boolean;
         /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
         includeLastMeasurement?: boolean;
         /**
@@ -178,8 +187,7 @@ export class TagService {
             },
             query: {
                 "include-maintenance-records": includeMaintenanceRecords,
-                "include-maintenance-record-types":
-                    includeMaintenanceRecordTypes,
+                "include-maintenance-record-types": includeMaintenanceRecordTypes,
                 "include-work-orders": includeWorkOrders,
                 "include-work-order-types": includeWorkOrderTypes,
                 "include-installed-equipment": includeInstalledEquipment,
@@ -201,6 +209,64 @@ export class TagService {
     }
 
     /**
+     * Tag - Update
+     * ### Overview
+     * Update a single tag
+     *
+     * ### Important information
+     * There is a plant-specific configuration called "data origin" which determines which properties should be inherited from the parent tag. Please be aware that updating of the field `parentTagId` might lead to overwriting of those properties to the default values of the new tag.
+     *
+     * If a tag is a parent tag, changing of an already existing property will be cascaded to all its children. This is valid if according to the "data origin" this property should be inherited.
+     *
+     * The endpoint supports most status activation such as:
+     *
+     * - INAC - Object deactivated
+     * - INSV - In service
+     * - ENGN - Engineering
+     *
+     * Deactivation is supported where there is no interdependency between statuses. For status with a statusOrder value, deactivation is not necessary (nor supported) as the business logic will handle the switch once another status is activated.
+     *
+     * ### Update release 1.19.0
+     * Added support for activation and deactivation of tag statuses. The property `activeStatusIds` should provide all the the old and new statuses a tag should have, and any statuses not provided will be deactivated.
+     *
+     * ### Update release v1.21.0
+     *
+     * Added support for property `area`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateTag({
+        plantId,
+        tagId,
+        requestBody,
+    }: {
+        plantId: string;
+        tagId: string;
+        /**
+         * The information to be updated
+         */
+        requestBody: Array<TagJsonPatch>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/plants/{plant-id}/tags/{tag-id}",
+            path: {
+                "plant-id": plantId,
+                "tag-id": tagId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update tag`,
+                404: `The specified resource was not found`,
+                409: `Tag is locked by other user`,
+            },
+        });
+    }
+
+    /**
      * Tag - Add characteristics
      * Add new characteristics to an existing tag.
      *
@@ -210,7 +276,8 @@ export class TagService {
      *
      * There is currently no endpoint for looking up existing classes and their characteristics, but this may be added in the future.
      *
-     * Note that if a given characteristic has already been added to this tag, repeated adding will result into overwriting of the characteristic value.
+     * Note that if a given characteristic has already been added to this tag, repeated adding will result in overwriting of the characteristic value.
+     * If you want to update a characteristic the `PATCH` endpoint can be used.
      *
      * ### Important information
      * Use `/plants/{plant-id}/tags/{tag-id}?include-characteristics=true&api-version=v1` to view characteristics with value after using this endpoint.
@@ -244,6 +311,43 @@ export class TagService {
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
+            },
+        });
+    }
+
+    /**
+     * Tag - Update characteristic
+     * Update existing values of characteristics on a tag. If the characteristics does not exist, a `404 - Not Found` is returned.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateTagCharacteristics({
+        plantId,
+        tagId,
+        requestBody,
+    }: {
+        plantId: string;
+        tagId: string;
+        /**
+         * Characteristics to be updated, based on JsonPatch standard
+         */
+        requestBody: Array<CharacteristicsUpdate>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/plants/{plant-id}/tags/{tag-id}/characteristics",
+            path: {
+                "plant-id": plantId,
+                "tag-id": tagId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to characteristics`,
+                404: `The specified resource was not found`,
+                409: `Characteristics is locked by other user`,
             },
         });
     }
@@ -359,9 +463,9 @@ export class TagService {
     /**
      * Tag - Create
      * ### Overview
-     * Create tag with option to create linear data. Linear data can be creted only for the tagCategoryId `U` (Pipeline).
+     * Create tag with option to create linear data. Linear data can be created only for the tagCategoryId `U` (Pipeline).
      *
-     * Locations and systems available for this plant can be found by querying `/plants/{plant-id}?include-systems=true&nclude-locations=true&api-version=v1`
+     * Locations and systems available for this plant can be found by querying `/plants/{plant-id}?include-systems=true&include-locations=true&api-version=v1`
      *
      * To find a valid parentTagId, use the tag search endpoint `/plants/{plant-id}/tag-hierarchy`
      * ### Important information
@@ -369,8 +473,15 @@ export class TagService {
      *
      * Please note that to execute this request, elevated roles are required in Equinor's ERP system.
      *
+     * ### Update release v1.21.0
+     *
+     * Added support for property `area`.
+     *
+     * ### Update release v1.26.0
+     * Added property `maintenanceConceptId` to response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns TagBasic Created
+     * @returns any Created
      * @throws ApiError
      */
     public static createTag({
@@ -382,7 +493,15 @@ export class TagService {
          * Tag to create
          */
         requestBody: TagCreate;
-    }): CancelablePromise<ProblemDetails | TagBasic> {
+    }): CancelablePromise<
+        | ProblemDetails
+        | (TagBasic & {
+              /**
+               * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
+               */
+              maintenanceConceptId?: string;
+          })
+    > {
         return __request(OpenAPI, {
             method: "POST",
             url: "/plants/{plant-id}/tags",
@@ -408,7 +527,6 @@ export class TagService {
      * If there are no tags found for the search, the response will be HTTP 200 with an empty array as content.
      *
      * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
      *
      * The value of the tag-prefix parameter should be url-encoded in order to support special characters
      *
@@ -436,7 +554,20 @@ export class TagService {
      * ### Update release v1.16.0
      * Added property `classId` to characteristics
      *
-     * @returns Tag Success
+     * ### Update release v1.18.0
+     * Added new filter `by-external-system-reference`.
+     * Added new property `semiModelId`.
+     *
+     * ### Update release v1.21.0
+     * Added property `area`.
+     *
+     * ### Update release v1.24.0
+     * Added query parameters `include-attachments` and `include-url-references`.
+     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
+     *
+     * Added property `cmrIndicator` for WorkOrders
+     *
+     * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -445,6 +576,7 @@ export class TagService {
         filter = "by-tag-prefix",
         tagPrefix,
         tagIdsAnyOf,
+        externalSystemReference,
         includeMaintenanceRecords = false,
         includeMaintenanceRecordTypes,
         includeWorkOrders = false,
@@ -456,13 +588,15 @@ export class TagService {
         includeLastMeasurement = false,
         includeCharacteristics = false,
         includeBillOfMaterials = false,
+        includeAttachments = false,
+        includeUrlReferences = false,
         includeStatusDetails = false,
         includeLinearData = false,
         perPage = 100,
         page = 1,
     }: {
         plantId: string;
-        filter?: "by-tag-ids" | "by-tag-prefix" | null;
+        filter?: "by-tag-ids" | "by-tag-prefix" | "by-external-system-reference" | null;
         /**
          * The first few characters of the tag, required if filter is empty or `by-tag-prefix`
          */
@@ -472,7 +606,11 @@ export class TagService {
          */
         tagIdsAnyOf?: Array<string>;
         /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
+         * Required if filter is `by-external-system-reference`
+         */
+        externalSystemReference?: string | null;
+        /**
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
         includeMaintenanceRecords?: boolean;
         /**
@@ -487,7 +625,7 @@ export class TagService {
             | "modification-proposal"
         >;
         /**
-         * Include work orders. If include-work-order-types is not supplied, all support types are returned
+         * Include work orders. If include-work-order-types is not supplied, all supported types are returned
          */
         includeWorkOrders?: boolean;
         /**
@@ -518,7 +656,7 @@ export class TagService {
          */
         includeMeasuringPoints?: boolean;
         /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
         includeLastMeasurement?: boolean;
         /**
@@ -529,6 +667,14 @@ export class TagService {
          * Include bill of materials (also known as structure list) for tag and installed equipment
          */
         includeBillOfMaterials?: boolean;
+        /**
+         * Include equipment or tag attachments
+         */
+        includeAttachments?: boolean;
+        /**
+         * Include URL references for equipment or tag
+         */
+        includeUrlReferences?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
@@ -545,7 +691,7 @@ export class TagService {
          * Page to fetch
          */
         page?: number;
-    }): CancelablePromise<Array<Tag> | ProblemDetails> {
+    }): CancelablePromise<Array<TagSearch> | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
             url: "/plants/{plant-id}/tags",
@@ -556,9 +702,9 @@ export class TagService {
                 filter: filter,
                 "tag-prefix": tagPrefix,
                 "tag-ids-any-of": tagIdsAnyOf,
+                "external-system-reference": externalSystemReference,
                 "include-maintenance-records": includeMaintenanceRecords,
-                "include-maintenance-record-types":
-                    includeMaintenanceRecordTypes,
+                "include-maintenance-record-types": includeMaintenanceRecordTypes,
                 "include-work-orders": includeWorkOrders,
                 "include-work-order-types": includeWorkOrderTypes,
                 "include-installed-equipment": includeInstalledEquipment,
@@ -568,6 +714,8 @@ export class TagService {
                 "include-last-measurement": includeLastMeasurement,
                 "include-characteristics": includeCharacteristics,
                 "include-bill-of-materials": includeBillOfMaterials,
+                "include-attachments": includeAttachments,
+                "include-url-references": includeUrlReferences,
                 "include-status-details": includeStatusDetails,
                 "include-linear-data": includeLinearData,
                 "per-page": perPage,

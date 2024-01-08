@@ -1,5 +1,21 @@
 # @equinor/react-native-skia-draw
 
+## 0.3.4
+
+### Patch Changes
+
+-   Updated dependencies [a5607df]
+-   Updated dependencies [0d6c310]
+    -   @equinor/mad-components@0.8.6
+
+## 0.3.3
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+-   Updated dependencies [b025c9b]
+    -   @equinor/mad-components@0.8.5
+
 ## 0.3.2
 
 ### Patch Changes

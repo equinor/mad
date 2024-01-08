@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -16,15 +17,9 @@ export type TagBasic = TagMinimal & {
      */
     locationId: string;
     location: string;
-    /**
-     * Deprecated 01.2021 - Use locationId instead
-     * @deprecated
-     */
-    areaId: string;
-    /**
-     * Deprecated 01.2021 - Use location instead
-     * @deprecated
-     */
-    area: string;
     catalogProfileId: string;
+    /**
+     * Specific room for the asset
+     */
+    area: string | null;
 };

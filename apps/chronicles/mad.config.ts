@@ -1,4 +1,4 @@
-import {MadConfig} from "@equinor/mad-core";
+import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
 import { getBuildNumber } from "./settings";
@@ -7,6 +7,7 @@ export const config: MadConfig = {
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     currentEnvironment: "prod",
+    serviceNow: "MAD",
     language: {
         supportedLanguages: [
             { code: "en", name: "English" },
@@ -36,9 +37,6 @@ export const config: MadConfig = {
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
         longTermLog: { instrumentationKey: "e91835aa-bcc2-41dd-a79d-352f0df23e1b" },
-    },
-    serviceNow: {
-        whatever: "",
     },
     about: {
         endpoints: [],

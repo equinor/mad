@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -33,6 +34,22 @@ export class SubseaWorkOrdersService {
      * ### Update release v1.8.0
      * Introduced property activeStatusIds for operations.
      *
+     * ### Update release v1.19.0
+     * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
+     *
+     * ### Update release v1.21.0
+     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release v1.22.0
+     * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
+     *
+     * ### Update release v1.24.0
+     * Added property `cmrIndicator` in the response.
+     *
+     * ### Update release v1.26.0
+     * Added property 'isEquipmentRental' to serviceOperations.
+     *
      * @returns SubseaWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -40,6 +57,7 @@ export class SubseaWorkOrdersService {
     public static lookupSubseaWorkOrder({
         workOrderId,
         includeOperations = true,
+        includeServiceOperations = true,
         includeMaterials = true,
         includeAttachments = false,
         includePersonResponsible = false,
@@ -52,6 +70,10 @@ export class SubseaWorkOrdersService {
          */
         includeOperations?: boolean;
         /**
+         * Include Work order service operations
+         */
+        includeServiceOperations?: boolean;
+        /**
          * Include materials for Work order operations
          */
         includeMaterials?: boolean;
@@ -60,7 +82,7 @@ export class SubseaWorkOrdersService {
          */
         includeAttachments?: boolean;
         /**
-         * Include person responsible information in response. If user does not have sufficient rights, this will return a `403` response
+         * Include person responsible information in response
          */
         includePersonResponsible?: boolean;
         /**
@@ -80,6 +102,7 @@ export class SubseaWorkOrdersService {
             },
             query: {
                 "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
                 "include-materials": includeMaterials,
                 "include-attachments": includeAttachments,
                 "include-person-responsible": includePersonResponsible,

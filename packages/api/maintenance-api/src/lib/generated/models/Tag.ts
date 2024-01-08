@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -47,6 +48,10 @@ export type Tag = TagBasic & {
     startUpDate?: string | null;
     endOfUseDate?: string | null;
     costWBSId?: string;
+    /**
+     * Specific room for the asset
+     */
+    area: string;
     characteristics?: Array<TagCharacteristic>;
     maintenanceRecords?: SimpleMaintenanceRecordsList;
     workOrders?: {
@@ -65,7 +70,7 @@ export type Tag = TagBasic & {
      * The bill of materials is a hierarchical structure. The top-level of the hierarchy is either connected to the tag or the installed equipment.
      */
     billOfMaterials?: Array<BillOfMaterialItem>;
-    linearData?: LinearData;
+    linearData?: LinearData | null;
     /**
      * All statuses possible for tag
      */

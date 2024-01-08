@@ -1,5 +1,27 @@
 # @equinor/mad-core
 
+## 0.3.4
+
+### Patch Changes
+
+-   0d6c310: update color scheme for feedback and added deprecation
+-   Updated dependencies [a5607df]
+-   Updated dependencies [0d6c310]
+    -   @equinor/mad-components@0.8.6
+    -   @equinor/mad-auth@0.1.4
+
+## 0.3.3
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+-   009f521: Added support for environment switching
+-   Updated dependencies [b025c9b]
+    -   @equinor/mad-components@0.8.5
+    -   @equinor/mad-navigation@0.2.1
+    -   @equinor/mad-insights@0.1.1
+    -   @equinor/mad-auth@0.1.3
+
 ## 0.3.2
 
 ### Patch Changes

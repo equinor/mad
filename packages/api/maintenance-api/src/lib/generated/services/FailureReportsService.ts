@@ -1,6 +1,8 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
 import type { FailureReport } from "../models/FailureReport";
 import type { FailureReportBasic } from "../models/FailureReportBasic";
 import type { FailureReportCreate } from "../models/FailureReportCreate";
@@ -15,6 +17,7 @@ import type { MaintenanceRecordItemMetadataJsonPatch } from "../models/Maintenan
 import type { MaintenanceRecordTask } from "../models/MaintenanceRecordTask";
 import type { MaintenanceRecordTaskCreate } from "../models/MaintenanceRecordTaskCreate";
 import type { MaintenanceRecordTaskUpdateJsonPatch } from "../models/MaintenanceRecordTaskUpdateJsonPatch";
+import type { MetadataAddClass } from "../models/MetadataAddClass";
 import type { ProblemDetails } from "../models/ProblemDetails";
 import type { StatusUpdateJsonPatch } from "../models/StatusUpdateJsonPatch";
 
@@ -69,6 +72,15 @@ export class FailureReportsService {
      * ### Update release v1.17.0
      * Added query parameter `include-measurements`.
      *
+     * ### Update release v1.19.0
+     * Added query parameter `include-additional-data-characteristics`.
+     *
+     * ### Update release v1.21.0
+     * Added property `area` to tag details.
+     *
+     * ### Update release v1.24.0
+     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
+     *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -81,6 +93,7 @@ export class FailureReportsService {
         includeTasks = false,
         includeAttachments = false,
         includeAdditionalMetadata = false,
+        includeAdditionalDataCharacteristics = false,
         includeCreatedByDetails = false,
         includeUrlReferences = false,
         includeMeasurements = false,
@@ -114,6 +127,10 @@ export class FailureReportsService {
          */
         includeAdditionalMetadata?: boolean;
         /**
+         * Include characteristics for additional metadata
+         */
+        includeAdditionalDataCharacteristics?: boolean;
+        /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
         includeCreatedByDetails?: boolean;
@@ -139,6 +156,7 @@ export class FailureReportsService {
                 "include-tasks": includeTasks,
                 "include-attachments": includeAttachments,
                 "include-additional-metadata": includeAdditionalMetadata,
+                "include-additional-data-characteristics": includeAdditionalDataCharacteristics,
                 "include-created-by-details": includeCreatedByDetails,
                 "include-url-references": includeUrlReferences,
                 "include-measurements": includeMeasurements,
@@ -160,7 +178,7 @@ export class FailureReportsService {
      * Update key fields of a failure report.
      *
      * ## Important information
-     * To avoid accidently overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
+     * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
      * ### Update release 1.0.0
      * Added possibility to update plannerGroupId.
@@ -225,7 +243,7 @@ export class FailureReportsService {
      *
      * When the failure report is ready to be approved and prioritized, the status `NOPR - Notification in process` must be set.
      *
-     * When the failure report has been approved and prioritized, the status `RIVE - Risk Assesment Verified` can be set. In addition, the failure report will be assigned to a corrective work order (either in ERP system or through POST request to `/work-orders/corrective-work-orders`) and the status `ORAS - Order assigned` will be set automatically on the failure report.
+     * When the failure report has been approved and prioritized, the status `RIVE - Risk Assessment Verified` can be set. In addition, the failure report will be assigned to a corrective work order (either in ERP system or through POST request to `/work-orders/corrective-work-orders`) and the status `ORAS - Order assigned` will be set automatically on the failure report.
      *
      * When the failure report is completed, the status `NOCO - Notification completed` must be set. This will typically be set automatically for the failure report when the corrective work order is set to status `TECO - Technical Complete` (either in ERP system or through PATCH request to `/work-orders/corrective-work-orders/{work-order-id}/statuses/TECO`).
      *
@@ -313,15 +331,21 @@ export class FailureReportsService {
      * in the current request. If different titles are wanted for different files, they have to be sent in separately
      * (one file, one document title per request). When supplying a document-title, a new document will always be created for the attachment
      *
+     * ### Update release 1.19.0
+     * Added ability to supply `document-title` as a query parameter. If documentTitle is supplied both as form-data and query parameter, the query parameter
+     * will take precedence. `document-title` should be Uri encoded.
+     *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static uploadFailureReportAttachment({
         recordId,
+        documentTitle = null,
         formData,
     }: {
         recordId: string;
+        documentTitle?: string | null;
         formData?: {
             files: Array<Blob>;
             "document-title"?: string | null;
@@ -332,6 +356,9 @@ export class FailureReportsService {
             url: "/maintenance-records/failure-reports/{record-id}/attachments",
             path: {
                 "record-id": recordId,
+            },
+            query: {
+                "document-title": documentTitle,
             },
             formData: formData,
             mediaType: "multipart/form-data",
@@ -402,7 +429,7 @@ export class FailureReportsService {
          */
         statusId?: string;
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
         /**
@@ -859,7 +886,7 @@ export class FailureReportsService {
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static addAdditionalMetadata({
+    public static addFailureReportAdditionalMetadata({
         recordId,
         requestBody,
     }: {
@@ -884,6 +911,92 @@ export class FailureReportsService {
                 403: `User does not have sufficient rights to update failure report`,
                 404: `The specified resource was not found`,
                 409: `Failure report is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Failure report metadata - Add characteristics
+     * Add new characteristics to an existing failure report metadata.
+     *
+     * Characteristics are grouped into a class such as `FL_MAINT_STRATEGY`.
+     *
+     * With this endpoint, the consumer can assign classes metadata and define initial values for some of the characteristics in the classes.
+     *
+     * There is currently no endpoint for looking up existing classes and their characteristics, but this may be added in the future.
+     *
+     * Note that if a given characteristic has already been added to this metadata, repeated adding will result in overwriting of the characteristic value.
+     * If you want to update a characteristic the `PATCH` endpoint can be used.
+     *
+     * ### Important information
+     * Use `/maintenance-records/failure-reports/{record-id}?include-additional-metadata=true&include-additional-data-characteristics=true&api-version=v1` to view characteristics with value after using this endpoint.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns string Created - No body available for response. Use lookup from location header
+     * @throws ApiError
+     */
+    public static addCharacteristicsToFailureReportMetadata({
+        recordId,
+        metadataId,
+        requestBody,
+    }: {
+        recordId: string;
+        metadataId: string;
+        /**
+         * Characteristics to add to metadata.
+         */
+        requestBody: Array<MetadataAddClass>;
+    }): CancelablePromise<ProblemDetails | string> {
+        return __request(OpenAPI, {
+            method: "POST",
+            url: "/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            path: {
+                "record-id": recordId,
+                "metadata-id": metadataId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            responseHeader: "Location",
+            errors: {
+                400: `Request is missing required parameters or characteristicId is not part of class`,
+                403: `User does not have sufficient rights to add characteristics to measuring point`,
+            },
+        });
+    }
+
+    /**
+     * Failure report metadata - Update characteristic
+     * Update existing values of characteristics on a failure report metadata. If the characteristics does not exist, a `404 - Not Found` is returned.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateFailureReportMetadataCharacteristics({
+        recordId,
+        metadataId,
+        requestBody,
+    }: {
+        recordId: string;
+        metadataId: string;
+        /**
+         * Characteristics to be updated, based on JsonPatch standard
+         */
+        requestBody: Array<CharacteristicsUpdate>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            path: {
+                "record-id": recordId,
+                "metadata-id": metadataId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to characteristics`,
+                404: `The specified resource was not found`,
+                409: `Characteristics is locked by other user`,
             },
         });
     }
