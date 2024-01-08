@@ -1,68 +1,28 @@
+import React, { createContext } from "react";
 import { ViewProps } from "react-native";
+import { useValidChildren } from "../../hooks/useValidChildren";
 import { ButtonGroup } from "./ButtonGroup";
-import React, { Children, ReactNode, createContext, useState } from "react";
+import { ButtonGroupChildrenType, ToggleButtonContextType } from "./types";
 
 export type ToggleButtonProps = {
     /**
-     * A boolean value indicating whether or not multiple containing buttons should be allowed to be active at the same time.
+     * Index of the selected button.
      */
-    multiple?: boolean;
-    /**
-     * A callback method invoked when a user presses one of the containing buttons in the toggle group.
-     * @param indices A list of indicies refering to the active buttons in the toggle group.
-     */
-    onChange?: (indices: number[]) => void;
+    activeIndex: number;
 };
 
-export type ToggleButtonContextContents = {
-    /**
-     * Boolean value indicating whether or not the contexed button is selected or not.
-     */
-    isSelected: boolean;
-    /**
-     * Boolean value indicating whether or not the contexed component passes validation (i.e is a button).
-     */
-    valid: boolean;
-    /**
-     * A callback method invokable by the contexed button for when the user presses it.
-     */
-    toggle: () => void;
-};
+export const ToggleButtonContext = createContext<ToggleButtonContextType>(undefined);
 
-export const ToggleButtonContext = createContext({
-    isSelected: false,
-    valid: false,
-    toggle: () => {
-        console.warn("Unintialized ToggleButtonContext");
-    },
-} as ToggleButtonContextContents);
-
-export const ToggleButton = (props: ToggleButtonProps & ViewProps) => {
-    const [selectedIndices, setSelectedIndices] = useState([0]);
+export const ToggleButton = ({ activeIndex, children }: ToggleButtonProps & ViewProps) => {
+    const validChildren = useValidChildren(children) as ButtonGroupChildrenType[];
     return (
         <ButtonGroup>
-            {Children.map(props.children, (child: ReactNode, index: number) => {
+            {validChildren.map((child, index) => {
                 return (
                     <ToggleButtonContext.Provider
+                        key={index}
                         value={{
-                            isSelected: selectedIndices.indexOf(index) !== -1,
-                            valid: true,
-                            toggle: () => {
-                                let result = [];
-                                if (props.multiple) {
-                                    if (selectedIndices.indexOf(index) === -1) {
-                                        result = [...selectedIndices, index];
-                                    } else {
-                                        result = selectedIndices.filter(
-                                            current => current !== index,
-                                        );
-                                    }
-                                } else {
-                                    result = [index];
-                                }
-                                setSelectedIndices(result);
-                                props.onChange && props.onChange(result);
-                            },
+                            isSelected: activeIndex === index,
                         }}
                     >
                         {child}
