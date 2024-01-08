@@ -106,17 +106,55 @@ export const config: MadConfig = {
 };
 ```
 
-| key                           | required? | explanation                                                                                                                           |
-| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `appVersion`                  | true      | Your app's current version. Used to figure out whether we should display what's new, and which release notes version to fetch         |
-| `servicePortalName`           | true      | The name of the app in the service portal. Used to figure out which release notes and service messages to fetch                       |
-| `currentEnvironment`          | true      | The environment of the app. Used to display environment banner, and to select the correct service message and release notes endpoint. |
-| `language`                    | true      | language config. See [language](INSERT LINK HERE)                                                                                     |
-| `authentication`              | true      | authentication config. See [authentication](INSERT LINK HERE)                                                                         |
-| `login`                       | true      | login screen config. See [login](INSERT LINK HERE)                                                                                    |
-| `applicationInsights`         | true      | application insights config. See [application insights](INSERT LINK HERE)                                                             |
-| `serviceNowConfigurationItem` | false     | Configuration item in Service Now. Used for create incident screen. If not provided, we won't add create incident screen to the stack |
-| `about`                       | false     | about page config. If not provided, we won't add about screen to the stack. See [about](INSERT LINK HERE)                             |
+| key                   | required? | explanation                                                                                                                           |
+| --------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `appVersion`          | true      | Your app's current version. Used to figure out whether we should display what's new, and which release notes version to fetch         |
+| `servicePortalName`   | true      | The name of the app in the service portal. Used to figure out which release notes and service messages to fetch                       |
+| `currentEnvironment`  | true      | The environment of the app. Used to display environment banner, and to select the correct service message and release notes endpoint. |
+| `language`            | true      | language config. See [language](#language-config)                                                                                     |
+| `authentication`      | true      | authentication config. See [authentication](#authentication-config)                                                                   |
+| `login`               | true      | login screen config. See [login](#login-config)                                                                                       |
+| `applicationInsights` | true      | application insights config. See [application insights](#application-insights-config)                                                 |
+| `serviceNow`          | false     | Configuration item in Service Now. Used for create incident screen. If not provided, we won't add create incident screen to the stack |
+| `about`               | false     | about page config. If not provided, we won't add about screen to the stack. See [about](#about-config)                                |
+
+###### Language config
+
+| key                   | required? | explanation                                                                                                                                                                                                                                                                                         |
+| --------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `supportedLanguages`  | true      | an array of supported languages. The language object should contain `code` and `name`. `mad-core` supports Norwegian (`no`, `nb`), english (`en`) and Portuguese (`pt`). If you use any other languages, the common screens will be in english. If you need more language support, create an issue! |
+| `defaultLanguageCode` | false     | The default language of the app. This is the language the app will use if the user has not selected a language. If default language is not provided, the app will use the first language in the `supportedLanguages` array                                                                          |
+| `skipOnboarding`      | false     | Set this to true if you don't want to force the user to set their preferred language the first time they start the app                                                                                                                                                                              |
+
+###### Authentication config
+
+| key              | required? | explanation                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| `clientId`       | true      | The application's client id                                                           |
+| `redirectUri`    | true      | The application's redirect uri                                                        |
+| `redirectUriWeb` | false     | The application's redirect uri for web. This is required if your app has web support. |
+| `scopes`         | true      | an array of scopes to use when logging in                                             |
+
+###### Login config
+
+| key     | required? | explanation                                                                      |
+| ------- | --------- | -------------------------------------------------------------------------------- |
+| `title` | true      | The title of the application. Will be displayed on the login screen              |
+| `logo`  | true      | The logo of the application. Will be displayed in the middle of the login screen |
+
+###### Application Insights config
+
+| key                                        | required? | explanation                                                                                       |
+| ------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------- |
+| `instrumentationKey` or `connectionString` | true      | used to connect to the right resource in Azure                                                    |
+| `longTermLog`                              | false     | used to define long term log config. It should contain `instrumentationKey` or `connectionString` |
+
+###### About config
+
+| key           | required? | explanation                                                                                                                           |
+| ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `endpoints`   | true      | The endpoints used by the application. The endpoints used by `mad-core` is added automatically. Will be displayed at the about-screen |
+| `buildNumber` | true      | The build number of the application. Will be displayed at the about-screen                                                            |
 
 #### Step 3: use `createCoreStackNavigator`
 
