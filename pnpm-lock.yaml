@@ -144,8 +144,8 @@ importers:
         specifier: ^10.9.0
         version: 10.12.0(react-native@0.72.6)
       react-native-gesture-handler:
-        specifier: ~2.12.0
-        version: 2.12.1(react-native@0.72.6)(react@18.2.0)
+        specifier: ~2.14.0
+        version: 2.14.0(react-native@0.72.6)(react@18.2.0)
       react-native-msal:
         specifier: git+https://github.com/equinor/react-native-msal.git#38c1bac756b8019e3b7f916893a7f588c811e407
         version: github.com/equinor/react-native-msal/38c1bac756b8019e3b7f916893a7f588c811e407(react-native@0.72.6)(react@18.2.0)
@@ -295,8 +295,8 @@ importers:
         specifier: '>=0.70'
         version: 0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0)
       react-native-gesture-handler:
-        specifier: ~2.12.0
-        version: 2.12.1(react-native@0.72.6)(react@18.2.0)
+        specifier: ^2.14.0
+        version: 2.14.0(react-native@0.72.6)(react@18.2.0)
       react-native-msal:
         specifier: '*'
         version: 4.0.4(react-native@0.72.6)(react@18.2.0)
@@ -11057,6 +11057,21 @@ packages:
 
   /react-native-gesture-handler@2.12.1(react-native@0.72.6)(react@18.2.0):
     resolution: {integrity: sha512-deqh36bw82CFUV9EC4tTo2PP1i9HfCOORGS3Zmv71UYhEZEHkzZv18IZNPB+2Awzj45vLIidZxGYGFxHlDSQ5A==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      '@egjs/hammerjs': 2.0.17
+      hoist-non-react-statics: 3.3.2
+      invariant: 2.2.4
+      lodash: 4.17.21
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0)
+    dev: false
+
+  /react-native-gesture-handler@2.14.0(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-cOmdaqbpzjWrOLUpX3hdSjsMby5wq3PIEdMq7okJeg9DmCzanysHSrktw1cXWNc/B5MAgxAn9J7Km0/4UIqKAQ==}
     peerDependencies:
       react: '*'
       react-native: '*'
