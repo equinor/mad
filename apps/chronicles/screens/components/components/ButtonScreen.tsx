@@ -5,7 +5,6 @@ import { ScrollView, View } from "react-native";
 export const ButtonScreen = () => {
     const styles = useStyles(themeStyles);
     const [activeButtonIndex, setActiveButtonIndex] = useState<number>(0);
-    console.warn(activeButtonIndex);
 
     return (
         <ScrollView
