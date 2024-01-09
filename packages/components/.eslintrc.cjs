@@ -5,4 +5,15 @@ module.exports = {
         project: ["./tsconfig.json"],
         tsconfigRootDir: __dirname,
     },
+    settings: {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"],
+        },
+        "import/resolver": {
+            typescript: {
+                alwaysTryTypes: true,
+                project: ["packages/*/tsconfig.json"],
+            },
+        },
+    },
 };

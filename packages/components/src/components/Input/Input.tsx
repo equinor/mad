@@ -7,7 +7,7 @@ import {
     View,
     Platform,
 } from "react-native";
-import { useStyles } from "../..";
+import { useStyles } from "@/hooks/useStyles";
 import { themeStyles } from "./InputStyle";
 
 export type InputProps = {
