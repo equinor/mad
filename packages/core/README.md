@@ -1,6 +1,4 @@
-# MAD CORE
-
-_`@equinor/mad-core` is a package made for the mad team in equinor. It is opinionated and will not
+_`@equinor/mad-core` is a package made for the mad team in Equinor. It is opinionated and will not
 work well for other teams. If you work in Equinor and would like to use this package, please contact
 us!_
 
@@ -14,7 +12,7 @@ that you can focus on your app's core functionality. It provides:
     for you. If the app version is greater than the last time the user used it, a "What's
     New"-screen will be displayed automatically.
 -   Language support. If you set your app to support multiple languages, the app will prompt the
-    user to select language. Language will also be provided as a setting in the Settings page if
+    user to select language. Language will also be provided as a setting in the Settings screen if
     multiple languages are supported.
 -   Settings Screen. The Settings Screen will provide a lot of your common needs, depending on your
     config. Your app-specific needs should also be easy to add.
@@ -24,7 +22,7 @@ that you can focus on your app's core functionality. It provides:
     crash tracking.
 -   Service Message. Any planned maintenance? Just create a service message in the service portal,
     and the message will be displayed in the app automatically.
--   Environment banners. Don't know which environment you're in? Don't worry, we will display the
+-   Environment banner. Don't know which environment you're in? Don't worry, we will display the
     information to you
 -   About screen. Detailed information about the app. App version, environment endpoints, etc. Wow!
     Amazing!
@@ -36,8 +34,8 @@ that you can focus on your app's core functionality. It provides:
 ### Implementation
 
 _note: this package is new. Expect bugs. Expect lacking documentation. If you have any issues,
-PLEASE create an issue, and yell at @TormodAase. We want to make this great, but it's impossible to
-make it great without your input_
+PLEASE create an issue. We want to make this great, but it's impossible to make it great without
+your input_
 
 #### Step 1: Installation
 
@@ -47,7 +45,7 @@ to your `package.json`:
 
 ```json
 "dependencies": {
-    "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#NEWEST_COMMIT_HASH_HERE",
+    "react-native-msal": "github:equinor/react-native-msal#NEWEST_COMMIT_HASH_HERE",
 }
 ```
 
@@ -64,16 +62,16 @@ Create a `mad.config.ts` file (name of the file can be anything, but we have use
 convention when developing this package). Use the `MadConfig` type from `@equinor/mad-core` for type
 safety:
 
-```tsx
+```ts
 import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
-import { getBuildNumber } from "./settings";
+import { getBuildNumber, getAppSpecificEndpoints } from "./settings";
 
 export const config: MadConfig = {
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
-    environment: "prod",
+    currentEnvironment: "prod",
     language: {
         supportedLanguages: [
             { code: "en", name: "English" },
@@ -96,8 +94,58 @@ export const config: MadConfig = {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
         longTermLog: { instrumentationKey: "e91835aa-bcc2-41dd-a79d-352f0df23e1b" },
     },
-    serviceNow: {
-        whatever: "",
+    serviceNow: "SERVICE_NOW_CONFIGURATION_ITEM",
+    about: {
+        endpoints: getAppSpecificEndpoints(),
+        buildNumber: getBuildNumber(),
+    },
+};
+```
+
+You can also set environment specific values for each field. The config supports `dev`, `test`,
+`qa`, `prod`. The correct values will be picked based on `currentEnvironment`. Example from
+`Chronicles`:
+
+```ts
+import { MadConfig } from "@equinor/mad-core";
+import Logo from "./assets/images/icon.png";
+import { ImageSourcePropType } from "react-native";
+import { getBuildNumber } from "./settings";
+
+export const config: MadConfig = {
+    appVersion: "1.0.0",
+    servicePortalName: "Chronicles",
+    currentEnvironment: "prod",
+    serviceNow: "MAD",
+    language: {
+        supportedLanguages: [
+            { code: "en", name: "English" },
+            { code: "nb", name: "Norwegian" },
+            { code: "pt", name: "Portuguese" },
+        ],
+        skipOnboarding: false,
+    },
+    authentication: {
+        prod: {
+            redirectUri: "msauth.com.equinor.mad.chronicles://auth",
+            redirectUriWeb: "http://localhost:8081",
+            clientId: "49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed",
+            scopes: ["0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"],
+        },
+        test: {
+            redirectUri: "msauth.com.equinor.mad.chronicles://auth",
+            redirectUriWeb: "http://localhost:8081",
+            clientId: "49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed",
+            scopes: ["830a7388-cd89-4e25-a631-bd615bf225a4/user_impersonation"],
+        },
+    },
+    login: {
+        title: "Chronicles",
+        logo: Logo as ImageSourcePropType,
+    },
+    applicationInsights: {
+        instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
+        longTermLog: { instrumentationKey: "e91835aa-bcc2-41dd-a79d-352f0df23e1b" },
     },
     about: {
         endpoints: [],
@@ -106,17 +154,17 @@ export const config: MadConfig = {
 };
 ```
 
-| key                   | required? | explanation                                                                                                                           |
-| --------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `appVersion`          | true      | Your app's current version. Used to figure out whether we should display what's new, and which release notes version to fetch         |
-| `servicePortalName`   | true      | The name of the app in the service portal. Used to figure out which release notes and service messages to fetch                       |
-| `currentEnvironment`  | true      | The environment of the app. Used to display environment banner, and to select the correct service message and release notes endpoint. |
-| `language`            | true      | language config. See [language](#language-config)                                                                                     |
-| `authentication`      | true      | authentication config. See [authentication](#authentication-config)                                                                   |
-| `login`               | true      | login screen config. See [login](#login-config)                                                                                       |
-| `applicationInsights` | true      | application insights config. See [application insights](#application-insights-config)                                                 |
-| `serviceNow`          | false     | Configuration item in Service Now. Used for create incident screen. If not provided, we won't add create incident screen to the stack |
-| `about`               | false     | about page config. If not provided, we won't add about screen to the stack. See [about](#about-config)                                |
+| key                   | required? | explanation                                                                                                                                                                        |
+| --------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appVersion`          | true      | Your app's current version. Used to figure out whether the app should display what's new, and which release notes version to fetch                                                 |
+| `servicePortalName`   | true      | The name of the app in the service portal. Used to figure out which release notes and service messages to fetch                                                                    |
+| `currentEnvironment`  | true      | The environment of the app. Used to display environment banner, and to select the correct service message and release notes endpoint. Also used to pick correct values from config |
+| `language`            | true      | language config. See [language](#language-config)                                                                                                                                  |
+| `authentication`      | true      | authentication config. See [authentication](#authentication-config)                                                                                                                |
+| `login`               | true      | login screen config. See [login](#login-config)                                                                                                                                    |
+| `applicationInsights` | true      | application insights config. See [application insights](#application-insights-config)                                                                                              |
+| `serviceNow`          | false     | Configuration item in Service Now. Used for create incident screen. If not provided, we won't add create incident screen to the stack                                              |
+| `about`               | false     | about screen config. If not provided, we won't add about screen to the stack. See [about](#about-config)                                                                           |
 
 ###### Language config
 
@@ -252,7 +300,7 @@ import `createNativeStackNavigator`/`createBottomTabsNavigator` from `@equinor/m
 `react-navigation`. Currently we don't support other navigators. Do you need support for other
 navigators? Create an issue!
 
-By default environment-banners and service-messages should display if the screen header is
+By default environment banners and service messages should display if the screen header is
 displayed. If you need to override this behaviour, you can use the `customSubHeaderShown` option.
 For more information on using `customSubHeaderShown`, refer to `@equinor/mad-navigation`'s
 documentation.
