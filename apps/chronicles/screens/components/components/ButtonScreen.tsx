@@ -4,7 +4,7 @@ import { ScrollView, View } from "react-native";
 
 export const ButtonScreen = () => {
     const styles = useStyles(themeStyles);
-    const [activeButtonIndex, setActiveButtonIndex] = useState<number>(0);
+    const [activeToggleIndex, setActiveToggleIndex] = useState<number>(0);
 
     return (
         <ScrollView
@@ -69,10 +69,10 @@ export const ButtonScreen = () => {
             <Spacer />
             <Typography>Or used as toggles</Typography>
             <View style={{ alignItems: "center" }}>
-                <Button.Toggle activeIndex={activeButtonIndex}>
-                    <Button title="One" onPress={() => setActiveButtonIndex(0)} />
-                    <Button title="Two" onPress={() => setActiveButtonIndex(1)} />
-                    <Button title="Three" onPress={() => setActiveButtonIndex(2)} />
+                <Button.Toggle activeIndex={activeToggleIndex}>
+                    <Button title="One" onPress={() => setActiveToggleIndex(0)} />
+                    <Button title="Two" onPress={() => setActiveToggleIndex(1)} />
+                    <Button title="Three" onPress={() => setActiveToggleIndex(2)} />
                 </Button.Toggle>
             </View>
         </ScrollView>

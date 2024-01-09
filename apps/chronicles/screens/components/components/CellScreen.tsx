@@ -11,14 +11,14 @@ import { ScrollView, View } from "react-native";
 
 export const CellScreen = () => {
     const styles = useStyles(themeStyles);
-    const [activeButtonIndex, setActiveButtonIndex] = useState<number>(0);
+    const [activeToggleIndex, setActiveToggleIndex] = useState<number>(0);
 
     const MyCustomCell = (customCellProps: { title: string }) => (
         <Cell
             rightAdornment={
-                <Button.Toggle activeIndex={activeButtonIndex}>
-                    <Button title="1" onPress={() => setActiveButtonIndex(0)} />
-                    <Button title="2" onPress={() => setActiveButtonIndex(1)} />
+                <Button.Toggle activeIndex={activeToggleIndex}>
+                    <Button title="1" onPress={() => setActiveToggleIndex(0)} />
+                    <Button title="2" onPress={() => setActiveToggleIndex(1)} />
                 </Button.Toggle>
             }
         >

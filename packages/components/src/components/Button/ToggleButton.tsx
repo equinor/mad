@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 import { ViewProps } from "react-native";
 import { useValidChildren } from "../../hooks/useValidChildren";
 import { ButtonGroup } from "./ButtonGroup";
-import { ButtonGroupChildrenType, ToggleButtonContextType } from "./types";
+import { ButtonGroupChildrenType } from "./types";
 
 export type ToggleButtonProps = {
     /**
@@ -10,6 +10,15 @@ export type ToggleButtonProps = {
      */
     activeIndex: number;
 };
+
+export type ToggleButtonContextType =
+    | {
+          /**
+           * Boolean value indicating whether or not the contexed button is selected or not.
+           */
+          isSelected: boolean;
+      }
+    | undefined;
 
 export const ToggleButtonContext = createContext<ToggleButtonContextType>(undefined);
 
