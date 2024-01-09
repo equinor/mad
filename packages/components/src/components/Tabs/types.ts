@@ -1,4 +1,4 @@
-import { ChildrenType } from "../types";
+import { ChildrenType } from "../../types";
 import { TabProps } from "./Tab";
 
 export type TabsContextType = {
