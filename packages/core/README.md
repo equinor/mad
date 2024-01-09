@@ -344,7 +344,12 @@ export function GoToSettingsButton({ marginRight }: GoToSettingsButtonProps) {
 }
 ```
 
-Results: ![[Pasted image 20231221114201.png]]
+Results:
+
+<p align="center">
+  <img src="../../assets/settings-button-example.png">
+</p>
+<br />
 
 #### Step 6 (optional): Add `ErrorBoundary`
 
