@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { RouteProp } from "@react-navigation/native";
 import { ComponentsStackParamList } from "../../types/navigation";
-import { ComponentConfig, ComponentName } from "../../types/components";
+import { ComponentConfig } from "../../types/components";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Button } from "@equinor/mad-components";
 
