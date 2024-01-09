@@ -89,13 +89,12 @@ export const WhatsNewScreen = () => {
 
 const whatsNewStyles = EDSStyleSheet.create(theme => ({
     spinnerContainer: {
-        display: "flex",
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
     },
     container: {
-        display: "flex",
+        flex: 1,
         paddingTop: theme.geometry.dimension.cell.minHeight,
         justifyContent: "space-between",
     },
