@@ -104,7 +104,7 @@ export const CreateIncidentScreen = () => {
                         onChange={setTicketTitle}
                         value={ticketTitle}
                         placeholder={"Write a title for the Service Now ticket"}
-                        disabled={isSending}
+                        readOnly={isSending}
                     />
                 </View>
                 <View style={styles.titleField}>
@@ -115,7 +115,7 @@ export const CreateIncidentScreen = () => {
                             "Write a complete description of your issue. You do not need to provide information about your device."
                         }
                         value={ticketDescription}
-                        disabled={isSending}
+                        readOnly={isSending}
                     />
                 </View>
                 <View style={styles.buttonContainer}>
