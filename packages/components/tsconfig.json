@@ -12,7 +12,6 @@
     },
     "include": [
         "./src",
-        "src/types.ts"
     ],
     "exclude": [
         "./src/__tests__",
