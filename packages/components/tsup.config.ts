@@ -7,7 +7,7 @@ export default defineConfig(options => ({
     clean: true,
     dts: false,
     format: "esm",
-    bundle: true,
+    bundle: !options.watch,
     tsconfig: "./tsconfig.json",
     loader: {
         ".otf": "copy",
