@@ -63,7 +63,7 @@ export const Button = forwardRef<View, ButtonProps>(
         ref,
     ) => {
         const toggleData = useContext(ToggleButtonContext);
-        const isToggleButton = toggleData && toggleData.valid;
+        const isToggleButton = !!toggleData;
         const groupData = useContext(ButtonGroupContext);
 
         const styles = useStyles(themeStyles, {
@@ -93,15 +93,13 @@ export const Button = forwardRef<View, ButtonProps>(
             <View ref={ref} style={[styles.colorContainer, rest.style]}>
                 <PressableHighlight
                     disabled={disabled}
-                    onPress={isToggleButton ? toggleData.toggle : onPress}
+                    onPress={onPress}
                     style={styles.pressableContainer}
                 >
                     <View style={styles.labelContainer}>
                         {loading ? (
                             <DotProgress
-                                color={
-                                    disabled || variant !== "contained" ? "primary" : "neutral"
-                                }
+                                color={disabled || variant !== "contained" ? "primary" : "neutral"}
                                 size={12}
                             />
                         ) : (
