@@ -8,7 +8,13 @@
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "paths": {
+            "@/components/*": ["./src/components/*"],
+            "@/hooks/*": ["./src/hooks/*"],
+            "@/styling/*": ["./src/styling/*"],
+            "@/utils/*": ["./src/utils/*"]
+        }
     },
     "include": [
         "./src",

@@ -1,10 +1,9 @@
 import React, { createContext, PropsWithChildren } from "react";
 import { ColorScheme, Density } from "../../styling/types";
-import { PortalProvider } from "../Portal/PortalContext";
-import { Portal } from "../Portal";
-import { DialogServiceProvider } from "../Dialog/service/DialogServiceProvider";
+import { Portal, PortalProvider } from "@/components/Portal";
+import { DialogServiceProvider } from "@/components/Dialog";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ScrimProvider } from "../_internal/ScrimProvider";
+import { ScrimProvider } from "@/components/_internal/ScrimProvider";
 
 export type EDSProviderProps = {
     /**
