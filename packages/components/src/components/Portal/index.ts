@@ -9,4 +9,5 @@ type PortalFamily = typeof _Portal & {
 const Portal = _Portal as PortalFamily;
 Portal.Host = PortalHost;
 
-export { Portal, PortalProvider, PortalProps, PortalHostProps };
+export { Portal, PortalProvider };
+export type { PortalProps, PortalHostProps };
