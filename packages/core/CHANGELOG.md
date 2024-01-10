@@ -1,5 +1,15 @@
 # @equinor/mad-core
 
+## 0.3.5
+
+### Patch Changes
+
+-   37c7524: `What's new Screen`: ok button should now be available regardless of release note
+    length
+-   Updated dependencies [1fe9f1b]
+    -   @equinor/mad-components@0.9.0
+    -   @equinor/mad-auth@0.1.5
+
 ## 0.3.4
 
 ### Patch Changes
