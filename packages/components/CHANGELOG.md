@@ -1,5 +1,14 @@
 # @equinor/mad-components
 
+## 0.9.0
+
+### Minor Changes
+
+-   1fe9f1b: Fix togglebutton to have external state and remove unnecessary props. Remove multiple
+    and onChange props from ToggleButtonProps in ToggleButton. Remove props Toggle, valid and
+    isSelected from ToggleButtonContextContents in ToggleButton. Add activeIndex prop to
+    ToggleButtonProps.
+
 ## 0.8.6
 
 ### Patch Changes
