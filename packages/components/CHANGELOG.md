@@ -1,5 +1,15 @@
 # @equinor/mad-components
 
+## 0.10.0
+
+### Minor Changes
+
+-   f02e61c: **Breaking change:** Removed `disabled` prop on `Input`. Replaced by `readOnly`
+
+### Patch Changes
+
+-   f02e61c: Fixed `Input` component cyclic reference warnings
+
 ## 0.9.0
 
 ### Minor Changes
