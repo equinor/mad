@@ -9,4 +9,5 @@ type SwitchFamily = typeof _Switch & {
 const Switch = _Switch as SwitchFamily;
 Switch.Small = SmallSwitch;
 
-export { Switch, Radio, SwitchProps, SmallSwitchProps, RadioProps };
+export { Switch, Radio };
+export type { SwitchProps, SmallSwitchProps, RadioProps };

@@ -11,4 +11,5 @@ type TabsFamily = typeof _Tabs & {
 const Tabs = _Tabs as TabsFamily;
 Tabs.Tab = Tab;
 
-export { Tabs, TabsProps, TabProps as TabItemProps };
+export { Tabs };
+export type { TabsProps, TabProps as TabItemProps };
