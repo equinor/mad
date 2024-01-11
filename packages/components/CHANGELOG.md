@@ -1,5 +1,16 @@
 # @equinor/mad-components
 
+## 0.11.0
+
+### Minor Changes
+
+-   8441874: **Breaking change:** Package no longer exports EDSContext
+
+### Patch Changes
+
+-   3681d0b: Rollback changes made in render function in tabs component to how it was in 0.9.0 due
+    to an issue with the new implementation.
+
 ## 0.10.0
 
 ### Minor Changes
