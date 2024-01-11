@@ -31,7 +31,10 @@ export const Tabs = ({ scrollable = false, initialActiveIndex = 0, children }: T
 
     const renderCurrentTabChild = () => {
         const currentChildren = validChildren.at(activeTabIndex);
-        return currentChildren ? currentChildren : null;
+        if (typeof currentChildren === "object") {
+            return currentChildren?.props.children;
+        }
+        return null;
     };
 
     return (
