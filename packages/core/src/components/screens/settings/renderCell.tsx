@@ -1,7 +1,6 @@
 import React from "react";
 import { SettingsScreenCellConfigurationItem } from "./types";
-import { Cell, Icon } from "@equinor/mad-components";
-import { View } from "react-native";
+import { Cell } from "@equinor/mad-components";
 import { NavigationProp } from "@react-navigation/native";
 import { CoreStackParamListBase } from "../../../types";
 
@@ -20,13 +19,7 @@ export const renderCell = (
                 />
             );
         case "custom":
-            return (
-                <Cell key={item.title} onPress={() => null}>
-                    <View style={{ justifyContent: "center" }}>
-                        <Icon name={item.iconName} />
-                    </View>
-                </Cell>
-            );
+            return <item.component key={item.key} />;
         case "button":
             return (
                 <Cell.Button
