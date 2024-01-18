@@ -285,6 +285,15 @@ export const SampleSettingsScreen = () => {
                     isActive: true,
                     iconName: "abacus",
                 },
+                {
+                    name: "custom",
+                    key: "Custom",
+                    component: () => (
+                        <Cell>
+                            <Typography>This is a custom setting</Typography>
+                        </Cell>
+                    ),
+                },
             ],
         },
     ];
@@ -292,6 +301,8 @@ export const SampleSettingsScreen = () => {
     return <SettingsScreen config={appSpecificSettingsConfig} />;
 };
 ```
+
+_note: Remember to put your content in a `Cell` when adding custom settings_
 
 #### Step 4: replace `createStackNavigator`/`createNativeStackNavigator`/`createBottomTabsNavigator`/`NavigationContainer` imports
 
