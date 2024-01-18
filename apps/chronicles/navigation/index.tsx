@@ -30,7 +30,7 @@ import {
 } from "../types/navigation";
 import { ComponentScreen } from "../screens/components/ComponentScreen";
 import { ComponentName } from "../types/components";
-import DFWDiscoverScreen from "../screens/dfw/DFWDiscoverScreen";
+import { DFWDiscoverScreen } from "../screens/dfw/DFWDiscoverScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();

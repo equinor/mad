@@ -13,7 +13,11 @@
     "keywords": [
         "react native",
         "ui",
-        "typescript"
+        "typescript",
+        "equinor",
+        "notifications",
+        "inspection",
+        "work order"
     ],
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
@@ -30,7 +34,7 @@
         "react-native": ">=0.70"
     },
     "dependencies": {
-        "@equinor/mad-components": "^0.11.0"
+        "@equinor/mad-components": "workspace:*"
     },
     "devDependencies": {
         "@equinor/eslint-config-mad": "workspace:*"

@@ -3,7 +3,7 @@ import { View, ScrollView } from "react-native";
 
 import { Spacer, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
 
-export default function DFWDiscoverScreen() {
+export function DFWDiscoverScreen() {
     const styles = useStyles(themeStyles);
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic">

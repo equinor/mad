@@ -19,7 +19,7 @@ This is a monorepo collecting many of the packages used in the Mobile Applicatio
 | [ESLint MAD](./packages/eslint-config-mad)         | Linting rules used throughout MAD development.                                                            | [![npm](https://img.shields.io/npm/v/@equinor/eslint-config-mad?logo=npm)](https://www.npmjs.com/package/@equinor/eslint-config-mad)                           |
 | [Navigation](./packages/navigation)                | Extension package of react native navigation that adds functionality used in our apps.                    | [![npm](https://img.shields.io/npm/v/@equinor/mad-navigation?logo=npm)](https://www.npmjs.com/package/@equinor/mad-navigation)                                 |
 | [Insights](./packages/insights)                    | Wrapper package providing functionality for adding Azure application insights to your app.                | [![npm](https://img.shields.io/npm/v/@equinor/mad-insights?logo=npm)](https://www.npmjs.com/package/@equinor/mad-insights)                                     |
-| [Digital Field Worker](./packages/mad-dfw)         | Component library for the Digital Field Worker apps.                                                      | [![npm](https://img.shields.io/npm/v/@equinor/dfw?logo=npm)](https://www.npmjs.com/package/@equinor/mad-dfw)                                                   |
+| [Digital Field Worker](./packages/mad-dfw)         | Component library for the Digital Field Worker apps.                                                      | [![npm](https://img.shields.io/npm/v/@equinor/mad-dfw?logo=npm)](https://www.npmjs.com/package/@equinor/mad-dfw)                                               |
 
 ## 👨‍💻 Development
 
