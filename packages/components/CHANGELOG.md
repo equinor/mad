@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.11.1
+
+### Patch Changes
+
+-   d986ab2: Add `additionalSurface` prop to `Cell`component that makes it possible for cell to have
+    two unique `onPress` events.
+
 ## 0.11.0
 
 ### Minor Changes
