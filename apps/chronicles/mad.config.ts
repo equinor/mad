@@ -1,7 +1,6 @@
 import { MadConfig } from "@equinor/mad-core";
-import Logo from "./assets/images/icon.png";
-import { ImageSourcePropType } from "react-native";
 import { getBuildNumber } from "./settings";
+import Logo from "./assets/images/logo2.svg";
 
 export const config: MadConfig = {
     appVersion: "1.0.0",
@@ -31,8 +30,8 @@ export const config: MadConfig = {
         },
     },
     login: {
-        title: "Chronicles",
-        logo: Logo as ImageSourcePropType,
+        title: "MAD chronicles",
+        logo: Logo,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",

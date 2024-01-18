@@ -69,7 +69,7 @@ export type MadConfig = {
         /**
          * App logo. Used in login screen
          */
-        logo: ImageSourcePropType;
+        logo: string;
     }>;
     /**
      * App insights config used for initializing application insights service(s)
