@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.3.8
+
+### Patch Changes
+
+-   ea920f3: feat: you're now able to add custom settings
+
 ## 0.3.7
 
 ### Patch Changes
