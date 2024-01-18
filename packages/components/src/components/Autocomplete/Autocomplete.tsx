@@ -105,11 +105,9 @@ export const Autocomplete = <T,>({
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
-                    if (Platform.OS === "web") {
-                        setIsOptionsVisible(true);
-                    } else {
+                    setTimeout(() => {
                         setIsOptionsVisible(false);
-                    }
+                    }, 100);
                 }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
