@@ -26,6 +26,10 @@ export type ComponentsStackParamList = {
     };
 };
 
+export type DFWStackParamList = {
+    DFW: undefined;
+};
+
 export type DiscoverStackScreenProps<Screen extends keyof ComponentsStackParamList> =
     NativeStackScreenProps<ComponentsStackParamList, Screen>;
 
@@ -36,6 +40,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 export type RootTabParamList = {
     Components: undefined;
+    DFW: undefined;
     IconsTab: undefined;
     DrawTab: undefined;
     SignTab: undefined;
