@@ -329,6 +329,22 @@ importers:
         specifier: 18.1.0
         version: 18.1.0(react@18.2.0)
 
+  packages/dfw:
+    dependencies:
+      '@equinor/mad-components':
+        specifier: workspace:*
+        version: link:../components
+      react:
+        specifier: '>=18.0'
+        version: 18.2.0
+      react-native:
+        specifier: '>=0.70'
+        version: 0.72.6(@babel/core@7.23.6)(@babel/preset-env@7.23.6)(react@18.2.0)
+    devDependencies:
+      '@equinor/eslint-config-mad':
+        specifier: workspace:*
+        version: link:../eslint-config-mad
+
   packages/eslint-config-mad:
     dependencies:
       '@typescript-eslint/eslint-plugin':

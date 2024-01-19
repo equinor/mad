@@ -24,11 +24,13 @@ import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
 import {
     ComponentsStackParamList,
+    DFWStackParamList,
     RootStackParamList,
     RootTabParamList,
 } from "../types/navigation";
 import { ComponentScreen } from "../screens/components/ComponentScreen";
 import { ComponentName } from "../types/components";
+import { DFWDiscoverScreen } from "../screens/dfw/DFWDiscoverScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
@@ -101,6 +103,29 @@ function DiscoverNavigator() {
     );
 }
 
+const DFWStack = createNativeStackNavigator<DFWStackParamList>();
+
+function DFWNavigator() {
+    return (
+        <DFWStack.Navigator
+            initialRouteName="DFW"
+            screenOptions={{
+                headerLargeTitle: true,
+                headerLargeTitleShadowVisible: true,
+                headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
+                headerTitleStyle: {
+                    fontFamily: "Equinor-Regular",
+                },
+                headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+                customSubHeaderShown: false,
+                headerRight: () => <GoToSettingsButton marginRight={-12} />,
+            }}
+        >
+            <DFWStack.Screen name="DFW" component={DFWDiscoverScreen} />
+        </DFWStack.Navigator>
+    );
+}
+
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
@@ -124,6 +149,17 @@ function BottomTabNavigator() {
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="binoculars" color={color as Color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="DFW"
+                component={DFWNavigator}
+                options={{
+                    title: "Digital Field Worker",
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="video-input-component" color={color as Color} />
                     ),
                 }}
             />
