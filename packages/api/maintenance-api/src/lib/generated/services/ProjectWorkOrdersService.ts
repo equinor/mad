@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -47,9 +48,6 @@ export class ProjectWorkOrdersService {
      * ### Overview
      * Lookup single Project Work order with related information
      *
-     * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
-     *
      * ### Update release v1.0.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
      * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
@@ -76,6 +74,24 @@ export class ProjectWorkOrdersService {
      * ### Update release v1.8.0
      * Introduced property activeStatusIds for operations.
      *
+     * ### Update release v1.19.0
+     * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
+     *
+     * ### Update release v1.21.0
+     * Added property `area` to tag details.
+     *
+     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release v1.22.0
+     * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
+     *
+     * ### Update release v1.24.0
+     * Added property `cmrIndicator` in the response.
+     *
+     * ### Update release v1.26.0
+     * Added property 'isEquipmentRental' to serviceOperations.
+     *
      * @returns ProjectWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -83,6 +99,7 @@ export class ProjectWorkOrdersService {
     public static lookupProjectWorkOrder({
         workOrderId,
         includeOperations = true,
+        includeServiceOperations = true,
         includeMaterials = true,
         includeMaintenanceRecords = false,
         includeAttachments = false,
@@ -95,6 +112,10 @@ export class ProjectWorkOrdersService {
          * Include Work order operations
          */
         includeOperations?: boolean;
+        /**
+         * Include Work order service operations
+         */
+        includeServiceOperations?: boolean;
         /**
          * Include materials for Work order operations
          */
@@ -128,6 +149,7 @@ export class ProjectWorkOrdersService {
             },
             query: {
                 "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
                 "include-materials": includeMaterials,
                 "include-maintenance-records": includeMaintenanceRecords,
                 "include-attachments": includeAttachments,
@@ -149,11 +171,13 @@ export class ProjectWorkOrdersService {
      * Update project work order.
      *
      * Supports:
-     * - Append to text
+     * - Append and replace text
      * - Update workCenterId and workCenterPlantId
      * - Update tagId and tagPlantId
      * - Update basicStartDateTime and basicEndDateTime
      * - Update sortField
+     * - Update title
+     * - Update plannerGroupId
      * - Update revisionId (Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values)
      * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
      * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
@@ -162,6 +186,8 @@ export class ProjectWorkOrdersService {
      * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
      *
      * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
+     *
+     * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
      * ### Update release v1.0.0
      * Added additional properties to update
@@ -174,6 +200,13 @@ export class ProjectWorkOrdersService {
      *
      * ### Update release v1.7.0
      * Added possibility for update of locationId and systemId.
+     *
+     * ### Update release v1.18.0
+     * Added possibility for update of `title` and `plannerGroupId`.
+     *
+     * ### Update release v1.21.0
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -261,9 +294,6 @@ export class ProjectWorkOrdersService {
      * The response does not include all details for each project work order.
      * This can be found by subsequent call to lookup project-work-order
      *
-     * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
-     *
      * ### Filter: open-by-plant
      * Find open Project Work orders by plant
      * Parameters:
@@ -278,11 +308,33 @@ export class ProjectWorkOrdersService {
      * - plant-id
      * - max-days-since-activation
      *
+     * ### Filter: by-cost-network
+     * Project work orders based on cost network id.
+     * Parameters:
+     * - cost-network-id
+     * - plant-id (optional)
+     *
+     * ### Filter: by-cost-wbs
+     * Project work orders based on cost WBS id.
+     * Parameters:
+     * - cost-wbs-id
+     * - plant-id (optional)
+     *
      * ### Update release 1.4.0
      * Added location-id and system-id to filter `open-by-plant`.
      *
      * ### Update release v1.5.0
-     * Added revisionId to work order response (represents shutdown or campaign work).
+     * Added revisionId and revision to work order response (represents shutdown or campaign work).
+     *
+     * ### Update release v1.21.0
+     * Added filter `by-cost-network`, with required parameter `cost-network-id` and optional parameter `plant-id`.
+     *
+     * ### Update release v1.24.0
+     * Added filter `by-cost-wbs`, with required parameter `cost-wbs-id`. Can be used in combination with optional parameter `plant-id`.
+     * This filter only includes work orders where the WBS is represented on the work order level.
+     * It does not include work orders where WBS is only represented in the settlement rules.
+     *
+     * Added property `cmrIndicator` in the response.
      *
      * @returns ProjectWorkOrderSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -292,6 +344,8 @@ export class ProjectWorkOrdersService {
         filter,
         statusId,
         plantId,
+        costNetworkId,
+        costWbsId,
         locationId,
         systemId,
         maxDaysSinceActivation,
@@ -299,15 +353,23 @@ export class ProjectWorkOrdersService {
         /**
          * Filter to limit the Project work order by
          */
-        filter: "open-by-plant" | "recent-status-activations";
+        filter: "open-by-plant" | "recent-status-activations" | "by-cost-network" | "by-cost-wbs";
         /**
          * Status
          */
         statusId?: string;
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
+        /**
+         * Required parameter if `filter=by-cost-network`
+         */
+        costNetworkId?: string;
+        /**
+         * Required parameter if `filter=by-cost-wbs`
+         */
+        costWbsId?: string;
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
@@ -328,6 +390,8 @@ export class ProjectWorkOrdersService {
                 filter: filter,
                 "status-id": statusId,
                 "plant-id": plantId,
+                "cost-network-id": costNetworkId,
+                "cost-wbs-id": costWbsId,
                 "location-id": locationId,
                 "system-id": systemId,
                 "max-days-since-activation": maxDaysSinceActivation,
@@ -343,8 +407,6 @@ export class ProjectWorkOrdersService {
      * ### Overview
      * Create new Project Work order
      *
-     * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
      *
      * ### Update release v1.4.0
      * Fixed bug related to costNetworkId.
@@ -357,6 +419,10 @@ export class ProjectWorkOrdersService {
      *
      * ### Update release v1.8.0
      * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
+     *
+     * ### Update release v1.19.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ProjectWorkOrderBasic Created
@@ -388,6 +454,12 @@ export class ProjectWorkOrdersService {
      * Add operations
      * ### Update release v1.8.0
      * Added support for calculation key, which determines the relationship between plannedWorkDuration plannedWorkHours, and capacityCount.
+     * ### Update release v1.19.0
+     * Added support for  `standardTextTemplate` (standard text template identifier), `systemCondition` (describes required process condition for each operation) and `isExcludedFromWorkOrderPlan` (based on operation status).
+     *
+     * ### Update release v1.21.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Created - No body available for response. Use lookup from location header

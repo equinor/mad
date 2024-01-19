@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -15,11 +16,6 @@ export type PreventiveWorkOrderSimple = {
      * Structured location within the plant where the tag is located
      */
     locationId: string;
-    /**
-     * Deprecated 01.2021 - Use locationId instead
-     * @deprecated
-     */
-    areaId: string;
     plantId: string;
     planningPlantId: string;
     plannerGroupId: string;
@@ -55,6 +51,14 @@ export type PreventiveWorkOrderSimple = {
      * Value only returned if include-person-responsible=true. The email of the person responsible for the processing of the technical clarification. This is the preferred way of identifying the person as it's consistent across systems.
      */
     personResponsibleEmail?: string | null;
-    ProductionCritical?: boolean;
-    HSECritical?: boolean;
+    /**
+     * Criteria used by Equinor in CMR (Critical Maintenance Report):
+     * Corrective work orders where at least one item in the list or primary tag:
+     *
+     * - has the error classification "Dead" or "Seriously ill" or
+     * - has a "High" consequence classification for HSE or Production (one table for each) or
+     * - has received a "Hidden failure" code.
+     *
+     */
+    cmrIndicator?: boolean;
 };

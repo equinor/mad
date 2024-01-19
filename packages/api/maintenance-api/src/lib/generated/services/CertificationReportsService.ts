@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -32,6 +33,12 @@ export class CertificationReportsService {
      *
      * ### Update release v1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * ### Update release v1.21.0
+     * Added property `area` to tag details.
+     *
+     * ### Update release v1.24.0
+     * `attachments` now include the property `documentCreatedDate`
      *
      * @returns CertificationReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -160,7 +167,7 @@ export class CertificationReportsService {
          */
         statusId?: string;
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
         /**

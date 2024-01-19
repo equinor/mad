@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../../Button";
 import { Typography } from "../../Typography";
-import { Dialog } from "../index";
+import { Dialog } from "../Dialog";
 import { DialogHeader } from "../DialogHeader";
 import { DialogActions } from "../DialogActions";
 import { DialogCustomContent } from "../DialogCustomContent";

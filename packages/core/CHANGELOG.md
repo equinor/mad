@@ -1,5 +1,110 @@
 # @equinor/mad-core
 
+## 0.3.9
+
+### Patch Changes
+
+-   Updated dependencies [d986ab2]
+    -   @equinor/mad-components@0.11.1
+    -   @equinor/mad-auth@0.1.8
+
+## 0.3.8
+
+### Patch Changes
+
+-   ea920f3: feat: you're now able to add custom settings
+
+## 0.3.7
+
+### Patch Changes
+
+-   Updated dependencies [3681d0b]
+-   Updated dependencies [8441874]
+    -   @equinor/mad-components@0.11.0
+    -   @equinor/mad-auth@0.1.7
+
+## 0.3.6
+
+### Patch Changes
+
+-   Updated dependencies [f02e61c]
+-   Updated dependencies [f02e61c]
+    -   @equinor/mad-components@0.10.0
+    -   @equinor/mad-auth@0.1.6
+
+## 0.3.5
+
+### Patch Changes
+
+-   37c7524: `What's new Screen`: ok button should now be available regardless of release note
+    length
+-   Updated dependencies [1fe9f1b]
+    -   @equinor/mad-components@0.9.0
+    -   @equinor/mad-auth@0.1.5
+
+## 0.3.4
+
+### Patch Changes
+
+-   0d6c310: update color scheme for feedback and added deprecation
+-   Updated dependencies [a5607df]
+-   Updated dependencies [0d6c310]
+    -   @equinor/mad-components@0.8.6
+    -   @equinor/mad-auth@0.1.4
+
+## 0.3.3
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+-   009f521: Added support for environment switching
+-   Updated dependencies [b025c9b]
+    -   @equinor/mad-components@0.8.5
+    -   @equinor/mad-navigation@0.2.1
+    -   @equinor/mad-insights@0.1.1
+    -   @equinor/mad-auth@0.1.3
+
+## 0.3.2
+
+### Patch Changes
+
+-   3d8b22f: `createCoreStackNavigator`: now accepts paramlist as a generic argument (just like
+    `createNativeStackNavigator`)
+
+## 0.3.1
+
+### Patch Changes
+
+-   7c9c6da: export most of `mad-insights`' exports
+
+## 0.3.0
+
+### Minor Changes
+
+-   97dca15: Added support for service-messages!
+
+### Patch Changes
+
+-   e9e74b0: export demo mode and language related utilities
+-   Updated dependencies [97dca15]
+-   Updated dependencies [97dca15]
+    -   @equinor/mad-components@0.8.4
+    -   @equinor/mad-auth@0.1.2
+
+## 0.2.0
+
+### Minor Changes
+
+-   8e0178c: Added `AboutScreen`
+
+### Patch Changes
+
+-   bcb1f75: Now exports `authenticateSilently`
+-   Updated dependencies [59860d3]
+-   Updated dependencies [6f62312]
+    -   @equinor/mad-components@0.8.3
+    -   @equinor/mad-auth@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

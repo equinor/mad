@@ -8,6 +8,18 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { CellSwipeItemProps } from "./types";
 import { CellSwipeItem } from "./CellSwipeItem";
 
+export type AdditionalSurfaceProps = {
+    /**
+     * The content of the additional surface.
+     */
+    component: ReactNode;
+    /**
+     * Callback method invoked when a user presses the additional surface.
+     * Leaving this `undefined` causes the additional surface to not respond to touch or hover events.
+     */
+    onPress?: () => void;
+};
+
 export type CellProps = {
     /**
      * A component that uses the left-remaining space after the child content of the cell has been adjusted for.
@@ -32,6 +44,10 @@ export type CellProps = {
      * Leaving this `undefined` causes the cell to not respond to touch or hover events.
      */
     onPress?: () => void;
+    /**
+     * Additional touchable surface to be rendered to the left of the cell
+     */
+    additionalSurface?: AdditionalSurfaceProps;
 } & ViewProps;
 
 export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
@@ -41,6 +57,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
             rightAdornment,
             leftSwipeGroup,
             rightSwipeGroup,
+            additionalSurface,
             onPress,
             children,
             ...rest
@@ -52,23 +69,37 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
 
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
-                <PressableHighlight disabled={!onPress} onPress={onPress}>
-                    <View style={styles.contentContainer}>
-                        {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
-                        <View style={styles.children}>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>{children}</View>
-                        </View>
-                        {rightAdornment && <View style={styles.adornment}>{rightAdornment}</View>}
-                    </View>
-                    {!isLastCell && (
-                        <View style={styles.dividerOuter}>
-                            <View style={styles.dividerInner} />
-                        </View>
+                <View style={{ flexDirection: "row" }}>
+                    {additionalSurface && (
+                        <PressableHighlight
+                            onPress={additionalSurface.onPress}
+                            style={styles.additionalSurface}
+                        >
+                            {additionalSurface.component}
+                        </PressableHighlight>
                     )}
-                </PressableHighlight>
+                    <PressableHighlight disabled={!onPress} onPress={onPress} style={{ flex: 1 }}>
+                        <View style={styles.contentContainer}>
+                            {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
+                            <View style={styles.children}>
+                                <View style={{ flex: 1, justifyContent: "center" }}>
+                                    {children}
+                                </View>
+                            </View>
+                            {rightAdornment && (
+                                <View style={styles.adornment}>{rightAdornment}</View>
+                            )}
+                        </View>
+                        {!isLastCell && (
+                            <View style={styles.dividerOuter}>
+                                <View style={styles.dividerInner} />
+                            </View>
+                        )}
+                    </PressableHighlight>
+                </View>
             </View>
         );
-        return (!!leftSwipeGroup || !!rightSwipeGroup) ? (
+        return !!leftSwipeGroup || !!rightSwipeGroup ? (
             <Swipeable
                 overshootFriction={8}
                 containerStyle={{ backgroundColor: styles.container.backgroundColor }}
@@ -125,5 +156,12 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
     dividerInner: {
         height: theme.geometry.border.borderWidth,
         backgroundColor: theme.colors.border.medium,
+    },
+    additionalSurface: {
+        borderRightWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        borderStyle: "solid",
+        borderColor: theme.colors.border.medium,
     },
 }));

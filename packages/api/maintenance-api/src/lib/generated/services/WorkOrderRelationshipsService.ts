@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -59,7 +60,7 @@ export class WorkOrderRelationshipsService {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to work order`,
                 404: `The specified resource was not found`,
-                409: `Work order is locked by other user, maintenance record is closed or criterias for \`TechnicalFeedback\` are not fulfilled`,
+                409: `Work order is locked by other user, maintenance record is closed or criteria for \`TechnicalFeedback\` are not fulfilled`,
             },
         });
     }
@@ -74,7 +75,7 @@ export class WorkOrderRelationshipsService {
      * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information.
      *
      * ### Important information
-     * In some case, it will not be possible to remove a maintenance record relationship to a work order. For example, when a corrective work order is created from a failure report, it is not possible to remove this initial relationship (internally this is refered to as the header notification of the work order).
+     * In some case, it will not be possible to remove a maintenance record relationship to a work order. For example, when a corrective work order is created from a failure report, it is not possible to remove this initial relationship (internally this is referred to as the header notification of the work order).
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -173,9 +174,6 @@ export class WorkOrderRelationshipsService {
          * Id of the plant
          */
         tagPlantId: string;
-        /**
-         * Id of the tag
-         */
         tagId: string;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {

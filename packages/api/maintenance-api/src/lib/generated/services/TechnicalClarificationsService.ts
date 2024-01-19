@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -13,7 +14,7 @@ import { request as __request } from "../core/request";
 
 export class TechnicalClarificationsService {
     /**
-     * Technical clarifications - Lookup
+     * Technical clarification - Lookup
      * ### Overview
      * Lookup a single technical clarification.
      *
@@ -35,6 +36,12 @@ export class TechnicalClarificationsService {
      *
      * ### Update release v1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * ### Update release v1.21.0
+     * Added property `area` to tag details.
+     *
+     * ### Update release v1.24.0
+     * `attachments` now include the property `documentCreatedDate`
      *
      * @returns TechnicalClarification Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -70,7 +77,7 @@ export class TechnicalClarificationsService {
          */
         includeTagDetails?: boolean;
         /**
-         * Include person responsible information in response. If user does not have significant rights, this will return a `403` response
+         * Include person responsible information in response
          */
         includePersonResponsible?: boolean;
         /**
@@ -110,7 +117,10 @@ export class TechnicalClarificationsService {
      * Update key fields of a technical clarification.
      *
      * ## Important information
-     * To avoid accidently overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
+     * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
+     *
+     * ### Update release v1.21.0
+     * Added support for property `sortField`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -137,7 +147,7 @@ export class TechnicalClarificationsService {
             body: requestBody,
             mediaType: "application/json",
             errors: {
-                400: `Bad request. For example that an empty text property was supplied`,
+                400: `Bad request. For example that an empty value for text property was supplied`,
                 403: `User does not have sufficient rights to update the technical clarification`,
             },
         });
@@ -258,11 +268,7 @@ export class TechnicalClarificationsService {
         /**
          * Filter to limit the technical clarifications by
          */
-        filter:
-            | "recent-status-activations"
-            | "open-by-plant"
-            | "by-tag"
-            | "by-person-responsible";
+        filter: "recent-status-activations" | "open-by-plant" | "by-tag" | "by-person-responsible";
         /**
          * Include person responsible information in response
          */
@@ -272,7 +278,7 @@ export class TechnicalClarificationsService {
          */
         statusId?: string;
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
         /**

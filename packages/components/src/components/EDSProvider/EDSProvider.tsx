@@ -1,10 +1,10 @@
-import React, { createContext, PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { ColorScheme, Density } from "../../styling/types";
-import { PortalProvider } from "../Portal/PortalContext";
-import { Portal } from "../Portal";
+import { Portal, PortalProvider } from "../Portal";
 import { DialogServiceProvider } from "../Dialog/service/DialogServiceProvider";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ScrimProvider } from "../_internal/ScrimProvider";
+import { EDSContext } from "./EDSContext";
 
 export type EDSProviderProps = {
     /**
@@ -19,12 +19,6 @@ export type EDSProviderProps = {
      */
     density: Density;
 };
-
-export const EDSContext = createContext<EDSProviderProps>({
-    colorScheme: "light",
-    density: "tablet",
-});
-EDSContext.displayName = "EDSContext";
 
 export const EDSProvider = (props: PropsWithChildren<EDSProviderProps>) => {
     return (

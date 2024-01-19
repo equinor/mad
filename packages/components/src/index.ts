@@ -20,6 +20,8 @@ export { alert } from "./components/Dialog";
 export * from "./components/Environment";
 export * from "./components/ErrorBoundary";
 export * from "./components/SelectionControls";
+export * from "./components/Chip";
+export * from "./components/Tabs";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";

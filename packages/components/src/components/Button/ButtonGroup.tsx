@@ -1,6 +1,6 @@
 import React, { Children, createContext } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
-import { useValidChildrenIndexes } from "../../hooks/useValidChildrenIndexes";
+import { useValidChildrenIndexes } from "../../hooks/useValidChildren";
 
 export type ButtonGroupProps = {
     /**

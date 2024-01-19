@@ -1,6 +1,8 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
 import type { Equipment } from "../models/Equipment";
 import type { EquipmentAddClass } from "../models/EquipmentAddClass";
 import type { EquipmentBasicV2 } from "../models/EquipmentBasicV2";
@@ -75,6 +77,17 @@ export class EquipmentService {
      *
      * Add query parameter `include-url-characteristics`
      *
+     * ### Update release v1.21.0
+     * Added query parameter `include-person-responsible`, that expands work order response with person responsible.
+     *
+     * ### Update release v1.24.0
+     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
+     *
+     * Added property `cmrIndicator` for WorkOrders
+     *
+     * ### Update release v1.25.0
+     * Added query parameter `include-sub-equipment`
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -94,6 +107,8 @@ export class EquipmentService {
         includeUrlCharacteristics = false,
         includeMeasuringPoints = false,
         includeLastMeasurement = false,
+        includePersonResponsible = false,
+        includeSubEquipment = false,
         includeStatusDetails = false,
     }: {
         /**
@@ -101,7 +116,7 @@ export class EquipmentService {
          */
         equipmentId: string;
         /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
         includeMaintenanceRecords?: boolean;
         /**
@@ -120,7 +135,7 @@ export class EquipmentService {
          */
         includeOnlyOpenMaintenanceRecords?: boolean;
         /**
-         * Include work orders. If include-work-order-types is not supplied, all support types are returned
+         * Include work orders. If include-work-order-types is not supplied, all supported types are returned
          */
         includeWorkOrders?: boolean;
         /**
@@ -163,9 +178,19 @@ export class EquipmentService {
          */
         includeMeasuringPoints?: boolean;
         /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
         includeLastMeasurement?: boolean;
+        /**
+         * Include person responsible information in response
+         */
+        includePersonResponsible?: boolean;
+        /**
+         * Include child equipment for an equipment.
+         * Limit to only the first level childs of the hierarchy.
+         *
+         */
+        includeSubEquipment?: boolean;
         /**
          * Include detailed information for statuses (both active and non-active)
          */
@@ -179,10 +204,8 @@ export class EquipmentService {
             },
             query: {
                 "include-maintenance-records": includeMaintenanceRecords,
-                "include-maintenance-record-types":
-                    includeMaintenanceRecordTypes,
-                "include-only-open-maintenance-records":
-                    includeOnlyOpenMaintenanceRecords,
+                "include-maintenance-record-types": includeMaintenanceRecordTypes,
+                "include-only-open-maintenance-records": includeOnlyOpenMaintenanceRecords,
                 "include-work-orders": includeWorkOrders,
                 "include-work-order-types": includeWorkOrderTypes,
                 "include-only-open-work-orders": includeOnlyOpenWorkOrders,
@@ -193,6 +216,8 @@ export class EquipmentService {
                 "include-url-characteristics": includeUrlCharacteristics,
                 "include-measuring-points": includeMeasuringPoints,
                 "include-last-measurement": includeLastMeasurement,
+                "include-person-responsible": includePersonResponsible,
+                "include-sub-equipment": includeSubEquipment,
                 "include-status-details": includeStatusDetails,
             },
             errors: {
@@ -287,6 +312,43 @@ export class EquipmentService {
     }
 
     /**
+     * Equipment - Update characteristic
+     * Update existing values of characteristics on an equipment. If the characteristics does not exist, a `404 - Not Found` is returned.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateEquipmentCharacteristics({
+        equipmentId,
+        requestBody,
+    }: {
+        /**
+         * The unique equipmentId in Equinor's system
+         */
+        equipmentId: string;
+        /**
+         * Characteristics to be updated, based on JsonPatch standard
+         */
+        requestBody: Array<CharacteristicsUpdate>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/equipment/{equipment-id}/characteristics",
+            path: {
+                "equipment-id": equipmentId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to characteristics`,
+                404: `The specified resource was not found`,
+                409: `Characteristics is locked by other user`,
+            },
+        });
+    }
+
+    /**
      * Equipment list - Get
      * Get list of all equipment for the specified plant.
      *
@@ -315,7 +377,7 @@ export class EquipmentService {
          */
         filter?: "filter-by-equipment-category";
         /**
-         * Comma-separated list of equipment categories. `G` = Tank Customer equipment, `M` = Machines/Equipment, `P` = Production resources/tools, `Q` = Test/measurement equipment, `R` = Process Equipment, `S` = Customer equipment, `T` = IT Equipment, `U` = Subsea Equipment, `W` = Wind Operation Certified Equip, `Y` = Tool Crib
+         * Comma-separated list of equipment categories. `G` = Tank Customer equipment, `L` = Pipe & Process Equipment Parts, `M` = Machines/Equipment, `P` = Production resources/tools, `Q` = Test/measurement equipment, `R` = Process Equipment, `S` = Customer equipment, `T` = IT Equipment, `U` = Subsea Equipment, `W` = Wind Operation Certified Equip, `Y` = Tool Crib
          */
         equipmentCategoryIdAnyOf?: string;
     }): CancelablePromise<Array<EquipmentListItem> | ProblemDetails> {
@@ -414,6 +476,8 @@ export class EquipmentService {
      * * `serial-number-any-of`
      * * `vendor-part-number-any-of`
      * * `material-id-any-of`
+     * * `characteristic-value-any-of`
+     * * `equipment-any-of`
      *
      * These parameters allow a comma-separated list of entries.
      *
@@ -426,6 +490,10 @@ export class EquipmentService {
      *
      * ### Example usage
      * `/equipment?serial-number-any-of=4500695422-20-003,4500695422-20-004&include-maintenance-records=true&include-maintenance-record-types=failure-report&include-only-open-maintenance-records=true&include-work-orders=true&include-work-order-types=preventiveWorkOrders,subseaWorkOrders&include-only-open-work-orders=true&include-characteristics=true&api-version=v1` - Search equipment based on serialNumber with characteritics. Include open failure reports where the equipment is used as main reference. Include open subsea work orders and open preventive work orders where the equipment is either a material component or the main reference (`equipmentId` at work order header level).
+     *
+     * When using the `characteristic-value-any-of` it is important to URI Encode the input data especially when there are special characters as part of the input:
+     *
+     * `/equipment?characteristic-value-any-of=%3D17445%2F9818,%3D17433/6333&class-id=L_PART&characteristic-id=L_E3DREF&plant-id=1201&api-version=v1`
      *
      * ### Update release v1.4.0
      * `include-work-orders` now include work orders where the `equipmentId` is the main reference (`equipmentId` at work order header level).
@@ -457,6 +525,24 @@ export class EquipmentService {
      *
      * Added properties `manufacturer` and `modelNumber`.
      *
+     * ### Update release v1.21.0
+     * Added query parameter `include-person-responsible`, that expands work order response with person responsible.
+     *
+     * ### Update release v1.22.0
+     * Added `include-measuring-points` and `include-last-measurement` query parameters.
+     *
+     * ### Update release v1.24.0
+     * Added `characteristic-value-any-of`, `class-id`, `characteristic-id` and `plant-id-any-of` query parameters.
+     * Can be used to search for equipment based on values of a characteristic.
+     * In addition, an optional filter on a plant can be supplied.
+     *
+     * Added property `cmrIndicator` for WorkOrders.
+     *
+     * Added query parameter `equipment-any-of`, a wildcard search based on equipment
+     *
+     * ### Update release v1.25.0
+     * Added query parameter `include-sub-equipment`
+     *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -466,10 +552,19 @@ export class EquipmentService {
         serialNumberAnyOf,
         vendorPartNumberAnyOf,
         materialIdAnyOf,
+        characteristicValueAnyOf,
+        plantIdAnyOf,
+        equipmentAnyOf,
+        characteristicId,
+        classId,
         includeMaintenanceRecords = true,
         includeMaintenanceRecordTypes,
         includeOnlyOpenMaintenanceRecords = false,
         includeWorkOrders = true,
+        includePersonResponsible = false,
+        includeMeasuringPoints = false,
+        includeLastMeasurement = false,
+        includeSubEquipment = false,
         includeWorkOrderTypes,
         includeOnlyOpenWorkOrders = false,
         includeCharacteristics = false,
@@ -493,7 +588,27 @@ export class EquipmentService {
          */
         materialIdAnyOf?: Array<string>;
         /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all support types are returned
+         * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id` Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
+         */
+        characteristicValueAnyOf?: string;
+        /**
+         * Optional comma separated string array of plant-ids to filter your result to one or more plants. Wildcards are not supported. This query parameter can not be used on its own.
+         */
+        plantIdAnyOf?: string;
+        /**
+         * Optional comma separated string array of equipment descriptions/titles (`equipment` in response model). Wildcards are supported.
+         */
+        equipmentAnyOf?: string | null;
+        /**
+         * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids
+         */
+        characteristicId?: string | null;
+        /**
+         * Required field if `characteristic-value-any-of` is supplied.
+         */
+        classId?: string | null;
+        /**
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
         includeMaintenanceRecords?: boolean;
         /**
@@ -512,9 +627,27 @@ export class EquipmentService {
          */
         includeOnlyOpenMaintenanceRecords?: boolean;
         /**
-         * Include work orders. If include-work-order-types is not supplied, all support types are returned
+         * Include work orders. If include-work-order-types is not supplied, all supported types are returned
          */
         includeWorkOrders?: boolean;
+        /**
+         * Include person responsible information in response
+         */
+        includePersonResponsible?: boolean;
+        /**
+         * Include measuring points for this tag
+         */
+        includeMeasuringPoints?: boolean;
+        /**
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
+         */
+        includeLastMeasurement?: boolean;
+        /**
+         * Include child equipment for an equipment.
+         * Limit to only the first level childs of the hierarchy.
+         *
+         */
+        includeSubEquipment?: boolean;
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
@@ -551,12 +684,19 @@ export class EquipmentService {
                 "serial-number-any-of": serialNumberAnyOf,
                 "vendor-part-number-any-of": vendorPartNumberAnyOf,
                 "material-id-any-of": materialIdAnyOf,
+                "characteristic-value-any-of": characteristicValueAnyOf,
+                "plant-id-any-of": plantIdAnyOf,
+                "equipment-any-of": equipmentAnyOf,
+                "characteristic-id": characteristicId,
+                "class-id": classId,
                 "include-maintenance-records": includeMaintenanceRecords,
-                "include-maintenance-record-types":
-                    includeMaintenanceRecordTypes,
-                "include-only-open-maintenance-records":
-                    includeOnlyOpenMaintenanceRecords,
+                "include-maintenance-record-types": includeMaintenanceRecordTypes,
+                "include-only-open-maintenance-records": includeOnlyOpenMaintenanceRecords,
                 "include-work-orders": includeWorkOrders,
+                "include-person-responsible": includePersonResponsible,
+                "include-measuring-points": includeMeasuringPoints,
+                "include-last-measurement": includeLastMeasurement,
+                "include-sub-equipment": includeSubEquipment,
                 "include-work-order-types": includeWorkOrderTypes,
                 "include-only-open-work-orders": includeOnlyOpenWorkOrders,
                 "include-characteristics": includeCharacteristics,
@@ -609,9 +749,7 @@ export class EquipmentService {
         /**
          * Filter to limit the work order by
          */
-        filter:
-            | "recently-changed-reserved-equipment"
-            | "recently-changed-equipment";
+        filter: "recently-changed-reserved-equipment" | "recently-changed-equipment";
         /**
          * The subsea work order to check if any reserved equipment has been changed recently
          */

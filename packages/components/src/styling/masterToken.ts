@@ -27,6 +27,10 @@ export const masterToken: MasterToken = {
                 light: colors.ui_background_light_default,
                 dark: colors.ui_background_dark_default,
             },
+            warning: {
+                light: colors.ui_background_light_warning,
+                dark: colors.ui_background_dark_warning,
+            },
             elevation: {
                 none: {
                     light: colors.ui_background_light_default,
@@ -93,6 +97,20 @@ export const masterToken: MasterToken = {
                 dark: colors.interactive_primary_dark_resting,
             },
         },
+        feedback: {
+            success: {
+                light: colors.feedback_success_light_resting,
+                dark: colors.feedback_success_dark_resting,
+            },
+            warning: {
+                light: colors.feedback_warning_light_resting,
+                dark: colors.feedback_warning_dark_resting,
+            },
+            danger: {
+                light: colors.feedback_danger_light_resting,
+                dark: colors.feedback_danger_dark_resting,
+            },
+        },
         environment: {
             dev: {
                 light: colors.infographic_primary_energy_red_21,
@@ -146,6 +164,10 @@ export const masterToken: MasterToken = {
                 light: colors.interactive_disabled_light_text,
                 dark: colors.interactive_disabled_dark_text,
             },
+            feedbackWarning: {
+                light: colors.feedback_warning_light_text,
+                dark: colors.feedback_warning_dark_text,
+            },
         },
     },
     geometry: {
@@ -154,6 +176,7 @@ export const masterToken: MasterToken = {
             containerBorderRadius: 24,
             borderWidth: 1,
             focusedBorderWidth: 2,
+            tabsBorderWidth: 2,
         },
         dimension: {
             icon: {
@@ -208,6 +231,12 @@ export const masterToken: MasterToken = {
                         tablet: 50,
                         phone: 50,
                     },
+                },
+            },
+            tabs: {
+                minWidth: {
+                    tablet: spacings.xxx_large,
+                    phone: spacings.x_large,
                 },
             },
         },
@@ -296,6 +325,16 @@ export const masterToken: MasterToken = {
                 phone: spacings.small,
             },
         },
+        chip: {
+            paddingHorizontal: {
+                tablet: spacings.small,
+                phone: spacings.small,
+            },
+            paddingVertical: {
+                tablet: spacings.x_small,
+                phone: spacings.x_small,
+            },
+        },
         button: {
             paddingHorizontal: {
                 tablet: spacings.medium,
@@ -376,6 +415,16 @@ export const masterToken: MasterToken = {
                 phone: 34,
             },
         },
+        tabs: {
+            paddingVerical: {
+                tablet: spacings.medium,
+                phone: spacings.medium,
+            },
+            paddingHorizontal: {
+                tablet: spacings.medium,
+                phone: spacings.medium,
+            },
+        },
     },
     typography: {
         paragraph: {
@@ -454,8 +503,8 @@ export const masterToken: MasterToken = {
                 fontSize: FONT_BASIS,
                 color: colors.interactive_primary_light_resting,
                 textDecorationLine: "underline",
-                textAlign: "left"
-            }
+                textAlign: "left",
+            },
         },
         cell: {
             groupTitle: {
@@ -472,6 +521,7 @@ export const masterToken: MasterToken = {
             description: {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.75 * FONT_BASIS,
+                lineHeight: FONT_BASIS,
                 textAlign: "left",
             },
         },
@@ -480,6 +530,19 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Medium",
                 fontSize: 0.7 * FONT_BASIS,
                 textAlign: "left",
+            },
+            chipAndBadge: {
+                fontFamily: "Equinor-Medium",
+                fontSize: 0.75 * FONT_BASIS,
+                textAlign: "center",
+                lineHeight: FONT_BASIS,
+            },
+        },
+        navigation: {
+            menuTab: {
+                fontFamily: "Equinor-Medium",
+                fontSize: FONT_BASIS,
+                letterSpacing: 0.2,
             },
         },
     },

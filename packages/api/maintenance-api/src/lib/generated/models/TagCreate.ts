@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -34,12 +35,16 @@ export type TagCreate = {
         | "W"
         | "X"
         | "Z";
-    systemId: string;
+    systemId?: string;
     ABCId?: string;
+    /**
+     * Specific room for the asset
+     */
+    area?: string;
     /**
      * Structured location within the plant where the tag is located
      */
-    locationId: string;
+    locationId?: string;
     workCenterId?: string;
     workCenterPlantId?: string;
     planningPlantId?: string;
