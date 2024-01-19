@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.3.10
+
+### Patch Changes
+
+-   85da576: Now exports `getAccount`, `signOut`, and `authenticateInteractively`
+
 ## 0.3.9
 
 ### Patch Changes
