@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
@@ -48,6 +48,8 @@ export const NavigationCell = ({
     ...cellProps
 }: NavigationCellProps) => {
     const styles = useStyles(themeStyles);
+    const [maxWidth, setMaxWidth] = useState(0);
+
     const IconAdornment = () => (
         <View style={styles.adornmentContainer}>
             <Icon name={iconName ?? "dots-square"} color={disabled ? "textDisabled" : undefined} />
@@ -62,7 +64,17 @@ export const NavigationCell = ({
     const renderAdditionalTitles = (titles: string[]) => {
         return titles?.map((text, index) => (
             <Typography
-                style={[{ justifyContent: "flex-start"} , additionalTitlesRight && {flex: 1}]}
+                onLayout={event => {
+                    const width = event.nativeEvent.layout.width;
+                    if (width > maxWidth) {
+                        setMaxWidth(width);
+                    }
+                }}
+                style={[
+                    { justifyContent: "flex-start" },
+                    additionalTitlesRight && { flex: 1 },
+                    additionalTitlesUnder && { minWidth: maxWidth },
+                ]}
                 key={index}
                 group="cell"
                 variant="title"
