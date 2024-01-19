@@ -29,3 +29,4 @@ export * from "./styling/types";
 export * from "./hooks/useEDS";
 export * from "./hooks/useStyles";
 export * from "./hooks/useToken";
+export * from "./hooks/useBreakpoint";
