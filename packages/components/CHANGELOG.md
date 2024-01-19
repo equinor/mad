@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.11.2
+
+### Patch Changes
+
+-   7eae144: Added useBreakpoint hook to use for apps and components that have specific requirements
+    or styles based on device size
+
 ## 0.11.1
 
 ### Patch Changes
