@@ -1,5 +1,13 @@
 # @equinor/mad-core
 
+## 0.3.11
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+    -   @equinor/mad-auth@0.1.9
+
 ## 0.3.10
 
 ### Patch Changes
