@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
 export const ButtonScreen = () => {
     const styles = useStyles(themeStyles);
+    const [activeToggleIndex, setActiveToggleIndex] = useState<number>(0);
 
     return (
         <ScrollView
@@ -68,10 +69,10 @@ export const ButtonScreen = () => {
             <Spacer />
             <Typography>Or used as toggles</Typography>
             <View style={{ alignItems: "center" }}>
-                <Button.Toggle>
-                    <Button title="One" />
-                    <Button title="Two" />
-                    <Button title="Three" />
+                <Button.Toggle activeIndex={activeToggleIndex}>
+                    <Button title="One" onPress={() => setActiveToggleIndex(0)} />
+                    <Button title="Two" onPress={() => setActiveToggleIndex(1)} />
+                    <Button title="Three" onPress={() => setActiveToggleIndex(2)} />
                 </Button.Toggle>
             </View>
         </ScrollView>

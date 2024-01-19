@@ -1,3 +1,4 @@
+import { StrictChildrenReactNode } from "../../utils/types";
 import { TabProps } from "./Tab";
 
 export type TabsContextType = {
@@ -5,4 +6,4 @@ export type TabsContextType = {
     isSelected: boolean;
 };
 
-export type TabsChildrenType = React.ReactElement<TabProps> | boolean | null | undefined;
+export type TabsChildrenType = StrictChildrenReactNode<TabProps>;

@@ -58,8 +58,19 @@ export const InputScreen = () => {
                     }
                     placeholder="Anything goes here"
                 ></Input>
+
                 <Spacer />
                 <Typography>These come in different variants</Typography>
+                <Spacer />
+                <Input readOnly value={"This content is readonly"} />
+                <Spacer />
+                <Input
+                    readOnly
+                    multiline
+                    value={
+                        "This content is readonly and multiline so that you can select text from it!"
+                    }
+                />
                 <Spacer />
                 <Input placeholder="Placeholder danger" variant="danger" />
                 <Spacer />

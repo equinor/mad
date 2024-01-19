@@ -1,5 +1,42 @@
 # @equinor/mad-components
 
+## 0.11.1
+
+### Patch Changes
+
+-   d986ab2: Add `additionalSurface` prop to `Cell`component that makes it possible for cell to have
+    two unique `onPress` events.
+
+## 0.11.0
+
+### Minor Changes
+
+-   8441874: **Breaking change:** Package no longer exports EDSContext
+
+### Patch Changes
+
+-   3681d0b: Rollback changes made in render function in tabs component to how it was in 0.9.0 due
+    to an issue with the new implementation.
+
+## 0.10.0
+
+### Minor Changes
+
+-   f02e61c: **Breaking change:** Removed `disabled` prop on `Input`. Replaced by `readOnly`
+
+### Patch Changes
+
+-   f02e61c: Fixed `Input` component cyclic reference warnings
+
+## 0.9.0
+
+### Minor Changes
+
+-   1fe9f1b: Fix togglebutton to have external state and remove unnecessary props. Remove multiple
+    and onChange props from ToggleButtonProps in ToggleButton. Remove props Toggle, valid and
+    isSelected from ToggleButtonContextContents in ToggleButton. Add activeIndex prop to
+    ToggleButtonProps.
+
 ## 0.8.6
 
 ### Patch Changes

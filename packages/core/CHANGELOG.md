@@ -1,5 +1,47 @@
 # @equinor/mad-core
 
+## 0.3.9
+
+### Patch Changes
+
+-   Updated dependencies [d986ab2]
+    -   @equinor/mad-components@0.11.1
+    -   @equinor/mad-auth@0.1.8
+
+## 0.3.8
+
+### Patch Changes
+
+-   ea920f3: feat: you're now able to add custom settings
+
+## 0.3.7
+
+### Patch Changes
+
+-   Updated dependencies [3681d0b]
+-   Updated dependencies [8441874]
+    -   @equinor/mad-components@0.11.0
+    -   @equinor/mad-auth@0.1.7
+
+## 0.3.6
+
+### Patch Changes
+
+-   Updated dependencies [f02e61c]
+-   Updated dependencies [f02e61c]
+    -   @equinor/mad-components@0.10.0
+    -   @equinor/mad-auth@0.1.6
+
+## 0.3.5
+
+### Patch Changes
+
+-   37c7524: `What's new Screen`: ok button should now be available regardless of release note
+    length
+-   Updated dependencies [1fe9f1b]
+    -   @equinor/mad-components@0.9.0
+    -   @equinor/mad-auth@0.1.5
+
 ## 0.3.4
 
 ### Patch Changes

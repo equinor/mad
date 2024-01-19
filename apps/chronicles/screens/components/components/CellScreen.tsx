@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Button,
     Cell,
     EDSStyleSheet,
+    Radio,
     Spacer,
     Typography,
     useStyles,
@@ -11,13 +12,22 @@ import { ScrollView, View } from "react-native";
 
 export const CellScreen = () => {
     const styles = useStyles(themeStyles);
+    const [activeToggleIndex, setActiveToggleIndex] = useState<number>(0);
+
+    const [isCheckedRadio1, setIsCheckedRadio1] = useState(false);
+    const [isCheckedRadio2, setIsCheckedRadio2] = useState(true);
+
+    const handleRadioChange = (newState: boolean) => {
+        setIsCheckedRadio2(newState);
+        setIsCheckedRadio1(!newState);
+    };
 
     const MyCustomCell = (customCellProps: { title: string }) => (
         <Cell
             rightAdornment={
-                <Button.Toggle>
-                    <Button title="1" />
-                    <Button title="2" />
+                <Button.Toggle activeIndex={activeToggleIndex}>
+                    <Button title="1" onPress={() => setActiveToggleIndex(0)} />
+                    <Button title="2" onPress={() => setActiveToggleIndex(1)} />
                 </Button.Toggle>
             }
         >
@@ -131,6 +141,28 @@ export const CellScreen = () => {
             </Cell>
             <Spacer />
             <View style={styles.readableContent}>
+                <Typography>
+                    Cells can also have an additional pressable surface. This can be used to add
+                    functionality to the cell without interfering with the onPress event.
+                </Typography>
+            </View>
+            <Spacer />
+            <Cell
+                onPress={() => null}
+                additionalSurface={{
+                    onPress: () => handleRadioChange(!isCheckedRadio2),
+                    component: (
+                        <View style={styles.additionalSurface}>
+                            <Radio checked={isCheckedRadio1} />
+                        </View>
+                    ),
+                }}
+            >
+                <Typography> This cell has an additional pressable surface</Typography>
+            </Cell>
+
+            <Spacer />
+            <View style={styles.readableContent}>
                 <Typography variant="h2">Swipe items</Typography>
                 <Typography>
                     Cells can also be swiped in either direction to reveal actions. Take a look at
@@ -221,5 +253,13 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         borderColor: theme.colors.interactive.primary,
         borderRadius: theme.geometry.border.elementBorderRadius,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
+    },
+    additionalSurface: {
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row",
+        flex: 1,
+        paddingLeft: theme.spacing.container.paddingHorizontal,
+        paddingRight: theme.spacing.container.paddingHorizontal,
     },
 }));
