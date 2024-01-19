@@ -15,7 +15,6 @@ export default function App() {
 
     const breakpoint = useBreakpoint();
     const deviceType = useMemo(() => {
-        console.log(breakpoint);
         return breakpoint === "xs" ? "phone" : "tablet";
     }, [breakpoint]);
     useEffect(() => {
