@@ -105,6 +105,12 @@ export default function DiscoverScreen() {
                     componentName="progressIndicator"
                 />
                 <ComponentNavigationCell
+                    title="Progress"
+                    description="Show progress"
+                    iconName="progress-download"
+                    componentName="progress"
+                />
+                <ComponentNavigationCell
                     title="Dialog"
                     description="When the user has to take action"
                     iconName="menu"
