@@ -3,14 +3,16 @@ import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
 
-type StatusLineProps = {
+export type ProgressStatusLineProps = {
     color: Color | undefined;
 };
 
-export const ProgressStatusLine = ({ color }: StatusLineProps) => {
+export const ProgressStatusLine = ({ color }: ProgressStatusLineProps) => {
     const styles = useStyles(themeStyles);
     return <View style={[styles.verticalLine, { backgroundColor: color }]} />;
 };
+
+ProgressStatusLine.displayName = "Progress.StatusLine";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     verticalLine: {
