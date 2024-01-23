@@ -36,7 +36,7 @@ export const CellGroup = ({
     adornment,
     children,
 }: React.PropsWithChildren<CellGroupProps>) => {
-    const styles = useStyles(themeStyles);
+    const styles = useStyles(themeStyles, { title });
     const validChildrenIndexes = useValidChildrenIndexes(children);
     return (
         <>
@@ -62,10 +62,10 @@ export const CellGroup = ({
     );
 };
 
-const themeStyles = EDSStyleSheet.create(theme => ({
+const themeStyles = EDSStyleSheet.create((theme, props: CellGroupProps) => ({
     titleContainer: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
-        paddingBottom: theme.spacing.cell.group.titleBottomPadding,
+        paddingBottom: props.title ? theme.spacing.cell.group.titleBottomPadding : undefined,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "flex-end",
