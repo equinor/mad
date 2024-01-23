@@ -22,7 +22,8 @@ const linking: LinkingOptions<RootStackParamList> = {
                     },
                     DFW: {
                         screens: {
-                            Discover: "dfw",
+                            Discover: "dfwcomponents",
+                            Component: "dfwcomponents/:name",
                         },
                     },
                     IconsTab: {

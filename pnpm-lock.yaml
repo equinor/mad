@@ -65,6 +65,9 @@ importers:
       '@equinor/mad-core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@equinor/mad-dfw':
+        specifier: workspace:*
+        version: link:../../packages/dfw
       '@equinor/mad-navigation':
         specifier: workspace:*
         version: link:../../packages/navigation

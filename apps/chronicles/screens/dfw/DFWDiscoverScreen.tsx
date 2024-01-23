@@ -1,26 +1,21 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 
-import { Spacer, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
+import { Cell, Spacer } from "@equinor/mad-components";
+import { DFWComponentNavigationCell } from "../../components/DFWComponentNavigationCell";
 
 export function DFWDiscoverScreen() {
-    const styles = useStyles(themeStyles);
     return (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-            <View style={styles.readableContent}>
-                <Spacer />
-                <Typography>There is nothing here yet!</Typography>
-            </View>
+            <Spacer />
+            <Cell.Group title="Inspection">
+                <DFWComponentNavigationCell
+                    title="Property Row"
+                    description="Displays a label and a value in rows"
+                    iconName="table-row"
+                    componentName="propertyRow"
+                />
+            </Cell.Group>
         </ScrollView>
     );
 }
-
-const themeStyles = EDSStyleSheet.create(theme => ({
-    container: {
-        flex: 1,
-        paddingVertical: theme.spacing.container.paddingVertical,
-    },
-    readableContent: {
-        paddingHorizontal: theme.spacing.container.paddingHorizontal,
-    },
-}));
