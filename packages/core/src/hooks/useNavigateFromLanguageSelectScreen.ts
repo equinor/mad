@@ -1,5 +1,5 @@
 import { useNavigateToMainRoute } from "../store/mad-config";
-import { getNavigationRouteForLanguageSelectScreen } from "../utils/getNavigationRouteForSelectLanguageScreen";
+import { getNavigationRouteForSelectLanguageScreen } from "../utils/getNavigationRouteForSelectLanguageScreen";
 import { useCoreStackNavigation, useCoreStackRoute } from "./useCoreStackNavigation";
 
 export const useNavigateFromLanguageSelectScreen = () => {
@@ -7,7 +7,7 @@ export const useNavigateFromLanguageSelectScreen = () => {
     const navigation = useCoreStackNavigation();
     const navigateToMainRoute = useNavigateToMainRoute();
     const isOnboarding = coreRoute.name === "SelectLanguageOnboarding";
-    const route = getNavigationRouteForLanguageSelectScreen(isOnboarding);
+    const route = getNavigationRouteForSelectLanguageScreen(isOnboarding);
     if (route) return () => navigation.navigate(route);
     return navigateToMainRoute;
 };
