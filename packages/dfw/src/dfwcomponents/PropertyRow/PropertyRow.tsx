@@ -8,44 +8,40 @@ import {
     Icon,
     Typography,
 } from "@equinor/mad-components";
-import { View, ViewStyle } from "react-native";
-
+import { View, ViewProps } from "react-native";
 type PropertyRowStyleProps = {
     breakpoint: Breakpoint;
 };
-
 export type PropertyRowProps = {
     label: string;
     value: string;
     iconName?: IconName;
-    rowStyle?: ViewStyle;
-};
-
-export const PropertyRow = ({ label, value, iconName, rowStyle }: PropertyRowProps) => {
+} & ViewProps;
+export const PropertyRow = ({ label, value, iconName, ...rest }: PropertyRowProps) => {
     const breakpoint = useBreakpoint();
     const styles = useStyles(themeStyles, { breakpoint });
-    const renderIcon = () => {
-        if (iconName) {
-            return <Icon name={iconName} size={20} style={styles.iconStyle} />;
-        }
-        return <View style={{ paddingRight: 30 }} />;
-    };
+    const renderIcon = () =>
+        iconName && (
+            <Icon name={iconName} size={20} style={styles.iconStyle} color="textTertiary" />
+        );
     const labelProps =
         breakpoint === "xs"
             ? ({ group: "paragraph", variant: "overline" } as const)
             : ({ group: "paragraph", variant: "body_short" } as const);
-
     return (
-        <View style={[styles.propertyLabel, rowStyle]}>
-            {renderIcon()}
+        <View {...rest} style={[styles.propertyLabel, rest.style]}>
+            {breakpoint === "xs" && renderIcon()}
             <View style={styles.textContainer}>
-                <Typography style={styles.labelStyle} {...labelProps}>
-                    {label}
-                </Typography>
+                <View style={styles.labelStyle}>
+                    {breakpoint !== "xs" && renderIcon()}
+                    <Typography {...labelProps} color="textTertiary">
+                        {label}
+                    </Typography>
+                </View>
                 <Typography
                     group="paragraph"
                     variant="body_short"
-                    color="textSecondary"
+                    color="textTertiary"
                     style={{ flex: 1 }}
                     numberOfLines={1}
                 >
@@ -55,24 +51,19 @@ export const PropertyRow = ({ label, value, iconName, rowStyle }: PropertyRowPro
         </View>
     );
 };
-
-const themeStyles = EDSStyleSheet.create((theme, { breakpoint }: PropertyRowStyleProps) => ({
+const themeStyles = EDSStyleSheet.create((_, { breakpoint }: PropertyRowStyleProps) => ({
     propertyLabel: {
         flexDirection: "row",
         alignItems: "center",
-        paddingVertical: 5,
-        paddingHorizontal: 10,
     },
     iconStyle: {
         paddingRight: 10,
-        flexDirection: breakpoint === "xs" ? "row" : undefined,
     },
     labelStyle: {
+        flexDirection: "row",
         minWidth: breakpoint !== "xs" ? 232 : 0,
     },
-
     textContainer: {
         flexDirection: breakpoint === "xs" ? "column" : "row",
-        //gap: theme.spacing.cell.content.titleDescriptionGap,
     },
 }));

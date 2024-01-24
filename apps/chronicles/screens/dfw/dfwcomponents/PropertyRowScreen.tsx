@@ -49,6 +49,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     propertyRowContainer: {
         backgroundColor: theme.colors.container.default,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
     },
     readableContent: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
