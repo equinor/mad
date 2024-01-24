@@ -24,41 +24,55 @@ export type PropertyRowProps = {
 export const PropertyRow = ({ label, value, iconName, rowStyle }: PropertyRowProps) => {
     const breakpoint = useBreakpoint();
     const styles = useStyles(themeStyles, { breakpoint });
+    const renderIcon = () => {
+        if (iconName) {
+            return <Icon name={iconName} size={20} style={styles.iconStyle} />;
+        }
+        return <View style={{ paddingRight: 30 }} />;
+    };
     const labelProps =
         breakpoint === "xs"
             ? ({ group: "paragraph", variant: "overline" } as const)
             : ({ group: "paragraph", variant: "body_short" } as const);
+
     return (
-        <View style={[styles.propertyRow, rowStyle]}>
-            <View style={styles.propertyLabel}>
-                {iconName && <Icon name={iconName} size={20} style={styles.iconStyle} />}
-                <Typography {...labelProps}>{label}</Typography>
+        <View style={[styles.propertyLabel, rowStyle]}>
+            {renderIcon()}
+            <View style={styles.textContainer}>
+                <Typography style={styles.labelStyle} {...labelProps}>
+                    {label}
+                </Typography>
+                <Typography
+                    group="paragraph"
+                    variant="body_short"
+                    color="textSecondary"
+                    style={{ flex: 1 }}
+                    numberOfLines={1}
+                >
+                    {value}
+                </Typography>
             </View>
-            <Typography
-                group="paragraph"
-                variant="body_short"
-                color="textTertiary"
-                style={{ flex: 1 }}
-                numberOfLines={1}
-            >
-                {value}
-            </Typography>
         </View>
     );
 };
 
 const themeStyles = EDSStyleSheet.create((theme, { breakpoint }: PropertyRowStyleProps) => ({
-    propertyRow: {
-        flexDirection: breakpoint !== "xs" ? "row" : "column",
+    propertyLabel: {
+        flexDirection: "row",
+        alignItems: "center",
         paddingVertical: 5,
         paddingHorizontal: 10,
-        alignItems: breakpoint !== "xs" ? "center" : "flex-start",
-    },
-    propertyLabel: {
-        flexBasis: breakpoint !== "xs" ? 232 : undefined,
-        flexDirection: "row",
     },
     iconStyle: {
         paddingRight: 10,
+        flexDirection: breakpoint === "xs" ? "row" : undefined,
+    },
+    labelStyle: {
+        minWidth: breakpoint !== "xs" ? 232 : 0,
+    },
+
+    textContainer: {
+        flexDirection: breakpoint === "xs" ? "column" : "row",
+        //gap: theme.spacing.cell.content.titleDescriptionGap,
     },
 }));
