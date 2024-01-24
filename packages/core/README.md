@@ -67,8 +67,10 @@ import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
 import { getBuildNumber, getAppSpecificEndpoints } from "./settings";
+import { RootStackParamList } from "./types/navigation";
 
-export const config: MadConfig = {
+export const config: MadConfig<RootStackParamList> = {
+    navigateToMainRouteFn: navigation => navigation.navigate("Root"),
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     currentEnvironment: "prod",
@@ -111,8 +113,10 @@ import { MadConfig } from "@equinor/mad-core";
 import Logo from "./assets/images/icon.png";
 import { ImageSourcePropType } from "react-native";
 import { getBuildNumber } from "./settings";
+import { RootStackParamList } from "./types/navigation";
 
-export const config: MadConfig = {
+export const config: MadConfig<RootStackParamList> = {
+    navigateToMainRouteFn: navigation => navigation.navigate("Root"),
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     currentEnvironment: "prod",
@@ -154,17 +158,18 @@ export const config: MadConfig = {
 };
 ```
 
-| key                   | required? | explanation                                                                                                                                                                        |
-| --------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `appVersion`          | true      | Your app's current version. Used to figure out whether the app should display what's new, and which release notes version to fetch                                                 |
-| `servicePortalName`   | true      | The name of the app in the service portal. Used to figure out which release notes and service messages to fetch                                                                    |
-| `currentEnvironment`  | true      | The environment of the app. Used to display environment banner, and to select the correct service message and release notes endpoint. Also used to pick correct values from config |
-| `language`            | true      | language config. See [language](#language-config)                                                                                                                                  |
-| `authentication`      | true      | authentication config. See [authentication](#authentication-config)                                                                                                                |
-| `login`               | true      | login screen config. See [login](#login-config)                                                                                                                                    |
-| `applicationInsights` | true      | application insights config. See [application insights](#application-insights-config)                                                                                              |
-| `serviceNow`          | false     | Configuration item in Service Now. Used for create incident screen. If not provided, we won't add create incident screen to the stack                                              |
-| `about`               | false     | about screen config. If not provided, we won't add about screen to the stack. See [about](#about-config)                                                                           |
+| key                   | required? | explanation                                                                                                                                                                                         |
+| --------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appVersion`          | true      | Your app's current version. Used to figure out whether the app should display what's new, and which release notes version to fetch                                                                  |
+| `navigateToMainFn`    | true      | a function `@equinor/mad-core` will use when navigating to your app's main route. To make this function type safe, make sure to provide a `ParamList` as a generic argument to the `MadConfig` type |
+| `servicePortalName`   | true      | The name of the app in the service portal. Used to figure out which release notes and service messages to fetch                                                                                     |
+| `currentEnvironment`  | true      | The environment of the app. Used to display environment banner, and to select the correct service message and release notes endpoint. Also used to pick correct values from config                  |
+| `language`            | true      | language config. See [language](#language-config)                                                                                                                                                   |
+| `authentication`      | true      | authentication config. See [authentication](#authentication-config)                                                                                                                                 |
+| `login`               | true      | login screen config. See [login](#login-config)                                                                                                                                                     |
+| `applicationInsights` | true      | application insights config. See [application insights](#application-insights-config)                                                                                                               |
+| `serviceNow`          | false     | Configuration item in Service Now. Used for create incident screen. If not provided, we won't add create incident screen to the stack                                                               |
+| `about`               | false     | about screen config. If not provided, we won't add about screen to the stack. See [about](#about-config)                                                                                            |
 
 ###### Language config
 
@@ -220,10 +225,6 @@ const RootStack = createCoreStackNavigator<RootStackParamList>(config);
 
 If you have leftover screens from `mad-expo-core` in the stack, they should be removed.
 `createCoreStackNavigator` will add similar screens for you behind the scenes.
-
-**Important:** Your main screen's route should be called `"Root"`. This is the screen we will
-navigate to once login/whatsnew/onboarding is finished. If this is a limitation in your app, please
-create an issue!
 
 `SettingsScreen` also has to be added manually. This is because you most likely have app-specific
 settings you want to hook up to the settings screen.

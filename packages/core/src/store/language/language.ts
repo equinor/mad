@@ -85,12 +85,23 @@ export type UseLanguageReturnType = {
      * @param {string} code - language code
      */
     setSelectedLanguage: LanguageState["setSelectedLanguage"];
+    /**
+     * Check if the user has selected a language
+     * @returns whether the language is selected
+     */
+    getIsLanguageSelected: () => boolean;
 };
 export const useLanguage = (): UseLanguageReturnType => {
     const store = useLanguageStore();
     const language = store.getLanguage();
-    const { setSelectedLanguage } = store;
-    return { language, getDefaultLanguage, setSelectedLanguage, getSupportedLanguages };
+    const { setSelectedLanguage, getIsLanguageSelected } = store;
+    return {
+        language,
+        getDefaultLanguage,
+        setSelectedLanguage,
+        getSupportedLanguages,
+        getIsLanguageSelected,
+    };
 };
 
 export const { getLanguage, setSelectedLanguage, getIsLanguageSelected } =
