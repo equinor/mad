@@ -24,7 +24,7 @@ export const PropertyRowScreen = () => {
             <Spacer />
             <View style={styles.readableContent}>
                 <Typography>
-                    or you can use multiple property rows to display whatever data you'd like:
+                    or you can use multiple property rows to display whatever data you&apos;d like:
                 </Typography>
             </View>
             <Spacer />
