@@ -21,6 +21,7 @@ body:
               - React Native Skia Draw
               - Maintenance API typescript wrapper
               - ESLint Equinor MAD
+              - MAD DFW
               - Other
       validations:
           required: true
