@@ -33,7 +33,7 @@ export const config: MadConfig<RootStackParamList> = {
     },
     login: {
         title: "MAD chronicles",
-        logo: Logo,
+        logo: Logo as string,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
