@@ -47,7 +47,7 @@ describe("getNavigationRouteForWhatsNewScreen", () => {
             ],
             false,
         );
-        expect(val3).toBe("SelectLanguageOnboarding");
+        expect(val3).toBe(CoreRoutes.SELECT_LANGUAGE_ONBOARDING);
 
         const val4 = getNavigationRouteForWhatsNewScreen(
             false,
