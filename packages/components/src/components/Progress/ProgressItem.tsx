@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { LayoutAnimation, View, Pressable } from "react-native";
+import { LayoutAnimation, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { useToken } from "../../hooks/useToken";
 import { EDSStyleSheet } from "../../styling";
 import { Button } from "../Button";
-import { Icon, IconName } from "../Icon";
-import { CircularProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
-import { ProgressStatusLine } from "./ProgressStatusLine";
-
-export type TaskErrorDetails = {
-    message: string;
-    code?: string;
-    suggestion?: string;
-};
-
-export type ProgressTask = {
-    title: string;
-    status: TaskStatus;
-    errorDetails?: TaskErrorDetails;
-};
+import { ProgressExpandButton } from "./ProgressExpandButton";
+import { ProgressItemStatus } from "./ProgressItemStatus";
+import { ProgressTaskItem } from "./ProgressTaskItem";
+import { ProgressStatus, ProgressTask } from "./types";
 
 type ProgressItemPropsOptions =
     | {
@@ -28,22 +17,21 @@ type ProgressItemPropsOptions =
       }
     | {
           tasks?: never;
-          status: TaskStatus;
+          status: ProgressStatus;
       };
 
 export type ProgressItemProps = {
     title?: string;
     description?: string;
-    onCopyTextButtonPress?: () => void;
-    onRetryButtonPress?: () => void;
+    onCopyTextButtonPress?: (message: string) => void;
+    onRetryButtonPress?: (task: ProgressTask) => void;
 } & ProgressItemPropsOptions;
-
-export type TaskStatus = "success" | "error" | "notStarted" | "inProgress";
 
 export const ProgressItem = ({
     title,
     description,
-    tasks: tasks = [],
+    status = "notStarted",
+    tasks = [],
     onCopyTextButtonPress,
     onRetryButtonPress,
 }: ProgressItemProps) => {
@@ -52,7 +40,7 @@ export const ProgressItem = ({
     const token = useToken();
     const styles = useStyles(themeStyles);
 
-    const taskCounter = tasks?.filter(task => task.status).length;
+    const taskCounter = tasks?.length;
     const completedTaskCounter = tasks?.filter(task => task.status === "success").length;
 
     const animationConfig = {
@@ -66,167 +54,118 @@ export const ProgressItem = ({
         },
     };
 
+    const computeTaskStatus = (): ProgressStatus => {
+        if (tasks.length === 0 && status) {
+            return status;
+        }
+        const hasOngoing = tasks.some(task => task.status === "inProgress");
+        const hasError = tasks.some(task => task.status === "error");
+        const allSuccess = tasks.every(task => task.status === "success");
+
+        if (hasError) {
+            return "error";
+        } else if (hasOngoing) {
+            return "inProgress";
+        } else if (allSuccess) {
+            return "success";
+        } else {
+            return "notStarted";
+        }
+    };
+
+    const taskStatus = computeTaskStatus();
+    const taskHasError = taskStatus === "error";
+    const failedTask = tasks.find(task => task.status === "error");
+
+    const handleCopyTextButtonPress = () => {
+        if (failedTask?.errorDetails) {
+            onCopyTextButtonPress && onCopyTextButtonPress(failedTask?.errorDetails?.message);
+        }
+    };
+
+    const handleRetryButtonPress = () => {
+        if (failedTask) {
+            onRetryButtonPress && onRetryButtonPress(failedTask);
+        }
+    };
+
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
         LayoutAnimation.configureNext(animationConfig);
     };
 
-    const computeTaskStatus = (): TaskStatus => {
-        const hasError = tasks.some(task => task.status === "error");
-        const hasOngoing = tasks.some(task => task.status === "inProgress");
-        const allSuccess = tasks.every(task => task.status === "success");
-
-        if (hasError) return "error";
-        if (hasOngoing) return "inProgress";
-        if (allSuccess) return "success";
-        return "notStarted";
-    };
-
-    const taskStatus = computeTaskStatus();
-    const taskHasError = taskStatus === "error";
-    const taskInProgress = taskStatus === "inProgress";
-
     useEffect(() => {
-        if (taskHasError) {
+        if (taskHasError && failedTask) {
             setIsExpanded(true);
-            tasks.forEach(task => {
-                if (taskHasError && task.errorDetails) {
-                    console.error(
-                        `Error in task ${task.title}: ${task.errorDetails.message}`,
-                        task.errorDetails,
-                    );
-                }
-            });
+            console.error(
+                `Error in task ${failedTask.title}: ${failedTask.errorDetails?.message}`,
+                failedTask.errorDetails,
+            );
         }
-    }, [taskHasError, tasks]);
+    }, [taskHasError, failedTask]);
 
-    const statusToIconName = (status: TaskStatus): IconName => {
-        switch (status) {
-            case "success":
-                return "check-circle-outline";
-            case "error":
-                return "alert-circle-outline";
-            case "notStarted":
-                return "clock-time-five-outline";
-            default:
-                return "blank";
-        }
-    };
-
-    const statusToColor = (status: TaskStatus) => {
-        switch (status) {
-            case "success":
-                return token.colors.feedback.success;
-            case "error":
-                return token.colors.feedback.danger;
-            case "notStarted":
-                return token.colors.text.disabled;
-            case "inProgress":
-                return token.colors.interactive.primary;
-        }
-    };
-
-    const renderErrorDetails = ({ errorDetails }: ProgressTask) => {
-        return errorDetails ? (
-            <View style={styles.errorDetailsContainer}>
-                <Typography>{errorDetails.message}</Typography>
-                {errorDetails.code && <Typography>Error Code: {errorDetails.code}</Typography>}
-                {errorDetails.suggestion && <Typography>{errorDetails.suggestion}</Typography>}
-            </View>
-        ) : null;
-    };
-
-    const renderItemStatus = () => {
-        return (
-            <View>
-                {taskInProgress ? (
-                    <CircularProgress size={26} style={{ marginBottom: 8 }} />
-                ) : (
-                    <Icon
-                        style={{ marginBottom: 8 }}
-                        name={statusToIconName(taskStatus)}
-                        color={statusToColor(taskStatus)}
-                        size={26}
-                    />
-                )}
-
-                {taskCounter > 0 && <ProgressStatusLine color={statusToColor(taskStatus)} />}
-            </View>
-        );
-    };
-
-    const renderTask = (task: ProgressTask, index: number) => {
-        const TaskIcon = taskInProgress ? (
-            <CircularProgress size={18} />
-        ) : (
-            <Icon name={statusToIconName(task.status)} color={statusToColor(task.status)} />
-        );
-
-        return (
-            <View
-                key={index}
-                style={taskInProgress ? styles.taskTitleContainer : styles.taskContainer}
+    const renderItemText = () => (
+        <View>
+            <Typography
+                bold={taskStatus !== "success"}
+                color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
+                variant="body_short"
+                group="paragraph"
             >
-                <View style={styles.taskTitleContainer}>
-                    {TaskIcon}
-                    <Typography>{task.title}</Typography>
-                </View>
-                {!taskInProgress && task.status === "error" && renderErrorDetails(task)}
-            </View>
-        );
-    };
+                {title}
+            </Typography>
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.mainContentContainer}>
-                <View style={styles.contentContainer}>
-                    {renderItemStatus()}
-
-                    <View style={styles.textContainer}>
-                        <Typography
-                            bold={taskStatus === "success" ? false : true}
-                            color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
-                            variant="body_short"
-                            group="paragraph"
-                        >
-                            {title}
+            {description ? (
+                <View style={styles.descriptionContainer}>
+                    {taskStatus !== "notStarted" && taskCounter > 0 ? (
+                        <Typography>
+                            {completedTaskCounter} / {taskCounter} {description}
                         </Typography>
-                        {taskStatus !== "notStarted" && (
-                            <View style={styles.descriptionContainer}>
-                                {taskStatus === "inProgress" ||
-                                (taskStatus === "success" && taskCounter > 0) ? (
-                                    <>
-                                        <Typography>
-                                            {completedTaskCounter} /{taskCounter} {description}
-                                        </Typography>
-                                    </>
-                                ) : (
-                                    taskCounter > 0 && <Typography>{description}</Typography>
-                                )}
-                            </View>
-                        )}
-                        {isExpanded && tasks.map(renderTask)}
-                    </View>
-                </View>
-                <View>
-                    {taskStatus !== "notStarted" && taskCounter > 0 && (
-                        <Pressable style={[styles.dropDownContainer]} onPress={toggleExpand}>
-                            <Typography style={{ minWidth: 85 }}>
-                                {isExpanded ? "Show less" : "Show more"}
-                            </Typography>
-                            <Icon name={isExpanded ? "chevron-up" : "chevron-down"} />
-                        </Pressable>
+                    ) : (
+                        <Typography>{description}</Typography>
                     )}
                 </View>
-            </View>
-            {isExpanded && taskStatus === "error" && (
-                <View style={styles.actionContainer}>
-                    <Button
-                        title="Copy to clipboard"
-                        variant="outlined"
-                        onPress={onCopyTextButtonPress}
+            ) : null}
+        </View>
+    );
+
+    return (
+        <View style={styles.progressContainer}>
+            <View style={styles.mainContentContainer}>
+                <View style={styles.statusAndTextContainer}>
+                    <ProgressItemStatus
+                        style={styles.status}
+                        taskCounter={taskCounter}
+                        status={taskStatus}
                     />
-                    {taskHasError && <Button title="Retry" onPress={onRetryButtonPress} />}
+                    <View style={styles.textContainer}>
+                        {renderItemText()}
+                        {isExpanded &&
+                            tasks.map((task, index) => (
+                                <ProgressTaskItem key={index} task={task} status={task.status} />
+                            ))}
+                    </View>
+                </View>
+                <ProgressExpandButton
+                    taskStatus={taskStatus}
+                    taskCounter={taskCounter}
+                    isExpanded={isExpanded}
+                    toggleExpand={toggleExpand}
+                />
+            </View>
+
+            {taskHasError && (
+                <View
+                    style={[styles.actionContainer, !failedTask?.errorDetails && { marginTop: 0 }]}
+                >
+                    {isExpanded && failedTask?.errorDetails && (
+                        <Button
+                            title="Copy to clipboard"
+                            variant="outlined"
+                            onPress={handleCopyTextButtonPress}
+                        />
+                    )}
+                    <Button title="Retry" onPress={handleRetryButtonPress} />
                 </View>
             )}
         </View>
@@ -236,18 +175,19 @@ export const ProgressItem = ({
 ProgressItem.displayName = "Progress.Item";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
-    container: {
+    progressContainer: {
         backgroundColor: theme.colors.container.default,
         paddingHorizontal: theme.spacing.menu.item.paddingHorizontal,
         justifyContent: "space-between",
         flexDirection: "column",
     },
     mainContentContainer: {
+        flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
-        marginVertical: theme.spacing.container.paddingVertical,
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
-    contentContainer: {
+    statusAndTextContainer: {
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
@@ -257,28 +197,16 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         alignItems: "center",
         gap: theme.spacing.button.iconGap,
     },
-    errorDetailsContainer: {
-        flexDirection: "column",
-    },
     textContainer: {
         flexDirection: "column",
-        paddingLeft: theme.spacing.menu.item.paddingHorizontal,
         gap: theme.spacing.button.iconGap,
     },
     actionContainer: {
-        marginVertical: theme.spacing.container.paddingVertical,
+        marginTop: theme.spacing.container.paddingVertical,
+        marginBottom: theme.spacing.container.paddingVertical,
         gap: theme.spacing.spacer.small,
     },
-    dropDownContainer: {
-        flexDirection: "row",
-        gap: theme.spacing.button.iconGap,
-    },
-    taskTitleContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: theme.spacing.button.iconGap,
-    },
-    taskContainer: {
-        gap: theme.spacing.cell.content.titleDescriptionGap,
+    status: {
+        paddingRight: theme.spacing.menu.item.paddingHorizontal,
     },
 }));

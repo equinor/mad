@@ -1,46 +1,93 @@
-import React, { useCallback, useState } from "react";
-import { ProgressTask, TaskErrorDetails, TaskStatus } from "@equinor/mad-components";
+import { ProgressStatus, ProgressTask, ProgressTaskErrorDetails } from "@equinor/mad-components";
+import { useState } from "react";
+import { Alert, Clipboard } from "react-native";
 
-export const useProgressUpload = (initialTasks: ProgressTask[]) => {
-    const [tasks, setTasks] = useState<ProgressTask[]>(initialTasks);
+type UploadScenario = "success" | "fail";
 
-    const resetTasks = () => {
-        setTasks(initialTasks.map(task => ({ ...task, status: "notStarted" })));
-    };
+const simulateTask = (duration: number, shouldFail = false) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (shouldFail) {
+                reject(new Error("Upload failed"));
+            } else {
+                resolve("Upload successful");
+            }
+        }, duration);
+    });
+};
 
-    const updateTask = (index: number, status: TaskStatus, errorDetails?: TaskErrorDetails) => {
-        setTasks(currentTasks =>
-            currentTasks.map((task, i) =>
-                i === index
-                    ? {
-                          ...task,
-                          status,
-                          errorDetails: status === "error" ? errorDetails : undefined,
-                      }
+export const useProgressUpload = () => {
+    const [tasks, setTasks] = useState<ProgressTask[]>([
+        { title: "CatWithHat1.jpg", status: "notStarted" },
+        { title: "CatWithHat2.jpg", status: "notStarted" },
+        { title: "CatWithHat3.jpg", status: "notStarted" },
+        { title: "CatWithHat4.jpg", status: "notStarted" },
+        { title: "CatWithHat5.jpg", status: "notStarted" },
+        { title: "CatWithHat6.jpg", status: "notStarted" },
+    ]);
+
+    const [isSimulating, setIsSimulating] = useState(false);
+
+    const updateTaskStatus = (
+        taskIndex: number,
+        status: ProgressStatus,
+        errorDetails?: ProgressTaskErrorDetails,
+        newTitle?: string,
+    ) => {
+        setTasks(tasks =>
+            tasks.map((task, index) =>
+                index === taskIndex
+                    ? { ...task, status, errorDetails, title: newTitle ?? task.title } // Update the title if newTitle is provided
                     : task,
             ),
         );
     };
+    const startUploadSimulation = async (scenario: UploadScenario) => {
+        if (isSimulating) return;
+        setIsSimulating(true);
 
-    const startUpload = async (shouldFail = false) => {
-        console.log("shouldFail value:", shouldFail);
-        resetTasks();
+        // Reset tasks for a new simulation
+        setTasks(tasks.map(task => ({ ...task, status: "notStarted", errorDetails: undefined })));
 
-        for (let i = 0; i < initialTasks.length; i++) {
-            updateTask(i, "inProgress");
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            if (shouldFail && i === 3) {
-                updateTask(i, "error", {
-                    message: "Failed to upload the image",
-                    code: "UPLOAD_FAILED",
-                    suggestion: "Please check the network connection and try again.",
-                });
+        for (let i = 0; i < tasks.length; i++) {
+            if (scenario === "success" || (scenario === "fail" && i !== 3)) {
+                updateTaskStatus(i, "inProgress");
+                await simulateTask(1000);
+                updateTaskStatus(i, "success");
+            } else if (scenario === "fail" && i === 3) {
+                updateTaskStatus(
+                    i,
+                    "error",
+                    {
+                        message:
+                            "Critical error: Expected CatWithHat4.jpg, but detected DogThrowingLog4.jpg",
+                        code: "403",
+                        suggestion:
+                            "Immediate action required. Ensure system security protocols are enforced and consult security logs for potential intrusions.",
+                    },
+                    "DogThrowingLog4.jpg",
+                );
                 break;
             }
-            updateTask(i, "success");
+        }
+        setIsSimulating(false);
+    };
+
+    const handleRetry = async () => {
+        await startUploadSimulation("fail");
+    };
+
+    const handleCopyErrorMessage = (task: ProgressTask) => {
+        if (task?.errorDetails?.message) {
+            Clipboard.setString(task.errorDetails.message);
+            Alert.alert("Copied", "Error message copied to clipboard", [{ text: "OK" }]);
         }
     };
 
-    return { tasks, startUpload };
+    return {
+        tasks,
+        startUploadSimulation,
+        handleRetry,
+        handleCopyErrorDetails: handleCopyErrorMessage,
+    };
 };

@@ -6,16 +6,10 @@ import {
     Spacer,
     useStyles,
     Typography,
-    ProgressTask,
+    CircularProgress,
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 import { useProgressUpload } from "../../../hooks/useProgressUpload";
-
-type UploadSimulatorProps = {
-    onUploadSuccess: () => void;
-    onUploadFailed: () => void;
-    onMultipleUploads: () => void;
-};
 
 const UploadSimulator = ({
     onUploadSuccess,
@@ -29,98 +23,122 @@ const UploadSimulator = ({
             <Typography group="basic" variant="h5">
                 Upload Simulator
             </Typography>
-            <Typography>Press the button below to simulate the uploading process</Typography>
+            <Typography>Press the buttons below to simulate the progress component</Typography>
             <View style={styles.simulateButtonContainer}>
-                <Button title="Simulate a successfull task" onPress={onUploadSuccess} />
-                <Button title="Simulate a failed task" onPress={onUploadFailed} />
-                <Button title="Simulate multiple tasks" onPress={onMultipleUploads} />
+                <Button title="Run successfull progress " onPress={onUploadSuccess} />
+                <Button title="Run failed progress" onPress={onUploadFailed} />
+                <Button title="Run progress with mutiple tasks" onPress={onMultipleUploads} />
             </View>
         </View>
     );
 };
 
+type UploadSimulatorProps = {
+    onUploadSuccess: () => void;
+    onUploadFailed: () => void;
+    onMultipleUploads: () => void;
+};
+
 export const ProgressScreen = () => {
+    const { tasks, startUploadSimulation, handleCopyErrorDetails, handleRetry } =
+        useProgressUpload();
     const styles = useStyles(themeStyles);
 
-    const taskSet1: ProgressTask[] = [
-        { title: "Uploading cat with hat.jpg", status: "notStarted" },
-        { title: "Uploading cat with hat 2.jpg", status: "notStarted" },
-        { title: "Uploading cat with hat 3.jpg", status: "notStarted" },
-        { title: "Uploading cat with hat 4.jpg", status: "notStarted" },
-        { title: "Uploading cat with hat 5.jpg", status: "notStarted" },
-    ];
-
-    const taskSet2: ProgressTask[] = [
-        { title: "Uploading dog carrying logs 1.jpg", status: "notStarted" },
-        { title: "Uploading dog carrying logs 2.jpg", status: "notStarted" },
-        { title: "Uploading dog carrying logs 3.jpg", status: "notStarted" },
-        { title: "Uploading dog carrying logs 4.jpg", status: "notStarted" },
-        { title: "Uploading dog carrying logs 5.jpg", status: "notStarted" },
-    ];
-
-    const { tasks: catTasks, startUpload: startCatUpload } = useProgressUpload(taskSet1);
-    const { tasks: dogTasks, startUpload: startDogUpload } = useProgressUpload(taskSet2);
-    const { tasks: multiCatTasks, startUpload: startMultiCatUpload } = useProgressUpload(taskSet1);
-    const { tasks: multiDogTasks, startUpload: startMultiDogUpload } = useProgressUpload(taskSet2);
-
-    const startMultipleUploads = async () => {
-        await startMultiCatUpload();
-        await startMultiDogUpload(true);
+    const handleUploadSuccess = async () => {
+        console.log("handleUploadSuccess");
+        await startUploadSimulation("success");
     };
 
+    const handleUploadFailed = async () => {
+        console.log("handleUploadFailed");
+        await startUploadSimulation("fail");
+    };
+
+    const handleMultipleUploads = async () => {
+        console.log("handleMultipleUploads");
+        // Implement logic for multiple uploads here
+    };
+
+    // const handleCopyTextButtonPress = () => {
+    //     // Check if any task has an error message and copy the first one found
+    //     const failedTask = tasks.find(task => task.status === "error");
+    //     if (failedTask?.errorDetails?.message) {
+    //         Clipboard.setString(failedTask.errorDetails.message);
+    //         Alert.alert("Copied", "Error message copied to clipboard", [{ text: "OK" }]);
+    //     }
+    // };
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={styles.contentContainer}
         >
+            <Typography group="basic" variant="h2">
+                Progress
+            </Typography>
+            <Typography>
+                The Progress component can be used for tracking and displaying the progress of tasks
+                or processes, such as «create folder or «upload images».
+            </Typography>
             <UploadSimulator
-                onUploadSuccess={startCatUpload}
-                onUploadFailed={() => startDogUpload(true)}
-                onMultipleUploads={startMultipleUploads}
+                onUploadSuccess={handleUploadSuccess}
+                onUploadFailed={handleUploadFailed}
+                onMultipleUploads={handleMultipleUploads}
             />
 
             <Spacer amount="medium" />
 
-            <Progress title="Detect images of cats and dogs">
+            <Typography>Progress with one single task: </Typography>
+
+            <Spacer amount="small" />
+
+            <Progress title="Create folder">
                 <Progress.Item
-                    title="Detect images of cats and dogs"
-                    description="Uploading cats with hats"
+                    title="Creating a folder"
+                    description="This folder contains cat images"
                     status="success"
                 />
             </Progress>
             <Spacer />
+            <Typography>Tasks have different statuses based on their progress.</Typography>
+            <Typography> The status can be:</Typography>
+            <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
+                <Typography color="primary">inProgress</Typography>
+                <CircularProgress size={18} value={0.7} />
+                <Typography color="textTertiary">, notStarted, </Typography>
+                <Typography color="success">sucess</Typography>
+                <Typography>or</Typography>
+                <Typography color="danger">error</Typography>
+            </View>
 
-            <Progress title="Cat image upload tasks">
+            <Spacer amount="small" />
+            <Typography>Progress with multiple tasks: </Typography>
+            <Spacer amount="small" />
+
+            <Progress title="Upload cat images">
                 <Progress.Item
-                    title="Upload cat images"
-                    /* TODO: add description */
-                    description="Uploading cats with hats"
-                    tasks={catTasks}
+                    title="Upload images of cats with hats"
+                    description="uploading cats with hats"
+                    tasks={tasks}
+                    onCopyTextButtonPress={handleCopyErrorDetails}
+                    onRetryButtonPress={handleRetry}
                 />
             </Progress>
             <Spacer />
-            <Progress title="Dog image upload tasks">
-                <Progress.Item
-                    title="Upload Dog Images"
-                    description="Uploading dogs carrying logs images"
-                    tasks={dogTasks}
-                    onRetryButtonPress={() => startDogUpload(true)}
-                />
-            </Progress>
-            <Spacer />
+            <Typography>You can also add multiple different tasks to one progress.</Typography>
+            <Typography>Progress with multiple tasks: </Typography>
+            <Spacer amount="small" />
+
             <Progress title="Multiple upload tasks">
+                <Progress.Item title="Preparing cat hats" status="success" />
+                <Progress.Item title="Training cats to wear hats" status="inProgress" />
+                <Progress.Item title="Cats refusing to wear hats" status="error" />
                 <Progress.Item
-                    title="Upload cat images"
-                    description="Uploading cats with hats images"
-                    tasks={multiCatTasks}
-                />
-                <Progress.Item
-                    title="Upload dog images"
-                    description="Uploading dogs carrying logs images"
-                    tasks={multiDogTasks}
-                    onRetryButtonPress={() => startMultiDogUpload(true)}
+                    title="Uploading images of cats with hats"
+                    description="uploading cats with hats"
+                    status="notStarted"
                 />
             </Progress>
+
             <Spacer />
         </ScrollView>
     );
@@ -141,45 +159,3 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         gap: theme.spacing.spacer.small,
     },
 }));
-
-// import React from "react";
-// import { EDSStyleSheet, Progress, SubTaskProps, useStyles } from "@equinor/mad-components";
-// import { ScrollView } from "react-native";
-
-// export const ProgressScreen = () => {
-//     const styles = useStyles(themeStyles);
-
-//     const details =
-//         " #5. Code: 0x000FF01AB. The process cannot access the file because it is being used by another process. Thread execution halted. System resources compromised. Immediate action required. Refer to documentation (Ref: E-1045). Possible configuration mismatch or external interference detected. Operation incomplete.";
-
-//     const tasks: SubTaskProps[] = [
-//         { title: "Uploading image 1", status: "success" },
-//         { title: "Uploading image 2", status: "success" },
-//         { title: "Uploading image 3", status: "error", details: details },
-//         { title: "Uploading image 4", status: "inProgress" },
-//     ];
-
-//     const moreTasks: SubTaskProps[] = [
-//         { title: "Uploading image 1", status: "success" },
-//         { title: "Uploading image 2", status: "success" },
-//         { title: "Uploading image 3", status: "success" },
-//     ];
-//     const evenMoreTasks: SubTaskProps[] = [{ title: "Uploading image 1", status: "notStarted" }];
-
-//     return (
-//         <ScrollView
-//             contentInsetAdjustmentBehavior="automatic"
-//             contentContainerStyle={styles.contentContainer}
-//         >
-//             <Progress title="Tasks">
-//                 <Progress.Task title="Task 1" description="description 1" subTasks={tasks} />
-//                 <Progress.Task title="Task 2" description="description 2" subTasks={moreTasks} />
-//                 <Progress.Task
-//                     title="Task 2"
-//                     description="description 2"
-//                     subTasks={evenMoreTasks}
-//                 />
-//             </Progress>
-//         </ScrollView>
-//     );
-// };
