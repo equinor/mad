@@ -1,5 +1,16 @@
 # @equinor/mad-core
 
+## 0.4.0
+
+### Minor Changes
+
+-   b81ade4: `useLanguage`: now returns `defaultLanguage`, `isLanguageSelected` and
+    `supportedLanguages` instead of `getDefaultLanguage`, `getIsLanguageSelected` and
+    `getSupportedLanguages`
+-   b81ade4: `MadConfig`: new property `navigateToMainRouteFn` has been added. This means `"Root"`
+    is no longer recognized as the main route for your app. You have to configure this new property
+    to navigate the user to your preferred route
+
 ## 0.3.11
 
 ### Patch Changes
