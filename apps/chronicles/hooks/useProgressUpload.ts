@@ -37,7 +37,7 @@ export const useProgressUpload = () => {
         setTasks(tasks =>
             tasks.map((task, index) =>
                 index === taskIndex
-                    ? { ...task, status, errorDetails, title: newTitle ?? task.title } // Update the title if newTitle is provided
+                    ? { ...task, status, errorDetails, title: newTitle ?? task.title }
                     : task,
             ),
         );
@@ -46,7 +46,6 @@ export const useProgressUpload = () => {
         if (isSimulating) return;
         setIsSimulating(true);
 
-        // Reset tasks for a new simulation
         setTasks(tasks.map(task => ({ ...task, status: "notStarted", errorDetails: undefined })));
 
         for (let i = 0; i < tasks.length; i++) {
