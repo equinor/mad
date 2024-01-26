@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { HeightSender } from "../header-height-context";
 import { View } from "react-native";
 /**
  * Custom render function that displays a custom sub-header
@@ -13,7 +12,6 @@ export const getCustomRenderFunction = (
     const customRender = () => (
         <>
             {CustomSubHeader && <CustomSubHeader />}
-            <HeightSender />
             <View style={{ flex: 1 }}>{originalRender()}</View>
         </>
     );

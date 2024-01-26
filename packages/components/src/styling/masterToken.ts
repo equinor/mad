@@ -4,6 +4,16 @@ import { FONT_BASIS, spacings } from "./values";
 
 export const masterToken: MasterToken = {
     colors: {
+        presentation: {
+            primary: {
+                light: colors.infographic_primary_moss_green_100,
+                dark: colors.interactive_primary_light_selected_highlight,
+            },
+            background: {
+                light: colors.interactive_primary_light_selected_highlight,
+                dark: colors.ui_background_dark_raised,
+            },
+        },
         border: {
             lighter: {
                 light: colors.ui_background_light_default,

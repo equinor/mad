@@ -1,6 +1,6 @@
 import { MadConfig } from "@equinor/mad-core";
 import { getBuildNumber } from "./settings";
-import Logo from "./assets/images/logo.svg";
+import Logo from "./assets/images/logo3.svg";
 import { RootStackParamList } from "./types/navigation";
 
 export const config: MadConfig<RootStackParamList> = {

@@ -1,5 +1,5 @@
 import { Button, EDSStyleSheet, Typography, useStyles, useToken } from "@equinor/mad-components";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Pressable, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
@@ -14,13 +14,16 @@ export const LoginScreen = () => {
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
     const token = useToken();
-    const primaryColor = token.colors.interactive.primary;
+    const primaryColor = token.colors.presentation.primary;
     const navigate = useNavigateFromLoginScreen();
     const { title, logo } = useLoginScreenConfig();
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
 
-    const recoloredLogo = logo.replaceAll("#000000", primaryColor);
+    const recoloredLogo = useMemo(
+        () => logo.replaceAll("#007079", primaryColor),
+        [primaryColor, logo],
+    );
     return (
         <View style={styles.container}>
             <Pressable onPress={() => setDemoPressCount(state => state + 1)}>
@@ -73,6 +76,6 @@ const theme = EDSStyleSheet.create(theme => ({
         alignItems: "center",
         justifyContent: "center",
         gap: 60,
-        backgroundColor: theme.colors.interactive.selectedHighlight,
+        backgroundColor: theme.colors.presentation.background,
     },
 }));

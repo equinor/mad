@@ -50,6 +50,10 @@ export type ShadowStyle = Pick<
 
 export type MasterToken = {
     colors: {
+        presentation: {
+            primary: ColorSchemeValues<Color>;
+            background: ColorSchemeValues<Color>;
+        };
         border: {
             lighter: ColorSchemeValues<Color>;
             light: ColorSchemeValues<Color>;
