@@ -1,21 +1,33 @@
+import { CoreRoutes } from "../components/navigation/coreRoutes";
+import { Language } from "../store/types";
 import { CoreStackParamListBase } from "../types";
 import { getNavigationRouteForWhatsNewScreen } from "./getNavigationRouteForWhatsNewScreen";
 
-export type GetNavigationRouteForLoginScreenOptions = {
+type GetNavigationRouteForLoginScreenOptions = {
     appVersion: string;
     lastDisplayedReleaseNotesVersion: string | null;
-    isDemoMode?: boolean;
+    isDemoModeEnabled: boolean;
+    isLanguageSelected: boolean;
+    supportedLanguages: Language[];
+    skipOnboarding: boolean | undefined;
 };
-export type GetNavigationRouteForLoginScreenReturnType = keyof CoreStackParamListBase;
+/**
+ * Returns the route Login Screen should navigate to. If it returns `null`, the app should navigate to the main route
+ */
 export const getNavigationRouteForLoginScreen = ({
     appVersion,
     lastDisplayedReleaseNotesVersion,
-    isDemoMode,
-}: GetNavigationRouteForLoginScreenOptions): GetNavigationRouteForLoginScreenReturnType => {
-    if (isDemoMode) return "WhatsNew";
+    isDemoModeEnabled,
+    isLanguageSelected,
+    supportedLanguages,
+    skipOnboarding,
+}: GetNavigationRouteForLoginScreenOptions): keyof CoreStackParamListBase | null => {
+    if (isDemoModeEnabled) return CoreRoutes.WHATS_NEW;
     if (!lastDisplayedReleaseNotesVersion || lastDisplayedReleaseNotesVersion < appVersion)
-        return "WhatsNew";
-    return getNavigationRouteForWhatsNewScreen();
+        return CoreRoutes.WHATS_NEW;
+    return getNavigationRouteForWhatsNewScreen(
+        isLanguageSelected,
+        supportedLanguages,
+        skipOnboarding,
+    );
 };
-
-export const _getNavigationRouteForLoginScreenPure = {};

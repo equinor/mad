@@ -1,8 +1,10 @@
 import { MadConfig } from "@equinor/mad-core";
 import { getBuildNumber } from "./settings";
-import Logo from "./assets/images/logo2.svg";
+import Logo from "./assets/images/logo.svg";
+import { RootStackParamList } from "./types/navigation";
 
-export const config: MadConfig = {
+export const config: MadConfig<RootStackParamList> = {
+    navigateToMainRouteFn: navigation => navigation.navigate("Root"),
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     currentEnvironment: "prod",

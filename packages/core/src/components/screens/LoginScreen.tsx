@@ -1,26 +1,21 @@
-import { Button, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
+import { Button, EDSStyleSheet, Typography, useStyles, useToken } from "@equinor/mad-components";
 import React, { useState } from "react";
 import { Pressable, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
-import { useAppVersion, useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
-import { useCoreStackNavigation } from "../../hooks/useCoreStackNavigation";
-import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRouteForLoginScreen";
+import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { enableDemoMode } from "../../store/demo-mode";
-import { useReleaseNotesVersion } from "../../store/release-notes/release-notes";
 import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { SvgXml } from "react-native-svg";
-import { useToken } from "@equinor/mad-components";
+import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
 export const LoginScreen = () => {
     const styles = useStyles(theme);
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
-    const navigation = useCoreStackNavigation();
-    const appVersion = useAppVersion();
     const token = useToken();
     const primaryColor = token.colors.interactive.primary;
-    const { lastDisplayedReleaseNotesVersion } = useReleaseNotesVersion();
+    const navigate = useNavigateFromLoginScreen();
     const { title, logo } = useLoginScreenConfig();
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
@@ -43,12 +38,7 @@ export const LoginScreen = () => {
                         } else {
                             void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
                         }
-                        navigation.navigate(
-                            getNavigationRouteForLoginScreen({
-                                appVersion,
-                                lastDisplayedReleaseNotesVersion,
-                            }),
-                        );
+                        navigate();
                     }}
                     onAuthenticationFailed={error =>
                         void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
@@ -66,13 +56,7 @@ export const LoginScreen = () => {
                         onPress={() => {
                             void track(metricKeys.AUTHENTICATION_DEMO);
                             enableDemoMode();
-                            navigation.navigate(
-                                getNavigationRouteForLoginScreen({
-                                    appVersion,
-                                    lastDisplayedReleaseNotesVersion,
-                                    isDemoMode: true,
-                                }),
-                            );
+                            navigate();
                         }}
                     />
                 )}

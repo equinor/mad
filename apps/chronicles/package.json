@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@equinor/mad-auth": "workspace:*",
+    "@equinor/mad-dfw": "workspace:*",
     "@equinor/mad-components": "workspace:*",
     "@equinor/mad-core": "workspace:*",
     "@equinor/mad-navigation": "workspace:*",

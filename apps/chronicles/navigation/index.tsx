@@ -12,7 +12,7 @@ import IconsScreen from "../screens/IconsScreen";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { DrawScreen } from "../screens/DrawScreen";
 import { SignatureScreen } from "../screens/SignatureTest";
-import { Color, Icon, IconName, useToken } from "@equinor/mad-components";
+import { Color, Icon, IconName, useBreakpoint, useToken } from "@equinor/mad-components";
 import {
     createBottomTabNavigator,
     createNativeStackNavigator,
@@ -24,12 +24,15 @@ import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
 import {
     ComponentsStackParamList,
+    DFWStackParamList,
     RootStackParamList,
     RootTabParamList,
 } from "../types/navigation";
 import { ComponentScreen } from "../screens/components/ComponentScreen";
 import { ComponentName } from "../types/components";
-
+import { DFWDiscoverScreen } from "../screens/dfw/DFWDiscoverScreen";
+import { DFWComponentScreen } from "../screens/dfw/DFWComponentsScreen";
+import { DFWComponentName } from "../types/dfwcomponents";
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
@@ -101,6 +104,37 @@ function DiscoverNavigator() {
     );
 }
 
+const DFWStack = createNativeStackNavigator<DFWStackParamList>();
+
+function DFWNavigator() {
+    return (
+        <DFWStack.Navigator
+            initialRouteName="DFWDiscover"
+            screenOptions={{
+                headerLargeTitle: true,
+                headerLargeTitleShadowVisible: true,
+                headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
+                headerTitleStyle: {
+                    fontFamily: "Equinor-Regular",
+                },
+                headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+                customSubHeaderShown: false,
+                headerRight: () => <GoToSettingsButton marginRight={-12} />,
+            }}
+        >
+            <DFWStack.Screen name="DFWDiscover" component={DFWDiscoverScreen} />
+            <DFWStack.Screen
+                name="DFWComponent"
+                component={DFWComponentScreen}
+                options={({ route }) => ({
+                    title: DFWComponentName[route.params.name],
+                    ...(route.params.screenOptions ?? {}),
+                })}
+            />
+        </DFWStack.Navigator>
+    );
+}
+
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
@@ -108,6 +142,7 @@ function DiscoverNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
+    const breakpoint = useBreakpoint();
     return (
         <BottomTab.Navigator
             initialRouteName="Components"
@@ -124,6 +159,17 @@ function BottomTabNavigator() {
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="binoculars" color={color as Color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="DFW"
+                component={DFWNavigator}
+                options={{
+                    title: breakpoint === "xs" ? "DFW" : "Digital Field Worker",
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="video-input-component" color={color as Color} />
                     ),
                 }}
             />
