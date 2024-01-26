@@ -14,9 +14,9 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
      */
     servicePortalName: EnvironmentValues<string>;
 
-    navigateToMainRouteFn: (
-        navigation: NavigationProp<ParamList extends ParamListBase ? ParamList : object>,
-    ) => void;
+    navigateToMainRouteFn: EnvironmentValues<
+        (navigation: NavigationProp<ParamList extends ParamListBase ? ParamList : object>) => void
+    >;
     /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
