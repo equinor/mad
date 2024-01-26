@@ -73,34 +73,41 @@ export type UseLanguageReturnType = {
      */
     language: Language;
     /**
-     * Get supported languages for the app
+     * Supported languages for the app
      */
-    getSupportedLanguages: () => Language[];
+    supportedLanguages: Language[];
     /**
-     * Get the default language of the app
+     * The default language of the app
      */
-    getDefaultLanguage: () => Language;
+    defaultLanguage: Language;
     /**
      * Set the user selected language of the app
      * @param {string} code - language code
      */
     setSelectedLanguage: LanguageState["setSelectedLanguage"];
     /**
-     * Check if the user has selected a language
-     * @returns whether the language is selected
+     * Whether a language is selected by the user or not
      */
-    getIsLanguageSelected: () => boolean;
+    isLanguageSelected: boolean;
 };
 export const useLanguage = (): UseLanguageReturnType => {
     const store = useLanguageStore();
     const language = store.getLanguage();
     const { setSelectedLanguage, getIsLanguageSelected } = store;
+
+    const isLanguageSelected = getIsLanguageSelected();
+
+    /*
+     * While we are not using a hook for these values, they are NOT expected to change during the lifetime of the application, so it should be fine
+     */
+    const defaultLanguage = getDefaultLanguage();
+    const supportedLanguages = getSupportedLanguages();
     return {
         language,
-        getDefaultLanguage,
+        defaultLanguage,
         setSelectedLanguage,
-        getSupportedLanguages,
-        getIsLanguageSelected,
+        supportedLanguages,
+        isLanguageSelected,
     };
 };
 

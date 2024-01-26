@@ -6,12 +6,10 @@ import { useCoreStackNavigation } from "./useCoreStackNavigation";
 export const useNavigateFromWhatsNewScreen = () => {
     const navigation = useCoreStackNavigation();
     const navigateToMainRoute = useNavigateToMainRoute();
-    const { getIsLanguageSelected, getSupportedLanguages } = useLanguage();
+    const { isLanguageSelected, supportedLanguages } = useLanguage();
     const {
         language: { skipOnboarding },
     } = useMadConfig();
-    const isLanguageSelected = getIsLanguageSelected();
-    const supportedLanguages = getSupportedLanguages();
 
     const route = getNavigationRouteForWhatsNewScreen(
         isLanguageSelected,

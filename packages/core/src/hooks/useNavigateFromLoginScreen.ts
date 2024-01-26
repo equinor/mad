@@ -13,9 +13,7 @@ export const useNavigateFromLoginScreen = () => {
     const {
         language: { supportedLanguages, skipOnboarding },
     } = useMadConfig();
-    const { getIsLanguageSelected } = useLanguage();
-
-    const isLanguageSelected = getIsLanguageSelected();
+    const { isLanguageSelected } = useLanguage();
 
     const route = getNavigationRouteForLoginScreen({
         appVersion,
