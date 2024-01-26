@@ -1,3 +1,4 @@
+import { CoreRoutes } from "../components/navigation/coreRoutes";
 import { Language } from "../store/types";
 import { CoreStackParamListBase } from "../types";
 import { getNavigationRouteForWhatsNewScreen } from "./getNavigationRouteForWhatsNewScreen";
@@ -21,9 +22,9 @@ export const getNavigationRouteForLoginScreen = ({
     supportedLanguages,
     skipOnboarding,
 }: GetNavigationRouteForLoginScreenOptions): keyof CoreStackParamListBase | null => {
-    if (isDemoModeEnabled) return "WhatsNew";
+    if (isDemoModeEnabled) return CoreRoutes.WHATS_NEW;
     if (!lastDisplayedReleaseNotesVersion || lastDisplayedReleaseNotesVersion < appVersion)
-        return "WhatsNew";
+        return CoreRoutes.WHATS_NEW;
     return getNavigationRouteForWhatsNewScreen(
         isLanguageSelected,
         supportedLanguages,

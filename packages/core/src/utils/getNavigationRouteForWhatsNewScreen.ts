@@ -1,3 +1,4 @@
+import { CoreRoutes } from "../components/navigation/coreRoutes";
 import { Language } from "../store/types";
 import { CoreStackParamListBase } from "../types";
 
@@ -12,5 +13,5 @@ export const getNavigationRouteForWhatsNewScreen = (
     if (supportedLanguages.length < 2) return null;
     if (skipOnboarding) return null;
     if (isLanguageSelected) return null;
-    return "SelectLanguageOnboarding";
+    return CoreRoutes.SELECT_LANGUAGE_ONBOARDING;
 };

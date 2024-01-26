@@ -1,3 +1,4 @@
+import { CoreRoutes } from "../components/navigation/coreRoutes";
 import { CoreStackParamListBase } from "../types";
 
 /**
@@ -7,5 +8,5 @@ export const getNavigationRouteForSelectLanguageScreen = (
     isOnboarding: boolean,
 ): keyof CoreStackParamListBase | null => {
     if (isOnboarding) return null;
-    return "Settings";
+    return CoreRoutes.SETTINGS;
 };
