@@ -19,7 +19,7 @@ export type ColorSchemeValues<T> = Record<ColorScheme, T>;
 export type DensityValues<T> = Record<Density, T>;
 
 export type TypographyVariantGroupMap = {
-    paragraph: "body_short" | "body_long" | "overline";
+    paragraph: "body_short" | "body_long" | "overline" | "caption";
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label" | "input";
     interactive: "button" | "link";
     ui: "tooltip" | "chipAndBadge";

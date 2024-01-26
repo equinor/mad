@@ -24,9 +24,9 @@ export const WorkOrderCellScreen = () => {
                 maintenanceType="Surface monitoring"
                 tagId="TAG-123456"
                 equipmentId="EQUIP-123456"
-                activeStatusIds="STRT"
-                basicStartDate="04-07-2024"
-                basicEndDate="12-09-2024"
+                activeStatusIds="RDOP"
+                basicStartDate="2023-04-07"
+                basicEndDate="2023-09-12"
                 workCenterId="POMISP"
                 onCompleteButtonPress={() => console.log("Complete")}
                 onStartButtonPress={() => console.log("Start")}

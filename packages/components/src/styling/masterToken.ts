@@ -447,6 +447,12 @@ export const masterToken: MasterToken = {
                 textAlign: "left",
                 textTransform: "uppercase",
             },
+            caption: {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS * 0.825,
+                lineHeight: FONT_BASIS,
+                textAlign: "left",
+            },
         },
         basic: {
             h1: {
