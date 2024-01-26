@@ -11,11 +11,7 @@ import {
 import { ScrollView, View } from "react-native";
 import { useProgressUpload } from "../../../hooks/useProgressUpload";
 
-const UploadSimulator = ({
-    onUploadSuccess,
-    onUploadFailed,
-    onMultipleUploads,
-}: UploadSimulatorProps) => {
+const UploadSimulator = ({ onUploadSuccess, onUploadFailed }: UploadSimulatorProps) => {
     const styles = useStyles(themeStyles);
 
     return (
@@ -27,7 +23,6 @@ const UploadSimulator = ({
             <View style={styles.simulateButtonContainer}>
                 <Button title="Run successfull progress " onPress={onUploadSuccess} />
                 <Button title="Run failed progress" onPress={onUploadFailed} />
-                <Button title="Run progress with mutiple tasks" onPress={onMultipleUploads} />
             </View>
         </View>
     );
@@ -36,7 +31,6 @@ const UploadSimulator = ({
 type UploadSimulatorProps = {
     onUploadSuccess: () => void;
     onUploadFailed: () => void;
-    onMultipleUploads: () => void;
 };
 
 export const ProgressScreen = () => {
@@ -54,19 +48,6 @@ export const ProgressScreen = () => {
         await startUploadSimulation("fail");
     };
 
-    const handleMultipleUploads = async () => {
-        console.log("handleMultipleUploads");
-        // Implement logic for multiple uploads here
-    };
-
-    // const handleCopyTextButtonPress = () => {
-    //     // Check if any task has an error message and copy the first one found
-    //     const failedTask = tasks.find(task => task.status === "error");
-    //     if (failedTask?.errorDetails?.message) {
-    //         Clipboard.setString(failedTask.errorDetails.message);
-    //         Alert.alert("Copied", "Error message copied to clipboard", [{ text: "OK" }]);
-    //     }
-    // };
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
@@ -82,15 +63,10 @@ export const ProgressScreen = () => {
             <UploadSimulator
                 onUploadSuccess={handleUploadSuccess}
                 onUploadFailed={handleUploadFailed}
-                onMultipleUploads={handleMultipleUploads}
             />
-
             <Spacer amount="medium" />
-
             <Typography>Progress with one single task: </Typography>
-
             <Spacer amount="small" />
-
             <Progress title="Create folder">
                 <Progress.Item
                     title="Creating a folder"
@@ -109,11 +85,8 @@ export const ProgressScreen = () => {
                 <Typography>or</Typography>
                 <Typography color="danger">error</Typography>
             </View>
-
+            <Spacer amount="small" />¨<Typography>Progress with multiple tasks: </Typography>
             <Spacer amount="small" />
-            <Typography>Progress with multiple tasks: </Typography>
-            <Spacer amount="small" />
-
             <Progress title="Upload cat images">
                 <Progress.Item
                     title="Upload images of cats with hats"
@@ -127,7 +100,6 @@ export const ProgressScreen = () => {
             <Typography>You can also add multiple different tasks to one progress.</Typography>
             <Typography>Progress with multiple tasks: </Typography>
             <Spacer amount="small" />
-
             <Progress title="Multiple upload tasks">
                 <Progress.Item title="Preparing cat hats" status="success" />
                 <Progress.Item title="Training cats to wear hats" status="inProgress" />
@@ -138,7 +110,6 @@ export const ProgressScreen = () => {
                     status="notStarted"
                 />
             </Progress>
-
             <Spacer />
         </ScrollView>
     );
