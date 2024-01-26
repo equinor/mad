@@ -1,5 +1,11 @@
 # @equinor/mad-dfw
 
+## 0.0.3
+
+### Patch Changes
+
+-   61a8d3e: Added propertyrow component
+
 ## 0.0.2
 
 ### Patch Changes
