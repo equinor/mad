@@ -1,3 +1,4 @@
+import { CoreRoutes } from "../../src/components/navigation/coreRoutes";
 import { getNavigationRouteForLoginScreen } from "../../src/utils/getNavigationRouteForLoginScreen";
 
 describe("getNavigationRouteForLoginScreen", () => {
@@ -29,9 +30,9 @@ describe("getNavigationRouteForLoginScreen", () => {
             isDemoModeEnabled: true,
         });
 
-        expect(route1).toBe("WhatsNew");
-        expect(route2).toBe("WhatsNew");
-        expect(route3).toBe("WhatsNew");
+        expect(route1).toBe(CoreRoutes.WHATS_NEW);
+        expect(route2).toBe(CoreRoutes.WHATS_NEW);
+        expect(route3).toBe(CoreRoutes.WHATS_NEW);
     });
 
     it("Should return null if lastDisplayedReleaseNotesVersion is equal or greater than appVersion. Otherwise is should return 'WhatsNew'", () => {
@@ -58,7 +59,7 @@ describe("getNavigationRouteForLoginScreen", () => {
             appVersion: "0.0.10",
             lastDisplayedReleaseNotesVersion: "0.0.0",
         });
-        expect(val3).toBe("WhatsNew");
+        expect(val3).toBe(CoreRoutes.WHATS_NEW);
 
         const val4 = getNavigationRouteForLoginScreen({
             ...defaultArguments,
@@ -72,7 +73,7 @@ describe("getNavigationRouteForLoginScreen", () => {
             appVersion: "0.10.0",
             lastDisplayedReleaseNotesVersion: "0.0.10",
         });
-        expect(val5).toBe("WhatsNew");
+        expect(val5).toBe(CoreRoutes.WHATS_NEW);
 
         const val6 = getNavigationRouteForLoginScreen({
             ...defaultArguments,
@@ -86,14 +87,14 @@ describe("getNavigationRouteForLoginScreen", () => {
             appVersion: "10.0.0",
             lastDisplayedReleaseNotesVersion: "0.10.10",
         });
-        expect(val7).toBe("WhatsNew");
+        expect(val7).toBe(CoreRoutes.WHATS_NEW);
 
         const val8 = getNavigationRouteForLoginScreen({
             ...defaultArguments,
             appVersion: "0.0.0",
             lastDisplayedReleaseNotesVersion: "-1",
         });
-        expect(val8).toBe("WhatsNew");
+        expect(val8).toBe(CoreRoutes.WHATS_NEW);
     });
 
     it("Should always return 'WhatsNew' if lastDisplayedReleaseNotesVersion is null", () => {
@@ -102,12 +103,12 @@ describe("getNavigationRouteForLoginScreen", () => {
             appVersion: "0.0.0",
             lastDisplayedReleaseNotesVersion: null,
         });
-        expect(val1).toBe("WhatsNew");
+        expect(val1).toBe(CoreRoutes.WHATS_NEW);
         const val2 = getNavigationRouteForLoginScreen({
             ...defaultArguments,
             appVersion: "",
             lastDisplayedReleaseNotesVersion: null,
         });
-        expect(val2).toBe("WhatsNew");
+        expect(val2).toBe(CoreRoutes.WHATS_NEW);
     });
 });

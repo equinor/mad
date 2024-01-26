@@ -1,3 +1,4 @@
+import { CoreRoutes } from "../../src/components/navigation/coreRoutes";
 import { getNavigationRouteForSelectLanguageScreen } from "../../src/utils/getNavigationRouteForSelectLanguageScreen";
 
 describe("getNavigationRouteForSelectLanguageScreen", () => {
@@ -8,6 +9,6 @@ describe("getNavigationRouteForSelectLanguageScreen", () => {
 
     it("Should return 'Settings' if onboarding is false", () => {
         const val = getNavigationRouteForSelectLanguageScreen(false);
-        expect(val).toBe("Settings");
+        expect(val).toBe(CoreRoutes.SETTINGS);
     });
 });

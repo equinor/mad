@@ -1,3 +1,4 @@
+import { CoreRoutes } from "../../src/components/navigation/coreRoutes";
 import { getNavigationRouteForWhatsNewScreen } from "../../src/utils/getNavigationRouteForWhatsNewScreen";
 
 describe("getNavigationRouteForWhatsNewScreen", () => {
@@ -62,6 +63,6 @@ describe("getNavigationRouteForWhatsNewScreen", () => {
             ],
             false,
         );
-        expect(val4).toBe("SelectLanguageOnboarding");
+        expect(val4).toBe(CoreRoutes.SELECT_LANGUAGE_ONBOARDING);
     });
 });
