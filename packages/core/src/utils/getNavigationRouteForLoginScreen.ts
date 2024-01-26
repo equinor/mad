@@ -2,7 +2,7 @@ import { Language } from "../store/types";
 import { CoreStackParamListBase } from "../types";
 import { getNavigationRouteForWhatsNewScreen } from "./getNavigationRouteForWhatsNewScreen";
 
-export type GetNavigationRouteForLoginScreenOptions = {
+type GetNavigationRouteForLoginScreenOptions = {
     appVersion: string;
     lastDisplayedReleaseNotesVersion: string | null;
     isDemoModeEnabled: boolean;
