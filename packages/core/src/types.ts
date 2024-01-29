@@ -1,7 +1,7 @@
-import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
 import { AppInsightsInitConfig } from "@equinor/mad-insights";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { ImageURISource } from "react-native";
 
 export type MadConfig<ParamList extends ParamListBase | void = void> = {
     /**
@@ -66,14 +66,7 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
         scopes: string[];
     }>;
     login: EnvironmentValues<{
-        /**
-         * Title of the app. Used in login screen
-         */
-        title: string;
-        /**
-         * App logo. Used in login screen
-         */
-        logo: string;
+        splash: ImageURISource;
     }>;
     /**
      * App insights config used for initializing application insights service(s)

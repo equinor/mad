@@ -35,7 +35,11 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                             <Stack.Screen
                                 name={CoreRoutes.LOGIN}
                                 component={LoginScreen}
-                                options={{ headerShown: false, customSubHeaderShown: true }}
+                                options={{
+                                    headerShown: false,
+                                    customSubHeaderShown: true,
+                                    customSubHeaderFloat: true,
+                                }}
                             />
                             <Stack.Screen
                                 name={CoreRoutes.RELEASE_NOTES}

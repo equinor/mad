@@ -1,38 +1,39 @@
-import { Button, EDSStyleSheet, Typography, useStyles, useToken } from "@equinor/mad-components";
-import React, { useState, useMemo } from "react";
-import { Pressable, View } from "react-native";
+import { Button, EDSStyleSheet, useStyles } from "@equinor/mad-components";
+import React, { useState } from "react";
+import { Image, Platform, Pressable, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { enableDemoMode } from "../../store/demo-mode";
 import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
-import { SvgXml } from "react-native-svg";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
 export const LoginScreen = () => {
     const styles = useStyles(theme);
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
-    const token = useToken();
-    const primaryColor = token.colors.presentation.primary;
     const navigate = useNavigateFromLoginScreen();
-    const { title, logo } = useLoginScreenConfig();
+    const { splash } = useLoginScreenConfig();
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
-
-    const recoloredLogo = useMemo(
-        () => logo.replaceAll("#007079", primaryColor),
-        [primaryColor, logo],
-    );
+    const resizeMode = Platform.OS === "web" ? "contain" : "cover";
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => setDemoPressCount(state => state + 1)}>
-                <SvgXml width={150} height={150} xml={recoloredLogo} />
-            </Pressable>
-            <Typography variant="h1" color={primaryColor}>
-                {title}
-            </Typography>
-            <View style={{ gap: 8 }}>
+            <Image
+                source={splash}
+                resizeMode={resizeMode}
+                style={{ height: "100%", width: "100%" }}
+            />
+            <View style={styles.secretHitboxContainer}>
+                <Pressable
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                    }}
+                    onPress={() => setDemoPressCount(count => count + 1)}
+                />
+            </View>
+            <View style={styles.buttonContainer}>
                 <LoginButton
                     {...authConfig}
                     onAuthenticationSuccessful={(_, type) => {
@@ -68,14 +69,26 @@ export const LoginScreen = () => {
     );
 };
 
-const theme = EDSStyleSheet.create(theme => ({
+const theme = EDSStyleSheet.create(() => ({
     container: {
-        paddingVertical: theme.spacing.container.paddingVertical,
-        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        flex: 1,
         height: "100%",
+        backgroundColor: "#E6FAEC",
+    },
+    secretHitboxContainer: {
+        //🤫🤫🤫 Hush... it works
+        position: "absolute",
+        top: 0,
+        height: "55%",
+        width: "100%",
         alignItems: "center",
-        justifyContent: "center",
-        gap: 60,
-        backgroundColor: theme.colors.presentation.background,
+        //🤫🤫🤫
+    },
+    buttonContainer: {
+        position: "absolute",
+        top: "60%",
+        width: "100%",
+        alignItems: "center",
+        gap: 8,
     },
 }));
