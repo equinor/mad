@@ -21,7 +21,7 @@ const UploadSimulator = ({ onUploadSuccess, onUploadFailed }: UploadSimulatorPro
             </Typography>
             <Typography>Press the buttons below to simulate the progress component</Typography>
             <View style={styles.simulateButtonContainer}>
-                <Button title="Run successfull progress " onPress={onUploadSuccess} />
+                <Button title="Run successfull progress" onPress={onUploadSuccess} />
                 <Button title="Run failed progress" onPress={onUploadFailed} />
             </View>
         </View>
@@ -85,7 +85,8 @@ export const ProgressScreen = () => {
                 <Typography>or</Typography>
                 <Typography color="danger">error</Typography>
             </View>
-            <Spacer amount="small" />¨<Typography>Progress with multiple tasks: </Typography>
+            <Spacer amount="small" />
+            <Typography>Progress with multiple tasks: </Typography>
             <Spacer amount="small" />
             <Progress title="Upload cat images">
                 <Progress.Item

@@ -9,6 +9,7 @@ import { ProgressExpandButton } from "./ProgressExpandButton";
 import { ProgressItemStatus } from "./ProgressItemStatus";
 import { ProgressTaskItem } from "./ProgressTaskItem";
 import { ProgressStatus, ProgressTask } from "./types";
+import { computeTaskStatus } from "./progressUtils";
 
 type ProgressItemPropsOptions =
     | {
@@ -54,26 +55,7 @@ export const ProgressItem = ({
         },
     };
 
-    const computeTaskStatus = (): ProgressStatus => {
-        if (tasks.length === 0 && status) {
-            return status;
-        }
-        const hasOngoing = tasks.some(task => task.status === "inProgress");
-        const hasError = tasks.some(task => task.status === "error");
-        const allSuccess = tasks.every(task => task.status === "success");
-
-        if (hasError) {
-            return "error";
-        } else if (hasOngoing) {
-            return "inProgress";
-        } else if (allSuccess) {
-            return "success";
-        } else {
-            return "notStarted";
-        }
-    };
-
-    const taskStatus = computeTaskStatus();
+    const taskStatus = computeTaskStatus(tasks, status);
     const taskHasError = taskStatus === "error";
     const failedTask = tasks.find(task => task.status === "error");
 

@@ -15,7 +15,7 @@ Progress.StatusLine = ProgressStatusLine;
 export { Progress };
 export type {
     ProgressProps,
-    ProgressItemProps,
+    ProgressItemProps as ProgressItem,
     ProgressTask,
     ProgressStatus,
     ProgressTaskErrorDetails,

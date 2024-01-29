@@ -12,8 +12,6 @@ export const ProgressStatusLine = ({ color }: ProgressStatusLineProps) => {
     return <View style={[styles.verticalLine, { backgroundColor: color }]} />;
 };
 
-ProgressStatusLine.displayName = "Progress.StatusLine";
-
 const themeStyles = EDSStyleSheet.create(theme => ({
     verticalLine: {
         flex: 1,
