@@ -24,7 +24,7 @@ export const WorkOrderCellScreen = () => {
                 maintenanceType="Surface monitoring"
                 tagId="TAG-123456"
                 equipmentId="EQUIP-123456"
-                activeStatusIds="RDOP"
+                activeStatusIds="STRT"
                 basicStartDate="2023-04-07"
                 basicEndDate="2023-09-12"
                 workCenterId="POMISP"

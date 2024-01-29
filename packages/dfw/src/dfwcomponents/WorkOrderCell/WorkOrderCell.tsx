@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View } from "react-native";
 import {
     Button,
@@ -8,6 +8,8 @@ import {
     Typography,
     useStyles,
     EDSStyleSheet,
+    IconName,
+    Color,
 } from "@equinor/mad-components";
 import { PropertyRow } from "../PropertyRow";
 
@@ -41,6 +43,39 @@ export type WorkOrderCellProps = {
     onPress?: () => void;
 } & WorkOrder;
 
+type StatusConfig = {
+    icon: IconName;
+    label: string;
+    textColor: Color;
+    iconColor: Color;
+};
+
+const getStatusIconConfig = (status: string): StatusConfig | undefined => {
+    switch (status) {
+        case "RDEX":
+            return {
+                icon: "circle-outline",
+                label: "Ready for execution",
+                textColor: "textTertiary",
+                iconColor: "textPrimary",
+            };
+        case "STRT":
+            return {
+                icon: "circle-half-full",
+                label: "Started",
+                textColor: "textTertiary",
+                iconColor: "textPrimary",
+            };
+        case "RDOP":
+            return {
+                icon: "circle",
+                label: "Ready for operation",
+                textColor: "textTertiary",
+                iconColor: "textPrimary",
+            };
+    }
+};
+
 export const WorkOrderCell = ({
     title,
     maintenanceType,
@@ -51,57 +86,30 @@ export const WorkOrderCell = ({
 }: WorkOrderCellProps) => {
     const styles = useStyles(themeStyles);
     const activeStatuses = rest.activeStatusIds?.split(" ");
-    const renderStatusIcons = () => {
+
+    const iconsAndLabels = useMemo(() => {
         const currentDate = new Date();
         const endDate = rest.basicEndDate ? new Date(rest.basicEndDate) : null;
-        const iconsAndLabels = [];
+        const result: StatusConfig[] = [];
 
         if (endDate && currentDate > endDate) {
-            iconsAndLabels.push({
+            result.push({
                 icon: "alarm",
                 label: "Required end overdue",
-                color: "textTertiary",
+                textColor: "textTertiary",
+                iconColor: "danger",
             });
         }
 
         activeStatuses?.forEach(status => {
-            let icon, label, color;
-            switch (status) {
-                case "RDEX":
-                    icon = "circle-outline";
-                    label = "Ready for execution";
-                    color = "textSecondary";
-                    break;
-                case "STRT":
-                    icon = "circle-half-full";
-                    label = "Started";
-                    color = "textSecondary";
-                    break;
-                case "RDOP":
-                    icon = "circle";
-                    label = "Ready for operation";
-                    color = "textSecondary";
-                    break;
-            }
-            if (icon && label) {
-                iconsAndLabels.push({ icon, label, color });
+            const statusConfig = getStatusIconConfig(status);
+            if (statusConfig) {
+                result.push(statusConfig);
             }
         });
+        return result;
+    }, [activeStatuses, rest.basicEndDate]);
 
-        return iconsAndLabels.map((item, index) => (
-            <View key={index} style={styles.iconContainer}>
-                <Icon name={item.icon} size={24} color={item.color} />
-                <Typography
-                    numberOfLines={1}
-                    group="paragraph"
-                    variant="caption"
-                    color={item.color}
-                >
-                    {item.label}
-                </Typography>
-            </View>
-        ));
-    };
     const isStartDisabled =
         !!activeStatuses?.includes("STRT") || !!activeStatuses?.includes("RDOP");
     const isCompleteDisabled =
@@ -121,7 +129,19 @@ export const WorkOrderCell = ({
                 <Typography numberOfLines={1} variant="h5" bold style={{ marginBottom: 16 }}>
                     {title}
                 </Typography>
-                {renderStatusIcons()}
+                {iconsAndLabels?.map((item, index) => (
+                    <View key={index} style={styles.iconContainer}>
+                        <Icon name={item.icon} size={24} color={item.iconColor} />
+                        <Typography
+                            numberOfLines={1}
+                            group="paragraph"
+                            variant="caption"
+                            color={item.textColor}
+                        >
+                            {item.label}
+                        </Typography>
+                    </View>
+                ))}
                 <Label label={maintenanceType} style={{ marginBottom: 8 }} />
                 {Object.entries(rest).map(([key, value], index) => {
                     const label = WorkOrderLabelMap[key as keyof WorkOrder];
