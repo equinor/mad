@@ -1,6 +1,6 @@
 import { MadConfig } from "@equinor/mad-core";
 import { getBuildNumber } from "./settings";
-import Logo from "./assets/images/logo3.svg";
+import Logo from "./assets/images/logo.svg";
 import { RootStackParamList } from "./types/navigation";
 
 export const config: MadConfig<RootStackParamList> = {
@@ -33,7 +33,7 @@ export const config: MadConfig<RootStackParamList> = {
     },
     login: {
         title: "MAD chronicles",
-        logo: Logo as string,
+        logo: Logo,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
