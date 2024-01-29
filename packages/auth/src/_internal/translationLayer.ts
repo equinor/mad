@@ -13,7 +13,7 @@ export const getMadAuthenticationResult = (result: MSALResult): MadAuthenticatio
     return { account: getMadAccount(result.account), accessToken: result.accessToken };
 };
 
-interface IClaims {
+type IClaims = {
     alg: string;
     aud: string;
     exp: number;

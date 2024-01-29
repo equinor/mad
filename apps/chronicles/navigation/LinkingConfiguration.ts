@@ -6,8 +6,7 @@
 
 import { LinkingOptions } from "@react-navigation/native";
 import * as Linking from "expo-linking";
-
-import { RootStackParamList } from "../types";
+import { RootStackParamList } from "../types/navigation";
 
 const linking: LinkingOptions<RootStackParamList> = {
     prefixes: [Linking.createURL("/")],
@@ -15,9 +14,16 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
             Root: {
                 screens: {
-                    DiscoverTab: {
+                    Components: {
                         screens: {
-                            Discover: "discover",
+                            Discover: "components",
+                            Component: "components/:name",
+                        },
+                    },
+                    DFW: {
+                        screens: {
+                            Discover: "dfwcomponents",
+                            Component: "dfwcomponents/:name",
                         },
                     },
                     IconsTab: {

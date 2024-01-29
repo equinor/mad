@@ -4,46 +4,35 @@
  *
  */
 import React from "react";
-import {
-    createBottomTabNavigator,
-    createNativeStackNavigator,
-    NavigationContainer,
-} from "@equinor/mad-navigation";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
-import DiscoverScreen from "../screens/DiscoverScreen";
+import DiscoverScreen from "../screens/components/DiscoverScreen";
 import IconsScreen from "../screens/IconsScreen";
-import { DiscoverStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { DrawScreen } from "../screens/DrawScreen";
 import { SignatureScreen } from "../screens/SignatureTest";
-import { PaperScreen } from "../screens/components/PaperScreen";
-import { PopoverScreen } from "../screens/components/PopoverScreen";
-import { ButtonScreen } from "../screens/components/ButtonScreen";
-import { Color, Icon, IconName, useToken } from "@equinor/mad-components";
-import { InputScreen } from "../screens/components/InputScreen";
-import { TextFieldScreen } from "../screens/components/TextFieldScreen";
-import { SearchScreen } from "../screens/components/SearchScreen";
-import { CellScreen } from "../screens/components/CellScreen";
-import { NavigationCellScreen } from "../screens/components/NavigationCellScreen";
-import { AccordionScreen } from "../screens/components/AccordionScreen";
-import { MenuScreen } from "../screens/components/MenuScreen";
-import { ProgressIndicatorScreen } from "../screens/components/ProgressIndicatorScreen";
-import { PortalScreen } from "../screens/components/PortalScreen";
-import { DialogScreen } from "../screens/components/DialogScreen";
-import { EnvironmentScreen } from "../screens/components/EnvironmentScreen";
-import { ButtonCellScreen } from "../screens/components/ButtonCellScreen";
-import { SwitchCellScreen } from "../screens/components/SwitchCellScreen";
-import { trackNavigation } from "@equinor/mad-insights";
-import { SwitchScreen } from "../screens/components/SwitchScreen";
-import { ErrorBoundaryScreen } from "../screens/components/ErrorBoundaryScreen";
-import { createCoreStackNavigator } from "@equinor/mad-core";
+import { Color, Icon, IconName, useBreakpoint, useToken } from "@equinor/mad-components";
+import {
+    createBottomTabNavigator,
+    createNativeStackNavigator,
+    createCoreStackNavigator,
+    NavigationContainer,
+} from "@equinor/mad-core";
 import { config } from "../mad.config";
-import { AutocompleteScreen } from "../screens/components/AutocompleteScreen";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
 import { SampleSettingsScreen } from "./SettingsScreen";
-
+import {
+    ComponentsStackParamList,
+    DFWStackParamList,
+    RootStackParamList,
+    RootTabParamList,
+} from "../types/navigation";
+import { ComponentScreen } from "../screens/components/ComponentScreen";
+import { ComponentName } from "../types/components";
+import { DFWDiscoverScreen } from "../screens/dfw/DFWDiscoverScreen";
+import { DFWComponentScreen } from "../screens/dfw/DFWComponentsScreen";
+import { DFWComponentName } from "../types/dfwcomponents";
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
@@ -60,14 +49,13 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
                     notification: token.colors.interactive.primary,
                 },
             }}
-            onRouteChange={current => trackNavigation(current)}
         >
             <RootNavigator />
         </NavigationContainer>
     );
 }
 
-const CoreStack = createCoreStackNavigator(config);
+const CoreStack = createCoreStackNavigator<RootStackParamList>(config);
 function RootNavigator() {
     return (
         <CoreStack.Navigator>
@@ -86,10 +74,10 @@ function RootNavigator() {
     );
 }
 
-const DiscoverStack = createNativeStackNavigator<DiscoverStackParamList>();
+const ComponentsStack = createNativeStackNavigator<ComponentsStackParamList>();
 function DiscoverNavigator() {
     return (
-        <DiscoverStack.Navigator
+        <ComponentsStack.Navigator
             initialRouteName="Discover"
             screenOptions={{
                 headerLargeTitle: true,
@@ -99,35 +87,51 @@ function DiscoverNavigator() {
                     fontFamily: "Equinor-Regular",
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-                environmentBannerShown: false,
+                customSubHeaderShown: false,
                 headerRight: () => <GoToSettingsButton marginRight={-12} />,
             }}
         >
-            <DiscoverStack.Screen name="Discover" component={DiscoverScreen} />
-            <DiscoverStack.Screen name="Paper" component={PaperScreen} />
-            <DiscoverStack.Screen name="Popover" component={PopoverScreen} />
-            <DiscoverStack.Screen name="Button" component={ButtonScreen} />
-            <DiscoverStack.Screen name="Switch" component={SwitchScreen} />
-            <DiscoverStack.Screen name="TextField" component={TextFieldScreen} />
-            <DiscoverStack.Screen name="Input" component={InputScreen} />
-            <DiscoverStack.Screen name="Autocomplete" component={AutocompleteScreen} />
-            <DiscoverStack.Screen name="Search" component={SearchScreen} />
-            <DiscoverStack.Screen name="Cell" component={CellScreen} />
-            <DiscoverStack.Screen name="NavigationCell" component={NavigationCellScreen} />
-            <DiscoverStack.Screen name="ButtonCell" component={ButtonCellScreen} />
-            <DiscoverStack.Screen name="SwitchCell" component={SwitchCellScreen} />
-            <DiscoverStack.Screen name="Accordion" component={AccordionScreen} />
-            <DiscoverStack.Screen name="Menu" component={MenuScreen} />
-            <DiscoverStack.Screen
-                name="ProgressIndicator"
-                options={{ title: "Progress Indicators" }}
-                component={ProgressIndicatorScreen}
+            <ComponentsStack.Screen name="Discover" component={DiscoverScreen} />
+            <ComponentsStack.Screen
+                name="Component"
+                component={ComponentScreen}
+                options={({ route }) => ({
+                    title: ComponentName[route.params.name],
+                    ...(route.params.screenOptions ?? {}),
+                })}
             />
-            <DiscoverStack.Screen name="Portal" component={PortalScreen} />
-            <DiscoverStack.Screen name="Dialog" component={DialogScreen} />
-            <DiscoverStack.Screen name="Environment" component={EnvironmentScreen} />
-            <DiscoverStack.Screen name="ErrorBoundary" component={ErrorBoundaryScreen} />
-        </DiscoverStack.Navigator>
+        </ComponentsStack.Navigator>
+    );
+}
+
+const DFWStack = createNativeStackNavigator<DFWStackParamList>();
+
+function DFWNavigator() {
+    return (
+        <DFWStack.Navigator
+            initialRouteName="DFWDiscover"
+            screenOptions={{
+                headerLargeTitle: true,
+                headerLargeTitleShadowVisible: true,
+                headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
+                headerTitleStyle: {
+                    fontFamily: "Equinor-Regular",
+                },
+                headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
+                customSubHeaderShown: false,
+                headerRight: () => <GoToSettingsButton marginRight={-12} />,
+            }}
+        >
+            <DFWStack.Screen name="DFWDiscover" component={DFWDiscoverScreen} />
+            <DFWStack.Screen
+                name="DFWComponent"
+                component={DFWComponentScreen}
+                options={({ route }) => ({
+                    title: DFWComponentName[route.params.name],
+                    ...(route.params.screenOptions ?? {}),
+                })}
+            />
+        </DFWStack.Navigator>
     );
 }
 
@@ -138,22 +142,34 @@ function DiscoverNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
+    const breakpoint = useBreakpoint();
     return (
         <BottomTab.Navigator
-            initialRouteName="DiscoverTab"
+            initialRouteName="Components"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
                 headerRight: () => <GoToSettingsButton marginRight={8} />,
             }}
         >
             <BottomTab.Screen
-                name="DiscoverTab"
+                name="Components"
                 component={DiscoverNavigator}
                 options={{
-                    title: "Discover",
+                    title: "Components",
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="binoculars" color={color as Color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="DFW"
+                component={DFWNavigator}
+                options={{
+                    title: breakpoint === "xs" ? "DFW" : "Digital Field Worker",
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="video-input-component" color={color as Color} />
                     ),
                 }}
             />

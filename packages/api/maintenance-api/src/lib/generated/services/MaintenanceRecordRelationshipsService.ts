@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -20,7 +21,7 @@ export class MaintenanceRecordRelationshipsService {
      *
      * URL references are stored in the Document Management System (DMS). If there exist a DMS document for the provided characteristics it will be reused, otherwise a new DMS document will be created.
      *
-     * The following characteristicsId can be used:
+     * The following characteristicId can be used:
      * - `DISCIPLINE_B30`
      * - `ADDITIONAL_REFERENCE_B30`
      * - `DATE_OF_DOCUMENT_B30` (Date of photo / report)
@@ -55,7 +56,7 @@ export class MaintenanceRecordRelationshipsService {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights for updating maintenance record`,
                 404: `The specified resource was not found`,
-                409: `Maintenance record is locked by other user, characteristicsId used are not suitable for the maintenance record type or type of maintenance record not supported`,
+                409: `Maintenance record is locked by other user, characteristicId used are not suitable for the maintenance record type or type of maintenance record not supported`,
             },
         });
     }

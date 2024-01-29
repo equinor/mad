@@ -29,6 +29,9 @@
         "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
         "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper -- $npm_config_input",
         "test:maintenance-api": "turbo run test --filter @equinor/mad-maintenance-api-ts-wrapper",
+        "dev:dfw": "turbo run dev --filter @equinor/mad-dfw",
+        "build:dfw": "turbo run build --filter @equinor/mad-dfw",
+        "test:dfw": "turbo run test --filter @equinor/mad-dfw --",
         "build:all": "turbo run build",
         "dev:all": "turbo run dev",
         "lint:all": "turbo run lint --continue --",
@@ -38,9 +41,10 @@
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
-        "@equinor/eslint-config-mad": "workspace:*",
         "@types/jest": "^26.0.14",
         "@types/node": "^18.13.0",
+        "@typescript-eslint/eslint-plugin": "^6.13.2",
+        "@typescript-eslint/parser": "^6.13.2",
         "eslint": "^8.46.0",
         "jest": "^29.4.3",
         "prettier": "3.0.1",
@@ -49,11 +53,11 @@
         "tsconfig": "workspace:*",
         "tslib": "^2.5.0",
         "tsup": "^7.0.0",
-        "turbo": "^1.10.6",
-        "typescript": "5.3.0-beta"
+        "turbo": "^1.11.1",
+        "typescript": "5.3.3"
     },
     "engines": {
-        "node": ">=16.0.0"
+        "node": ">=18.0.0"
     },
     "packageManager": "pnpm@7.31.0"
 }

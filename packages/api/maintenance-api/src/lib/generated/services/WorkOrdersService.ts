@@ -1,8 +1,10 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 import type { ProblemDetails } from "../models/ProblemDetails";
 import type { WorkOrderChangeLogs } from "../models/WorkOrderChangeLogs";
+import type { WorkOrderInPlan } from "../models/WorkOrderInPlan";
 import type { WorkOrderOptimizedForQuery } from "../models/WorkOrderOptimizedForQuery";
 import type { WorkOrderWithOperationList } from "../models/WorkOrderWithOperationList";
 
@@ -11,6 +13,143 @@ import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 
 export class WorkOrdersService {
+    /**
+     * Work order plan - Get
+     * ### Overview
+     * Get work order activities planned to be performed for a single planning plant.
+     * The response is normally based on the planned scheduling of work order operations through the properties `earliestStartDateTime` and `earliestFinishDateTime`. It does not use assignment to baseline plan as a source as this does not cover all work.
+     *
+     * It is possible to use the defined periods from the baseline plans as basis for the query parameters `planPeriodStartDate` and `planPeriodDuration`. Use `/plants/{plant-id}?include-baseline-plan=true&api-version=v1` for this purpose.
+     *
+     * `personResponsibleId` will normally not be populated as planning is performed on the work center as a whole.
+     *
+     * This endpoint returns only Work Order with status 'PLAN'. The field `requiredEndDate` is dependent on workOrderType.
+     *
+     *
+     * ### Filter: by-plan-period
+     * Provide the plan for a specific planning plant based on a defined plan period. This is the main usage of this endpoint.
+     * Parameters:
+     * - plan-period-start-date
+     * - plan-period-duration
+     * - location-id-any-of (optional)
+     * - revision-id-any-of (optional)
+     * - work-center-id-any-of (optional, supports * wildcard at the end)
+     *
+     * Example of usage:
+     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start-date=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start-date=2023-03-02&plan-period-duration=P21D&work-center-id-any-of=C31*&include-completed-work-order-operations=false&api-version=v1`
+     *
+     * ### Filter: by-person-responsible
+     * Get the work order plan for a specific planning plant, but only for work orders assigned to a specific user.
+     * Normally, work orders will not be assigned directly to a user, but in some work processes (such as inspection), this occurs.
+     * Parameters:
+     * - person-responsible-id
+     * - plan-period-start-date (optional)
+     * - plan-period-duration (optional)
+     * - person-responsible-email (value should be URL encoded) (optional)
+     *
+     * Example of usage:
+     * - `/work-order-plan/{planning-plant-id}?filter=by-person-responsible&person-responsible-email=shortname@equinor.com&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     *
+     * ### Update release v1.26.0
+     * Added query parameter `work-center-id-any-of`.
+     *
+     * Added properties `cmrIndicator` and `maintenanceRecordId`.
+     *
+     * @returns WorkOrderInPlan Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getWorkOrderPlan({
+        planningPlantId,
+        filter,
+        planPeriodStartDate,
+        planPeriodDuration,
+        personResponsibleEmail,
+        includeCompletedWorkOrderOperations = false,
+        includePersonResponsible = false,
+        workOrderTypesAnyOf,
+        workCenterIdAnyOf,
+        revisionIdAnyOf,
+        locationIdAnyOf,
+    }: {
+        /**
+         * Planning plant to retrieve work order plan for
+         */
+        planningPlantId: string;
+        /**
+         * Filter to limit the work order plan by
+         */
+        filter: "by-plan-period" | "by-person-responsible";
+        /**
+         * Start of plan period (`/plants/{plant-id}?include-baseline-plans=true` can be used as a reference )
+         */
+        planPeriodStartDate?: string;
+        /**
+         * Duration of plan period
+         */
+        planPeriodDuration?: string;
+        /**
+         * Email address for responsible person
+         */
+        personResponsibleEmail?: string;
+        /**
+         * Include completed work order operations
+         */
+        includeCompletedWorkOrderOperations?: boolean;
+        /**
+         * Include person responsible information in response
+         */
+        includePersonResponsible?: boolean;
+        /**
+         * Limit to specific work order types (any-of). Default includes all types
+         */
+        workOrderTypesAnyOf?: Array<
+            | "correctiveWorkOrders"
+            | "preventiveWorkOrders"
+            | "modificationWorkOrders"
+            | "sasChangeWorkOrders"
+            | "projectWorkOrders"
+            | "subseaWorkOrders"
+        >;
+        /**
+         * Comma-separated list of work-center-id
+         */
+        workCenterIdAnyOf?: string;
+        /**
+         * Comma-separated list of revision-id
+         */
+        revisionIdAnyOf?: string;
+        /**
+         * Comma-separated list of location-id
+         */
+        locationIdAnyOf?: string;
+    }): CancelablePromise<Array<WorkOrderInPlan> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "GET",
+            url: "/work-order-plan/{planning-plant-id}",
+            path: {
+                "planning-plant-id": planningPlantId,
+            },
+            query: {
+                filter: filter,
+                "plan-period-start-date": planPeriodStartDate,
+                "plan-period-duration": planPeriodDuration,
+                "person-responsible-email": personResponsibleEmail,
+                "include-completed-work-order-operations": includeCompletedWorkOrderOperations,
+                "include-person-responsible": includePersonResponsible,
+                "work-order-types-any-of": workOrderTypesAnyOf,
+                "work-center-id-any-of": workCenterIdAnyOf,
+                "revision-id-any-of": revisionIdAnyOf,
+                "location-id-any-of": locationIdAnyOf,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights`,
+            },
+        });
+    }
+
     /**
      * Work orders - Search
      * ### Overview
@@ -21,8 +160,6 @@ export class WorkOrdersService {
      * The response can include most of the details for each work order.
      * If additional data is needed, it can be retrieved by using the endpoint represented in the `_links.self` property.
      *
-     * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
      *
      * ### Filter: recently-changed
      * Find Work orders which have been recently changed (created or updated) for a given plant. Normally, clients will provide parameters changed-since-datetime and plant-id and in this case the endpoint will return any changed work order from changed-since-datetime and to now. It is also possible to add before-datetime query parameter and the endpoint will then return any changed work order between changed-since-datetime and before-datetime.
@@ -38,13 +175,24 @@ export class WorkOrdersService {
      * - plant-id
      * - basic-end-date
      * - location-id (optional)
-     * - area-id (optional) Deprecated - Use locationId instead
      *
      * ### Filter: by-external-partner-work-order-id
-     * Find work orders for an id in an external partner system. Note: In theory different external system could have the same `external-partner-id` but it's very unlikely. Clients are recommended to filter the response based on the plants they are intersted in to avoid any issues.
+     * Find work orders for an id in an external partner system. Note: In theory different external system could have the same `external-partner-id` but it's very unlikely. Clients are recommended to filter the response based on the plants they are interested in to avoid any issues.
      *
      * Parameters:
      * - external-partner-work-order-id
+     *
+     * ### Filter: by-cost-network
+     * Work orders based on cost network id.
+     * Parameters:
+     * - cost-network-id
+     * - plant-id (optional)
+     *
+     * ### Filter: by-cost-wbs
+     * Work orders based on cost WBS id.
+     * Parameters:
+     * - cost-wbs-id
+     * - plant-id (optional)
      *
      * ### Update release v0.11.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
@@ -63,6 +211,21 @@ export class WorkOrdersService {
      * ### Update release v1.12.0
      * Improved performance of endpoint.
      *
+     * ### Update release v1.19.0
+     * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
+     *
+     * ### Update release v1.21.0
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release v1.24.0
+     * Added filter `by-cost-wbs`, with required parameter `cost-wbs-id`. Can be used in combination with optional parameter`plant-id`.
+     * This filter only includes work orders where the WBS is represented on the work order level. It does not include work orders where WBS is only represented in the settlement rules.
+     *
+     * Added filter `by-cost-network`, with required parameter `cost-network-id`, can be used in combination with optional parameter `plant-id`.
+     *
+     * Added property `cmrIndicator` for WorkOrders
+     *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -76,9 +239,10 @@ export class WorkOrdersService {
         includeWorkOrderOperationText,
         includeWorkOrderTypes,
         basicEndDate,
-        areaId,
         locationId,
         externalPartnerWorkOrderId,
+        costWbsId,
+        costNetworkId,
     }: {
         /**
          * Filter to limit the work order by
@@ -86,9 +250,11 @@ export class WorkOrdersService {
         filter:
             | "recently-changed"
             | "before-basic-end-date"
-            | "by-external-partner-work-order-id";
+            | "by-external-partner-work-order-id"
+            | "by-cost-network"
+            | "by-cost-wbs";
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
         /**
@@ -123,11 +289,6 @@ export class WorkOrdersService {
          */
         basicEndDate?: string;
         /**
-         * Deprecated. Use location-id instead
-         * @deprecated
-         */
-        areaId?: string;
-        /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
         locationId?: string;
@@ -135,6 +296,14 @@ export class WorkOrdersService {
          * If work order was initially created in an external system, this represent the unique id of it
          */
         externalPartnerWorkOrderId?: string;
+        /**
+         * Required parameter if `filter=by-cost-wbs`
+         */
+        costWbsId?: string;
+        /**
+         * Required parameter if `filter=by-cost-network`
+         */
+        costNetworkId?: string;
     }): CancelablePromise<WorkOrderWithOperationList | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
@@ -145,13 +314,13 @@ export class WorkOrdersService {
                 "changed-since-datetime": changedSinceDatetime,
                 "before-datetime": beforeDatetime,
                 "include-work-order-text": includeWorkOrderText,
-                "include-work-order-operation-text":
-                    includeWorkOrderOperationText,
+                "include-work-order-operation-text": includeWorkOrderOperationText,
                 "include-work-order-types": includeWorkOrderTypes,
                 "basic-end-date": basicEndDate,
-                "area-id": areaId,
                 "location-id": locationId,
                 "external-partner-work-order-id": externalPartnerWorkOrderId,
+                "cost-wbs-id": costWbsId,
+                "cost-network-id": costNetworkId,
             },
         });
     }
@@ -433,7 +602,7 @@ export class WorkOrdersService {
          */
         filter: "recently-changed-property";
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
         /**

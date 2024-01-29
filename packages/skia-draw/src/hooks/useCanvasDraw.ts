@@ -1,61 +1,45 @@
-import { Color, Skia, SkiaDomView, useTouchHandler, useValue } from "@shopify/react-native-skia";
-import { ForwardedRef, RefObject } from "react";
-import { PathData, SkiaDrawHandle } from "../types";
+import { SkiaDomView, useTouchHandler } from "@shopify/react-native-skia";
+import { ForwardedRef, RefObject, useRef } from "react";
 import { useRerender } from "./useRerender";
-import { useDrawHandle } from "./useDrawHandle";
+import { useCanvasControlHandle } from "./useDrawHandle";
+import { CanvasData, PenData, TextData } from "../Canvas/types";
+import { createTouchHandlers } from "../Canvas/touchHandlers";
+import { CanvasControls } from "../CanvasControlProvider";
+import { useCanvasControl } from "./useCanvasControl";
 
 type CanvasSetup = {
-    initialDrawColor: Color;
-    initialStrokeWidth: number;
-    ref: ForwardedRef<SkiaDrawHandle>;
+    ref: ForwardedRef<CanvasControls>;
     skiaCanvasRef: RefObject<SkiaDomView>;
 };
 
-export const useCanvasDraw = (setup: CanvasSetup) => {
-    const drawColor = useValue<Color>(setup.initialDrawColor);
-    const strokeWeight = useValue<number>(setup.initialStrokeWidth);
-
-    const pathHistory = useValue<PathData[]>([]);
-    const currentPaths = useValue<Record<string, PathData>>({});
+export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
+    const { toolColor, strokeWeight, toolType, font, text } = useCanvasControl();
+    const currentPenPaths = useRef<Record<number, PenData>>({});
+    const draggingText = useRef<TextData>();
+    const canvasHistory = useRef<CanvasData[]>([]);
 
     const rerender = useRerender();
 
-    useDrawHandle(setup.ref, setup.skiaCanvasRef, {
-        drawColor,
-        strokeWeight,
-        pathHistory,
-    });
+    useCanvasControlHandle(ref, skiaCanvasRef, canvasHistory);
 
-    const touchHandler = useTouchHandler({
-        onStart: ({ x, y, id }) => {
-            const newPath = Skia.Path.Make();
-            newPath.moveTo(x, y);
-            currentPaths.current[id] = {
-                path: newPath,
-                color: drawColor.current,
-                strokeWidth: strokeWeight.current,
-            };
-            rerender();
-        },
-        onActive: ({ x, y, id }) => {
-            currentPaths.current = {
-                ...currentPaths.current,
-                [id]: {
-                    ...currentPaths.current[id],
-                    path: currentPaths.current[id].path.lineTo(x, y),
-                },
-            };
-        },
-        onEnd: ({ id }) => {
-            pathHistory.current.push(currentPaths.current[id]);
-            delete currentPaths.current[id];
-            rerender();
-        },
-    });
+    const touchHandler = useTouchHandler(
+        createTouchHandlers(toolType, {
+            canvasHistory,
+            currentPenPaths,
+            draggingText,
+            toolColor,
+            strokeWeight,
+            text,
+            font,
+            rerender,
+        }),
+        [toolType, strokeWeight, toolColor, font, text],
+    );
 
     return {
-        currentPaths,
-        pathHistory,
+        currentPenPaths,
+        canvasHistory,
+        draggingText,
         touchHandler,
     };
 };

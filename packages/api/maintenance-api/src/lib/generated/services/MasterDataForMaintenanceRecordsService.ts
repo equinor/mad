@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -148,9 +149,7 @@ export class MasterDataForMaintenanceRecordsService {
          * The type of maintenance record to get activities or
          */
         maintenanceRecordType: "modification-proposal";
-    }): CancelablePromise<
-        Array<ModificationProposalReasonGroup> | ProblemDetails
-    > {
+    }): CancelablePromise<Array<ModificationProposalReasonGroup> | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
             url: "/maintenance-records/reason-codes",

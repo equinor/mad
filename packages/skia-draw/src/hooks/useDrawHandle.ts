@@ -1,51 +1,37 @@
-import { ForwardedRef, RefObject, useImperativeHandle } from "react";
-import { PathData, SkiaDrawHandle } from "../types";
-import { Color, SkiaDomView, SkiaMutableValue, SkRect } from "@shopify/react-native-skia";
+import { ForwardedRef, MutableRefObject, RefObject, useImperativeHandle } from "react";
+import { SkiaDomView, SkRect } from "@shopify/react-native-skia";
 import { useRerender } from "./useRerender";
+import { CanvasData } from "../Canvas/types";
+import { CanvasControls } from "../CanvasControlProvider";
 
-type MutableDrawValues = {
-    pathHistory: SkiaMutableValue<PathData[]>;
-    drawColor: SkiaMutableValue<Color>;
-    strokeWeight: SkiaMutableValue<number>;
-};
 /**
- * responsible for providing the methods available in the ref object, like setColor, undo, etc.
- * @param ref ForwardedRef<SkiaDrawHandle>
- * @param values MutableDrawValues
+ * responsible for providing the methods available in the ref object like undo, clear, etc.
+ * @param ref ForwardedRef<CanvasControls>
  */
-export const useDrawHandle = (
-    ref: ForwardedRef<SkiaDrawHandle>,
+export const useCanvasControlHandle = (
+    ref: ForwardedRef<CanvasControls>,
     skiaCanvasRef: RefObject<SkiaDomView>,
-    values: MutableDrawValues,
+    canvasHistory: MutableRefObject<CanvasData[]>,
 ) => {
     const rerender = useRerender();
     useImperativeHandle(ref, () => ({
-        setColor,
-        setStrokeWeight,
         undo,
         clear,
         makeImageSnapshot,
     }));
-    const setColor = (c: Color) => {
-        values.drawColor.current = c;
-    };
-
-    const setStrokeWeight = (n: number) => {
-        values.strokeWeight.current = n;
-    };
 
     const undo = () => {
-        values.pathHistory.current.pop();
+        canvasHistory.current.pop();
         rerender();
     };
 
     const clear = () => {
-        values.pathHistory.current = [];
+        canvasHistory.current = [];
         rerender();
     };
 
     const makeImageSnapshot = (rect?: SkRect) => {
-        const skImage = skiaCanvasRef.current?.makeImageSnapshot(rect) || undefined;
+        const skImage = skiaCanvasRef.current?.makeImageSnapshot(rect) ?? undefined;
         if (skImage === undefined) return undefined;
         const b64Data = skImage.encodeToBase64();
         const uri = `data:image/png;base64,${b64Data}`;

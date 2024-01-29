@@ -44,6 +44,7 @@ export const LoginScreen = () => {
                 redirectUri="msauth.com.equinor.mad.chronicles://auth"
                 clientId="49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed"
                 onAuthenticationSuccessful={() => navigation.navigate("Root")}
+                onAuthenticationFailed={() => console.error("Unable to authenticate")}
                 enableAutomaticAuthentication
             />
         </View>

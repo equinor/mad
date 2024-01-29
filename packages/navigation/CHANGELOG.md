@@ -1,5 +1,21 @@
 # @equinor/mad-navigation
 
+## 0.2.1
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
+## 0.2.0
+
+### Minor Changes
+
+-   ab71601: BREAKING: no longer exports `createBottomTabNavigator` and
+    `createNativeStackNavigator`. Instead, the package is exporting
+    `createBottomTabNavigatorFactory` and `createNativeStackNavigatorFactory`, which you can use to
+    add your own custom sub-headers. This also changes `environmentBannerShown` option's name to
+    `customSubHeaderShown`
+
 ## 0.1.17
 
 ### Patch Changes

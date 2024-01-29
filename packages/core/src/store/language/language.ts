@@ -19,6 +19,7 @@ type LanguageState = {
      * @returns {Language} selected language or default language
      */
     getLanguage: () => Language;
+    getIsLanguageSelected: () => boolean;
 };
 
 const getSupportedLanguages = () => getConfig().language.supportedLanguages;
@@ -44,13 +45,17 @@ const useLanguageStore = create<LanguageState>()(
                     const supportedLanguages = getSupportedLanguages();
                     set(() => ({
                         selectedLanguage:
-                            supportedLanguages.find(language => language.code === code) || null,
+                            supportedLanguages.find(language => language.code === code) ?? null,
                     }));
                 },
 
                 getLanguage: () => {
                     const { selectedLanguage } = get();
-                    return selectedLanguage || getDefaultLanguage();
+                    return selectedLanguage ?? getDefaultLanguage();
+                },
+                getIsLanguageSelected: () => {
+                    const { selectedLanguage } = get();
+                    return !!selectedLanguage;
                 },
             }),
             {
@@ -68,24 +73,43 @@ export type UseLanguageReturnType = {
      */
     language: Language;
     /**
-     * Get supported languages for the app
+     * Supported languages for the app
      */
-    getSupportedLanguages: () => Language[];
+    supportedLanguages: Language[];
     /**
-     * Get the default language of the app
+     * The default language of the app
      */
-    getDefaultLanguage: () => Language;
+    defaultLanguage: Language;
     /**
      * Set the user selected language of the app
-     * @param {SupportedLanguageCode} code - language code
+     * @param {string} code - language code
      */
     setSelectedLanguage: LanguageState["setSelectedLanguage"];
+    /**
+     * Whether a language is selected by the user or not
+     */
+    isLanguageSelected: boolean;
 };
 export const useLanguage = (): UseLanguageReturnType => {
     const store = useLanguageStore();
     const language = store.getLanguage();
-    const { setSelectedLanguage } = store;
-    return { language, getDefaultLanguage, setSelectedLanguage, getSupportedLanguages };
+    const { setSelectedLanguage, getIsLanguageSelected } = store;
+
+    const isLanguageSelected = getIsLanguageSelected();
+
+    /*
+     * While we are not using a hook for these values, they are NOT expected to change during the lifetime of the application, so it should be fine
+     */
+    const defaultLanguage = getDefaultLanguage();
+    const supportedLanguages = getSupportedLanguages();
+    return {
+        language,
+        defaultLanguage,
+        setSelectedLanguage,
+        supportedLanguages,
+        isLanguageSelected,
+    };
 };
 
-export const { getLanguage, setSelectedLanguage } = useLanguageStore.getState();
+export const { getLanguage, setSelectedLanguage, getIsLanguageSelected } =
+    useLanguageStore.getState();

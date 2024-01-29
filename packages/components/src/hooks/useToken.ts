@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { EDSContext } from "../components/EDSProvider";
+import { EDSContext } from "../components/EDSProvider/EDSContext";
 import { createTokenProxy } from "../styling/createTokenProxy";
 
 /**

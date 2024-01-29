@@ -1,11 +1,12 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 import type { CorrectiveWorkOrder } from "../models/CorrectiveWorkOrder";
 import type { CorrectiveWorkOrderBasic } from "../models/CorrectiveWorkOrderBasic";
 import type { CorrectiveWorkOrderCreate } from "../models/CorrectiveWorkOrderCreate";
+import type { CorrectiveWorkOrderJsonPatch } from "../models/CorrectiveWorkOrderJsonPatch";
 import type { CorrectiveWorkOrderSimple } from "../models/CorrectiveWorkOrderSimple";
-import type { GenericWorkOrderJsonPatch } from "../models/GenericWorkOrderJsonPatch";
 import type { ProblemDetails } from "../models/ProblemDetails";
 import type { StatusUpdate } from "../models/StatusUpdate";
 import type { WorkOrderOperationCreate } from "../models/WorkOrderOperationCreate";
@@ -51,9 +52,6 @@ export class CorrectiveWorkOrdersService {
      *
      * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
      *
-     * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
-     *
      * ### Update release v1.0.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
      * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
@@ -91,6 +89,31 @@ export class CorrectiveWorkOrdersService {
      * ### Update release v1.16.0
      * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
+     * ### Update release v1.19.0
+     * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
+     *
+     * ### Update release v1.21.0
+     * Added properties `costs` and `costsCurrency`.
+     * Added property `area` to tag details.
+     *
+     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release v1.22.0
+     * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
+     *
+     * Added activeStatusIds to related maintenance records.
+     *
+     * ### Update release v1.24.0
+     * `attachments` now include the property `documentCreatedDate`
+     *
+     * Removed 'urlReferences' field from response object, and removed 'include-url-references' query parameter. URLReferences are only supported for Notifications.
+     *
+     * Added property `cmrIndicator` in the response.
+     *
+     * ### Update release v1.26.0
+     * Added property 'isEquipmentRental' to serviceOperations.
+     *
      * @returns CorrectiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -98,6 +121,7 @@ export class CorrectiveWorkOrdersService {
     public static lookupCorrectiveWorkOrder({
         workOrderId,
         includeOperations = true,
+        includeServiceOperations = true,
         includeTechnicalFeedback = false,
         includeMaterials = true,
         includeMaintenanceRecords = false,
@@ -105,7 +129,6 @@ export class CorrectiveWorkOrdersService {
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
-        includeUrlReferences = false,
         includeMeasuringPoints = false,
         includeLastMeasurement = false,
         includeMeasurements = false,
@@ -115,6 +138,10 @@ export class CorrectiveWorkOrdersService {
          * Include Work order operations
          */
         includeOperations?: boolean;
+        /**
+         * Include Work order service operations
+         */
+        includeServiceOperations?: boolean;
         /**
          * Include technical feedback required to be completed as part of work order execution.
          */
@@ -144,15 +171,11 @@ export class CorrectiveWorkOrdersService {
          */
         includeRelatedTags?: boolean;
         /**
-         * Include URL references from PRT
-         */
-        includeUrlReferences?: boolean;
-        /**
          * Include related measuring points from PRT
          */
         includeMeasuringPoints?: boolean;
         /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true)
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
         includeLastMeasurement?: boolean;
         /**
@@ -168,6 +191,7 @@ export class CorrectiveWorkOrdersService {
             },
             query: {
                 "include-operations": includeOperations,
+                "include-service-operations": includeServiceOperations,
                 "include-technical-feedback": includeTechnicalFeedback,
                 "include-materials": includeMaterials,
                 "include-maintenance-records": includeMaintenanceRecords,
@@ -175,7 +199,6 @@ export class CorrectiveWorkOrdersService {
                 "include-status-details": includeStatusDetails,
                 "include-tag-details": includeTagDetails,
                 "include-related-tags": includeRelatedTags,
-                "include-url-references": includeUrlReferences,
                 "include-measuring-points": includeMeasuringPoints,
                 "include-last-measurement": includeLastMeasurement,
                 "include-measurements": includeMeasurements,
@@ -194,19 +217,24 @@ export class CorrectiveWorkOrdersService {
      * Update corrective work order.
      *
      * Supports:
-     * - Append to text
+     * - Append and replace text
      * - Update workCenterId and workCenterPlantId
      * - Update tagId and tagPlantId
      * - Update basicStartDateTime and basicEndDateTime
      * - Update sortField
+     * - Update title
+     * - Update plannerGroupId
      * - Update revisionId (Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values)
      * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
      * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
+     * - Update costs
      *
      * ### Important information
      * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
      *
      * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
+     *
+     * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
      * ### Update release v1.0.0
      * Added additional properties to update
@@ -220,6 +248,15 @@ export class CorrectiveWorkOrdersService {
      * ### Update release v1.7.0
      * Added possibility for update of locationId and systemId.
      *
+     * ### Update release v1.18.0
+     * Added possibility for update of `title` and `plannerGroupId`.
+     *
+     * ### Update release v1.21.0
+     * Added possibility for update of `costs`.
+     *
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -231,7 +268,7 @@ export class CorrectiveWorkOrdersService {
         /**
          * The information to be updated
          */
-        requestBody: GenericWorkOrderJsonPatch;
+        requestBody: CorrectiveWorkOrderJsonPatch;
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
             method: "PATCH",
@@ -255,6 +292,13 @@ export class CorrectiveWorkOrdersService {
      * Add operations
      * ### Update release v1.8.0
      * Added support for calculation key, which determines the relationship between plannedWorkDuration plannedWorkHours, and capacityCount.
+     *
+     * ### Update release v1.19.0
+     * Added support for  `standardTextTemplate` (standard text template identifier), `systemCondition` (describes required process condition for each operation) and `isExcludedFromWorkOrderPlan` (based on operation status).
+     *
+     * ### Update release v1.21.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Created - No body available for response. Use lookup from location header
@@ -377,6 +421,36 @@ export class CorrectiveWorkOrdersService {
     }
 
     /**
+     * Corrective Work order - Attachment upload
+     * Upload attachments for Corrective Work Order
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static uploadCorrectiveWorkOrderAttachment({
+        workOrderId,
+        formData,
+    }: {
+        workOrderId: string;
+        formData?: {
+            files?: Array<Blob>;
+        };
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "POST",
+            url: "/work-orders/corrective-work-orders/{work-order-id}/attachments",
+            path: {
+                "work-order-id": workOrderId,
+            },
+            formData: formData,
+            mediaType: "multipart/form-data",
+            errors: {
+                403: `User does not have sufficient rights to upload attachment`,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
      * Corrective Work order - Attachment download
      * Download single attachment for corrective Work order
      * @returns binary Success
@@ -413,7 +487,7 @@ export class CorrectiveWorkOrdersService {
      * To identify which status the work order currently has perform a request to: `work-orders/corrective-work-orders/{{work-order-id}}?include-status-details=true`
      *
      * ## Supported statuses
-     * The endpoint supports most status activiation such as:
+     * The endpoint supports most status activation such as:
      *
      * - RDEX - Ready for execution
      * - STRT - Job started
@@ -475,8 +549,7 @@ export class CorrectiveWorkOrdersService {
                 "status-id": statusId,
             },
             query: {
-                "complete-outstanding-maintenance-records":
-                    completeOutstandingMaintenanceRecords,
+                "complete-outstanding-maintenance-records": completeOutstandingMaintenanceRecords,
             },
             body: requestBody,
             mediaType: "application/json",
@@ -499,9 +572,6 @@ export class CorrectiveWorkOrdersService {
      * The response does not include all details for each corrective work order.
      * This can be found by subsequent call to lookup corrective-work-order
      *
-     * ### Important information
-     * Properties areaId and area are deprecated as of 01.2021 in order to align with naming across Equinor system. Use locationId and location instead.
-     *
      * ### Filter: recent-status-activations
      * Corrective work orders based on recent status activations for the work orders.
      * Parameters:
@@ -515,7 +585,6 @@ export class CorrectiveWorkOrdersService {
      * - plant-id
      * - required-end-date
      * - location-id (optional)
-     * - area-id (optional) Deprecated - Use locationId instead
      * - system-id (optional)
      *
      * ### Filter: by-maintenance-type-id
@@ -533,6 +602,15 @@ export class CorrectiveWorkOrdersService {
      * ### Update release v1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
+     * ### Update release v1.21.0
+     * Added properties `costs` and `costsCurrency`.
+     *
+     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release v1.24.0
+     * Added property `cmrIndicator` in the response.
+     *
      * @returns CorrectiveWorkOrderSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -543,7 +621,6 @@ export class CorrectiveWorkOrdersService {
         plantId,
         maxDaysSinceActivation,
         maxWorkOrders,
-        areaId,
         locationId,
         requiredEndDate,
         systemId,
@@ -562,7 +639,7 @@ export class CorrectiveWorkOrdersService {
          */
         statusId?: string;
         /**
-         * Plant
+         * Plant identifier
          */
         plantId?: string;
         /**
@@ -573,11 +650,6 @@ export class CorrectiveWorkOrdersService {
          * Maximal numbers of results returned (optional for filter)
          */
         maxWorkOrders?: number;
-        /**
-         * Deprecated. Use location-id instead
-         * @deprecated
-         */
-        areaId?: string;
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
@@ -605,7 +677,6 @@ export class CorrectiveWorkOrdersService {
                 "plant-id": plantId,
                 "max-days-since-activation": maxDaysSinceActivation,
                 "max-work-orders": maxWorkOrders,
-                "area-id": areaId,
                 "location-id": locationId,
                 "required-end-date": requiredEndDate,
                 "system-id": systemId,
@@ -634,8 +705,18 @@ export class CorrectiveWorkOrdersService {
      *
      * ### Update release v1.6.0
      * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
+     *
      * ### Update release v1.8.0
      * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
+     *
+     * ### Update release v1.21.0
+     * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
+     *
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release v1.24.0
+     * Added property `cmrIndicator` in the response.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns CorrectiveWorkOrderBasic Created

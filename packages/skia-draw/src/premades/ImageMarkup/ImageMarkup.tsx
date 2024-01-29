@@ -1,9 +1,13 @@
 import { View, StyleSheet, ViewProps } from "react-native";
-import { Canvas } from "../../Canvas";
+import { Canvas } from "../../Canvas/Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
 import React, { useImperativeHandle, useMemo, useRef, useState, forwardRef } from "react";
-import { SkiaDrawHandle, SnapshotHandle } from "../../types";
 import { useImage, Image as SKImage } from "@shopify/react-native-skia";
+import {
+    CanvasControlProvider,
+    CanvasControls,
+    CanvasImageControls,
+} from "../../CanvasControlProvider";
 
 export type ImageMarkupProps = {
     markupImage?: string;
@@ -14,13 +18,15 @@ type Dimensions = {
     height: number;
 };
 
-export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>((props, ref) => {
+export const ImageMarkup = forwardRef<CanvasImageControls, ImageMarkupProps>((props, ref) => {
     const [contentDim, setContentDim] = useState<Dimensions>();
 
-    const canvasRef = useRef<SkiaDrawHandle>(null);
+    const canvasRef = useRef<CanvasControls>(null);
+
     useImperativeHandle(ref, () => ({
-        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() || undefined,
+        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() ?? undefined,
     }));
+
     const image = useImage(props.markupImage);
     const canvasDim: Dimensions | undefined = useMemo(() => {
         if (!contentDim) return undefined;
@@ -35,44 +41,47 @@ export const ImageMarkup = forwardRef<SnapshotHandle, ImageMarkupProps>((props, 
         );
         return { width, height };
     }, [image, contentDim]);
+
     return (
-        <View
-            onLayout={event =>
-                setContentDim({
-                    width: event.nativeEvent.layout.width,
-                    height: event.nativeEvent.layout.height,
-                })
-            }
-            {...props}
-            style={[props.style, { width: "100%", position: "relative" }]}
-        >
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                {canvasDim && (
-                    <Canvas
-                        initialDrawColor="red"
-                        ref={canvasRef}
-                        style={{
-                            maxHeight: canvasDim.height,
-                            maxWidth: canvasDim.width,
-                        }}
-                    >
-                        {image && contentDim && (
-                            <SKImage
-                                image={image}
-                                fit="contain"
-                                x={0}
-                                y={0}
-                                width={canvasDim.width}
-                                height={canvasDim.height}
-                            />
-                        )}
-                    </Canvas>
-                )}
+        <CanvasControlProvider canvasRef={canvasRef}>
+            <View
+                onLayout={event =>
+                    setContentDim({
+                        width: event.nativeEvent.layout.width,
+                        height: event.nativeEvent.layout.height,
+                    })
+                }
+                {...props}
+                style={[props.style, { width: "100%", position: "relative" }]}
+            >
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                    {canvasDim && (
+                        <Canvas
+                            ref={canvasRef}
+                            style={{
+                                maxHeight: canvasDim.height,
+                                maxWidth: canvasDim.width,
+                            }}
+                        >
+                            {image && contentDim && (
+                                <SKImage
+                                    image={image}
+                                    fit="contain"
+                                    x={0}
+                                    y={0}
+                                    width={canvasDim.width}
+                                    height={canvasDim.height}
+                                />
+                            )}
+                        </Canvas>
+                    )}
+                </View>
+
+                <View style={styles.overlay} pointerEvents="box-none">
+                    <EDSControlPanel />
+                </View>
             </View>
-            <View style={styles.overlay} pointerEvents="box-none">
-                <EDSControlPanel canvasRef={canvasRef} />
-            </View>
-        </View>
+        </CanvasControlProvider>
     );
 });
 

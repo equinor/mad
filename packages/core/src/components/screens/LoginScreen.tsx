@@ -2,18 +2,17 @@ import { Button, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-compo
 import React, { useState } from "react";
 import { Image, Pressable, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
-import { useAppVersion, useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
-import { useCoreStackNavigation } from "../../hooks/useCoreStackNavigation";
-import { getNavigationRouteForLoginScreen } from "../../utils/getNavigationRouteForLoginScreen";
+import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { enableDemoMode } from "../../store/demo-mode";
-import { useReleaseNotesVersion } from "../../store/release-notes/release-notes";
+import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
+import { useDictionary } from "../../language/useDictionary";
+import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
 export const LoginScreen = () => {
     const styles = useStyles(theme);
+    const dictionary = useDictionary();
     const authConfig = useAuthConfig();
-    const navigation = useCoreStackNavigation();
-    const appVersion = useAppVersion();
-    const { lastDisplayedReleaseNotesVersion } = useReleaseNotesVersion();
+    const navigate = useNavigateFromLoginScreen();
     const { title, logo } = useLoginScreenConfig();
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
@@ -26,30 +25,31 @@ export const LoginScreen = () => {
             <View style={{ gap: 8 }}>
                 <LoginButton
                     {...authConfig}
-                    onAuthenticationSuccessful={() =>
-                        navigation.navigate(
-                            getNavigationRouteForLoginScreen({
-                                appVersion,
-                                lastDisplayedReleaseNotesVersion,
-                            }),
-                        )
+                    onAuthenticationSuccessful={(_, type) => {
+                        if (type === "AUTOMATIC") {
+                            void track(metricKeys.AUTHENTICATION_AUTOMATIC);
+                        } else {
+                            void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
+                        }
+                        navigate();
+                    }}
+                    onAuthenticationFailed={error =>
+                        void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
+                            error,
+                        })
                     }
+                    title={dictionary.login.logIn}
                     enableAutomaticAuthentication
-                    scopes={authConfig.scopes || []}
+                    scopes={authConfig.scopes ?? []}
                 />
                 {shouldDisplayDemoButton && (
                     <Button
-                        title="Demo"
+                        title={dictionary.login.demo}
                         variant="outlined"
                         onPress={() => {
+                            void track(metricKeys.AUTHENTICATION_DEMO);
                             enableDemoMode();
-                            navigation.navigate(
-                                getNavigationRouteForLoginScreen({
-                                    appVersion,
-                                    lastDisplayedReleaseNotesVersion,
-                                    isDemoMode: true,
-                                }),
-                            );
+                            navigate();
                         }}
                     />
                 )}

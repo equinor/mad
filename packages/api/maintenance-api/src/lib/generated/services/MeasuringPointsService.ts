@@ -1,8 +1,11 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
 import type { Measurement } from "../models/Measurement";
 import type { MeasurementCreate } from "../models/MeasurementCreate";
+import type { MeasurementUpdate } from "../models/MeasurementUpdate";
 import type { MeasuringPoint } from "../models/MeasuringPoint";
 import type { MeasuringPointAddClass } from "../models/MeasuringPointAddClass";
 import type { MeasuringPointBasic } from "../models/MeasuringPointBasic";
@@ -41,6 +44,9 @@ export class MeasuringPointsService {
      * ### Update release v1.15.0
      * Added `workOrderId` to response.
      *
+     * ### Update release v1.21.0
+     * Measuring points for equipment now include the `tagId` and `tagPlantId` of the tag the equipment is installed on.
+     *
      * @returns MeasuringPoint Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -53,9 +59,12 @@ export class MeasuringPointsService {
         includeCharacteristics = false,
         includeCharacteristicsWithoutValue = false,
     }: {
+        /**
+         * Measuring point id
+         */
         pointId: string;
         /**
-         * Include the last measurement of the measuring point
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
         includeLastMeasurement?: boolean;
         /**
@@ -86,8 +95,7 @@ export class MeasuringPointsService {
                 "include-measurements": includeMeasurements,
                 "include-qualitative-code-group": includeQualitativeCodeGroup,
                 "include-characteristics": includeCharacteristics,
-                "include-characteristics-without-value":
-                    includeCharacteristicsWithoutValue,
+                "include-characteristics-without-value": includeCharacteristicsWithoutValue,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -110,6 +118,9 @@ export class MeasuringPointsService {
         pointId,
         requestBody,
     }: {
+        /**
+         * Measuring point id
+         */
         pointId: string;
         /**
          * The information to be updated
@@ -134,19 +145,22 @@ export class MeasuringPointsService {
     }
 
     /**
-     * Measuring point - Search
+     * Measuring points - Search
      * ### Overview
-     * Search measuring point.
+     * Search measuring points.
      *
      * ### Filter: by-plant
      * Search measuring points based on plant and one other property of the measuring point.
      * Parameters:
      * - plant-id
-     * - tag-prefix (optional)
-     * - measuring-position (optional)
-     * - quantitative-characteristic (optional)
-     * - qualitative-code-group (optional)
-     * - measuring-point-name (optional)
+     *
+     * At least one of the following parameters is required:
+     *
+     * - `tag-prefix`
+     * - `measuring-position`
+     * - `quantitative-characteristic`
+     * - `qualitative-code-group`
+     * - `measuring-point-name`
      *
      * ### Examples
      * `/measuring-points?filter=by-plant&plant-id=1180&tag-prefix=18HV10&api-version=v1`
@@ -161,6 +175,16 @@ export class MeasuringPointsService {
      *
      * ### Update release v1.15.0
      * Added `workOrderId` to response.
+     *
+     * ### Update release v1.20.0
+     * Edited the response structure to support pagination. Use the parameters `page` and `per-page` in the parameters to edit wanted response.
+     *
+     * ### Update release v1.21.0
+     * Measuring points for equipment are now included in searches based on `plant-id`.
+     * Measuring points for equipment now include the `tagId` and `tagPlantId` of the tag the equipment is installed on.
+     *
+     * ### Update release v1.22.0
+     * To limit the response data for filter `by-plant`, at least one of the additional parameters must be provided.
      *
      * @returns MeasuringPoint Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -179,6 +203,8 @@ export class MeasuringPointsService {
         includeQualitativeCodeGroup = false,
         includeCharacteristics = false,
         includeCharacteristicsWithoutValue = false,
+        perPage = 50,
+        page = 1,
     }: {
         /**
          * Filter to limit the measuring points by
@@ -228,6 +254,14 @@ export class MeasuringPointsService {
          * Include all characteristics available for the measuring points regardless if they have a defined value or not. Use `include-characteristics` to only include characteristics with defined value for the measuring points.
          */
         includeCharacteristicsWithoutValue?: boolean;
+        /**
+         * Results to return pr page
+         */
+        perPage?: number;
+        /**
+         * Page to fetch
+         */
+        page?: number;
     }): CancelablePromise<Array<MeasuringPoint> | ProblemDetails> {
         return __request(OpenAPI, {
             method: "GET",
@@ -244,8 +278,9 @@ export class MeasuringPointsService {
                 "include-measurements": includeMeasurements,
                 "include-qualitative-code-group": includeQualitativeCodeGroup,
                 "include-characteristics": includeCharacteristics,
-                "include-characteristics-without-value":
-                    includeCharacteristicsWithoutValue,
+                "include-characteristics-without-value": includeCharacteristicsWithoutValue,
+                "per-page": perPage,
+                page: page,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -263,7 +298,7 @@ export class MeasuringPointsService {
      *
      * As well the request must contain either quantitativeCharacteristicId, qualitativeCodeGroupId or combination of the two.
      *
-     * Setting characteristics class and initial characteristics values (for example for class R_PIPE_DETAILS and characteristicsId R_E3D_REF_NO) must be done through a separate endpoint POST `/measuring-points/{point-id}/characteristics`.
+     * Setting characteristics class and initial characteristics values (for example for class R_PIPE_DETAILS and characteristicId R_E3D_REF_NO) must be done through a separate endpoint POST `/measuring-points/{point-id}/characteristics`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MeasuringPointBasic Created
@@ -314,6 +349,9 @@ export class MeasuringPointsService {
         pointId,
         requestBody,
     }: {
+        /**
+         * Measuring point id
+         */
         pointId: string;
         /**
          * Measurement of measuring point to create
@@ -331,6 +369,48 @@ export class MeasuringPointsService {
             errors: {
                 400: `Bad request - Can occur if quantitative and qualitative measurements provided are not supported by measuring point`,
                 403: `User does not have sufficient rights to create a measurement of measuring point`,
+            },
+        });
+    }
+
+    /**
+     * Measurement - Update
+     * Update a measurement for measuring point.
+     * The supported fields are: `measurementTitle` and `processingStatus`.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateMeasurement({
+        pointId,
+        measurementId,
+        requestBody,
+    }: {
+        /**
+         * Measuring point id
+         */
+        pointId: string;
+        /**
+         * Measurement id
+         */
+        measurementId: string;
+        /**
+         * Fields in measuring point to update
+         */
+        requestBody: Array<MeasurementUpdate>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/measuring-points/{point-id}/measurements/{measurement-id}",
+            path: {
+                "point-id": pointId,
+                "measurement-id": measurementId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update a measurement of measuring point`,
             },
         });
     }
@@ -378,6 +458,43 @@ export class MeasuringPointsService {
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
+            },
+        });
+    }
+
+    /**
+     * Measuring Point - Update characteristics
+     * Update existing values of characteristics on a tag. If the characteristics does not exist, a `404 - Not Found` is returned.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateMeasuringPointCharacteristics({
+        pointId,
+        requestBody,
+    }: {
+        /**
+         * Measuring point id
+         */
+        pointId: string;
+        /**
+         * Characteristics to be updated, based on JsonPatch standard
+         */
+        requestBody: Array<CharacteristicsUpdate>;
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: "PATCH",
+            url: "/measuring-points/{point-id}/characteristics",
+            path: {
+                "point-id": pointId,
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to characteristics`,
+                404: `The specified resource was not found`,
+                409: `Characteristics is locked by other user`,
             },
         });
     }

@@ -1,5 +1,22 @@
 # @equinor/eslint-config-mad
 
+## 0.3.1
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
+## 0.3.0
+
+### Minor Changes
+
+-   5a3ed92: **Breaking change**: This package now requires you to install the latest major versions
+    of the typescript eslint parser and plugin. Read the README for more information.
+
+### Patch Changes
+
+-   5a3ed92: Demote unused vars rule to warning (was error)
+
 ## 0.2.1
 
 ### Patch Changes

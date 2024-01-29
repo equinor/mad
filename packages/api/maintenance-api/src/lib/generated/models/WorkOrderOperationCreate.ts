@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -22,10 +23,18 @@ export type WorkOrderOperationCreate = {
         | null;
     /**
      * Duration as defined in ISO8601
+     * Duration can exclusively be either in days or hours and minutes. A combination of these will return an error.
+     * The `unit` field in the ERP-system, will be set based on the input provided.
+     * Some accepted examples: `PT3H30M`, `P1D`, `PT1H30M` Some rejected examples: `P1DT3H30M`, `PT1H30M30S`
+     *
      */
     plannedWorkDuration?: string;
     /**
      * Duration as defined in ISO8601
+     * Duration can exclusively be either in days or hours and minutes. A combination of these will return an error.
+     * The `unit` field in the ERP-system, will be set based on the input provided.
+     * Some accepted examples: `PT3H30M`, `P1D`, `PT1H30M` Some rejected examples: `P1DT3H30M`, `PT1H30M30S`
+     *
      */
     plannedWorkHours?: string;
     capacityCount?: number;
@@ -44,4 +53,13 @@ export type WorkOrderOperationCreate = {
     isScheduledExternally?: boolean;
     earliestStartDateTime?: string;
     earliestFinishDateTime?: string;
+    /**
+     * Standard text template identifier
+     */
+    standardTextTemplate?: string;
+    isExcludedFromWorkOrderPlan?: boolean;
+    /**
+     * Required process conditions for each operation
+     */
+    systemCondition?: string;
 };

@@ -1,17 +1,13 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
 import type { MeasuringPointFromTagLookup } from "./MeasuringPointFromTagLookup";
 import type { TechnicalFeedback } from "./TechnicalFeedback";
-import type { URLReference } from "./URLReference";
 import type { WorkOrderOperation } from "./WorkOrderOperation";
 
 export type PreventiveWorkOrderOperation = WorkOrderOperation & {
-    /**
-     * URL references
-     */
-    urlReferences?: Array<URLReference>;
     /**
      * Related measuring points from PRT
      */

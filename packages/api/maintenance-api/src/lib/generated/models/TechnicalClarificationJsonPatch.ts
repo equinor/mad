@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -16,7 +17,8 @@ export type TechnicalClarificationJsonPatch = {
         | "/title"
         | "/text"
         | "/priorityId"
-        | "/requiredEndDate";
+        | "/requiredEndDate"
+        | "/sortField";
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

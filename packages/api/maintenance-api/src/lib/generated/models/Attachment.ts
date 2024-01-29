@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -20,6 +21,10 @@ export type Attachment = {
      * Internal document number
      */
     documentNumber: string | null;
+    /**
+     * Date when the document was created
+     */
+    documentCreatedDate?: string | null;
     _links: {
         enclosure?: string;
     };

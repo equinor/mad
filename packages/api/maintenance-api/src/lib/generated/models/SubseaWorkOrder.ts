@@ -1,8 +1,10 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
 import type { Attachment } from "./Attachment";
+import type { ServiceOperation } from "./ServiceOperation";
 import type { Status } from "./Status";
 import type { SubseaWorkOrderBasic } from "./SubseaWorkOrderBasic";
 import type { SubseaWorkOrderOperation } from "./SubseaWorkOrderOperation";
@@ -18,6 +20,7 @@ export type SubseaWorkOrder = SubseaWorkOrderBasic & {
      */
     personResponsibleEmail: string | null;
     operations?: Array<SubseaWorkOrderOperation>;
+    serviceOperations?: Array<ServiceOperation>;
     /**
      * All statuses possible with information about activation
      */
@@ -27,7 +30,7 @@ export type SubseaWorkOrder = SubseaWorkOrderBasic & {
      */
     attachments?: Array<Attachment>;
     /**
-     * Related equipments
+     * Related equipment
      */
     tagsRelated?: Array<TagRelatedToWorkOrder>;
 };

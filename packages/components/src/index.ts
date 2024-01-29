@@ -18,8 +18,10 @@ export * from "./components/ProgressIndicator";
 export * from "./components/Portal";
 export { alert } from "./components/Dialog";
 export * from "./components/Environment";
-export * from "./components/Switch";
 export * from "./components/ErrorBoundary";
+export * from "./components/SelectionControls";
+export * from "./components/Chip";
+export * from "./components/Tabs";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";
@@ -27,3 +29,4 @@ export * from "./styling/types";
 export * from "./hooks/useEDS";
 export * from "./hooks/useStyles";
 export * from "./hooks/useToken";
+export * from "./hooks/useBreakpoint";

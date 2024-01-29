@@ -8,12 +8,15 @@ import {
 } from "../auth";
 
 export type UseAuthenticateProps = {
-    onAuthenticationSuccessful: (res: MadAuthenticationResult) => void;
+    onAuthenticationSuccessful: (res: MadAuthenticationResult, type: AuthenticationType) => void;
+    onAuthenticationFailed: (error: unknown) => void;
     redirectUri: string;
     clientId: string;
     scopes: string[];
     enableAutomaticAuthentication?: boolean;
 };
+
+export type AuthenticationType = "AUTOMATIC" | "MANUAL";
 
 type UseAuthenticateResult = {
     authenticate: () => void;
@@ -27,6 +30,7 @@ type UseAuthenticateResult = {
  */
 export const useAuthenticate = ({
     onAuthenticationSuccessful,
+    onAuthenticationFailed,
     clientId,
     redirectUri,
     scopes,
@@ -37,11 +41,14 @@ export const useAuthenticate = ({
 
     const withAuthenticationPromiseHandler = async (
         promise: Promise<MadAuthenticationResult | null>,
+        type: AuthenticationType,
     ) => {
         setAuthenticationInProgress(true);
         try {
             const res = await promise;
-            if (res) onAuthenticationSuccessful(res);
+            if (res) onAuthenticationSuccessful(res, type);
+        } catch (e) {
+            if (type === "MANUAL") onAuthenticationFailed(e);
         } finally {
             setAuthenticationInProgress(false);
         }
@@ -55,16 +62,17 @@ export const useAuthenticate = ({
             });
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
             if (enableAutomaticAuthentication)
-                withAuthenticationPromiseHandler(authenticateSilently(scopes));
+                void withAuthenticationPromiseHandler(authenticateSilently(scopes), "AUTOMATIC");
         };
 
-        initiateClientAndMaybeAuthenticateSilently();
+        void initiateClientAndMaybeAuthenticateSilently();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- we want this to run only once
     }, []);
 
     return {
         authenticationInProgress,
-        authenticate: () => withAuthenticationPromiseHandler(authenticateInteractively(scopes)),
+        authenticate: () =>
+            void withAuthenticationPromiseHandler(authenticateInteractively(scopes), "MANUAL"),
         authenticationClientInitialized:
             authenticationClientExists() && authenticationClientInitialized,
     };

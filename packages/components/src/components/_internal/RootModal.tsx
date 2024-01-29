@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { Portal } from "../Portal";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 type RootModalProps = {
     /**
@@ -9,16 +9,19 @@ type RootModalProps = {
     onBackdropPress?: () => void;
 };
 
-export const RootModal = ({
-    onBackdropPress = () => null,
-    children,
-}: PropsWithChildren<RootModalProps>) => (
+export const RootModal = ({ onBackdropPress, children }: PropsWithChildren<RootModalProps>) => (
     <Portal name="root">
-        <Pressable
-            onPress={onBackdropPress}
-            style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}
-        >
-            {children}
-        </Pressable>
+        {onBackdropPress ? (
+            <Pressable
+                onPress={onBackdropPress}
+                style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}
+            >
+                {children}
+            </Pressable>
+        ) : (
+            <View pointerEvents="box-none" style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}>
+                {children}
+            </View>
+        )}
     </Portal>
 );

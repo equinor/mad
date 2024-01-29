@@ -13,7 +13,7 @@ import {
     StackRouterOptions,
     useNavigationBuilder,
 } from "@react-navigation/native";
-import * as React from "react";
+import React, { useEffect } from "react";
 
 import type { NativeStackNavigationEventMap } from "@react-navigation/native-stack";
 import { NativeStackView } from "@react-navigation/native-stack";
@@ -26,6 +26,7 @@ function NativeStackNavigator({
     children,
     screenListeners,
     screenOptions,
+    customSubHeader,
     ...rest
 }: NativeStackNavigatorProps) {
     const { state, descriptors, navigation, NavigationContent } = useNavigationBuilder<
@@ -42,9 +43,10 @@ function NativeStackNavigator({
         screenOptions,
     });
 
-    React.useEffect(
+    useEffect(
         () =>
             // @ts-expect-error: there may not be a tab navigator in parent
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call -- don't really know how do deal with this error :/
             navigation?.addListener?.("tabPress", (e: unknown) => {
                 const isFocused = navigation.isFocused();
 
@@ -68,7 +70,7 @@ function NativeStackNavigator({
         [navigation, state.index, state.key],
     );
 
-    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions);
+    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions, customSubHeader);
 
     return (
         <NavigationContent>
@@ -82,9 +84,10 @@ function NativeStackNavigator({
     );
 }
 
-export const createNativeStackNavigator = createNavigatorFactory<
-    StackNavigationState<ParamListBase>,
-    MadNativeStackNavigationOptions,
-    NativeStackNavigationEventMap,
-    typeof NativeStackNavigator
->(NativeStackNavigator);
+export const createNativeStackNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
+    createNavigatorFactory<
+        StackNavigationState<ParamListBase>,
+        MadNativeStackNavigationOptions,
+        NativeStackNavigationEventMap,
+        typeof NativeStackNavigator
+    >(props => <NativeStackNavigator {...props} customSubHeader={customSubHeader} />);

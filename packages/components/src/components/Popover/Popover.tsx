@@ -1,4 +1,5 @@
-import { arrow, flip, offset, Placement, shift, useFloating } from "@floating-ui/react-native";
+import { arrow, flip, offset, shift, useFloating } from "@floating-ui/react-native";
+import type { Placement } from "@floating-ui/react-native";
 import React, { useRef } from "react";
 import { View, ViewProps } from "react-native";
 import { Paper } from "../Paper";
@@ -11,15 +12,16 @@ export type PopoverProps = {
     /**
      * A reference to the element that the popover should appear around.
      */
-    anchorEl: React.MutableRefObject<View | null>;
+    anchorEl: React.RefObject<View>;
     /**
      * A boolean value indicating whether or not the popover should be open.
      */
     open: boolean;
     /**
      * A callback method invoked when a user closes the popover.
+     * If not provided, the popover will respond to outside presses.
      */
-    onClose: () => void;
+    onClose?: () => void;
     /**
      * The positioning of the popover around the anchor element.
      */

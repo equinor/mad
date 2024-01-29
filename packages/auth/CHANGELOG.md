@@ -1,5 +1,88 @@
 # @equinor/mad-auth
 
+## 0.1.9
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+
+## 0.1.8
+
+### Patch Changes
+
+-   Updated dependencies [d986ab2]
+    -   @equinor/mad-components@0.11.1
+
+## 0.1.7
+
+### Patch Changes
+
+-   Updated dependencies [3681d0b]
+-   Updated dependencies [8441874]
+    -   @equinor/mad-components@0.11.0
+
+## 0.1.6
+
+### Patch Changes
+
+-   Updated dependencies [f02e61c]
+-   Updated dependencies [f02e61c]
+    -   @equinor/mad-components@0.10.0
+
+## 0.1.5
+
+### Patch Changes
+
+-   Updated dependencies [1fe9f1b]
+    -   @equinor/mad-components@0.9.0
+
+## 0.1.4
+
+### Patch Changes
+
+-   Updated dependencies [a5607df]
+-   Updated dependencies [0d6c310]
+    -   @equinor/mad-components@0.8.6
+
+## 0.1.3
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+-   Updated dependencies [b025c9b]
+    -   @equinor/mad-components@0.8.5
+
+## 0.1.2
+
+### Patch Changes
+
+-   Updated dependencies [97dca15]
+-   Updated dependencies [97dca15]
+    -   @equinor/mad-components@0.8.4
+
+## 0.1.1
+
+### Patch Changes
+
+-   Updated dependencies [59860d3]
+-   Updated dependencies [6f62312]
+    -   @equinor/mad-components@0.8.3
+
+## 0.1.0
+
+### Minor Changes
+
+-   936e5e0: `onAuthenticationSuccessful` now has type as second argument. added
+    `onAuthenticationFailed` prop
+
+### Patch Changes
+
+-   Updated dependencies [38e818d]
+-   Updated dependencies [cf131da]
+-   Updated dependencies [e941e2e]
+    -   @equinor/mad-components@0.8.2
+
 ## 0.0.14
 
 ### Patch Changes

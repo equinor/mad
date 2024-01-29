@@ -46,8 +46,7 @@ export type ButtonSpecificProps = {
     /**
      * Callback method invoked when the user presses the button.
      */
-    onPressIn?: ((event: GestureResponderEvent) => void) ;
-
+    onPressIn?: (event: GestureResponderEvent) => void;
 };
 
 export type ButtonProps = ButtonSpecificProps & ViewProps;
@@ -69,7 +68,7 @@ export const Button = forwardRef<View, ButtonProps>(
         ref,
     ) => {
         const toggleData = useContext(ToggleButtonContext);
-        const isToggleButton = toggleData && toggleData.valid;
+        const isToggleButton = !!toggleData;
         const groupData = useContext(ButtonGroupContext);
 
         const styles = useStyles(themeStyles, {
@@ -99,16 +98,13 @@ export const Button = forwardRef<View, ButtonProps>(
             <View ref={ref} style={[styles.colorContainer, rest.style]}>
                 <PressableHighlight
                     disabled={disabled}
-                    onPress={isToggleButton ? toggleData.toggle : onPress}
-                        onPressIn={isToggleButton ? toggleData.toggle : onPressIn}
+                    onPress={onPress}
                     style={styles.pressableContainer}
                 >
                     <View style={styles.labelContainer}>
                         {loading ? (
                             <DotProgress
-                                color={
-                                    disabled || variant !== "contained" ? "primary" : "neutral"
-                                }
+                                color={disabled || variant !== "contained" ? "primary" : "neutral"}
                                 size={12}
                             />
                         ) : (

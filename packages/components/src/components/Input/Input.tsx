@@ -6,10 +6,10 @@ import {
     TextInputFocusEventData,
     TextInputProps,
     View,
-    ViewStyle,
+    Platform,
 } from "react-native";
-import { useStyles } from "../..";
-import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
+import { themeStyles } from "./InputStyle";
 
 export type InputProps = {
     /**
@@ -26,11 +26,6 @@ export type InputProps = {
      */
     placeholder?: string;
     /**
-     * A boolean value indicating whether or not the input component is disabled or not.
-     * Disabling the input causes it to not allow for any changes.
-     */
-    disabled?: boolean;
-    /**
      * A component that will be added to the left of the input field.
      */
     leftAdornments?: ReactNode;
@@ -42,25 +37,28 @@ export type InputProps = {
      * A variant to use for the validation of the input field.
      */
     variant?: "danger" | "warning" | "success";
-} & Omit<TextInputProps, "onChange" | "onChangeText">;
+    /**
+     * Whether or not the text should be editable.
+     */
+    readOnly?: boolean;
+} & Omit<TextInputProps, "onChange" | "onChangeText" | "readOnly">;
 
 export const Input = forwardRef<TextInput, InputProps>(
     (
         {
             leftAdornments,
             rightAdornments,
-            value,
             placeholder,
             onChange,
             multiline = false,
-            disabled = false,
             variant,
+            readOnly = false,
             ...rest
         },
         ref,
     ) => {
         const [isSelected, setIsSelected] = useState<boolean>(false);
-        const styles = useStyles(themedStyles, { multiline, isSelected, variant });
+        const styles = useStyles(themeStyles, { multiline, isSelected, variant, readOnly });
 
         const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
             setIsSelected(true);
@@ -79,15 +77,19 @@ export const Input = forwardRef<TextInput, InputProps>(
                     {...rest}
                     ref={ref}
                     multiline={multiline}
-                    editable={!disabled}
-                    value={value}
+                    editable={!readOnly}
                     placeholder={placeholder}
                     onChangeText={onChange}
                     textAlignVertical="top"
                     placeholderTextColor={styles.placeholder.color}
                     onFocus={onFocus}
                     onBlur={onBlur}
-                    style={[styles.textInput, rest.style]}
+                    style={[
+                        styles.textInput,
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- this is appearanly available for web, but react native does not seem to recognize it
+                        Platform.OS === "web" ? ({ outline: "none" } as any) : {},
+                        rest.style,
+                    ]}
                 />
                 {rightAdornments}
             </View>
@@ -96,90 +98,3 @@ export const Input = forwardRef<TextInput, InputProps>(
 );
 
 Input.displayName = "Input";
-
-const themedStyles = EDSStyleSheet.create(
-    (
-        theme,
-        props: {
-            multiline: boolean;
-            isSelected: boolean;
-            variant?: "danger" | "warning" | "success";
-        },
-    ) => {
-        const { multiline, isSelected, variant } = props;
-        let borderStyle: ViewStyle;
-
-        const baseTextInputStyle = {
-            flex: 1,
-            paddingTop: theme.spacing.textField.paddingVertical,
-            paddingBottom: theme.spacing.textField.paddingVertical,
-            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
-            color: theme.colors.text.primary,
-            ...theme.typography.basic.input,
-            minHeight: multiline ? 80 : undefined,
-        };
-
-        // TextInput have a default outlineStyle on web that causes a red border to
-        // appear when focused. This is not the case for native. We therefore need to check
-        // the platform first before appling the style in order to prevent console warnings.
-        const webTextInputStyle =
-            Platform.OS === "web"
-                ? {
-                      outlineStyle: "none",
-                  }
-                : {};
-
-        switch (variant) {
-            case "danger":
-                borderStyle = {
-                    borderColor: theme.colors.interactive.danger,
-                    borderWidth: theme.geometry.border.focusedBorderWidth,
-                };
-                break;
-            case "warning":
-                borderStyle = {
-                    borderColor: theme.colors.interactive.warning,
-                    borderWidth: theme.geometry.border.focusedBorderWidth,
-                };
-                break;
-            case "success":
-                borderStyle = {
-                    borderColor: theme.colors.interactive.success,
-                    borderWidth: theme.geometry.border.focusedBorderWidth,
-                };
-                break;
-            default:
-                if (isSelected) {
-                    borderStyle = {
-                        borderColor: theme.colors.interactive.primary,
-                        borderWidth: theme.geometry.border.focusedBorderWidth,
-                    };
-                } else {
-                    borderStyle = {
-                        borderBottomColor: theme.colors.text.tertiary,
-                        borderBottomWidth: theme.geometry.border.focusedBorderWidth,
-                        borderColor: "transparent",
-                        borderWidth: theme.geometry.border.focusedBorderWidth,
-                    };
-                }
-        }
-
-        return {
-            contentContainer: {
-                flexDirection: "row",
-                backgroundColor: theme.colors.container.background,
-                ...borderStyle,
-            },
-            label: {
-                paddingHorizontal: theme.spacing.textField.paddingHorizontal,
-            },
-            textInput: {
-                ...baseTextInputStyle,
-                ...webTextInputStyle,
-            },
-            placeholder: {
-                color: theme.colors.text.tertiary,
-            },
-        };
-    },
-);

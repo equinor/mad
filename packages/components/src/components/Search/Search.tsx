@@ -1,9 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Platform, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { Button, InputProps, TextField, useStyles, useToken } from "../..";
-import { EDSStyleSheet } from "../../styling";
+import { Animated, View, TextInput } from "react-native";
+
+import { useToken } from "../../hooks/useToken";
+import { useStyles } from "../../hooks/useStyles";
+import { Button } from "../../components/Button";
+import { TextField } from "../../components/TextField";
+import { InputProps } from "../Input";
+import { EDSStyleSheet } from "../../styling/EDSStyleSheet";
 
 export type SearchProps = Omit<InputProps, "multiline"> & {
     cancellable?: boolean;

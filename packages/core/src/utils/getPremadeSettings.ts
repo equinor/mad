@@ -1,45 +1,51 @@
-import {
-    SettingsScreenCellConfigurationItem,
-    SettingsScreenSectionProps,
-} from "../components/screens/settings/types";
-import { MadConfig } from "../types";
+import { SettingsScreenCellConfigurationItem, SettingsScreenSectionProps } from "../components";
+import { CoreRoutes } from "../components/navigation/coreRoutes";
+import { CoreDictionary } from "../language/types";
+import { EnvironmentContextualConfig } from "../types";
 
-const releaseNotes: SettingsScreenCellConfigurationItem = {
+const getReleaseNotesConfig = (
+    dictionary: CoreDictionary,
+): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "format-list-bulleted",
-    title: "Release notes",
-    onPress: navigation => navigation.navigate("ReleaseNotes"),
-};
+    title: dictionary.releaseNotes.releaseNotes,
+    onPress: navigation => navigation.navigate(CoreRoutes.RELEASE_NOTES),
+});
 
-const about: SettingsScreenCellConfigurationItem = {
+const getAboutConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "information-outline",
-    title: "About",
-    onPress: navigation => navigation.navigate("About"),
-};
+    title: dictionary.settings.aboutApp,
+    onPress: navigation => navigation.navigate(CoreRoutes.ABOUT),
+});
 
-const serviceNow: SettingsScreenCellConfigurationItem = {
+const getServiceNowConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "chat-alert-outline",
-    title: "Feedback",
-    onPress: navigation => navigation.navigate("Feedback"),
-};
+    title: dictionary.settings.feedback,
+    onPress: navigation => navigation.navigate(CoreRoutes.FEEDBACK),
+});
 
-const language: SettingsScreenCellConfigurationItem = {
+const getLanguageConfig = (dictionary: CoreDictionary): SettingsScreenCellConfigurationItem => ({
     name: "navigation",
     iconName: "chat-processing-outline",
-    title: "Language",
-    onPress: navigation => navigation.navigate("NotFound"),
-};
+    title: dictionary.settings.language,
+    onPress: navigation => navigation.navigate(CoreRoutes.SELECT_LANGUAGE),
+});
 
 export type PremadeSettings = ReturnType<typeof getPremadeSettings>;
-export const getPremadeSettings = (config: MadConfig) => {
-    const premadeCommonNavigationItems = [releaseNotes];
-    if (config.about) premadeCommonNavigationItems.push(about);
-    if (config.serviceNow) premadeCommonNavigationItems.push(serviceNow);
+export const getPremadeSettings = (
+    config: EnvironmentContextualConfig,
+    dictionary: CoreDictionary,
+) => {
+    const premadeCommonNavigationItems = [getReleaseNotesConfig(dictionary)];
+    if (config.about) premadeCommonNavigationItems.push(getAboutConfig(dictionary));
+    if (config.serviceNow) premadeCommonNavigationItems.push(getServiceNowConfig(dictionary));
 
     const premadeLanguageSection: SettingsScreenSectionProps | undefined =
-        config.language.supportedLanguages.length >= 2 ? { items: [language] } : undefined;
+        config.language.supportedLanguages.length >= 2
+            ? { items: [getLanguageConfig(dictionary)] }
+            : undefined;
     const premadeCommonNavigationSection: SettingsScreenSectionProps = {
         items: premadeCommonNavigationItems,
     };

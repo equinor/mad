@@ -1,5 +1,86 @@
 # @equinor/mad-components
 
+## 0.11.2
+
+### Patch Changes
+
+-   7eae144: Added useBreakpoint hook to use for apps and components that have specific requirements
+    or styles based on device size
+
+## 0.11.1
+
+### Patch Changes
+
+-   d986ab2: Add `additionalSurface` prop to `Cell`component that makes it possible for cell to have
+    two unique `onPress` events.
+
+## 0.11.0
+
+### Minor Changes
+
+-   8441874: **Breaking change:** Package no longer exports EDSContext
+
+### Patch Changes
+
+-   3681d0b: Rollback changes made in render function in tabs component to how it was in 0.9.0 due
+    to an issue with the new implementation.
+
+## 0.10.0
+
+### Minor Changes
+
+-   f02e61c: **Breaking change:** Removed `disabled` prop on `Input`. Replaced by `readOnly`
+
+### Patch Changes
+
+-   f02e61c: Fixed `Input` component cyclic reference warnings
+
+## 0.9.0
+
+### Minor Changes
+
+-   1fe9f1b: Fix togglebutton to have external state and remove unnecessary props. Remove multiple
+    and onChange props from ToggleButtonProps in ToggleButton. Remove props Toggle, valid and
+    isSelected from ToggleButtonContextContents in ToggleButton. Add activeIndex prop to
+    ToggleButtonProps.
+
+## 0.8.6
+
+### Patch Changes
+
+-   a5607df: Created `Tabs` component!
+-   0d6c310: update color scheme for feedback and added deprecation
+
+## 0.8.5
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
+## 0.8.4
+
+### Patch Changes
+
+-   97dca15: Added container `warning` color, and text `feedbackWarning` color to masterToken
+-   97dca15: Now exports `CellSwipeItem`
+
+## 0.8.3
+
+### Patch Changes
+
+-   59860d3: Create `Chip` component!
+-   6f62312: adjusted animation for the circular progess
+
+## 0.8.2
+
+### Patch Changes
+
+-   38e818d: Added support for ignoring outside presses on the `Popover` component
+-   cf131da: Implemented Radio component. Added showcase to Chronicles
+-   e941e2e: `PressableHighlight`: Allows for press event propagation if disabled `Radio`: Allows
+    for press event propagation if `onPress` prop is not defined `Cell`: cell children now in center
+    (fixes issue with text not being centered when there is only one line of text)
+
 ## 0.8.1
 
 ### Patch Changes
