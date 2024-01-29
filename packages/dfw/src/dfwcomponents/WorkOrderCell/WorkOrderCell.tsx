@@ -58,9 +58,9 @@ export const WorkOrderCell = ({
 
         if (endDate && currentDate > endDate) {
             iconsAndLabels.push({
-                icon: "alarm", // Replace with your icon
+                icon: "alarm",
                 label: "Required end overdue",
-                color: "textTertiary", // Replace with your color
+                color: "textTertiary",
             });
         }
 
@@ -121,26 +121,6 @@ export const WorkOrderCell = ({
                 <Typography numberOfLines={1} variant="h5" bold style={{ marginBottom: 16 }}>
                     {title}
                 </Typography>
-                {/* {activeStatuses && (
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            gap: 8,
-                            alignItems: "center",
-                            marginBottom: 8,
-                        }}
-                    >
-                        <Icon name="circle" size={24} color="textTertiary" />
-                        <Typography
-                            numberOfLines={1}
-                            group="paragraph"
-                            variant="caption"
-                            color="textTertiary"
-                        >
-                            {"This is a test"}
-                        </Typography>
-                    </View>
-                )} */}
                 {renderStatusIcons()}
                 <Label label={maintenanceType} style={{ marginBottom: 8 }} />
                 {Object.entries(rest).map(([key, value], index) => {
@@ -195,5 +175,6 @@ const themeStyles = EDSStyleSheet.create(() => ({
         flexDirection: "row",
         alignItems: "center",
         gap: 8,
+        marginBottom: 8,
     },
 }));
