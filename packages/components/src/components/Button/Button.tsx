@@ -2,13 +2,12 @@ import React, { forwardRef, useContext } from "react";
 import { GestureResponderEvent, Pressable, View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
-import { PressableHighlight } from "../PressableHighlight";
+import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
+import { Icon, IconName } from "../Icon";
+import { DotProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
 import { ButtonGroupContext } from "./ButtonGroup";
 import { ToggleButtonContext } from "./ToggleButton";
-import { Icon, IconName } from "../Icon";
-import { DotProgress } from "../ProgressIndicator";
-import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
 
 export type ButtonSpecificProps = {
     /**
@@ -46,11 +45,11 @@ export type ButtonSpecificProps = {
     /**
      * Callback method invoked when the user presses in the button.
      */
-    onPressIn?: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
+    onPressIn?: (event: GestureResponderEvent) => void;
     /**
      * Callback method invoked when the user presses out the button.
      */
-    onPressOut?: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
+    onPressOut?: (event: GestureResponderEvent) => void;
 };
 
 export type ButtonProps = ButtonSpecificProps & ViewProps;
