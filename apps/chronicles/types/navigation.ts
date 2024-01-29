@@ -10,6 +10,7 @@ import {
     NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import { ComponentType } from "./components";
+import { DFWComponentType } from "./dfwcomponents";
 
 export type RootStackParamList = {
     Root: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -29,6 +30,19 @@ export type ComponentsStackParamList = {
 export type DiscoverStackScreenProps<Screen extends keyof ComponentsStackParamList> =
     NativeStackScreenProps<ComponentsStackParamList, Screen>;
 
+export type DFWStackParamList = {
+    DFWDiscover: undefined;
+    DFWComponent: {
+        name: DFWComponentType;
+        screenOptions?: Partial<NativeStackNavigationOptions>;
+    };
+};
+
+export type DFWStackScreenProps<Screen extends keyof DFWStackParamList> = NativeStackScreenProps<
+    DFWStackParamList,
+    Screen
+>;
+
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
     RootStackParamList,
     Screen
@@ -36,6 +50,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 export type RootTabParamList = {
     Components: undefined;
+    DFW: undefined;
     IconsTab: undefined;
     DrawTab: undefined;
     SignTab: undefined;

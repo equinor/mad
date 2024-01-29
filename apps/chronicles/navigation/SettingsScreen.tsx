@@ -5,6 +5,7 @@ import {
     SettingsScreen,
     SettingsScreenConfiguration,
 } from "@equinor/mad-core";
+import { Cell, Typography } from "@equinor/mad-components";
 
 export const SampleSettingsScreen = () => {
     const currentConfig = useMadConfig();
@@ -31,6 +32,15 @@ export const SampleSettingsScreen = () => {
                     onChange: () => undefined,
                     isActive: true,
                     iconName: "abacus",
+                },
+                {
+                    name: "custom",
+                    key: "Custom",
+                    component: () => (
+                        <Cell>
+                            <Typography>This is a custom setting</Typography>
+                        </Cell>
+                    ),
                 },
                 {
                     name: "switch",

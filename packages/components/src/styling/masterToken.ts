@@ -440,6 +440,13 @@ export const masterToken: MasterToken = {
                 lineHeight: FONT_BASIS * 1.5,
                 textAlign: "left",
             },
+            overline: {
+                fontFamily: "Equinor-Medium",
+                fontSize: FONT_BASIS * 0.625,
+                lineHeight: FONT_BASIS,
+                textAlign: "left",
+                textTransform: "uppercase",
+            },
         },
         basic: {
             h1: {

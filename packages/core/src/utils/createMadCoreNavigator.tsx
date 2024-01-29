@@ -12,7 +12,8 @@ import { AboutScreen } from "../components/screens/AboutScreen";
 import { CreateIncidentScreen } from "../components/screens/create-incident/CreateIncidentScreen";
 import { SelectLanguageScreen } from "../components/screens/language/SelectLanguageScreen";
 import { ServiceMessageProvider } from "../components/service-message/ServiceMessageProvider";
-import {useMadConfig} from "../store";
+import { useMadConfig } from "../store";
+import { CoreRoutes } from "../components/navigation/coreRoutes";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
@@ -32,31 +33,37 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                 <EnvironmentProvider>
                     <ServiceMessageProvider>
                         <AnnouncementsProvider>
-                            <Stack.Navigator {...props} initialRouteName={"Login"}>
+                            <Stack.Navigator {...props} initialRouteName={CoreRoutes.LOGIN}>
                                 <Stack.Screen
-                                    name="Login"
+                                    name={CoreRoutes.LOGIN}
                                     component={LoginScreen}
                                     options={{ headerShown: false, customSubHeaderShown: true }}
                                 />
-                                <Stack.Screen name="ReleaseNotes" component={ReleaseNotesScreen} />
-                                <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
+                                <Stack.Screen
+                                    name={CoreRoutes.RELEASE_NOTES}
+                                    component={ReleaseNotesScreen}
+                                />
+                                <Stack.Screen
+                                    name={CoreRoutes.WHATS_NEW}
+                                    component={WhatsNewScreen}
+                                />
                                 {config.about && (
-                                    <Stack.Screen name="About" component={AboutScreen} />
+                                    <Stack.Screen name={CoreRoutes.ABOUT} component={AboutScreen} />
                                 )}
                                 {config.serviceNow && (
                                     <Stack.Screen
-                                        name="Feedback"
+                                        name={CoreRoutes.FEEDBACK}
                                         component={CreateIncidentScreen}
                                     />
                                 )}
                                 {config.language.supportedLanguages.length > 1 && (
                                     <>
                                         <Stack.Screen
-                                            name="SelectLanguage"
+                                            name={CoreRoutes.SELECT_LANGUAGE}
                                             component={SelectLanguageScreen}
                                         />
                                         <Stack.Screen
-                                            name="SelectLanguageOnboarding"
+                                            name={CoreRoutes.SELECT_LANGUAGE_ONBOARDING}
                                             component={SelectLanguageScreen}
                                             options={{ headerBackVisible: false }}
                                         />

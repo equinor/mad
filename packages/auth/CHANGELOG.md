@@ -1,5 +1,19 @@
 # @equinor/mad-auth
 
+## 0.1.9
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+
+## 0.1.8
+
+### Patch Changes
+
+-   Updated dependencies [d986ab2]
+    -   @equinor/mad-components@0.11.1
+
 ## 0.1.7
 
 ### Patch Changes

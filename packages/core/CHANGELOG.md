@@ -1,5 +1,44 @@
 # @equinor/mad-core
 
+## 0.4.0
+
+### Minor Changes
+
+-   b81ade4: `useLanguage`: now returns `defaultLanguage`, `isLanguageSelected` and
+    `supportedLanguages` instead of `getDefaultLanguage`, `getIsLanguageSelected` and
+    `getSupportedLanguages`
+-   b81ade4: `MadConfig`: new property `navigateToMainRouteFn` has been added. This means `"Root"`
+    is no longer recognized as the main route for your app. You have to configure this new property
+    to navigate the user to your preferred route
+
+## 0.3.11
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+    -   @equinor/mad-auth@0.1.9
+
+## 0.3.10
+
+### Patch Changes
+
+-   85da576: Now exports `getAccount`, `signOut`, and `authenticateInteractively`
+
+## 0.3.9
+
+### Patch Changes
+
+-   Updated dependencies [d986ab2]
+    -   @equinor/mad-components@0.11.1
+    -   @equinor/mad-auth@0.1.8
+
+## 0.3.8
+
+### Patch Changes
+
+-   ea920f3: feat: you're now able to add custom settings
+
 ## 0.3.7
 
 ### Patch Changes

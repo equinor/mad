@@ -1,6 +1,11 @@
 export * from "./types";
 export * from "./components";
-export { authenticateSilently } from "@equinor/mad-auth";
+export {
+    authenticateSilently,
+    getAccount,
+    signOut,
+    authenticateInteractively,
+} from "@equinor/mad-auth";
 export {
     appInsightsHasBeenInitialized,
     addTelemetryInitializer,

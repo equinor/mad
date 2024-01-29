@@ -1,3 +1,4 @@
+import { PropertyRow } from "@equinor/mad-dfw";
 import { AccordionScreen } from "../screens/components/components/AccordionScreen";
 import { AutocompleteScreen } from "../screens/components/components/AutocompleteScreen";
 import { ButtonCellScreen } from "../screens/components/components/ButtonCellScreen";
@@ -19,6 +20,7 @@ import SelectionControlsScreen from "../screens/components/components/SelectionC
 import { SwitchCellScreen } from "../screens/components/components/SwitchCellScreen";
 import { TabsScreen } from "../screens/components/components/TabsScreen";
 import { TextFieldScreen } from "../screens/components/components/TextFieldScreen";
+import { PropertyRowScreen } from "../screens/dfw/dfwcomponents/PropertyRowScreen";
 
 export const ComponentConfig = {
     paper: PaperScreen,
