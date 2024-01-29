@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Platform, TextInput, View } from "react-native";
+import { Platform, ScrollView, TextInput, View } from "react-native";
 import Animated, {
     interpolate,
     useAnimatedStyle,
@@ -99,48 +99,50 @@ export const Search = ({
     return (
         <View style={styles.container}>
             <Animated.View style={[{ flex: 1 }, inputStyle]}>
-                <TextField
-                    {...restProps}
-                    ref={inputRef}
-                    value={text}
-                    onChange={onChangeText}
-                    onFocus={e => {
-                        setIsInputFocused(true);
-                        restProps.onFocus?.(e);
-                    }}
-                    onBlur={e => {
-                        if (Platform.OS === "web") {
-                            handleOnBlur(e);
-                        }
-                        if (Platform.OS !== "web") {
-                            setIsInputFocused(false);
-                            restProps.onBlur?.(e);
-                        }
-                    }}
-                    leftAdornments={
-                        <View style={styles.iconContainer}>
-                            <MaterialIcons
-                                name="search"
-                                size={iconSize}
-                                color={styles.icon.color}
-                            />
-                        </View>
-                    }
-                    rightAdornments={
-                        text ? (
+                <ScrollView keyboardShouldPersistTaps="handled">
+                    <TextField
+                        {...restProps}
+                        ref={inputRef}
+                        value={text}
+                        onChange={onChangeText}
+                        onFocus={e => {
+                            setIsInputFocused(true);
+                            restProps.onFocus?.(e);
+                        }}
+                        onBlur={e => {
+                            if (Platform.OS === "web") {
+                                handleOnBlur(e);
+                            }
+                            if (Platform.OS !== "web") {
+                                setIsInputFocused(false);
+                                restProps.onBlur?.(e);
+                            }
+                        }}
+                        leftAdornments={
                             <View style={styles.iconContainer}>
                                 <MaterialIcons
-                                    id="search-clear-text-button"
-                                    name="close"
-                                    tabIndex={0}
-                                    color={styles.icon.color}
+                                    name="search"
                                     size={iconSize}
-                                    onPress={handleClearText}
+                                    color={styles.icon.color}
                                 />
                             </View>
-                        ) : null
-                    }
-                />
+                        }
+                        rightAdornments={
+                            text ? (
+                                <View style={styles.iconContainer}>
+                                    <MaterialIcons
+                                        id="search-clear-text-button"
+                                        name="close"
+                                        tabIndex={0}
+                                        color={styles.icon.color}
+                                        size={iconSize}
+                                        onPress={handleClearText}
+                                    />
+                                </View>
+                            ) : null
+                        }
+                    />
+                </ScrollView>
             </Animated.View>
             {cancellable && (
                 <Animated.View
