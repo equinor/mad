@@ -74,6 +74,7 @@ const getStatusIconConfig = (status: string): StatusConfig | undefined => {
                 iconColor: "textPrimary",
             };
     }
+    return undefined;
 };
 
 export const WorkOrderCell = ({
