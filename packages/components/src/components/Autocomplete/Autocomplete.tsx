@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { LayoutRectangle, TextInput, View, Platform } from "react-native";
+import { LayoutRectangle, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
