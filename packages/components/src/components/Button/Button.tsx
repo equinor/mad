@@ -1,5 +1,5 @@
 import React, { forwardRef, useContext } from "react";
-import { GestureResponderEvent, View, ViewProps } from "react-native";
+import { GestureResponderEvent, Pressable, View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
@@ -44,9 +44,13 @@ export type ButtonSpecificProps = {
      */
     onPress?: () => void;
     /**
-     * Callback method invoked when the user presses the button.
+     * Callback method invoked when the user presses in the button.
      */
-    onPressIn?: (event: GestureResponderEvent) => void;
+    onPressIn?: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
+    /**
+     * Callback method invoked when the user presses out the button.
+     */
+    onPressOut?: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
 };
 
 export type ButtonProps = ButtonSpecificProps & ViewProps;
@@ -63,6 +67,7 @@ export const Button = forwardRef<View, ButtonProps>(
             iconPosition = "leading",
             onPress = () => null,
             onPressIn = () => null,
+            onPressOut = () => null,
             ...rest
         },
         ref,
@@ -96,9 +101,11 @@ export const Button = forwardRef<View, ButtonProps>(
 
         return (
             <View ref={ref} style={[styles.colorContainer, rest.style]}>
-                <PressableHighlight
+                <Pressable
                     disabled={disabled}
                     onPress={onPress}
+                    onPressIn={onPressIn}
+                    onPressOut={onPressOut}
                     style={styles.pressableContainer}
                 >
                     <View style={styles.labelContainer}>
@@ -111,7 +118,7 @@ export const Button = forwardRef<View, ButtonProps>(
                             ButtonContent()
                         )}
                     </View>
-                </PressableHighlight>
+                </Pressable>
             </View>
         );
     },

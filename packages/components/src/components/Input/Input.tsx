@@ -6,7 +6,6 @@ import {
     TextInputFocusEventData,
     TextInputProps,
     View,
-    Platform,
 } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { themeStyles } from "./InputStyle";
