@@ -1,5 +1,14 @@
 # @equinor/mad-components
 
+## 0.11.3
+
+### Patch Changes
+
+-   8adb0dc: Updated Cell.Group and removed unwanted bottom padding when the title prop is not in
+    use
+-   496cd9a: Change `AutoComplete` and `MultiselectAutoComplete` onblur behaviour on web to keep
+    menu open until an option has been selected so that menu doesnt blur before a selection.
+
 ## 0.11.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @equinor/mad-dfw
 
+## 0.0.4
+
+### Patch Changes
+
+-   15c1410: Added `WorkOrderCell` component.
+-   Updated dependencies [8adb0dc]
+-   Updated dependencies [496cd9a]
+    -   @equinor/mad-components@0.11.3
+
 ## 0.0.3
 
 ### Patch Changes
