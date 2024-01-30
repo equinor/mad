@@ -55,7 +55,6 @@
     "@equinor/eslint-config-mad": "workspace:*",
     "@types/react": "~18.2.43",
     "babel-loader": "^8.3.0",
-    "babel-plugin-inline-import": "^3.0.0",
     "react-test-renderer": "18.1.0",
     "typescript": "5.3.3"
   },

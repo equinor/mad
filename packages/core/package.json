@@ -35,8 +35,7 @@
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
         "react-native-gesture-handler": "^2.14.0",
-        "react-native-msal": "*",
-        "react-native-svg": ">=13.0"
+        "react-native-msal": "*"
     },
     "dependencies": {
         "@equinor/mad-auth": "workspace:*",
