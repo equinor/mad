@@ -76,13 +76,11 @@ const theme = EDSStyleSheet.create(() => ({
         backgroundColor: "#E6FAEC",
     },
     secretHitboxContainer: {
-        //🤫🤫🤫 Hush... it works
         position: "absolute",
         top: 0,
         height: "55%",
         width: "100%",
         alignItems: "center",
-        //🤫🤫🤫
     },
     buttonContainer: {
         position: "absolute",
