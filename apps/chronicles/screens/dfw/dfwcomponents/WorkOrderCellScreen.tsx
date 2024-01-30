@@ -14,7 +14,8 @@ export const WorkOrderCellScreen = () => {
             <View style={styles.readableContent}>
                 <Typography>
                     This is the WorkOrderCell component! It takes a title, label and property data
-                    in order to display multiple PropertyRows.
+                    in order to display multiple PropertyRows with workorder data. It can also
+                    display icons based on workorder status and overdue time.
                 </Typography>
             </View>
             <Spacer />
@@ -30,6 +31,7 @@ export const WorkOrderCellScreen = () => {
                 workCenterId="POMISP"
                 onCompleteButtonPress={() => console.log("Complete")}
                 onStartButtonPress={() => console.log("Start")}
+                showSymbols
             />
             <Spacer />
             <View style={styles.readableContent}>
@@ -44,7 +46,23 @@ export const WorkOrderCellScreen = () => {
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
                 tagId="TAG-123456"
+                showSymbols
+                activeStatusIds="STRT"
                 onPress={() => console.log("Pressed")}
+            />
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>
+                    This workorder cell does not show the symbols for activeStatusIds or required
+                    end overdue. This is an optional prop that can be switched on and off.
+                </Typography>
+            </View>
+            <Spacer />
+            <WorkOrderCell
+                title="Basic Work Order Cell"
+                workOrderId="25282760"
+                maintenanceType="Surface monitoring"
+                tagId="TAG-123456"
             />
         </ScrollView>
     );

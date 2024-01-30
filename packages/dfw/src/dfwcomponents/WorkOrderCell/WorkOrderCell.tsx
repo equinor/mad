@@ -41,6 +41,7 @@ export type WorkOrderCellProps = {
     onStartButtonPress?: () => void;
     onCompleteButtonPress?: () => void;
     onPress?: () => void;
+    showSymbols?: boolean;
 } & WorkOrder;
 
 type StatusConfig = {
@@ -83,6 +84,7 @@ export const WorkOrderCell = ({
     onStartButtonPress,
     onCompleteButtonPress,
     onPress,
+    showSymbols,
     ...rest
 }: WorkOrderCellProps) => {
     const styles = useStyles(themeStyles);
@@ -130,19 +132,20 @@ export const WorkOrderCell = ({
                 <Typography numberOfLines={1} variant="h5" bold style={{ marginBottom: 16 }}>
                     {title}
                 </Typography>
-                {iconsAndLabels?.map((item, index) => (
-                    <View key={index} style={styles.iconContainer}>
-                        <Icon name={item.icon} size={24} color={item.iconColor} />
-                        <Typography
-                            numberOfLines={1}
-                            group="paragraph"
-                            variant="caption"
-                            color={item.textColor}
-                        >
-                            {item.label}
-                        </Typography>
-                    </View>
-                ))}
+                {showSymbols &&
+                    iconsAndLabels?.map((item, index) => (
+                        <View key={index} style={styles.iconContainer}>
+                            <Icon name={item.icon} size={24} color={item.iconColor} />
+                            <Typography
+                                numberOfLines={1}
+                                group="paragraph"
+                                variant="caption"
+                                color={item.textColor}
+                            >
+                                {item.label}
+                            </Typography>
+                        </View>
+                    ))}
                 <Label label={maintenanceType} style={{ marginBottom: 8 }} />
                 {Object.entries(rest).map(([key, value], index) => {
                     const label = WorkOrderLabelMap[key as keyof WorkOrder];
