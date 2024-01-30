@@ -66,6 +66,9 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
         scopes: string[];
     }>;
     login: EnvironmentValues<{
+        /**
+         * Splash screen of the application.
+         */
         splash: ImageURISource;
     }>;
     /**
