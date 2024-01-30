@@ -70,19 +70,23 @@ import { createNativeStackNavigator } from "path/to/createNativeStackNavigator";
 Once you've finished the steps above, you should see your custom sub-header in your application. By
 default, the sub-header will display if navigator’s header is displayed. if you want to overwrite
 this behaviour, use the custom `customSubHeaderShown` option. This option can be applied in the
-`Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop
+`Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop. You can also use
+`customSubHeaderFloat` if you want the sub header to float above the content instead of pushing the
+screen's content down.
 
 ```tsx
 <Stack.Navigator
     screenOptions={{
         // add it here
         customSubHeaderShown: false,
+        customSubHeaderFloat: false,
     }}
 >
     <Stack.Group
         screenOptions={{
             // or here
             customSubHeaderShown: true,
+            customSubHeaderFloat: true,
         }}
     >
         <Stack.Screen
@@ -91,6 +95,7 @@ this behaviour, use the custom `customSubHeaderShown` option. This option can be
             options={{
                 // or here
                 customSubHeaderShown: false,
+                customSubHeaderFloat: false,
             }}
         />
     </Stack.Group>
@@ -118,31 +123,6 @@ expected._
     }}
 >
 ```
-
-### Header Height Provider
-
-`@react-navigation/elements` has a `useHeaderHeight` hook you can use to get the header height, but
-this hook only works within the navigation system. If you need access to the header height outside
-of the navigation system, add a `HeaderHeightProvider` to your App.
-
-```tsx
-import { HeaderHeightProvider } from "@equinor/mad-navigation";
-
-export default function App() {
-    return (
-        <SafeAreaProvider>
-            <HeaderHeightProvider>
-                <EDSProvider colorScheme={colorScheme} density={deviceType}>
-                    <Navigation colorScheme={colorScheme} />
-                    <StatusBar />
-                </EDSProvider>
-            </HeaderHeightProvider>
-        </SafeAreaProvider>
-    );
-}
-```
-
-Then use the `useHeaderHeight` hook from `@equinor/mad-navigation` to access the header height.
 
 ### Development
 
