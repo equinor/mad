@@ -101,7 +101,9 @@ export const MultiselectAutocomplete = <T,>({
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
-                    setIsOptionsVisible(false), setInputValue("");
+                    setIsOptionsVisible(true);
+
+                    setInputValue("");
                 }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>

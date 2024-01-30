@@ -105,7 +105,9 @@ export const Autocomplete = <T,>({
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
-                    setIsOptionsVisible(false);
+                    setTimeout(() => {
+                        setIsOptionsVisible(false);
+                    }, 150);
                 }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
