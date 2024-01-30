@@ -15,6 +15,12 @@ export function DFWDiscoverScreen() {
                     iconName="table-row"
                     componentName="propertyRow"
                 />
+                <DFWComponentNavigationCell
+                    title="Work Order Cell"
+                    description="Displays a label and a value in rows"
+                    iconName="reorder-horizontal"
+                    componentName="workOrderCell"
+                />
             </Cell.Group>
         </ScrollView>
     );
