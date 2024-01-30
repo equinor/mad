@@ -64,8 +64,8 @@ safety:
 
 ```ts
 import { MadConfig } from "@equinor/mad-core";
-import Logo from "./assets/images/icon.png";
-import { ImageSourcePropType } from "react-native";
+import Splash from "./assets/images/splash.png";
+import { ImageURISource } from "react-native";
 import { getBuildNumber, getAppSpecificEndpoints } from "./settings";
 import { RootStackParamList } from "./types/navigation";
 
@@ -89,8 +89,7 @@ export const config: MadConfig<RootStackParamList> = {
         scopes: ["0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"],
     },
     login: {
-        title: "Chronicles",
-        logo: Logo as ImageSourcePropType,
+        splash: Splash as ImageURISource,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
@@ -110,8 +109,8 @@ You can also set environment specific values for each field. The config supports
 
 ```ts
 import { MadConfig } from "@equinor/mad-core";
-import Logo from "./assets/images/icon.png";
-import { ImageSourcePropType } from "react-native";
+import Splash from "./assets/images/splash.png";
+import { ImageURISource } from "react-native";
 import { getBuildNumber } from "./settings";
 import { RootStackParamList } from "./types/navigation";
 
@@ -144,8 +143,7 @@ export const config: MadConfig<RootStackParamList> = {
         },
     },
     login: {
-        title: "Chronicles",
-        logo: Logo as ImageSourcePropType,
+        splash: Splash as ImageURISource,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
@@ -190,10 +188,9 @@ export const config: MadConfig<RootStackParamList> = {
 
 ###### Login config
 
-| key     | required? | explanation                                                                      |
-| ------- | --------- | -------------------------------------------------------------------------------- |
-| `title` | true      | The title of the application. Will be displayed on the login screen              |
-| `logo`  | true      | The logo of the application. Will be displayed in the middle of the login screen |
+| key      | required? | explanation                                                                                                                                                                                                                                                                                            |
+| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `splash` | true      | The splash screen of the application. Will be used as a background for the login screen. For best results, set `resizeMode` to `"cover"`, and `backgroundColor` to your splash screen's background color in `app.json`. `@equinor/mad-core` will use resize mode `cover` on iOS, and `contain` on web. |
 
 ###### Application Insights config
 
