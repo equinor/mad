@@ -148,19 +148,22 @@ export const WorkOrderCell = ({
                     ))}
                 <Label label={maintenanceType} style={{ marginBottom: 8 }} />
                 {Object.entries(rest).map(([key, value], index) => {
-                    const label = WorkOrderLabelMap[key as keyof WorkOrder];
-                    let displayValue = value;
-                    if (key === "basicStartDate" || key === "basicEndDate") {
-                        displayValue = value ? new Date(value).toLocaleDateString() : "";
+                    if (value) {
+                        const label = WorkOrderLabelMap[key as keyof WorkOrder];
+                        let displayValue = value;
+                        if (key === "basicStartDate" || key === "basicEndDate") {
+                            displayValue = value ? new Date(value).toLocaleDateString() : "";
+                        }
+                        return (
+                            <PropertyRow
+                                key={index}
+                                label={label}
+                                value={displayValue}
+                                style={{ marginBottom: 8 }}
+                            />
+                        );
                     }
-                    return (
-                        <PropertyRow
-                            key={index}
-                            label={label}
-                            value={displayValue}
-                            style={{ marginBottom: 8 }}
-                        />
-                    );
+                    return null;
                 })}
                 {(!!onStartButtonPress || !!onCompleteButtonPress) && (
                     <View
