@@ -374,10 +374,9 @@ javascript-related crashes, though._
 ```tsx
 export default function App() {
     const isLoadingComplete = useCachedResources();
-    const [hasLoadedEds] = useEDS();
     const colorScheme = useColorScheme();
 
-    if (!isLoadingComplete || !hasLoadedEds) {
+    if (!isLoadingComplete) {
         return null;
     }
     return (
