@@ -1,7 +1,7 @@
 import { Language } from "./store/types";
 import { AppInsightsInitConfig } from "@equinor/mad-insights";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import { ImageURISource } from "react-native";
+import { ImageSourcePropType } from "react-native";
 
 export type MadConfig<ParamList extends ParamListBase | void = void> = {
     /**
@@ -69,7 +69,7 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
         /**
          * Splash screen of the application.
          */
-        splash: ImageURISource;
+        splash: ImageSourcePropType;
     }>;
     /**
      * App insights config used for initializing application insights service(s)

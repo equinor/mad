@@ -65,7 +65,6 @@ safety:
 ```ts
 import { MadConfig } from "@equinor/mad-core";
 import Splash from "./assets/images/splash.png";
-import { ImageURISource } from "react-native";
 import { getBuildNumber, getAppSpecificEndpoints } from "./settings";
 import { RootStackParamList } from "./types/navigation";
 
@@ -89,7 +88,7 @@ export const config: MadConfig<RootStackParamList> = {
         scopes: ["0a429637-3fe1-4452-bd95-c87923ba340b/user_impersonation"],
     },
     login: {
-        splash: Splash as ImageURISource,
+        splash: Splash,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
@@ -110,7 +109,6 @@ You can also set environment specific values for each field. The config supports
 ```ts
 import { MadConfig } from "@equinor/mad-core";
 import Splash from "./assets/images/splash.png";
-import { ImageURISource } from "react-native";
 import { getBuildNumber } from "./settings";
 import { RootStackParamList } from "./types/navigation";
 
@@ -143,7 +141,7 @@ export const config: MadConfig<RootStackParamList> = {
         },
     },
     login: {
-        splash: Splash as ImageURISource,
+        splash: Splash,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
