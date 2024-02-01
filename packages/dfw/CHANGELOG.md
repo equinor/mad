@@ -1,5 +1,16 @@
 # @equinor/mad-dfw
 
+## 0.0.5
+
+### Patch Changes
+
+-   46401e7: Add truhyness check to `PropertyRow` render function to avoid rendering rows with empty
+    values.
+-   Updated dependencies [e43285f]
+-   Updated dependencies [79fb731]
+-   Updated dependencies [37025ac]
+    -   @equinor/mad-components@0.12.0
+
 ## 0.0.4
 
 ### Patch Changes

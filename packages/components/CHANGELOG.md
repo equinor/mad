@@ -1,5 +1,17 @@
 # @equinor/mad-components
 
+## 0.12.0
+
+### Minor Changes
+
+-   79fb731: Changed name on the textValue prop in `Search`. New name is now value
+
+### Patch Changes
+
+-   e43285f: Add update function to menu so that it re-renders when children change
+-   37025ac: Fixed focus realted bug on the search component that affected the behaviour for the
+    cancel and clear text buttons. Search now works fine for both web and device
+
 ## 0.11.3
 
 ### Patch Changes
