@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.12.2
+
+### Patch Changes
+
+-   558ca83: Adjusted the animation on `Search` so that it looks correctly when the cancel button is
+    appearing and disappearing
+
 ## 0.12.1
 
 ### Patch Changes
