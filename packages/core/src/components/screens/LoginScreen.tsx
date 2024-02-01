@@ -1,6 +1,6 @@
-import { Button, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
+import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import React, { useState } from "react";
-import { Image, Pressable, View } from "react-native";
+import { Image, Platform, Pressable, View } from "react-native";
 import { LoginButton } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { enableDemoMode } from "../../store/demo-mode";
@@ -13,57 +13,78 @@ export const LoginScreen = () => {
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
     const navigate = useNavigateFromLoginScreen();
-    const { title, logo } = useLoginScreenConfig();
+    const { splash } = useLoginScreenConfig();
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
+    const resizeMode = Platform.OS === "web" ? "contain" : "cover";
     return (
-        <View style={styles.container}>
-            <Typography variant="h1">{title}</Typography>
-            <Pressable onPress={() => setDemoPressCount(state => state + 1)}>
-                <Image source={logo} resizeMode="contain" style={{ height: 200, width: 200 }} />
-            </Pressable>
-            <View style={{ gap: 8 }}>
-                <LoginButton
-                    {...authConfig}
-                    onAuthenticationSuccessful={(_, type) => {
-                        if (type === "AUTOMATIC") {
-                            void track(metricKeys.AUTHENTICATION_AUTOMATIC);
-                        } else {
-                            void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
-                        }
-                        navigate();
-                    }}
-                    onAuthenticationFailed={error =>
-                        void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
-                            error,
-                        })
-                    }
-                    title={dictionary.login.logIn}
-                    enableAutomaticAuthentication
-                    scopes={authConfig.scopes ?? []}
-                />
-                {shouldDisplayDemoButton && (
-                    <Button
-                        title={dictionary.login.demo}
-                        variant="outlined"
-                        onPress={() => {
-                            void track(metricKeys.AUTHENTICATION_DEMO);
-                            enableDemoMode();
+        <EDSProvider colorScheme="light" density="tablet">
+            <View style={styles.container}>
+                <Image source={splash} resizeMode={resizeMode} style={styles.fill} />
+                <View style={styles.secretHitboxContainer}>
+                    <Pressable
+                        style={styles.fill}
+                        onPress={() => setDemoPressCount(count => count + 1)}
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <LoginButton
+                        {...authConfig}
+                        onAuthenticationSuccessful={(_, type) => {
+                            if (type === "AUTOMATIC") {
+                                void track(metricKeys.AUTHENTICATION_AUTOMATIC);
+                            } else {
+                                void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
+                            }
                             navigate();
                         }}
+                        onAuthenticationFailed={error =>
+                            void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
+                                error,
+                            })
+                        }
+                        title={dictionary.login.logIn}
+                        enableAutomaticAuthentication
+                        scopes={authConfig.scopes ?? []}
                     />
-                )}
+                    {shouldDisplayDemoButton && (
+                        <Button
+                            title={dictionary.login.demo}
+                            variant="outlined"
+                            onPress={() => {
+                                void track(metricKeys.AUTHENTICATION_DEMO);
+                                enableDemoMode();
+                                navigate();
+                            }}
+                        />
+                    )}
+                </View>
             </View>
-        </View>
+        </EDSProvider>
     );
 };
 
-const theme = EDSStyleSheet.create(theme => ({
+const theme = EDSStyleSheet.create(() => ({
     container: {
-        paddingVertical: theme.spacing.container.paddingVertical,
-        paddingHorizontal: theme.spacing.container.paddingHorizontal,
-        height: "100%",
+        flex: 1,
+        backgroundColor: "#E6FAEC",
+    },
+    secretHitboxContainer: {
+        position: "absolute",
+        top: 0,
+        height: "55%",
+        width: "100%",
         alignItems: "center",
-        justifyContent: "space-evenly",
+    },
+    buttonContainer: {
+        position: "absolute",
+        top: "60%",
+        width: "100%",
+        alignItems: "center",
+        gap: 8,
+    },
+    fill: {
+        width: "100%",
+        height: "100%",
     },
 }));

@@ -8,8 +8,8 @@
         "userInterfaceStyle": "automatic",
         "splash": {
             "image": "./assets/images/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+            "resizeMode": "cover",
+            "backgroundColor": "#E6FAEC"
         },
         "updates": {
             "fallbackToCacheTimeout": 0
@@ -27,12 +27,7 @@
             }
         },
         "plugins": [
-            [
-                "react-native-msal",
-                {
-                    
-                }
-            ],
+            ["react-native-msal", {}],
             [
                 "expo-image-picker",
                 {

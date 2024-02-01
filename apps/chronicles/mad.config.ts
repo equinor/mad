@@ -1,7 +1,6 @@
 import { MadConfig } from "@equinor/mad-core";
-import Logo from "./assets/images/icon.png";
-import { ImageSourcePropType } from "react-native";
 import { getBuildNumber } from "./settings";
+import Splash from "./assets/images/splash.png";
 import { RootStackParamList } from "./types/navigation";
 
 export const config: MadConfig<RootStackParamList> = {
@@ -33,8 +32,7 @@ export const config: MadConfig<RootStackParamList> = {
         },
     },
     login: {
-        title: "Chronicles",
-        logo: Logo as ImageSourcePropType,
+        splash: Splash,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",
