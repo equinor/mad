@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
-import { LayoutRectangle, TextInput, View } from "react-native";
+import { LayoutRectangle, TextInput, View, Platform } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
@@ -8,7 +8,6 @@ import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
 import { GenericAutocompleteProps } from "./types";
 import { Autocomplete } from "./Autocomplete";
-import { Platform } from "react-native";
 
 type MultiselectAutocompleteProps<T> = {
     /**
