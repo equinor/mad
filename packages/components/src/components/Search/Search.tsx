@@ -47,11 +47,12 @@ export const Search = ({
     const animationValue = useSharedValue(0);
 
     const cancelButtonStyle = useAnimatedStyle(() => {
+        const opacity = interpolate(animationValue.value, [0, 1], [0, 1]);
+        const translateX = interpolate(animationValue.value, [0, 1], [cancelButtonWidth, 0]);
+
         return {
-            opacity: interpolate(animationValue.value, [0, 1], [0, 1]),
-            transform: [
-                { translateX: interpolate(animationValue.value, [0, 1], [cancelButtonWidth, 0]) },
-            ],
+            opacity: opacity,
+            transform: [{ translateX: translateX }],
         };
     });
 
@@ -154,8 +155,11 @@ export const Search = ({
                 <Animated.View
                     style={[
                         cancelButtonStyle,
-                        !isInputFocused && { display: "none" },
-                        { position: "absolute", right: 0 },
+                        {
+                            position: "absolute",
+                            right: 0,
+                            pointerEvents: isInputFocused ? "auto" : "none",
+                        },
                     ]}
                     onLayout={event => setCancelButtonWidth(event.nativeEvent.layout.width)}
                 >
@@ -190,11 +194,6 @@ const themedStyles = EDSStyleSheet.create(theme => {
             paddingLeft: 16,
             paddingRight: 4,
             paddingVertical: theme.spacing.element.paddingVertical,
-        },
-        cancelButtonContainer: {
-            justifyContent: "center",
-            height: theme.geometry.dimension.button.minHeight,
-            paddingHorizontal: theme.spacing.button.paddingHorizontal,
         },
     };
 });
