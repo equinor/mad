@@ -8,6 +8,7 @@ import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
 import { GenericAutocompleteProps } from "./types";
 import { Autocomplete } from "./Autocomplete";
+import { Platform } from "react-native";
 
 type MultiselectAutocompleteProps<T> = {
     /**
@@ -48,8 +49,6 @@ export const MultiselectAutocomplete = <T,>({
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
         if (selectedOptions) {
-            setInputValue("");
-        } else {
             setInputValue("");
         }
         inputRef.current && inputRef.current.blur();
@@ -101,8 +100,7 @@ export const MultiselectAutocomplete = <T,>({
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
-                    setIsOptionsVisible(true);
-
+                    setIsOptionsVisible(Platform.OS === "web");
                     setInputValue("");
                 }}
                 rightAdornments={
