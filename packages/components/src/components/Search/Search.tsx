@@ -24,19 +24,15 @@ import { Icon } from "../Icon";
 
 export type SearchProps = Omit<InputProps, "multiline"> & {
     cancellable?: boolean;
-    showDictationButton?: boolean;
     disabled?: boolean;
     onCancelPress?: () => void;
-    onDictationPress?: () => void;
 };
 
 export const Search = ({
     cancellable,
-    showDictationButton,
     value,
     disabled,
     onCancelPress,
-    onDictationPress,
     onChange,
     ...restProps
 }: SearchProps) => {
@@ -140,19 +136,7 @@ export const Search = ({
                         </View>
                     }
                     rightAdornments={
-                        text.length === 0 ? (
-                            Platform.OS !== "web" &&
-                            showDictationButton && (
-                                <View style={styles.adornmentIconContainer}>
-                                    <Button.Icon
-                                        name="microphone"
-                                        color="primary"
-                                        variant="ghost"
-                                        onPress={onDictationPress}
-                                    />
-                                </View>
-                            )
-                        ) : (
+                        text ? (
                             <View style={styles.adornmentIconContainer}>
                                 <Button.Icon
                                     id="search-clear-text-button"
@@ -162,7 +146,7 @@ export const Search = ({
                                     onPress={handleClearText}
                                 />
                             </View>
-                        )
+                        ) : null
                     }
                 />
             </Animated.View>
