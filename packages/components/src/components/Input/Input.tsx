@@ -1,11 +1,11 @@
 import React, { ReactNode, forwardRef, useState } from "react";
 import {
     NativeSyntheticEvent,
-    TextInput,
-    TextInputProps,
-    TextInputFocusEventData,
-    View,
     Platform,
+    TextInput,
+    TextInputFocusEventData,
+    TextInputProps,
+    View,
 } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { themeStyles } from "./InputStyle";
