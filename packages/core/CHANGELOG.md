@@ -1,5 +1,17 @@
 # @equinor/mad-core
 
+## 0.5.0
+
+### Minor Changes
+
+-   b024e0f: login screen has been redesigned. Now requires you to provide a splash screen instead
+    of a title and logo
+
+### Patch Changes
+
+-   Updated dependencies [b024e0f]
+    -   @equinor/mad-navigation@0.3.0
+
 ## 0.4.4
 
 ### Patch Changes
