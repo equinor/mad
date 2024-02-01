@@ -20,17 +20,10 @@ export const LoginScreen = () => {
     return (
         <EDSProvider colorScheme="light" density="tablet">
             <View style={styles.container}>
-                <Image
-                    source={splash}
-                    resizeMode={resizeMode}
-                    style={{ height: "100%", width: "100%" }}
-                />
+                <Image source={splash} resizeMode={resizeMode} style={styles.fill} />
                 <View style={styles.secretHitboxContainer}>
                     <Pressable
-                        style={{
-                            width: "100%",
-                            height: "100%",
-                        }}
+                        style={styles.fill}
                         onPress={() => setDemoPressCount(count => count + 1)}
                     />
                 </View>
@@ -89,5 +82,9 @@ const theme = EDSStyleSheet.create(() => ({
         width: "100%",
         alignItems: "center",
         gap: 8,
+    },
+    fill: {
+        width: "100%",
+        height: "100%",
     },
 }));

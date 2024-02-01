@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { MadBaseOptions } from "./types";
 /**
  * Custom render function that displays a custom sub-header
@@ -37,9 +37,17 @@ const WithCustomSubHeader = ({
         {CustomSubHeader && !shouldFloat && <CustomSubHeader />}
         {children}
         {CustomSubHeader && shouldFloat && (
-            <View style={{ position: "absolute", top: 0, width: "100%" }}>
+            <View style={styles.floatContainer}>
                 <CustomSubHeader />
             </View>
         )}
     </>
 );
+
+const styles = StyleSheet.create({
+    floatContainer: {
+        position: "absolute",
+        top: 0,
+        width: "100%",
+    },
+});
