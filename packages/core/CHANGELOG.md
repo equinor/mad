@@ -1,5 +1,12 @@
 # @equinor/mad-core
 
+## 0.5.1
+
+### Patch Changes
+
+-   04713bc: `CreateIncidentScreen`: Now has a scrollview surrounding the content, making the
+    content available on smaller devices
+
 ## 0.5.0
 
 ### Minor Changes
