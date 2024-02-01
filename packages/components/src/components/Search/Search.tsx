@@ -153,11 +153,9 @@ export const Search = ({
             {cancellable && (
                 <Animated.View
                     style={[
-                        {
-                            position: "absolute",
-                            right: 0,
-                        },
                         cancelButtonStyle,
+                        !isInputFocused && { display: "none" },
+                        { position: "absolute", right: 0 },
                     ]}
                     onLayout={event => setCancelButtonWidth(event.nativeEvent.layout.width)}
                 >
@@ -176,6 +174,7 @@ export const Search = ({
 const themedStyles = EDSStyleSheet.create(theme => {
     return {
         container: {
+            flexGrow: 1,
             flexDirection: "row",
             alignItems: "center",
         },
