@@ -74,7 +74,6 @@ export const LoginScreen = () => {
 const theme = EDSStyleSheet.create(() => ({
     container: {
         flex: 1,
-        height: "100%",
         backgroundColor: "#E6FAEC",
     },
     secretHitboxContainer: {

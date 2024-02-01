@@ -4,6 +4,8 @@ import { MadBaseOptions } from "./types";
 /**
  * Custom render function that displays a custom sub-header
  * @param originalRender the original render function, found in the descriptor
+ * @param options the resolved options for the descriptor
+ * @param CustomSubHeader the custom sub header
  * @returns new render function
  */
 export const getCustomRenderFunction = <T extends MadBaseOptions>(

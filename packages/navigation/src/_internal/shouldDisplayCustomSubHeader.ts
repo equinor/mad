@@ -2,8 +2,7 @@ import { MadBaseOptions } from "./types";
 
 /**
  * Calculate whether the custom sub-header should be displayed or not
- * @param descriptor descriptor from the descriptors object provided by React Navigation
- * @param unresolvedScreenOptions unresolved screen options provided by React Navigation
+ * @param options the resolved options for the descriptor
  * @returns whether the custom sub-header should be returned or not
  */
 export const shouldDisplayCustomSubHeader = <T extends MadBaseOptions>(options: T) => {
