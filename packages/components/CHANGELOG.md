@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.12.1
+
+### Patch Changes
+
+-   8baaf7b: Fixed flex issue on `Search` that made it hard to have other elements next to it.
+    Prevented that you can interact with cancelbutton when it's not showing.
+
 ## 0.12.0
 
 ### Minor Changes
