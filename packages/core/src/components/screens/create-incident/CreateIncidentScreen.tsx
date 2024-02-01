@@ -3,11 +3,12 @@ import {
     Button,
     Cell,
     EDSStyleSheet,
+    Spacer,
     TextField,
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import { View, LayoutAnimation } from "react-native";
+import { View, LayoutAnimation, ScrollView } from "react-native";
 import { UserInfo } from "./UserInfo";
 import { useAccountOrDemoAccount } from "../../../hooks";
 import * as Device from "expo-device";
@@ -71,7 +72,8 @@ export const CreateIncidentScreen = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+            <Spacer />
             <Cell>
                 <View style={styles.topTextContainer}>
                     <Typography variant={"h1"}>Create ticket in ServiceNow</Typography>
@@ -94,7 +96,7 @@ export const CreateIncidentScreen = () => {
                 {error && (
                     <View style={[styles.popupBox, styles.popupDanger]}>
                         <Typography>
-                            {/* eslint-disable-next-line @typescript-eslint/no-base-to-string,@typescript-eslint/restrict-template-expressions */}
+                            {/* eslint-disable-next-line @typescript-eslint/no-base-to-string,@typescript-eslint/restrict-template-expressions -- this rule sucks */}
                             {`An error occurred creating your ticket: ${error}`}
                         </Typography>
                     </View>
@@ -127,14 +129,13 @@ export const CreateIncidentScreen = () => {
                     ></Button>
                 </View>
             </Cell>
-        </View>
+        </ScrollView>
     );
 };
 
 const createIncidentStyles = EDSStyleSheet.create(theme => ({
     container: {
-        display: "flex",
-        paddingVertical: theme.geometry.dimension.cell.minHeight,
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
     topTextContainer: {
         paddingBottom: theme.geometry.dimension.cell.minHeight,
