@@ -13,13 +13,14 @@
   },
   "dependencies": {
     "@equinor/mad-auth": "workspace:*",
-    "@equinor/mad-dfw": "workspace:*",
     "@equinor/mad-components": "workspace:*",
     "@equinor/mad-core": "workspace:*",
+    "@equinor/mad-dfw": "workspace:*",
     "@equinor/mad-navigation": "workspace:*",
     "@equinor/react-native-skia-draw": "workspace:*",
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^19.0.0",
+    "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
@@ -42,13 +43,12 @@
     "react-native-device-info": "^10.9.0",
     "react-native-gesture-handler": "^2.14.0",
     "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#38c1bac756b8019e3b7f916893a7f588c811e407",
-    "react-native-reanimated": "~3.3.0",
+    "react-native-reanimated": "~3.6.2",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.1",
     "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.7",
-    "uuid": "^3.0.0",
-    "@react-native-async-storage/async-storage": "^1.19.3"
+    "uuid": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",

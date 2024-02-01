@@ -1,5 +1,5 @@
 import React, { forwardRef, useContext } from "react";
-import { GestureResponderEvent, Pressable, View, ViewProps } from "react-native";
+import { GestureResponderEvent, View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
 import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
@@ -8,6 +8,7 @@ import { DotProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
 import { ButtonGroupContext } from "./ButtonGroup";
 import { ToggleButtonContext } from "./ToggleButton";
+import { PressableHighlight } from "../PressableHighlight";
 
 export type ButtonSpecificProps = {
     /**
@@ -100,7 +101,7 @@ export const Button = forwardRef<View, ButtonProps>(
 
         return (
             <View ref={ref} style={[styles.colorContainer, rest.style]}>
-                <Pressable
+                <PressableHighlight
                     disabled={disabled}
                     onPress={onPress}
                     onPressIn={onPressIn}
@@ -117,7 +118,7 @@ export const Button = forwardRef<View, ButtonProps>(
                             ButtonContent()
                         )}
                     </View>
-                </Pressable>
+                </PressableHighlight>
             </View>
         );
     },

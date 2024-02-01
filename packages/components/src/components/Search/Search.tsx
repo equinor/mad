@@ -1,12 +1,18 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
-import { Platform, ScrollView, TextInput, View } from "react-native";
+// eslint-disable-next-line import/default
 import Animated, {
     interpolate,
     useAnimatedStyle,
     useSharedValue,
     withTiming,
 } from "react-native-reanimated";
+import React, { FocusEvent, useEffect, useRef, useState } from "react";
+import {
+    NativeSyntheticEvent,
+    Platform,
+    TextInput,
+    TextInputFocusEventData,
+    View,
+} from "react-native";
 
 import { Button } from "../../components/Button";
 import { TextField } from "../../components/TextField";
@@ -14,21 +20,27 @@ import { useStyles } from "../../hooks/useStyles";
 import { useToken } from "../../hooks/useToken";
 import { EDSStyleSheet } from "../../styling/EDSStyleSheet";
 import { InputProps } from "../Input";
+import { Icon } from "../Icon";
 
 export type SearchProps = Omit<InputProps, "multiline"> & {
     cancellable?: boolean;
-    textValue?: string;
+    showDictationButton?: boolean;
+    disabled?: boolean;
     onCancelPress?: () => void;
+    onDictationPress?: () => void;
 };
 
 export const Search = ({
     cancellable,
-    textValue,
+    showDictationButton,
+    value,
+    disabled,
     onCancelPress,
+    onDictationPress,
     onChange,
     ...restProps
 }: SearchProps) => {
-    const [text, setText] = useState(textValue ?? "");
+    const [text, setText] = useState(value ?? "");
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
 
@@ -37,8 +49,6 @@ export const Search = ({
 
     const inputRef = useRef<TextInput>(null);
     const animationValue = useSharedValue(0);
-
-    const iconSize = token.geometry.dimension.icon.size;
 
     const cancelButtonStyle = useAnimatedStyle(() => {
         return {
@@ -87,7 +97,7 @@ export const Search = ({
         onChange?.(text);
     };
 
-    const handleOnBlur = (e: any) => {
+    const handleOnBlurWeb = (e: FocusEvent<HTMLInputElement>) => {
         if (e.relatedTarget && e.relatedTarget.id === "search-clear-text-button") {
             e.target.focus();
             setIsInputFocused(true);
@@ -96,53 +106,65 @@ export const Search = ({
         }
     };
 
+    const handleOnBlurNative = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        setIsInputFocused(false);
+        restProps.onBlur?.(e);
+    };
+
     return (
         <View style={styles.container}>
             <Animated.View style={[{ flex: 1 }, inputStyle]}>
-                <ScrollView keyboardShouldPersistTaps="handled">
-                    <TextField
-                        {...restProps}
-                        ref={inputRef}
-                        value={text}
-                        onChange={onChangeText}
-                        onFocus={e => {
-                            setIsInputFocused(true);
-                            restProps.onFocus?.(e);
-                        }}
-                        onBlur={e => {
-                            if (Platform.OS === "web") {
-                                handleOnBlur(e);
-                            }
-                            if (Platform.OS !== "web") {
-                                setIsInputFocused(false);
-                                restProps.onBlur?.(e);
-                            }
-                        }}
-                        leftAdornments={
-                            <View style={styles.iconContainer}>
-                                <MaterialIcons
-                                    name="search"
-                                    size={iconSize}
-                                    color={styles.icon.color}
-                                />
-                            </View>
+                <TextField
+                    {...restProps}
+                    readOnly={disabled}
+                    ref={inputRef}
+                    value={text}
+                    onChange={onChangeText}
+                    onFocus={e => {
+                        setIsInputFocused(true);
+                        restProps.onFocus?.(e);
+                    }}
+                    onBlur={e => {
+                        if (Platform.OS === "web") {
+                            handleOnBlurWeb(e as unknown as FocusEvent<HTMLInputElement>);
+                        } else {
+                            handleOnBlurNative(e);
                         }
-                        rightAdornments={
-                            text ? (
-                                <View style={styles.iconContainer}>
-                                    <MaterialIcons
-                                        id="search-clear-text-button"
-                                        name="close"
-                                        tabIndex={0}
-                                        color={styles.icon.color}
-                                        size={iconSize}
-                                        onPress={handleClearText}
+                    }}
+                    leftAdornments={
+                        <View style={styles.magnifyIconContainer}>
+                            <Icon
+                                name="magnify"
+                                color={isInputFocused ? "textPrimary" : "textTertiary"}
+                            />
+                        </View>
+                    }
+                    rightAdornments={
+                        text.length === 0 ? (
+                            Platform.OS !== "web" &&
+                            showDictationButton && (
+                                <View style={styles.adornmentIconContainer}>
+                                    <Button.Icon
+                                        name="microphone"
+                                        color="primary"
+                                        variant="ghost"
+                                        onPress={onDictationPress}
                                     />
                                 </View>
-                            ) : null
-                        }
-                    />
-                </ScrollView>
+                            )
+                        ) : (
+                            <View style={styles.adornmentIconContainer}>
+                                <Button.Icon
+                                    id="search-clear-text-button"
+                                    name="close"
+                                    color="primary"
+                                    variant="ghost"
+                                    onPress={handleClearText}
+                                />
+                            </View>
+                        )
+                    }
+                />
             </Animated.View>
             {cancellable && (
                 <Animated.View
@@ -171,22 +193,25 @@ const themedStyles = EDSStyleSheet.create(theme => {
     return {
         container: {
             flexDirection: "row",
-            alignItems: "flex-end",
+            alignItems: "center",
         },
-        adornment: {
+        adornmentIconContainer: {
+            position: "absolute",
+            top: 0,
+            right: 0,
+            paddingHorizontal: 4,
+        },
+        magnifyIconContainer: {
             justifyContent: "center",
             alignItems: "center",
-            paddingHorizontal: theme.spacing.element.paddingHorizontal,
+            paddingLeft: 16,
+            paddingRight: 4,
+            paddingVertical: theme.spacing.element.paddingVertical,
         },
-        iconContainer: {
-            zIndex: 1,
+        cancelButtonContainer: {
             justifyContent: "center",
-            alignItems: "center",
+            height: theme.geometry.dimension.button.minHeight,
             paddingHorizontal: theme.spacing.button.paddingHorizontal,
-            paddingVertical: theme.spacing.button.paddingVertical,
-        },
-        icon: {
-            color: theme.colors.interactive.primary,
         },
     };
 });

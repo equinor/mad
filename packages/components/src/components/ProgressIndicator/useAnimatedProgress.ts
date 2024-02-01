@@ -22,7 +22,6 @@ export const useAnimatedProgress = (value?: number, invertedDefaltProgress = fal
             useNativeDriver: true,
             easing: Easing.inOut(Easing.ease),
         });
-        
 
     useEffect(() => {
         if (value === undefined) {
@@ -37,41 +36,3 @@ export const useAnimatedProgress = (value?: number, invertedDefaltProgress = fal
 
     return progressValue;
 };
-
-
-/* 
-import { Easing, Animated, Platform } from 'react-native';
-
-export const useAnimatedProgress = (value?: number, invertedDefaltProgress = false) => {
-    const defaultProgress = invertedDefaltProgress ? 1 - DEFAULT_PROGRESS : DEFAULT_PROGRESS;
-    const token = useToken();
-    const progressValue = useRef(new Animated.Value(value ?? defaultProgress)).current;
-
-    const setProgressAnimation = (val: number) => {
-        return Animated.timing(progressValue, {
-            toValue: val,
-            duration: token.timing.animation.normal,
-            useNativeDriver: true,
-            easing: Easing.inOut(Easing.ease),
-        });
-    };
-
-    useEffect(() => {
-        let animation;
-        if (value === undefined) {
-            animation = Animated.loop(
-                setProgressAnimation(defaultProgress),
-            );
-        } else {
-            animation = setProgressAnimation(value);
-        }
-
-        animation.start();
-
-        return () => animation.stop();
-    }, [value]);
-
-    return progressValue;
-};
-
-*/

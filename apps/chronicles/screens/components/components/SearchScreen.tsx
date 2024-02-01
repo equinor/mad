@@ -1,20 +1,14 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import {
-    EDSStyleSheet,
-    useStyles,
-    Typography,
-    Spacer,
-    Search,
-    Button,
-} from "@equinor/mad-components";
+import { EDSStyleSheet, useStyles, Typography, Spacer, Search } from "@equinor/mad-components";
 
 export const SearchScreen = () => {
     const styles = useStyles(themedStyles);
     return (
         <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={styles.container}
+            keyboardShouldPersistTaps="handled"
+            contentInsetAdjustmentBehavior="automatic"
         >
             <Typography>
                 The Search component can be used to enter and submit search queries.
@@ -33,9 +27,11 @@ export const SearchScreen = () => {
             <Spacer amount="small" />
             <Search placeholder="Search here..." cancellable />
 
-            <Spacer amount="medium" />
+            <Spacer amount="large" />
 
-            <Button title="test" onPress={() => console.warn("TEST PRESSED")} />
+            <Typography>Search with the «disabled» prop.</Typography>
+            <Spacer amount="small" />
+            <Search placeholder="Disabled. Can't search here..." disabled />
         </ScrollView>
     );
 };

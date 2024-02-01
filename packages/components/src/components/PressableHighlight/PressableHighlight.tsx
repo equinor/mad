@@ -1,5 +1,13 @@
 import React, { forwardRef, useRef } from "react";
-import { Animated, Pressable, PressableProps, View, ViewStyle, StyleSheet } from "react-native";
+import {
+    Animated,
+    Pressable,
+    PressableProps,
+    View,
+    ViewStyle,
+    StyleSheet,
+    GestureResponderEvent,
+} from "react-native";
 import { useToken } from "../../hooks/useToken";
 import { DisabledPressable } from "./DisabledPressable";
 
@@ -32,32 +40,34 @@ export const PressableHighlight = forwardRef<
         const theme = useToken();
         const fadeAnim = useRef(new Animated.Value(0)).current;
 
-        const handlePressIn = () => {
+        const handlePressIn = (event: GestureResponderEvent) => {
             Animated.timing(fadeAnim, {
                 toValue: 1,
                 duration: 0,
                 useNativeDriver: true,
             }).start();
+            rest.onPressIn?.(event);
         };
 
-        const handlePressOut = () => {
+        const handlePressOut = (event: GestureResponderEvent) => {
             Animated.timing(fadeAnim, {
                 toValue: 0,
                 duration: theme.timing.animation.normal,
                 useNativeDriver: true,
             }).start();
+            rest.onPressOut?.(event);
         };
 
         const PressableComponent = disabled ? DisabledPressable : Pressable;
 
         return (
             <PressableComponent
+                {...rest}
                 ref={ref}
                 style={style}
-                onPressIn={() => !disabled && handlePressIn()}
-                onPressOut={() => !disabled && handlePressOut()}
+                onPressIn={event => !disabled && handlePressIn(event)}
+                onPressOut={event => !disabled && handlePressOut(event)}
                 onPress={event => !disabled && !!onPress && onPress(event)}
-                {...rest}
             >
                 <Animated.View
                     style={[
