@@ -57,7 +57,7 @@ export const Autocomplete = <T,>({
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
         if (selectedOption) {
-            setInputValue(selectedOption as string);
+            setInputValue(internalTransform(selectedOption));
         } else {
             setInputValue("");
         }
