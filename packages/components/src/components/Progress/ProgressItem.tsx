@@ -8,7 +8,7 @@ import { Typography } from "../Typography";
 import { ProgressExpandButton } from "./ProgressExpandButton";
 import { ProgressItemStatus } from "./ProgressItemStatus";
 import { ProgressTaskItem } from "./ProgressTaskItem";
-import { ProgressStatus, ProgressTask } from "./types";
+import { ProgressStatus, ProgressTask, ProgressTaskErrorDetails } from "./types";
 import { computeTaskStatus } from "./progressUtils";
 
 type ProgressItemPropsOptions =
@@ -24,13 +24,17 @@ type ProgressItemPropsOptions =
 export type ProgressItemProps = {
     title?: string;
     description?: string;
-    onCopyTextButtonPress?: (message: string) => void;
+    showRetryButton?: boolean;
+    showCopyTextButton?: boolean;
+    onCopyTextButtonPress?: (message: ProgressTaskErrorDetails) => void;
     onRetryButtonPress?: (task: ProgressTask) => void;
 } & ProgressItemPropsOptions;
 
 export const ProgressItem = ({
     title,
     description,
+    showCopyTextButton = true,
+    showRetryButton = true,
     status = "notStarted",
     tasks = [],
     onCopyTextButtonPress,
@@ -61,7 +65,7 @@ export const ProgressItem = ({
 
     const handleCopyTextButtonPress = () => {
         if (failedTask?.errorDetails) {
-            onCopyTextButtonPress && onCopyTextButtonPress(failedTask?.errorDetails?.message);
+            onCopyTextButtonPress && onCopyTextButtonPress(failedTask?.errorDetails);
         }
     };
 
@@ -136,20 +140,20 @@ export const ProgressItem = ({
                 />
             </View>
 
-            {taskHasError && (
+            {taskHasError && (showCopyTextButton || showRetryButton) ? (
                 <View
                     style={[styles.actionContainer, !failedTask?.errorDetails && { marginTop: 0 }]}
                 >
-                    {isExpanded && failedTask?.errorDetails && (
+                    {showCopyTextButton && isExpanded && failedTask?.errorDetails && (
                         <Button
                             title="Copy to clipboard"
                             variant="outlined"
                             onPress={handleCopyTextButtonPress}
                         />
                     )}
-                    <Button title="Retry" onPress={handleRetryButtonPress} />
+                    {showRetryButton && <Button title="Retry" onPress={handleRetryButtonPress} />}
                 </View>
-            )}
+            ) : null}
         </View>
     );
 };

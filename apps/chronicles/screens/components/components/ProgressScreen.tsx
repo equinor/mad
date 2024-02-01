@@ -21,7 +21,12 @@ const UploadSimulator = ({ onUploadSuccess, onUploadFailed }: UploadSimulatorPro
             </Typography>
             <Typography>Press the buttons below to simulate the progress component</Typography>
             <View style={styles.simulateButtonContainer}>
-                <Button title="Run successfull progress" onPress={onUploadSuccess} />
+                <Button
+                    title="Run successfull progress"
+                    onPress={() => {
+                        onUploadSuccess();
+                    }}
+                />
                 <Button title="Run failed progress" onPress={onUploadFailed} />
             </View>
         </View>
@@ -34,17 +39,15 @@ type UploadSimulatorProps = {
 };
 
 export const ProgressScreen = () => {
-    const { tasks, startUploadSimulation, handleCopyErrorDetails, handleRetry } =
+    const { tasks, startUploadSimulation, handleCopyErrorMessage, handleRetry } =
         useProgressUpload();
     const styles = useStyles(themeStyles);
 
     const handleUploadSuccess = async () => {
-        console.log("handleUploadSuccess");
         await startUploadSimulation("success");
     };
 
     const handleUploadFailed = async () => {
-        console.log("handleUploadFailed");
         await startUploadSimulation("fail");
     };
 
@@ -60,23 +63,9 @@ export const ProgressScreen = () => {
                 The Progress component can be used for tracking and displaying the progress of tasks
                 or processes, such as «create folder or «upload images».
             </Typography>
-            <UploadSimulator
-                onUploadSuccess={handleUploadSuccess}
-                onUploadFailed={handleUploadFailed}
-            />
-            <Spacer amount="medium" />
-            <Typography>Progress with one single task: </Typography>
             <Spacer amount="small" />
-            <Progress title="Create folder">
-                <Progress.Item
-                    title="Creating a folder"
-                    description="This folder contains cat images"
-                    status="success"
-                />
-            </Progress>
-            <Spacer />
-            <Typography>Tasks have different statuses based on their progress.</Typography>
-            <Typography> The status can be:</Typography>
+            <Typography>Tasks have different statuses based on their overall progress.</Typography>
+            <Typography> Status can either be:</Typography>
             <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                 <Typography color="primary">inProgress</Typography>
                 <CircularProgress size={18} value={0.7} />
@@ -86,6 +75,25 @@ export const ProgressScreen = () => {
                 <Typography color="danger">error</Typography>
             </View>
             <Spacer amount="small" />
+            <UploadSimulator
+                onUploadSuccess={handleUploadSuccess}
+                onUploadFailed={handleUploadFailed}
+            />
+
+            <Spacer />
+
+            <Typography>Progress with one single task: </Typography>
+            <Spacer amount="small" />
+            <Progress title="Create folder">
+                <Progress.Item
+                    title="Creating a folder"
+                    description="This folder contains cat images"
+                    status="success"
+                />
+            </Progress>
+
+            <Spacer />
+
             <Typography>Progress with multiple tasks: </Typography>
             <Spacer amount="small" />
             <Progress title="Upload cat images">
@@ -93,18 +101,24 @@ export const ProgressScreen = () => {
                     title="Upload images of cats with hats"
                     description="uploading cats with hats"
                     tasks={tasks}
-                    onCopyTextButtonPress={handleCopyErrorDetails}
+                    onCopyTextButtonPress={handleCopyErrorMessage}
                     onRetryButtonPress={handleRetry}
                 />
             </Progress>
+
             <Spacer />
-            <Typography>You can also add multiple different tasks to one progress.</Typography>
+
+            <Typography>You can also add multiple different tasks to a progress.</Typography>
             <Typography>Progress with multiple tasks: </Typography>
             <Spacer amount="small" />
             <Progress title="Multiple upload tasks">
                 <Progress.Item title="Preparing cat hats" status="success" />
                 <Progress.Item title="Training cats to wear hats" status="inProgress" />
-                <Progress.Item title="Cats refusing to wear hats" status="error" />
+                <Progress.Item
+                    title="Cats refusing to wear hats"
+                    status="error"
+                    showRetryButton={false}
+                />
                 <Progress.Item
                     title="Uploading images of cats with hats"
                     description="uploading cats with hats"

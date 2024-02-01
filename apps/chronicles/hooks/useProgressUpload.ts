@@ -76,17 +76,16 @@ export const useProgressUpload = () => {
         await startUploadSimulation("fail");
     };
 
-    const handleCopyErrorMessage = (task: ProgressTask) => {
-        if (task?.errorDetails?.message) {
-            Clipboard.setString(task.errorDetails.message);
+    const handleCopyErrorMessage = (taskError: ProgressTaskErrorDetails) => {
+        if (taskError?.message) {
+            Clipboard.setString(taskError.message);
             Alert.alert("Copied", "Error message copied to clipboard", [{ text: "OK" }]);
         }
     };
-
     return {
         tasks,
         startUploadSimulation,
         handleRetry,
-        handleCopyErrorDetails: handleCopyErrorMessage,
+        handleCopyErrorMessage,
     };
 };
