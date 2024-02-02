@@ -1,5 +1,12 @@
 # @equinor/mad-dfw
 
+## 0.0.10
+
+### Patch Changes
+
+-   Updated dependencies [121bbec]
+    -   @equinor/mad-components@0.12.5
+
 ## 0.0.9
 
 ### Patch Changes
