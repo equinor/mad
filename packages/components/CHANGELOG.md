@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.12.3
+
+### Patch Changes
+
+-   45f2215: Fix flex issues on `Search` by changing flexGrow to flex
+
 ## 0.12.2
 
 ### Patch Changes
