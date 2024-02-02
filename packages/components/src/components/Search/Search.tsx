@@ -110,7 +110,7 @@ export const Search = ({
 
     return (
         <View style={styles.container}>
-            <Animated.View style={[{ flex: 1 }, inputStyle]}>
+            <Animated.View style={inputStyle}>
                 <TextField
                     {...restProps}
                     readOnly={disabled}
@@ -178,8 +178,7 @@ export const Search = ({
 const themedStyles = EDSStyleSheet.create(theme => {
     return {
         container: {
-            flex: 1,
-            flexDirection: "row",
+            flexGrow: 1,
         },
         adornmentIconContainer: {
             position: "absolute",
