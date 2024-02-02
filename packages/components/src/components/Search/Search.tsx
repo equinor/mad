@@ -180,7 +180,6 @@ const themedStyles = EDSStyleSheet.create(theme => {
         container: {
             flex: 1,
             flexDirection: "row",
-            alignItems: "center",
         },
         adornmentIconContainer: {
             position: "absolute",
