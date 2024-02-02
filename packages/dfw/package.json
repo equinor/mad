@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-dfw",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "A React Native component library for the Digital Field Worker applications.",
     "type": "module",
     "scripts": {

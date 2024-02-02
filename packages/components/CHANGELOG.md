@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.12.5
+
+### Patch Changes
+
+-   121bbec: Adjusted styling on Search to prevent that it collapses in some cases
+
 ## 0.12.4
 
 ### Patch Changes
