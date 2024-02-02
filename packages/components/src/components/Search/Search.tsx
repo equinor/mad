@@ -178,7 +178,7 @@ export const Search = ({
 const themedStyles = EDSStyleSheet.create(theme => {
     return {
         container: {
-            flexGrow: 1,
+            flex: 1,
             flexDirection: "row",
             alignItems: "center",
         },
