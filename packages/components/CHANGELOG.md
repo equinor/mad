@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.12.4
+
+### Patch Changes
+
+-   8657a23: Adjusted styling on `Search` to prevent that it collapses in some cases
+
 ## 0.12.3
 
 ### Patch Changes
