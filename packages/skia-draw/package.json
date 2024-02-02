@@ -1,6 +1,6 @@
 {
     "name": "@equinor/react-native-skia-draw",
-    "version": "0.3.14",
+    "version": "0.3.15",
     "description": "A React Native drawing library running on SKIA",
     "type": "module",
     "scripts": {
