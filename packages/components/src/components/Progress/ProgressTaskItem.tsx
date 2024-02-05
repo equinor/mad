@@ -46,7 +46,7 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
                 {TaskIcon}
                 <Typography>{task.title}</Typography>
             </View>
-            {!taskInProgress && task.status === "error" && renderErrorDetails(task)}
+            {task.status === "error" && renderErrorDetails(task)}
         </View>
     );
 };

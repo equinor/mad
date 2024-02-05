@@ -33,8 +33,8 @@ export type ProgressItemProps = {
 export const ProgressItem = ({
     title,
     description,
-    showCopyTextButton = true,
-    showRetryButton = true,
+    showCopyTextButton,
+    showRetryButton,
     status = "notStarted",
     tasks = [],
     onCopyTextButtonPress,
@@ -140,7 +140,7 @@ export const ProgressItem = ({
                 />
             </View>
 
-            {taskHasError && (showCopyTextButton || showRetryButton) ? (
+            {taskHasError && (showCopyTextButton ?? showRetryButton) ? (
                 <View
                     style={[styles.actionContainer, !failedTask?.errorDetails && { marginTop: 0 }]}
                 >

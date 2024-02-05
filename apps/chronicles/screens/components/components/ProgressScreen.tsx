@@ -59,12 +59,20 @@ export const ProgressScreen = () => {
             <Typography group="basic" variant="h2">
                 Progress
             </Typography>
+
             <Typography>
                 The Progress component can be used for tracking and displaying the progress of tasks
-                or processes, such as «create folder or «upload images».
+                or processes, such as «create folder» or «upload images».
             </Typography>
+            <Typography>
+                Progress can be used with one or multiple Progress Items, and one Progress Item can
+                contain one single task or multiple tasks.
+            </Typography>
+
             <Spacer amount="small" />
-            <Typography>Tasks have different statuses based on their overall progress.</Typography>
+            <Typography>
+                Tasks have different statuses that is based on the overall progress.
+            </Typography>
             <Typography> Status can either be:</Typography>
             <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                 <Typography color="primary">inProgress</Typography>
@@ -83,10 +91,11 @@ export const ProgressScreen = () => {
             <Spacer />
 
             <Typography>Progress with one single task: </Typography>
+
             <Spacer amount="small" />
             <Progress title="Create folder">
                 <Progress.Item
-                    title="Creating a folder"
+                    title="Creating cat images folder"
                     description="This folder contains cat images"
                     status="success"
                 />
@@ -101,6 +110,8 @@ export const ProgressScreen = () => {
                     title="Upload images of cats with hats"
                     description="uploading cats with hats"
                     tasks={tasks}
+                    showCopyTextButton
+                    showRetryButton
                     onCopyTextButtonPress={handleCopyErrorMessage}
                     onRetryButtonPress={handleRetry}
                 />
@@ -108,10 +119,9 @@ export const ProgressScreen = () => {
 
             <Spacer />
 
-            <Typography>You can also add multiple different tasks to a progress.</Typography>
-            <Typography>Progress with multiple tasks: </Typography>
+            <Typography>Progress with multiple progress items:</Typography>
             <Spacer amount="small" />
-            <Progress title="Multiple upload tasks">
+            <Progress title="Multiple progress items">
                 <Progress.Item title="Preparing cat hats" status="success" />
                 <Progress.Item title="Training cats to wear hats" status="inProgress" />
                 <Progress.Item

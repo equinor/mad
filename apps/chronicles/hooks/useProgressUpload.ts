@@ -1,6 +1,6 @@
 import { ProgressStatus, ProgressTask, ProgressTaskErrorDetails } from "@equinor/mad-components";
 import { useState } from "react";
-import { Alert, Clipboard } from "react-native";
+import { Clipboard } from "react-native";
 
 type UploadScenario = "success" | "fail";
 
@@ -42,12 +42,22 @@ export const useProgressUpload = () => {
             ),
         );
     };
+
+    const resetTasks = () => {
+        setTasks(
+            tasks.map((task, index) => ({
+                ...task,
+                title: `CatWithHat${index + 1}.jpg`,
+                status: "notStarted",
+                errorDetails: undefined,
+            })),
+        );
+    };
     const startUploadSimulation = async (scenario: UploadScenario) => {
         if (isSimulating) return;
         setIsSimulating(true);
 
-        setTasks(tasks.map(task => ({ ...task, status: "notStarted", errorDetails: undefined })));
-
+        resetTasks();
         for (let i = 0; i < tasks.length; i++) {
             if (scenario === "success" || (scenario === "fail" && i !== 3)) {
                 updateTaskStatus(i, "inProgress");
@@ -79,7 +89,6 @@ export const useProgressUpload = () => {
     const handleCopyErrorMessage = (taskError: ProgressTaskErrorDetails) => {
         if (taskError?.message) {
             Clipboard.setString(taskError.message);
-            Alert.alert("Copied", "Error message copied to clipboard", [{ text: "OK" }]);
         }
     };
     return {
