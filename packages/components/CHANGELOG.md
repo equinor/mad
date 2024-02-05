@@ -1,5 +1,65 @@
 # @equinor/mad-components
 
+## 0.12.5
+
+### Patch Changes
+
+-   121bbec: Adjusted styling on Search to prevent that it collapses in some cases
+
+## 0.12.4
+
+### Patch Changes
+
+-   8657a23: Adjusted styling on `Search` to prevent that it collapses in some cases
+
+## 0.12.3
+
+### Patch Changes
+
+-   45f2215: Fix flex issues on `Search` by changing flexGrow to flex
+
+## 0.12.2
+
+### Patch Changes
+
+-   558ca83: Adjusted the animation on `Search` so that it looks correctly when the cancel button is
+    appearing and disappearing
+
+## 0.12.1
+
+### Patch Changes
+
+-   8baaf7b: Fixed flex issue on `Search` that made it hard to have other elements next to it.
+    Prevented that you can interact with cancelbutton when it's not showing.
+
+## 0.12.0
+
+### Minor Changes
+
+-   79fb731: Changed name on the textValue prop in `Search`. New name is now value
+
+### Patch Changes
+
+-   e43285f: Add update function to menu so that it re-renders when children change
+-   37025ac: Fixed focus realted bug on the search component that affected the behaviour for the
+    cancel and clear text buttons. Search now works fine for both web and device
+
+## 0.11.3
+
+### Patch Changes
+
+-   8adb0dc: Updated Cell.Group and removed unwanted bottom padding when the title prop is not in
+    use
+-   496cd9a: Change `AutoComplete` and `MultiselectAutoComplete` onblur behaviour on web to keep
+    menu open until an option has been selected so that menu doesnt blur before a selection.
+
+## 0.11.2
+
+### Patch Changes
+
+-   7eae144: Added useBreakpoint hook to use for apps and components that have specific requirements
+    or styles based on device size
+
 ## 0.11.1
 
 ### Patch Changes

@@ -1,18 +1,11 @@
-import { resolveOptions } from "./resolveOptions";
-import { MadBaseOptions, MadDescriptorBase, UnresolvedScreenOptions } from "./types";
+import { MadBaseOptions } from "./types";
 
 /**
  * Calculate whether the custom sub-header should be displayed or not
- * @param descriptor descriptor from the descriptors object provided by React Navigation
- * @param unresolvedScreenOptions unresolved screen options provided by React Navigation
+ * @param options the resolved options for the descriptor
  * @returns whether the custom sub-header should be returned or not
  */
-export const shouldDisplayCustomSubHeader = <T extends MadBaseOptions>(
-    descriptor: MadDescriptorBase,
-    unresolvedScreenOptions: UnresolvedScreenOptions<T>,
-) => {
-    const { route, navigation } = descriptor;
-    const options = resolveOptions(descriptor, unresolvedScreenOptions, route, navigation);
+export const shouldDisplayCustomSubHeader = <T extends MadBaseOptions>(options: T) => {
     // if customSubHeaderShown is defined, we should always follow whatever it says
     if (options.customSubHeaderShown !== undefined) return options.customSubHeaderShown;
     // if headerShown is defined, we should always follow whatever it says, given customSubHeaderShown is undefined

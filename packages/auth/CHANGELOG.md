@@ -1,5 +1,64 @@
 # @equinor/mad-auth
 
+## 0.1.16
+
+### Patch Changes
+
+-   Updated dependencies [121bbec]
+    -   @equinor/mad-components@0.12.5
+
+## 0.1.15
+
+### Patch Changes
+
+-   Updated dependencies [8657a23]
+    -   @equinor/mad-components@0.12.4
+
+## 0.1.14
+
+### Patch Changes
+
+-   Updated dependencies [45f2215]
+    -   @equinor/mad-components@0.12.3
+
+## 0.1.13
+
+### Patch Changes
+
+-   Updated dependencies [558ca83]
+    -   @equinor/mad-components@0.12.2
+
+## 0.1.12
+
+### Patch Changes
+
+-   Updated dependencies [8baaf7b]
+    -   @equinor/mad-components@0.12.1
+
+## 0.1.11
+
+### Patch Changes
+
+-   Updated dependencies [e43285f]
+-   Updated dependencies [79fb731]
+-   Updated dependencies [37025ac]
+    -   @equinor/mad-components@0.12.0
+
+## 0.1.10
+
+### Patch Changes
+
+-   Updated dependencies [8adb0dc]
+-   Updated dependencies [496cd9a]
+    -   @equinor/mad-components@0.11.3
+
+## 0.1.9
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+
 ## 0.1.8
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import { MadBaseOptions, MadDescriptorsBase, UnresolvedScreenOptions } from "./t
 import { shouldDisplayCustomSubHeader } from "./shouldDisplayCustomSubHeader";
 import { getCustomRenderFunction } from "./getCustomRenderFunction";
 import { ReactNode } from "react";
+import { resolveOptions } from "./resolveOptions";
 
 /**
  * This function takes react navigation's descriptors and inject custom components into the render function.
@@ -16,12 +17,10 @@ export function createMadDescriptors<T extends MadDescriptorsBase, U extends Mad
     const descriptorKeys = Object.keys(descriptors) as (keyof typeof descriptors)[];
     descriptorKeys.forEach(key => {
         const descriptor = descriptors[key];
+        const options = resolveOptions(descriptor, unresolvedScreenOptions);
         const originalRender = descriptor.render;
-        const customRender = getCustomRenderFunction(originalRender, customSubHeader);
-        const showCustomSubHeader = shouldDisplayCustomSubHeader(
-            descriptor,
-            unresolvedScreenOptions,
-        );
+        const customRender = getCustomRenderFunction(originalRender, options, customSubHeader);
+        const showCustomSubHeader = shouldDisplayCustomSubHeader(options);
         newDescriptors[key] = {
             ...descriptor,
             render: showCustomSubHeader ? customRender : originalRender,

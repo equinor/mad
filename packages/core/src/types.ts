@@ -1,8 +1,9 @@
-import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
 import { AppInsightsInitConfig } from "@equinor/mad-insights";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { ImageSourcePropType } from "react-native";
 
-export type MadConfig = {
+export type MadConfig<ParamList extends ParamListBase | void = void> = {
     /**
      * Version of the app. Will be displayed in the about screen, and will be used for release notes
      */
@@ -13,6 +14,9 @@ export type MadConfig = {
      */
     servicePortalName: EnvironmentValues<string>;
 
+    navigateToMainRouteFn: EnvironmentValues<
+        (navigation: NavigationProp<ParamList extends ParamListBase ? ParamList : object>) => void
+    >;
     /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
@@ -63,13 +67,9 @@ export type MadConfig = {
     }>;
     login: EnvironmentValues<{
         /**
-         * Title of the app. Used in login screen
+         * Splash screen of the application.
          */
-        title: string;
-        /**
-         * App logo. Used in login screen
-         */
-        logo: ImageSourcePropType;
+        splash: ImageSourcePropType;
     }>;
     /**
      * App insights config used for initializing application insights service(s)
@@ -102,7 +102,6 @@ export type CoreStackParamListBase = {
     Settings: undefined;
     About: undefined;
     Feedback: undefined;
-    Root: undefined;
     NotFound: undefined;
 };
 

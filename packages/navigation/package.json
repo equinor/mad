@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-navigation",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "description": "Navigation package built on top of React Navigation",
     "type": "module",
     "scripts": {

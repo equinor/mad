@@ -1,5 +1,108 @@
 # @equinor/mad-core
 
+## 0.5.4
+
+### Patch Changes
+
+-   Updated dependencies [121bbec]
+    -   @equinor/mad-components@0.12.5
+    -   @equinor/mad-auth@0.1.16
+
+## 0.5.3
+
+### Patch Changes
+
+-   Updated dependencies [8657a23]
+    -   @equinor/mad-components@0.12.4
+    -   @equinor/mad-auth@0.1.15
+
+## 0.5.2
+
+### Patch Changes
+
+-   Updated dependencies [45f2215]
+    -   @equinor/mad-components@0.12.3
+    -   @equinor/mad-auth@0.1.14
+
+## 0.5.1
+
+### Patch Changes
+
+-   04713bc: `CreateIncidentScreen`: Now has a scrollview surrounding the content, making the
+    content available on smaller devices
+
+## 0.5.0
+
+### Minor Changes
+
+-   b024e0f: login screen has been redesigned. Now requires you to provide a splash screen instead
+    of a title and logo
+
+### Patch Changes
+
+-   Updated dependencies [b024e0f]
+    -   @equinor/mad-navigation@0.3.0
+
+## 0.4.4
+
+### Patch Changes
+
+-   Updated dependencies [558ca83]
+    -   @equinor/mad-components@0.12.2
+    -   @equinor/mad-auth@0.1.13
+
+## 0.4.3
+
+### Patch Changes
+
+-   Updated dependencies [8baaf7b]
+    -   @equinor/mad-components@0.12.1
+    -   @equinor/mad-auth@0.1.12
+
+## 0.4.2
+
+### Patch Changes
+
+-   Updated dependencies [e43285f]
+-   Updated dependencies [79fb731]
+-   Updated dependencies [37025ac]
+    -   @equinor/mad-components@0.12.0
+    -   @equinor/mad-auth@0.1.11
+
+## 0.4.1
+
+### Patch Changes
+
+-   Updated dependencies [8adb0dc]
+-   Updated dependencies [496cd9a]
+    -   @equinor/mad-components@0.11.3
+    -   @equinor/mad-auth@0.1.10
+
+## 0.4.0
+
+### Minor Changes
+
+-   b81ade4: `useLanguage`: now returns `defaultLanguage`, `isLanguageSelected` and
+    `supportedLanguages` instead of `getDefaultLanguage`, `getIsLanguageSelected` and
+    `getSupportedLanguages`
+-   b81ade4: `MadConfig`: new property `navigateToMainRouteFn` has been added. This means `"Root"`
+    is no longer recognized as the main route for your app. You have to configure this new property
+    to navigate the user to your preferred route
+
+## 0.3.11
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+    -   @equinor/mad-auth@0.1.9
+
+## 0.3.10
+
+### Patch Changes
+
+-   85da576: Now exports `getAccount`, `signOut`, and `authenticateInteractively`
+
 ## 0.3.9
 
 ### Patch Changes
