@@ -33,6 +33,7 @@ export const config: MadConfig<RootStackParamList> = {
     },
     login: {
         splash: Splash,
+        addScreenManually: true,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",

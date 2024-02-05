@@ -8,7 +8,15 @@ import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
-export const LoginScreen = () => {
+type LoginButtonProps = Parameters<typeof LoginButton>[0];
+
+export type LoginScreenProps = Partial<
+    Pick<LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
+>;
+export const LoginScreen = ({
+    onAuthenticationSuccessful,
+    onAuthenticationFailed,
+}: LoginScreenProps) => {
     const styles = useStyles(theme);
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
@@ -30,19 +38,21 @@ export const LoginScreen = () => {
                 <View style={styles.buttonContainer}>
                     <LoginButton
                         {...authConfig}
-                        onAuthenticationSuccessful={(_, type) => {
+                        onAuthenticationSuccessful={(result, type) => {
                             if (type === "AUTOMATIC") {
                                 void track(metricKeys.AUTHENTICATION_AUTOMATIC);
                             } else {
                                 void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
                             }
+                            onAuthenticationSuccessful?.(result, type);
                             navigate();
                         }}
-                        onAuthenticationFailed={error =>
+                        onAuthenticationFailed={error => {
                             void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
                                 error,
-                            })
-                        }
+                            });
+                            onAuthenticationFailed?.(error);
+                        }}
                         title={dictionary.login.logIn}
                         enableAutomaticAuthentication
                         scopes={authConfig.scopes ?? []}
