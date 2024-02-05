@@ -107,7 +107,7 @@ export const Autocomplete = <T,>({
                 onBlur={() => {
                     setTimeout(() => {
                         setIsOptionsVisible(false);
-                    }, 10);
+                    }, 150);
                 }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>
