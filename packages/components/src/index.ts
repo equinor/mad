@@ -22,6 +22,7 @@ export * from "./components/ErrorBoundary";
 export * from "./components/SelectionControls";
 export * from "./components/Chip";
 export * from "./components/Tabs";
+export * from "./components/SelectMenu";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";
