@@ -153,7 +153,7 @@ export const masterToken: MasterToken = {
                 },
                 active: {
                     light: colors.interactive_primary_light_resting,
-                    dark: colors.interactive_primary_dark_resting,
+                    dark: colors.text_and_static_icons_dark_primary_black,
                 },
             },
             danger: {
