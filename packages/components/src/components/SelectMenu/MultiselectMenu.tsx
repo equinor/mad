@@ -1,13 +1,13 @@
 import React, { useCallback, useRef, useState } from "react";
+import { SelectMenuItem } from "./types";
 import { LayoutRectangle, Pressable, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { SelectMenuItem } from "./types";
 import { selectMenuStyles } from "./selectMenuStyles";
 
-type SelectMenuProps<T> = {
+type MultiSelectMenuProps<T> = {
     /**
      * Array of menu item options from which the user can select.
      */
@@ -21,23 +21,22 @@ type SelectMenuProps<T> = {
      */
     disabled?: boolean;
     /**
-     * The currently selected item, or undefined if nothing is selected.
+     * An array of selected items.
      */
-    selectedItem: T | undefined;
-
+    selectedItems: T[];
     /**
-     * Callback function called when an item is selected or deselected.
+     * Callback function called when items are selected or deselected.
      */
-    onSelect: (value: T | undefined) => void;
+    onSelect: (value: T[]) => void;
 };
 
-export const SelectMenu = <T,>({
+export const MultiselectMenu = <T,>({
     items,
-    selectedItem,
+    selectedItems = [],
     placeholder = "Select an option",
     disabled,
     onSelect,
-}: SelectMenuProps<T>) => {
+}: MultiSelectMenuProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
 
@@ -46,17 +45,20 @@ export const SelectMenu = <T,>({
         menuOpen,
     });
 
-    const textColor = selectedItem ? "textPrimary" : "textTertiary";
-    const selectedItemTitle = selectedItem
-        ? items.find(item => item.value === selectedItem)?.title ?? placeholder
-        : placeholder;
+    const textColor = selectedItems.length > 0 ? "textPrimary" : "textTertiary";
+    const selectedItemTitle =
+        selectedItems
+            .map(selectedItem => items.find(item => item.value === selectedItem)?.title ?? "")
+            .join(", ") || placeholder;
 
     const handleSelect = useCallback(
         (value: T) => {
-            const newValue = selectedItem === value ? undefined : value;
-            onSelect(newValue);
+            const newSelection = selectedItems.includes(value)
+                ? selectedItems.filter(item => item !== value)
+                : [...selectedItems, value];
+            onSelect(newSelection);
         },
-        [onSelect, selectedItem],
+        [onSelect, selectedItems],
     );
 
     const toggleMenuOpen = () => {
@@ -91,18 +93,23 @@ export const SelectMenu = <T,>({
                     marginBottom: -8,
                 }}
             >
-                {items.map(item => {
-                    return (
-                        <Menu.Item
-                            key={item.value as string}
-                            onPress={() => handleSelect(item.value)}
-                            title={item.title}
-                            iconName={item.icon}
-                            active={selectedItem === item.value}
-                        />
-                    );
-                })}
+                {items.map(item => (
+                    <Menu.Item
+                        key={item.value as string}
+                        onPress={() => handleSelect(item.value)}
+                        title={item.title}
+                        iconName={
+                            selectedItems.includes(item.value)
+                                ? "checkbox-marked"
+                                : "checkbox-blank-outline"
+                        }
+                        active={selectedItems.includes(item.value)}
+                        closeMenuOnClick={false}
+                    />
+                ))}
             </Menu>
         </View>
     );
 };
+
+MultiselectMenu.displayName = "SelectMenu.Multiselect";

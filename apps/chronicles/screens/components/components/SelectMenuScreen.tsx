@@ -3,22 +3,29 @@ import { SelectMenu, EDSStyleSheet, useStyles, Spacer, Typography } from "@equin
 import React, { useState } from "react";
 
 export const SelectMenuScreen = () => {
-    const styles = useStyles(themeStyles);
-    const [selectSingleItem, setSelectSingleItem] = useState([]);
-    const [selectMultipleItems, setSelectMultipleItems] = useState([]);
+    const [selectDisabledItem, setSelectDisabledItem] = useState<string | undefined>(undefined);
+    const [selectSingleItem, setSelectSingleItem] = useState<string | undefined>(undefined);
+    const [selectMultipleItems, setSelectMultipleItems] = useState<string[]>([]);
 
-    const singleSelectItems = [
-        { title: "Research", value: "research" },
-        { title: "Development", value: "development" },
-        { title: "Design", value: "design" },
-        { title: "Testing", value: "testing" },
+    const styles = useStyles(themeStyles);
+
+    const potions = [
+        { title: "Brew of Temporary Lactose Tolerance", value: "tempLactoseTolerance" },
+        { title: "Finger to toes Transformation Elixir", value: "fingerToToes" },
+        { title: "Potion of Predicting Past Weather", value: "pastWeather" },
+        { title: "Mixture for Making Water Slightly Wet", value: "slightlyWetWater" },
+        { title: "Mixture for Turning Wine into Water", value: "wineIntoWater" },
     ];
 
-    const multiSelectItems = [
-        { title: "Research", value: "research" },
-        { title: "Development", value: "development" },
-        { title: "Design", value: "design" },
-        { title: "Testing", value: "testing" },
+    const ingredients = [
+        { title: "Frog's Tears", value: "frogsTear" },
+        { title: "Lion's Whiskers", value: "lionsWhiskers" },
+        { title: "Hair of Wolf", value: "wolfHair" },
+        { title: "Phoenix Feather", value: "phoenixFeather" },
+        { title: "Redcap Fungus", value: "redcapFungus" },
+        { title: "Bat Drool", value: "batDrool" },
+        { title: "Snail Shell", value: "snailShell" },
+        { title: "Cow's Tail", value: "cowsTail" },
     ];
 
     return (
@@ -26,25 +33,61 @@ export const SelectMenuScreen = () => {
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={styles.container}
         >
-            <Typography variant="h1">Select Menu</Typography>
-            <Typography>Select menu</Typography>
+            <Typography variant="h3">Potion Brewery Lab</Typography>
 
-            <SelectMenu
-                items={singleSelectItems}
-                value={selectSingleItem}
-                onSelect={(value: []) => setSelectSingleItem(value)}
-                placeHolder="Select project types"
-            />
+            <Spacer amount="small" />
+
+            <Typography>
+                Welcome to the Potion Brewery Lab! Here, you can concoct powerful elixirs using
+                ancient recipes and mystical ingredients. With use of the SelectMenu component, you
+                can choose a single potion or multiple ingrediens from a list.
+            </Typography>
 
             <Spacer />
 
-            <Typography>Multi select menu</Typography>
+            <Typography group="paragraph" variant="caption" color="textTertiary">
+                This is a standard select menu
+            </Typography>
+            <Typography>Select your potion:</Typography>
+            <Spacer amount="small" />
+
             <SelectMenu
-                items={multiSelectItems}
-                value={selectMultipleItems}
-                onSelect={(value: []) => setSelectMultipleItems(value)}
-                placeHolder="Select project types"
-                multiSelect={true}
+                placeholder="Select here..."
+                items={potions}
+                selectedItem={selectSingleItem}
+                onSelect={setSelectSingleItem}
+            />
+
+            <Spacer />
+            <Spacer />
+
+            <Typography group="paragraph" variant="caption" color="textTertiary">
+                This a mulitselect menu
+            </Typography>
+            <Typography>Select ingrediens:</Typography>
+            <Spacer amount="small" />
+
+            <SelectMenu.Multiselect
+                placeholder="Select here..."
+                items={ingredients}
+                selectedItems={selectMultipleItems}
+                onSelect={setSelectMultipleItems}
+            />
+
+            <Spacer />
+            <Spacer />
+
+            <Typography group="paragraph" variant="caption" color="textTertiary">
+                This is select menu with the «disabled» prop
+            </Typography>
+            <Spacer amount="small" />
+
+            <SelectMenu
+                placeholder="Select here..."
+                items={potions}
+                selectedItem={selectDisabledItem}
+                onSelect={setSelectDisabledItem}
+                disabled
             />
         </ScrollView>
     );
@@ -52,6 +95,8 @@ export const SelectMenuScreen = () => {
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
+        height: "100%",
+        backgroundColor: theme.colors.container.default,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
     },
