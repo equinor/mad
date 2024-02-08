@@ -55,9 +55,6 @@ export const Menu = ({
         middleware: [offset(8), flip(), shift({ padding: 8 })],
         placement,
     });
-    useEffect(() => {
-        update();
-    }, [children]);
 
     const styles = useStyles(themeStyles);
     return (
