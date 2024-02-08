@@ -47,7 +47,7 @@ export const Menu = ({
     children,
     ...rest
 }: React.PropsWithChildren<MenuProps & ViewProps>) => {
-    const { refs, floatingStyles, update } = useFloating({
+    const { refs, floatingStyles } = useFloating({
         sameScrollView: false,
         elements: {
             reference: anchorEl.current,
