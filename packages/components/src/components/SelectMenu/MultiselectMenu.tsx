@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { SelectMenuItem } from "./types";
-import { LayoutRectangle, Pressable, View } from "react-native";
+import { LayoutRectangle, Pressable, ScrollView, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
 import { Menu } from "../Menu";
@@ -91,22 +91,25 @@ export const MultiselectMenu = <T,>({
                     width: menuLayout?.width,
                     marginTop: -8,
                     marginBottom: -8,
+                    maxHeight: 300,
                 }}
             >
-                {items.map(item => (
-                    <Menu.Item
-                        key={item.value as string}
-                        onPress={() => handleSelect(item.value)}
-                        title={item.title}
-                        iconName={
-                            selectedItems.includes(item.value)
-                                ? "checkbox-marked"
-                                : "checkbox-blank-outline"
-                        }
-                        active={selectedItems.includes(item.value)}
-                        closeMenuOnClick={false}
-                    />
-                ))}
+                <ScrollView>
+                    {items.map(item => (
+                        <Menu.Item
+                            key={item.value as string}
+                            onPress={() => handleSelect(item.value)}
+                            title={item.title}
+                            iconName={
+                                selectedItems.includes(item.value)
+                                    ? "checkbox-marked"
+                                    : "checkbox-blank-outline"
+                            }
+                            active={selectedItems.includes(item.value)}
+                            closeMenuOnClick={false}
+                        />
+                    ))}
+                </ScrollView>
             </Menu>
         </View>
     );

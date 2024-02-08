@@ -6,6 +6,7 @@ import { Menu } from "../Menu";
 import { Typography } from "../Typography";
 import { SelectMenuItem } from "./types";
 import { selectMenuStyles } from "./selectMenuStyles";
+import { ScrollView } from "react-native-gesture-handler";
 
 type SelectMenuProps<T> = {
     /**
@@ -89,19 +90,22 @@ export const SelectMenu = <T,>({
                     width: menuLayout?.width,
                     marginTop: -8,
                     marginBottom: -8,
+                    maxHeight: 300,
                 }}
             >
-                {items.map(item => {
-                    return (
-                        <Menu.Item
-                            key={item.value as string}
-                            onPress={() => handleSelect(item.value)}
-                            title={item.title}
-                            iconName={item.icon}
-                            active={selectedItem === item.value}
-                        />
-                    );
-                })}
+                <ScrollView>
+                    {items.map(item => {
+                        return (
+                            <Menu.Item
+                                key={item.value as string}
+                                onPress={() => handleSelect(item.value)}
+                                title={item.title}
+                                iconName={item.icon}
+                                active={selectedItem === item.value}
+                            />
+                        );
+                    })}
+                </ScrollView>
             </Menu>
         </View>
     );
