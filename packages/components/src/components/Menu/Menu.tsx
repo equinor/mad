@@ -7,7 +7,6 @@ import { Paper } from "../Paper";
 import { useStyles } from "../../hooks/useStyles";
 import { RootModal } from "../_internal/RootModal";
 import { PopInContainer } from "../_internal/PopInContainer";
-import { useValidChildren } from "../../hooks/useValidChildren";
 
 export type MenuProps = {
     /**

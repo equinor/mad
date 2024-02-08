@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
-import { LayoutRectangle, TextInput, View } from "react-native";
+import { LayoutRectangle, TextInput, View, Platform } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
@@ -48,8 +48,6 @@ export const MultiselectAutocomplete = <T,>({
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
         if (selectedOptions) {
-            setInputValue("");
-        } else {
             setInputValue("");
         }
         inputRef.current && inputRef.current.blur();
@@ -101,8 +99,7 @@ export const MultiselectAutocomplete = <T,>({
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
-                    setIsOptionsVisible(true);
-
+                    setIsOptionsVisible(Platform.OS === "web");
                     setInputValue("");
                 }}
                 rightAdornments={
