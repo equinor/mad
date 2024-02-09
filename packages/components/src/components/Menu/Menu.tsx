@@ -46,7 +46,7 @@ export const Menu = ({
     children,
     ...rest
 }: React.PropsWithChildren<MenuProps & ViewProps>) => {
-    const { refs, floatingStyles, update } = useFloating({
+    const { refs, floatingStyles } = useFloating({
         sameScrollView: false,
         elements: {
             reference: anchorEl.current,
@@ -54,9 +54,6 @@ export const Menu = ({
         middleware: [offset(8), flip(), shift({ padding: 8 })],
         placement,
     });
-    useEffect(() => {
-        update();
-    }, [children]);
 
     const styles = useStyles(themeStyles);
     return (
