@@ -9,6 +9,7 @@ import {
     ErrorBoundary,
     track,
     metricKeys,
+    trackCustom,
 } from "@equinor/mad-core";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
@@ -23,7 +24,7 @@ export default function App() {
         return breakpoint === "xs" ? "phone" : "tablet";
     }, [breakpoint]);
     useEffect(() => {
-        track(metricKeys.APP_STARTED);
+        trackCustom("This is logging before the app is initialized");
         const appVersionEnvelope: Envelope = item => {
             if (item.data) {
                 item.data["app-version"] = APP.expo.version;
