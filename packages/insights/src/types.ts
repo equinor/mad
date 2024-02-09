@@ -1,4 +1,8 @@
-import { ITelemetryItem } from "@microsoft/applicationinsights-web";
+import {
+    ICustomProperties,
+    IEventTelemetry,
+    ITelemetryItem,
+} from "@microsoft/applicationinsights-web";
 
 export type AppInsightsInitConfig = (
     | { connectionString: string; instrumentationKey?: undefined }
@@ -17,3 +21,8 @@ export type AppInsightsInitConfig = (
 };
 
 export type Envelope = (item: ITelemetryItem) => boolean | void;
+
+export type TrackEventPayload = {
+    event: IEventTelemetry;
+    customProperties?: ICustomProperties | undefined;
+};
