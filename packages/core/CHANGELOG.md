@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.5.8
+
+### Patch Changes
+
+-   aebe3a2: Now adds username to app insights tracking after authenticating
+
 ## 0.5.7
 
 ### Patch Changes
