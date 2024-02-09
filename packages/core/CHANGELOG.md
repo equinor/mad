@@ -1,5 +1,14 @@
 # @equinor/mad-core
 
+## 0.5.7
+
+### Patch Changes
+
+-   4724aea: `MadConfig`: `addScreenManually` option added for `login`. Lets the developer add login
+    screen to the stack manually in order to access otherwise inaccessible props
+-   Updated dependencies [b2b8572]
+    -   @equinor/mad-insights@0.1.2
+
 ## 0.5.6
 
 ### Patch Changes
