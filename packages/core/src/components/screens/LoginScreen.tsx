@@ -1,14 +1,20 @@
 import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
-import { LoginButton } from "@equinor/mad-auth";
+import { LoginButton, LoginButtonProps } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { enableDemoMode } from "../../store/demo-mode";
 import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
-export const LoginScreen = () => {
+export type LoginScreenProps = Partial<
+    Pick<LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
+>;
+export const LoginScreen = ({
+    onAuthenticationSuccessful,
+    onAuthenticationFailed,
+}: LoginScreenProps) => {
     const styles = useStyles(theme);
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
@@ -30,19 +36,21 @@ export const LoginScreen = () => {
                 <View style={styles.buttonContainer}>
                     <LoginButton
                         {...authConfig}
-                        onAuthenticationSuccessful={(_, type) => {
+                        onAuthenticationSuccessful={(result, type) => {
                             if (type === "AUTOMATIC") {
                                 void track(metricKeys.AUTHENTICATION_AUTOMATIC);
                             } else {
                                 void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
                             }
+                            onAuthenticationSuccessful?.(result, type);
                             navigate();
                         }}
-                        onAuthenticationFailed={error =>
+                        onAuthenticationFailed={error => {
                             void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
                                 error,
-                            })
-                        }
+                            });
+                            onAuthenticationFailed?.(error);
+                        }}
                         title={dictionary.login.logIn}
                         enableAutomaticAuthentication
                         scopes={authConfig.scopes ?? []}

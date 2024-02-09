@@ -13,6 +13,7 @@ import { SelectLanguageScreen } from "../components/screens/language/SelectLangu
 import { ServiceMessageProvider } from "../components/service-message/ServiceMessageProvider";
 import { useMadConfig } from "../store";
 import { CoreRoutes } from "../components/navigation/coreRoutes";
+import { getDefaultScreenOptionsForLoginScreen } from "./getDefaultScreenOptionsForLoginScreen";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
@@ -32,15 +33,13 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
                 <EnvironmentProvider>
                     <ServiceMessageProvider>
                         <Stack.Navigator {...props} initialRouteName={CoreRoutes.LOGIN}>
-                            <Stack.Screen
-                                name={CoreRoutes.LOGIN}
-                                component={LoginScreen}
-                                options={{
-                                    headerShown: false,
-                                    customSubHeaderShown: true,
-                                    customSubHeaderFloat: true,
-                                }}
-                            />
+                            {config.login.addScreenManually !== true && (
+                                <Stack.Screen
+                                    name={CoreRoutes.LOGIN}
+                                    component={LoginScreen}
+                                    options={getDefaultScreenOptionsForLoginScreen()}
+                                />
+                            )}
                             <Stack.Screen
                                 name={CoreRoutes.RELEASE_NOTES}
                                 component={ReleaseNotesScreen}

@@ -186,9 +186,10 @@ export const config: MadConfig<RootStackParamList> = {
 
 ###### Login config
 
-| key      | required? | explanation                                                                                                                                                                                                                                                                                            |
-| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `splash` | true      | The splash screen of the application. Will be used as a background for the login screen. For best results, set `resizeMode` to `"cover"`, and `backgroundColor` to your splash screen's background color in `app.json`. `@equinor/mad-core` will use resize mode `cover` on iOS, and `contain` on web. |
+| key                 | required? | explanation                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `splash`            | true      | The splash screen of the application. Will be used as a background for the login screen. For best results, set `resizeMode` to `"cover"`, and `backgroundColor` to your splash screen's background color in `app.json`. `@equinor/mad-core` will use resize mode `cover` on iOS, and `contain` on web.                                                                               |
+| `addScreenManually` | false     | Set this to true if you want to add the login screen manually to the stack, just like you do with SettingsScreen. This way you can access LoginScreen's props: `onAuthenticationSuccessful` and `onAuthenticationFailed`. When adding `LoginScreen` to the stack, use `getDefaultScreenOptionsForLoginScreen` to use the same options as we do when adding the screen automatically. |
 
 ###### Application Insights config
 

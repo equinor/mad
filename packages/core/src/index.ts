@@ -19,3 +19,5 @@ export {
 } from "@equinor/mad-insights";
 export * from "./hooks";
 export * from "./store";
+
+export * from "./utils/getDefaultScreenOptionsForLoginScreen";
