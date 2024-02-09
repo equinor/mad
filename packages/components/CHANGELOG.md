@@ -1,5 +1,13 @@
 # @equinor/mad-components
 
+## 0.12.6
+
+### Patch Changes
+
+-   964af01: Fix `Autocomplete` to call for `internalTransform` before setting option to string. Fix
+    `MultiSelect` to handle `onBlur` differently on web so that menu persists when choosing an
+    option.
+
 ## 0.12.5
 
 ### Patch Changes
