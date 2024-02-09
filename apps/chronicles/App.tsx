@@ -3,14 +3,7 @@ import Navigation from "./navigation";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { EDSProvider, useBreakpoint } from "@equinor/mad-components";
-import {
-    Envelope,
-    addTelemetryInitializer,
-    ErrorBoundary,
-    track,
-    metricKeys,
-    trackCustom,
-} from "@equinor/mad-core";
+import { Envelope, addTelemetryInitializer, ErrorBoundary, trackCustom } from "@equinor/mad-core";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import * as APP from "./app.json";
