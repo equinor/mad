@@ -4,7 +4,16 @@ import { Cell } from "../Cell";
 import { ProgressItemProps } from "./ProgressItem";
 
 export type ProgressProps = {
+    /**
+     * Optional title for the progress group. This title can be used to provide a heading or context for the set of progress items contained within.
+     */
     title?: string;
+    /**
+     * Children elements of the Progress component, which should be one or more `ProgressItem` components. The `Progress` component acts as a container that groups these items together.
+     * This allows for structured display of multiple progress-tracking elements, each representing a distinct task or process.
+     *
+     * The type `StrictChildrenReactNode<ProgressItemProps>` ensures that the children passed to `Progress` strictly adhere to the prop types defined by `ProgressItemProps`, promoting type safety and consistency within the component's usage.
+     */
     children?:
         | StrictChildrenReactNode<ProgressItemProps>
         | StrictChildrenReactNode<ProgressItemProps>[];

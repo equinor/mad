@@ -13,20 +13,54 @@ import { computeTaskStatus } from "./progressUtils";
 
 type ProgressItemPropsOptions =
     | {
+          /**
+           * An array of tasks to be tracked by the progress item. Each task represents a unit of work whose progress or status can be monitored.
+           * Specifying `tasks` will automatically determine the overall status of the progress item based on the individual statuses of these tasks.
+           */
           tasks: ProgressTask[];
+          /**
+           * The `status` prop should not be used when `tasks` is provided. The overall status is computed based on the progress of the individual tasks.
+           */
           status?: never;
       }
     | {
+          /**
+           * When `tasks` is not provided, the `status` prop can be used to manually set the overall status of the progress item.
+           * This is useful for simpler use cases where there is a single task or the progress does not need to be broken down into individual tasks.
+           */
           tasks?: never;
+          /**
+           * Manually set the overall status of the progress item. Valid statuses; 'notStarted', 'inProgress', 'success', or 'error'.
+           */
           status: ProgressStatus;
       };
 
 export type ProgressItemProps = {
+    /**
+     * Optional title for the progress item
+     */
     title?: string;
+    /**
+     * Optional description to offer more details about the progress or process, giving context to the progress status.
+     */
     description?: string;
+    /**
+     * Flag indicating whether a retry button should be shown, allowing users to attempt the task again if it fails.
+     */
     showRetryButton?: boolean;
+    /**
+     * Flag indicating whether a button to copy error details to the clipboard should be shown, useful for error reporting and diagnostics.
+     */
     showCopyTextButton?: boolean;
+    /**
+     * Callback function that is called when the copy text button is pressed, providing the error details of the failed task.
+     * @param message An object containing details of the task error.
+     */
     onCopyTextButtonPress?: (message: ProgressTaskErrorDetails) => void;
+    /**
+     * Callback function that is invoked when the retry button is pressed, allowing the specific failed task to be retried.
+     * @param task The task object that failed and needs to be retried.
+     */
     onRetryButtonPress?: (task: ProgressTask) => void;
 } & ProgressItemPropsOptions;
 
