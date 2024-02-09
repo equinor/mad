@@ -4,7 +4,7 @@ import { Image, Platform, Pressable, View } from "react-native";
 import { LoginButton, LoginButtonProps } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { enableDemoMode } from "../../store/demo-mode";
-import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
+import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
@@ -37,6 +37,7 @@ export const LoginScreen = ({
                     <LoginButton
                         {...authConfig}
                         onAuthenticationSuccessful={(result, type) => {
+                            setUsername(result.account.username, result.account.identifier);
                             if (type === "AUTOMATIC") {
                                 void track(metricKeys.AUTHENTICATION_AUTOMATIC);
                             } else {
