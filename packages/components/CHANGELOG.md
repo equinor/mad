@@ -1,5 +1,20 @@
 # @equinor/mad-components
 
+## 0.12.7
+
+### Patch Changes
+
+-   cd8350f: Remove useEffect from `Menu` so that it no longer calls for update when the components
+    inside update.
+
+## 0.12.6
+
+### Patch Changes
+
+-   964af01: Fix `Autocomplete` to call for `internalTransform` before setting option to string. Fix
+    `MultiSelect` to handle `onBlur` differently on web so that menu persists when choosing an
+    option.
+
 ## 0.12.5
 
 ### Patch Changes
