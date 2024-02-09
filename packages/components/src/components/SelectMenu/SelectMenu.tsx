@@ -78,7 +78,9 @@ export const SelectMenu = <T,>({
                     setMenuLayout(layout);
                 }}
             >
-                <Typography color={textColor}>{selectedItemTitle}</Typography>
+                <Typography color={disabled ? "textDisabled" : textColor}>
+                    {selectedItemTitle}
+                </Typography>
                 <Icon
                     color={disabled ? "textDisabled" : "textPrimary"}
                     name={menuOpen ? "menu-up" : "menu-down"}
