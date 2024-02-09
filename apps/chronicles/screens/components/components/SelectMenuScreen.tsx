@@ -11,7 +11,7 @@ export const SelectMenuScreen = () => {
 
     const potions = [
         { title: "Brew of Temporary Lactose Tolerance", value: "tempLactoseTolerance" },
-        { title: "Finger to toes Transformation Elixir", value: "fingerToToes" },
+        { title: "Fingers to Toes Transformation Elixir", value: "fingersToToes" },
         { title: "Potion of Predicting Past Weather", value: "pastWeather" },
         { title: "Mixture for Making Water Slightly Wet", value: "slightlyWetWater" },
         { title: "Mixture for Turning Wine into Water", value: "wineIntoWater" },
