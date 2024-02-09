@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.12.7
+
+### Patch Changes
+
+-   cd8350f: Remove useEffect from `Menu` so that it no longer calls for update when the components
+    inside update.
+
 ## 0.12.6
 
 ### Patch Changes
