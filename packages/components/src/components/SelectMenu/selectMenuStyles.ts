@@ -1,31 +1,38 @@
-// selectMenuStyles.ts
 import { EDSStyleSheet } from "../../styling";
 
-export const selectMenuStyles = EDSStyleSheet.create((theme, props: { menuOpen: boolean }) => {
-    const { menuOpen } = props;
+export const selectMenuStyles = EDSStyleSheet.create(
+    (theme, props: { menuOpen: boolean; disabled: boolean }) => {
+        const { menuOpen, disabled } = props;
 
-    return {
-        contentContainer: {
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
+        const getBorderBottomColor = () => {
+            if (menuOpen) {
+                return theme.colors.interactive.primary;
+            } else if (disabled) {
+                return theme.colors.interactive.disabled;
+            } else {
+                return theme.colors.text.tertiary;
+            }
+        };
 
-            backgroundColor: theme.colors.container.background,
-            paddingVertical: theme.spacing.textField.paddingVertical,
-            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
+        return {
+            contentContainer: {
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexDirection: "row",
 
-            borderColor: menuOpen ? theme.colors.interactive.primary : "transparent",
-            borderWidth: theme.geometry.border.focusedBorderWidth,
-            borderBottomColor: menuOpen
-                ? theme.colors.interactive.primary
-                : theme.colors.text.tertiary,
-        },
+                backgroundColor: theme.colors.container.background,
+                paddingVertical: theme.spacing.textField.paddingVertical,
+                paddingHorizontal: theme.spacing.textField.paddingHorizontal,
 
-        disabledContainer: {
-            // Standard opacity for disabled elements
-            opacity: 0.38,
-            backgroundColor: theme.colors.interactive.disabled,
-            pointerEvents: "none",
-        },
-    };
-});
+                borderColor: menuOpen ? theme.colors.interactive.primary : "transparent",
+                borderWidth: theme.geometry.border.focusedBorderWidth,
+                borderBottomColor: getBorderBottomColor(),
+            },
+
+            disabledContainer: {
+                backgroundColor: theme.colors.interactive.disabled,
+                pointerEvents: "none",
+            },
+        };
+    },
+);

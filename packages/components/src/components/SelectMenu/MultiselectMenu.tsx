@@ -43,6 +43,7 @@ export const MultiselectMenu = <T,>({
     const triggerRef = useRef<View | null>(null);
     const styles = useStyles(selectMenuStyles, {
         menuOpen,
+        disabled: disabled ?? false,
     });
 
     const textColor = selectedItems.length > 0 ? "textPrimary" : "textTertiary";
@@ -79,7 +80,10 @@ export const MultiselectMenu = <T,>({
                 }}
             >
                 <Typography color={textColor}>{selectedItemTitle}</Typography>
-                <Icon name={menuOpen ? "menu-up" : "menu-down"} />
+                <Icon
+                    color={disabled ? "textDisabled" : "textPrimary"}
+                    name={menuOpen ? "menu-up" : "menu-down"}
+                />
             </Pressable>
             <Menu
                 key={`menu-${menuLayout?.height}`}
