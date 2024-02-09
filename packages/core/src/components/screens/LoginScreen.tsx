@@ -1,14 +1,12 @@
 import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
-import { LoginButton } from "@equinor/mad-auth";
+import { LoginButton, LoginButtonProps } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { enableDemoMode } from "../../store/demo-mode";
 import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
-
-type LoginButtonProps = Parameters<typeof LoginButton>[0];
 
 export type LoginScreenProps = Partial<
     Pick<LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
