@@ -12,6 +12,7 @@ export const useSignOut = () => {
         try {
             const result = await signOut();
             if (!demoMode.isEnabled && !result) throw new Error("Unable to sign out");
+            demoMode.disableDemoMode();
             navigation.navigate(CoreRoutes.LOGIN);
         } catch (_) {
             alert("Error", "Unable to sign out", [
