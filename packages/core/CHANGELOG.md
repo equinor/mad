@@ -1,5 +1,12 @@
 # @equinor/mad-core
 
+## 0.5.9
+
+### Patch Changes
+
+-   11b42e4: mock release notes should now display correctly when entering demo mode
+-   48f5206: Now exits demo mode when signing out
+
 ## 0.5.8
 
 ### Patch Changes
