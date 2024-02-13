@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
 import { LoginButton, LoginButtonProps } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
-import { enableDemoMode } from "../../store/demo-mode";
 import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
@@ -62,8 +61,7 @@ export const LoginScreen = ({
                             variant="outlined"
                             onPress={() => {
                                 void track(metricKeys.AUTHENTICATION_DEMO);
-                                enableDemoMode();
-                                navigate();
+                                navigate({ enableDemoMode: true });
                             }}
                         />
                     )}
