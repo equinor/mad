@@ -59,7 +59,6 @@ export const SelectMenuScreen = () => {
             />
 
             <Spacer />
-            <Spacer />
 
             <Typography group="paragraph" variant="caption" color="textTertiary">
                 This a mulitselect menu
@@ -74,7 +73,6 @@ export const SelectMenuScreen = () => {
                 onSelect={setSelectMultipleItems}
             />
 
-            <Spacer />
             <Spacer />
 
             <Typography group="paragraph" variant="caption" color="textTertiary">
@@ -95,7 +93,6 @@ export const SelectMenuScreen = () => {
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
-        height: "100%",
         backgroundColor: theme.colors.container.default,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
