@@ -30,7 +30,7 @@ export default function DiscoverScreen() {
                 />
                 <ComponentNavigationCell
                     title="Select Menu"
-                    description="A dropdown menu with selctable options"
+                    description="A dropdown menu with selectable options"
                     iconName="menu-open"
                     componentName="selectMenu"
                 />

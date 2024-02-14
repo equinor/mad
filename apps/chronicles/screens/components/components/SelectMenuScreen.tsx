@@ -93,6 +93,7 @@ export const SelectMenuScreen = () => {
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
+        height: "100%",
         backgroundColor: theme.colors.container.default,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
