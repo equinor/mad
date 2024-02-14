@@ -26,7 +26,7 @@ export const DrawScreen = () => {
             setModifiedImage(image?.uri);
         }
     };
-    return ( 
+    return (
         <View style={{ flex: 1 }}>
             <ImageMarkup
                 ref={canvasHandle}
@@ -49,7 +49,11 @@ export const DrawScreen = () => {
                     <View style={styles.imageContainer}>
                         <Image source={{ uri: originalImage }} style={{ height: "100%" }} />
                     </View>
-                    <Button title="+ Add photo" onPress={() => void pickImage()} style={{ margin: 10 }} />
+                    <Button
+                        title="+ Add photo"
+                        onPress={() => void pickImage()}
+                        style={{ margin: 10 }}
+                    />
                 </View>
                 <View
                     style={{

@@ -5,10 +5,11 @@ import {
     Icon,
     Paper,
     Popover,
+    Spacer,
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Circle } from "./Circle";
 import { EDSControlPanelButton } from "./EDSControlPanelButton";
 import { useCanvasControl } from "../../../hooks/useCanvasControl";
@@ -61,10 +62,18 @@ export const EDSControlPanel = () => {
         setIsSelectingStrokeWeight(false);
     };
 
+    useEffect(() => {
+        return () => {
+            setIsSelectingColor(false);
+            setIsSelectingStrokeWeight(false);
+            setIsShowingTextBubble(false);
+        };
+    }, []);
+
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            <TextInputBubble open={isShowingTextBubble} anchorEl={textToolSelectingButton} value={text} onChangeText={setText}/>
-    
+        <View style={styles.container}>
+            <TextInputBubble open={isShowingTextBubble} value={text} onChangeText={setText} />
+            <Spacer amount="small" />
             <Paper elevation="sticky" style={styles.paperContainer}>
                 <EDSControlPanelButton
                     onPress={onPressPenTool}
@@ -74,7 +83,11 @@ export const EDSControlPanel = () => {
                     <Icon name="brush" color={toolType === "pen" ? "primary" : "secondary"} />
                 </EDSControlPanelButton>
 
-                <EDSControlPanelButton ref={textToolSelectingButton} onPress={onPressTextTool} key={"text-tool-button"}>
+                <EDSControlPanelButton
+                    ref={textToolSelectingButton}
+                    onPress={onPressTextTool}
+                    key={"text-tool-button"}
+                >
                     <Icon
                         name="format-textbox"
                         color={toolType === "text" ? "primary" : "secondary"}
@@ -135,7 +148,7 @@ export const EDSControlPanel = () => {
                     </Typography>
                 </EDSControlPanelButton>
             </Paper>
-        </KeyboardAvoidingView>
+        </View>
     );
 };
 
@@ -143,7 +156,6 @@ EDSControlPanel.displayName = "EDSControlPanel";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     container: {
-        flex: 1,
         maxWidth: 500,
     },
     paperContainer: {
