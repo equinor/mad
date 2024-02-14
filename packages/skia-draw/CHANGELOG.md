@@ -1,5 +1,14 @@
 # @equinor/react-native-skia-draw
 
+## 0.3.19
+
+### Patch Changes
+
+-   cf478fd: Added functionality for avoiding keyboard when text field is active in ImageMarkup
+    component
+-   cf478fd: Added automatically focus / blur event triggers on text box open and close in
+    EDSControlPanel component
+
 ## 0.3.18
 
 ### Patch Changes
