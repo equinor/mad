@@ -164,6 +164,6 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         alignItems: "center",
         borderStyle: "solid",
         borderColor: theme.colors.border.medium,
-        marginVertical: theme.spacing.spacer.small,
+        marginVertical: theme.spacing.menu.item.paddingVertical,
     },
 }));
