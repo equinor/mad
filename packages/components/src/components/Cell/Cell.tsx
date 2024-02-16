@@ -135,6 +135,7 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
     },
     contentContainer: {
         flexDirection: "row",
+        alignItems: "center",
         gap: theme.spacing.cell.gapHorizontal,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.cell.paddingVertical,
@@ -163,5 +164,6 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         alignItems: "center",
         borderStyle: "solid",
         borderColor: theme.colors.border.medium,
+        marginVertical: theme.spacing.spacer.small,
     },
 }));
