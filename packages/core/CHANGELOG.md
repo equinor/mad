@@ -1,5 +1,14 @@
 # @equinor/mad-core
 
+## 0.5.10
+
+### Patch Changes
+
+-   256e7de: Fixed overlapping text in Feedback screen on small devices
+-   Updated dependencies [8a09b94]
+    -   @equinor/mad-components@0.12.8
+    -   @equinor/mad-auth@0.1.19
+
 ## 0.5.9
 
 ### Patch Changes

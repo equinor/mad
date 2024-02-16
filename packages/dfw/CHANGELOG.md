@@ -1,5 +1,13 @@
 # @equinor/mad-dfw
 
+## 0.0.13
+
+### Patch Changes
+
+-   5f69443: `PropertyRow` now correctly displays value when not in a `ScrollView` and on mobile
+-   Updated dependencies [8a09b94]
+    -   @equinor/mad-components@0.12.8
+
 ## 0.0.12
 
 ### Patch Changes
