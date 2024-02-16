@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.12.9
+
+### Patch Changes
+
+-   ba1d39f: Adjusted styling in `Cell`. Added margin to the additional surface line and centered
+    the right adornment with the cell content.
+
 ## 0.12.8
 
 ### Patch Changes
