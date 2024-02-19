@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.12.10
+
+### Patch Changes
+
+-   b5badbd: Streched out the pressable surface in additional surface in `Cell`
+
 ## 0.12.9
 
 ### Patch Changes
