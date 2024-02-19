@@ -71,12 +71,15 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
                 <View style={{ flexDirection: "row" }}>
                     {additionalSurface && (
-                        <PressableHighlight
-                            onPress={additionalSurface.onPress}
-                            style={styles.additionalSurface}
-                        >
-                            {additionalSurface.component}
-                        </PressableHighlight>
+                        <>
+                            <PressableHighlight
+                                onPress={additionalSurface.onPress}
+                                style={styles.additionalSurface}
+                            >
+                                {additionalSurface.component}
+                            </PressableHighlight>
+                            <View style={styles.verticalLine} />
+                        </>
                     )}
                     <PressableHighlight disabled={!onPress} onPress={onPress} style={{ flex: 1 }}>
                         <View style={styles.contentContainer}>
@@ -159,9 +162,11 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         backgroundColor: theme.colors.border.medium,
     },
     additionalSurface: {
-        borderRightWidth: 1,
         justifyContent: "center",
         alignItems: "center",
+    },
+    verticalLine: {
+        borderRightWidth: 1,
         borderStyle: "solid",
         borderColor: theme.colors.border.medium,
         marginVertical: theme.spacing.menu.item.paddingVertical,
