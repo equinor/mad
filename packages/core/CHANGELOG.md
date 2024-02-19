@@ -1,5 +1,12 @@
 # @equinor/mad-core
 
+## 0.5.13
+
+### Patch Changes
+
+-   5cdfd6b: demo mode should now always be disabled when logging in
+-   dcf40b7: Should no longer update last displayed release notes in demo mode
+
 ## 0.5.12
 
 ### Patch Changes
