@@ -43,7 +43,7 @@ export const LoginScreen = ({
                                 void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
                             }
                             onAuthenticationSuccessful?.(result, type);
-                            navigate();
+                            navigate({ demoMode: false });
                         }}
                         onAuthenticationFailed={error => {
                             void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
@@ -61,7 +61,7 @@ export const LoginScreen = ({
                             variant="outlined"
                             onPress={() => {
                                 void track(metricKeys.AUTHENTICATION_DEMO);
-                                navigate({ enableDemoMode: true });
+                                navigate({ demoMode: true });
                             }}
                         />
                     )}

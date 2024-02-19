@@ -1,4 +1,4 @@
-import { getIsDemoModeEnabled, enableDemoMode, useLanguage } from "../store";
+import { getIsDemoModeEnabled, enableDemoMode, useLanguage, disableDemoMode } from "../store";
 import { useAppVersion, useMadConfig, useNavigateToMainRoute } from "../store/mad-config";
 import { useReleaseNotesVersion } from "../store/release-notes";
 import { getNavigationRouteForLoginScreen } from "../utils/getNavigationRouteForLoginScreen";
@@ -14,8 +14,9 @@ export const useNavigateFromLoginScreen = () => {
     } = useMadConfig();
     const { isLanguageSelected } = useLanguage();
 
-    return (options?: { enableDemoMode?: boolean }) => {
-        if (options?.enableDemoMode) enableDemoMode();
+    return (options: { demoMode: boolean }) => {
+        if (options.demoMode) enableDemoMode();
+        else disableDemoMode();
 
         const route = getNavigationRouteForLoginScreen({
             appVersion,
