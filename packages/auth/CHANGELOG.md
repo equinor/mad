@@ -1,5 +1,11 @@
 # @equinor/mad-auth
 
+## 0.1.22
+
+### Patch Changes
+
+-   af77bb9: getAccount/useAccount should now work for web
+
 ## 0.1.21
 
 ### Patch Changes
