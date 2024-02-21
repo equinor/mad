@@ -1,5 +1,14 @@
 # @equinor/mad-core
 
+## 0.5.15
+
+### Patch Changes
+
+-   bfb69d7: Now initiates authentication client when creating core stack in order to make sure it's
+    available at all times
+-   Updated dependencies [bfb69d7]
+    -   @equinor/mad-auth@0.1.23
+
 ## 0.5.14
 
 ### Patch Changes
