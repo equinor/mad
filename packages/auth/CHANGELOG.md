@@ -1,5 +1,11 @@
 # @equinor/mad-auth
 
+## 0.1.23
+
+### Patch Changes
+
+-   bfb69d7: Can no longer initiate authentication client multiple times
+
 ## 0.1.22
 
 ### Patch Changes
