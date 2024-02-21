@@ -21,7 +21,7 @@ export const useAuthConfig = (): AuthConfig => {
         redirectUriWeb,
         scopes,
     } = config.authentication;
-    const redirectUri = getRedirectUriFromAuthConfig(clientId, redirectUriConfig, redirectUriWeb);
+    const redirectUri = getRedirectUriFromAuthConfig(redirectUriConfig, redirectUriWeb);
     return {
         clientId,
         scopes,
