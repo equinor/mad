@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.13.0
+
+### Minor Changes
+
+-   49e643c: Disable cell onpress when swiping
+
 ## 0.12.10
 
 ### Patch Changes
