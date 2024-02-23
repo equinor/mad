@@ -50,4 +50,9 @@ export type GenericWorkOrderSimple = {
      *
      */
     cmrIndicator?: boolean;
+    /**
+     * Indicates whether the Work Order is open or not.
+     */
+    isOpen?: boolean;
 };
+

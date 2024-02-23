@@ -10,3 +10,4 @@ export type StandardTextTemplate = {
     standardTextTemplateId: string;
     standardTextTemplate: string;
 };
+

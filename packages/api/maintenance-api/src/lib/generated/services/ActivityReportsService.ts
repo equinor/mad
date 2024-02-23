@@ -2,23 +2,24 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ActivityReport } from "../models/ActivityReport";
-import type { ActivityReportBasic } from "../models/ActivityReportBasic";
-import type { ActivityReportCreate } from "../models/ActivityReportCreate";
-import type { ActivityReportJsonPatch } from "../models/ActivityReportJsonPatch";
-import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
-import type { MaintenanceRecordActivityCreate } from "../models/MaintenanceRecordActivityCreate";
-import type { MaintenanceRecordActivityJsonPatch } from "../models/MaintenanceRecordActivityJsonPatch";
-import type { MaintenanceRecordItemMetadataCreate } from "../models/MaintenanceRecordItemMetadataCreate";
-import type { MetadataAddClass } from "../models/MetadataAddClass";
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { StatusUpdateJsonPatch } from "../models/StatusUpdateJsonPatch";
+import type { ActivityReport } from '../models/ActivityReport';
+import type { ActivityReportBasic } from '../models/ActivityReportBasic';
+import type { ActivityReportCreate } from '../models/ActivityReportCreate';
+import type { ActivityReportJsonPatch } from '../models/ActivityReportJsonPatch';
+import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
+import type { MaintenanceRecordActivityCreate } from '../models/MaintenanceRecordActivityCreate';
+import type { MaintenanceRecordActivityJsonPatch } from '../models/MaintenanceRecordActivityJsonPatch';
+import type { MaintenanceRecordItemMetadataCreate } from '../models/MaintenanceRecordItemMetadataCreate';
+import type { MetadataAddClass } from '../models/MetadataAddClass';
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { StatusUpdateJsonPatch } from '../models/StatusUpdateJsonPatch';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class ActivityReportsService {
+
     /**
      * Activity report - Lookup
      * ### Overview
@@ -55,6 +56,9 @@ export class ActivityReportsService {
      * Added query parameters `include-additional-metadata` and `include-additional-data-characteristics`
      * Added `additionalMetadata` to response
      *
+     * ### Update release v1.27.0
+     * Added `maintenanceRecordTypeId` to the response.
+     *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -71,45 +75,45 @@ export class ActivityReportsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string;
+        recordId: string,
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean;
+        includeStatusDetails?: boolean,
         /**
          * Include detailed information for activities
          */
-        includeActivities?: boolean;
+        includeActivities?: boolean,
         /**
          * Include attachments
          */
-        includeAttachments?: boolean;
+        includeAttachments?: boolean,
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean;
+        includeCreatedByDetails?: boolean,
         /**
          * Include URL references for activity report. See `POST /maintenance-record-relationships/{record-id}/url-references`
          */
-        includeUrlReferences?: boolean;
+        includeUrlReferences?: boolean,
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean;
+        includeMeasurements?: boolean,
     }): CancelablePromise<ActivityReport | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/activity-reports/{record-id}",
+            method: 'GET',
+            url: '/maintenance-records/activity-reports/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             query: {
-                "include-status-details": includeStatusDetails,
-                "include-activities": includeActivities,
-                "include-attachments": includeAttachments,
-                "include-created-by-details": includeCreatedByDetails,
-                "include-url-references": includeUrlReferences,
-                "include-measurements": includeMeasurements,
+                'include-status-details': includeStatusDetails,
+                'include-activities': includeActivities,
+                'include-attachments': includeAttachments,
+                'include-created-by-details': includeCreatedByDetails,
+                'include-url-references': includeUrlReferences,
+                'include-measurements': includeMeasurements,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -141,20 +145,20 @@ export class ActivityReportsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string;
+        recordId: string,
         /**
-         * activity report to create
+         * Details on how to update the Activity Report
          */
-        requestBody: Array<ActivityReportJsonPatch>;
+        requestBody: Array<ActivityReportJsonPatch>,
     }): CancelablePromise<ActivityReportBasic | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/activity-reports/{record-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/activity-reports/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Bad request. For example that an empty value for text property was supplied`,
                 403: `User does not have sufficient rights to update the activity report`,
@@ -169,20 +173,23 @@ export class ActivityReportsService {
      * ### Important information
      * Equinor governing documents states that activity reports should be created at the lowest possible level in the tag hierachy.
      *
-     * ### Update release 1.0.0
+     * ### Update release v1.0.0
      * Added workCenterId, workCenterPlantId to create endpoint.
      *
      * Added activities to create endpoint.
      *
-     * ### Update release 1.1.0
+     * ### Update release v1.1.0
      * Added `relatedWorkOrder` to create endpoint. This will allow a relationship to be established on creation to either technical feedback or object list of a work order.
      *
-     * ### Update release 1.6.0
+     * ### Update release v1.6.0
      *
      * Added `isOpen` to create endpoint. isOpen set to true enables creation of activity report in status `OSNO - Outstanding Notification`. By default `isOpen` is set to false, and activity report is created with `NOCO - Notification Completed` status.
      *
-     * ### Update release 1.26.0
+     * ### Update release v1.26.0
      * Added `createdDateTime` to create endpoint.
+     *
+     * ### Update release v1.27.0
+     * Added support for creating activity report for technical feedback with PSD.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ActivityReportBasic Created
@@ -194,13 +201,13 @@ export class ActivityReportsService {
         /**
          * Activity report to create
          */
-        requestBody: ActivityReportCreate;
+        requestBody: ActivityReportCreate,
     }): CancelablePromise<ProblemDetails | ActivityReportBasic> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/activity-reports",
+            method: 'POST',
+            url: '/maintenance-records/activity-reports',
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to create a activity report`,
             },
@@ -225,20 +232,20 @@ export class ActivityReportsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string;
+        recordId: string,
         /**
          * Update to make for metadata
          */
-        requestBody: Array<MaintenanceRecordItemMetadataCreate>;
+        requestBody: Array<MaintenanceRecordItemMetadataCreate>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata",
+            method: 'POST',
+            url: '/maintenance-records/activity-reports/{record-id}/additional-metadata',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to update failure report`,
                 404: `The specified resource was not found`,
@@ -287,22 +294,22 @@ export class ActivityReportsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string;
-        statusId: string;
+        recordId: string,
+        statusId: string,
         /**
          * Activity report status to update
          */
-        requestBody: Array<StatusUpdateJsonPatch>;
+        requestBody: Array<StatusUpdateJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/activity-reports/{record-id}/statuses/{status-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/activity-reports/{record-id}/statuses/{status-id}',
             path: {
-                "record-id": recordId,
-                "status-id": statusId,
+                'record-id': recordId,
+                'status-id': statusId,
             },
             body: requestBody,
-            mediaType: "application/json-patch+json",
+            mediaType: 'application/json-patch+json',
             errors: {
                 403: `User does not have sufficient rights to update activity report`,
                 404: `The specified resource was not found`,
@@ -319,8 +326,6 @@ export class ActivityReportsService {
      *
      * With this endpoint, the consumer can assign classes metadata and define initial values for some of the characteristics in the classes.
      *
-     * There is currently no endpoint for looking up existing classes and their characteristics, but this may be added in the future.
-     *
      * Note that if a given characteristic has already been added to this metadata, repeated adding will result in overwriting of the characteristic value.
      * If you want to update a characteristic the `PATCH` endpoint can be used.
      *
@@ -336,23 +341,23 @@ export class ActivityReportsService {
         metadataId,
         requestBody,
     }: {
-        recordId: string;
-        metadataId: string;
+        recordId: string,
+        metadataId: string,
         /**
          * Characteristics to add to metadata.
          */
-        requestBody: Array<MetadataAddClass>;
+        requestBody: Array<MetadataAddClass>,
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            method: 'POST',
+            url: '/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics',
             path: {
-                "record-id": recordId,
-                "metadata-id": metadataId,
+                'record-id': recordId,
+                'metadata-id': metadataId,
             },
             body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
@@ -372,22 +377,22 @@ export class ActivityReportsService {
         metadataId,
         requestBody,
     }: {
-        recordId: string;
-        metadataId: string;
+        recordId: string,
+        metadataId: string,
         /**
          * Characteristics to be updated, based on JsonPatch standard
          */
-        requestBody: Array<CharacteristicsUpdate>;
+        requestBody: Array<CharacteristicsUpdate>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            method: 'PATCH',
+            url: '/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics',
             path: {
-                "record-id": recordId,
-                "metadata-id": metadataId,
+                'record-id': recordId,
+                'metadata-id': metadataId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to characteristics`,
@@ -415,21 +420,21 @@ export class ActivityReportsService {
         /**
          * id of the activity report
          */
-        recordId: string;
+        recordId: string,
         /**
          * Activities to add to existing activity report
          */
-        requestBody: Array<MaintenanceRecordActivityCreate>;
+        requestBody: Array<MaintenanceRecordActivityCreate>,
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/activity-reports/{record-id}/activities",
+            method: 'POST',
+            url: '/maintenance-records/activity-reports/{record-id}/activities',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add activities to activity report`,
@@ -457,25 +462,25 @@ export class ActivityReportsService {
         /**
          * id of the activity report
          */
-        recordId: string;
+        recordId: string,
         /**
          * id of the activity
          */
-        activityId: string;
+        activityId: string,
         /**
          * Activities to add to existing failure report
          */
-        requestBody: Array<MaintenanceRecordActivityJsonPatch>;
+        requestBody: Array<MaintenanceRecordActivityJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/activity-reports/{record-id}/activities/{activity-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/activity-reports/{record-id}/activities/{activity-id}',
             path: {
-                "record-id": recordId,
-                "activity-id": activityId,
+                'record-id': recordId,
+                'activity-id': activityId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to update activities to activity report`,
@@ -502,15 +507,15 @@ export class ActivityReportsService {
         recordId,
         attachmentId,
     }: {
-        recordId: string;
-        attachmentId: string;
+        recordId: string,
+        attachmentId: string,
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/activity-reports/{record-id}/attachments/{attachment-id}",
+            method: 'GET',
+            url: '/maintenance-records/activity-reports/{record-id}/attachments/{attachment-id}',
             path: {
-                "record-id": recordId,
-                "attachment-id": attachmentId,
+                'record-id': recordId,
+                'attachment-id': attachmentId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -520,32 +525,49 @@ export class ActivityReportsService {
 
     /**
      * Activity report - Attachment upload
+     * ### Overview
      * Upload attachment for activity report
+     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     *
+     * ### Update release 1.28.0
+     * Added the optional parameter `document-id` as a query parameter.
+     * If documentId is supplied, the attachment will be uploaded specifically to this document.
+     *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static uploadActivityReportAttachment({
         recordId,
+        documentId = null,
         formData,
     }: {
-        recordId: string;
+        recordId: string,
+        /**
+         * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId?: string | null,
         formData?: {
             files?: Array<Blob>;
-        };
+        },
     }): CancelablePromise<any | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/activity-reports/{record-id}/attachments",
+            method: 'POST',
+            url: '/maintenance-records/activity-reports/{record-id}/attachments',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
+            },
+            query: {
+                'document-id': documentId,
             },
             formData: formData,
-            mediaType: "multipart/form-data",
+            mediaType: 'multipart/form-data',
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
             },
         });
     }
+
 }

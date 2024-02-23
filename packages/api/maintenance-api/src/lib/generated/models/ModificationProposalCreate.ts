@@ -25,7 +25,7 @@ export type ModificationProposalCreate = {
      * * `L` - Low priority
      *
      */
-    priorityId: "H" | "M" | "L";
+    priorityId: 'H' | 'M' | 'L';
     /**
      * If workCenter is not provided, it will use default defined on tag
      */
@@ -52,3 +52,4 @@ export type ModificationProposalCreate = {
      */
     externalPartnerId?: string;
 };
+

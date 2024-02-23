@@ -8,3 +8,4 @@ export type EquipmentMinimal = {
     equipment: string;
     materialId: string;
 };
+

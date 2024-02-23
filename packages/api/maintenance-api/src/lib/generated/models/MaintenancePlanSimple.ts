@@ -12,3 +12,4 @@ export type MaintenancePlanSimple = {
      */
     isActive: boolean;
 };
+

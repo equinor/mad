@@ -29,3 +29,4 @@ export type PlantBasic = {
      */
     allowSimplifiedTimeAndProgress?: boolean;
 };
+

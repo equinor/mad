@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CatalogCode } from "./CatalogCode";
+import type { CatalogCode } from './CatalogCode';
 
 export type CodeGroup = {
     /**
@@ -19,3 +19,4 @@ export type CodeGroup = {
      */
     codes?: Array<CatalogCode>;
 };
+

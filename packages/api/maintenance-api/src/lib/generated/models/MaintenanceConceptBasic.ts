@@ -8,3 +8,4 @@ export type MaintenanceConceptBasic = {
     catalogProfileId: string;
     responsibleDisciplineId: string;
 };
+

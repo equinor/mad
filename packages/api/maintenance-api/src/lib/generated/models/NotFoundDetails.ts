@@ -21,3 +21,4 @@ export type NotFoundDetails = {
      */
     traceId?: string;
 };
+

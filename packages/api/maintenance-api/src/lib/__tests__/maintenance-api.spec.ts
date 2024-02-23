@@ -91,6 +91,24 @@ describe("Work Orders", () => {
     });
 });
 
+describe("Master Data", () => {
+    it("should have Master Data For Catalogs endpoints", () => {
+        expect(mApi.GeneralMasterData["Catalogs"]).toBeTruthy();
+    });
+    it("should have Master Data For Characteristics endpoints", () => {
+        expect(mApi.GeneralMasterData["Characteristics"]).toBeTruthy();
+    });
+    it("should have Master Data For Maintenance Records endpoints", () => {
+        expect(mApi.GeneralMasterData["MaintenanceRecords"]).toBeTruthy();
+    });
+    it("should have Master Data For Work Orders endpoints", () => {
+        expect(mApi.GeneralMasterData["WorkOrders"]).toBeTruthy();
+    });
+    it("should have Master Data For Plants endpoints", () => {
+        expect(mApi.GeneralMasterData["Plants"]).toBeTruthy();
+    });
+});
+
 describe("Maintenance api problem filter", () => {
     it("should throw on problem details result", () => {
         const apiResponse: ProblemDetails = {

@@ -2,14 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CodeGroup } from "../models/CodeGroup";
-import type { ProblemDetails } from "../models/ProblemDetails";
+import type { CodeGroup } from '../models/CodeGroup';
+import type { ProblemDetails } from '../models/ProblemDetails';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class MasterDataForCatalogsService {
+
     /**
      * Code Group - Search
      * ### Overview
@@ -31,13 +32,13 @@ export class MasterDataForCatalogsService {
     public static searchCodeGroup({
         catalogId,
     }: {
-        catalogId: "1" | "2" | "5" | "C" | "V";
+        catalogId: '1' | '2' | '5' | 'C' | 'V',
     }): CancelablePromise<Array<CodeGroup> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/catalogs/{catalog-id}/code-groups",
+            method: 'GET',
+            url: '/catalogs/{catalog-id}/code-groups',
             path: {
-                "catalog-id": catalogId,
+                'catalog-id': catalogId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -45,4 +46,5 @@ export class MasterDataForCatalogsService {
             },
         });
     }
+
 }

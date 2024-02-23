@@ -2,17 +2,18 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { TechnicalClarification } from "../models/TechnicalClarification";
-import type { TechnicalClarificationBasic } from "../models/TechnicalClarificationBasic";
-import type { TechnicalClarificationCreate } from "../models/TechnicalClarificationCreate";
-import type { TechnicalClarificationJsonPatch } from "../models/TechnicalClarificationJsonPatch";
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { TechnicalClarification } from '../models/TechnicalClarification';
+import type { TechnicalClarificationBasic } from '../models/TechnicalClarificationBasic';
+import type { TechnicalClarificationCreate } from '../models/TechnicalClarificationCreate';
+import type { TechnicalClarificationJsonPatch } from '../models/TechnicalClarificationJsonPatch';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class TechnicalClarificationsService {
+
     /**
      * Technical clarification - Lookup
      * ### Overview
@@ -43,6 +44,12 @@ export class TechnicalClarificationsService {
      * ### Update release v1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
+     * ## Update release v1.26.0
+     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     *
+     * ### Update release v1.27.0
+     * Added `maintenanceRecordTypeId` to the response.
+     *
      * @returns TechnicalClarification Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -59,45 +66,45 @@ export class TechnicalClarificationsService {
         /**
          * The recordId of the technical clarification
          */
-        recordId: string;
+        recordId: string,
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean;
+        includeStatusDetails?: boolean,
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean;
+        includeTasks?: boolean,
         /**
          * Include attachments
          */
-        includeAttachments?: boolean;
+        includeAttachments?: boolean,
         /**
          * Include details about tag for technical clarification
          */
-        includeTagDetails?: boolean;
+        includeTagDetails?: boolean,
         /**
          * Include person responsible information in response
          */
-        includePersonResponsible?: boolean;
+        includePersonResponsible?: boolean,
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean;
+        includeCreatedByDetails?: boolean,
     }): CancelablePromise<TechnicalClarification | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/technical-clarifications/{record-id}",
+            method: 'GET',
+            url: '/maintenance-records/technical-clarifications/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             query: {
-                "include-status-details": includeStatusDetails,
-                "include-tasks": includeTasks,
-                "include-attachments": includeAttachments,
-                "include-tag-details": includeTagDetails,
-                "include-person-responsible": includePersonResponsible,
-                "include-created-by-details": includeCreatedByDetails,
+                'include-status-details': includeStatusDetails,
+                'include-tasks': includeTasks,
+                'include-attachments': includeAttachments,
+                'include-tag-details': includeTagDetails,
+                'include-person-responsible': includePersonResponsible,
+                'include-created-by-details': includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -132,20 +139,20 @@ export class TechnicalClarificationsService {
         /**
          * The recordId of the technical clarification
          */
-        recordId: string;
+        recordId: string,
         /**
          * Details on how to update technical clarification
          */
-        requestBody: Array<TechnicalClarificationJsonPatch>;
+        requestBody: Array<TechnicalClarificationJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/technical-clarifications/{record-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/technical-clarifications/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Bad request. For example that an empty value for text property was supplied`,
                 403: `User does not have sufficient rights to update the technical clarification`,
@@ -170,15 +177,15 @@ export class TechnicalClarificationsService {
         recordId,
         attachmentId,
     }: {
-        recordId: string;
-        attachmentId: string;
+        recordId: string,
+        attachmentId: string,
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/technical-clarifications/{record-id}/attachments/{attachment-id}",
+            method: 'GET',
+            url: '/maintenance-records/technical-clarifications/{record-id}/attachments/{attachment-id}',
             path: {
-                "record-id": recordId,
-                "attachment-id": attachmentId,
+                'record-id': recordId,
+                'attachment-id': attachmentId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -268,73 +275,73 @@ export class TechnicalClarificationsService {
         /**
          * Filter to limit the technical clarifications by
          */
-        filter: "recent-status-activations" | "open-by-plant" | "by-tag" | "by-person-responsible";
+        filter: 'recent-status-activations' | 'open-by-plant' | 'by-tag' | 'by-person-responsible',
         /**
          * Include person responsible information in response
          */
-        includePersonResponsible?: boolean;
+        includePersonResponsible?: boolean,
         /**
          * Status
          */
-        statusId?: string;
+        statusId?: string,
         /**
          * Plant identifier
          */
-        plantId?: string;
+        plantId?: string,
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
-        locationId?: string;
+        locationId?: string,
         /**
          * System id to filter by
          */
-        systemId?: string;
+        systemId?: string,
         /**
          * Planning plant used for planner group id
          */
-        planningPlantId?: string;
+        planningPlantId?: string,
         /**
          * Planner group id (planning-plant-id must also be supplied)
          */
-        plannerGroupId?: string;
+        plannerGroupId?: string,
         /**
          * Define how many days from the current day to include results for. 0 if only include for today
          */
-        maxDaysSinceActivation?: number;
+        maxDaysSinceActivation?: number,
         /**
          * Define if it should have a person responsible or not
          */
-        hasPersonResponsible?: boolean;
+        hasPersonResponsible?: boolean,
         /**
          * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
          */
-        createdAfterDatetime?: string;
+        createdAfterDatetime?: string,
         /**
          * Filter based on if it's completed or open
          */
-        includeCompleted?: boolean;
+        includeCompleted?: boolean,
         /**
          * Email of the person responsible in urlencoded format
          */
-        personResponsibleEmail?: string;
+        personResponsibleEmail?: string,
     }): CancelablePromise<Array<TechnicalClarificationBasic> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/technical-clarifications",
+            method: 'GET',
+            url: '/maintenance-records/technical-clarifications',
             query: {
-                "include-person-responsible": includePersonResponsible,
-                filter: filter,
-                "status-id": statusId,
-                "plant-id": plantId,
-                "location-id": locationId,
-                "system-id": systemId,
-                "planning-plant-id": planningPlantId,
-                "planner-group-id": plannerGroupId,
-                "max-days-since-activation": maxDaysSinceActivation,
-                "has-person-responsible": hasPersonResponsible,
-                "created-after-datetime": createdAfterDatetime,
-                "include-completed": includeCompleted,
-                "person-responsible-email": personResponsibleEmail,
+                'include-person-responsible': includePersonResponsible,
+                'filter': filter,
+                'status-id': statusId,
+                'plant-id': plantId,
+                'location-id': locationId,
+                'system-id': systemId,
+                'planning-plant-id': planningPlantId,
+                'planner-group-id': plannerGroupId,
+                'max-days-since-activation': maxDaysSinceActivation,
+                'has-person-responsible': hasPersonResponsible,
+                'created-after-datetime': createdAfterDatetime,
+                'include-completed': includeCompleted,
+                'person-responsible-email': personResponsibleEmail,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -359,16 +366,17 @@ export class TechnicalClarificationsService {
         /**
          * Technical clarifications to create
          */
-        requestBody: TechnicalClarificationCreate;
+        requestBody: TechnicalClarificationCreate,
     }): CancelablePromise<ProblemDetails | TechnicalClarificationBasic> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/technical-clarifications",
+            method: 'POST',
+            url: '/maintenance-records/technical-clarifications',
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to create a technical clarification`,
             },
         });
     }
+
 }

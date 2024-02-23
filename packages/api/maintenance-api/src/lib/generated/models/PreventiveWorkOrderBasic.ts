@@ -3,14 +3,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { PreventiveWorkOrderSimple } from "./PreventiveWorkOrderSimple";
+import type { PreventiveWorkOrderSimple } from './PreventiveWorkOrderSimple';
 
-export type PreventiveWorkOrderBasic = PreventiveWorkOrderSimple & {
+export type PreventiveWorkOrderBasic = (PreventiveWorkOrderSimple & {
     text: string;
     /**
      * The type of work order it is an instance of
      */
-    workOrderTypeId: "preventiveWorkOrder";
+    workOrderTypeId: 'preventiveWorkOrder';
     plannerGroup: string;
     workCenter: string;
-};
+});
+

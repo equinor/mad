@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenancePlanItemPartial } from "./MaintenancePlanItemPartial";
+import type { MaintenancePlanItemPartial } from './MaintenancePlanItemPartial';
 
 export type MaintenancePlan = {
     maintenancePlanId: string;
@@ -17,3 +17,4 @@ export type MaintenancePlan = {
      */
     items?: Array<MaintenancePlanItemPartial>;
 };
+

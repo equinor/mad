@@ -2,17 +2,18 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { WorkOrderChangeLogs } from "../models/WorkOrderChangeLogs";
-import type { WorkOrderInPlan } from "../models/WorkOrderInPlan";
-import type { WorkOrderOptimizedForQuery } from "../models/WorkOrderOptimizedForQuery";
-import type { WorkOrderWithOperationList } from "../models/WorkOrderWithOperationList";
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { WorkOrderChangeLogs } from '../models/WorkOrderChangeLogs';
+import type { WorkOrderInPlan } from '../models/WorkOrderInPlan';
+import type { WorkOrderOptimizedForQuery } from '../models/WorkOrderOptimizedForQuery';
+import type { WorkOrderWithOperationList } from '../models/WorkOrderWithOperationList';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class WorkOrdersService {
+
     /**
      * Work order plan - Get
      * ### Overview
@@ -76,72 +77,65 @@ export class WorkOrdersService {
         /**
          * Planning plant to retrieve work order plan for
          */
-        planningPlantId: string;
+        planningPlantId: string,
         /**
          * Filter to limit the work order plan by
          */
-        filter: "by-plan-period" | "by-person-responsible";
+        filter: 'by-plan-period' | 'by-person-responsible',
         /**
          * Start of plan period (`/plants/{plant-id}?include-baseline-plans=true` can be used as a reference )
          */
-        planPeriodStartDate?: string;
+        planPeriodStartDate?: string,
         /**
          * Duration of plan period
          */
-        planPeriodDuration?: string;
+        planPeriodDuration?: string,
         /**
          * Email address for responsible person
          */
-        personResponsibleEmail?: string;
+        personResponsibleEmail?: string,
         /**
          * Include completed work order operations
          */
-        includeCompletedWorkOrderOperations?: boolean;
+        includeCompletedWorkOrderOperations?: boolean,
         /**
          * Include person responsible information in response
          */
-        includePersonResponsible?: boolean;
+        includePersonResponsible?: boolean,
         /**
          * Limit to specific work order types (any-of). Default includes all types
          */
-        workOrderTypesAnyOf?: Array<
-            | "correctiveWorkOrders"
-            | "preventiveWorkOrders"
-            | "modificationWorkOrders"
-            | "sasChangeWorkOrders"
-            | "projectWorkOrders"
-            | "subseaWorkOrders"
-        >;
+        workOrderTypesAnyOf?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
         /**
          * Comma-separated list of work-center-id
          */
-        workCenterIdAnyOf?: string;
+        workCenterIdAnyOf?: string,
         /**
          * Comma-separated list of revision-id
          */
-        revisionIdAnyOf?: string;
+        revisionIdAnyOf?: string,
         /**
          * Comma-separated list of location-id
          */
-        locationIdAnyOf?: string;
+        locationIdAnyOf?: string,
     }): CancelablePromise<Array<WorkOrderInPlan> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/work-order-plan/{planning-plant-id}",
+            method: 'GET',
+            url: '/work-order-plan/{planning-plant-id}',
             path: {
-                "planning-plant-id": planningPlantId,
+                'planning-plant-id': planningPlantId,
             },
             query: {
-                filter: filter,
-                "plan-period-start-date": planPeriodStartDate,
-                "plan-period-duration": planPeriodDuration,
-                "person-responsible-email": personResponsibleEmail,
-                "include-completed-work-order-operations": includeCompletedWorkOrderOperations,
-                "include-person-responsible": includePersonResponsible,
-                "work-order-types-any-of": workOrderTypesAnyOf,
-                "work-center-id-any-of": workCenterIdAnyOf,
-                "revision-id-any-of": revisionIdAnyOf,
-                "location-id-any-of": locationIdAnyOf,
+                'filter': filter,
+                'plan-period-start-date': planPeriodStartDate,
+                'plan-period-duration': planPeriodDuration,
+                'person-responsible-email': personResponsibleEmail,
+                'include-completed-work-order-operations': includeCompletedWorkOrderOperations,
+                'include-person-responsible': includePersonResponsible,
+                'work-order-types-any-of': workOrderTypesAnyOf,
+                'work-center-id-any-of': workCenterIdAnyOf,
+                'revision-id-any-of': revisionIdAnyOf,
+                'location-id-any-of': locationIdAnyOf,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -226,6 +220,9 @@ export class WorkOrdersService {
      *
      * Added property `cmrIndicator` for WorkOrders
      *
+     * ### Update release v1.27.0
+     * Work orders now include the property 'isOpen'
+     *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -247,80 +244,68 @@ export class WorkOrdersService {
         /**
          * Filter to limit the work order by
          */
-        filter:
-            | "recently-changed"
-            | "before-basic-end-date"
-            | "by-external-partner-work-order-id"
-            | "by-cost-network"
-            | "by-cost-wbs";
+        filter: 'recently-changed' | 'before-basic-end-date' | 'by-external-partner-work-order-id' | 'by-cost-network' | 'by-cost-wbs',
         /**
          * Plant identifier
          */
-        plantId?: string;
+        plantId?: string,
         /**
          * Earliest datetime to returned changed work orders for
          */
-        changedSinceDatetime?: string;
+        changedSinceDatetime?: string,
         /**
          * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
          */
-        beforeDatetime?: string;
+        beforeDatetime?: string,
         /**
          * The text of the Work order is time-consuming to retrieve. Set to false to avoid returning it
          */
-        includeWorkOrderText?: boolean;
+        includeWorkOrderText?: boolean,
         /**
          * The text of the Work order operation is time-consuming to retrieve. Set to false to avoid returning it
          */
-        includeWorkOrderOperationText?: boolean;
+        includeWorkOrderOperationText?: boolean,
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<
-            | "correctiveWorkOrders"
-            | "preventiveWorkOrders"
-            | "modificationWorkOrders"
-            | "sasChangeWorkOrders"
-            | "projectWorkOrders"
-            | "subseaWorkOrders"
-        >;
+        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
         /**
          * Earliest date to find maintenance plan history for (optional for filter)
          */
-        basicEndDate?: string;
+        basicEndDate?: string,
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
-        locationId?: string;
+        locationId?: string,
         /**
          * If work order was initially created in an external system, this represent the unique id of it
          */
-        externalPartnerWorkOrderId?: string;
+        externalPartnerWorkOrderId?: string,
         /**
          * Required parameter if `filter=by-cost-wbs`
          */
-        costWbsId?: string;
+        costWbsId?: string,
         /**
          * Required parameter if `filter=by-cost-network`
          */
-        costNetworkId?: string;
+        costNetworkId?: string,
     }): CancelablePromise<WorkOrderWithOperationList | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/work-orders",
+            method: 'GET',
+            url: '/work-orders',
             query: {
-                filter: filter,
-                "plant-id": plantId,
-                "changed-since-datetime": changedSinceDatetime,
-                "before-datetime": beforeDatetime,
-                "include-work-order-text": includeWorkOrderText,
-                "include-work-order-operation-text": includeWorkOrderOperationText,
-                "include-work-order-types": includeWorkOrderTypes,
-                "basic-end-date": basicEndDate,
-                "location-id": locationId,
-                "external-partner-work-order-id": externalPartnerWorkOrderId,
-                "cost-wbs-id": costWbsId,
-                "cost-network-id": costNetworkId,
+                'filter': filter,
+                'plant-id': plantId,
+                'changed-since-datetime': changedSinceDatetime,
+                'before-datetime': beforeDatetime,
+                'include-work-order-text': includeWorkOrderText,
+                'include-work-order-operation-text': includeWorkOrderOperationText,
+                'include-work-order-types': includeWorkOrderTypes,
+                'basic-end-date': basicEndDate,
+                'location-id': locationId,
+                'external-partner-work-order-id': externalPartnerWorkOrderId,
+                'cost-wbs-id': costWbsId,
+                'cost-network-id': costNetworkId,
             },
         });
     }
@@ -396,168 +381,148 @@ export class WorkOrdersService {
         /**
          * Query based on planningPlantIds (any-of)
          */
-        planningPlants: Array<string>;
+        planningPlants: Array<string>,
         /**
          * Query based on keywords in title (case insensitive)
          */
-        keywordsAllOf?: Array<string>;
+        keywordsAllOf?: Array<string>,
         /**
          * Query based on keywords in title (case insensitive)
          */
-        keywordsAnyOf?: Array<string>;
+        keywordsAnyOf?: Array<string>,
         /**
          * Query based on keywords in title (case insensitive)
          */
-        keywordsNot?: Array<string>;
+        keywordsNot?: Array<string>,
         /**
          * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        tagsAllOf?: Array<string>;
+        tagsAllOf?: Array<string>,
         /**
          * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        tagsAnyOf?: Array<string>;
+        tagsAnyOf?: Array<string>,
         /**
          * Query based on tagIds. Expressions with wildcards can be used for example `AE55*`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        tagsNot?: Array<string>;
+        tagsNot?: Array<string>,
         /**
          * Query based on workCenterIds
          */
-        workCentersAnyOf?: Array<string>;
+        workCentersAnyOf?: Array<string>,
         /**
          * Query based on workCenterIds
          */
-        workCentersNot?: Array<string>;
+        workCentersNot?: Array<string>,
         /**
          * Query based on systemIds
          */
-        systemsAnyOf?: Array<string>;
+        systemsAnyOf?: Array<string>,
         /**
          * Query based on systemIds
          */
-        systemsNot?: Array<string>;
+        systemsNot?: Array<string>,
         /**
          * Query based on locationIds
          */
-        locationsAnyOf?: Array<string>;
+        locationsAnyOf?: Array<string>,
         /**
          * Query based on locationIds
          */
-        locationsNot?: Array<string>;
+        locationsNot?: Array<string>,
         /**
          * Query based on sortField ()used for grouping work orders)
          */
-        sortFieldAnyOf?: Array<string>;
+        sortFieldAnyOf?: Array<string>,
         /**
          * Query based on sortField (used for grouping work orders)
          */
-        sortFieldNot?: Array<string>;
+        sortFieldNot?: Array<string>,
         /**
          * Query based on revisionCode
          */
-        revisionCodeAnyOf?: Array<string>;
+        revisionCodeAnyOf?: Array<string>,
         /**
          * Query based on sortField (often used for revision codes)
          */
-        revisionCodeNot?: Array<string>;
+        revisionCodeNot?: Array<string>,
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAllOf?: Array<string>;
+        statusAllOf?: Array<string>,
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAnyOf?: Array<string>;
+        statusAnyOf?: Array<string>,
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusNot?: Array<string>;
+        statusNot?: Array<string>,
         /**
          * Include only open work orders or only closed work orders. By default, all work orders are included.
          */
-        isOpen?: boolean;
+        isOpen?: boolean,
         /**
          * Earliest creation date to include
          */
-        createdAfterDate?: string;
+        createdAfterDate?: string,
         /**
          * Latest creation date to include
          */
-        createdBeforeDate?: string;
+        createdBeforeDate?: string,
         /**
          * Limit to specific work order types (one-of)
          */
-        workOrderTypes?: Array<
-            | "correctiveWorkOrders"
-            | "preventiveWorkOrders"
-            | "modificationWorkOrders"
-            | "sasChangeWorkOrders"
-            | "projectWorkOrders"
-            | "subseaWorkOrders"
-        >;
+        workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
         /**
          * Property to sort the results by
          */
-        sortBy?: Array<
-            | "createdDateTime desc"
-            | "createdDateTime asc"
-            | "workOrderId desc"
-            | "workOrderId asc"
-            | "systemId desc"
-            | "systemId asc"
-            | "locationId desc"
-            | "locationId asc"
-            | "sortField desc"
-            | "sortField asc"
-            | "title desc"
-            | "title asc"
-        >;
+        sortBy?: Array<'createdDateTime desc' | 'createdDateTime asc' | 'workOrderId desc' | 'workOrderId asc' | 'systemId desc' | 'systemId asc' | 'locationId desc' | 'locationId asc' | 'sortField desc' | 'sortField asc' | 'title desc' | 'title asc'>,
         /**
          * Include the multi-line text of the work order (will cause the endpoint to go significantly slower)
          */
-        includeText?: boolean;
+        includeText?: boolean,
         /**
          * Include the main maintenance record linked to the work order (if any)
          */
-        includeMaintenanceRecord?: boolean;
+        includeMaintenanceRecord?: boolean,
         /**
          * Maximum number of results to include. Default is 1000.
          */
-        maxResults?: number;
+        maxResults?: number,
     }): CancelablePromise<Array<WorkOrderOptimizedForQuery> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/work-orders-optimized-for-query",
+            method: 'GET',
+            url: '/work-orders-optimized-for-query',
             query: {
-                "planning-plants": planningPlants,
-                "keywords-all-of": keywordsAllOf,
-                "keywords-any-of": keywordsAnyOf,
-                "keywords-not": keywordsNot,
-                "tags-all-of": tagsAllOf,
-                "tags-any-of": tagsAnyOf,
-                "tags-not": tagsNot,
-                "work-centers-any-of": workCentersAnyOf,
-                "work-centers-not": workCentersNot,
-                "systems-any-of": systemsAnyOf,
-                "systems-not": systemsNot,
-                "locations-any-of": locationsAnyOf,
-                "locations-not": locationsNot,
-                "sort-field-any-of": sortFieldAnyOf,
-                "sort-field-not": sortFieldNot,
-                "revision-code-any-of": revisionCodeAnyOf,
-                "revision-code-not": revisionCodeNot,
-                "status-all-of": statusAllOf,
-                "status-any-of": statusAnyOf,
-                "status-not": statusNot,
-                "is-open": isOpen,
-                "created-after-date": createdAfterDate,
-                "created-before-date": createdBeforeDate,
-                "work-order-types": workOrderTypes,
-                "sort-by": sortBy,
-                "include-text": includeText,
-                "include-maintenance-record": includeMaintenanceRecord,
-                "max-results": maxResults,
+                'planning-plants': planningPlants,
+                'keywords-all-of': keywordsAllOf,
+                'keywords-any-of': keywordsAnyOf,
+                'keywords-not': keywordsNot,
+                'tags-all-of': tagsAllOf,
+                'tags-any-of': tagsAnyOf,
+                'tags-not': tagsNot,
+                'work-centers-any-of': workCentersAnyOf,
+                'work-centers-not': workCentersNot,
+                'systems-any-of': systemsAnyOf,
+                'systems-not': systemsNot,
+                'locations-any-of': locationsAnyOf,
+                'locations-not': locationsNot,
+                'sort-field-any-of': sortFieldAnyOf,
+                'sort-field-not': sortFieldNot,
+                'revision-code-any-of': revisionCodeAnyOf,
+                'revision-code-not': revisionCodeNot,
+                'status-all-of': statusAllOf,
+                'status-any-of': statusAnyOf,
+                'status-not': statusNot,
+                'is-open': isOpen,
+                'created-after-date': createdAfterDate,
+                'created-before-date': createdBeforeDate,
+                'work-order-types': workOrderTypes,
+                'sort-by': sortBy,
+                'include-text': includeText,
+                'include-maintenance-record': includeMaintenanceRecord,
+                'max-results': maxResults,
             },
         });
     }
@@ -600,41 +565,35 @@ export class WorkOrdersService {
         /**
          * Filter to limit the work order by
          */
-        filter: "recently-changed-property";
+        filter: 'recently-changed-property',
         /**
          * Plant identifier
          */
-        plantId?: string;
+        plantId?: string,
         /**
          * Earliest datetime to returned changed work orders for
          */
-        changedSinceDatetime?: string;
+        changedSinceDatetime?: string,
         /**
          * The property which was recently changed
          */
-        propertyName?: "basicStartDateTime" | "basicEndDateTime";
+        propertyName?: 'basicStartDateTime' | 'basicEndDateTime',
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<
-            | "correctiveWorkOrders"
-            | "preventiveWorkOrders"
-            | "modificationWorkOrders"
-            | "sasChangeWorkOrders"
-            | "projectWorkOrders"
-            | "subseaWorkOrders"
-        >;
+        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
     }): CancelablePromise<WorkOrderChangeLogs | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/work-orders-change-log",
+            method: 'GET',
+            url: '/work-orders-change-log',
             query: {
-                filter: filter,
-                "plant-id": plantId,
-                "changed-since-datetime": changedSinceDatetime,
-                "property-name": propertyName,
-                "include-work-order-types": includeWorkOrderTypes,
+                'filter': filter,
+                'plant-id': plantId,
+                'changed-since-datetime': changedSinceDatetime,
+                'property-name': propertyName,
+                'include-work-order-types': includeWorkOrderTypes,
             },
         });
     }
+
 }

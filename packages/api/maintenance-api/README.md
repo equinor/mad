@@ -37,10 +37,22 @@ const properResult = filterMaintenanceApiProblem(apiResult);
 
 ## Development
 
+Updating the wrapper is a matter of first running codegen on an updated OpenAPI spec, ensuring that
+it builds and tests correctly and then you're done. Use the steps under as a guide
+
 ### Codegen
 
-Run `pnpm generate:maintenance-api --input=/path/to/schema.json` to generate the library from the
-Maintenance API schema.
+Run `pnpm generate:maintenance-api /path/to/schema.json` to generate the library from the
+Maintenance API schema. You will need to download the schema from the Maintenance API docs to your
+machine before doing this.
+
+### Formalities
+
+Though the package has its own version, the wrapper itself also has a version that refers to the
+actual api version being used. You will have to manually update this version in
+`src/lib/generated/core/OpenAPI.ts`. This ensures that the package.json version can be version
+bumped in case we correct some errors without making it look like we are changing the Maintenance
+API spec version.
 
 ### Building
 

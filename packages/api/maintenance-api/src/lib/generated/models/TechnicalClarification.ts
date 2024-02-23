@@ -3,13 +3,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from "./Attachment";
-import type { MaintenanceRecordTask } from "./MaintenanceRecordTask";
-import type { Status } from "./Status";
-import type { TagBasic } from "./TagBasic";
-import type { TechnicalClarificationBasic } from "./TechnicalClarificationBasic";
+import type { Attachment } from './Attachment';
+import type { MaintenanceRecordTask } from './MaintenanceRecordTask';
+import type { Status } from './Status';
+import type { TagBasic } from './TagBasic';
+import type { TechnicalClarificationBasic } from './TechnicalClarificationBasic';
 
-export type TechnicalClarification = TechnicalClarificationBasic & {
+export type TechnicalClarification = (TechnicalClarificationBasic & {
+    maintenanceRecordTypeId?: 'technicalClarification';
     /**
      * The internal id of the person who created the maintenance record. The id represents the employee id of the person.
      */
@@ -35,4 +36,5 @@ export type TechnicalClarification = TechnicalClarificationBasic & {
      * Tasks for this technical clarification
      */
     tasks?: Array<MaintenanceRecordTask>;
-};
+});
+

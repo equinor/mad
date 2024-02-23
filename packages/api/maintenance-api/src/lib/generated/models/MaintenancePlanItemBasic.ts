@@ -14,3 +14,4 @@ export type MaintenancePlanItemBasic = {
     maintenanceActivityType: string;
     changedDateTime?: string;
 };
+

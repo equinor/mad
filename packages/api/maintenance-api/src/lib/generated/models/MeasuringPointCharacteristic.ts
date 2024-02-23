@@ -13,3 +13,4 @@ export type MeasuringPointCharacteristic = {
     valueId: string | null;
     value: string | null;
 };
+
