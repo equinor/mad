@@ -24,3 +24,4 @@ export type PlanningPlantRevisionBasic = {
     revisionEndDate?: string | null;
     isCompleted?: boolean;
 };
+

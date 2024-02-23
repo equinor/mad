@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceRecordActivityCreate } from "./MaintenanceRecordActivityCreate";
+import type { CharacteristicAddActivityReport } from './CharacteristicAddActivityReport';
+import type { MaintenanceRecordActivityCreate } from './MaintenanceRecordActivityCreate';
 
 export type ActivityReportCreate = {
     /**
@@ -51,11 +52,11 @@ export type ActivityReportCreate = {
         /**
          * Defines the type of relationship to the work order
          */
-        source?: "ObjectList" | "TechnicalFeedback";
+        source?: 'ObjectList' | 'TechnicalFeedback';
         /**
          * Reference to the specific element the relationship will be defined for. The specific format for this value will depend on the `source` type and the value should be found using lookup of the work order.
          *
-         * SourceId comes in the format 'XX-1234567-1'. XX denotes whether the object comes from the Object List directly ("OL"), or from Technical Feedback ("TL").
+         * SourceId comes in the format 'XX-1234567-1'. XX denotes whether the object comes from the Object List directly ("OL"), or from Technical Feedback ("TF").
          *
          * The 7 digits are an internal SAP id of this object list, uniquely identifying the Object List of your work order.
          *
@@ -71,4 +72,15 @@ export type ActivityReportCreate = {
             reasonId?: string;
         };
     };
+    characteristics?: {
+        /**
+         * The class which contains the characteristics
+         */
+        classId?: string;
+        /**
+         * Specific characteristics in the class to define a value for
+         */
+        characteristics?: Array<CharacteristicAddActivityReport>;
+    };
 };
+

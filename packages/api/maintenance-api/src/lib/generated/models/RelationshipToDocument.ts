@@ -3,6 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Attachment } from './Attachment';
+import type { Characteristic } from './Characteristic';
+
 export type RelationshipToDocument = {
     /**
      * Unique id for the document to be used against endpoints for the `/documents` resource
@@ -24,4 +27,17 @@ export type RelationshipToDocument = {
      * Identifies the version of the document
      */
     documentVersion: string | null;
+    /**
+     * Attachments for this business object
+     */
+    attachments?: Array<Attachment>;
+    /**
+     * Characteristics
+     */
+    characteristics?: Array<Characteristic>;
+    /**
+     * Document title providing additional information
+     */
+    documentTitle: string;
 };
+

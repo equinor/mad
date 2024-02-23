@@ -17,4 +17,9 @@ export type ActivityReportBasic = {
      * Active statuses for the Failure report with space as separating character
      */
     activeStatusIds: string;
+    /**
+     * Datetime of activity report
+     */
+    createdDateTime?: string | null;
 };
+

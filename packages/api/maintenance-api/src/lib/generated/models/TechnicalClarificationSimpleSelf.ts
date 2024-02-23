@@ -3,11 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TechnicalClarificationSimple } from "./TechnicalClarificationSimple";
+import type { TechnicalClarificationSimple } from './TechnicalClarificationSimple';
 
-export type TechnicalClarificationSimpleSelf = TechnicalClarificationSimple & {
-    maintenanceRecordTypeId: "technicalClarification";
+export type TechnicalClarificationSimpleSelf = (TechnicalClarificationSimple & {
+    maintenanceRecordTypeId: 'technicalClarification';
     _links: {
         self?: string;
     };
-};
+});
+

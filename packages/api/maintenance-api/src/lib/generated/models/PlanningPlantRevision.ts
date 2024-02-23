@@ -3,12 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { PlanningPlantRevisionBasic } from "./PlanningPlantRevisionBasic";
-import type { RevisionWorkOrderOperation } from "./RevisionWorkOrderOperation";
+import type { PlanningPlantRevisionBasic } from './PlanningPlantRevisionBasic';
+import type { RevisionWorkOrderOperation } from './RevisionWorkOrderOperation';
 
-export type PlanningPlantRevision = PlanningPlantRevisionBasic & {
+export type PlanningPlantRevision = (PlanningPlantRevisionBasic & {
     /**
      * Work order operations
      */
     workOrderOperations?: Array<RevisionWorkOrderOperation>;
-};
+});
+

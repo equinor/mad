@@ -2,98 +2,85 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
-import type { MaintenanceRecordItemMetadataCreate } from "../models/MaintenanceRecordItemMetadataCreate";
-import type { MetadataAddClass } from "../models/MetadataAddClass";
-import type { ProblemDetails } from "../models/ProblemDetails";
+import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
+import type { DocumentAddClass } from '../models/DocumentAddClass';
+import type { DocumentBasic } from '../models/DocumentBasic';
+import type { DocumentCreate } from '../models/DocumentCreate';
+import type { ProblemDetails } from '../models/ProblemDetails';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class NewEndpointsService {
+
     /**
-     * Activity report - Add additional metadata
+     * Document - Create
      * ### Overview
-     * Add additional metadata for an activity report.
-     * This related to additional failure modes and detection modes for an activity report and only used in rare cases.
-     *
-     * The metadata-id available to update for a given activity report can be found by querying `/maintenance-records/activity-reports/{record-id}?include-additional-metadata=true`
+     * Create a new document.
+     * This document will not be linked to any business object, but can be linked afterwards by calling POST `/document-relationships/{relationship-type}/{source-id}`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
+     * @returns DocumentBasic Created
      * @throws ApiError
      */
-    public static addActivityReportAdditionalMetadata({
-        recordId,
+    public static createDocument({
         requestBody,
     }: {
         /**
-         * The recordId of the activity report.
+         * Document to create
          */
-        recordId: string;
-        /**
-         * Update to make for metadata
-         */
-        requestBody: Array<MaintenanceRecordItemMetadataCreate>;
-    }): CancelablePromise<ProblemDetails> {
+        requestBody: DocumentCreate,
+    }): CancelablePromise<ProblemDetails | DocumentBasic> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata",
-            path: {
-                "record-id": recordId,
-            },
+            method: 'POST',
+            url: '/documents',
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
-                403: `User does not have sufficient rights to update failure report`,
-                404: `The specified resource was not found`,
-                409: `Failure report is locked by other user`,
+                400: `Bad request, for example documentType is invalid.`,
+                403: `User does not have sufficient rights to create an equipment.`,
             },
         });
     }
 
     /**
-     * Activity report metadata - Add characteristics
-     * Add new characteristics to an existing activity report metadata.
+     * Document - Add characteristics
+     * Add new characteristics to an existing document.
      *
-     * Characteristics are grouped into a class such as `FL_MAINT_STRATEGY`.
+     * Characteristics are grouped into a class such as `FL_MAINT_STRATEGY`. Classes can be assigned to a document and specific characteristics such as `CRIT_PRODUCTION` will then be available for that specific document.
      *
-     * With this endpoint, the consumer can assign classes metadata and define initial values for some of the characteristics in the classes.
+     * With this endpoint, the consumer can assign classes to a document and define initial values for some of the characteristics in the classes.
      *
-     * There is currently no endpoint for looking up existing classes and their characteristics, but this may be added in the future.
-     *
-     * Note that if a given characteristic has already been added to this metadata, repeated adding will result in overwriting of the characteristic value.
+     * Note that if a given characteristic has already been added to this document, repeated adding will result in overwriting of the characteristic value.
      * If you want to update a characteristic the `PATCH` endpoint can be used.
      *
      * ### Important information
-     * Use `/maintenance-records/activity-reports/{record-id}?include-additional-metadata=true&include-additional-data-characteristics=true&api-version=v1` to view characteristics with value after using this endpoint.
+     * Use GET `document-relationships/{relationship-type}/{source-id}` to view characteristics with value after using this endpoint.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Created - No body available for response. Use lookup from location header
      * @throws ApiError
      */
-    public static addCharacteristicsToActivityReportMetadata({
-        recordId,
-        metadataId,
+    public static addCharacteristicsToDocument({
+        documentId,
         requestBody,
     }: {
-        recordId: string;
-        metadataId: string;
+        documentId: string,
         /**
-         * Characteristics to add to metadata.
+         * Characteristics to add to the document.
          */
-        requestBody: Array<MetadataAddClass>;
+        requestBody: Array<DocumentAddClass>,
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            method: 'POST',
+            url: '/documents/{document-id}/characteristics',
             path: {
-                "record-id": recordId,
-                "metadata-id": metadataId,
+                'document-id': documentId,
             },
             body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
@@ -102,33 +89,32 @@ export class NewEndpointsService {
     }
 
     /**
-     * Activity report metadata - Update characteristic
-     * Update existing values of characteristics on a activity report metadata. If the characteristics does not exist, a `404 - Not Found` is returned.
+     * Document - Update characteristic
+     * Update existing values of characteristics on a document. If the characteristics does not exist, a `404 - Not Found` is returned.
+     * ### Important information
+     * Use GET `document-relationships/{relationship-type}/{source-id}` to view characteristics with value after using this endpoint.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static updateActivityReportMetadataCharacteristics({
-        recordId,
-        metadataId,
+    public static updateDocumentCharacteristics({
+        documentId,
         requestBody,
     }: {
-        recordId: string;
-        metadataId: string;
+        documentId: string,
         /**
          * Characteristics to be updated, based on JsonPatch standard
          */
-        requestBody: Array<CharacteristicsUpdate>;
+        requestBody: Array<CharacteristicsUpdate>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/activity-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            method: 'PATCH',
+            url: '/documents/{document-id}/characteristics',
             path: {
-                "record-id": recordId,
-                "metadata-id": metadataId,
+                'document-id': documentId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to characteristics`,
@@ -137,4 +123,5 @@ export class NewEndpointsService {
             },
         });
     }
+
 }

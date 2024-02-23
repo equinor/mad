@@ -7,3 +7,4 @@ export type CharacteristicValues = {
     valueId: string;
     value: string;
 };
+
