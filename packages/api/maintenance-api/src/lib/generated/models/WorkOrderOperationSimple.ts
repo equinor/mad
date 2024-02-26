@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -17,6 +18,11 @@ export type WorkOrderOperationSimple = {
     text: string | null;
     standardTextTemplate: string;
     isCompleted: boolean;
+    isExcludedFromWorkOrderPlan: boolean;
+    /**
+     * Required process conditions for each operation
+     */
+    systemCondition: string;
     /**
      * Duration as defined in ISO8601
      */
@@ -47,23 +53,20 @@ export type WorkOrderOperationSimple = {
      * Constraint: * `MSO` - Must start on * `SNET` - Start no earlier than * `SNLT` - Start no later than
      *
      */
-    schedulingStartConstraintId: "MSO" | "SNET" | "SNLT" | "5" | null;
+    schedulingStartConstraintId: 'MSO' | 'SNET' | 'SNLT' | '5' | null;
     schedulingStartConstraintDateTime: string | null;
     /**
      * Constraint: * `MFO` - Must finish on date * `FNET` - Finish no earlier than * `FNLT` - Finish no later than
      *
      */
-    schedulingFinishConstraintId: "MFO" | "FNET" | "FNLT" | "4" | null;
+    schedulingFinishConstraintId: 'MFO' | 'FNET' | 'FNLT' | '4' | null;
     schedulingFinishConstraintDateTime: string | null;
     /**
      * Calculation key defines which of the fields plannedWorkHours,capacityCount and plannedDuration are derived based on the values of the two others. If calculation key is `CALC_KEY_MANUAL`, all fields are filled in manually.
      */
-    calculationKey?:
-        | "CALC_KEY_MANUAL"
-        | "CALC_KEY_DURATION"
-        | "CALC_KEY_PLANNED_HOURS"
-        | "CALC_KEY_CAPACITY"
-        | null;
+    calculationKey: 'CALC_KEY_MANUAL' | 'CALC_KEY_DURATION' | 'CALC_KEY_PLANNED_HOURS' | 'CALC_KEY_CAPACITY' | null;
     tagId?: string | null;
     tagPlantId?: string;
+    isServiceOperation?: boolean;
 };
+

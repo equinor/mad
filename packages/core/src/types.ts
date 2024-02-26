@@ -1,23 +1,27 @@
-import { EnvironmentContextProps } from "@equinor/mad-components";
-import { ImageSourcePropType } from "react-native";
 import { Language } from "./store/types";
 import { AppInsightsInitConfig } from "@equinor/mad-insights";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { ImageSourcePropType } from "react-native";
 
-export type MadConfig = {
+export type MadConfig<ParamList extends ParamListBase | void = void> = {
     /**
      * Version of the app. Will be displayed in the about screen, and will be used for release notes
      */
-    appVersion: string;
+    appVersion: EnvironmentValues<string>;
     /**
      * service portal name of the app. Will be used to find the correct resource for service messages and release notes.
      * @see https://web-mad-service-portal-web-prod.radix.equinor.com/
      */
-    servicePortalName: string;
+    servicePortalName: EnvironmentValues<string>;
+
+    navigateToMainRouteFn: EnvironmentValues<
+        (navigation: NavigationProp<ParamList extends ParamListBase ? ParamList : object>) => void
+    >;
     /**
      * Current environment. Will be used for environment banner, as well as getting the correct resource for service messages and release notes
      */
-    environment: EnvironmentContextProps["environment"];
-    language: {
+    currentEnvironment: Environment;
+    language: EnvironmentValues<{
         /**
          * Supported languages of the app.
          */
@@ -30,9 +34,9 @@ export type MadConfig = {
         /**
          * Core navigates to a language selection screen by default if needed. Set this to true if you want to override this behaviour
          */
-        skipOnboarding?: boolean
-    };
-    authentication: {
+        skipOnboarding?: boolean;
+    }>;
+    authentication: EnvironmentValues<{
         /**
          * Client Id of the application. Used for login.
          * You can find your application's client Id in your application's
@@ -59,23 +63,23 @@ export type MadConfig = {
          * available scopes in your application's App registration in Azure.
          * @see https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
          */
-        scopes?: string[];
-    };
-    login: {
+        scopes: string[];
+    }>;
+    login: EnvironmentValues<{
         /**
-         * Title of the app. Used in login screen
+         * Splash screen of the application.
          */
-        title: string;
+        splash: ImageSourcePropType;
         /**
-         * App logo. Used in login screen
+         * If you want to add the login screen manually to the stack, set this to true. This gives you access to additional props
          */
-        logo: ImageSourcePropType;
-    };
+        addScreenManually?: boolean;
+    }>;
     /**
      * App insights config used for initializing application insights service(s)
      */
-    applicationInsights: AppInsightsInitConfig;
-    about?: {
+    applicationInsights: EnvironmentValues<AppInsightsInitConfig>;
+    about?: EnvironmentValues<{
         /**
          * Endpoints used by the app
          */
@@ -84,11 +88,13 @@ export type MadConfig = {
          * Build number of the app.
          */
         buildNumber: string;
-    };
-    serviceNow?: {
-        //TODO
-        whatever: string;
-    };
+    }>;
+    /**
+     * ServiceNow Configuration Item (cmdb_ci) of the app.
+     * Will be used to create ServiceNow tickets for the correlating application.
+     * @see https://portal.azure.com/#@StatoilSRM.onmicrosoft.com/resource/subscriptions/2ad1b087-ffb8-4cf3-bcc2-8caeebfcd3f3/resourceGroups/mad-test/providers/Microsoft.Storage/storageAccounts/madtest62alhixjcodkm/storagebrowser
+     */
+    serviceNow?: EnvironmentValues<string>;
 };
 
 export type CoreStackParamListBase = {
@@ -100,8 +106,15 @@ export type CoreStackParamListBase = {
     Settings: undefined;
     About: undefined;
     Feedback: undefined;
-    Root: undefined;
     NotFound: undefined;
 };
 
 export type Environment = "dev" | "test" | "qa" | "prod";
+
+export type EnvironmentValues<T> = Partial<Record<Environment, T>> | T;
+
+export type WithoutEnvironmentOptionValues<TToken> = {
+    [K in keyof TToken]: TToken[K] extends EnvironmentValues<infer U> ? U : TToken[K];
+};
+
+export type EnvironmentContextualConfig = WithoutEnvironmentOptionValues<MadConfig>;

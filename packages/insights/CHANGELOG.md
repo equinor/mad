@@ -1,5 +1,17 @@
 # @equinor/mad-insights
 
+## 0.1.2
+
+### Patch Changes
+
+-   b2b8572: feat: should now be possible to run `track` before app insights is initialized
+
+## 0.1.1
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 0.1.0
 
 ### Minor Changes

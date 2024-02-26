@@ -1,189 +1,127 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CodeGroup } from "../models/CodeGroup";
-import type { ModificationProposalJsonUpdate } from "../models/ModificationProposalJsonUpdate";
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { RelationshipToTagAdd } from "../models/RelationshipToTagAdd";
-import type { TechnicalFeedbackStatus } from "../models/TechnicalFeedbackStatus";
+import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
+import type { DocumentAddClass } from '../models/DocumentAddClass';
+import type { DocumentBasic } from '../models/DocumentBasic';
+import type { DocumentCreate } from '../models/DocumentCreate';
+import type { ProblemDetails } from '../models/ProblemDetails';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class NewEndpointsService {
-    /**
-     * Code Group - Search
-     * ### Overview
-     * Returns a list of codeGroups that belong in the catalog.
-     *
-     * The catalog-id can be any of the following:
-     * | catalogId      |  Description                                                         |
-     * |-----------------------|-----------------------------------------------------------------------|
-     * | 1                     |  Characteristic attribute       |
-     * | 2                     |  Tasks                          |
-     * | 5                     |  Failure mechanism              |
-     * | C                     |  Failure mode                   |
-     * | V                     |  Measuring points               |
-     *
-     * @returns CodeGroup Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchCodeGroup({
-        catalogId,
-    }: {
-        catalogId: "1" | "2" | "5" | "C" | "V";
-    }): CancelablePromise<Array<CodeGroup> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: "GET",
-            url: "/catalogs/{catalog-id}/code-groups",
-            path: {
-                "catalog-id": catalogId,
-            },
-            errors: {
-                400: `Request is missing required parameters`,
-                404: `The specified resource was not found`,
-            },
-        });
-    }
 
     /**
-     * Technical feedback - Master data
+     * Document - Create
      * ### Overview
-     * Get a list of all statuses and reasons which can be used in technical feedback.
-     *
-     * @returns TechnicalFeedbackStatus Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static getTechnicalFeedbackMasterData(): CancelablePromise<
-        Array<TechnicalFeedbackStatus> | ProblemDetails
-    > {
-        return __request(OpenAPI, {
-            method: "GET",
-            url: "/work-orders/technical-feedback-master-data",
-        });
-    }
-
-    /**
-     * Work order relationships - Add related tag
-     * ### Overview
-     * Add new relationship between a work order and a tag.
-     *
-     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information. This is currently not possible for technical feedback, but is expected to be added in the future.
+     * Create a new document.
+     * This document will not be linked to any business object, but can be linked afterwards by calling POST `/document-relationships/{relationship-type}/{source-id}`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
+     * @returns DocumentBasic Created
      * @throws ApiError
      */
-    public static addRelationshipFromWorkOrderToTag({
-        workOrderId,
+    public static createDocument({
         requestBody,
     }: {
         /**
-         * Id of the work order (can be any type)
+         * Document to create
          */
-        workOrderId: string;
-        /**
-         * Define tag to add relationship to
-         */
-        requestBody: RelationshipToTagAdd;
-    }): CancelablePromise<ProblemDetails> {
+        requestBody: DocumentCreate,
+    }): CancelablePromise<ProblemDetails | DocumentBasic> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/work-order-relationships/{work-order-id}/related-tags",
-            path: {
-                "work-order-id": workOrderId,
-            },
+            method: 'POST',
+            url: '/documents',
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to work order`,
-                404: `The specified resource was not found`,
-                409: `Work order is locked by other user`,
+                400: `Bad request, for example documentType is invalid.`,
+                403: `User does not have sufficient rights to create an equipment.`,
             },
         });
     }
 
     /**
-     * Work order relationships - Remove related tag
-     * ### Overview
-     * Remove an existing relationship between a work order and a tag/functional location.
+     * Document - Add characteristics
+     * Add new characteristics to an existing document.
      *
-     * Internally in the ERP system, this relationship will be removed from the object list of the work order.
+     * Characteristics are grouped into a class such as `FL_MAINT_STRATEGY`. Classes can be assigned to a document and specific characteristics such as `CRIT_PRODUCTION` will then be available for that specific document.
      *
-     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information.
+     * With this endpoint, the consumer can assign classes to a document and define initial values for some of the characteristics in the classes.
      *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static removeRelationshipFromWorkOrderToTag({
-        workOrderId,
-        tagPlantId,
-        tagId,
-    }: {
-        /**
-         * Id of the work order (can be any type)
-         */
-        workOrderId: string;
-        /**
-         * Id of the plant
-         */
-        tagPlantId: string;
-        /**
-         * Id of the tag
-         */
-        tagId: string;
-    }): CancelablePromise<ProblemDetails> {
-        return __request(OpenAPI, {
-            method: "DELETE",
-            url: "/work-order-relationships/{work-order-id}/related-tags/{tag-plant-id}-{tag-id}",
-            path: {
-                "work-order-id": workOrderId,
-                "tag-plant-id": tagPlantId,
-                "tag-id": tagId,
-            },
-            errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to work order`,
-                404: `The specified resource was not found`,
-                409: `Work order is locked by other user or it is not possible to remove the relationship`,
-            },
-        });
-    }
-
-    /**
-     * Modification proposal - Update
-     * ### Overview
-     * Update key fields of a modification proposal.
+     * Note that if a given characteristic has already been added to this document, repeated adding will result in overwriting of the characteristic value.
+     * If you want to update a characteristic the `PATCH` endpoint can be used.
+     *
+     * ### Important information
+     * Use GET `document-relationships/{relationship-type}/{source-id}` to view characteristics with value after using this endpoint.
      *
      * @returns ProblemDetails Response for other HTTP status codes
+     * @returns string Created - No body available for response. Use lookup from location header
      * @throws ApiError
      */
-    public static updateModificationProposal({
-        recordId,
+    public static addCharacteristicsToDocument({
+        documentId,
         requestBody,
     }: {
-        recordId: string;
+        documentId: string,
         /**
-         * Details on how to update modification proposal
+         * Characteristics to add to the document.
          */
-        requestBody: Array<ModificationProposalJsonUpdate>;
-    }): CancelablePromise<ProblemDetails> {
+        requestBody: Array<DocumentAddClass>,
+    }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/modification-proposals/{record-id}",
+            method: 'POST',
+            url: '/documents/{document-id}/characteristics',
             path: {
-                "record-id": recordId,
+                'document-id': documentId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
-                403: `User does not have sufficient rights to update activity report`,
-                404: `The specified resource was not found`,
-                409: `Activity report is locked by other user`,
+                400: `Request is missing required parameters or characteristicId is not part of class`,
+                403: `User does not have sufficient rights to add characteristics to measuring point`,
             },
         });
     }
+
+    /**
+     * Document - Update characteristic
+     * Update existing values of characteristics on a document. If the characteristics does not exist, a `404 - Not Found` is returned.
+     * ### Important information
+     * Use GET `document-relationships/{relationship-type}/{source-id}` to view characteristics with value after using this endpoint.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateDocumentCharacteristics({
+        documentId,
+        requestBody,
+    }: {
+        documentId: string,
+        /**
+         * Characteristics to be updated, based on JsonPatch standard
+         */
+        requestBody: Array<CharacteristicsUpdate>,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/documents/{document-id}/characteristics',
+            path: {
+                'document-id': documentId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to characteristics`,
+                404: `The specified resource was not found`,
+                409: `Characteristics is locked by other user`,
+            },
+        });
+    }
+
 }

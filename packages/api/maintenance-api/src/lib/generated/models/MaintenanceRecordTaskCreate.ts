@@ -1,8 +1,12 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
 export type MaintenanceRecordTaskCreate = {
+    /**
+     * Max-length of 40 characters
+     */
     title: string;
     text?: string;
     taskCodeId?: string;
@@ -14,3 +18,4 @@ export type MaintenanceRecordTaskCreate = {
     plannedStartDateTime?: string | null;
     plannedEndDateTime?: string | null;
 };
+

@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -17,7 +18,7 @@ export type ModificationProposalSimple = {
      * * null - No priority defined
      *
      */
-    priorityId: "H" | "M" | "L" | null;
+    priorityId: 'H' | 'M' | 'L' | null;
     title: string;
     isSimpleProposal: boolean;
     /**
@@ -44,3 +45,4 @@ export type ModificationProposalSimple = {
      */
     completedDateTime: string | null;
 };
+

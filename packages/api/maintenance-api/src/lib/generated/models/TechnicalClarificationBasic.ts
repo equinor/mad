@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -42,7 +43,7 @@ export type TechnicalClarificationBasic = {
      * * null - No priority defined
      *
      */
-    priorityId: "H" | "M" | "L" | null;
+    priorityId: 'H' | 'M' | 'L' | null;
     /**
      * Field used to assist in grouping/sorting of technical clarification. Unstructured field used non-consistently between plants
      */
@@ -59,3 +60,4 @@ export type TechnicalClarificationBasic = {
     plannedEndDate: string | null;
     completedDateTime: string | null;
 };
+

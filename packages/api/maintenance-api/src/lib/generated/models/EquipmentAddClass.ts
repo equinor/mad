@@ -1,8 +1,9 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CharacteristicAdd } from "./CharacteristicAdd";
+import type { CharacteristicAdd } from './CharacteristicAdd';
 
 export type EquipmentAddClass = {
     /**
@@ -14,3 +15,4 @@ export type EquipmentAddClass = {
      */
     characteristics?: Array<CharacteristicAdd>;
 };
+

@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -18,9 +19,10 @@ export type ProblemDetails = {
     /**
      * Detailed information about error
      */
-    readonly extensions?: Record<string, any> | null;
+    readonly extensions?: Record<string, Record<string, any>> | null;
     /**
      * Typically contains validations errors where the property name is the same of the property validated
      */
     errors?: Record<string, Array<string>> | null;
 };
+

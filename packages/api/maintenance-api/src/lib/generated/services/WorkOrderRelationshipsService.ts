@@ -1,15 +1,17 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { RelationshipToMaintenanceRecordAdd } from "../models/RelationshipToMaintenanceRecordAdd";
-import type { RelationshipToTagAdd } from "../models/RelationshipToTagAdd";
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { RelationshipToMaintenanceRecordAdd } from '../models/RelationshipToMaintenanceRecordAdd';
+import type { RelationshipToTagAdd } from '../models/RelationshipToTagAdd';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class WorkOrderRelationshipsService {
+
     /**
      * Work order relationships - Add related maintenance record
      * ### Overview
@@ -41,25 +43,25 @@ export class WorkOrderRelationshipsService {
         /**
          * Id of the work order (can be any type)
          */
-        workOrderId: string;
+        workOrderId: string,
         /**
          * Define maintenance record to add relationship to
          */
-        requestBody: RelationshipToMaintenanceRecordAdd;
+        requestBody: RelationshipToMaintenanceRecordAdd,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/work-order-relationships/{work-order-id}/related-maintenance-records",
+            method: 'POST',
+            url: '/work-order-relationships/{work-order-id}/related-maintenance-records',
             path: {
-                "work-order-id": workOrderId,
+                'work-order-id': workOrderId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to work order`,
                 404: `The specified resource was not found`,
-                409: `Work order is locked by other user, maintenance record is closed or criterias for \`TechnicalFeedback\` are not fulfilled`,
+                409: `Work order is locked by other user, maintenance record is closed or criteria for \`TechnicalFeedback\` are not fulfilled`,
             },
         });
     }
@@ -74,7 +76,7 @@ export class WorkOrderRelationshipsService {
      * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information.
      *
      * ### Important information
-     * In some case, it will not be possible to remove a maintenance record relationship to a work order. For example, when a corrective work order is created from a failure report, it is not possible to remove this initial relationship (internally this is refered to as the header notification of the work order).
+     * In some case, it will not be possible to remove a maintenance record relationship to a work order. For example, when a corrective work order is created from a failure report, it is not possible to remove this initial relationship (internally this is referred to as the header notification of the work order).
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -86,18 +88,18 @@ export class WorkOrderRelationshipsService {
         /**
          * Id of the work order (can be any type)
          */
-        workOrderId: string;
+        workOrderId: string,
         /**
          * Id of the maintenance record (can be any type)
          */
-        recordId: string;
+        recordId: string,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "DELETE",
-            url: "/work-order-relationships/{work-order-id}/related-maintenance-records/{record-id}",
+            method: 'DELETE',
+            url: '/work-order-relationships/{work-order-id}/related-maintenance-records/{record-id}',
             path: {
-                "work-order-id": workOrderId,
-                "record-id": recordId,
+                'work-order-id': workOrderId,
+                'record-id': recordId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -125,20 +127,20 @@ export class WorkOrderRelationshipsService {
         /**
          * Id of the work order (can be any type)
          */
-        workOrderId: string;
+        workOrderId: string,
         /**
          * Define tag to add relationship to
          */
-        requestBody: RelationshipToTagAdd;
+        requestBody: RelationshipToTagAdd,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/work-order-relationships/{work-order-id}/related-tags",
+            method: 'POST',
+            url: '/work-order-relationships/{work-order-id}/related-tags',
             path: {
-                "work-order-id": workOrderId,
+                'work-order-id': workOrderId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to work order`,
@@ -168,23 +170,20 @@ export class WorkOrderRelationshipsService {
         /**
          * Id of the work order (can be any type)
          */
-        workOrderId: string;
+        workOrderId: string,
         /**
          * Id of the plant
          */
-        tagPlantId: string;
-        /**
-         * Id of the tag
-         */
-        tagId: string;
+        tagPlantId: string,
+        tagId: string,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "DELETE",
-            url: "/work-order-relationships/{work-order-id}/related-tags/{tag-plant-id}-{tag-id}",
+            method: 'DELETE',
+            url: '/work-order-relationships/{work-order-id}/related-tags/{tag-plant-id}-{tag-id}',
             path: {
-                "work-order-id": workOrderId,
-                "tag-plant-id": tagPlantId,
-                "tag-id": tagId,
+                'work-order-id': workOrderId,
+                'tag-plant-id': tagPlantId,
+                'tag-id': tagId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -194,4 +193,5 @@ export class WorkOrderRelationshipsService {
             },
         });
     }
+
 }

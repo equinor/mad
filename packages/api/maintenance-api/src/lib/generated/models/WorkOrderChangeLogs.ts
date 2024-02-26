@@ -1,8 +1,9 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderChangeLogBasicWithRelated } from "./WorkOrderChangeLogBasicWithRelated";
+import type { WorkOrderChangeLogBasicWithRelated } from './WorkOrderChangeLogBasicWithRelated';
 
 export type WorkOrderChangeLogs = {
     correctiveWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
@@ -12,3 +13,4 @@ export type WorkOrderChangeLogs = {
     projectWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
     subseaWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
 };
+

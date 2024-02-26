@@ -12,9 +12,7 @@ import { CancelablePromise } from "./CancelablePromise";
 import type { OnCancel } from "./CancelablePromise";
 import type { OpenAPIConfig } from "./OpenAPI";
 
-const isDefined = <T>(
-    value: T | null | undefined
-): value is Exclude<T, null | undefined> => {
+const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
     return value !== undefined && value !== null;
 };
 
@@ -60,15 +58,13 @@ const getQueryString = (params: Record<string, any>): string => {
     const qs: string[] = [];
 
     const append = (key: string, value: any) => {
-        qs.push(
-            `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`
-        );
+        qs.push(`${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`);
     };
 
     const process = (key: string, value: any) => {
         if (isDefined(value)) {
             if (Array.isArray(value)) {
-                value.forEach((v) => {
+                value.forEach(v => {
                     process(key, v);
                 });
             } else if (typeof value === "object") {
@@ -127,7 +123,7 @@ const getFormData = (options: ApiRequestOptions): FormData | undefined => {
             .filter(([_, value]) => isDefined(value))
             .forEach(([key, value]) => {
                 if (Array.isArray(value)) {
-                    value.forEach((v) => process(key, v));
+                    value.forEach(v => process(key, v));
                 } else {
                     process(key, value);
                 }
@@ -142,7 +138,7 @@ type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
 
 const resolve = async <T>(
     options: ApiRequestOptions,
-    resolver?: T | Resolver<T>
+    resolver?: T | Resolver<T>,
 ): Promise<T | undefined> => {
     if (typeof resolver === "function") {
         return (resolver as Resolver<T>)(options);
@@ -153,16 +149,14 @@ const resolve = async <T>(
 const getHeaders = async (
     config: OpenAPIConfig,
     options: ApiRequestOptions,
-    formData?: FormData
+    formData?: FormData,
 ): Promise<Record<string, string>> => {
     const token = await resolve(options, config.TOKEN);
     const username = await resolve(options, config.USERNAME);
     const password = await resolve(options, config.PASSWORD);
     const additionalHeaders = await resolve(options, config.HEADERS);
     const formHeaders =
-        (typeof formData?.getHeaders === "function" &&
-            formData?.getHeaders()) ||
-        {};
+        (typeof formData?.getHeaders === "function" && formData?.getHeaders()) || {};
 
     const headers = Object.entries({
         Accept: "application/json",
@@ -176,7 +170,7 @@ const getHeaders = async (
                 ...headers,
                 [key]: String(value),
             }),
-            {} as Record<string, string>
+            {} as Record<string, string>,
         );
 
     if (isStringWithValue(token)) {
@@ -192,8 +186,7 @@ const getHeaders = async (
         if (options.mediaType) {
             headers["Content-Type"] = options.mediaType;
         } else if (isBlob(options.body)) {
-            headers["Content-Type"] =
-                options.body.type || "application/octet-stream";
+            headers["Content-Type"] = options.body.type || "application/octet-stream";
         } else if (isString(options.body)) {
             headers["Content-Type"] = "text/plain";
         } else if (!isFormData(options.body)) {
@@ -218,7 +211,7 @@ const sendRequest = async <T>(
     body: any,
     formData: FormData | undefined,
     headers: Record<string, string>,
-    onCancel: OnCancel
+    onCancel: OnCancel,
 ): Promise<AxiosResponse<T>> => {
     const source = axios.CancelToken.source();
 
@@ -246,7 +239,7 @@ const sendRequest = async <T>(
 
 const getResponseHeader = (
     response: AxiosResponse<any>,
-    responseHeader?: string
+    responseHeader?: string,
 ): string | undefined => {
     if (responseHeader) {
         const content = response.headers[responseHeader];
@@ -264,10 +257,7 @@ const getResponseBody = (response: AxiosResponse<any>): any => {
     return undefined;
 };
 
-const catchErrorCodes = (
-    options: ApiRequestOptions,
-    result: ApiResult
-): void => {
+const catchErrorCodes = (options: ApiRequestOptions, result: ApiResult): void => {
     const errors: Record<number, string> = {
         400: "Bad Request",
         401: "Unauthorized",
@@ -298,7 +288,7 @@ const catchErrorCodes = (
  */
 export const request = <T>(
     config: OpenAPIConfig,
-    options: ApiRequestOptions
+    options: ApiRequestOptions,
 ): CancelablePromise<T> => {
     return new CancelablePromise(async (resolve, reject, onCancel) => {
         try {
@@ -319,13 +309,10 @@ export const request = <T>(
                     body,
                     formData,
                     headers,
-                    onCancel
+                    onCancel,
                 );
                 const responseBody = getResponseBody(response);
-                const responseHeader = getResponseHeader(
-                    response,
-                    options.responseHeader
-                );
+                const responseHeader = getResponseHeader(response, options.responseHeader);
 
                 const result: ApiResult = {
                     url,

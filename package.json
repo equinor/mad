@@ -31,6 +31,9 @@
         "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
         "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper -- $npm_config_input",
         "test:maintenance-api": "turbo run test --filter @equinor/mad-maintenance-api-ts-wrapper",
+        "dev:dfw": "turbo run dev --filter @equinor/mad-dfw",
+        "build:dfw": "turbo run build --filter @equinor/mad-dfw",
+        "test:dfw": "turbo run test --filter @equinor/mad-dfw --",
         "build:all": "turbo run build",
         "dev:all": "turbo run dev",
         "lint:all": "turbo run lint --continue --",
@@ -40,7 +43,6 @@
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
-        "@equinor/eslint-config-mad": "workspace:*",
         "@types/jest": "^26.0.14",
         "@types/node": "^18.13.0",
         "@typescript-eslint/eslint-plugin": "^6.13.2",

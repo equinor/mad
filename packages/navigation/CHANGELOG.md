@@ -1,5 +1,18 @@
 # @equinor/mad-navigation
 
+## 0.3.0
+
+### Minor Changes
+
+-   b024e0f: New option `customSubHeaderFloat`. Set this to `true` if you want the custom sub header
+    to float above the content (position: 'absolute') rather than push the content down
+
+## 0.2.1
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,156 @@
 # @equinor/mad-components
 
+## 0.13.0
+
+### Minor Changes
+
+-   49e643c: Disable cell onpress when swiping
+
+## 0.12.10
+
+### Patch Changes
+
+-   b5badbd: Streched out the pressable surface in additional surface in `Cell`
+
+## 0.12.9
+
+### Patch Changes
+
+-   ba1d39f: Adjusted styling in `Cell`. Added margin to the additional surface line and centered
+    the right adornment with the cell content.
+
+## 0.12.8
+
+### Patch Changes
+
+-   8a09b94: Created a new component `SelectMenu` and fixed a bug in dark theme where the text color
+    on selected items was hard to see
+
+## 0.12.7
+
+### Patch Changes
+
+-   cd8350f: Remove useEffect from `Menu` so that it no longer calls for update when the components
+    inside update.
+
+## 0.12.6
+
+### Patch Changes
+
+-   964af01: Fix `Autocomplete` to call for `internalTransform` before setting option to string. Fix
+    `MultiSelect` to handle `onBlur` differently on web so that menu persists when choosing an
+    option.
+
+## 0.12.5
+
+### Patch Changes
+
+-   121bbec: Adjusted styling on Search to prevent that it collapses in some cases
+
+## 0.12.4
+
+### Patch Changes
+
+-   8657a23: Adjusted styling on `Search` to prevent that it collapses in some cases
+
+## 0.12.3
+
+### Patch Changes
+
+-   45f2215: Fix flex issues on `Search` by changing flexGrow to flex
+
+## 0.12.2
+
+### Patch Changes
+
+-   558ca83: Adjusted the animation on `Search` so that it looks correctly when the cancel button is
+    appearing and disappearing
+
+## 0.12.1
+
+### Patch Changes
+
+-   8baaf7b: Fixed flex issue on `Search` that made it hard to have other elements next to it.
+    Prevented that you can interact with cancelbutton when it's not showing.
+
+## 0.12.0
+
+### Minor Changes
+
+-   79fb731: Changed name on the textValue prop in `Search`. New name is now value
+
+### Patch Changes
+
+-   e43285f: Add update function to menu so that it re-renders when children change
+-   37025ac: Fixed focus realted bug on the search component that affected the behaviour for the
+    cancel and clear text buttons. Search now works fine for both web and device
+
+## 0.11.3
+
+### Patch Changes
+
+-   8adb0dc: Updated Cell.Group and removed unwanted bottom padding when the title prop is not in
+    use
+-   496cd9a: Change `AutoComplete` and `MultiselectAutoComplete` onblur behaviour on web to keep
+    menu open until an option has been selected so that menu doesnt blur before a selection.
+
+## 0.11.2
+
+### Patch Changes
+
+-   7eae144: Added useBreakpoint hook to use for apps and components that have specific requirements
+    or styles based on device size
+
+## 0.11.1
+
+### Patch Changes
+
+-   d986ab2: Add `additionalSurface` prop to `Cell`component that makes it possible for cell to have
+    two unique `onPress` events.
+
+## 0.11.0
+
+### Minor Changes
+
+-   8441874: **Breaking change:** Package no longer exports EDSContext
+
+### Patch Changes
+
+-   3681d0b: Rollback changes made in render function in tabs component to how it was in 0.9.0 due
+    to an issue with the new implementation.
+
+## 0.10.0
+
+### Minor Changes
+
+-   f02e61c: **Breaking change:** Removed `disabled` prop on `Input`. Replaced by `readOnly`
+
+### Patch Changes
+
+-   f02e61c: Fixed `Input` component cyclic reference warnings
+
+## 0.9.0
+
+### Minor Changes
+
+-   1fe9f1b: Fix togglebutton to have external state and remove unnecessary props. Remove multiple
+    and onChange props from ToggleButtonProps in ToggleButton. Remove props Toggle, valid and
+    isSelected from ToggleButtonContextContents in ToggleButton. Add activeIndex prop to
+    ToggleButtonProps.
+
+## 0.8.6
+
+### Patch Changes
+
+-   a5607df: Created `Tabs` component!
+-   0d6c310: update color scheme for feedback and added deprecation
+
+## 0.8.5
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 0.8.4
 
 ### Patch Changes

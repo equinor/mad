@@ -1,10 +1,11 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
 export type URLReference = {
     /**
-     * Unique id for this url refereence
+     * Unique id for this url reference
      */
     urlReferenceId?: string;
     /**
@@ -27,4 +28,9 @@ export type URLReference = {
      * Internal document number
      */
     documentNumber?: string;
+    /**
+     * Date when the document was created
+     */
+    documentCreatedDate?: string | null;
 };
+

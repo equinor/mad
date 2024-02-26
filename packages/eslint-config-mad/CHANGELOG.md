@@ -1,5 +1,11 @@
 # @equinor/eslint-config-mad
 
+## 0.3.1
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+
 ## 0.3.0
 
 ### Minor Changes

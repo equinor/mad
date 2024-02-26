@@ -1,24 +1,20 @@
 import React, { forwardRef, useContext } from "react";
-import { View, ViewProps } from "react-native";
+import { GestureResponderEvent, View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Color, EDSStyleSheet } from "../../styling";
-import { PressableHighlight } from "../PressableHighlight";
+import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
+import { Icon, IconName } from "../Icon";
+import { DotProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
 import { ButtonGroupContext } from "./ButtonGroup";
 import { ToggleButtonContext } from "./ToggleButton";
-import { Icon, IconName } from "../Icon";
-import { DotProgress } from "../ProgressIndicator";
-import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
+import { PressableHighlight } from "../PressableHighlight";
 
 export type ButtonSpecificProps = {
     /**
      * Label text of the button.
      */
     title: string;
-    /**
-     * Callback method invoked when the user presses the button.
-     */
-    onPress?: () => void;
     /**
      * Color theme of the button.
      */
@@ -43,6 +39,18 @@ export type ButtonSpecificProps = {
      * Options for positioning the icon either to the left or to the right of the label text.
      */
     iconPosition?: "leading" | "trailing";
+    /**
+     * Callback method invoked when the user presses the button.
+     */
+    onPress?: () => void;
+    /**
+     * Callback method invoked when the user presses in the button.
+     */
+    onPressIn?: (event: GestureResponderEvent) => void;
+    /**
+     * Callback method invoked when the user presses out the button.
+     */
+    onPressOut?: (event: GestureResponderEvent) => void;
 };
 
 export type ButtonProps = ButtonSpecificProps & ViewProps;
@@ -53,17 +61,19 @@ export const Button = forwardRef<View, ButtonProps>(
             title,
             color = "primary",
             variant = "contained",
-            onPress = () => null,
             disabled = false,
             loading = false,
             iconName,
             iconPosition = "leading",
+            onPress = () => null,
+            onPressIn = () => null,
+            onPressOut = () => null,
             ...rest
         },
         ref,
     ) => {
         const toggleData = useContext(ToggleButtonContext);
-        const isToggleButton = toggleData && toggleData.valid;
+        const isToggleButton = !!toggleData;
         const groupData = useContext(ButtonGroupContext);
 
         const styles = useStyles(themeStyles, {
@@ -93,15 +103,15 @@ export const Button = forwardRef<View, ButtonProps>(
             <View ref={ref} style={[styles.colorContainer, rest.style]}>
                 <PressableHighlight
                     disabled={disabled}
-                    onPress={isToggleButton ? toggleData.toggle : onPress}
+                    onPress={onPress}
+                    onPressIn={onPressIn}
+                    onPressOut={onPressOut}
                     style={styles.pressableContainer}
                 >
                     <View style={styles.labelContainer}>
                         {loading ? (
                             <DotProgress
-                                color={
-                                    disabled || variant !== "contained" ? "primary" : "neutral"
-                                }
+                                color={disabled || variant !== "contained" ? "primary" : "neutral"}
                                 size={12}
                             />
                         ) : (

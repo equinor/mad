@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -13,5 +14,9 @@ export type ActivityReportSimple = {
      * Active statuses for the maintenance record with space as separating character
      */
     activeStatusIds: string;
-    createdDateTime: string | null;
+    /**
+     * Datetime of activity report
+     */
+    createdDateTime?: string | null;
 };
+

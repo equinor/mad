@@ -1,5 +1,164 @@
 # @equinor/mad-auth
 
+## 0.1.24
+
+### Patch Changes
+
+-   Updated dependencies [49e643c]
+    -   @equinor/mad-components@0.13.0
+
+## 0.1.23
+
+### Patch Changes
+
+-   bfb69d7: Can no longer initiate authentication client multiple times
+
+## 0.1.22
+
+### Patch Changes
+
+-   af77bb9: getAccount/useAccount should now work for web
+
+## 0.1.21
+
+### Patch Changes
+
+-   Updated dependencies [b5badbd]
+    -   @equinor/mad-components@0.12.10
+
+## 0.1.20
+
+### Patch Changes
+
+-   Updated dependencies [ba1d39f]
+    -   @equinor/mad-components@0.12.9
+
+## 0.1.19
+
+### Patch Changes
+
+-   Updated dependencies [8a09b94]
+    -   @equinor/mad-components@0.12.8
+
+## 0.1.18
+
+### Patch Changes
+
+-   Updated dependencies [cd8350f]
+    -   @equinor/mad-components@0.12.7
+
+## 0.1.17
+
+### Patch Changes
+
+-   Updated dependencies [964af01]
+    -   @equinor/mad-components@0.12.6
+
+## 0.1.16
+
+### Patch Changes
+
+-   Updated dependencies [121bbec]
+    -   @equinor/mad-components@0.12.5
+
+## 0.1.15
+
+### Patch Changes
+
+-   Updated dependencies [8657a23]
+    -   @equinor/mad-components@0.12.4
+
+## 0.1.14
+
+### Patch Changes
+
+-   Updated dependencies [45f2215]
+    -   @equinor/mad-components@0.12.3
+
+## 0.1.13
+
+### Patch Changes
+
+-   Updated dependencies [558ca83]
+    -   @equinor/mad-components@0.12.2
+
+## 0.1.12
+
+### Patch Changes
+
+-   Updated dependencies [8baaf7b]
+    -   @equinor/mad-components@0.12.1
+
+## 0.1.11
+
+### Patch Changes
+
+-   Updated dependencies [e43285f]
+-   Updated dependencies [79fb731]
+-   Updated dependencies [37025ac]
+    -   @equinor/mad-components@0.12.0
+
+## 0.1.10
+
+### Patch Changes
+
+-   Updated dependencies [8adb0dc]
+-   Updated dependencies [496cd9a]
+    -   @equinor/mad-components@0.11.3
+
+## 0.1.9
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+
+## 0.1.8
+
+### Patch Changes
+
+-   Updated dependencies [d986ab2]
+    -   @equinor/mad-components@0.11.1
+
+## 0.1.7
+
+### Patch Changes
+
+-   Updated dependencies [3681d0b]
+-   Updated dependencies [8441874]
+    -   @equinor/mad-components@0.11.0
+
+## 0.1.6
+
+### Patch Changes
+
+-   Updated dependencies [f02e61c]
+-   Updated dependencies [f02e61c]
+    -   @equinor/mad-components@0.10.0
+
+## 0.1.5
+
+### Patch Changes
+
+-   Updated dependencies [1fe9f1b]
+    -   @equinor/mad-components@0.9.0
+
+## 0.1.4
+
+### Patch Changes
+
+-   Updated dependencies [a5607df]
+-   Updated dependencies [0d6c310]
+    -   @equinor/mad-components@0.8.6
+
+## 0.1.3
+
+### Patch Changes
+
+-   b025c9b: Implemented Create Incident Screen
+-   Updated dependencies [b025c9b]
+    -   @equinor/mad-components@0.8.5
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,12 +1,14 @@
-import React from "react";
-import { TextStyle } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { ComponentProps } from "react";
+import { TextProps } from "react-native";
 import { useToken } from "../../hooks/useToken";
 import { Color, resolveColor } from "../../styling";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export type IconName = keyof typeof MaterialCommunityIcons.glyphMap;
 
-export type IconProps = {
+type MaterialCommunityIconProps = ComponentProps<typeof MaterialCommunityIcons>;
+
+export type IconProps = MaterialCommunityIconProps & {
     /**
      * The name of the icon.
      */
@@ -19,24 +21,18 @@ export type IconProps = {
      * The color of the icon.
      */
     color?: Color;
-    /**
-     * A custom text style applied to the icon.
-     * The icon is treated as a font character and will therefore respond to text style values.
-     */
-    style?: TextStyle;
-};
+} & TextProps;
 
-export const Icon = ({ name, size, color, style }: IconProps) => {
+export const Icon = ({ name, size, color, ...rest }: IconProps) => {
     const token = useToken();
     return (
         <MaterialCommunityIcons
+            {...rest}
             name={name}
             size={size ?? token.geometry.dimension.icon.size}
             color={resolveColor(color ?? "textPrimary", token)}
-            style={style}
         />
     );
 };
 
-Icon.displayName = "Icon";
 Icon.displayName = "Icon";

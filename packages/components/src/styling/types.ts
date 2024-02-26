@@ -19,11 +19,12 @@ export type ColorSchemeValues<T> = Record<ColorScheme, T>;
 export type DensityValues<T> = Record<Density, T>;
 
 export type TypographyVariantGroupMap = {
-    paragraph: "body_short" | "body_long";
+    paragraph: "body_short" | "body_long" | "overline" | "caption";
     basic: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "label" | "input";
     interactive: "button" | "link";
     ui: "tooltip" | "chipAndBadge";
     cell: "groupTitle" | "title" | "description";
+    navigation: "menuTab";
 };
 export type TypographyGroup = keyof TypographyVariantGroupMap;
 export type TypographyVariant<TKey extends TypographyGroup> = TypographyVariantGroupMap[TKey];
@@ -71,12 +72,26 @@ export type MasterToken = {
         interactive: {
             primary: ColorSchemeValues<Color>;
             secondary: ColorSchemeValues<Color>;
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.success` instead.
+             */
             success: ColorSchemeValues<Color>;
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.warning` instead.
+             */
             warning: ColorSchemeValues<Color>;
+            /**
+             * @deprecated 29.12.2023 - This will not be available 6 months after deprecation. Use `feedback.danger` instead.
+             */
             danger: ColorSchemeValues<Color>;
             disabled: ColorSchemeValues<Color>;
             pressedOverlay: ColorSchemeValues<Color>;
             selectedHighlight: ColorSchemeValues<Color>;
+        };
+        feedback: {
+            success: ColorSchemeValues<Color>;
+            warning: ColorSchemeValues<Color>;
+            danger: ColorSchemeValues<Color>;
         };
         environment: {
             dev: ColorSchemeValues<Color>;
@@ -95,7 +110,7 @@ export type MasterToken = {
                 resting: ColorSchemeValues<Color>;
                 active: ColorSchemeValues<Color>;
             };
-            feedbackWarning: ColorSchemeValues<Color>
+            feedbackWarning: ColorSchemeValues<Color>;
         };
     };
     geometry: {
@@ -104,6 +119,7 @@ export type MasterToken = {
             containerBorderRadius: number;
             borderWidth: number;
             focusedBorderWidth: number;
+            tabsBorderWidth: number;
         };
         dimension: {
             icon: {
@@ -132,6 +148,9 @@ export type MasterToken = {
                 header: {
                     height: DensityValues<number>;
                 };
+            };
+            tabs: {
+                minWidth: DensityValues<number>;
             };
         };
         shadow: {
@@ -186,6 +205,10 @@ export type MasterToken = {
             small: DensityValues<number>;
             medium: DensityValues<number>;
             large: DensityValues<number>;
+        };
+        tabs: {
+            paddingVerical: DensityValues<number>;
+            paddingHorizontal: DensityValues<number>;
         };
     };
     typography: {

@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -12,7 +13,8 @@ export type LinearData = {
      */
     endPoint?: number;
     /**
-     * Unit of measure for startPoint and endPoint. Usually `KP` which refers to Kilomenter Point
+     * Unit of measure for startPoint and endPoint. Usually `KP` which refers to Kilometer Point
      */
     linearUnitOfMeasure?: string;
 };
+

@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -28,7 +29,7 @@ export type MaintenanceRecordTask = {
     /**
      * VW - Person responsible, VN - Vendor, AB - Department Resp., RT - Team Resp., ST - Position Resp., VU - User Resp.
      */
-    taskResponsibleType: "" | "VW" | "VN" | "VU" | "AB" | "RT" | "ST";
+    taskResponsibleType: '' | 'VW' | 'VN' | 'VU' | 'AB' | 'RT' | 'ST';
     /**
      * Value is dependent on taskResponsibleType
      */
@@ -39,3 +40,4 @@ export type MaintenanceRecordTask = {
     completedDateTime: string | null;
     quantity: number;
 };
+

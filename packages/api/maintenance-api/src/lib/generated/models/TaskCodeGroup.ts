@@ -1,8 +1,9 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TaskCode } from "./TaskCode";
+import type { TaskCode } from './TaskCode';
 
 export type TaskCodeGroup = {
     taskCodeGroupId: string;
@@ -12,3 +13,4 @@ export type TaskCodeGroup = {
      */
     taskCodes: Array<TaskCode>;
 };
+

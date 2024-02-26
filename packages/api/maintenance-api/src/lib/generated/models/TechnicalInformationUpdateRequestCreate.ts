@@ -1,3 +1,4 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -23,7 +24,7 @@ export type TechnicalInformationUpdateRequestCreate = {
      * * `N` - Normal priority
      *
      */
-    priorityId?: "H" | "N";
+    priorityId?: 'H' | 'N';
     /**
      * If workCenter is not provided, it will use default defined on tag
      */
@@ -45,3 +46,4 @@ export type TechnicalInformationUpdateRequestCreate = {
      */
     personResponsibleEmail?: string;
 };
+

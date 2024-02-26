@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-core",
-    "version": "0.3.0",
+    "version": "0.5.16",
     "description": "Core library for the Mobile App Delivery team",
     "type": "module",
     "scripts": {
@@ -29,10 +29,12 @@
     "peerDependencies": {
         "@react-native-async-storage/async-storage": "*",
         "@react-navigation/native": "^6.1.8",
-        "react-native-gesture-handler": "^2.14.0",
+        "expo-device": ">=5.4.0",
+        "expo-localization": ">=14.3.0",
         "react": ">=18.0",
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
+        "react-native-gesture-handler": "^2.14.0",
         "react-native-msal": "*"
     },
     "dependencies": {

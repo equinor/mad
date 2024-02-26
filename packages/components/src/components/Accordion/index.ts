@@ -11,4 +11,5 @@ export type AccordionFamily = typeof _Accordion & {
 const Accordion = _Accordion as AccordionFamily;
 Accordion.Item = AccordionItem;
 
-export { Accordion, AccordionProps, AccordionItemProps };
+export { Accordion };
+export type { AccordionProps, AccordionItemProps };

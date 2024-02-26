@@ -11,12 +11,12 @@ import {
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import { useCoreStackNavigation } from "../../../hooks";
 import { useDemoMode } from "../../../store/demo-mode";
 import { fetchReleaseNotes } from "./fetchReleaseNotes";
 import { ScrollView, View } from "react-native";
 import { getShortDate } from "../../../utils/dateUtils";
 import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
+import { useNavigateFromWhatsNewScreen } from "../../../hooks/useNavigateFromWhatsNewScreen";
 
 /**
  * This screen will display the latest releasenotes
@@ -27,7 +27,7 @@ export const WhatsNewScreen = () => {
     const environment = useEnvironment();
     const releaseNotesVersion = useReleaseNotesVersion();
     const servicePortalName = useServicePortalName();
-    const navigation = useCoreStackNavigation();
+    const navigate = useNavigateFromWhatsNewScreen();
     const demoMode = useDemoMode();
     const appVersion = useAppVersion();
     const [release, setRelease] = useState<Release | null>(null);
@@ -35,7 +35,6 @@ export const WhatsNewScreen = () => {
     const [isFetching, setIsFetching] = useState(true);
     const enableIsFetching = () => setIsFetching(true);
     const disableIsFetching = () => setIsFetching(false);
-    const navigate = () => navigation.navigate("Root");
 
     useEffect(() => {
         enableIsFetching();
@@ -77,7 +76,8 @@ export const WhatsNewScreen = () => {
                 <Button
                     title="OK"
                     onPress={() => {
-                        releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
+                        if (!demoMode.isEnabled)
+                            releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
                         navigate();
                     }}
                     style={{ width: 81 }}
@@ -89,13 +89,12 @@ export const WhatsNewScreen = () => {
 
 const whatsNewStyles = EDSStyleSheet.create(theme => ({
     spinnerContainer: {
-        display: "flex",
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
     },
     container: {
-        display: "flex",
+        flex: 1,
         paddingTop: theme.geometry.dimension.cell.minHeight,
         justifyContent: "space-between",
     },

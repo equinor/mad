@@ -4,7 +4,7 @@ import { MadAccount, MadAuthenticationResult } from "../types";
 export const getMadAccount = (account: MSALAccount): MadAccount => {
     return {
         username: account.username,
-        name: (account.claims as IClaims).name || undefined,
+        name: (account.claims as IClaims | undefined)?.name,
         identifier: account.identifier,
     };
 };
@@ -30,4 +30,4 @@ type IClaims = {
     typ: string;
     uti: string;
     ver: string;
-}
+};
