@@ -71,6 +71,10 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
          */
         splash: ImageSourcePropType;
         /**
+         * background color for the login screen. Should be identical to the splash screen's background color.
+         */
+        backgroundColor?: string;
+        /**
          * If you want to add the login screen manually to the stack, set this to true. This gives you access to additional props
          */
         addScreenManually?: boolean;

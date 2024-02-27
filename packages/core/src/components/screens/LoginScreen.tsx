@@ -14,11 +14,11 @@ export const LoginScreen = ({
     onAuthenticationSuccessful,
     onAuthenticationFailed,
 }: LoginScreenProps) => {
-    const styles = useStyles(theme);
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
     const navigate = useNavigateFromLoginScreen();
-    const { splash } = useLoginScreenConfig();
+    const { splash, backgroundColor } = useLoginScreenConfig();
+    const styles = useStyles(theme, backgroundColor);
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
     const resizeMode = Platform.OS === "web" ? "contain" : "cover";
@@ -71,10 +71,10 @@ export const LoginScreen = ({
     );
 };
 
-const theme = EDSStyleSheet.create(() => ({
+const theme = EDSStyleSheet.create((_, backgroundColor: string | undefined) => ({
     container: {
         flex: 1,
-        backgroundColor: "#E6FAEC",
+        backgroundColor: backgroundColor ?? "#E6FAEC",
     },
     secretHitboxContainer: {
         position: "absolute",
