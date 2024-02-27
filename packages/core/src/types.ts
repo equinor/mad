@@ -71,7 +71,7 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
          */
         splash: ImageSourcePropType;
         /**
-         * background color for the login screen. Should be identical to she splash screen's background color.
+         * background color for the login screen. Should be identical to the splash screen's background color.
          */
         backgroundColor?: string;
         /**
