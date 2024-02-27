@@ -44,5 +44,6 @@ jobs:
 
     deploy-docs:
         name: 📗 Trigger Docs Deploy Workflow
+        needs: [release]
         uses: equinor/mad/.github/workflows/deploy-docs.yml@main
         if: needs.release.outputs.published == 'true'
