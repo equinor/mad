@@ -8,6 +8,8 @@
         "packages/**/*"
     ],
     "scripts": {
+        "dev:docs": "turbo run dev --filter @equinor/mad-platform-docs",
+        "build:docs": "turbo run build --filter @equinor/mad-platform-docs",
         "dev:skia-draw": "turbo run dev --filter @equinor/react-native-skia-draw",
         "build:skia-draw": "turbo run build --filter @equinor/react-native-skia-draw",
         "test:components": "turbo run test --filter @equinor/mad-components --",

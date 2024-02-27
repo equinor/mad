@@ -1,0 +1,8 @@
+{
+    "label": "Data display",
+    "position": 2,
+    "link": {
+        "type": "generated-index",
+        "description": "Beautiful ways to convey data to users!"
+    }
+}
