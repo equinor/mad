@@ -7,5 +7,5 @@
     "access": "public",
     "baseBranch": "main",
     "updateInternalDependencies": "patch",
-    "ignore": ["@equinor/mad-chronicles", "tsconfig", "@equinor/mad-platform-docs"]
+    "ignore": ["@equinor/mad-chronicles", "tsconfig"]
 }

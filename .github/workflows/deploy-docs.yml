@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+
+on:
+    workflow_call:
+
+permissions:
+    contents: write
+
+jobs:
+    deploy:
+        name: Deploy to GitHub Pages
+        runs-on: ubuntu-latest
+        steps:
+            - name: 👀 Checkout Repo
+              uses: actions/checkout@v4
+
+            - name: 🌈 Setup Node.js 18
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 18
+                  cache: pnpm
+
+            - name: 📦 Install Dependencies
+              run: pnpm install
+
+            - name: 👩‍🏭 Build website
+              run: pnpm build:docs
+
+            # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
+            - name: ⬆️ Deploy to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  # Build output to publish to the `gh-pages` branch:
+                  publish_dir: ./apps/docs/build
