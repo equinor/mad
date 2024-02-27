@@ -4,38 +4,16 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 
 ### Installation
 
-```
-$ yarn
-```
-
-### Local Development
+Installation follows the monorepo installation guide. Make sure all dependencies are installed using
 
 ```
-$ yarn start
+pnpm install
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+### Development
 
-### Build
-
-```
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-Using SSH:
+To launch a dev instance of the site, run the monorepo command
 
 ```
-$ USE_SSH=true yarn deploy
+pnpm dev:docs
 ```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.

@@ -49,7 +49,7 @@ const config: Config = {
 
     themeConfig: {
         // Replace with your project's social card
-        image: "img/docusaurus-social-card.jpg",
+        image: "img/mad-social-card.png",
         navbar: {
             title: "MAD",
             logo: {
@@ -82,7 +82,7 @@ const config: Config = {
                     label: "Docusaurus tutorial",
                 },
                 {
-                    href: "https://github.com/facebook/docusaurus",
+                    href: "https://github.com/equinor/mad",
                     label: "GitHub",
                     position: "right",
                 },
