@@ -90,11 +90,11 @@ const config: Config = {
                     items: [
                         {
                             label: "MAD Components",
-                            to: "/docs/components/",
+                            to: "docs/components/getting-started",
                         },
                         {
                             label: "MAD Core",
-                            to: "/docs/mad-core/",
+                            to: "docs/mad-core/getting-started",
                         },
                     ],
                 },
