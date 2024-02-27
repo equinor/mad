@@ -2,6 +2,7 @@ import { MadConfig } from "@equinor/mad-core";
 import { getBuildNumber } from "./settings";
 import Splash from "./assets/images/splash.png";
 import { RootStackParamList } from "./types/navigation";
+import * as ExpoConfig from "./app.json";
 
 export const config: MadConfig<RootStackParamList> = {
     navigateToMainRouteFn: navigation => navigation.navigate("Root"),
@@ -33,6 +34,7 @@ export const config: MadConfig<RootStackParamList> = {
     },
     login: {
         splash: Splash,
+        backgroundColor: ExpoConfig.expo.splash.backgroundColor,
         addScreenManually: true,
     },
     applicationInsights: {
