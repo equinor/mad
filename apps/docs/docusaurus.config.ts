@@ -76,12 +76,6 @@ const config: Config = {
                     ],
                 },
                 {
-                    type: "docSidebar",
-                    sidebarId: "tutorialSidebar",
-                    position: "left",
-                    label: "Docusaurus tutorial",
-                },
-                {
                     href: "https://github.com/equinor/mad",
                     label: "GitHub",
                     position: "right",
@@ -92,11 +86,15 @@ const config: Config = {
             style: "dark",
             links: [
                 {
-                    title: "Docs",
+                    title: "Packages",
                     items: [
                         {
-                            label: "Tutorial",
-                            to: "/docs/docusaurus/intro",
+                            label: "MAD Components",
+                            to: "docs/components/getting-started",
+                        },
+                        {
+                            label: "MAD Core",
+                            to: "docs/mad-core/getting-started",
                         },
                     ],
                 },
