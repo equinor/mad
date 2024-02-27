@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.5.17
+
+### Patch Changes
+
+-   7cf3344: You can now change the background color of the login screen
+
 ## 0.5.16
 
 ### Patch Changes
