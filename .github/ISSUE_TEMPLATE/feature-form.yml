@@ -22,6 +22,7 @@ body:
               - Maintenance API typescript wrapper
               - ESLint Equinor MAD
               - MAD DFW
+              - MAD Docs
               - Other
       validations:
           required: true
