@@ -36,7 +36,9 @@ jobs:
                   commit: "📝 chore: Bump package versions and write changelog"
                   createGithubReleases: true
                   publish: pnpm publish:all
-
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: 📗 Trigger Docs Deploy Workflow
+              uses: equinor/mad/.github/workflows/deploy-docs.yml@main
+              if: steps.changesets.outputs.published == 'true'
