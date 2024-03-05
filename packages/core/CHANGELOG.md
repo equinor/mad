@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.5.18
+
+### Patch Changes
+
+-   ae11efd: Export types from mad-auth
+
 ## 0.5.17
 
 ### Patch Changes
