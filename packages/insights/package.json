@@ -41,7 +41,8 @@
     },
     "devDependencies": {
         "@equinor/eslint-config-mad": "workspace:*",
-        "@types/crypto-js": "^4.1.2"
+        "@types/crypto-js": "^4.1.2",
+        "@types/react": "~18.2.43"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
