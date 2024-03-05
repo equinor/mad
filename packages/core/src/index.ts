@@ -5,6 +5,8 @@ export {
     getAccount,
     signOut,
     authenticateInteractively,
+    MadAccount,
+    MadAuthenticationResult
 } from "@equinor/mad-auth";
 export {
     appInsightsHasBeenInitialized,
