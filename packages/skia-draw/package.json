@@ -27,11 +27,11 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@equinor/mad-components": "workspace:*"
+        "@equinor/mad-components": "*"
     },
     "devDependencies": {
         "@types/react": "~18.2.43",
-        "@equinor/eslint-config-mad": "workspace:*"
+        "@equinor/eslint-config-mad": "*"
     },
     "peerDependencies": {
         "@shopify/react-native-skia": "0.1.225",
