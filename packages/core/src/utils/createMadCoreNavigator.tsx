@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { EnvironmentProvider } from "../components/EnvironmentProvider";
 import { LoginScreen } from "../components/screens/LoginScreen";
 import { ParamListBase } from "@react-navigation/native";
@@ -22,8 +22,9 @@ type StackType = ReturnType<typeof createNativeStackNavigator>;
 // @ts-expect-error this works, I don't know why it complains
 type NavigatorProps = PropsOf<StackType["Navigator"]>;
 
-export const createMadCoreNavigator = <T extends ParamListBase>(
-    Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>,
+type CreateMadCoreNavigatorType = <T extends ParamListBase>(Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>) => (props:Omit<NavigatorProps, "initialRouteName">) => ReactNode
+export const createMadCoreNavigator: CreateMadCoreNavigatorType = (
+    Stack,
 ) => {
     function MadCoreNavigator(props: Omit<NavigatorProps, "initialRouteName">) {
         const config = useMadConfig();
