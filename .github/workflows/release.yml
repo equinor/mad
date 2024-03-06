@@ -21,9 +21,7 @@ jobs:
                   cache: yarn
 
             - name: 📦 Install Dependencies
-              uses: borales/actions-yarn@v4
-              with:
-                  cmd: install
+              run: yarn
 
             - name: 🦋 Create Release Pull Request
               id: changesets

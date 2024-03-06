@@ -33,21 +33,13 @@ jobs:
                   cache-dependency-path: yarn.lock
 
             - name: 📦 Install Dependencies
-              uses: borales/actions-yarn@v4
-              with:
-                  cmd: install
+              run: yarn
 
             - name: 🏭 Build packages
-              uses: borales/actions-yarn@v4
-              with:
-                  cmd: build:all
+              run: yarn build:all
 
             - name: 🚦 Lint and fix
-              uses: borales/actions-yarn@v4
-              with:
-                  cmd: lint:all --fix
+              run: yarn lint:all --fix
 
             - name: 🤖 Format
-              uses: borales/actions-yarn@v4
-              with:
-                  cmd: format:all
+              run: yarn format:all
