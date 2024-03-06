@@ -17,13 +17,13 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: 18
-                  cache: pnpm
+                  cache: yarn
 
             - name: 📦 Install Dependencies
-              run: pnpm install
+              run: yarn install
 
             - name: 👩‍🏭 Build website
-              run: pnpm build:docs
+              run: yarn build:docs
 
             # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
             - name: ⬆️ Deploy to GitHub Pages

@@ -25,26 +25,29 @@ jobs:
               with:
                   ref: ${{ github.head_ref }}
 
-            - name: 🏗️ Set up pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: 7
-
             - name: 🌈 Setup Node.js 18
               uses: actions/setup-node@v3
               with:
                   node-version: 18
-                  cache: pnpm
-                  cache-dependency-path: pnpm-lock.yaml
+                  cache: yarn
+                  cache-dependency-path: yarn.lock
 
             - name: 📦 Install Dependencies
-              run: pnpm install
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: install
 
             - name: 🏭 Build packages
-              run: pnpm build:all
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: build:all
 
             - name: 🚦 Lint and fix
-              run: pnpm lint:all --fix
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: lint:all --fix
 
             - name: 🤖 Format
-              run: pnpm format:all
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: format:all
