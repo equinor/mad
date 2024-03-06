@@ -1,11 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { View } from "react-native";
-import RenderHtml, { defaultSystemFonts } from "react-native-render-html";
 import * as showdown from "showdown";
-import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
+import { EDSStyleSheet, useStyles, Typography } from "@equinor/mad-components";
 
 const converter = new showdown.Converter();
-const systemFonts = [...defaultSystemFonts, "Equinor-Regular"];
 
 export type Release = {
     app: string;
@@ -32,16 +30,7 @@ export const ChangeLog = ({ release }: ChangeLogProps) => {
                     setWidth(width);
                 }}
             >
-                <RenderHtml
-                    contentWidth={width}
-                    source={html}
-                    systemFonts={systemFonts}
-                    tagsStyles={{
-                        ul: styles.list,
-                        // @ts-expect-error Type Mismatch between react-native TextStyle and react-native-render-html
-                        li: styles.listItems,
-                    }}
-                />
+                <Typography> Release notes unavailable. Check back soon!</Typography>
             </View>
         </>
     );
