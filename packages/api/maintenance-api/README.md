@@ -42,7 +42,7 @@ it builds and tests correctly and then you're done. Use the steps under as a gui
 
 ### Codegen
 
-Run `pnpm generate:maintenance-api /path/to/schema.json` to generate the library from the
+Run `yarn generate:maintenance-api /path/to/schema.json` to generate the library from the
 Maintenance API schema. You will need to download the schema from the Maintenance API docs to your
 machine before doing this.
 
@@ -56,8 +56,8 @@ API spec version.
 
 ### Building
 
-Run `pnpm build:maintenance-api` to build the library.
+Run `yarn build:maintenance-api` to build the library.
 
 ### Running unit tests
 
-Run `pnpm test:maintenance-api` to execute the unit tests via [Jest](https://jestjs.io).
+Run `yarn test:maintenance-api` to execute the unit tests via [Jest](https://jestjs.io).
