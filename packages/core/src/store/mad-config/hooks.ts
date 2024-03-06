@@ -62,6 +62,7 @@ export const useServiceNow = () => {
 export const useNavigateToMainRoute = () => {
     const config = useMadConfig();
     const navigation = useNavigation();
+    //@ts-expect-error have to fix this somehow
     return () => config.navigateToMainRouteFn(navigation);
 };
 

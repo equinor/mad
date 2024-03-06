@@ -36,7 +36,8 @@
         "@equinor/mad-components": "workspace:*"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "workspace:*"
+        "@equinor/eslint-config-mad": "workspace:*",
+        "@types/react": "~18.2.43"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
