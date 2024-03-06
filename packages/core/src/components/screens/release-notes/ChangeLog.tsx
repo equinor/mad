@@ -1,9 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { View } from "react-native";
-import * as showdown from "showdown";
-import { EDSStyleSheet, useStyles, Typography } from "@equinor/mad-components";
+import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
+import Markdown from "react-native-markdown-display";
 
-const converter = new showdown.Converter();
 
 export type Release = {
     app: string;
@@ -19,35 +18,29 @@ type ChangeLogProps = {
 
 export const ChangeLog = ({ release }: ChangeLogProps) => {
     const styles = useStyles(changeLogStyles);
-    const [width, setWidth] = useState(0);
-    const html = useMemo(() => ({ html: converter.makeHtml(release.releaseNote) }), [release]);
-
     return (
-        <>
-            <View
-                onLayout={event => {
-                    const { width } = event.nativeEvent.layout;
-                    setWidth(width);
-                }}
-            >
-                <Typography> Release notes unavailable. Check back soon!</Typography>
-            </View>
-        </>
+        <View>
+            <Markdown style={styles}>{release.releaseNote}</Markdown>
+        </View>
     );
 };
 
 const changeLogStyles = EDSStyleSheet.create(theme => ({
-    list: {
-        display: "flex",
-        listStyleType: "square",
-        alignItems: "flex-start",
-        paddingLeft: theme.spacing.container.paddingHorizontal,
-        marginVertical: theme.spacing.textField.paddingVertical,
+    text: {
+        ...theme.typography.paragraph.body_short,
         color: theme.colors.text.primary,
     },
-    listItems: {
-        ...theme.typography.paragraph.body_short,
+    bullet_list: {
+        display: "flex",
+        alignItems: "flex-start",
+        marginVertical: theme.spacing.textField.paddingVertical,
+    },
+    list_item: {
         marginHorizontal: theme.spacing.textField.paddingHorizontal,
         paddingBottom: theme.spacing.textField.paddingVertical,
     },
+    bullet_list_icon: {
+        fontSize: 32,
+        lineHeight: 28
+    }
 }));
