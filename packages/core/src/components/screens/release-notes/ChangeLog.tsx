@@ -1,11 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { View } from "react-native";
-import RenderHtml, { defaultSystemFonts } from "react-native-render-html";
-import * as showdown from "showdown";
 import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
-
-const converter = new showdown.Converter();
-const systemFonts = [...defaultSystemFonts, "Equinor-Regular"];
+import Markdown from "react-native-markdown-display";
 
 export type Release = {
     app: string;
@@ -21,44 +17,32 @@ type ChangeLogProps = {
 
 export const ChangeLog = ({ release }: ChangeLogProps) => {
     const styles = useStyles(changeLogStyles);
-    const [width, setWidth] = useState(0);
-    const html = useMemo(() => ({ html: converter.makeHtml(release.releaseNote) }), [release]);
-
     return (
-        <>
-            <View
-                onLayout={event => {
-                    const { width } = event.nativeEvent.layout;
-                    setWidth(width);
-                }}
-            >
-                <RenderHtml
-                    contentWidth={width}
-                    source={html}
-                    systemFonts={systemFonts}
-                    tagsStyles={{
-                        ul: styles.list,
-                        // @ts-expect-error Type Mismatch between react-native TextStyle and react-native-render-html
-                        li: styles.listItems,
-                    }}
-                />
-            </View>
-        </>
+        <View>
+            <Markdown style={styles}>{release.releaseNote}</Markdown>
+        </View>
     );
 };
 
 const changeLogStyles = EDSStyleSheet.create(theme => ({
-    list: {
-        display: "flex",
-        listStyleType: "square",
-        alignItems: "flex-start",
-        paddingLeft: theme.spacing.container.paddingHorizontal,
-        marginVertical: theme.spacing.textField.paddingVertical,
+    text: {
+        ...theme.typography.basic.p,
         color: theme.colors.text.primary,
     },
-    listItems: {
-        ...theme.typography.paragraph.body_short,
+    bullet_list: {
+        display: "flex",
+        alignItems: "flex-start",
+        marginVertical: theme.spacing.textField.paddingVertical,
+        listStyleType: "square",
+    },
+    list_item: {
         marginHorizontal: theme.spacing.textField.paddingHorizontal,
         paddingBottom: theme.spacing.textField.paddingVertical,
+    },
+    bullet_list_icon: {
+        ...theme.typography.basic.p,
+        fontSize: 48,
+        lineHeight: 40,
+        color: theme.colors.text.primary,
     },
 }));
