@@ -101,9 +101,15 @@ importers:
       expo-asset:
         specifier: ~8.10.1
         version: 8.10.1(expo@49.0.21)
+      expo-auth-session:
+        specifier: ~5.0.2
+        version: 5.0.2(expo@49.0.21)
       expo-constants:
         specifier: ~14.4.2
         version: 14.4.2(expo@49.0.21)
+      expo-crypto:
+        specifier: ~12.4.1
+        version: 12.4.1(expo@49.0.21)
       expo-device:
         specifier: ~5.4.0
         version: 5.4.0(expo@49.0.21)
@@ -248,6 +254,12 @@ importers:
       '@equinor/mad-components':
         specifier: workspace:*
         version: link:../components
+      expo-auth-session:
+        specifier: ~5.0.2
+        version: 5.0.2(expo@49.0.21)
+      expo-crypto:
+        specifier: ~12.4.1
+        version: 12.4.1(expo@49.0.21)
       react:
         specifier: '>=18.0'
         version: 18.2.0
@@ -322,6 +334,12 @@ importers:
       '@react-navigation/native':
         specifier: ^6.1.8
         version: 6.1.9(react-native@0.72.6)(react@18.2.0)
+      expo-auth-session:
+        specifier: ~5.0.2
+        version: 5.0.2(expo@49.0.21)
+      expo-crypto:
+        specifier: ~12.4.1
+        version: 12.4.1(expo@49.0.21)
       expo-device:
         specifier: '>=5.4.0'
         version: 5.4.0(expo@49.0.21)
@@ -8826,6 +8844,20 @@ packages:
       - supports-color
     dev: false
 
+  /expo-auth-session@5.0.2(expo@49.0.21):
+    resolution: {integrity: sha512-hzuIGATiyZ4ICuzSnCTTQLUA74eHGd1aaPydsSAQEAkMnNT2bMoIYLq1rp971xF+eqWz0lzMVboRYTnxuvEKJg==}
+    dependencies:
+      expo-constants: 14.4.2(expo@49.0.21)
+      expo-crypto: 12.4.1(expo@49.0.21)
+      expo-linking: 5.0.2(expo@49.0.21)
+      expo-web-browser: 12.3.2(expo@49.0.21)
+      invariant: 2.2.4
+      qs: 6.11.2
+    transitivePeerDependencies:
+      - expo
+      - supports-color
+    dev: false
+
   /expo-constants@14.4.2(expo@49.0.21):
     resolution: {integrity: sha512-nOB122DOAjk+KrJT69lFQAoYVQGQjFHSigCPVBzVdko9S1xGsfiOH9+X5dygTsZTIlVLpQJDdmZ7ONiv3i+26w==}
     peerDependencies:
@@ -8836,6 +8868,15 @@ packages:
       uuid: 3.4.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /expo-crypto@12.4.1(expo@49.0.21):
+    resolution: {integrity: sha512-/en03oPNAX6gP0bKpwA1EyLBnGG9uv0+Q7uvGYyOXaQQEvj31a+8cEvNPkv75x6GuK1hcaBfO25RtX9AGOMwVA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      base64-js: 1.5.1
+      expo: 49.0.21(@babel/core@7.23.6)
     dev: false
 
   /expo-device@5.4.0(expo@49.0.21):

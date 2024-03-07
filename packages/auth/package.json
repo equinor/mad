@@ -33,7 +33,9 @@
         "react-native-msal": "*"
     },
     "dependencies": {
-        "@equinor/mad-components": "workspace:*"
+        "@equinor/mad-components": "workspace:*",
+        "expo-auth-session": "~5.0.2",
+        "expo-crypto": "~12.4.1"
     },
     "devDependencies": {
         "@equinor/eslint-config-mad": "workspace:*"

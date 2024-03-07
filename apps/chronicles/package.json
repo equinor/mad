@@ -26,6 +26,8 @@
     "@react-navigation/native-stack": "^6.1.0",
     "@shopify/react-native-skia": "0.1.225",
     "expo": "~49.0.21",
+    "expo-auth-session": "~5.0.2",
+    "expo-crypto": "~12.4.1",
     "expo-asset": "~8.10.1",
     "expo-constants": "~14.4.2",
     "expo-device": "~5.4.0",
