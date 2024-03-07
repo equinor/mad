@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import Markdown from "react-native-markdown-display";
 
-
 export type Release = {
     app: string;
     version: string;
@@ -27,20 +26,23 @@ export const ChangeLog = ({ release }: ChangeLogProps) => {
 
 const changeLogStyles = EDSStyleSheet.create(theme => ({
     text: {
-        ...theme.typography.paragraph.body_short,
+        ...theme.typography.basic.p,
         color: theme.colors.text.primary,
     },
     bullet_list: {
         display: "flex",
         alignItems: "flex-start",
         marginVertical: theme.spacing.textField.paddingVertical,
+        listStyleType: "square",
     },
     list_item: {
         marginHorizontal: theme.spacing.textField.paddingHorizontal,
         paddingBottom: theme.spacing.textField.paddingVertical,
     },
     bullet_list_icon: {
-        fontSize: 32,
-        lineHeight: 28
-    }
+        ...theme.typography.basic.p,
+        fontSize: 48,
+        lineHeight: 40,
+        color: theme.colors.text.primary,
+    },
 }));
