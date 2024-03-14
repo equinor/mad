@@ -7,7 +7,7 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 Installation follows the monorepo installation guide. Make sure all dependencies are installed using
 
 ```
-pnpm install
+yarn
 ```
 
 ### Development
@@ -15,5 +15,5 @@ pnpm install
 To launch a dev instance of the site, run the monorepo command
 
 ```
-pnpm dev:docs
+yarn dev:docs
 ```

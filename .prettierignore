@@ -1,5 +1,5 @@
 node_modules/
-pnpm-lock.yaml
+yarn.lock
 
 dist
 generated

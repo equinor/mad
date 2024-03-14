@@ -52,7 +52,7 @@
         "prettier": "3.0.1",
         "ts-jest": "^29.0.5",
         "ts-node": "^10.9.1",
-        "tsconfig": "workspace:*",
+        "tsconfig": "*",
         "tslib": "^2.5.0",
         "tsup": "^7.0.0",
         "turbo": "^1.11.1",
@@ -61,5 +61,5 @@
     "engines": {
         "node": ">=18.0.0"
     },
-    "packageManager": "pnpm@7.31.0"
+    "packageManager": "yarn@1.22.21"
 }
