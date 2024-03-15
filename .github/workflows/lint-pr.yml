@@ -41,5 +41,8 @@ jobs:
             - name: 🚦 Lint and fix
               run: yarn lint:all --fix
 
+            - name: 🧪 Run tests
+              run: yarn test:all
+
             - name: 🤖 Format
               run: yarn format:all
