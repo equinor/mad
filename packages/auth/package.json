@@ -33,12 +33,12 @@
         "react-native-msal": "*"
     },
     "dependencies": {
-        "@equinor/mad-components": "workspace:*",
+        "@equinor/mad-components": "*",
         "expo-auth-session": "~5.0.2",
         "expo-crypto": "~12.4.1"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "workspace:*"
+        "@equinor/eslint-config-mad": "*"
     },
     "files": [
         "CODE_OF_CONDUCT.md",

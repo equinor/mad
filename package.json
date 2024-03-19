@@ -12,19 +12,22 @@
         "build:docs": "turbo run build --filter @equinor/mad-platform-docs",
         "dev:skia-draw": "turbo run dev --filter @equinor/react-native-skia-draw",
         "build:skia-draw": "turbo run build --filter @equinor/react-native-skia-draw",
+        "test:skia-draw": "turbo run test --filter @equinor/react-native-skia-draw",
         "test:components": "turbo run test --filter @equinor/mad-components --",
         "dev:components": "turbo run dev --filter @equinor/mad-components",
         "build:components": "turbo run build --filter @equinor/mad-components",
         "dev:navigation": "turbo run dev --filter @equinor/mad-navigation",
         "build:navigation": "turbo run build --filter @equinor/mad-navigation",
+        "test:navigation": "turbo run test --filter @equinor/mad-navigation",
         "dev:insights": "turbo run dev --filter @equinor/mad-insights",
         "build:insights": "turbo run build --filter @equinor/mad-insights",
+        "test:insights": "turbo run test --filter @equinor/mad-insights",
         "dev:auth": "turbo run dev --filter @equinor/mad-auth",
         "build:auth": "turbo run build --filter @equinor/mad-auth",
+        "test:auth": "turbo run test --filter @equinor/mad-auth",
         "dev:core": "turbo run dev --filter @equinor/mad-core",
         "build:core": "turbo run build --filter @equinor/mad-core",
         "test:core": "turbo run test --filter @equinor/mad-core",
-        "test:insights": "turbo run test --filter @equinor/mad-insights",
         "dev:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
         "web:chronicles": "turbo run web --filter @equinor/mad-chronicles",
         "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
@@ -39,6 +42,7 @@
         "lint:all": "turbo run lint --continue --",
         "format:all": "prettier --write .",
         "publish:all": "turbo run build && changeset version && changeset publish",
+        "test:all": "turbo run test",
         "clean:all": "turbo run clean && rm -rf node_modules/"
     },
     "devDependencies": {
@@ -52,7 +56,7 @@
         "prettier": "3.0.1",
         "ts-jest": "^29.0.5",
         "ts-node": "^10.9.1",
-        "tsconfig": "workspace:*",
+        "tsconfig": "*",
         "tslib": "^2.5.0",
         "tsup": "^7.0.0",
         "turbo": "^1.11.1",
@@ -61,5 +65,5 @@
     "engines": {
         "node": ">=18.0.0"
     },
-    "packageManager": "pnpm@7.31.0"
+    "packageManager": "yarn@1.22.21"
 }
