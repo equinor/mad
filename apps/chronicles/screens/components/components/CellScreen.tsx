@@ -9,10 +9,29 @@ import {
     useStyles,
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
+import {CellGroup} from "@equinor/mad-components/dist/components/Cell/CellGroup";
 
+const ColorCell =
+    ({
+        color,
+        updateColor,
+        propKey,
+    }: {
+        color: string;
+        updateColor: (x: number) => void;
+        propKey: number;
+    }) => {
+        console.log("im being rendered!");
+        return (
+            <Cell style={{ backgroundColor: color }} onPress={() => updateColor(propKey)}>
+                <Typography>Turn me blue!</Typography>
+            </Cell>
+        );
+    };
 export const CellScreen = () => {
     const styles = useStyles(themeStyles);
     const [activeToggleIndex, setActiveToggleIndex] = useState<number>(0);
+    const [color, setColor] = useState<{ s: string, n: number }[]>(new Array(10).fill({s: "green", n: 0}));
 
     const [isCheckedRadio1, setIsCheckedRadio1] = useState(false);
     const [isCheckedRadio2, setIsCheckedRadio2] = useState(true);
@@ -20,6 +39,10 @@ export const CellScreen = () => {
     const handleRadioChange = (newState: boolean) => {
         setIsCheckedRadio2(newState);
         setIsCheckedRadio1(!newState);
+    };
+
+    const updateColor = (index: number) => {
+        setColor([...color.slice(0, index), {s: "blue", n: index}, ...color.slice(index + 1)]);
     };
 
     const MyCustomCell = (customCellProps: { title: string }) => (
@@ -60,6 +83,16 @@ export const CellScreen = () => {
                 </Typography>
             </View>
             <Spacer />
+            <CellGroup title={"cellgroup"}>
+            {color.filter(cellColor => cellColor === "green").map((cellColor, index) => (
+                <ColorCell
+                    key={index}
+                    propKey={index}
+                    color={cellColor}
+                    updateColor={updateColor}
+                />
+            ))}
+            </CellGroup>
             <Cell.Group title="My first cell group">
                 <Cell />
                 <Cell />
