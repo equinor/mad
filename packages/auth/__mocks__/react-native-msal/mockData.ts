@@ -11,6 +11,7 @@ const getAccount = (): MSALAccount => ({
 });
 
 const getResult = (): MSALResult => ({
+    // file deepcode ignore HardcodedNonCryptoSecret: this is mock data used purely for testing
     accessToken: "mock-token",
     account: getAccount(),
     expiresOn: 0,
