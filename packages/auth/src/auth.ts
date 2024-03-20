@@ -139,3 +139,10 @@ export async function signOut(): Promise<boolean> {
 
     return false;
 }
+
+/**
+ *
+ */
+export function _reset() {
+    pca = null;
+}
