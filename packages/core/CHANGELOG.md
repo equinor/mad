@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.6.0
+
+### Minor Changes
+
+-   6fa6d98: use react-native-markdown-display for release notes
+
 ## 0.5.18
 
 ### Patch Changes
