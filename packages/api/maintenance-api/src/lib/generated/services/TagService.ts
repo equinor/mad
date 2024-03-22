@@ -82,6 +82,11 @@ export class TagService {
      * ### Update release v1.27.0
      * Work orders now include the property 'isOpen'
      *
+     * ### Update release v1.28.0
+     * `billOfMaterials` now include the property `parentMaterialId`
+     *
+     * Added `materialId` and `material` to the response
+     *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -554,6 +559,11 @@ export class TagService {
      *
      * ### Update release v1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release v1.28.0
+     * `billOfMaterials` now include the property `parentMaterialId`
+     *
+     * Added `materialId` and `material` to the response
      *
      * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes

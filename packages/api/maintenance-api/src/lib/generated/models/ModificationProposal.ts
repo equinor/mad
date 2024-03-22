@@ -22,11 +22,11 @@ export type ModificationProposal = (ModificationProposalBasic & {
      */
     createdByEmail?: string | null;
     /**
-     * Attachments for this failure report
+     * Attachments for this Modification Proposal
      */
     attachments?: Array<Attachment>;
     /**
-     * Tasks for this failure report
+     * Tasks for this Modification Proposal
      */
     tasks?: Array<MaintenanceRecordTask>;
     /**

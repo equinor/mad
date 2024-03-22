@@ -39,5 +39,9 @@ export type RelationshipToDocument = {
      * Document title providing additional information
      */
     documentTitle: string;
+    /**
+     * Date when the document was created
+     */
+    documentCreatedDate?: string | null;
 };
 

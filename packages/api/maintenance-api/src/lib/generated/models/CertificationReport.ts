@@ -28,7 +28,7 @@ export type CertificationReport = (CertificationReportBasic & {
      */
     statuses?: Array<Status>;
     /**
-     * Attachments for this failure report
+     * Attachments for this Certification Report
      */
     attachments?: Array<Attachment>;
     tagDetails?: TagBasic | null;

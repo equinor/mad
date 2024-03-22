@@ -6,7 +6,7 @@
 export type MaintenanceRecordActivity = {
     activityId: string;
     title: string;
-    text: string;
+    text: string | null;
     activityCodeId: string;
     activityCode: string;
     activityCodeGroupId: string;

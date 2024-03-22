@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
-import type { DocumentAddClass } from '../models/DocumentAddClass';
-import type { DocumentBasic } from '../models/DocumentBasic';
-import type { DocumentCreate } from '../models/DocumentCreate';
+import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
+import type { MaintenanceRecordChangeFailureImpact } from '../models/MaintenanceRecordChangeFailureImpact';
 import type { ProblemDetails } from '../models/ProblemDetails';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -15,111 +13,48 @@ import { request as __request } from '../core/request';
 export class NewEndpointsService {
 
     /**
-     * Document - Create
+     * Failure report - Change failure impact
      * ### Overview
-     * Create a new document.
-     * This document will not be linked to any business object, but can be linked afterwards by calling POST `/document-relationships/{relationship-type}/{source-id}`.
+     * Change failure impact of the failure report.
+     * This endpoint should only be executed by persons which have access to the 'action box' in Equinor's ERP system.
      *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns DocumentBasic Created
-     * @throws ApiError
-     */
-    public static createDocument({
-        requestBody,
-    }: {
-        /**
-         * Document to create
-         */
-        requestBody: DocumentCreate,
-    }): CancelablePromise<ProblemDetails | DocumentBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/documents',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad request, for example documentType is invalid.`,
-                403: `User does not have sufficient rights to create an equipment.`,
-            },
-        });
-    }
-
-    /**
-     * Document - Add characteristics
-     * Add new characteristics to an existing document.
+     * Client applications should take special care in ensuring the business process of Equinor is followed in advance of calling this endpoint.
      *
-     * Characteristics are grouped into a class such as `FL_MAINT_STRATEGY`. Classes can be assigned to a document and specific characteristics such as `CRIT_PRODUCTION` will then be available for that specific document.
-     *
-     * With this endpoint, the consumer can assign classes to a document and define initial values for some of the characteristics in the classes.
-     *
-     * Note that if a given characteristic has already been added to this document, repeated adding will result in overwriting of the characteristic value.
-     * If you want to update a characteristic the `PATCH` endpoint can be used.
+     * An activity for the failure report will be created by this call and the `priorityId`, `requiredStartDate`, and `requiredEndDate` will be recalculated.
      *
      * ### Important information
-     * Use GET `document-relationships/{relationship-type}/{source-id}` to view characteristics with value after using this endpoint.
+     * Most users will not have sufficient authorizations to execute this endpoint. If a request fails due to missing authorizations, the response code will be HTTP 403.
      *
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns string Created - No body available for response. Use lookup from location header
+     * @returns MaintenanceRecordActivity Success
      * @throws ApiError
      */
-    public static addCharacteristicsToDocument({
-        documentId,
+    public static failureReportChangeFailureImpact({
+        recordId,
         requestBody,
     }: {
-        documentId: string,
         /**
-         * Characteristics to add to the document.
+         * id of the failure report
          */
-        requestBody: Array<DocumentAddClass>,
-    }): CancelablePromise<ProblemDetails | string> {
+        recordId: string,
+        /**
+         * New failure impact - activity to be created on the failure report.
+         */
+        requestBody: MaintenanceRecordChangeFailureImpact,
+    }): CancelablePromise<ProblemDetails | MaintenanceRecordActivity> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/documents/{document-id}/characteristics',
+            url: '/maintenance-records/failure-reports/{record-id}/failure-impact-change',
             path: {
-                'document-id': documentId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            responseHeader: 'Location',
-            errors: {
-                400: `Request is missing required parameters or characteristicId is not part of class`,
-                403: `User does not have sufficient rights to add characteristics to measuring point`,
-            },
-        });
-    }
-
-    /**
-     * Document - Update characteristic
-     * Update existing values of characteristics on a document. If the characteristics does not exist, a `404 - Not Found` is returned.
-     * ### Important information
-     * Use GET `document-relationships/{relationship-type}/{source-id}` to view characteristics with value after using this endpoint.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static updateDocumentCharacteristics({
-        documentId,
-        requestBody,
-    }: {
-        documentId: string,
-        /**
-         * Characteristics to be updated, based on JsonPatch standard
-         */
-        requestBody: Array<CharacteristicsUpdate>,
-    }): CancelablePromise<ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/documents/{document-id}/characteristics',
-            path: {
-                'document-id': documentId,
+                'record-id': recordId,
             },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to characteristics`,
+                400: `The request body is invalid`,
+                403: `User does not have sufficient rights to execute this endpoint`,
                 404: `The specified resource was not found`,
-                409: `Characteristics is locked by other user`,
+                409: `Failure report is locked by other user`,
             },
         });
     }

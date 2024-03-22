@@ -11,7 +11,7 @@ export type FailureReportJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/tagId' | '/tagPlantId' | '/equipmentId' | '/failureImpactId' | '/failureModeId' | '/failureModeGroupId' | '/detectionMethodId' | '/detectionMethodGroupId' | '/failureMechanismId' | '/failureMechanismGroupId' | '/workCenterId' | '/workCenterPlantId' | '/locationId' | '/title' | '/text' | '/failureStartDateTime' | '/failureEndDateTime' | '/plannerGroupId';
+    path: '/tagId' | '/tagPlantId' | '/equipmentId' | '/failureImpactId' | '/failureModeId' | '/failureModeGroupId' | '/detectionMethodId' | '/detectionMethodGroupId' | '/failureMechanismId' | '/failureMechanismGroupId' | '/codingId' | '/codingGroupId' | '/workCenterId' | '/workCenterPlantId' | '/locationId' | '/title' | '/text' | '/failureStartDateTime' | '/failureEndDateTime' | '/plannerGroupId';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

@@ -29,7 +29,7 @@ export type ModificationWorkOrder = (ModificationWorkOrderBasic & {
     maintenanceRecords?: Array<MaintenanceRecordMinimal>;
     tagDetails?: TagBasic;
     /**
-     * Attachments to Work order operation
+     * Attachments for this Modification Work order
      */
     attachments?: Array<Attachment>;
 });

@@ -41,11 +41,15 @@ export class CertificationReportsService {
      * ### Update release v1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
-     * ## Update release v1.26.0
+     * ### Update release v1.26.0
      * 'tagDetails' object now includes the new field 'maintenanceConceptId'
      *
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns CertificationReport Success
      * @returns ProblemDetails Response for other HTTP status codes

@@ -48,6 +48,14 @@ export type FailureReportBasic = {
     failureMechanism: string | null;
     failureMechanismGroupId: string | null;
     failureMechanismGroup: string | null;
+    /**
+     * General classification of failure reports, for example used for lifting equipment control
+     */
+    codingId: string | null;
+    /**
+     * Group for general classification of failure reports
+     */
+    codingGroupId: string | null;
     correctiveWorkOrderExist: boolean;
     correctiveWorkOrderId: string;
     /**

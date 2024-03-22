@@ -59,6 +59,10 @@ export class ActivityReportsService {
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -134,6 +138,10 @@ export class ActivityReportsService {
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ActivityReportBasic Success, the activity report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -191,6 +199,10 @@ export class ActivityReportsService {
      * ### Update release v1.27.0
      * Added support for creating activity report for technical feedback with PSD.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ActivityReportBasic Created
      * @throws ApiError
@@ -209,7 +221,7 @@ export class ActivityReportsService {
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                403: `User does not have sufficient rights to create a activity report`,
+                403: `User does not have sufficient rights to create an activity report`,
             },
         });
     }
@@ -409,6 +421,10 @@ export class ActivityReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Created - No body available for response. Use lookup from location header
      * @throws ApiError
@@ -450,6 +466,10 @@ export class ActivityReportsService {
      * Update existing activity for activity report
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -531,7 +551,7 @@ export class ActivityReportsService {
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
-     * If documentId is supplied, the attachment will be uploaded specifically to this document.
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document.
      *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
