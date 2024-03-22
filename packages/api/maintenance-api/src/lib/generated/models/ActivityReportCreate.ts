@@ -34,7 +34,7 @@ export type ActivityReportCreate = {
      */
     isOpen?: boolean;
     /**
-     * Datetime of activity report
+     * Optional parameter used in special cases where the failure report was created at an earlier time. Should not be a date in the future
      */
     createdDateTime?: string | null;
     /**

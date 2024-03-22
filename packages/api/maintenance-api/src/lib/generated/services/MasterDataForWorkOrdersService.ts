@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ProblemDetails } from '../models/ProblemDetails';
+import type { SafetyMeasure } from '../models/SafetyMeasure';
 import type { StandardTextTemplate } from '../models/StandardTextTemplate';
 import type { TechnicalFeedbackStatus } from '../models/TechnicalFeedbackStatus';
 
@@ -58,6 +59,26 @@ export class MasterDataForWorkOrdersService {
                 'filter': filter,
                 'plant-id': plantId,
             },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights`,
+            },
+        });
+    }
+
+    /**
+     * Work orders - Get safety measures
+     * ### Overview
+     * Get a list of safety measures. They can be added to a work order operation when it requires special safety practices or risk management
+     *
+     * @returns SafetyMeasure Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getSafetyMeasures(): CancelablePromise<Array<SafetyMeasure> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/work-orders/safety-measures',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights`,

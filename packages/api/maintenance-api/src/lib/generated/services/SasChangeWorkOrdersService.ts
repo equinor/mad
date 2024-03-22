@@ -100,6 +100,9 @@ export class SasChangeWorkOrdersService {
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
+     * ### Update release v1.28.0
+     * Added new query parameter `include-safety-measuress`.
+     *
      * @returns SASChangeWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -114,6 +117,7 @@ export class SasChangeWorkOrdersService {
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
+        includeSafetyMeasures = false,
     }: {
         workOrderId: string,
         /**
@@ -148,6 +152,10 @@ export class SasChangeWorkOrdersService {
          * Include related tags (from object list)
          */
         includeRelatedTags?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
     }): CancelablePromise<SASChangeWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -164,6 +172,7 @@ export class SasChangeWorkOrdersService {
                 'include-status-details': includeStatusDetails,
                 'include-tag-details': includeTagDetails,
                 'include-related-tags': includeRelatedTags,
+                'include-safety-measures': includeSafetyMeasures,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`sasChangeWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.

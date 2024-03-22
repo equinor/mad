@@ -48,6 +48,14 @@ export type Tag = (TagBasic & {
      * Specific room for the asset
      */
     area: string;
+    /**
+     * MaterialId for the asset
+     */
+    materialId?: string;
+    /**
+     * Material for the asset
+     */
+    material?: string;
     characteristics?: Array<TagCharacteristic>;
     maintenanceRecords?: SimpleMaintenanceRecordsList;
     workOrders?: {

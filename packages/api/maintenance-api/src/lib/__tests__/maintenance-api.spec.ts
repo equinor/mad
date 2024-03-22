@@ -59,6 +59,9 @@ describe("Plants", () => {
     it("should have Equipment endpoints", () => {
         expect(mApi.Plants["Equipment"]).toBeTruthy();
     });
+    it("should have Documents endpoints", () => {
+        expect(mApi.Plants["Documents"]).toBeTruthy();
+    });
     it("should have Master Data endpoints", () => {
         expect(mApi.Plants["MasterData"]).toBeTruthy();
     });

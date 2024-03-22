@@ -29,7 +29,7 @@ export type ProjectWorkOrder = (ProjectWorkOrderBasic & {
     maintenanceRecords?: Array<MaintenanceRecordMinimal>;
     tagDetails?: TagBasic | null;
     /**
-     * Attachments to Work order operation
+     * Attachments for this Project Work order
      */
     attachments?: Array<Attachment>;
 });

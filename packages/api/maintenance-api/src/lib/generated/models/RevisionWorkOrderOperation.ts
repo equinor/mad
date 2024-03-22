@@ -67,6 +67,10 @@ export type RevisionWorkOrderOperation = {
      * Indicator for if the operation has material
      */
     hasMaterial: boolean;
+    changedDateTime?: string | null;
+    changedById?: string;
+    changedBy?: string | null;
+    changedByEmail?: string | null;
     materials?: Array<WorkOrderMaterial>;
 };
 

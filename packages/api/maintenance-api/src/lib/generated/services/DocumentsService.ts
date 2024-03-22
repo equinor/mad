@@ -64,6 +64,9 @@ export class DocumentsService {
      *
      * Added property `documentTitle` to the response.
      *
+     * ### Update release v1.28.0
+     * Added property `documentCreatedDate` to the response.
+     *
      * @returns RelationshipToDocument Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -364,6 +367,39 @@ export class DocumentsService {
                 403: `User does not have sufficient rights to characteristics`,
                 404: `The specified resource was not found`,
                 409: `Characteristics is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Document - Remove attachment
+     * ### Overview
+     * Remove an attachment from an existing DMS document linked to a maintenance record.
+     *
+     * This endpoint returns no response data. Perform a lookup on the linked maintenance record to get updated information.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static removeAttachmentFromDocument({
+        documentId,
+        attachmentId,
+    }: {
+        documentId: string,
+        attachmentId: string,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/documents/{document-id}/attachments/{attachment-id}',
+            path: {
+                'document-id': documentId,
+                'attachment-id': attachmentId,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights`,
+                404: `The specified resource was not found`,
+                409: `Document is locked by other user or it is not possible to remove the relationship`,
             },
         });
     }

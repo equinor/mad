@@ -82,11 +82,17 @@ export class FailureReportsService {
      * ### Update release v1.24.0
      * `urlReferences` and `attachments` now include the property `documentCreatedDate`
      *
-     * ## Update release v1.26.0
+     * ### Update release v1.26.0
      * 'tagDetails' object now includes the new field 'maintenanceConceptId'
      *
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * Added properties `codingGroupId` and `codingId`.
      *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -184,6 +190,14 @@ export class FailureReportsService {
      * ## Overview
      * Update key fields of a failure report.
      *
+     * The following endpoints can be used to find possible values for input:
+     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
+     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
+     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
+     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
+     * 1. `codingId` - [/catalogs/{catalog-id}/code-groups](#operation/SearchCodeGroup)
+     *
+     *
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
@@ -198,6 +212,12 @@ export class FailureReportsService {
      *
      * ### Update release 1.4.0
      * Added `workCenter` and `equipment` to response. Fields include descriptions of workCenterId and equipmentId
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * Added properties `codingGroupId` and `codingId`.
      *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -346,7 +366,7 @@ export class FailureReportsService {
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
-     * If documentId is supplied, the attachment will be uploaded specifically to this document. `document-title` and `document-id` cannot be supplied together.
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document. `document-title` and `document-id` cannot be supplied together.
      *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -486,7 +506,14 @@ export class FailureReportsService {
 
     /**
      * Failure report - Create
-     * Create new failure report
+     * Create new failure report.
+     *
+     * The following endpoints can be used to find possible values for input:
+     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
+     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
+     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
+     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
+     * 1. `codingId` - [/catalogs/{catalog-id}/code-groups](#operation/SearchCodeGroup)
      *
      * ### Important information
      * Equinor governing documents states that failure reports should be created at the lowest possible level in the tag hierachy.
@@ -517,6 +544,12 @@ export class FailureReportsService {
      *
      * ### Update release 1.15.0
      * Fixed issue with `relatedWorkOrder` `source` `ObjectList`.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * Added properties `codingGroupId` and `codingId`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns FailureReportBasic Created
@@ -553,6 +586,10 @@ export class FailureReportsService {
      *
      * ### Update release v1.15.0
      * Added response body for 201 response
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordActivity Success
@@ -599,6 +636,10 @@ export class FailureReportsService {
      * ### Update release 1.8.0
      * Response type change to return the created tasks.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordTask Created
      * @throws ApiError
@@ -644,6 +685,10 @@ export class FailureReportsService {
      * The status `TSRL - Task Released` can be set afterwards.
      *
      * To change status of a task, use endpoint `/maintenance-records/failure-reports/{record-id}/tasks/{task-id}/statuses/{status-id}`
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -745,6 +790,10 @@ export class FailureReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -808,6 +857,10 @@ export class FailureReportsService {
      *
      * ### Update release v1.15.0
      * Added response schema for 201 success
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordActivity Success

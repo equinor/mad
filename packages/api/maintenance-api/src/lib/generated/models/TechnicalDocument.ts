@@ -23,7 +23,7 @@ export type TechnicalDocument = {
         valueId?: string;
     }>;
     /**
-     * Attachment in the technical document
+     * Attachments for this technical document
      */
     attachments?: Array<Attachment>;
     /**

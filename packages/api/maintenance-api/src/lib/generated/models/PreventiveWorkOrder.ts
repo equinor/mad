@@ -32,7 +32,7 @@ export type PreventiveWorkOrder = (PreventiveWorkOrderBasic & {
     maintenancePlan?: MaintenancePlanSimple;
     tagDetails?: TagBasic;
     /**
-     * Attachments to Work order operation
+     * Attachments for this Preventive Work Order
      */
     attachments?: Array<Attachment>;
     /**

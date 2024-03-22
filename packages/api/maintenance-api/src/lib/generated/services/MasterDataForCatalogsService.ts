@@ -24,6 +24,10 @@ export class MasterDataForCatalogsService {
      * | 5                     |  Failure mechanism              |
      * | C                     |  Failure mode                   |
      * | V                     |  Measuring points               |
+     * | D                     |  Coding                         |
+     *
+     * ### Update release v1.28.0
+     * Added catalog for coding to be used for general classification of maintenance records.
      *
      * @returns CodeGroup Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -32,7 +36,7 @@ export class MasterDataForCatalogsService {
     public static searchCodeGroup({
         catalogId,
     }: {
-        catalogId: '1' | '2' | '5' | 'C' | 'V',
+        catalogId: '1' | '2' | '5' | 'C' | 'D' | 'V',
     }): CancelablePromise<Array<CodeGroup> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',

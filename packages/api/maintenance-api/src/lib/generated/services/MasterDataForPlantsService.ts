@@ -342,6 +342,9 @@ export class MasterDataForPlantsService {
      * ### Examples
      * `/plants/1310/revisions/PS01-23?include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&page=1&per-page=10&api-version=v1`
      *
+     * ### Update version 1.28.0
+     * Added `changedDateTime`,`changedById`, `changedBy`, `changedByEmail`.
+     *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
