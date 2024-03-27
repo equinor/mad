@@ -8,6 +8,7 @@ export const colors = {
     interactive_primary_dark_resting: "#97CACE",
     interactive_primary_dark_hover: "#ADE2E6",
     interactive_primary_dark_hover_alt: "#ADE2E619",
+    interactive_primary_dark_selected_highlight: "#17485D",
     interactive_secondary_light_resting: "#243746",
     interactive_secondary_light_link_hover: "#18252F",
     interactive_secondary_light_highlight: "#D5EAF4",
