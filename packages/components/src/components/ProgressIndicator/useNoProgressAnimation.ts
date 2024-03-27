@@ -1,30 +1,37 @@
 import { useEffect, useRef } from "react";
-import { Platform, Animated } from "react-native";
+import { Animated } from "react-native";
+import { useToken } from "../../hooks/useToken";
 
-export const useNoProgressAnimation = (value = 0) => {
-    const loopValue = useRef(new Animated.Value(value)).current;
+/**
+ * Creates a smooth looping animated value.
+ * @param value An initial value to start the loop around.
+ * @returns An animated value between 0 and 1 representing the current loop progress.
+ */
+export const useNoProgressAnimation = (value?: number) => {
+    const loopValue = useRef(new Animated.Value(value ?? 0)).current;
+    const token = useToken();
 
-    const animate = Animated.timing(loopValue, {
-        toValue: 1,
-        duration: 1500,
+    const endlessAnimation = Animated.loop(
+        Animated.timing(loopValue, {
+            toValue: 1,
+            duration: 1500,
+            useNativeDriver: true,
+        }),
+    );
+
+    const resetAnimation = Animated.timing(loopValue, {
+        toValue: 0,
+        duration: token.timing.animation.normal,
         useNativeDriver: true,
     });
 
-    const startAnimation = () => {
-        animate.start(() => {
-            loopValue.setValue(0);
-            startAnimation();
-        });
-    };
-
     useEffect(() => {
-        if (Platform.OS === 'web') {
-            startAnimation(); 
+        if (value !== undefined) {
+            resetAnimation.start(() => endlessAnimation.stop());
         } else {
-            Animated.loop(animate).start();
+            endlessAnimation.start();
         }
-        return () => loopValue.stopAnimation();
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
     }, [value]);
 
     return loopValue;
