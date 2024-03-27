@@ -6,7 +6,7 @@
 export type MaintenanceRecordActivity = {
     activityId: string;
     title: string;
-    text: string;
+    text: string | null;
     activityCodeId: string;
     activityCode: string;
     activityCodeGroupId: string;
@@ -14,3 +14,4 @@ export type MaintenanceRecordActivity = {
     startDateTime: string | null;
     endDateTime: string | null;
 };
+

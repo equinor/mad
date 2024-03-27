@@ -1,4 +1,4 @@
-import { useDemoMode, useLanguage } from "../store";
+import { getIsDemoModeEnabled, enableDemoMode, useLanguage, disableDemoMode } from "../store";
 import { useAppVersion, useMadConfig, useNavigateToMainRoute } from "../store/mad-config";
 import { useReleaseNotesVersion } from "../store/release-notes";
 import { getNavigationRouteForLoginScreen } from "../utils/getNavigationRouteForLoginScreen";
@@ -7,7 +7,6 @@ import { useCoreStackNavigation } from "./useCoreStackNavigation";
 export const useNavigateFromLoginScreen = () => {
     const appVersion = useAppVersion();
     const { lastDisplayedReleaseNotesVersion } = useReleaseNotesVersion();
-    const { isEnabled: isDemoModeEnabled } = useDemoMode();
     const navigateToMainRoute = useNavigateToMainRoute();
     const navigation = useCoreStackNavigation();
     const {
@@ -15,15 +14,20 @@ export const useNavigateFromLoginScreen = () => {
     } = useMadConfig();
     const { isLanguageSelected } = useLanguage();
 
-    const route = getNavigationRouteForLoginScreen({
-        appVersion,
-        lastDisplayedReleaseNotesVersion,
-        isDemoModeEnabled,
-        supportedLanguages,
-        skipOnboarding,
-        isLanguageSelected,
-    });
+    return (options: { demoMode: boolean }) => {
+        if (options.demoMode) enableDemoMode();
+        else disableDemoMode();
 
-    if (route) return () => navigation.navigate(route);
-    return navigateToMainRoute;
+        const route = getNavigationRouteForLoginScreen({
+            appVersion,
+            lastDisplayedReleaseNotesVersion,
+            isDemoModeEnabled: !!getIsDemoModeEnabled(),
+            supportedLanguages,
+            skipOnboarding,
+            isLanguageSelected,
+        });
+
+        if (route) navigation.navigate(route);
+        else navigateToMainRoute();
+    };
 };

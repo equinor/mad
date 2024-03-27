@@ -42,7 +42,6 @@ export const PropertyRow = ({ label, value, iconName, ...rest }: PropertyRowProp
                     group="paragraph"
                     variant="body_short"
                     color="textTertiary"
-                    style={{ flex: 1 }}
                     numberOfLines={1}
                 >
                     {value}

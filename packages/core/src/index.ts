@@ -5,6 +5,8 @@ export {
     getAccount,
     signOut,
     authenticateInteractively,
+    MadAccount,
+    MadAuthenticationResult
 } from "@equinor/mad-auth";
 export {
     appInsightsHasBeenInitialized,
@@ -19,3 +21,5 @@ export {
 } from "@equinor/mad-insights";
 export * from "./hooks";
 export * from "./store";
+
+export * from "./utils/getDefaultScreenOptionsForLoginScreen";

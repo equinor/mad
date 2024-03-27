@@ -13,6 +13,10 @@ export type RelationshipURLReferencesAdd = {
      */
     title?: string;
     /**
+     * Id of the document to relate the url reference to
+     */
+    documentId?: string | null;
+    /**
      * Characteristics are
      */
     characteristics?: Array<{
@@ -23,3 +27,4 @@ export type RelationshipURLReferencesAdd = {
         valueId?: string;
     }>;
 };
+

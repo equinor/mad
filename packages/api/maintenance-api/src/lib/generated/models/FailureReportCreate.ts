@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceRecordItemMetadataCreate } from "./MaintenanceRecordItemMetadataCreate";
+import type { MaintenanceRecordItemMetadataCreate } from './MaintenanceRecordItemMetadataCreate';
 
 export type FailureReportCreate = {
     /**
@@ -18,7 +18,7 @@ export type FailureReportCreate = {
      * Required to input either tag or equipment
      */
     equipmentId?: string;
-    failureImpactId: "D" | "S" | "U" | "X";
+    failureImpactId: 'D' | 'S' | 'U' | 'X';
     isBreakdown?: boolean;
     failureModeId: string;
     failureModeGroupId: string;
@@ -26,6 +26,14 @@ export type FailureReportCreate = {
     detectionMethodGroupId: string;
     failureMechanismId?: string;
     failureMechanismGroupId?: string;
+    /**
+     * General classification of failure reports, for example used for lifting equipment control
+     */
+    codingId?: string | null;
+    /**
+     * Group for general classification of failure reports
+     */
+    codingGroupId?: string | null;
     /**
      * If workCenter is not provided, it will use default defined on tag
      */
@@ -71,7 +79,7 @@ export type FailureReportCreate = {
         /**
          * Defines the type of relationship to the work order
          */
-        source?: "ObjectList" | "TechnicalFeedback";
+        source?: 'ObjectList' | 'TechnicalFeedback';
         /**
          * Reference to the specific element the relationship will be defined for. The specific format for this value will depend on the `source` type and the value should be found using lookup of the work order.
          *
@@ -92,3 +100,4 @@ export type FailureReportCreate = {
         };
     };
 };
+

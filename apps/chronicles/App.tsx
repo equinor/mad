@@ -3,7 +3,7 @@ import Navigation from "./navigation";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { EDSProvider, useBreakpoint } from "@equinor/mad-components";
-import { Envelope, addTelemetryInitializer, ErrorBoundary } from "@equinor/mad-core";
+import { Envelope, addTelemetryInitializer, ErrorBoundary, trackCustom } from "@equinor/mad-core";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import * as APP from "./app.json";
@@ -17,6 +17,7 @@ export default function App() {
         return breakpoint === "xs" ? "phone" : "tablet";
     }, [breakpoint]);
     useEffect(() => {
+        trackCustom("This is logging before the app is initialized");
         const appVersionEnvelope: Envelope = item => {
             if (item.data) {
                 item.data["app-version"] = APP.expo.version;

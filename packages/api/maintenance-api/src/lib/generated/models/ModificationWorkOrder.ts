@@ -3,16 +3,16 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from "./Attachment";
-import type { MaintenanceRecordMinimal } from "./MaintenanceRecordMinimal";
-import type { ModificationWorkOrderBasic } from "./ModificationWorkOrderBasic";
-import type { ServiceOperation } from "./ServiceOperation";
-import type { Status } from "./Status";
-import type { TagBasic } from "./TagBasic";
-import type { TagRelatedToWorkOrder } from "./TagRelatedToWorkOrder";
-import type { WorkOrderOperation } from "./WorkOrderOperation";
+import type { Attachment } from './Attachment';
+import type { MaintenanceRecordMinimal } from './MaintenanceRecordMinimal';
+import type { ModificationWorkOrderBasic } from './ModificationWorkOrderBasic';
+import type { ServiceOperation } from './ServiceOperation';
+import type { Status } from './Status';
+import type { TagBasic } from './TagBasic';
+import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
+import type { WorkOrderOperation } from './WorkOrderOperation';
 
-export type ModificationWorkOrder = ModificationWorkOrderBasic & {
+export type ModificationWorkOrder = (ModificationWorkOrderBasic & {
     operations?: Array<WorkOrderOperation>;
     serviceOperations?: Array<ServiceOperation>;
     /**
@@ -29,7 +29,8 @@ export type ModificationWorkOrder = ModificationWorkOrderBasic & {
     maintenanceRecords?: Array<MaintenanceRecordMinimal>;
     tagDetails?: TagBasic;
     /**
-     * Attachments to Work order operation
+     * Attachments for this Modification Work order
      */
     attachments?: Array<Attachment>;
-};
+});
+

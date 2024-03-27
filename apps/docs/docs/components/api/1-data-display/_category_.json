@@ -1,0 +1,9 @@
+{
+    "label": "Data display",
+    "position": 1,
+    "link": {
+        "type": "generated-index",
+        "slug": "components/api/data-display",
+        "description": "Beautiful ways to convey data to users!"
+    }
+}

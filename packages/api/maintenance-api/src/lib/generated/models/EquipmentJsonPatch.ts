@@ -7,11 +7,11 @@ export type EquipmentJsonPatch = {
     /**
      * JSON Patch operation according to RFC6902
      */
-    op: "replace";
+    op: 'replace';
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: "/warrantyStartDate" | "/warrantyEndDate";
+    path: '/warrantyStartDate' | '/warrantyEndDate' | '/materialId';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *
@@ -22,3 +22,4 @@ export type EquipmentJsonPatch = {
      */
     value: string;
 };
+

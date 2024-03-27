@@ -3,10 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceActivity } from "./MaintenanceActivity";
-import type { MaintenanceConceptBasic } from "./MaintenanceConceptBasic";
+import type { MaintenanceActivity } from './MaintenanceActivity';
+import type { MaintenanceConceptBasic } from './MaintenanceConceptBasic';
 
-export type MaintenanceConcept = MaintenanceConceptBasic & {
+export type MaintenanceConcept = (MaintenanceConceptBasic & {
     concept: string;
     conceptDescription: string;
     /**
@@ -16,4 +16,5 @@ export type MaintenanceConcept = MaintenanceConceptBasic & {
     catalogProfile: string;
     responsibleDiscipline: string;
     maintenanceActivities: Array<MaintenanceActivity>;
-};
+});
+

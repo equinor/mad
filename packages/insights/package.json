@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-insights",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Application Insights implementation for the mad team",
     "type": "module",
     "scripts": {
@@ -40,7 +40,7 @@
         "history": "^5.3.0"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "workspace:*",
+        "@equinor/eslint-config-mad": "*",
         "@types/crypto-js": "^4.1.2"
     },
     "files": [

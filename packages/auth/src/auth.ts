@@ -44,6 +44,7 @@ export async function initiateAuthenticationClient({
     redirectUri,
     authority = "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/",
 }: InitiateAuthenticationClientConfig): Promise<void> {
+    if (authenticationClientExists()) return;
     const config: MSALConfiguration = {
         auth: {
             authority,
@@ -137,4 +138,11 @@ export async function signOut(): Promise<boolean> {
     }
 
     return false;
+}
+
+/**
+ *
+ */
+export function _reset() {
+    pca = null;
 }

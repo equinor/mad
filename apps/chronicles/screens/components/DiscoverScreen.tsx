@@ -28,6 +28,12 @@ export default function DiscoverScreen() {
                     iconName="menu"
                     componentName="menu"
                 />
+                <ComponentNavigationCell
+                    title="Select Menu"
+                    description="A dropdown menu with selectable options"
+                    iconName="menu-open"
+                    componentName="selectMenu"
+                />
             </Cell.Group>
 
             <Spacer />

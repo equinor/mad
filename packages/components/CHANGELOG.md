@@ -1,5 +1,31 @@
 # @equinor/mad-components
 
+## 0.13.0
+
+### Minor Changes
+
+-   49e643c: Disable cell onpress when swiping
+
+## 0.12.10
+
+### Patch Changes
+
+-   b5badbd: Streched out the pressable surface in additional surface in `Cell`
+
+## 0.12.9
+
+### Patch Changes
+
+-   ba1d39f: Adjusted styling in `Cell`. Added margin to the additional surface line and centered
+    the right adornment with the cell content.
+
+## 0.12.8
+
+### Patch Changes
+
+-   8a09b94: Created a new component `SelectMenu` and fixed a bug in dark theme where the text color
+    on selected items was hard to see
+
 ## 0.12.7
 
 ### Patch Changes

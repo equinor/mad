@@ -22,6 +22,7 @@ import { SwitchCellScreen } from "../screens/components/components/SwitchCellScr
 import { TabsScreen } from "../screens/components/components/TabsScreen";
 import { TextFieldScreen } from "../screens/components/components/TextFieldScreen";
 import { PropertyRowScreen } from "../screens/dfw/dfwcomponents/PropertyRowScreen";
+import { SelectMenuScreen } from "../screens/components/components/SelectMenuScreen";
 
 export const ComponentConfig = {
     paper: PaperScreen,
@@ -45,6 +46,7 @@ export const ComponentConfig = {
     errorBoundary: ErrorBoundaryScreen,
     chip: ChipScreen,
     tabs: TabsScreen,
+    selectMenu: SelectMenuScreen,
     progress: ProgressScreen,
 } as const;
 
@@ -70,6 +72,7 @@ export const ComponentName: Record<ComponentType, string> = {
     errorBoundary: "Error boundary",
     chip: "Chip",
     tabs: "Tabs",
+    selectMenu: "Select menu",
     progress: "Progress",
 };
 

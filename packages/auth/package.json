@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-auth",
-    "version": "0.1.18",
+    "version": "0.1.24",
     "description": "A simple wrapper library for react-native-msal",
     "type": "module",
     "scripts": {
@@ -33,10 +33,16 @@
         "react-native-msal": "*"
     },
     "dependencies": {
-        "@equinor/mad-components": "workspace:*"
+        "@equinor/mad-components": "*"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "workspace:*"
+        "@babel/core": "^7.21.4",
+        "@equinor/eslint-config-mad": "*",
+        "@testing-library/jest-native": "^5.4.3",
+        "@testing-library/react": "^14.0.0",
+        "@testing-library/react-native": "^12.3.0",
+        "@types/showdown": "^2.0.0",
+        "react-test-renderer": "18.2.0"
     },
     "files": [
         "CODE_OF_CONDUCT.md",

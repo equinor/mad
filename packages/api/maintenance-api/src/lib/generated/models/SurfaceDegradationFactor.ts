@@ -11,3 +11,4 @@ export type SurfaceDegradationFactor = {
     degradationRate2: number;
     degradationRate3: number;
 };
+

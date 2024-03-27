@@ -33,7 +33,7 @@ export const useCanvasControl = () => {
         const fontFamily = Platform.select({ ios: "Helvetica", default: "serif" });
         return matchFont({
             fontFamily,
-            fontSize: 16,
+            fontSize: 18,
             fontStyle: "normal",
             fontWeight: "bold",
         });

@@ -18,6 +18,7 @@ import {
     createNativeStackNavigator,
     createCoreStackNavigator,
     NavigationContainer,
+    getDefaultScreenOptionsForLoginScreen,
 } from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
@@ -33,6 +34,7 @@ import { ComponentName } from "../types/components";
 import { DFWDiscoverScreen } from "../screens/dfw/DFWDiscoverScreen";
 import { DFWComponentScreen } from "../screens/dfw/DFWComponentsScreen";
 import { DFWComponentName } from "../types/dfwcomponents";
+import { SampleLoginScreen } from "./LoginScreen";
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
@@ -63,6 +65,11 @@ function RootNavigator() {
                 name="Root"
                 component={BottomTabNavigator}
                 options={{ headerShown: false }}
+            />
+            <CoreStack.Screen
+                name="Login"
+                component={SampleLoginScreen}
+                options={getDefaultScreenOptionsForLoginScreen()}
             />
             <CoreStack.Screen
                 name="NotFound"

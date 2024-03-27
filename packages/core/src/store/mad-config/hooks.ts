@@ -21,7 +21,7 @@ export const useAuthConfig = (): AuthConfig => {
         redirectUriWeb,
         scopes,
     } = config.authentication;
-    const redirectUri = getRedirectUriFromAuthConfig(clientId, redirectUriConfig, redirectUriWeb);
+    const redirectUri = getRedirectUriFromAuthConfig(redirectUriConfig, redirectUriWeb);
     return {
         clientId,
         scopes,
@@ -62,6 +62,7 @@ export const useServiceNow = () => {
 export const useNavigateToMainRoute = () => {
     const config = useMadConfig();
     const navigation = useNavigation();
+    // @ts-expect-error gotta fix this one
     return () => config.navigateToMainRouteFn(navigation);
 };
 

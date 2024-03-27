@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CharacteristicValues } from "./CharacteristicValues";
+import type { CharacteristicValues } from './CharacteristicValues';
 
 export type CharacteristicMinimal = {
     characteristicId: string;
@@ -13,3 +13,4 @@ export type CharacteristicMinimal = {
      */
     valueRange?: Array<CharacteristicValues>;
 };
+

@@ -26,11 +26,18 @@ import {
     WorkOrderRelationshipsService,
     WorkOrdersService,
     ProblemDetails,
+    MasterDataForCatalogsService,
+    MasterDataForCharacteristicsService,
+    DocumentsService,
 } from "./generated";
 
 export class Plants {
     public static Tag = TagService;
     public static Equipment = EquipmentService;
+    public static Documents = DocumentsService;
+    /**
+     * @deprecated Moved to GeneralMasterData.Plants
+     */
     public static MasterData = MasterDataForPlantsService;
 }
 
@@ -43,7 +50,13 @@ export class MaintenanceRecords {
     public static TechnicalClarifications = TechnicalClarificationsService;
     public static MaintenanceRecords = MaintenanceRecordsService;
     public static MaintenanceRecordRelationships = MaintenanceRecordRelationshipsService;
+    /**
+     * @deprecated Moved to GeneralMasterData.MaintenanceRecords
+     */
     public static MasterDataForMaintenanceRecords = MasterDataForMaintenanceRecordsService;
+    /**
+     * @deprecated Moved to GeneralMasterData.WorkOrders
+     */
     public static MasterDataForWorkOrders = MasterDataForWorkOrdersService;
 }
 
@@ -65,6 +78,14 @@ export class MaintenanceProgram {
     public static MaintenancePlans = MaintenancePlansService;
     public static MaintenanceConcepts = MaintenanceConceptsService;
     public static MaintenanceStrategies = MaintenanceStrategiesService;
+}
+
+export class GeneralMasterData {
+    public static MaintenanceRecords = MasterDataForMaintenanceRecordsService;
+    public static WorkOrders = MasterDataForWorkOrdersService;
+    public static Plants = MasterDataForPlantsService;
+    public static Catalogs = MasterDataForCatalogsService;
+    public static Characteristics = MasterDataForCharacteristicsService;
 }
 
 export const filterMaintenanceApiProblem = <T>(result: T | ProblemDetails): T => {

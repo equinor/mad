@@ -25,23 +25,23 @@ This is a monorepo collecting many of the packages used in the Mobile Applicatio
 
 ### ⏱️ Getting started
 
-This turborepo uses [pnpm](https://pnpm.io) as a package manager. Start by cloning the repository
+This turborepo uses [yarn](https://classic.yarnpkg.com/) as a package manager. Start by cloning the repository
 and run
 
 ```
-npm install -g pnpm
+npm install -g yarn
 ```
 
 Install dependencies, run
 
 ```
-pnpm install
+yarn
 ```
 
 You can build only the packages you work on, but if you want to build everything to start with, run
 
 ```
-pnpm build:all
+yarn build:all
 ```
 
 ### 👷‍♀️ Working on a package
@@ -56,8 +56,8 @@ the components package to build with the `watch` flag. A developer working on th
 does not need to bother with these details, so running
 
 ```
-pnpm dev:chronicles
-pnpm dev:components
+yarn dev:chronicles
+yarn dev:components
 ```
 
 is all that is required.
@@ -66,7 +66,7 @@ This is how development on the packages is set up. With some exceptions, you can
 scripts with
 
 ```
-pnpm {keyword}:{package-alias}
+yarn {keyword}:{package-alias}
 ```
 
 Head into the project root [package.json](./package.json) for a full list of all commands.
@@ -85,7 +85,7 @@ Pull requests into main should as a rule of thumb ALWAYS contain a changeset (se
 [Changesets](https://github.com/changesets/changesets)). You create these by running
 
 ```
-pnpm changeset
+yarn changeset
 ```
 
 and follow the promts. This way, changelogs and version bumps are automatically handeled. Also note

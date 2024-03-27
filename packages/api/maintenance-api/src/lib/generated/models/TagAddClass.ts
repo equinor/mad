@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TagCharacteristicAdd } from "./TagCharacteristicAdd";
+import type { TagCharacteristicAdd } from './TagCharacteristicAdd';
 
 export type TagAddClass = {
     /**
@@ -15,3 +15,4 @@ export type TagAddClass = {
      */
     characteristics?: Array<TagCharacteristicAdd>;
 };
+

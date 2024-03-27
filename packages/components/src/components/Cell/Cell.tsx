@@ -1,4 +1,4 @@
-import React, { ReactNode, forwardRef, useContext } from "react";
+import React, { ReactNode, forwardRef, useContext, useState } from "react";
 import { View, ViewProps } from "react-native";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -66,19 +66,27 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
     ) => {
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
+        const [onPressDisabled, setOnPressDisabled] = useState(false);
 
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
                 <View style={{ flexDirection: "row" }}>
                     {additionalSurface && (
-                        <PressableHighlight
-                            onPress={additionalSurface.onPress}
-                            style={styles.additionalSurface}
-                        >
-                            {additionalSurface.component}
-                        </PressableHighlight>
+                        <>
+                            <PressableHighlight
+                                onPress={additionalSurface.onPress}
+                                style={styles.additionalSurface}
+                            >
+                                {additionalSurface.component}
+                            </PressableHighlight>
+                            <View style={styles.verticalLine} />
+                        </>
                     )}
-                    <PressableHighlight disabled={!onPress} onPress={onPress} style={{ flex: 1 }}>
+                    <PressableHighlight
+                        disabled={!onPress || onPressDisabled}
+                        onPress={onPress}
+                        style={{ flex: 1 }}
+                    >
                         <View style={styles.contentContainer}>
                             {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
                             <View style={styles.children}>
@@ -101,6 +109,8 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         );
         return !!leftSwipeGroup || !!rightSwipeGroup ? (
             <Swipeable
+                onSwipeableWillOpen={() => setOnPressDisabled(true)}
+                onSwipeableWillClose={() => setOnPressDisabled(false)}
                 overshootFriction={8}
                 containerStyle={{ backgroundColor: styles.container.backgroundColor }}
                 renderLeftActions={() =>
@@ -135,6 +145,7 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
     },
     contentContainer: {
         flexDirection: "row",
+        alignItems: "center",
         gap: theme.spacing.cell.gapHorizontal,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.cell.paddingVertical,
@@ -158,10 +169,13 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         backgroundColor: theme.colors.border.medium,
     },
     additionalSurface: {
-        borderRightWidth: 1,
         justifyContent: "center",
         alignItems: "center",
+    },
+    verticalLine: {
+        borderRightWidth: 1,
         borderStyle: "solid",
         borderColor: theme.colors.border.medium,
+        marginVertical: theme.spacing.menu.item.paddingVertical,
     },
 }));

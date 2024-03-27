@@ -9,7 +9,7 @@ import { createBrowserHistory } from "history";
 import { Platform } from "react-native";
 
 import { obfuscateUser } from "./encrypt";
-import { AppInsightsInitConfig, Envelope } from "./types";
+import { AppInsightsInitConfig, Envelope, TrackEventPayload } from "./types";
 
 let appInsightsMain: ApplicationInsights;
 let appInsightsLongTermLog: ApplicationInsights;
@@ -17,6 +17,8 @@ let hasBeenInitialized = false;
 let reactPluginWeb: ReactPlugin;
 let useSHA1: boolean;
 const envelopeBacklog: Envelope[] = [];
+const trackShortTermBacklog: TrackEventPayload[] = [];
+const trackLongTermBacklog: TrackEventPayload[] = [];
 
 /**
  * Initialize appInsights. This should be called at app startup (useEffect inside App.tsx might be a good place to put it).
@@ -85,6 +87,8 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
     }
 
     envelopeBacklog.forEach(addTelemetryInitializer);
+    trackShortTermBacklog.forEach(item => trackEvent(item.event, item.customProperties));
+    trackLongTermBacklog.forEach(item => trackEventLongTerm(item.event, item.customProperties));
 
     void track(metricKeys.APP_STARTED);
 };
@@ -114,7 +118,10 @@ export const setUsername = (username: string, userIdentifier: string | undefined
 };
 
 const trackEvent = (event: IEventTelemetry, customProperties?: ICustomProperties | undefined) => {
-    validateAppInsightsInit();
+    if (!appInsightsMain) {
+        trackShortTermBacklog.push({ event, customProperties });
+        return;
+    }
     appInsightsMain.trackEvent(event, customProperties);
 };
 
@@ -122,7 +129,10 @@ const trackEventLongTerm = (
     event: IEventTelemetry,
     customProperties?: ICustomProperties | undefined,
 ) => {
-    if (!appInsightsLongTermLog) throw "No long term log set up";
+    if (!appInsightsLongTermLog) {
+        trackLongTermBacklog.push({ event, customProperties });
+        return;
+    }
     appInsightsLongTermLog.trackEvent(event, customProperties);
 };
 

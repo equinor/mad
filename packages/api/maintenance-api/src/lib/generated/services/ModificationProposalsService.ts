@@ -2,18 +2,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ModificationProposal } from "../models/ModificationProposal";
-import type { ModificationProposalBasic } from "../models/ModificationProposalBasic";
-import type { ModificationProposalCreate } from "../models/ModificationProposalCreate";
-import type { ModificationProposalJsonUpdate } from "../models/ModificationProposalJsonUpdate";
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { StatusUpdateJsonPatch } from "../models/StatusUpdateJsonPatch";
+import type { ModificationProposal } from '../models/ModificationProposal';
+import type { ModificationProposalBasic } from '../models/ModificationProposalBasic';
+import type { ModificationProposalCreate } from '../models/ModificationProposalCreate';
+import type { ModificationProposalJsonUpdate } from '../models/ModificationProposalJsonUpdate';
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { StatusUpdateJsonPatch } from '../models/StatusUpdateJsonPatch';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class ModificationProposalsService {
+
     /**
      * Modification Proposal - Lookup
      * ### Overview
@@ -42,6 +43,13 @@ export class ModificationProposalsService {
      * ### Update release v1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
+     * ### Update release v1.27.0
+     * Added `maintenanceRecordTypeId` to the response.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ModificationProposal Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -53,35 +61,35 @@ export class ModificationProposalsService {
         includeAttachments = false,
         includeCreatedByDetails = false,
     }: {
-        recordId: string;
+        recordId: string,
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean;
+        includeTasks?: boolean,
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean;
+        includeStatusDetails?: boolean,
         /**
          * Include attachments
          */
-        includeAttachments?: boolean;
+        includeAttachments?: boolean,
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean;
+        includeCreatedByDetails?: boolean,
     }): CancelablePromise<ModificationProposal | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/modification-proposals/{record-id}",
+            method: 'GET',
+            url: '/maintenance-records/modification-proposals/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             query: {
-                "include-tasks": includeTasks,
-                "include-status-details": includeStatusDetails,
-                "include-attachments": includeAttachments,
-                "include-created-by-details": includeCreatedByDetails,
+                'include-tasks': includeTasks,
+                'include-status-details': includeStatusDetails,
+                'include-attachments': includeAttachments,
+                'include-created-by-details': includeCreatedByDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -99,6 +107,10 @@ export class ModificationProposalsService {
      * ### Overview
      * Update key fields of a modification proposal.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -106,20 +118,20 @@ export class ModificationProposalsService {
         recordId,
         requestBody,
     }: {
-        recordId: string;
+        recordId: string,
         /**
          * Details on how to update modification proposal
          */
-        requestBody: Array<ModificationProposalJsonUpdate>;
+        requestBody: Array<ModificationProposalJsonUpdate>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/modification-proposals/{record-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/modification-proposals/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to update activity report`,
                 404: `The specified resource was not found`,
@@ -151,6 +163,10 @@ export class ModificationProposalsService {
      * ### Update release v1.21.0
      * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ModificationProposalBasic Created
      * @throws ApiError
@@ -161,13 +177,13 @@ export class ModificationProposalsService {
         /**
          * Modification proposal to create
          */
-        requestBody: ModificationProposalCreate;
+        requestBody: ModificationProposalCreate,
     }): CancelablePromise<ProblemDetails | ModificationProposalBasic> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/modification-proposals",
+            method: 'POST',
+            url: '/maintenance-records/modification-proposals',
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to create a modification proposal`,
             },
@@ -218,22 +234,22 @@ export class ModificationProposalsService {
         /**
          * The recordId of the activity report.
          */
-        recordId: string;
-        statusId: string;
+        recordId: string,
+        statusId: string,
         /**
          * Modification proposal status to update
          */
-        requestBody: Array<StatusUpdateJsonPatch>;
+        requestBody: Array<StatusUpdateJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/modification-proposals/{record-id}/statuses/{status-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/modification-proposals/{record-id}/statuses/{status-id}',
             path: {
-                "record-id": recordId,
-                "status-id": statusId,
+                'record-id': recordId,
+                'status-id': statusId,
             },
             body: requestBody,
-            mediaType: "application/json-patch+json",
+            mediaType: 'application/json-patch+json',
             errors: {
                 403: `User does not have sufficient rights to update activity report`,
                 404: `The specified resource was not found`,
@@ -244,28 +260,45 @@ export class ModificationProposalsService {
 
     /**
      * Modification Proposal - Attachment upload
+     * ### Overview
      * Upload attachment for modification proposal
+     *
+     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     *
+     * ### Update release 1.28.0
+     * Added the optional parameter `document-id` as a query parameter.
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document.
+     *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static uploadModificationProposalAttachment({
         recordId,
+        documentId = null,
         formData,
     }: {
-        recordId: string;
+        recordId: string,
+        /**
+         * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId?: string | null,
         formData?: {
             files?: Array<Blob>;
-        };
+        },
     }): CancelablePromise<any | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/modification-proposals/{record-id}/attachments",
+            method: 'POST',
+            url: '/maintenance-records/modification-proposals/{record-id}/attachments',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
+            },
+            query: {
+                'document-id': documentId,
             },
             formData: formData,
-            mediaType: "multipart/form-data",
+            mediaType: 'multipart/form-data',
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
@@ -291,16 +324,17 @@ export class ModificationProposalsService {
         recordId,
         attachmentId,
     }: {
-        recordId: string;
-        attachmentId: string;
+        recordId: string,
+        attachmentId: string,
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/modification-proposals/{record-id}/attachments/{attachment-id}",
+            method: 'GET',
+            url: '/maintenance-records/modification-proposals/{record-id}/attachments/{attachment-id}',
             path: {
-                "record-id": recordId,
-                "attachment-id": attachmentId,
+                'record-id': recordId,
+                'attachment-id': attachmentId,
             },
         });
     }
+
 }

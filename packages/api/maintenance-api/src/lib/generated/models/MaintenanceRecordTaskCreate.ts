@@ -18,3 +18,4 @@ export type MaintenanceRecordTaskCreate = {
     plannedStartDateTime?: string | null;
     plannedEndDateTime?: string | null;
 };
+

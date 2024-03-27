@@ -59,6 +59,9 @@ describe("Plants", () => {
     it("should have Equipment endpoints", () => {
         expect(mApi.Plants["Equipment"]).toBeTruthy();
     });
+    it("should have Documents endpoints", () => {
+        expect(mApi.Plants["Documents"]).toBeTruthy();
+    });
     it("should have Master Data endpoints", () => {
         expect(mApi.Plants["MasterData"]).toBeTruthy();
     });
@@ -88,6 +91,24 @@ describe("Work Orders", () => {
     });
     it("should have Work Orders endpoints", () => {
         expect(mApi.WorkOrders["WorkOrders"]).toBeTruthy();
+    });
+});
+
+describe("Master Data", () => {
+    it("should have Master Data For Catalogs endpoints", () => {
+        expect(mApi.GeneralMasterData["Catalogs"]).toBeTruthy();
+    });
+    it("should have Master Data For Characteristics endpoints", () => {
+        expect(mApi.GeneralMasterData["Characteristics"]).toBeTruthy();
+    });
+    it("should have Master Data For Maintenance Records endpoints", () => {
+        expect(mApi.GeneralMasterData["MaintenanceRecords"]).toBeTruthy();
+    });
+    it("should have Master Data For Work Orders endpoints", () => {
+        expect(mApi.GeneralMasterData["WorkOrders"]).toBeTruthy();
+    });
+    it("should have Master Data For Plants endpoints", () => {
+        expect(mApi.GeneralMasterData["Plants"]).toBeTruthy();
     });
 });
 

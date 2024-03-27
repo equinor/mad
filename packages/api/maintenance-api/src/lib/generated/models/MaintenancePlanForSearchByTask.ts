@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenancePlanItemBasic } from "./MaintenancePlanItemBasic";
+import type { MaintenancePlanItemBasic } from './MaintenancePlanItemBasic';
 
 export type MaintenancePlanForSearchByTask = {
     maintenancePlanId: string;
@@ -17,3 +17,4 @@ export type MaintenancePlanForSearchByTask = {
      */
     items?: Array<MaintenancePlanItemBasic>;
 };
+

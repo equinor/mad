@@ -1,4 +1,4 @@
-import { View, StyleSheet, ViewProps } from "react-native";
+import { View, StyleSheet, ViewProps, KeyboardAvoidingView } from "react-native";
 import { Canvas } from "../../Canvas/Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
 import React, { useImperativeHandle, useMemo, useRef, useState, forwardRef } from "react";
@@ -77,9 +77,14 @@ export const ImageMarkup = forwardRef<CanvasImageControls, ImageMarkupProps>((pr
                     )}
                 </View>
 
-                <View style={styles.overlay} pointerEvents="box-none">
+                <KeyboardAvoidingView
+                    style={styles.overlay}
+                    pointerEvents="box-none"
+                    behavior="padding"
+                    keyboardVerticalOffset={190}
+                >
                     <EDSControlPanel />
-                </View>
+                </KeyboardAvoidingView>
             </View>
         </CanvasControlProvider>
     );

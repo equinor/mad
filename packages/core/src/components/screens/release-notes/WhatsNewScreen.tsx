@@ -76,7 +76,8 @@ export const WhatsNewScreen = () => {
                 <Button
                     title="OK"
                     onPress={() => {
-                        releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
+                        if (!demoMode.isEnabled)
+                            releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
                         navigate();
                     }}
                     style={{ width: 81 }}

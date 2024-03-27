@@ -1,19 +1,24 @@
 import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
-import { LoginButton } from "@equinor/mad-auth";
+import { LoginButton, LoginButtonProps } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
-import { enableDemoMode } from "../../store/demo-mode";
-import { metricKeys, metricStatus, track } from "@equinor/mad-insights";
+import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
-export const LoginScreen = () => {
-    const styles = useStyles(theme);
+export type LoginScreenProps = Partial<
+    Pick<LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
+>;
+export const LoginScreen = ({
+    onAuthenticationSuccessful,
+    onAuthenticationFailed,
+}: LoginScreenProps) => {
     const dictionary = useDictionary();
     const authConfig = useAuthConfig();
     const navigate = useNavigateFromLoginScreen();
-    const { splash } = useLoginScreenConfig();
+    const { splash, backgroundColor } = useLoginScreenConfig();
+    const styles = useStyles(theme, backgroundColor);
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
     const resizeMode = Platform.OS === "web" ? "contain" : "cover";
@@ -30,19 +35,22 @@ export const LoginScreen = () => {
                 <View style={styles.buttonContainer}>
                     <LoginButton
                         {...authConfig}
-                        onAuthenticationSuccessful={(_, type) => {
+                        onAuthenticationSuccessful={(result, type) => {
+                            setUsername(result.account.username, result.account.identifier);
                             if (type === "AUTOMATIC") {
                                 void track(metricKeys.AUTHENTICATION_AUTOMATIC);
                             } else {
                                 void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
                             }
-                            navigate();
+                            onAuthenticationSuccessful?.(result, type);
+                            navigate({ demoMode: false });
                         }}
-                        onAuthenticationFailed={error =>
+                        onAuthenticationFailed={error => {
                             void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
                                 error,
-                            })
-                        }
+                            });
+                            onAuthenticationFailed?.(error);
+                        }}
                         title={dictionary.login.logIn}
                         enableAutomaticAuthentication
                         scopes={authConfig.scopes ?? []}
@@ -53,8 +61,7 @@ export const LoginScreen = () => {
                             variant="outlined"
                             onPress={() => {
                                 void track(metricKeys.AUTHENTICATION_DEMO);
-                                enableDemoMode();
-                                navigate();
+                                navigate({ demoMode: true });
                             }}
                         />
                     )}
@@ -64,10 +71,10 @@ export const LoginScreen = () => {
     );
 };
 
-const theme = EDSStyleSheet.create(() => ({
+const theme = EDSStyleSheet.create((_, backgroundColor: string | undefined) => ({
     container: {
         flex: 1,
-        backgroundColor: "#E6FAEC",
+        backgroundColor: backgroundColor ?? "#E6FAEC",
     },
     secretHitboxContainer: {
         position: "absolute",

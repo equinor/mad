@@ -1,5 +1,45 @@
 # @equinor/mad-auth
 
+## 0.1.24
+
+### Patch Changes
+
+-   Updated dependencies [49e643c]
+    -   @equinor/mad-components@0.13.0
+
+## 0.1.23
+
+### Patch Changes
+
+-   bfb69d7: Can no longer initiate authentication client multiple times
+
+## 0.1.22
+
+### Patch Changes
+
+-   af77bb9: getAccount/useAccount should now work for web
+
+## 0.1.21
+
+### Patch Changes
+
+-   Updated dependencies [b5badbd]
+    -   @equinor/mad-components@0.12.10
+
+## 0.1.20
+
+### Patch Changes
+
+-   Updated dependencies [ba1d39f]
+    -   @equinor/mad-components@0.12.9
+
+## 0.1.19
+
+### Patch Changes
+
+-   Updated dependencies [8a09b94]
+    -   @equinor/mad-components@0.12.8
+
 ## 0.1.18
 
 ### Patch Changes

@@ -70,6 +70,14 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
          * Splash screen of the application.
          */
         splash: ImageSourcePropType;
+        /**
+         * background color for the login screen. Should be identical to the splash screen's background color.
+         */
+        backgroundColor?: string;
+        /**
+         * If you want to add the login screen manually to the stack, set this to true. This gives you access to additional props
+         */
+        addScreenManually?: boolean;
     }>;
     /**
      * App insights config used for initializing application insights service(s)
