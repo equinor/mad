@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import {Environment, EnvironmentContextualConfig, MadConfig} from "../../types";
+import { Environment, EnvironmentContextualConfig, MadConfig } from "../../types";
 import { createEnvironmentProxy } from "../../utils/createEnvironmentProxy";
 import { useMemo } from "react";
 
@@ -18,7 +18,7 @@ const useMadConfigStore = create<MadConfigState>()(
             setEnvironment: env => {
                 const newConfig = getPureConfig();
                 newConfig.currentEnvironment = env;
-                set(() => ({ config: newConfig }))
+                set(() => ({ config: newConfig }));
             },
         }),
         { name: "core/config" },

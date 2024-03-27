@@ -66,7 +66,11 @@ export const AutocompleteScreen = () => {
     const [selectedAnimals, setSelectedAnimals] = useState<Animal[]>([]);
 
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flex: 1 }}>
+        <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            contentContainerStyle={{ flex: 1 }}
+            keyboardShouldPersistTaps="handled"
+        >
             <View style={styles.container}>
                 <Typography variant="h3">Welcome to the Jungle!</Typography>
                 <Spacer />

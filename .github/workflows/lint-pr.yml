@@ -25,26 +25,24 @@ jobs:
               with:
                   ref: ${{ github.head_ref }}
 
-            - name: 🏗️ Set up pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: 7
-
             - name: 🌈 Setup Node.js 18
               uses: actions/setup-node@v3
               with:
                   node-version: 18
-                  cache: pnpm
-                  cache-dependency-path: pnpm-lock.yaml
+                  cache: yarn
+                  cache-dependency-path: yarn.lock
 
             - name: 📦 Install Dependencies
-              run: pnpm install
+              run: yarn install --frozen-lockfile
 
             - name: 🏭 Build packages
-              run: pnpm build:all
+              run: yarn build:all
 
             - name: 🚦 Lint and fix
-              run: pnpm lint:all --fix
+              run: yarn lint:all --fix
+
+            - name: 🧪 Run tests
+              run: yarn test:all
 
             - name: 🤖 Format
-              run: pnpm format:all
+              run: yarn format:all

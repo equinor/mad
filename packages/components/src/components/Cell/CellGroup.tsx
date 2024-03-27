@@ -5,6 +5,10 @@ import { useStyles } from "../../hooks/useStyles";
 import { useValidChildrenIndexes } from "../../hooks/useValidChildren";
 import { View } from "react-native";
 
+export type CellGroupStyleProps = {
+    hasTitle: boolean;
+};
+
 export type CellGroupContextType = {
     /**
      * A boolean value indicating whether or not the contexed cell is first in the group or not.
@@ -36,7 +40,8 @@ export const CellGroup = ({
     adornment,
     children,
 }: React.PropsWithChildren<CellGroupProps>) => {
-    const styles = useStyles(themeStyles);
+    const styleProps: CellGroupStyleProps = { hasTitle: !!title };
+    const styles = useStyles(themeStyles, styleProps);
     const validChildrenIndexes = useValidChildrenIndexes(children);
     return (
         <>
@@ -62,10 +67,10 @@ export const CellGroup = ({
     );
 };
 
-const themeStyles = EDSStyleSheet.create(theme => ({
+const themeStyles = EDSStyleSheet.create((theme, props: CellGroupStyleProps) => ({
     titleContainer: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
-        paddingBottom: theme.spacing.cell.group.titleBottomPadding,
+        paddingBottom: props.hasTitle ? theme.spacing.cell.group.titleBottomPadding : undefined,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "flex-end",

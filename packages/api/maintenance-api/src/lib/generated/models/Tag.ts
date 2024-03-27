@@ -3,30 +3,26 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { BillOfMaterialItem } from "./BillOfMaterialItem";
-import type { CatalogProfileDetails } from "./CatalogProfileDetails";
-import type { CorrectiveWorkOrderSimple } from "./CorrectiveWorkOrderSimple";
-import type { EquipmentBasic } from "./EquipmentBasic";
-import type { GenericWorkOrderSimple } from "./GenericWorkOrderSimple";
-import type { LinearData } from "./LinearData";
-import type { MaintenancePlanItemBasic } from "./MaintenancePlanItemBasic";
-import type { MeasuringPointFromTagLookup } from "./MeasuringPointFromTagLookup";
-import type { ModificationWorkOrderSimple } from "./ModificationWorkOrderSimple";
-import type { PreventiveWorkOrderSimple } from "./PreventiveWorkOrderSimple";
-import type { ProjectWorkOrderSimple } from "./ProjectWorkOrderSimple";
-import type { SASChangeWorkOrderSimple } from "./SASChangeWorkOrderSimple";
-import type { SimpleMaintenanceRecordsList } from "./SimpleMaintenanceRecordsList";
-import type { Status } from "./Status";
-import type { TagAttachment } from "./TagAttachment";
-import type { TagBasic } from "./TagBasic";
-import type { TagCharacteristic } from "./TagCharacteristic";
-import type { URLReference } from "./URLReference";
+import type { BillOfMaterialItem } from './BillOfMaterialItem';
+import type { CatalogProfileDetails } from './CatalogProfileDetails';
+import type { CorrectiveWorkOrderSimple } from './CorrectiveWorkOrderSimple';
+import type { EquipmentBasic } from './EquipmentBasic';
+import type { GenericWorkOrderSimple } from './GenericWorkOrderSimple';
+import type { LinearData } from './LinearData';
+import type { MaintenancePlanItemBasic } from './MaintenancePlanItemBasic';
+import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
+import type { ModificationWorkOrderSimple } from './ModificationWorkOrderSimple';
+import type { PreventiveWorkOrderSimple } from './PreventiveWorkOrderSimple';
+import type { ProjectWorkOrderSimple } from './ProjectWorkOrderSimple';
+import type { SASChangeWorkOrderSimple } from './SASChangeWorkOrderSimple';
+import type { SimpleMaintenanceRecordsList } from './SimpleMaintenanceRecordsList';
+import type { Status } from './Status';
+import type { TagAttachment } from './TagAttachment';
+import type { TagBasic } from './TagBasic';
+import type { TagCharacteristic } from './TagCharacteristic';
+import type { URLReference } from './URLReference';
 
-export type Tag = TagBasic & {
-    /**
-     * The maintenance concept for the tag. More details planned to be available through endpoint /maintenance-concepts/{concept-id}
-     */
-    maintenanceConceptId: string;
+export type Tag = (TagBasic & {
     /**
      * The category the tag belongs to. Values: `A` = Hose Assembly,`C` = Cable,`D` = Circuit and Starter,`E` = Electric Field-equipment,`F` = Fire & Gas,`H` = Heat tracing,`I` = Instrument,`J` = Junction Box,`K` = Vehicle,`M` = Main equipment,`N` = Penetration,`O` = Surface Protection,`P` = Piping,`Q` = Pipe Support,`R` = Civil engineering facility,`S` = Special Item,`T` = Telecommunication,`U` = Pipeline,`V` = Manual Valve,`W` = Software Tag,`X` = Package and `Z` = Dummy Functional Location
      */
@@ -52,6 +48,14 @@ export type Tag = TagBasic & {
      * Specific room for the asset
      */
     area: string;
+    /**
+     * MaterialId for the asset
+     */
+    materialId?: string;
+    /**
+     * Material for the asset
+     */
+    material?: string;
     characteristics?: Array<TagCharacteristic>;
     maintenanceRecords?: SimpleMaintenanceRecordsList;
     workOrders?: {
@@ -83,4 +87,5 @@ export type Tag = TagBasic & {
      * All Attachments saved at this tag
      */
     attachments?: Array<TagAttachment>;
-};
+});
+

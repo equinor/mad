@@ -2,6 +2,7 @@ import { getPremadeSettings } from "../../utils/getPremadeSettings";
 import { useMadConfig } from "./mad-config";
 import { getRedirectUriFromAuthConfig } from "../../utils/getRedirectUriFromAuthConfig";
 import { useDictionary } from "../../language/useDictionary";
+import { useNavigation } from "@react-navigation/native";
 
 export type AuthConfig = {
     clientId: string;
@@ -20,7 +21,7 @@ export const useAuthConfig = (): AuthConfig => {
         redirectUriWeb,
         scopes,
     } = config.authentication;
-    const redirectUri = getRedirectUriFromAuthConfig(clientId, redirectUriConfig, redirectUriWeb);
+    const redirectUri = getRedirectUriFromAuthConfig(redirectUriConfig, redirectUriWeb);
     return {
         clientId,
         scopes,
@@ -56,7 +57,14 @@ export const useAbout = () => {
 export const useServiceNow = () => {
     const config = useMadConfig();
     return config.serviceNow;
-}
+};
+
+export const useNavigateToMainRoute = () => {
+    const config = useMadConfig();
+    const navigation = useNavigation();
+    // @ts-expect-error gotta fix this one
+    return () => config.navigateToMainRouteFn(navigation);
+};
 
 export const useSettingsScreenPremadeConfig = () => {
     const config = useMadConfig();

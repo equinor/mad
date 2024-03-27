@@ -2,30 +2,31 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CharacteristicsUpdate } from "../models/CharacteristicsUpdate";
-import type { FailureReport } from "../models/FailureReport";
-import type { FailureReportBasic } from "../models/FailureReportBasic";
-import type { FailureReportCreate } from "../models/FailureReportCreate";
-import type { FailureReportJsonPatch } from "../models/FailureReportJsonPatch";
-import type { FailureReportSimple } from "../models/FailureReportSimple";
-import type { MaintenanceRecordActivity } from "../models/MaintenanceRecordActivity";
-import type { MaintenanceRecordActivityCreate } from "../models/MaintenanceRecordActivityCreate";
-import type { MaintenanceRecordActivityJsonPatch } from "../models/MaintenanceRecordActivityJsonPatch";
-import type { MaintenanceRecordExtendRequiredEnd } from "../models/MaintenanceRecordExtendRequiredEnd";
-import type { MaintenanceRecordItemMetadataCreate } from "../models/MaintenanceRecordItemMetadataCreate";
-import type { MaintenanceRecordItemMetadataJsonPatch } from "../models/MaintenanceRecordItemMetadataJsonPatch";
-import type { MaintenanceRecordTask } from "../models/MaintenanceRecordTask";
-import type { MaintenanceRecordTaskCreate } from "../models/MaintenanceRecordTaskCreate";
-import type { MaintenanceRecordTaskUpdateJsonPatch } from "../models/MaintenanceRecordTaskUpdateJsonPatch";
-import type { MetadataAddClass } from "../models/MetadataAddClass";
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { StatusUpdateJsonPatch } from "../models/StatusUpdateJsonPatch";
+import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
+import type { FailureReport } from '../models/FailureReport';
+import type { FailureReportBasic } from '../models/FailureReportBasic';
+import type { FailureReportCreate } from '../models/FailureReportCreate';
+import type { FailureReportJsonPatch } from '../models/FailureReportJsonPatch';
+import type { FailureReportSimple } from '../models/FailureReportSimple';
+import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
+import type { MaintenanceRecordActivityCreate } from '../models/MaintenanceRecordActivityCreate';
+import type { MaintenanceRecordActivityJsonPatch } from '../models/MaintenanceRecordActivityJsonPatch';
+import type { MaintenanceRecordExtendRequiredEnd } from '../models/MaintenanceRecordExtendRequiredEnd';
+import type { MaintenanceRecordItemMetadataCreate } from '../models/MaintenanceRecordItemMetadataCreate';
+import type { MaintenanceRecordItemMetadataJsonPatch } from '../models/MaintenanceRecordItemMetadataJsonPatch';
+import type { MaintenanceRecordTask } from '../models/MaintenanceRecordTask';
+import type { MaintenanceRecordTaskCreate } from '../models/MaintenanceRecordTaskCreate';
+import type { MaintenanceRecordTaskUpdateJsonPatch } from '../models/MaintenanceRecordTaskUpdateJsonPatch';
+import type { MetadataAddClass } from '../models/MetadataAddClass';
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { StatusUpdateJsonPatch } from '../models/StatusUpdateJsonPatch';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class FailureReportsService {
+
     /**
      * Failure report - Lookup
      * ### Overview
@@ -81,6 +82,18 @@ export class FailureReportsService {
      * ### Update release v1.24.0
      * `urlReferences` and `attachments` now include the property `documentCreatedDate`
      *
+     * ### Update release v1.26.0
+     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     *
+     * ### Update release v1.27.0
+     * Added `maintenanceRecordTypeId` to the response.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * Added properties `codingGroupId` and `codingId`.
+     *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -101,65 +114,65 @@ export class FailureReportsService {
         /**
          * The recordId of the failure report.
          */
-        recordId: string;
+        recordId: string,
         /**
          * Include detailed information for statuses (both active and non-active)
          */
-        includeStatusDetails?: boolean;
+        includeStatusDetails?: boolean,
         /**
          * Include details about tag for failure report
          */
-        includeTagDetails?: boolean;
+        includeTagDetails?: boolean,
         /**
          * Include detailed information for activities
          */
-        includeActivities?: boolean;
+        includeActivities?: boolean,
         /**
          * Include detailed information for tasks
          */
-        includeTasks?: boolean;
+        includeTasks?: boolean,
         /**
          * Include attachments
          */
-        includeAttachments?: boolean;
+        includeAttachments?: boolean,
         /**
          * Include extra metadata related to additional failure modes and detection modes. This is only used in rare cases
          */
-        includeAdditionalMetadata?: boolean;
+        includeAdditionalMetadata?: boolean,
         /**
          * Include characteristics for additional metadata
          */
-        includeAdditionalDataCharacteristics?: boolean;
+        includeAdditionalDataCharacteristics?: boolean,
         /**
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
-        includeCreatedByDetails?: boolean;
+        includeCreatedByDetails?: boolean,
         /**
          * Include URL references for failure report. See `POST /maintenance-record-relationships/{record-id}/url-references`
          */
-        includeUrlReferences?: boolean;
+        includeUrlReferences?: boolean,
         /**
          * Include related measurements
          */
-        includeMeasurements?: boolean;
+        includeMeasurements?: boolean,
     }): CancelablePromise<FailureReport | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/failure-reports/{record-id}",
+            method: 'GET',
+            url: '/maintenance-records/failure-reports/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             query: {
-                "include-status-details": includeStatusDetails,
-                "include-tag-details": includeTagDetails,
-                "include-activities": includeActivities,
-                "include-tasks": includeTasks,
-                "include-attachments": includeAttachments,
-                "include-additional-metadata": includeAdditionalMetadata,
-                "include-additional-data-characteristics": includeAdditionalDataCharacteristics,
-                "include-created-by-details": includeCreatedByDetails,
-                "include-url-references": includeUrlReferences,
-                "include-measurements": includeMeasurements,
+                'include-status-details': includeStatusDetails,
+                'include-tag-details': includeTagDetails,
+                'include-activities': includeActivities,
+                'include-tasks': includeTasks,
+                'include-attachments': includeAttachments,
+                'include-additional-metadata': includeAdditionalMetadata,
+                'include-additional-data-characteristics': includeAdditionalDataCharacteristics,
+                'include-created-by-details': includeCreatedByDetails,
+                'include-url-references': includeUrlReferences,
+                'include-measurements': includeMeasurements,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -177,6 +190,14 @@ export class FailureReportsService {
      * ## Overview
      * Update key fields of a failure report.
      *
+     * The following endpoints can be used to find possible values for input:
+     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
+     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
+     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
+     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
+     * 1. `codingId` - [/catalogs/{catalog-id}/code-groups](#operation/SearchCodeGroup)
+     *
+     *
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
@@ -192,6 +213,12 @@ export class FailureReportsService {
      * ### Update release 1.4.0
      * Added `workCenter` and `equipment` to response. Fields include descriptions of workCenterId and equipmentId
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * Added properties `codingGroupId` and `codingId`.
+     *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -203,20 +230,20 @@ export class FailureReportsService {
         /**
          * The recordId of the failure report.
          */
-        recordId: string;
+        recordId: string,
         /**
-         * Failure report to create
+         * Details on how to update the Failure Report
          */
-        requestBody: Array<FailureReportJsonPatch>;
+        requestBody: Array<FailureReportJsonPatch>,
     }): CancelablePromise<FailureReportBasic | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/failure-reports/{record-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/failure-reports/{record-id}',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Bad request. For example that an empty text property was supplied`,
                 403: `User does not have sufficient rights to update the failure report`,
@@ -265,22 +292,22 @@ export class FailureReportsService {
         /**
          * The recordId of the failure report.
          */
-        recordId: string;
-        statusId: string;
+        recordId: string,
+        statusId: string,
         /**
          * Failure report status to update
          */
-        requestBody: Array<StatusUpdateJsonPatch>;
+        requestBody: Array<StatusUpdateJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/failure-reports/{record-id}/statuses/{status-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/failure-reports/{record-id}/statuses/{status-id}',
             path: {
-                "record-id": recordId,
-                "status-id": statusId,
+                'record-id': recordId,
+                'status-id': statusId,
             },
             body: requestBody,
-            mediaType: "application/json-patch+json",
+            mediaType: 'application/json-patch+json',
             errors: {
                 403: `User does not have sufficient rights to update failure report`,
                 404: `The specified resource was not found`,
@@ -306,15 +333,15 @@ export class FailureReportsService {
         recordId,
         attachmentId,
     }: {
-        recordId: string;
-        attachmentId: string;
+        recordId: string,
+        attachmentId: string,
     }): CancelablePromise<Blob | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/failure-reports/{record-id}/attachments/{attachment-id}",
+            method: 'GET',
+            url: '/maintenance-records/failure-reports/{record-id}/attachments/{attachment-id}',
             path: {
-                "record-id": recordId,
-                "attachment-id": attachmentId,
+                'record-id': recordId,
+                'attachment-id': attachmentId,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -326,6 +353,8 @@ export class FailureReportsService {
      * Failure report - Attachment upload
      * Upload attachment for failure report
      *
+     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     *
      * ### Update release 1.17.0
      * Added `documentTitle` as input. If supplied, the title is added to all files that are sent
      * in the current request. If different titles are wanted for different files, they have to be sent in separately
@@ -335,6 +364,10 @@ export class FailureReportsService {
      * Added ability to supply `document-title` as a query parameter. If documentTitle is supplied both as form-data and query parameter, the query parameter
      * will take precedence. `document-title` should be Uri encoded.
      *
+     * ### Update release 1.28.0
+     * Added the optional parameter `document-id` as a query parameter.
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document. `document-title` and `document-id` cannot be supplied together.
+     *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -342,26 +375,33 @@ export class FailureReportsService {
     public static uploadFailureReportAttachment({
         recordId,
         documentTitle = null,
+        documentId = null,
         formData,
     }: {
-        recordId: string;
-        documentTitle?: string | null;
+        recordId: string,
+        documentTitle?: string | null,
+        /**
+         * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId?: string | null,
         formData?: {
             files: Array<Blob>;
-            "document-title"?: string | null;
-        };
+            'document-title'?: string | null;
+        },
     }): CancelablePromise<any | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/failure-reports/{record-id}/attachments",
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/attachments',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             query: {
-                "document-title": documentTitle,
+                'document-title': documentTitle,
+                'document-id': documentId,
             },
             formData: formData,
-            mediaType: "multipart/form-data",
+            mediaType: 'multipart/form-data',
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
@@ -423,50 +463,57 @@ export class FailureReportsService {
         /**
          * Filter to limit the failure reports by
          */
-        filter: "recent-status-activations" | "open-by-plant";
+        filter: 'recent-status-activations' | 'open-by-plant',
         /**
          * Status
          */
-        statusId?: string;
+        statusId?: string,
         /**
          * Plant identifier
          */
-        plantId?: string;
+        plantId?: string,
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
-        locationId?: string;
+        locationId?: string,
         /**
          * System id to filter by
          */
-        systemId?: string;
+        systemId?: string,
         /**
          * Define how many days from the current day to include results for. 0 if only include for today
          */
-        maxDaysSinceActivation?: number;
+        maxDaysSinceActivation?: number,
         /**
          * Comma separated list of work center IDs to filter by
          */
-        workCenterIds?: Array<string>;
+        workCenterIds?: Array<string>,
     }): CancelablePromise<Array<FailureReportSimple> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records/failure-reports",
+            method: 'GET',
+            url: '/maintenance-records/failure-reports',
             query: {
-                filter: filter,
-                "status-id": statusId,
-                "plant-id": plantId,
-                "location-id": locationId,
-                "system-id": systemId,
-                "max-days-since-activation": maxDaysSinceActivation,
-                "work-center-ids": workCenterIds,
+                'filter': filter,
+                'status-id': statusId,
+                'plant-id': plantId,
+                'location-id': locationId,
+                'system-id': systemId,
+                'max-days-since-activation': maxDaysSinceActivation,
+                'work-center-ids': workCenterIds,
             },
         });
     }
 
     /**
      * Failure report - Create
-     * Create new failure report
+     * Create new failure report.
+     *
+     * The following endpoints can be used to find possible values for input:
+     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
+     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
+     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
+     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
+     * 1. `codingId` - [/catalogs/{catalog-id}/code-groups](#operation/SearchCodeGroup)
      *
      * ### Important information
      * Equinor governing documents states that failure reports should be created at the lowest possible level in the tag hierachy.
@@ -498,6 +545,12 @@ export class FailureReportsService {
      * ### Update release 1.15.0
      * Fixed issue with `relatedWorkOrder` `source` `ObjectList`.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * Added properties `codingGroupId` and `codingId`.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns FailureReportBasic Created
      * @throws ApiError
@@ -508,13 +561,13 @@ export class FailureReportsService {
         /**
          * Failure report to create
          */
-        requestBody: FailureReportCreate;
+        requestBody: FailureReportCreate,
     }): CancelablePromise<ProblemDetails | FailureReportBasic> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/failure-reports",
+            method: 'POST',
+            url: '/maintenance-records/failure-reports',
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to create a failure report`,
             },
@@ -534,6 +587,10 @@ export class FailureReportsService {
      * ### Update release v1.15.0
      * Added response body for 201 response
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordActivity Success
      * @throws ApiError
@@ -545,20 +602,20 @@ export class FailureReportsService {
         /**
          * id of the failure report
          */
-        recordId: string;
+        recordId: string,
         /**
          * Activities to add to existing failure report
          */
-        requestBody: Array<MaintenanceRecordActivityCreate>;
+        requestBody: Array<MaintenanceRecordActivityCreate>,
     }): CancelablePromise<ProblemDetails | Array<MaintenanceRecordActivity>> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/failure-reports/{record-id}/activities",
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/activities',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add activities to failure report`,
@@ -579,6 +636,10 @@ export class FailureReportsService {
      * ### Update release 1.8.0
      * Response type change to return the created tasks.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordTask Created
      * @throws ApiError
@@ -590,20 +651,20 @@ export class FailureReportsService {
         /**
          * Id of the failure report
          */
-        recordId: string;
+        recordId: string,
         /**
          * Tasks to add to existing failure report
          */
-        requestBody: Array<MaintenanceRecordTaskCreate>;
+        requestBody: Array<MaintenanceRecordTaskCreate>,
     }): CancelablePromise<ProblemDetails | Array<MaintenanceRecordTask>> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/failure-reports/{record-id}/tasks",
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/tasks',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid. May occur if taskResponsibleEmail is not an Equinor email address.`,
                 403: `User does not have sufficient rights to add tasks to failure report`,
@@ -625,6 +686,10 @@ export class FailureReportsService {
      *
      * To change status of a task, use endpoint `/maintenance-records/failure-reports/{record-id}/tasks/{task-id}/statuses/{status-id}`
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -636,25 +701,25 @@ export class FailureReportsService {
         /**
          * id of the failure report
          */
-        recordId: string;
+        recordId: string,
         /**
          * id of the task
          */
-        taskId: string;
+        taskId: string,
         /**
          * Task to update
          */
-        requestBody: Array<MaintenanceRecordTaskUpdateJsonPatch>;
+        requestBody: Array<MaintenanceRecordTaskUpdateJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/failure-reports/{record-id}/tasks/{task-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/failure-reports/{record-id}/tasks/{task-id}',
             path: {
-                "record-id": recordId,
-                "task-id": taskId,
+                'record-id': recordId,
+                'task-id': taskId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid. May occur if taskResponsibleEmail is not an Equinor email address.`,
                 403: `User does not have sufficient rights to update failure report task`,
@@ -686,30 +751,30 @@ export class FailureReportsService {
         /**
          * id of the failure report
          */
-        recordId: string;
+        recordId: string,
         /**
          * id of the task
          */
-        taskId: string;
+        taskId: string,
         /**
          * id of the status
          */
-        statusId: string;
+        statusId: string,
         /**
          * Task status to update
          */
-        requestBody: Array<StatusUpdateJsonPatch>;
+        requestBody: Array<StatusUpdateJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/failure-reports/{record-id}/tasks/{task-id}/statuses/{status-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/failure-reports/{record-id}/tasks/{task-id}/statuses/{status-id}',
             path: {
-                "record-id": recordId,
-                "task-id": taskId,
-                "status-id": statusId,
+                'record-id': recordId,
+                'task-id': taskId,
+                'status-id': statusId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to update failure report task`,
                 404: `The specified resource was not found`,
@@ -725,6 +790,10 @@ export class FailureReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -736,25 +805,25 @@ export class FailureReportsService {
         /**
          * id of the failure report
          */
-        recordId: string;
+        recordId: string,
         /**
          * id of the activity
          */
-        activityId: string;
+        activityId: string,
         /**
          * Activities to update for existing failure report
          */
-        requestBody: Array<MaintenanceRecordActivityJsonPatch>;
+        requestBody: Array<MaintenanceRecordActivityJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/failure-reports/{record-id}/activities/{activity-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/failure-reports/{record-id}/activities/{activity-id}',
             path: {
-                "record-id": recordId,
-                "activity-id": activityId,
+                'record-id': recordId,
+                'activity-id': activityId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to update activities to failure report`,
@@ -789,6 +858,10 @@ export class FailureReportsService {
      * ### Update release v1.15.0
      * Added response schema for 201 success
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordActivity Success
      * @throws ApiError
@@ -800,20 +873,20 @@ export class FailureReportsService {
         /**
          * id of the failure report
          */
-        recordId: string;
+        recordId: string,
         /**
          * Extended end date-activity to be created on the failure report.
          */
-        requestBody: MaintenanceRecordExtendRequiredEnd;
+        requestBody: MaintenanceRecordExtendRequiredEnd,
     }): CancelablePromise<ProblemDetails | MaintenanceRecordActivity> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/failure-reports/{record-id}/required-end-extensions",
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/required-end-extensions',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add activities to failure report`,
@@ -845,25 +918,25 @@ export class FailureReportsService {
         /**
          * The recordId of the failure report.
          */
-        recordId: string;
+        recordId: string,
         /**
          * The id of the metadata record
          */
-        metadataId: string;
+        metadataId: string,
         /**
          * Update to make for metadata
          */
-        requestBody: Array<MaintenanceRecordItemMetadataJsonPatch>;
+        requestBody: Array<MaintenanceRecordItemMetadataJsonPatch>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}",
+            method: 'PATCH',
+            url: '/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}',
             path: {
-                "record-id": recordId,
-                "metadata-id": metadataId,
+                'record-id': recordId,
+                'metadata-id': metadataId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to update failure report`,
                 404: `The specified resource was not found`,
@@ -893,20 +966,20 @@ export class FailureReportsService {
         /**
          * The recordId of the failure report.
          */
-        recordId: string;
+        recordId: string,
         /**
          * Update to make for metadata
          */
-        requestBody: Array<MaintenanceRecordItemMetadataCreate>;
+        requestBody: Array<MaintenanceRecordItemMetadataCreate>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/failure-reports/{record-id}/additional-metadata",
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/additional-metadata',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to update failure report`,
                 404: `The specified resource was not found`,
@@ -923,8 +996,6 @@ export class FailureReportsService {
      *
      * With this endpoint, the consumer can assign classes metadata and define initial values for some of the characteristics in the classes.
      *
-     * There is currently no endpoint for looking up existing classes and their characteristics, but this may be added in the future.
-     *
      * Note that if a given characteristic has already been added to this metadata, repeated adding will result in overwriting of the characteristic value.
      * If you want to update a characteristic the `PATCH` endpoint can be used.
      *
@@ -940,23 +1011,23 @@ export class FailureReportsService {
         metadataId,
         requestBody,
     }: {
-        recordId: string;
-        metadataId: string;
+        recordId: string,
+        metadataId: string,
         /**
          * Characteristics to add to metadata.
          */
-        requestBody: Array<MetadataAddClass>;
+        requestBody: Array<MetadataAddClass>,
     }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}/characteristics',
             path: {
-                "record-id": recordId,
-                "metadata-id": metadataId,
+                'record-id': recordId,
+                'metadata-id': metadataId,
             },
             body: requestBody,
-            mediaType: "application/json",
-            responseHeader: "Location",
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
                 400: `Request is missing required parameters or characteristicId is not part of class`,
                 403: `User does not have sufficient rights to add characteristics to measuring point`,
@@ -976,22 +1047,22 @@ export class FailureReportsService {
         metadataId,
         requestBody,
     }: {
-        recordId: string;
-        metadataId: string;
+        recordId: string,
+        metadataId: string,
         /**
          * Characteristics to be updated, based on JsonPatch standard
          */
-        requestBody: Array<CharacteristicsUpdate>;
+        requestBody: Array<CharacteristicsUpdate>,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "PATCH",
-            url: "/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}/characteristics",
+            method: 'PATCH',
+            url: '/maintenance-records/failure-reports/{record-id}/additional-metadata/{metadata-id}/characteristics',
             path: {
-                "record-id": recordId,
-                "metadata-id": metadataId,
+                'record-id': recordId,
+                'metadata-id': metadataId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to characteristics`,
@@ -1000,4 +1071,5 @@ export class FailureReportsService {
             },
         });
     }
+
 }

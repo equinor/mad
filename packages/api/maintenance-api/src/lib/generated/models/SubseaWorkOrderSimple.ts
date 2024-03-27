@@ -55,7 +55,7 @@ export type SubseaWorkOrderSimple = {
      * * null - No priority assigned
      *
      */
-    priorityId: "L" | "M" | "H" | "U" | null;
+    priorityId: 'L' | 'M' | 'H' | 'U' | null;
     /**
      * Criteria used by Equinor in CMR (Critical Maintenance Report):
      * Corrective work orders where at least one item in the list or primary tag:
@@ -65,5 +65,10 @@ export type SubseaWorkOrderSimple = {
      * - has received a "Hidden failure" code.
      *
      */
-    cmrIndicator?: boolean;
+    cmrIndicator: boolean;
+    /**
+     * Indicates whether the Work Order is open or not.
+     */
+    isOpen: boolean;
 };
+

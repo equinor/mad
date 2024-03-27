@@ -12,28 +12,14 @@ export type PreventiveWorkOrderJsonPatch = Array<{
      * Operation `append` is suitable for the following properties: `/text`
      *
      */
-    op?: "append" | "replace";
+    op?: 'append' | 'replace';
     /**
      * The property to be updated by the non-trivial patch operation.
      * `/workCenterId` and `/workCenterPlantId` must be provided in same request.
      * `tagId`,`/tagPlantId` must be provided in same request.
      *
      */
-    path?:
-        | "/text"
-        | "/workCenterId"
-        | "/workCenterPlantId"
-        | "/tagId"
-        | "/tagPlantId"
-        | "/basicStartDateTime"
-        | "/basicEndDateTime"
-        | "/revisionId"
-        | "/sortField"
-        | "/locationId"
-        | "/systemId"
-        | "/externalPartnerWorkOrderId"
-        | "/title"
-        | "/plannerGroupId";
+    path?: '/text' | '/workCenterId' | '/workCenterPlantId' | '/tagId' | '/tagPlantId' | '/basicStartDateTime' | '/basicEndDateTime' | '/revisionId' | '/sortField' | '/locationId' | '/systemId' | '/externalPartnerWorkOrderId' | '/title' | '/plannerGroupId';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

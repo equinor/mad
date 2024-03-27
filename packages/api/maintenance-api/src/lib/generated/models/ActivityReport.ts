@@ -3,14 +3,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ActivityReportBasic } from "./ActivityReportBasic";
-import type { Attachment } from "./Attachment";
-import type { MaintenanceRecordActivity } from "./MaintenanceRecordActivity";
-import type { Measurement } from "./Measurement";
-import type { Status } from "./Status";
-import type { URLReference } from "./URLReference";
+import type { ActivityReportBasic } from './ActivityReportBasic';
+import type { Attachment } from './Attachment';
+import type { MaintenanceRecordActivity } from './MaintenanceRecordActivity';
+import type { Measurement } from './Measurement';
+import type { Status } from './Status';
+import type { URLReference } from './URLReference';
 
-export type ActivityReport = ActivityReportBasic & {
+export type ActivityReport = (ActivityReportBasic & {
+    maintenanceRecordTypeId?: 'activityReport';
     /**
      * The internal id of the person who created the maintenance record. The id represents the employee id of the person.
      */
@@ -43,4 +44,5 @@ export type ActivityReport = ActivityReportBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
-};
+});
+

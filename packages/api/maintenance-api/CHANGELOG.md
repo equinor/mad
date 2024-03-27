@@ -1,5 +1,22 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.28.0
+
+### Minor Changes
+
+-   4d9d6e0: Updated the wrapper to use version 1.29
+
+## 1.27.0
+
+### Minor Changes
+
+-   370845f: Update to Maintenance API v1.27
+
+### Patch Changes
+
+-   370845f: Added deprecation tags to old master data endpoints on maintenance records category.
+    Added GeneralMasterData category.
+
 ## 1.26.0
 
 ### Minor Changes

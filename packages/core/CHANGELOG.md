@@ -1,5 +1,220 @@
 # @equinor/mad-core
 
+## 0.6.0
+
+### Minor Changes
+
+-   6fa6d98: use react-native-markdown-display for release notes
+
+## 0.5.18
+
+### Patch Changes
+
+-   ae11efd: Export types from mad-auth
+
+## 0.5.17
+
+### Patch Changes
+
+-   7cf3344: You can now change the background color of the login screen
+
+## 0.5.16
+
+### Patch Changes
+
+-   Updated dependencies [49e643c]
+    -   @equinor/mad-components@0.13.0
+    -   @equinor/mad-auth@0.1.24
+
+## 0.5.15
+
+### Patch Changes
+
+-   bfb69d7: Now initiates authentication client when creating core stack in order to make sure it's
+    available at all times
+-   Updated dependencies [bfb69d7]
+    -   @equinor/mad-auth@0.1.23
+
+## 0.5.14
+
+### Patch Changes
+
+-   Updated dependencies [af77bb9]
+    -   @equinor/mad-auth@0.1.22
+
+## 0.5.13
+
+### Patch Changes
+
+-   5cdfd6b: demo mode should now always be disabled when logging in
+-   dcf40b7: Should no longer update last displayed release notes in demo mode
+
+## 0.5.12
+
+### Patch Changes
+
+-   Updated dependencies [b5badbd]
+    -   @equinor/mad-components@0.12.10
+    -   @equinor/mad-auth@0.1.21
+
+## 0.5.11
+
+### Patch Changes
+
+-   Updated dependencies [ba1d39f]
+    -   @equinor/mad-components@0.12.9
+    -   @equinor/mad-auth@0.1.20
+
+## 0.5.10
+
+### Patch Changes
+
+-   256e7de: Fixed overlapping text in Feedback screen on small devices
+-   Updated dependencies [8a09b94]
+    -   @equinor/mad-components@0.12.8
+    -   @equinor/mad-auth@0.1.19
+
+## 0.5.9
+
+### Patch Changes
+
+-   11b42e4: mock release notes should now display correctly when entering demo mode
+-   48f5206: Now exits demo mode when signing out
+
+## 0.5.8
+
+### Patch Changes
+
+-   aebe3a2: Now adds username to app insights tracking after authenticating
+
+## 0.5.7
+
+### Patch Changes
+
+-   4724aea: `MadConfig`: `addScreenManually` option added for `login`. Lets the developer add login
+    screen to the stack manually in order to access otherwise inaccessible props
+-   Updated dependencies [b2b8572]
+    -   @equinor/mad-insights@0.1.2
+
+## 0.5.6
+
+### Patch Changes
+
+-   Updated dependencies [cd8350f]
+    -   @equinor/mad-components@0.12.7
+    -   @equinor/mad-auth@0.1.18
+
+## 0.5.5
+
+### Patch Changes
+
+-   Updated dependencies [964af01]
+    -   @equinor/mad-components@0.12.6
+    -   @equinor/mad-auth@0.1.17
+
+## 0.5.4
+
+### Patch Changes
+
+-   Updated dependencies [121bbec]
+    -   @equinor/mad-components@0.12.5
+    -   @equinor/mad-auth@0.1.16
+
+## 0.5.3
+
+### Patch Changes
+
+-   Updated dependencies [8657a23]
+    -   @equinor/mad-components@0.12.4
+    -   @equinor/mad-auth@0.1.15
+
+## 0.5.2
+
+### Patch Changes
+
+-   Updated dependencies [45f2215]
+    -   @equinor/mad-components@0.12.3
+    -   @equinor/mad-auth@0.1.14
+
+## 0.5.1
+
+### Patch Changes
+
+-   04713bc: `CreateIncidentScreen`: Now has a scrollview surrounding the content, making the
+    content available on smaller devices
+
+## 0.5.0
+
+### Minor Changes
+
+-   b024e0f: login screen has been redesigned. Now requires you to provide a splash screen instead
+    of a title and logo
+
+### Patch Changes
+
+-   Updated dependencies [b024e0f]
+    -   @equinor/mad-navigation@0.3.0
+
+## 0.4.4
+
+### Patch Changes
+
+-   Updated dependencies [558ca83]
+    -   @equinor/mad-components@0.12.2
+    -   @equinor/mad-auth@0.1.13
+
+## 0.4.3
+
+### Patch Changes
+
+-   Updated dependencies [8baaf7b]
+    -   @equinor/mad-components@0.12.1
+    -   @equinor/mad-auth@0.1.12
+
+## 0.4.2
+
+### Patch Changes
+
+-   Updated dependencies [e43285f]
+-   Updated dependencies [79fb731]
+-   Updated dependencies [37025ac]
+    -   @equinor/mad-components@0.12.0
+    -   @equinor/mad-auth@0.1.11
+
+## 0.4.1
+
+### Patch Changes
+
+-   Updated dependencies [8adb0dc]
+-   Updated dependencies [496cd9a]
+    -   @equinor/mad-components@0.11.3
+    -   @equinor/mad-auth@0.1.10
+
+## 0.4.0
+
+### Minor Changes
+
+-   b81ade4: `useLanguage`: now returns `defaultLanguage`, `isLanguageSelected` and
+    `supportedLanguages` instead of `getDefaultLanguage`, `getIsLanguageSelected` and
+    `getSupportedLanguages`
+-   b81ade4: `MadConfig`: new property `navigateToMainRouteFn` has been added. This means `"Root"`
+    is no longer recognized as the main route for your app. You have to configure this new property
+    to navigate the user to your preferred route
+
+## 0.3.11
+
+### Patch Changes
+
+-   Updated dependencies [7eae144]
+    -   @equinor/mad-components@0.11.2
+    -   @equinor/mad-auth@0.1.9
+
+## 0.3.10
+
+### Patch Changes
+
+-   85da576: Now exports `getAccount`, `signOut`, and `authenticateInteractively`
+
 ## 0.3.9
 
 ### Patch Changes

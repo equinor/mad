@@ -3,10 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceRecordChangeLogBasic } from "./MaintenanceRecordChangeLogBasic";
+import type { MaintenanceRecordChangeLogBasic } from './MaintenanceRecordChangeLogBasic';
 
-export type MaintenanceRecordChangeLogBasicWithRelated = MaintenanceRecordChangeLogBasic & {
+export type MaintenanceRecordChangeLogBasicWithRelated = (MaintenanceRecordChangeLogBasic & {
     _links: {
         related?: string;
     };
-};
+});
+

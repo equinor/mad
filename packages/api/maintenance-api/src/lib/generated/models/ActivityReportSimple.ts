@@ -14,4 +14,9 @@ export type ActivityReportSimple = {
      * Active statuses for the maintenance record with space as separating character
      */
     activeStatusIds: string;
+    /**
+     * Datetime of activity report
+     */
+    createdDateTime?: string | null;
 };
+

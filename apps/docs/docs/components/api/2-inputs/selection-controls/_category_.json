@@ -1,0 +1,9 @@
+{
+    "label": "Selection controls",
+    "position": 1,
+    "link": {
+        "type": "generated-index",
+        "slug": "components/api/inputs/selection-controls",
+        "description": "Toggles and switches!"
+    }
+}

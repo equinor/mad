@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CharacteristicAdd } from "./CharacteristicAdd";
+import type { CharacteristicAdd } from './CharacteristicAdd';
 
 export type MetadataAddClass = {
     /**
@@ -15,3 +15,4 @@ export type MetadataAddClass = {
      */
     characteristics?: Array<CharacteristicAdd>;
 };
+

@@ -18,9 +18,12 @@ body:
           options:
               - MAD Components
               - MAD Chronicles
+              - MAD Core
               - React Native Skia Draw
               - Maintenance API typescript wrapper
               - ESLint Equinor MAD
+              - MAD DFW
+              - MAD Docs
               - Other
       validations:
           required: true

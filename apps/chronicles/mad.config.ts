@@ -1,9 +1,11 @@
 import { MadConfig } from "@equinor/mad-core";
-import Logo from "./assets/images/icon.png";
-import { ImageSourcePropType } from "react-native";
 import { getBuildNumber } from "./settings";
+import Splash from "./assets/images/splash.png";
+import { RootStackParamList } from "./types/navigation";
+import * as ExpoConfig from "./app.json";
 
-export const config: MadConfig = {
+export const config: MadConfig<RootStackParamList> = {
+    navigateToMainRouteFn: navigation => navigation.navigate("Root"),
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
     currentEnvironment: "prod",
@@ -31,8 +33,9 @@ export const config: MadConfig = {
         },
     },
     login: {
-        title: "Chronicles",
-        logo: Logo as ImageSourcePropType,
+        splash: Splash,
+        backgroundColor: ExpoConfig.expo.splash.backgroundColor,
+        addScreenManually: true,
     },
     applicationInsights: {
         instrumentationKey: "f1859360-4aa2-425f-b494-2d7320de6832",

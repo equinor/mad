@@ -8,3 +8,4 @@ export type ActivityCode = {
     activityCode: string;
     activityCodeHelpText: string;
 };
+

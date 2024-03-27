@@ -6,11 +6,4 @@
 /**
  * Include which types of maintenance records
  */
-export type includeMaintenanceRecordTypes = Array<
-    | "failure-report"
-    | "activity-report"
-    | "certification-report"
-    | "technical-information-update-request"
-    | "technical-clarification"
-    | "modification-proposal"
->;
+export type includeMaintenanceRecordTypes = Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>;

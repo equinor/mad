@@ -58,5 +58,10 @@ export type ProjectWorkOrderSimple = {
      * - has received a "Hidden failure" code.
      *
      */
-    cmrIndicator?: boolean;
+    cmrIndicator: boolean;
+    /**
+     * Indicates whether the Work Order is open or not.
+     */
+    isOpen: boolean;
 };
+

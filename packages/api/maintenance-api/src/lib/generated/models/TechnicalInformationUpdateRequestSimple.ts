@@ -3,4 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TechnicalInformationUpdateRequestSimple = {};
+export type TechnicalInformationUpdateRequestSimple = {
+};
+

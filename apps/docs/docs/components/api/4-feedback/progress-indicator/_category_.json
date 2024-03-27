@@ -1,0 +1,9 @@
+{
+    "label": "Progress indicators",
+    "position": 1,
+    "link": {
+        "type": "generated-index",
+        "slug": "components/api/feedback/progress-indicators",
+        "description": "Convey process information to your users."
+    }
+}

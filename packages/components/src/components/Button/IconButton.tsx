@@ -57,6 +57,7 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
             <View>
                 <View ref={ref} style={[styles.colorContainer, rest.style]}>
                     <PressableHighlight
+                        id={rest.id}
                         disabled={disabled}
                         onPress={onPress}
                         style={styles.pressableContainer}

@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Service } from "./Service";
+import type { Service } from './Service';
+import type { WorkOrderMaterial } from './WorkOrderMaterial';
 
 export type ServiceOperation = {
     /**
@@ -32,6 +33,7 @@ export type ServiceOperation = {
     purchaseOrderItemId?: string;
     isServiceOperation?: boolean;
     scopeOfWork?: string;
-    isEquipmentRental?: boolean;
     services?: Array<Service>;
+    materials?: Array<WorkOrderMaterial> | null;
 };
+

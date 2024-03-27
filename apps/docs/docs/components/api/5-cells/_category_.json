@@ -1,0 +1,9 @@
+{
+    "label": "Cells",
+    "position": 5,
+    "link": {
+        "type": "generated-index",
+        "slug": "components/api/cells",
+        "description": "Commonly used surfaces often used when presenting a list of items."
+    }
+}

@@ -14,7 +14,7 @@ export function UserInfo({infoType, infoValue}: UserInfoProps) {
             <View style={styles.infoContainer}>
                 <Typography>{infoType}</Typography>
             </View>
-            <View>
+            <View style={styles.infoContainer}>
                 <Typography>{infoValue}</Typography>
             </View>
         </View>
@@ -30,7 +30,6 @@ const UserInfoStyles = EDSStyleSheet.create(theme => ({
         marginVertical: theme.spacing.textField.paddingVertical,
     },
     infoContainer: {
-        height: 24,
-        flexBasis: "25%"
-    }
+        flexBasis: "50%",
+    },
 }));

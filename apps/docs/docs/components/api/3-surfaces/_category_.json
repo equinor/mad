@@ -1,0 +1,9 @@
+{
+    "label": "Surfaces",
+    "position": 3,
+    "link": {
+        "type": "generated-index",
+        "slug": "components/api/surfaces",
+        "description": "Components to place your content inside!"
+    }
+}

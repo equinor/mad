@@ -57,7 +57,7 @@ export const Autocomplete = <T,>({
     const handleMenuClose = () => {
         setIsOptionsVisible(false);
         if (selectedOption) {
-            setInputValue(selectedOption as string);
+            setInputValue(internalTransform(selectedOption));
         } else {
             setInputValue("");
         }
@@ -105,7 +105,9 @@ export const Autocomplete = <T,>({
                 }}
                 onFocus={handleMenuOpen}
                 onBlur={() => {
-                    setIsOptionsVisible(false);
+                    setTimeout(() => {
+                        setIsOptionsVisible(false);
+                    }, 150);
                 }}
                 rightAdornments={
                     <View style={styles.adornmentContainer}>

@@ -44,3 +44,4 @@ export type MaintenanceActivity = {
      */
     initialIntervalDescription: string;
 };
+

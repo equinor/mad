@@ -2,14 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProblemDetails } from "../models/ProblemDetails";
-import type { RelationshipURLReferencesAdd } from "../models/RelationshipURLReferencesAdd";
+import type { ProblemDetails } from '../models/ProblemDetails';
+import type { RelationshipURLReferencesAdd } from '../models/RelationshipURLReferencesAdd';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class MaintenanceRecordRelationshipsService {
+
     /**
      * Maintenance record relationships -  Add URL reference
      * ### Overview
@@ -28,6 +29,10 @@ export class MaintenanceRecordRelationshipsService {
      *
      * Existing URL references are available through the lookup endpoints for maintenance records. Examples: `GET /maintenance-records/failure-reports/{record-id}?include-url-references=true&api-version=v1`
      *
+     * ## Update release v1.28.0
+     * Added optional input field `documentId`.
+     * If documentId is supplied, the attachment will be uploaded specifically to this document.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -38,20 +43,20 @@ export class MaintenanceRecordRelationshipsService {
         /**
          * Id of the maintenance record (can be any type)
          */
-        recordId: string;
+        recordId: string,
         /**
          * Define URL reference to add relationship
          */
-        requestBody: RelationshipURLReferencesAdd;
+        requestBody: RelationshipURLReferencesAdd,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "POST",
-            url: "/maintenance-record-relationships/{record-id}/url-references",
+            method: 'POST',
+            url: '/maintenance-record-relationships/{record-id}/url-references',
             path: {
-                "record-id": recordId,
+                'record-id': recordId,
             },
             body: requestBody,
-            mediaType: "application/json",
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights for updating maintenance record`,
@@ -78,18 +83,18 @@ export class MaintenanceRecordRelationshipsService {
         /**
          * Id of the maintenance record (can be any type)
          */
-        recordId: string;
+        recordId: string,
         /**
          * Id of the URL reference
          */
-        urlReferenceId: string;
+        urlReferenceId: string,
     }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: "DELETE",
-            url: "/maintenance-record-relationships/{record-id}/url-references/{url-reference-id}",
+            method: 'DELETE',
+            url: '/maintenance-record-relationships/{record-id}/url-references/{url-reference-id}',
             path: {
-                "record-id": recordId,
-                "url-reference-id": urlReferenceId,
+                'record-id': recordId,
+                'url-reference-id': urlReferenceId,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -99,4 +104,5 @@ export class MaintenanceRecordRelationshipsService {
             },
         });
     }
+
 }

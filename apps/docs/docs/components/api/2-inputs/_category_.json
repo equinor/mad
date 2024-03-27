@@ -1,0 +1,9 @@
+{
+    "label": "Inputs",
+    "position": 2,
+    "link": {
+        "type": "generated-index",
+        "slug": "components/api/inputs",
+        "description": "Components that allow users to provide input to the app!"
+    }
+}

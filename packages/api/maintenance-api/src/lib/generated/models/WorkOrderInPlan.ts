@@ -3,17 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderOperationInPlan } from "./WorkOrderOperationInPlan";
+import type { WorkOrderOperationInPlan } from './WorkOrderOperationInPlan';
 
 export type WorkOrderInPlan = {
     workOrderId: string;
-    workOrderTypeId:
-        | "correctiveWorkOrder"
-        | "preventiveWorkOrder"
-        | "modificationWorkOrder"
-        | "sasChangeWorkOrder"
-        | "projectWorkOrder"
-        | "subseaWorkOrder";
+    workOrderTypeId: 'correctiveWorkOrder' | 'preventiveWorkOrder' | 'modificationWorkOrder' | 'sasChangeWorkOrder' | 'projectWorkOrder' | 'subseaWorkOrder';
     tagId: string | null;
     tagPlantId: string;
     tag: string;
@@ -79,3 +73,4 @@ export type WorkOrderInPlan = {
     personResponsibleEmail: string | null;
     operations: Array<WorkOrderOperationInPlan>;
 };
+

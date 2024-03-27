@@ -1,8 +1,10 @@
+import { useEDS } from "@equinor/mad-components";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 
 export default function useCachedResources() {
     const [isLoadingComplete, setLoadingComplete] = useState(false);
+    const [hasLoadedEds] = useEDS();
 
     // Load any resources or data that we need prior to rendering the app
     useEffect(() => {
@@ -14,12 +16,15 @@ export default function useCachedResources() {
                 console.warn(e);
             } finally {
                 setLoadingComplete(true);
-                await SplashScreen.hideAsync();
             }
         }
 
         void loadResourcesAndDataAsync();
     }, []);
+
+    useEffect(() => {
+        if (isLoadingComplete && hasLoadedEds) void SplashScreen.hideAsync();
+    }, [isLoadingComplete, hasLoadedEds]);
 
     return isLoadingComplete;
 }

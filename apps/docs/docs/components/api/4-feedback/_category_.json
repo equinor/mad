@@ -1,0 +1,9 @@
+{
+    "label": "Feedback",
+    "position": 4,
+    "link": {
+        "type": "generated-index",
+        "slug": "components/api/feedback",
+        "description": "Responsive elements that react application state changes."
+    }
+}

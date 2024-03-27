@@ -1,6 +1,13 @@
 export * from "./types";
 export * from "./components";
-export { authenticateSilently } from "@equinor/mad-auth";
+export {
+    authenticateSilently,
+    getAccount,
+    signOut,
+    authenticateInteractively,
+    MadAccount,
+    MadAuthenticationResult
+} from "@equinor/mad-auth";
 export {
     appInsightsHasBeenInitialized,
     addTelemetryInitializer,
@@ -14,3 +21,5 @@ export {
 } from "@equinor/mad-insights";
 export * from "./hooks";
 export * from "./store";
+
+export * from "./utils/getDefaultScreenOptionsForLoginScreen";

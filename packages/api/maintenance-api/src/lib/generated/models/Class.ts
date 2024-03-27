@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CharacteristicMinimal } from "./CharacteristicMinimal";
+import type { CharacteristicMinimal } from './CharacteristicMinimal';
 
 export type Class = {
     /**
@@ -19,3 +19,4 @@ export type Class = {
      */
     characteristics?: Array<CharacteristicMinimal>;
 };
+

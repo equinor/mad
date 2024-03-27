@@ -14,33 +14,34 @@ This is a monorepo collecting many of the packages used in the Mobile Applicatio
 | [Chronicles](./apps/chronicles/)                   | A storybook-like app for collecting many of the packages in the repo.                                     |                                                                                                                                                                |
 | [Components](./packages/components)                | React Native component library implementing [EDS](https://loop.equinor.com/en/stories/eds-design-system). | [![npm](https://img.shields.io/npm/v/@equinor/mad-components?logo=npm)](https://www.npmjs.com/package/@equinor/mad-components)                                 |
 | [Skia Draw](./packages/skia-draw)                  | Wrappers and utility components for implementing a drawing library in React Native.                       | [![npm](https://img.shields.io/npm/v/@equinor/react-native-skia-draw?logo=npm)](https://www.npmjs.com/package/@equinor/react-native-skia-draw)                 |
-| [Maintenance API](./packages/api/maintenance-api/) | Typescript wrapper for the [Equinor Maintenance API](https://equinor.github.io/maintenance-api-docs/)     | [![npm](https://img.shields.io/npm/v/@equinor/mad-maintenance-api-ts-wrapper?logo=npm)](https://www.npmjs.com/package/@equinor/mad-maintenance-api-ts-wrapper) |
+| [Maintenance API](./packages/api/maintenance-api/) | Typescript wrapper for the [Equinor Maintenance API](https://equinor.github.io/maintenance-api-docs/).    | [![npm](https://img.shields.io/npm/v/@equinor/mad-maintenance-api-ts-wrapper?logo=npm)](https://www.npmjs.com/package/@equinor/mad-maintenance-api-ts-wrapper) |
 | [TSConfig](./packages/tsconfig)                    | Global TSConfig used in our packages.                                                                     |                                                                                                                                                                |
 | [ESLint MAD](./packages/eslint-config-mad)         | Linting rules used throughout MAD development.                                                            | [![npm](https://img.shields.io/npm/v/@equinor/eslint-config-mad?logo=npm)](https://www.npmjs.com/package/@equinor/eslint-config-mad)                           |
-| [Navigation](./packages/navigation)                | Extension package of react native navigation that adds functionality used in our apps                     | [![npm](https://img.shields.io/npm/v/@equinor/mad-navigation?logo=npm)](https://www.npmjs.com/package/@equinor/mad-navigation)                                 |
-| [Insights](./packages/insights)                    | Wrapper package providing functionality for adding Azure application insights to your app                 | [![npm](https://img.shields.io/npm/v/@equinor/mad-insights?logo=npm)](https://www.npmjs.com/package/@equinor/mad-insights)                                     |
+| [Navigation](./packages/navigation)                | Extension package of react native navigation that adds functionality used in our apps.                    | [![npm](https://img.shields.io/npm/v/@equinor/mad-navigation?logo=npm)](https://www.npmjs.com/package/@equinor/mad-navigation)                                 |
+| [Insights](./packages/insights)                    | Wrapper package providing functionality for adding Azure application insights to your app.                | [![npm](https://img.shields.io/npm/v/@equinor/mad-insights?logo=npm)](https://www.npmjs.com/package/@equinor/mad-insights)                                     |
+| [Digital Field Worker](./packages/dfw)             | Component library for the Digital Field Worker apps.                                                      | [![npm](https://img.shields.io/npm/v/@equinor/mad-dfw?logo=npm)](https://www.npmjs.com/package/@equinor/mad-dfw)                                               |
 
 ## 👨‍💻 Development
 
 ### ⏱️ Getting started
 
-This turborepo uses [pnpm](https://pnpm.io) as a package manager. Start by cloning the repository
+This turborepo uses [yarn](https://classic.yarnpkg.com/) as a package manager. Start by cloning the repository
 and run
 
 ```
-npm install -g pnpm
+npm install -g yarn
 ```
 
 Install dependencies, run
 
 ```
-pnpm install
+yarn
 ```
 
 You can build only the packages you work on, but if you want to build everything to start with, run
 
 ```
-pnpm build:all
+yarn build:all
 ```
 
 ### 👷‍♀️ Working on a package
@@ -55,8 +56,8 @@ the components package to build with the `watch` flag. A developer working on th
 does not need to bother with these details, so running
 
 ```
-pnpm dev:chronicles
-pnpm dev:components
+yarn dev:chronicles
+yarn dev:components
 ```
 
 is all that is required.
@@ -65,7 +66,7 @@ This is how development on the packages is set up. With some exceptions, you can
 scripts with
 
 ```
-pnpm {keyword}:{package-alias}
+yarn {keyword}:{package-alias}
 ```
 
 Head into the project root [package.json](./package.json) for a full list of all commands.
@@ -84,7 +85,7 @@ Pull requests into main should as a rule of thumb ALWAYS contain a changeset (se
 [Changesets](https://github.com/changesets/changesets)). You create these by running
 
 ```
-pnpm changeset
+yarn changeset
 ```
 
 and follow the promts. This way, changelogs and version bumps are automatically handeled. Also note

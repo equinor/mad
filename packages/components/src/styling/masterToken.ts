@@ -153,7 +153,7 @@ export const masterToken: MasterToken = {
                 },
                 active: {
                     light: colors.interactive_primary_light_resting,
-                    dark: colors.interactive_primary_dark_resting,
+                    dark: colors.text_and_static_icons_dark_primary_black,
                 },
             },
             danger: {
@@ -438,6 +438,19 @@ export const masterToken: MasterToken = {
                 fontFamily: "Equinor-Regular",
                 fontSize: FONT_BASIS,
                 lineHeight: FONT_BASIS * 1.5,
+                textAlign: "left",
+            },
+            overline: {
+                fontFamily: "Equinor-Medium",
+                fontSize: FONT_BASIS * 0.625,
+                lineHeight: FONT_BASIS,
+                textAlign: "left",
+                textTransform: "uppercase",
+            },
+            caption: {
+                fontFamily: "Equinor-Regular",
+                fontSize: FONT_BASIS * 0.825,
+                lineHeight: FONT_BASIS,
                 textAlign: "left",
             },
         },

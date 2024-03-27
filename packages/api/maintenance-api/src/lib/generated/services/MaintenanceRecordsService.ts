@@ -2,15 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MaintenanceRecordChangeLogs } from "../models/MaintenanceRecordChangeLogs";
-import type { MaintenanceRecordList } from "../models/MaintenanceRecordList";
-import type { ProblemDetails } from "../models/ProblemDetails";
+import type { MaintenanceRecordChangeLogs } from '../models/MaintenanceRecordChangeLogs';
+import type { MaintenanceRecordList } from '../models/MaintenanceRecordList';
+import type { ProblemDetails } from '../models/ProblemDetails';
 
-import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 
 export class MaintenanceRecordsService {
+
     /**
      * Maintenance records - Search
      * ### Overview
@@ -75,53 +76,43 @@ export class MaintenanceRecordsService {
         /**
          * Filter to limit the failure reports by
          */
-        filter:
-            | "by-external-partner-record-id"
-            | "my-recent-maintenance-records"
-            | "recently-changed";
+        filter: 'by-external-partner-record-id' | 'my-recent-maintenance-records' | 'recently-changed',
         /**
          * If failure report was initially created in an external system, this represent the unique id of it
          */
-        externalPartnerRecordId?: string;
+        externalPartnerRecordId?: string,
         /**
          * Optional parameter to limit the response to only maintenance records changed after changed-since-datetime but before this datetime
          */
-        createdAfterDatetime?: string;
+        createdAfterDatetime?: string,
         /**
          * Plant identifier
          */
-        plantId?: string;
+        plantId?: string,
         /**
          * Earliest datetime to returned changed work orders for
          */
-        changedSinceDatetime?: string;
+        changedSinceDatetime?: string,
         /**
          * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
          */
-        beforeDatetime?: string;
+        beforeDatetime?: string,
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<
-            | "failure-report"
-            | "activity-report"
-            | "certification-report"
-            | "technical-information-update-request"
-            | "technical-clarification"
-            | "modification-proposal"
-        >;
+        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
     }): CancelablePromise<MaintenanceRecordList | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records",
+            method: 'GET',
+            url: '/maintenance-records',
             query: {
-                filter: filter,
-                "external-partner-record-id": externalPartnerRecordId,
-                "created-after-datetime": createdAfterDatetime,
-                "plant-id": plantId,
-                "changed-since-datetime": changedSinceDatetime,
-                "before-datetime": beforeDatetime,
-                "include-maintenance-record-types": includeMaintenanceRecordTypes,
+                'filter': filter,
+                'external-partner-record-id': externalPartnerRecordId,
+                'created-after-datetime': createdAfterDatetime,
+                'plant-id': plantId,
+                'changed-since-datetime': changedSinceDatetime,
+                'before-datetime': beforeDatetime,
+                'include-maintenance-record-types': includeMaintenanceRecordTypes,
             },
             errors: {
                 400: `Bad request, for example if \`before-datetime\` is before \`changed-since-datetime\``,
@@ -168,44 +159,38 @@ export class MaintenanceRecordsService {
         /**
          * Filter to limit the maintenance record change log by
          */
-        filter: "recently-changed-property";
+        filter: 'recently-changed-property',
         /**
          * Comma-separated string array of plant-ids to filter your result to one or more plants. Wildcards are not supported.
          */
-        plantIdAnyOf?: string;
+        plantIdAnyOf?: string,
         /**
          * Duration from the current datetime to fetch changes for. Maximum value is 7 days
          */
-        changedSinceDuration?: string;
+        changedSinceDuration?: string,
         /**
          * Comma-separated string of the properties which were recently changed
          */
-        propertyNameAnyOf?: "statuses" | "tasks/statuses";
+        propertyNameAnyOf?: 'statuses' | 'tasks/statuses',
         /**
          * Include which types of maintenance records
          */
-        includeMaintenanceRecordTypes?: Array<
-            | "failure-report"
-            | "activity-report"
-            | "certification-report"
-            | "technical-information-update-request"
-            | "technical-clarification"
-            | "modification-proposal"
-        >;
+        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
     }): CancelablePromise<MaintenanceRecordChangeLogs | ProblemDetails> {
         return __request(OpenAPI, {
-            method: "GET",
-            url: "/maintenance-records-change-log",
+            method: 'GET',
+            url: '/maintenance-records-change-log',
             query: {
-                filter: filter,
-                "plant-id-any-of": plantIdAnyOf,
-                "changed-since-duration": changedSinceDuration,
-                "property-name-any-of": propertyNameAnyOf,
-                "include-maintenance-record-types": includeMaintenanceRecordTypes,
+                'filter': filter,
+                'plant-id-any-of': plantIdAnyOf,
+                'changed-since-duration': changedSinceDuration,
+                'property-name-any-of': propertyNameAnyOf,
+                'include-maintenance-record-types': includeMaintenanceRecordTypes,
             },
             errors: {
                 400: `Request is missing required parameters or changed-since-duration is more than 7 days`,
             },
         });
     }
+
 }
