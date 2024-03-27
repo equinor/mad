@@ -84,8 +84,8 @@ export const ProgressScreen = () => {
             </View>
             <Spacer amount="small" />
             <UploadSimulator
-                onUploadSuccess={handleUploadSuccess}
-                onUploadFailed={handleUploadFailed}
+                onUploadSuccess={() => void handleUploadSuccess()}
+                onUploadFailed={() => void handleUploadFailed()}
             />
 
             <Spacer />
@@ -113,7 +113,7 @@ export const ProgressScreen = () => {
                     showCopyTextButton
                     showRetryButton
                     onCopyTextButtonPress={handleCopyErrorMessage}
-                    onRetryButtonPress={handleRetry}
+                    onRetryButtonPress={() => void handleRetry()}
                 />
             </Progress>
 
