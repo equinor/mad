@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
@@ -59,7 +59,6 @@ export const NavigationCell = ({
     additionalTitlesUnder,
     ...cellProps
 }: NavigationCellProps) => {
-    const [maxWidth, setMaxWidth] = useState(0);
     const styles = useStyles(themeStyles);
 
     const renderAdornmentIcon = (iconName: IconName) => (
@@ -85,16 +84,11 @@ export const NavigationCell = ({
     const renderAdditionalTitlesUnder = () =>
         additionalTitlesUnder?.map((text, index) => (
             <Typography
-                onLayout={event => {
-                    const width = event.nativeEvent.layout.width;
-                    if (width > maxWidth) setMaxWidth(width);
-                }}
                 key={index}
                 group="cell"
                 variant="title"
                 numberOfLines={1}
                 color="textTertiary"
-                style={{ minWidth: maxWidth }}
             >
                 {text}
             </Typography>
