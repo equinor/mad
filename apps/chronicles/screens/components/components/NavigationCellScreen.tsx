@@ -75,10 +75,9 @@ export const NavigationCellScreen = () => {
                     "Additional Title One",
                     "Additional Title Two",
                     "Additional Title Three",
-                    "Additional Title Three",
-
-                    "Additional Title Three",
-                    "Additional Title Three",
+                    "Additional Title Four",
+                    "Additional Title Five",
+                    "Additional Title Six",
                 ]}
                 iconName="navigation-outline"
                 onPress={() => null}

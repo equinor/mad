@@ -5,6 +5,24 @@ import { EDSStyleSheet } from "../../styling";
 import { Icon, IconName } from "../Icon";
 import { Typography } from "../Typography";
 import { Cell, CellProps } from "./Cell";
+
+type NavigationCellOptions =
+    | {
+          /**
+           * Additional titles to be shown next to the title section in the cell.
+           */
+          additionalTitlesRight?: string[];
+          /**
+           * Additional titles to be shown under the description section in the cell.
+           */
+          additionalTitlesUnder?: never;
+      }
+    | {
+          additionalTitlesRight?: never;
+
+          additionalTitlesUnder?: string[];
+      };
+
 export type NavigationCellProps = {
     /**
      * Title of the navigation cell.
@@ -28,15 +46,9 @@ export type NavigationCellProps = {
      * Name of the icon to use as a left adornment.
      */
     iconName?: IconName;
-    /**
-     * Additional titles to be shown next to the title section in the cell.
-     */
-    additionalTitlesRight?: string[];
-    /**
-     * Additional titles to be shown under the description section in the cell.
-     */
-    additionalTitlesUnder?: string[];
-} & Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
+} & NavigationCellOptions &
+    Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
+
 export const NavigationCell = ({
     title,
     onPress,
@@ -47,49 +59,51 @@ export const NavigationCell = ({
     additionalTitlesUnder,
     ...cellProps
 }: NavigationCellProps) => {
-    const styles = useStyles(themeStyles);
     const [maxWidth, setMaxWidth] = useState(0);
+    const styles = useStyles(themeStyles);
 
-    const IconAdornment = () => (
+    const renderAdornmentIcon = (iconName: IconName) => (
         <View style={styles.adornmentContainer}>
-            <Icon name={iconName ?? "dots-square"} color={disabled ? "textDisabled" : undefined} />
-        </View>
-    );
-    const DisclosureAdornment = () => (
-        <View style={styles.adornmentContainer}>
-            <Icon name="chevron-right" color={disabled ? "textDisabled" : undefined} />
+            <Icon name={iconName} color={disabled ? "textDisabled" : undefined} />
         </View>
     );
 
-    const renderAdditionalTitles = (titles: string[]) => {
-        return titles?.map((text, index) => (
+    const renderAdditionalTitlesRight = () =>
+        additionalTitlesRight?.map((text, index) => (
             <Typography
-                onLayout={event => {
-                    const width = event.nativeEvent.layout.width;
-                    if (width > maxWidth) {
-                        setMaxWidth(width);
-                    }
-                }}
-                style={[
-                    { justifyContent: "flex-start" },
-                    additionalTitlesRight && { flex: 1 },
-                    additionalTitlesUnder && { minWidth: maxWidth },
-                ]}
                 key={index}
                 group="cell"
                 variant="title"
                 numberOfLines={1}
                 color="textTertiary"
+                style={[additionalTitlesRight && { flex: 1 }]}
             >
                 {text}
             </Typography>
         ));
-    };
+
+    const renderAdditionalTitlesUnder = () =>
+        additionalTitlesUnder?.map((text, index) => (
+            <Typography
+                onLayout={event => {
+                    const width = event.nativeEvent.layout.width;
+                    if (width > maxWidth) setMaxWidth(width);
+                }}
+                key={index}
+                group="cell"
+                variant="title"
+                numberOfLines={1}
+                color="textTertiary"
+                style={{ minWidth: maxWidth }}
+            >
+                {text}
+            </Typography>
+        ));
 
     return (
         <Cell
-            leftAdornment={iconName ? IconAdornment() : undefined}
-            rightAdornment={DisclosureAdornment()}
+            leftAdornment={iconName ? renderAdornmentIcon(iconName ?? "dots-square") : undefined}
+            rightAdornment={renderAdornmentIcon("chevron-right")}
             onPress={disabled ? undefined : onPress}
             {...cellProps}
         >
@@ -105,6 +119,7 @@ export const NavigationCell = ({
                         variant="title"
                         numberOfLines={1}
                         color={disabled ? "textDisabled" : undefined}
+                        style={additionalTitlesRight && styles.title}
                     >
                         {title}
                     </Typography>
@@ -120,20 +135,22 @@ export const NavigationCell = ({
                     )}
                     {title && additionalTitlesUnder && (
                         <View style={styles.additionalTitlesUnderContainer}>
-                            {renderAdditionalTitles(additionalTitlesUnder)}
+                            {renderAdditionalTitlesUnder()}
                         </View>
                     )}
                 </View>
                 {title && additionalTitlesRight && (
                     <View style={styles.additionalTitlesRightContainer}>
-                        {renderAdditionalTitles(additionalTitlesRight)}
+                        {renderAdditionalTitlesRight()}
                     </View>
                 )}
             </View>
         </Cell>
     );
 };
+
 NavigationCell.displayName = "Cell.Navigation";
+
 const themeStyles = EDSStyleSheet.create(theme => ({
     contentContainer: {
         flexDirection: "row",
@@ -154,5 +171,8 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     adornmentContainer: {
         justifyContent: "center",
+    },
+    title: {
+        paddingRight: theme.spacing.element.paddingHorizontal,
     },
 }));
