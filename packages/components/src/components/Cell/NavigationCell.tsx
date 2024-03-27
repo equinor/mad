@@ -75,7 +75,7 @@ export const NavigationCell = ({
                 variant="title"
                 numberOfLines={1}
                 color="textTertiary"
-                style={[additionalTitlesRight && { flex: 1 }]}
+                style={{ flex: 1 }}
             >
                 {text}
             </Typography>
