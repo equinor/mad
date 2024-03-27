@@ -1,6 +1,6 @@
 import { ProgressStatus, ProgressTask, ProgressTaskErrorDetails } from "@equinor/mad-components";
 import { useState } from "react";
-import { Clipboard } from "react-native";
+import { Alert } from "react-native";
 
 type UploadScenario = "success" | "fail";
 
@@ -88,7 +88,7 @@ export const useProgressUpload = () => {
 
     const handleCopyErrorMessage = (taskError: ProgressTaskErrorDetails) => {
         if (taskError?.message) {
-            Clipboard.setString(taskError.message);
+            Alert.alert("Message copied: \n", taskError.message);
         }
     };
     return {
