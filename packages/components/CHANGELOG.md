@@ -1,5 +1,13 @@
 # @equinor/mad-components
 
+## 0.13.1
+
+### Patch Changes
+
+-   51fa537: The navigation cell now supports the inclusion of additional title sections
+-   8253d7a: Added new color variable and adjusted the selectedHighlight and menu active color for
+    dark mode in order to prevent that text and background had the same color.
+
 ## 0.13.0
 
 ### Minor Changes
