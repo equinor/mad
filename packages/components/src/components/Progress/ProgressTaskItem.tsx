@@ -24,16 +24,16 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
     const renderError = () => {
         return task.error ? (
             <View style={styles.errorContainer}>
-                <Typography variant="description" group="cell" color="textTertiary">
+                <Typography variant="description" group="cell" color="textSecondary">
                     {task.error.message}
                 </Typography>
                 {task.error.code && (
-                    <Typography variant="description" group="cell" color="textTertiary">
+                    <Typography variant="description" group="cell" color="textSecondary">
                         Error Code: {task.error.code}
                     </Typography>
                 )}
                 {task.error.suggestion && (
-                    <Typography variant="description" group="cell" color="textTertiary">
+                    <Typography variant="description" group="cell" color="textSecondary">
                         {task.error.suggestion}
                     </Typography>
                 )}
