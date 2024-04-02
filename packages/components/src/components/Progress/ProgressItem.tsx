@@ -184,6 +184,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     progressContainer: {
         backgroundColor: theme.colors.container.default,
         paddingHorizontal: theme.spacing.menu.item.paddingHorizontal,
+        borderRadius: theme.geometry.border.elementBorderRadius,
         justifyContent: "space-between",
         flexDirection: "column",
     },
