@@ -70,7 +70,7 @@ export const useProgressUpload = () => {
                     {
                         message:
                             "Critical error: Expected CatWithHat4.jpg, but detected DogThrowingLog4.jpg",
-                        code: "403",
+                        code: "Error code: 403",
                         suggestion:
                             "Immediate action required. Ensure system security protocols are enforced and consult security logs for potential intrusions.",
                     },

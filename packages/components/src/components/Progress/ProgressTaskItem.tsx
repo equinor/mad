@@ -29,7 +29,7 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
                 </Typography>
                 {task.error.code && (
                     <Typography variant="description" group="cell" color="textSecondary">
-                        Error Code: {task.error.code}
+                        {task.error.code}
                     </Typography>
                 )}
                 {task.error.suggestion && (
