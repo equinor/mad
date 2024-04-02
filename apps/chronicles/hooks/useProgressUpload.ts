@@ -1,4 +1,4 @@
-import { ProgressStatus, ProgressTask, ProgressTaskErrorDetails } from "@equinor/mad-components";
+import { ProgressStatus, ProgressTask, ProgressTaskError } from "@equinor/mad-components";
 import { useState } from "react";
 import { Alert } from "react-native";
 
@@ -31,13 +31,13 @@ export const useProgressUpload = () => {
     const updateTaskStatus = (
         taskIndex: number,
         status: ProgressStatus,
-        errorDetails?: ProgressTaskErrorDetails,
+        error?: ProgressTaskError,
         newTitle?: string,
     ) => {
         setTasks(tasks =>
             tasks.map((task, index) =>
                 index === taskIndex
-                    ? { ...task, status, errorDetails, title: newTitle ?? task.title }
+                    ? { ...task, status, error, title: newTitle ?? task.title }
                     : task,
             ),
         );
@@ -49,7 +49,7 @@ export const useProgressUpload = () => {
                 ...task,
                 title: `CatWithHat${index + 1}.jpg`,
                 status: "notStarted",
-                errorDetails: undefined,
+                error: undefined,
             })),
         );
     };
@@ -86,7 +86,7 @@ export const useProgressUpload = () => {
         await startUploadSimulation("fail");
     };
 
-    const handleCopyErrorMessage = (taskError: ProgressTaskErrorDetails) => {
+    const handleCopyErrorMessage = (taskError: ProgressTaskError) => {
         if (taskError?.message) {
             Alert.alert("Message copied: \n", taskError.message);
         }

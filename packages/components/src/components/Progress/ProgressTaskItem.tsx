@@ -1,13 +1,13 @@
-import { View } from "react-native";
 import React from "react";
-import { CircularProgress } from "../ProgressIndicator";
-import { Icon } from "../Icon";
-import { Typography } from "../Typography";
-import { ProgressStatus, ProgressTask } from "./types";
-import { EDSStyleSheet } from "../../styling";
+import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { useToken } from "../../hooks/useToken";
+import { EDSStyleSheet } from "../../styling";
+import { Icon } from "../Icon";
+import { CircularProgress } from "../ProgressIndicator";
+import { Typography } from "../Typography";
 import { statusToColor, statusToIconName } from "./progressUtils";
+import { ProgressStatus, ProgressTask } from "./types";
 
 type ProgressTaskProps = {
     task: ProgressTask;
@@ -19,18 +19,29 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
     const token = useToken();
 
     const taskInProgress = status === "inProgress";
+    const showErrorDetails = task.status === "error" && task.error;
 
-    const renderErrorDetails = ({ errorDetails }: ProgressTask) => {
-        return errorDetails ? (
-            <View style={styles.errorDetailsContainer}>
-                <Typography>{errorDetails.message}</Typography>
-                {errorDetails.code && <Typography>Error Code: {errorDetails.code}</Typography>}
-                {errorDetails.suggestion && <Typography>{errorDetails.suggestion}</Typography>}
+    const renderError = () => {
+        return task.error ? (
+            <View style={styles.errorContainer}>
+                <Typography variant="description" group="cell" color="textSecondary">
+                    {task.error.message}
+                </Typography>
+                {task.error.code && (
+                    <Typography variant="description" group="cell" color="textSecondary">
+                        Error Code: {task.error.code}
+                    </Typography>
+                )}
+                {task.error.suggestion && (
+                    <Typography variant="description" group="cell" color="textSecondary">
+                        {task.error.suggestion}
+                    </Typography>
+                )}
             </View>
         ) : null;
     };
 
-    const TaskIcon = taskInProgress ? (
+    const taskStatusIndicator = taskInProgress ? (
         <CircularProgress size={18} />
     ) : (
         <Icon
@@ -41,12 +52,12 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
     );
 
     return (
-        <View style={taskInProgress ? styles.taskTitleContainer : styles.taskContainer}>
+        <View style={styles.taskContainer}>
             <View style={styles.taskTitleContainer}>
-                {TaskIcon}
+                {taskStatusIndicator}
                 <Typography>{task.title}</Typography>
             </View>
-            {task.status === "error" && renderErrorDetails(task)}
+            {showErrorDetails && renderError()}
         </View>
     );
 };
@@ -60,7 +71,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         alignItems: "center",
         gap: theme.spacing.button.iconGap,
     },
-    errorDetailsContainer: {
+    errorContainer: {
         flexDirection: "column",
     },
 }));

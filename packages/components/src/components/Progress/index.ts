@@ -1,5 +1,5 @@
 import { Progress as _Progress, ProgressProps } from "./Progress";
-import { ProgressTask, ProgressStatus, ProgressTaskErrorDetails } from "./types";
+import { ProgressTask, ProgressStatus, ProgressTaskError } from "./types";
 import { ProgressItem, ProgressItemProps } from "./ProgressItem";
 
 type ProgressFamily = typeof _Progress & {
@@ -15,5 +15,5 @@ export type {
     ProgressItemProps as ProgressItem,
     ProgressTask,
     ProgressStatus,
-    ProgressTaskErrorDetails,
+    ProgressTaskError,
 };

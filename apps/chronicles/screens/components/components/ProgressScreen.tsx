@@ -110,8 +110,6 @@ export const ProgressScreen = () => {
                     title="Upload images of cats with hats"
                     description="uploading cats with hats"
                     tasks={tasks}
-                    showCopyTextButton
-                    showRetryButton
                     onCopyTextButtonPress={handleCopyErrorMessage}
                     onRetryButtonPress={() => void handleRetry()}
                 />
@@ -124,11 +122,7 @@ export const ProgressScreen = () => {
             <Progress title="Multiple progress items">
                 <Progress.Item title="Preparing cat hats" status="success" />
                 <Progress.Item title="Training cats to wear hats" status="inProgress" />
-                <Progress.Item
-                    title="Cats refusing to wear hats"
-                    status="error"
-                    showRetryButton={false}
-                />
+                <Progress.Item title="Cats refusing to wear hats" status="error" />
                 <Progress.Item
                     title="Uploading images of cats with hats"
                     description="uploading cats with hats"

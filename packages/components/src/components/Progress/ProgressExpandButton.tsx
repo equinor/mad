@@ -1,9 +1,6 @@
 import React from "react";
-import { Pressable, View } from "react-native";
-import { Typography } from "../Typography";
-import { Icon } from "../Icon";
-import { EDSStyleSheet } from "../../styling";
-import { useStyles } from "../../hooks/useStyles";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { Button } from "../Button";
 import { ProgressStatus } from "./types";
 
 type ProgressExpandButtonProps = {
@@ -19,25 +16,25 @@ export const ProgressExpandButton = ({
     isExpanded,
     toggleExpand,
 }: ProgressExpandButtonProps) => {
-    const styles = useStyles(themeStyles);
+    const breakpoint = useBreakpoint();
+
+    let title;
+    if (breakpoint === "xs") {
+        title = isExpanded ? "Hide" : "Show";
+    } else {
+        title = isExpanded ? "Show less" : "Show more";
+    }
 
     return (
-        <View>
-            {taskStatus !== "notStarted" && taskCounter > 0 && (
-                <Pressable style={[styles.dropDownContainer]} onPress={toggleExpand}>
-                    <Typography style={{ minWidth: 85 }}>
-                        {isExpanded ? "Show less" : "Show more"}
-                    </Typography>
-                    <Icon name={isExpanded ? "chevron-up" : "chevron-down"} />
-                </Pressable>
-            )}
-        </View>
+        taskStatus !== "notStarted" &&
+        taskCounter > 0 && (
+            <Button
+                iconName={isExpanded ? "chevron-up" : "chevron-down"}
+                title={title}
+                iconPosition="trailing"
+                onPress={toggleExpand}
+                variant="ghost"
+            ></Button>
+        )
     );
 };
-
-const themeStyles = EDSStyleSheet.create(theme => ({
-    dropDownContainer: {
-        flexDirection: "row",
-        gap: theme.spacing.button.iconGap,
-    },
-}));

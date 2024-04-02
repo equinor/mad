@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { LayoutAnimation, View } from "react-native";
+import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
-import { useToken } from "../../hooks/useToken";
 import { EDSStyleSheet } from "../../styling";
 import { Button } from "../Button";
+import { Spacer } from "../Spacer";
 import { Typography } from "../Typography";
 import { ProgressExpandButton } from "./ProgressExpandButton";
+import { ProgressExpandableSection } from "./ProgressExpandableSection";
 import { ProgressItemStatus } from "./ProgressItemStatus";
 import { ProgressTaskItem } from "./ProgressTaskItem";
-import { ProgressStatus, ProgressTask, ProgressTaskErrorDetails } from "./types";
 import { computeTaskStatus } from "./progressUtils";
+import { ProgressStatus, ProgressTask, ProgressTaskError } from "./types";
 
 type ProgressItemPropsOptions =
     | {
@@ -39,24 +40,16 @@ export type ProgressItemProps = {
     /**
      * Optional title for the progress item
      */
-    title?: string;
+    title: string;
     /**
      * Optional description to offer more details about the progress or process, giving context to the progress status.
      */
     description?: string;
     /**
-     * Flag indicating whether a retry button should be shown, allowing users to attempt the task again if it fails.
-     */
-    showRetryButton?: boolean;
-    /**
-     * Flag indicating whether a button to copy error details to the clipboard should be shown, useful for error reporting and diagnostics.
-     */
-    showCopyTextButton?: boolean;
-    /**
      * Callback function that is called when the copy text button is pressed, providing the error details of the failed task.
      * @param message An object containing details of the task error.
      */
-    onCopyTextButtonPress?: (message: ProgressTaskErrorDetails) => void;
+    onCopyTextButtonPress?: (message: ProgressTaskError) => void;
     /**
      * Callback function that is invoked when the retry button is pressed, allowing the specific failed task to be retried.
      * @param task The task object that failed and needs to be retried.
@@ -67,8 +60,6 @@ export type ProgressItemProps = {
 export const ProgressItem = ({
     title,
     description,
-    showCopyTextButton,
-    showRetryButton,
     status = "notStarted",
     tasks = [],
     onCopyTextButtonPress,
@@ -76,30 +67,18 @@ export const ProgressItem = ({
 }: ProgressItemProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const token = useToken();
     const styles = useStyles(themeStyles);
 
     const taskCounter = tasks?.length;
     const completedTaskCounter = tasks?.filter(task => task.status === "success").length;
-
-    const animationConfig = {
-        duration: token.timing.animation.slow,
-        create: {
-            type: LayoutAnimation.Types.easeInEaseOut,
-            property: LayoutAnimation.Properties.opacity,
-        },
-        update: {
-            type: LayoutAnimation.Types.easeInEaseOut,
-        },
-    };
 
     const taskStatus = computeTaskStatus(tasks, status);
     const taskHasError = taskStatus === "error";
     const failedTask = tasks.find(task => task.status === "error");
 
     const handleCopyTextButtonPress = () => {
-        if (failedTask?.errorDetails) {
-            onCopyTextButtonPress && onCopyTextButtonPress(failedTask?.errorDetails);
+        if (failedTask?.error) {
+            onCopyTextButtonPress && onCopyTextButtonPress(failedTask?.error);
         }
     };
 
@@ -111,15 +90,14 @@ export const ProgressItem = ({
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
-        LayoutAnimation.configureNext(animationConfig);
     };
 
     useEffect(() => {
         if (taskHasError && failedTask) {
             setIsExpanded(true);
             console.error(
-                `Error in task ${failedTask.title}: ${failedTask.errorDetails?.message}`,
-                failedTask.errorDetails,
+                `Error in task ${failedTask.title}: ${failedTask.error?.message}`,
+                failedTask.error,
             );
         }
     }, [taskHasError, failedTask]);
@@ -160,10 +138,18 @@ export const ProgressItem = ({
                     />
                     <View style={styles.textContainer}>
                         {renderItemText()}
-                        {isExpanded &&
-                            tasks.map((task, index) => (
-                                <ProgressTaskItem key={index} task={task} status={task.status} />
-                            ))}
+                        <ProgressExpandableSection expanded={isExpanded}>
+                            <Spacer amount="small" />
+                            <View style={styles.progressTaskItemContainer}>
+                                {tasks.map((task, index) => (
+                                    <ProgressTaskItem
+                                        key={index}
+                                        task={task}
+                                        status={task.status}
+                                    />
+                                ))}
+                            </View>
+                        </ProgressExpandableSection>
                     </View>
                 </View>
                 <ProgressExpandButton
@@ -174,18 +160,18 @@ export const ProgressItem = ({
                 />
             </View>
 
-            {taskHasError && (showCopyTextButton ?? showRetryButton) ? (
-                <View
-                    style={[styles.actionContainer, !failedTask?.errorDetails && { marginTop: 0 }]}
-                >
-                    {showCopyTextButton && isExpanded && failedTask?.errorDetails && (
+            {taskHasError && (onCopyTextButtonPress ?? onRetryButtonPress) ? (
+                <View style={[styles.actionContainer, !failedTask?.error && { marginTop: 0 }]}>
+                    {onCopyTextButtonPress && isExpanded && failedTask?.error && (
                         <Button
                             title="Copy to clipboard"
                             variant="outlined"
                             onPress={handleCopyTextButtonPress}
                         />
                     )}
-                    {showRetryButton && <Button title="Retry" onPress={handleRetryButtonPress} />}
+                    {onRetryButtonPress && (
+                        <Button title="Retry" onPress={handleRetryButtonPress} />
+                    )}
                 </View>
             ) : null}
         </View>
@@ -218,13 +204,16 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         gap: theme.spacing.button.iconGap,
     },
     textContainer: {
+        flex: 1,
         flexDirection: "column",
-        gap: theme.spacing.button.iconGap,
     },
     actionContainer: {
         marginTop: theme.spacing.container.paddingVertical,
         marginBottom: theme.spacing.container.paddingVertical,
         gap: theme.spacing.spacer.small,
+    },
+    progressTaskItemContainer: {
+        gap: theme.spacing.cell.gapHorizontal,
     },
     status: {
         paddingRight: theme.spacing.menu.item.paddingHorizontal,
