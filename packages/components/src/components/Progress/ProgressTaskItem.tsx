@@ -24,16 +24,16 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
     const renderError = () => {
         return task.error ? (
             <View style={styles.errorContainer}>
-                <Typography variant="description" group="cell" color="textSecondary">
+                <Typography variant="description" group="cell" color="textTertiary">
                     {task.error.message}
                 </Typography>
                 {task.error.code && (
-                    <Typography variant="description" group="cell" color="textSecondary">
+                    <Typography variant="description" group="cell" color="textTertiary">
                         Error Code: {task.error.code}
                     </Typography>
                 )}
                 {task.error.suggestion && (
-                    <Typography variant="description" group="cell" color="textSecondary">
+                    <Typography variant="description" group="cell" color="textTertiary">
                         {task.error.suggestion}
                     </Typography>
                 )}
@@ -73,5 +73,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     errorContainer: {
         flexDirection: "column",
+        gap: theme.spacing.cell.content.titleDescriptionGap,
     },
 }));
