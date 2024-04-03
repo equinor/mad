@@ -1,5 +1,14 @@
 # @equinor/mad-components
 
+## 0.13.1
+
+### Patch Changes
+
+-   51fa537: The navigation cell now supports the inclusion of additional title sections
+-   5c38f1b: Create Progress screen and new components, Progress and Progress.Item
+-   8253d7a: Added new color variable and adjusted the selectedHighlight and menu active color for
+    dark mode in order to prevent that text and background had the same color.
+
 ## 0.13.0
 
 ### Minor Changes
