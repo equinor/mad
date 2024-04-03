@@ -116,11 +116,17 @@ export const ProgressItem = ({
             {description ? (
                 <View style={styles.descriptionContainer}>
                     {taskStatus !== "notStarted" && taskCounter > 0 ? (
-                        <Typography>
+                        <Typography variant="description" group="cell">
                             {completedTaskCounter} / {taskCounter} {description}
                         </Typography>
                     ) : (
-                        <Typography>{description}</Typography>
+                        <Typography
+                            color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
+                            variant="description"
+                            group="cell"
+                        >
+                            {description}
+                        </Typography>
                     )}
                 </View>
             ) : null}
