@@ -15,6 +15,7 @@ import { PaperScreen } from "../screens/components/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/components/PopoverScreen";
 import { PortalScreen } from "../screens/components/components/PortalScreen";
 import { ProgressIndicatorScreen } from "../screens/components/components/ProgressIndicatorScreen";
+import { ProgressScreen } from "../screens/components/components/ProgressScreen";
 import { SearchScreen } from "../screens/components/components/SearchScreen";
 import SelectionControlsScreen from "../screens/components/components/SelectionControlsScreen";
 import { SwitchCellScreen } from "../screens/components/components/SwitchCellScreen";
@@ -46,6 +47,7 @@ export const ComponentConfig = {
     chip: ChipScreen,
     tabs: TabsScreen,
     selectMenu: SelectMenuScreen,
+    progress: ProgressScreen,
 } as const;
 
 export const ComponentName: Record<ComponentType, string> = {
@@ -71,6 +73,7 @@ export const ComponentName: Record<ComponentType, string> = {
     chip: "Chip",
     tabs: "Tabs",
     selectMenu: "Select menu",
+    progress: "Progress",
 };
 
 export type ComponentType = keyof typeof ComponentConfig;

@@ -14,6 +14,7 @@ export * from "./components/Cell";
 export * from "./components/Icon";
 export * from "./components/Accordion";
 export * from "./components/Menu";
+export * from "./components/Progress";
 export * from "./components/ProgressIndicator";
 export * from "./components/Portal";
 export { alert } from "./components/Dialog";
