@@ -4,15 +4,15 @@ import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { SelectMenuItem } from "./types";
-import { selectMenuStyles } from "./selectMenuStyles";
+import { SelectItem } from "./types";
+import { selectStyles } from "./selectStyles";
 import { ScrollView } from "react-native-gesture-handler";
 
-export type SelectMenuProps<T> = {
+export type SelectProps<T> = {
     /**
      * Array of menu item options from which the user can select.
      */
-    items: SelectMenuItem<T>[];
+    items: SelectItem<T>[];
     /**
      * Placeholder text displayed when no item is selected.
      */
@@ -32,18 +32,18 @@ export type SelectMenuProps<T> = {
     onSelect: (value: T | undefined) => void;
 };
 
-export const SelectMenu = <T,>({
+export const Select = <T,>({
     items,
     selectedItem,
     placeholder = "Select an option",
     disabled,
     onSelect,
-}: SelectMenuProps<T>) => {
+}: SelectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
 
     const triggerRef = useRef<View | null>(null);
-    const styles = useStyles(selectMenuStyles, {
+    const styles = useStyles(selectStyles, {
         menuOpen,
         disabled: disabled ?? false,
     });
@@ -116,3 +116,5 @@ export const SelectMenu = <T,>({
         </View>
     );
 };
+
+Select.displayName = "Select";

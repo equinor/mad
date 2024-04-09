@@ -1,17 +1,17 @@
 import React, { useCallback, useRef, useState } from "react";
-import { SelectMenuItem } from "./types";
+import { SelectItem } from "./types";
 import { LayoutRectangle, Pressable, ScrollView, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { selectMenuStyles } from "./selectMenuStyles";
+import { selectStyles } from "./selectStyles";
 
-export type MultiSelectMenuProps<T> = {
+export type MultiselectProps<T> = {
     /**
      * Array of menu item options from which the user can select.
      */
-    items: SelectMenuItem<T>[];
+    items: SelectItem<T>[];
     /**
      * Placeholder text displayed when no item is selected.
      */
@@ -30,18 +30,18 @@ export type MultiSelectMenuProps<T> = {
     onSelect: (value: T[]) => void;
 };
 
-export const MultiselectMenu = <T,>({
+export const Multiselect = <T,>({
     items,
     selectedItems = [],
     placeholder = "Select an option",
     disabled,
     onSelect,
-}: MultiSelectMenuProps<T>) => {
+}: MultiselectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
 
     const triggerRef = useRef<View | null>(null);
-    const styles = useStyles(selectMenuStyles, {
+    const styles = useStyles(selectStyles, {
         menuOpen,
         disabled: disabled ?? false,
     });
@@ -121,4 +121,4 @@ export const MultiselectMenu = <T,>({
     );
 };
 
-MultiselectMenu.displayName = "SelectMenu.Multiselect";
+Multiselect.displayName = "Select.Multi";

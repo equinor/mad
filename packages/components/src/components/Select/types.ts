@@ -1,7 +1,7 @@
 import { IconName } from "../Icon";
 
 // Represents a single option within the select menu.
-export type SelectMenuItem<T> = {
+export type SelectItem<T> = {
     /**
      * The display text of the menu item.
      */

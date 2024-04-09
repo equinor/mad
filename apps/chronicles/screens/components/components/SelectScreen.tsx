@@ -1,8 +1,15 @@
 import { ScrollView } from "react-native";
-import { SelectMenu, EDSStyleSheet, useStyles, Spacer, Typography } from "@equinor/mad-components";
+import {
+    Select,
+    EDSStyleSheet,
+    useStyles,
+    Spacer,
+    Typography,
+    Label,
+} from "@equinor/mad-components";
 import React, { useState } from "react";
 
-export const SelectMenuScreen = () => {
+export const SelectScreen = () => {
     const [selectDisabledItem, setSelectDisabledItem] = useState<string | undefined>(undefined);
     const [selectSingleItem, setSelectSingleItem] = useState<string | undefined>(undefined);
     const [selectMultipleItems, setSelectMultipleItems] = useState<string[]>([]);
@@ -39,19 +46,19 @@ export const SelectMenuScreen = () => {
 
             <Typography>
                 Welcome to the Potion Brewery Lab! Here, you can concoct powerful elixirs using
-                ancient recipes and mystical ingredients. With use of the SelectMenu component, you
-                can choose a single potion or multiple ingrediens from a list.
+                ancient recipes and mystical ingredients. With use of the Select component, you can
+                choose a single potion or multiple ingrediens from a list.
             </Typography>
 
             <Spacer />
 
             <Typography group="paragraph" variant="caption" color="textTertiary">
-                This is a standard select menu
+                This is a standard select component
             </Typography>
-            <Typography>Select your potion:</Typography>
+            <Label label="Select your potion:" />
             <Spacer amount="small" />
 
-            <SelectMenu
+            <Select
                 placeholder="Select here..."
                 items={potions}
                 selectedItem={selectSingleItem}
@@ -61,12 +68,12 @@ export const SelectMenuScreen = () => {
             <Spacer />
 
             <Typography group="paragraph" variant="caption" color="textTertiary">
-                This a mulitselect menu
+                This a mulitselect component
             </Typography>
-            <Typography>Select ingrediens:</Typography>
+            <Label label="Select ingrediens:" />
             <Spacer amount="small" />
 
-            <SelectMenu.Multiselect
+            <Select.Multi
                 placeholder="Select here..."
                 items={ingredients}
                 selectedItems={selectMultipleItems}
@@ -80,7 +87,7 @@ export const SelectMenuScreen = () => {
             </Typography>
             <Spacer amount="small" />
 
-            <SelectMenu
+            <Select
                 placeholder="Select here..."
                 items={potions}
                 selectedItem={selectDisabledItem}

@@ -1,6 +1,6 @@
 import { EDSStyleSheet } from "../../styling";
 
-export const selectMenuStyles = EDSStyleSheet.create(
+export const selectStyles = EDSStyleSheet.create(
     (theme, props: { menuOpen: boolean; disabled: boolean }) => {
         const { menuOpen, disabled } = props;
 
