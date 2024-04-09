@@ -7,7 +7,7 @@ import { Menu } from "../Menu";
 import { Typography } from "../Typography";
 import { selectMenuStyles } from "./selectMenuStyles";
 
-type MultiSelectMenuProps<T> = {
+export type MultiSelectMenuProps<T> = {
     /**
      * Array of menu item options from which the user can select.
      */

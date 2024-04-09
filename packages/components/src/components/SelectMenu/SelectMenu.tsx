@@ -8,7 +8,7 @@ import { SelectMenuItem } from "./types";
 import { selectMenuStyles } from "./selectMenuStyles";
 import { ScrollView } from "react-native-gesture-handler";
 
-type SelectMenuProps<T> = {
+export type SelectMenuProps<T> = {
     /**
      * Array of menu item options from which the user can select.
      */
