@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.13.2
+
+### Patch Changes
+
+-   e103486: Exported props for `SelectMenu` and `SelectMenu.Multiselect`
+
 ## 0.13.1
 
 ### Patch Changes
