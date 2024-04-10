@@ -1,5 +1,18 @@
 # @equinor/mad-components
 
+## 0.14.0
+
+### Minor Changes
+
+-   7c4eee0: **BREAKING CHANGE:** Renamed `SelectMenu` and `SelectMenu.Multiselect` components to
+    `Select` and `Select.Multi`
+
+### Patch Changes
+
+-   7c4eee0: Exported `SelectItem` type
+-   7c4eee0: Added `readOnly` and `variant` prop support for `Select` component family
+-   7c4eee0: Reworked styling on `Select` component to align with `Input` component styling
+
 ## 0.13.2
 
 ### Patch Changes
