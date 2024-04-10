@@ -6,24 +6,24 @@ type InputStyleProps = Pick<InputProps, "readOnly" | "variant"> & {
     isSelected: boolean;
 };
 
-export const themeStyles = EDSStyleSheet.create((theme, props: InputStyleProps) => {
+export const inputTokenStyles = EDSStyleSheet.create((token, props: InputStyleProps) => {
     const { isSelected, variant, readOnly } = props;
 
-    const backgroundColor = readOnly ? undefined : theme.colors.container.background;
+    const backgroundColor = readOnly ? undefined : token.colors.container.background;
 
     const variantBorderStyle: ViewStyle = {
         borderWidth: isSelected
-            ? theme.geometry.border.focusedBorderWidth
-            : theme.geometry.border.borderWidth,
-        borderColor: theme.colors.interactive[variant!],
+            ? token.geometry.border.focusedBorderWidth
+            : token.geometry.border.borderWidth,
+        borderColor: token.colors.interactive[variant!],
     };
 
     const normalBorderStyle: ViewStyle = {
-        borderColor: isSelected ? theme.colors.interactive.primary : "transparent",
-        borderBottomWidth: theme.geometry.border.focusedBorderWidth,
+        borderColor: isSelected ? token.colors.interactive.primary : "transparent",
+        borderBottomWidth: token.geometry.border.focusedBorderWidth,
         borderBottomColor: isSelected
-            ? theme.colors.interactive.primary
-            : theme.colors.text.tertiary,
+            ? token.colors.interactive.primary
+            : token.colors.text.tertiary,
     };
 
     const readOnlyBorderStyle: ViewStyle = {
@@ -44,19 +44,18 @@ export const themeStyles = EDSStyleSheet.create((theme, props: InputStyleProps) 
             backgroundColor,
             flexDirection: "row",
             margin: variant && !isSelected ? 1 : 0,
-            borderWidth: theme.geometry.border.focusedBorderWidth,
+            borderWidth: token.geometry.border.focusedBorderWidth,
             ...borderStyle,
         },
         textInput: {
             flex: 1,
-            paddingTop: theme.spacing.textField.paddingVertical,
-            paddingBottom: theme.spacing.textField.paddingVertical,
-            paddingHorizontal: theme.spacing.textField.paddingHorizontal,
-            color: theme.colors.text.primary,
-            ...theme.typography.basic.input,
+            paddingTop: token.spacing.textField.paddingVertical,
+            paddingBottom: token.spacing.textField.paddingVertical,
+            paddingHorizontal: token.spacing.textField.paddingHorizontal,
+            ...token.typography.basic.input,
         },
         placeholder: {
-            color: theme.colors.text.tertiary,
+            color: token.colors.text.tertiary,
         },
     };
 });
