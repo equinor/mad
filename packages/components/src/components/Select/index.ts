@@ -10,3 +10,4 @@ Select.Multi = _Multiselect;
 
 export { Select };
 export type { SelectProps as SelectProps, MultiselectProps as MultiselectProps };
+export type { SelectItem } from "./types";

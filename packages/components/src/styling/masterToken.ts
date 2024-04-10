@@ -501,6 +501,7 @@ export const masterToken: MasterToken = {
             input: {
                 fontFamily: "Equinor-Regular",
                 fontSize: FONT_BASIS,
+                lineHeight: FONT_BASIS,
                 textAlign: "left",
             },
         },

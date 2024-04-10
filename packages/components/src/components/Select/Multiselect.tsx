@@ -1,28 +1,13 @@
 import React, { useCallback, useRef, useState } from "react";
-import { SelectItem } from "./types";
 import { LayoutRectangle, Pressable, ScrollView, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
+import { inputTokenStyles } from "../Input/inputStyle";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { selectStyles } from "./selectStyles";
+import { SelectBaseProps } from "./types";
 
-export type MultiselectProps<T> = {
-    /**
-     * Array of menu item options from which the user can select.
-     */
-    items: SelectItem<T>[];
-    /**
-     * Placeholder text displayed when no item is selected.
-     */
-    placeholder?: string;
-    /**
-     * Placeholder text displayed when no item is selected.
-     */
-    disabled?: boolean;
-    /**
-     * An array of selected items.
-     */
+export type MultiselectProps<T> = SelectBaseProps<T> & {
     selectedItems: T[];
     /**
      * Callback function called when items are selected or deselected.
@@ -36,14 +21,17 @@ export const Multiselect = <T,>({
     placeholder = "Select an option",
     disabled,
     onSelect,
+    readOnly,
+    variant,
 }: MultiselectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
 
     const triggerRef = useRef<View | null>(null);
-    const styles = useStyles(selectStyles, {
-        menuOpen,
-        disabled: disabled ?? false,
+    const inputStyles = useStyles(inputTokenStyles, {
+        readOnly,
+        variant,
+        isSelected: menuOpen,
     });
 
     const textColor = selectedItems.length > 0 ? "textPrimary" : "textTertiary";
@@ -71,7 +59,7 @@ export const Multiselect = <T,>({
     return (
         <View>
             <Pressable
-                style={[styles.contentContainer, disabled && styles.disabledContainer]}
+                style={inputStyles.contentContainer}
                 ref={triggerRef}
                 onPress={toggleMenuOpen}
                 onLayout={event => {
@@ -79,13 +67,20 @@ export const Multiselect = <T,>({
                     setMenuLayout(layout);
                 }}
             >
-                <Typography color={disabled ? "textDisabled" : textColor}>
+                <Typography
+                    style={inputStyles.textInput}
+                    numberOfLines={1}
+                    color={disabled ? "textDisabled" : textColor}
+                >
                     {selectedItemTitle}
                 </Typography>
-                <Icon
-                    color={disabled ? "textDisabled" : "textPrimary"}
-                    name={menuOpen ? "menu-up" : "menu-down"}
-                />
+                {!readOnly && (
+                    <Icon
+                        style={{ alignSelf: "center" }}
+                        color={disabled ? "textDisabled" : "textPrimary"}
+                        name={menuOpen ? "menu-up" : "menu-down"}
+                    />
+                )}
             </Pressable>
             <Menu
                 key={`menu-${menuLayout?.height}`}
