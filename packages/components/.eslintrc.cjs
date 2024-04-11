@@ -1,7 +1,14 @@
 module.exports = {
     root: true,
     extends: ["@equinor/mad"],
-    ignorePatterns: ["*.spec.ts", "*.cjs", "tsup.config.ts"],
+    ignorePatterns: [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "__mocks__/**",
+        "*.cjs",
+        "tsup.config.ts",
+        "jest-setup.ts",
+    ],
     parserOptions: {
         project: ["./tsconfig.json"],
         tsconfigRootDir: __dirname,
