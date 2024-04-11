@@ -1,5 +1,5 @@
 import { Text, TextProps, TextStyle } from "react-native";
-import React, { forwardRef } from "react";
+import React, { LegacyRef, forwardRef } from "react";
 import {
     Color,
     EDSStyleSheet,
@@ -57,16 +57,18 @@ export type TextChildren = {
         | (string | string[] | number | null | undefined | React.JSX.Element)[];
 };
 
-const TypographyInner = <TGroup extends TypographyGroup>({
-    group = "basic" as TGroup,
-    variant,
-    bold,
-    italic,
-    color,
-    ref,
-    children,
-    ...rest
-}: TypographyProps<TGroup> & TextChildren) => {
+const TypographyInner = <TGroup extends TypographyGroup>(
+    {
+        group = "basic" as TGroup,
+        variant,
+        bold,
+        italic,
+        color,
+        children,
+        ...rest
+    }: TypographyProps<TGroup> & TextChildren,
+    ref?: LegacyRef<Text>,
+) => {
     const styles = useStyles(themeStyles, { group, variant, bold, italic, color });
 
     return (
@@ -109,7 +111,7 @@ const themeStyles = EDSStyleSheet.create(
         const typography = (theme.typography as never)[group][variant] as TypographyStyle;
 
         const textStyle: TextStyle = {
-             color: resolveColor(color, theme),
+            color: resolveColor(color, theme),
             ...typography,
             fontFamily: resolveFontName(bold, italic, typography.fontFamily ?? "Equinor-Regular"),
         };
