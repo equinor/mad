@@ -7,6 +7,9 @@
 
 This is a monorepo collecting many of the packages used in the Mobile Application Delivery team.
 
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/mad/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/mad/badge)
+
+
 ## 📦 Apps and packages:
 
 | App / Package                                      | Description                                                                                               | Status                                                                                                                                                         |
