@@ -64,6 +64,28 @@ export const WorkOrderCellScreen = () => {
                 maintenanceType="Surface monitoring"
                 tagId="TAG-123456"
             />
+
+            {/* Workorder cell with state and propertyfromfilter props*/}
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>
+                    This workorder cell shows the state and propertyFromFilter props. These props
+                    can be used to show the state of the workorder and filter the properties shown.
+                </Typography>
+            </View>
+            <Spacer />
+            <WorkOrderCell
+                title="Work Order Cell with State"
+                workOrderId="25282760"
+                maintenanceType="Surface monitoring"
+                tagId="TAG-123456"
+                equipmentId="EQUIP-123456"
+                activeStatusIds="STRT"
+                basicStartDate="2023-04-07"
+                basicEndDate="2023-09-12"
+                workCenterId="POMISP"
+                propertyFilterFunction={() => "Filter Value"}
+            />
         </ScrollView>
     );
 };

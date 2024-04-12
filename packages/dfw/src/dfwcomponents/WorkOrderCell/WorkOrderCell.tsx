@@ -42,6 +42,7 @@ export type WorkOrderCellProps = {
     onCompleteButtonPress?: () => void;
     onPress?: () => void;
     showSymbols?: boolean;
+    propertyFilterFunction?: () => string | number;
 } & WorkOrder;
 
 type StatusConfig = {
@@ -85,6 +86,7 @@ export const WorkOrderCell = ({
     onCompleteButtonPress,
     onPress,
     showSymbols,
+    propertyFilterFunction,
     ...rest
 }: WorkOrderCellProps) => {
     const styles = useStyles(themeStyles);
@@ -117,6 +119,11 @@ export const WorkOrderCell = ({
         !!activeStatuses?.includes("STRT") || !!activeStatuses?.includes("RDOP");
     const isCompleteDisabled =
         !activeStatuses?.includes("STRT") || activeStatuses?.includes("RDOP");
+
+    const propertyFilterValue = useMemo(() => {
+        return propertyFilterFunction ? propertyFilterFunction() : undefined;
+    }, [propertyFilterFunction]);
+
     return (
         <Cell
             onPress={onPress ? onPress : undefined}
@@ -165,6 +172,10 @@ export const WorkOrderCell = ({
                     }
                     return null;
                 })}
+
+                {propertyFilterValue !== undefined && (
+                    <PropertyRow label={"Filter Property"} value={propertyFilterValue.toString()} />
+                )}
                 {(!!onStartButtonPress || !!onCompleteButtonPress) && (
                     <View
                         style={{
