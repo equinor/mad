@@ -4,8 +4,23 @@ import { WorkOrderCell } from "@equinor/mad-dfw";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
+type Operation = {
+    id: number;
+    description: string;
+};
 export const WorkOrderCellScreen = () => {
     const styles = useStyles(themeStyles);
+
+    const operations = [
+        { id: 1, description: "Inspection" },
+        { id: 2, description: "Maintenance" },
+    ];
+
+    const getOperationsText = (operations: Operation[]) => {
+        if (!operations || operations.length === 0) return "No operations";
+        if (operations.length === 1) return "1 operation";
+        return `${operations.length} operations`;
+    };
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
@@ -84,7 +99,7 @@ export const WorkOrderCellScreen = () => {
                 basicStartDate="2023-04-07"
                 basicEndDate="2023-09-12"
                 workCenterId="POMISP"
-                propertyFilterFunction={() => "Filter Value"}
+                operationsFromFilter={getOperationsText(operations)}
             />
         </ScrollView>
     );

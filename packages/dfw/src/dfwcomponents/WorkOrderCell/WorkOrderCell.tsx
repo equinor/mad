@@ -23,6 +23,7 @@ const WorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     basicStartDate: "Basic Start Date",
     basicEndDate: "Basic End Date",
     workCenterId: "Work Center ID",
+    operationsFromFilter: "Operations from filter",
 } as const;
 
 export type WorkOrder = {
@@ -35,6 +36,7 @@ export type WorkOrder = {
     basicStartDate?: string;
     basicEndDate?: string;
     workCenterId?: string;
+    operationsFromFilter?: string;
 };
 
 export type WorkOrderCellProps = {
@@ -42,7 +44,6 @@ export type WorkOrderCellProps = {
     onCompleteButtonPress?: () => void;
     onPress?: () => void;
     showSymbols?: boolean;
-    propertyFilterFunction?: () => string | number;
 } & WorkOrder;
 
 type StatusConfig = {
@@ -50,6 +51,14 @@ type StatusConfig = {
     label: string;
     textColor: Color;
     iconColor: Color;
+};
+
+type Operation = {
+    description: string;
+};
+
+type ItemWithOperations = {
+    operations?: Operation[];
 };
 
 const getStatusIconConfig = (status: string): StatusConfig | undefined => {
@@ -86,7 +95,7 @@ export const WorkOrderCell = ({
     onCompleteButtonPress,
     onPress,
     showSymbols,
-    propertyFilterFunction,
+    operationsFromFilter = "No operations",
     ...rest
 }: WorkOrderCellProps) => {
     const styles = useStyles(themeStyles);
@@ -119,10 +128,6 @@ export const WorkOrderCell = ({
         !!activeStatuses?.includes("STRT") || !!activeStatuses?.includes("RDOP");
     const isCompleteDisabled =
         !activeStatuses?.includes("STRT") || activeStatuses?.includes("RDOP");
-
-    const propertyFilterValue = useMemo(() => {
-        return propertyFilterFunction ? propertyFilterFunction() : undefined;
-    }, [propertyFilterFunction]);
 
     return (
         <Cell
@@ -172,9 +177,8 @@ export const WorkOrderCell = ({
                     }
                     return null;
                 })}
-
-                {propertyFilterValue !== undefined && (
-                    <PropertyRow label={"Filter Property"} value={propertyFilterValue.toString()} />
+                {operationsFromFilter && (
+                    <PropertyRow label="Operations from filter" value={operationsFromFilter} />
                 )}
                 {(!!onStartButtonPress || !!onCompleteButtonPress) && (
                     <View
