@@ -19,7 +19,7 @@ export const PropertyRowScreen = () => {
             </View>
             <Spacer />
             <View style={styles.propertyRowContainer}>
-                <PropertyRow label="Label" value="Value" />
+                <PropertyRow label="Label" value="Value" textColor="danger" />
             </View>
             <Spacer />
             <View style={styles.readableContent}>

@@ -160,6 +160,7 @@ export const WorkOrderCell = ({
                                 label={label}
                                 value={displayValue}
                                 style={{ marginBottom: 8 }}
+                                textColor={"textTertiary"}
                             />
                         );
                     }
