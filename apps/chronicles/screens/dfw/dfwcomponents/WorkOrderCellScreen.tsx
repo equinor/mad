@@ -99,7 +99,9 @@ export const WorkOrderCellScreen = () => {
                 basicStartDate="2023-04-07"
                 basicEndDate="2023-09-12"
                 workCenterId="POMISP"
-                operationsFromFilter={getOperationsText(operations)}
+                additionalProperties={[
+                    { label: "Operations from filter", value: getOperationsText(operations) },
+                ]}
             />
         </ScrollView>
     );

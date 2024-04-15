@@ -11,7 +11,7 @@ import {
     IconName,
     Color,
 } from "@equinor/mad-components";
-import { PropertyRow } from "../PropertyRow";
+import { PropertyRow, PropertyRowProps } from "../PropertyRow";
 
 const WorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     title: "Title",
@@ -23,7 +23,6 @@ const WorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     basicStartDate: "Basic Start Date",
     basicEndDate: "Basic End Date",
     workCenterId: "Work Center ID",
-    operationsFromFilter: "Operations from filter",
 } as const;
 
 export type WorkOrder = {
@@ -36,7 +35,6 @@ export type WorkOrder = {
     basicStartDate?: string;
     basicEndDate?: string;
     workCenterId?: string;
-    operationsFromFilter?: string;
 };
 
 export type WorkOrderCellProps = {
@@ -44,6 +42,7 @@ export type WorkOrderCellProps = {
     onCompleteButtonPress?: () => void;
     onPress?: () => void;
     showSymbols?: boolean;
+    additionalProperties?: PropertyRowProps[];
 } & WorkOrder;
 
 type StatusConfig = {
@@ -51,14 +50,6 @@ type StatusConfig = {
     label: string;
     textColor: Color;
     iconColor: Color;
-};
-
-type Operation = {
-    description: string;
-};
-
-type ItemWithOperations = {
-    operations?: Operation[];
 };
 
 const getStatusIconConfig = (status: string): StatusConfig | undefined => {
@@ -95,7 +86,7 @@ export const WorkOrderCell = ({
     onCompleteButtonPress,
     onPress,
     showSymbols,
-    operationsFromFilter = "No operations",
+    additionalProperties,
     ...rest
 }: WorkOrderCellProps) => {
     const styles = useStyles(themeStyles);
@@ -177,9 +168,9 @@ export const WorkOrderCell = ({
                     }
                     return null;
                 })}
-                {operationsFromFilter && (
-                    <PropertyRow label="Operations from filter" value={operationsFromFilter} />
-                )}
+                {additionalProperties?.map((props, index) => (
+                    <PropertyRow key={index} {...props} />
+                ))}
                 {(!!onStartButtonPress || !!onCompleteButtonPress) && (
                     <View
                         style={{
