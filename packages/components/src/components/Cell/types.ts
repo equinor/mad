@@ -1,3 +1,4 @@
+import { SwipeableMethods } from "../../hooks/useSwipeableMethods";
 import { EDSColor } from "../../styling";
 import { IconName } from "../Icon";
 
@@ -9,7 +10,7 @@ type BaseCellSwipeItemProps = {
     /**
      * A callback function invoked when the user presses the swipe item.
      */
-    onPress?: () => void;
+    onPress?: (swipeableMethods: SwipeableMethods) => void;
 };
 
 export type CellSwipeItemProps = (

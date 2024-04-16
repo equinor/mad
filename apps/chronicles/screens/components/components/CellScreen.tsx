@@ -225,6 +225,24 @@ export const CellScreen = () => {
                 >
                     <Typography>This cell has both, with icons only</Typography>
                 </Cell>
+                <Cell
+                    leftSwipeGroup={[
+                        {
+                            title: "PING",
+                            color: "primary",
+                            onPress: methods => methods.openRight(),
+                        },
+                    ]}
+                    rightSwipeGroup={[
+                        {
+                            title: "PONG",
+                            color: "secondary",
+                            onPress: methods => methods.openLeft(),
+                        },
+                    ]}
+                >
+                    <Typography>You can play ping pong with this cell</Typography>
+                </Cell>
             </Cell.Group>
         </ScrollView>
     );

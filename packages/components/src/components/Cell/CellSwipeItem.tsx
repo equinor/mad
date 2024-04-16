@@ -5,12 +5,19 @@ import { Icon } from "../Icon";
 import { Typography } from "../Typography";
 import { PressableHighlight } from "../PressableHighlight";
 import React from "react";
+import { SwipeableMethods } from "../../hooks/useSwipeableMethods";
 
-export const CellSwipeItem = ({ title, iconName, color, onPress }: CellSwipeItemProps) => {
+export const CellSwipeItem = ({
+    title,
+    iconName,
+    color,
+    onPress,
+    swipeableMethods,
+}: CellSwipeItemProps & { swipeableMethods: SwipeableMethods }) => {
     const styles = useStyles(themeStyles, { color });
 
     return (
-        <PressableHighlight style={styles.container} onPress={onPress}>
+        <PressableHighlight style={styles.container} onPress={() => onPress?.(swipeableMethods)}>
             {iconName && (
                 <Icon name={iconName} style={styles.textStyle} size={title ? undefined : 28} />
             )}

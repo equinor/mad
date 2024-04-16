@@ -1,12 +1,13 @@
 import React, { ReactNode, forwardRef, useContext, useState } from "react";
 import { View, ViewProps } from "react-native";
-import { EDSStyleSheet } from "../../styling";
-import { useStyles } from "../../hooks/useStyles";
-import { CellGroupContext, CellGroupContextType } from "./CellGroup";
-import { PressableHighlight } from "../PressableHighlight";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { CellSwipeItemProps } from "./types";
+import { useStyles } from "../../hooks/useStyles";
+import { useSwipeableMethods } from "../../hooks/useSwipeableMethods";
+import { EDSStyleSheet } from "../../styling";
+import { PressableHighlight } from "../PressableHighlight";
+import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { CellSwipeItem } from "./CellSwipeItem";
+import { CellSwipeItemProps } from "./types";
 
 export type AdditionalSurfaceProps = {
     /**
@@ -20,6 +21,7 @@ export type AdditionalSurfaceProps = {
     onPress?: () => void;
 };
 
+type SwipeGroup = CellSwipeItemProps[];
 export type CellProps = {
     /**
      * A component that uses the left-remaining space after the child content of the cell has been adjusted for.
@@ -33,12 +35,12 @@ export type CellProps = {
      * A list of items configuring the components that appear on the right side when a user swipes the cell.
      * Setting this prop makes the cell swipable to the left.
      */
-    rightSwipeGroup?: CellSwipeItemProps[];
+    rightSwipeGroup?: SwipeGroup;
     /**
      * A list of items configuring the components that appear on the left side when a user swipes the cell.
      * Setting this prop makes the cell swipable to the right.
      */
-    leftSwipeGroup?: CellSwipeItemProps[];
+    leftSwipeGroup?: SwipeGroup;
     /**
      * Callback method invoked when a user presses the cell.
      * Leaving this `undefined` causes the cell to not respond to touch or hover events.
@@ -67,6 +69,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
         const [onPressDisabled, setOnPressDisabled] = useState(false);
+        const { swipeableMethods, swipeableRef } = useSwipeableMethods();
 
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
@@ -109,18 +112,27 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         );
         return !!leftSwipeGroup || !!rightSwipeGroup ? (
             <Swipeable
+                ref={swipeableRef}
                 onSwipeableWillOpen={() => setOnPressDisabled(true)}
                 onSwipeableWillClose={() => setOnPressDisabled(false)}
                 overshootFriction={8}
                 containerStyle={{ backgroundColor: styles.container.backgroundColor }}
                 renderLeftActions={() =>
                     leftSwipeGroup?.map((swipeItem, index) => (
-                        <CellSwipeItem key={`leftSwipeItem_${index}`} {...swipeItem} />
+                        <CellSwipeItem
+                            key={`leftSwipeItem_${index}`}
+                            {...swipeItem}
+                            swipeableMethods={swipeableMethods}
+                        />
                     ))
                 }
                 renderRightActions={() =>
                     rightSwipeGroup?.map((swipeItem, index) => (
-                        <CellSwipeItem key={`rightSwipeItem_${index}`} {...swipeItem} />
+                        <CellSwipeItem
+                            key={`rightSwipeItem_${index}`}
+                            {...swipeItem}
+                            swipeableMethods={swipeableMethods}
+                        />
                     ))
                 }
             >
