@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "@equinor/mad-components";
 import * as WebBrowser from "expo-web-browser";
 import {
@@ -24,86 +24,49 @@ export const ExpoLoginButton = ({
     ...rest
 }: LoginButtonProps) => {
     const discovery = useAutoDiscovery(
-        "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/",
+        "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/v2.0",
     );
 
-    const [request, response, promptAsync] = useAuthRequest(
+    const [request, , promptAsync] = useAuthRequest(
         {
-            clientId: clientId,
+            clientId,
             scopes: scopes,
-            redirectUri: redirectUri,
+            redirectUri,
             responseType: ResponseType.Code,
         },
         discovery,
     );
 
-    useEffect(() => {
-        if (response && response?.type === "error") {
-            onAuthenticationFailed(response.error);
-            return;
-        }
 
-        if (!discovery || response?.type !== "success") return;
-        const code = response.params["code"];
-        if (!code) return;
-
-        const getToken = async () => {
-            console.log("authenticating!");
-            try {
-                const accessToken = new AccessTokenRequest({
-                    code,
-                    clientId,
-                    redirectUri,
-                    scopes,
-                    extraParams: {
-                        code_verifier: request?.codeVerifier ? request.codeVerifier : "",
-                    },
-                });
-
-                const tokenResponse = await exchangeCodeAsync(accessToken, discovery);
-                const userId = await fetchUserInfoAsync(tokenResponse, discovery);
-                onAuthenticationSuccessful(
+    const onPress =  () => {
+        promptAsync().then((codeResponse) => {
+            if (request && codeResponse?.type === 'success' && discovery) {
+                exchangeCodeAsync(
                     {
-                        accessToken: tokenResponse.accessToken,
-                        account: {
-                            name: userId["name"] as string,
-                            username: userId["email"] as string,
-                            identifier: userId["identifier"] as string,
-                        },
+                        clientId,
+                        code: codeResponse.params["code"],
+                        extraParams: request.codeVerifier
+                            ? { code_verifier: request.codeVerifier }
+                            : undefined,
+                        redirectUri,
                     },
-                    "MANUAL",
-                );
-            } catch (e: any) {
-                console.log("failed!")
-                console.log(e);
-                onAuthenticationFailed(e);
-            }
-        };
-        getToken();
-    }, [response, discovery]);
-
-    const onPress = async () => {
-        console.log("here we go!");
-        await promptAsync()
-            .then(result => {
-                if (result.type === "success" && result.authentication) {
+                    discovery,
+                ).then((result) => {
                     onAuthenticationSuccessful(
                         {
-                            ...result.authentication,
+                            accessToken: result.accessToken,
                             account: {
                                 name: "Demo user",
                                 username: "demo.user@example.com",
-                                identifier: "-1",
-                            },
+                                identifier: "-1", },
                         },
                         "MANUAL",
                     );
-                } else if (result.type === "error") {
-                    onAuthenticationFailed(result.error);
-                }
-            })
-            .catch(error => console.log(error));
+                });
+            }
+        }).catch(error => console.log(error));
     };
+
 
     return <Button title={title} onPress={onPress} {...rest} />;
 };
