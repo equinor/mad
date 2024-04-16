@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.14.1
+
+### Patch Changes
+
+-   f963bf2: `Typography`: forward ref to inner text element
+
 ## 0.14.0
 
 ### Minor Changes
