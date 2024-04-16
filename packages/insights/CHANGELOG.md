@@ -1,5 +1,11 @@
 # @equinor/mad-insights
 
+## 0.1.3
+
+### Patch Changes
+
+-   6349528: `addTelemetryInitializer`: should no longer crash if long term log is not initialized
+
 ## 0.1.2
 
 ### Patch Changes
