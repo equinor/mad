@@ -8,7 +8,7 @@ import {
     View,
 } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
-import { themeStyles } from "./InputStyle";
+import { inputTokenStyles } from "./inputStyle";
 
 export type InputProps = {
     /**
@@ -57,7 +57,7 @@ export const Input = forwardRef<TextInput, InputProps>(
         ref,
     ) => {
         const [isSelected, setIsSelected] = useState<boolean>(false);
-        const styles = useStyles(themeStyles, { multiline, isSelected, variant, readOnly });
+        const styles = useStyles(inputTokenStyles, { isSelected, variant, readOnly });
 
         const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
             setIsSelected(true);

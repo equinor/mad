@@ -132,6 +132,9 @@ export class PreventiveWorkOrdersService {
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
+     * ### Update release v1.28.0
+     * Added new query parameter `include-safety-measures`.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -151,6 +154,7 @@ export class PreventiveWorkOrdersService {
         includeMeasuringPoints = false,
         includeLastMeasurement = false,
         includeMeasurements = false,
+        includeSafetyMeasures = false,
     }: {
         workOrderId: string,
         /**
@@ -205,6 +209,10 @@ export class PreventiveWorkOrdersService {
          * Include related measurements
          */
         includeMeasurements?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
     }): CancelablePromise<PreventiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -226,6 +234,7 @@ export class PreventiveWorkOrdersService {
                 'include-measuring-points': includeMeasuringPoints,
                 'include-last-measurement': includeLastMeasurement,
                 'include-measurements': includeMeasurements,
+                'include-safety-measures': includeSafetyMeasures,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -435,7 +444,7 @@ export class PreventiveWorkOrdersService {
             mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
-                403: `User does not have sufficient rights to add operations to work order`,
+                403: `User does not have sufficient rights to add time ticket to work order operation`,
                 404: `The specified resource was not found`,
                 409: `Work order is locked by other user`,
             },

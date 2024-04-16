@@ -29,10 +29,10 @@ export default function DiscoverScreen() {
                     componentName="menu"
                 />
                 <ComponentNavigationCell
-                    title="Select Menu"
+                    title="Select"
                     description="A dropdown menu with selectable options"
                     iconName="menu-open"
-                    componentName="selectMenu"
+                    componentName="select"
                 />
             </Cell.Group>
 
@@ -109,6 +109,12 @@ export default function DiscoverScreen() {
                     description="Multiple ways to tell the user that stuff is happening"
                     iconName="loading"
                     componentName="progressIndicator"
+                />
+                <ComponentNavigationCell
+                    title="Progress"
+                    description="Track and display progress with customizable indicators."
+                    iconName="progress-download"
+                    componentName="progress"
                 />
                 <ComponentNavigationCell
                     title="Dialog"

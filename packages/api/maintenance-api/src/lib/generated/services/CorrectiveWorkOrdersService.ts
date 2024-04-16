@@ -7,6 +7,7 @@ import type { CorrectiveWorkOrderBasic } from '../models/CorrectiveWorkOrderBasi
 import type { CorrectiveWorkOrderCreate } from '../models/CorrectiveWorkOrderCreate';
 import type { CorrectiveWorkOrderJsonPatch } from '../models/CorrectiveWorkOrderJsonPatch';
 import type { CorrectiveWorkOrderSimple } from '../models/CorrectiveWorkOrderSimple';
+import type { EstimatedCostsJsonPatch } from '../models/EstimatedCostsJsonPatch';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { StatusUpdate } from '../models/StatusUpdate';
 import type { WorkOrderOperationCreate } from '../models/WorkOrderOperationCreate';
@@ -121,6 +122,11 @@ export class CorrectiveWorkOrdersService {
      * ### Update release v1.27.0
      * Work orders now include the property 'isOpen'
      *
+     * ### Update release v1.28.0
+     * Added new query parameter `include-safety-measure`.
+     *
+     * Added new query parameter `include-estimated-costs`.
+     *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
      * @returns CorrectiveWorkOrder Success
@@ -141,6 +147,8 @@ export class CorrectiveWorkOrdersService {
         includeMeasuringPoints = false,
         includeLastMeasurement = false,
         includeMeasurements = false,
+        includeSafetyMeasures = false,
+        includeEstimatedCosts = false,
     }: {
         workOrderId: string,
         /**
@@ -191,6 +199,14 @@ export class CorrectiveWorkOrdersService {
          * Include related measurements
          */
         includeMeasurements?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
+        /**
+         * Include estimated costs
+         */
+        includeEstimatedCosts?: boolean,
     }): CancelablePromise<CorrectiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -211,6 +227,8 @@ export class CorrectiveWorkOrdersService {
                 'include-measuring-points': includeMeasuringPoints,
                 'include-last-measurement': includeLastMeasurement,
                 'include-measurements': includeMeasurements,
+                'include-safety-measures': includeSafetyMeasures,
+                'include-estimated-costs': includeEstimatedCosts,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`correctiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -389,6 +407,52 @@ export class CorrectiveWorkOrdersService {
     }
 
     /**
+     * Corrective Work order - Update estimated costs
+     * ### Overview
+     * Update estimated costs for corrective work order. Cost needs to be provided in the currency of the work order.
+     * The Cost Category ID needs to be:
+     * - `COST_CUTBACK`
+     * - `COST_EXTERNAL_SERVICES`
+     * - `COST_INTERNAL_SERVICES`
+     * - `COST_INTERNAL_PERSONELL`
+     * - `COST_MATERIALS_OF_CONSUMPTION`
+     * - `COST_OTHER_EXPENCES`
+     * - `COST_REPAIR_AND_MAINTENANCE`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addCorrectiveWoEstimatedCosts({
+        workOrderId,
+        costCategoryId,
+        requestBody,
+    }: {
+        workOrderId: string,
+        costCategoryId: string,
+        /**
+         * Estimated cost for cost category
+         */
+        requestBody: Array<EstimatedCostsJsonPatch>,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/work-orders/corrective-work-orders/{work-order-id}/estimated-costs/{cost-category-id}',
+            path: {
+                'work-order-id': workOrderId,
+                'cost-category-id': costCategoryId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `The request body is invalid`,
+                403: `User does not have sufficient rights to update estimated costs`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
      * Corrective Work order - Add time ticket
      * ### Overview
      * Add time ticket for work performed
@@ -422,7 +486,7 @@ export class CorrectiveWorkOrdersService {
             mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
-                403: `User does not have sufficient rights to add operations to work order`,
+                403: `User does not have sufficient rights to add time tickets to work order operations`,
                 404: `The specified resource was not found`,
                 409: `Work order is locked by other user`,
             },

@@ -2,7 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AddSafetyMeasure } from '../models/AddSafetyMeasure';
 import type { ProblemDetails } from '../models/ProblemDetails';
+import type { SafetyMeasure } from '../models/SafetyMeasure';
 import type { SubseaWorkOrderMaterial } from '../models/SubseaWorkOrderMaterial';
 import type { TechnicalFeedbackJsonPatch } from '../models/TechnicalFeedbackJsonPatch';
 import type { WorkOrderMaterial } from '../models/WorkOrderMaterial';
@@ -302,6 +304,39 @@ export class WorkOrderOperationsService {
                 403: `User does not have sufficient rights to update operation`,
                 404: `The specified resource was not found`,
                 409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Add safety measure to a work order operation
+     * Add safety measure for work order operation. Safety measures are needed when a work order operation requires special safety practices or risk management
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns SafetyMeasure Created
+     * @throws ApiError
+     */
+    public static addSafetyMeasure({
+        operationId,
+        requestBody,
+    }: {
+        operationId: string,
+        /**
+         * Safety measure to add
+         */
+        requestBody: AddSafetyMeasure,
+    }): CancelablePromise<ProblemDetails | SafetyMeasure> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/work-order-operations/{operation-id}/safety-measures',
+            path: {
+                'operation-id': operationId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                403: `User does not have sufficient rights edit the work order`,
+                404: `The specified resource was not found`,
             },
         });
     }

@@ -55,6 +55,9 @@ export class SubseaWorkOrdersService {
      * ### Update release v1.27.0
      * Work orders now include the property 'isOpen'
      *
+     * ### Update release v1.28.0
+     * Added new query parameter `include-safety-measuress`.
+     *
      * @returns SubseaWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -68,6 +71,7 @@ export class SubseaWorkOrdersService {
         includePersonResponsible = false,
         includeStatusDetails = false,
         includeRelatedTags = false,
+        includeSafetyMeasures = false,
     }: {
         workOrderId: string,
         /**
@@ -98,6 +102,10 @@ export class SubseaWorkOrdersService {
          * Include related tags (from object list)
          */
         includeRelatedTags?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
     }): CancelablePromise<SubseaWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -113,6 +121,7 @@ export class SubseaWorkOrdersService {
                 'include-person-responsible': includePersonResponsible,
                 'include-status-details': includeStatusDetails,
                 'include-related-tags': includeRelatedTags,
+                'include-safety-measures': includeSafetyMeasures,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`subseaWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.

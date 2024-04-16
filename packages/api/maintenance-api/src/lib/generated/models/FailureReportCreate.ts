@@ -27,6 +27,14 @@ export type FailureReportCreate = {
     failureMechanismId?: string;
     failureMechanismGroupId?: string;
     /**
+     * General classification of failure reports, for example used for lifting equipment control
+     */
+    codingId?: string | null;
+    /**
+     * Group for general classification of failure reports
+     */
+    codingGroupId?: string | null;
+    /**
      * If workCenter is not provided, it will use default defined on tag
      */
     workCenterId?: string;

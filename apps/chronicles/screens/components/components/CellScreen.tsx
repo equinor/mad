@@ -136,6 +136,7 @@ export const CellScreen = () => {
                 </Typography>
             </View>
             <Spacer />
+
             <Cell onPress={() => null}>
                 <Typography>This cell responds to touch!</Typography>
             </Cell>

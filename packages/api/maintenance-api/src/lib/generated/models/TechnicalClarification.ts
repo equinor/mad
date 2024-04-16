@@ -28,7 +28,7 @@ export type TechnicalClarification = (TechnicalClarificationBasic & {
      */
     statuses?: Array<Status>;
     /**
-     * Attachments for this failure report
+     * Attachments for this Technical Clarification
      */
     attachments?: Array<Attachment>;
     tagDetails?: TagBasic | null;

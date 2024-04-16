@@ -26,7 +26,7 @@ export type SubseaWorkOrder = (SubseaWorkOrderBasic & {
      */
     statuses?: Array<Status>;
     /**
-     * Attachments to Work order header
+     * Attachments for this Subsea Work order
      */
     attachments?: Array<Attachment>;
     /**

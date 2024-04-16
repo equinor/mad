@@ -1,5 +1,33 @@
 # @equinor/mad-components
 
+## 0.14.0
+
+### Minor Changes
+
+-   7c4eee0: **BREAKING CHANGE:** Renamed `SelectMenu` and `SelectMenu.Multiselect` components to
+    `Select` and `Select.Multi`
+
+### Patch Changes
+
+-   7c4eee0: Exported `SelectItem` type
+-   7c4eee0: Added `readOnly` and `variant` prop support for `Select` component family
+-   7c4eee0: Reworked styling on `Select` component to align with `Input` component styling
+
+## 0.13.2
+
+### Patch Changes
+
+-   e103486: Exported props for `SelectMenu` and `SelectMenu.Multiselect`
+
+## 0.13.1
+
+### Patch Changes
+
+-   51fa537: The navigation cell now supports the inclusion of additional title sections
+-   5c38f1b: Create Progress screen and new components, Progress and Progress.Item
+-   8253d7a: Added new color variable and adjusted the selectedHighlight and menu active color for
+    dark mode in order to prevent that text and background had the same color.
+
 ## 0.13.0
 
 ### Minor Changes

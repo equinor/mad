@@ -29,7 +29,7 @@ export type SASChangeWorkOrder = (SASChangeWorkOrderBasic & {
     maintenanceRecords?: Array<MaintenanceRecordMinimal>;
     tagDetails?: TagBasic;
     /**
-     * Attachments to Work order operation
+     * Attachments for the SAS Change Work order
      */
     attachments?: Array<Attachment>;
 });

@@ -46,6 +46,10 @@ export class ModificationProposalsService {
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ModificationProposal Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -103,6 +107,10 @@ export class ModificationProposalsService {
      * ### Overview
      * Update key fields of a modification proposal.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -154,6 +162,10 @@ export class ModificationProposalsService {
      *
      * ### Update release v1.21.0
      * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ModificationProposalBasic Created
@@ -255,7 +267,7 @@ export class ModificationProposalsService {
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
-     * If documentId is supplied, the attachment will be uploaded specifically to this document.
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document.
      *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes

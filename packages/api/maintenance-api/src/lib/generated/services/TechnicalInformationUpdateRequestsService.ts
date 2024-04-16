@@ -53,11 +53,15 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release v1.21.0
      * Added property `area` to tag details.
      *
-     * ## Update release v1.26.0
+     * ### Update release v1.26.0
      * 'tagDetails' object now includes the new field 'maintenanceConceptId'
      *
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns TechnicalInformationUpdateRequest Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -137,6 +141,10 @@ export class TechnicalInformationUpdateRequestsService {
      *
      * ### Update release v1.21.0
      * Added support for property `sortField`.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -273,7 +281,7 @@ export class TechnicalInformationUpdateRequestsService {
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
-     * If documentId is supplied, the attachment will be uploaded specifically to this document.
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document.
      *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -372,6 +380,10 @@ export class TechnicalInformationUpdateRequestsService {
      * Added query parameter include-person-responsible.
      *
      * Added properties personResponsibleId and personResponsibleEmail to response (only populated if include-person-responsible=true in the request).
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns TechnicalInformationUpdateRequestBasic Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -479,6 +491,10 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Important information
      * It is possible to create technical information update request for either tagId or equipmentId.
      *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns TechnicalInformationUpdateRequestBasic Created
      * @throws ApiError
@@ -513,6 +529,10 @@ export class TechnicalInformationUpdateRequestsService {
      *
      * ### Update release 1.8.0
      * Response type change to return the created tasks.
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordTask Success
@@ -559,6 +579,10 @@ export class TechnicalInformationUpdateRequestsService {
      * The status `TSRL - Task Released` can be set afterwards.
      *
      * To change status of a task, use endpoint `/maintenance-records/technical-information-update-request/{record-id}/tasks/{task-id}/statuses/{status-id}`
+     *
+     * ### Update release v1.28.0
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

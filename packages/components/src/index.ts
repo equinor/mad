@@ -14,6 +14,7 @@ export * from "./components/Cell";
 export * from "./components/Icon";
 export * from "./components/Accordion";
 export * from "./components/Menu";
+export * from "./components/Progress";
 export * from "./components/ProgressIndicator";
 export * from "./components/Portal";
 export { alert } from "./components/Dialog";
@@ -22,7 +23,7 @@ export * from "./components/ErrorBoundary";
 export * from "./components/SelectionControls";
 export * from "./components/Chip";
 export * from "./components/Tabs";
-export * from "./components/SelectMenu";
+export * from "./components/Select";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";

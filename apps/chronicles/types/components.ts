@@ -1,4 +1,3 @@
-import { PropertyRow } from "@equinor/mad-dfw";
 import { AccordionScreen } from "../screens/components/components/AccordionScreen";
 import { AutocompleteScreen } from "../screens/components/components/AutocompleteScreen";
 import { ButtonCellScreen } from "../screens/components/components/ButtonCellScreen";
@@ -15,13 +14,13 @@ import { PaperScreen } from "../screens/components/components/PaperScreen";
 import { PopoverScreen } from "../screens/components/components/PopoverScreen";
 import { PortalScreen } from "../screens/components/components/PortalScreen";
 import { ProgressIndicatorScreen } from "../screens/components/components/ProgressIndicatorScreen";
+import { ProgressScreen } from "../screens/components/components/ProgressScreen";
 import { SearchScreen } from "../screens/components/components/SearchScreen";
+import { SelectScreen } from "../screens/components/components/SelectScreen";
 import SelectionControlsScreen from "../screens/components/components/SelectionControlsScreen";
 import { SwitchCellScreen } from "../screens/components/components/SwitchCellScreen";
 import { TabsScreen } from "../screens/components/components/TabsScreen";
 import { TextFieldScreen } from "../screens/components/components/TextFieldScreen";
-import { PropertyRowScreen } from "../screens/dfw/dfwcomponents/PropertyRowScreen";
-import { SelectMenuScreen } from "../screens/components/components/SelectMenuScreen";
 
 export const ComponentConfig = {
     paper: PaperScreen,
@@ -45,7 +44,8 @@ export const ComponentConfig = {
     errorBoundary: ErrorBoundaryScreen,
     chip: ChipScreen,
     tabs: TabsScreen,
-    selectMenu: SelectMenuScreen,
+    select: SelectScreen,
+    progress: ProgressScreen,
 } as const;
 
 export const ComponentName: Record<ComponentType, string> = {
@@ -70,7 +70,8 @@ export const ComponentName: Record<ComponentType, string> = {
     errorBoundary: "Error boundary",
     chip: "Chip",
     tabs: "Tabs",
-    selectMenu: "Select menu",
+    select: "Select",
+    progress: "Progress",
 };
 
 export type ComponentType = keyof typeof ComponentConfig;

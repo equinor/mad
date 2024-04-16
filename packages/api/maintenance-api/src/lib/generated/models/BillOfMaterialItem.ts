@@ -34,6 +34,10 @@ export type BillOfMaterialItem = {
      */
     parentEquipmentId?: string;
     /**
+     * If the `bomTypeId` is `E` or `M` and this is the top-level node, the `parentMaterialId` can be populated. If it's not the top-level node, `parentBOMItemId` will be populated.
+     */
+    parentMaterialId?: string;
+    /**
      * If the `bomTypeId` is `M`, the `parentBOMItemId` will be populated
      */
     parentBOMItemId?: string;

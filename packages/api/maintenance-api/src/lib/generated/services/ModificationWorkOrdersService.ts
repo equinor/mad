@@ -91,7 +91,7 @@ export class ModificationWorkOrdersService {
             mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
-                403: `User does not have sufficient rights to add operations to work order`,
+                403: `User does not have sufficient rights to add time tickets to work order operations`,
                 404: `The specified resource was not found`,
                 409: `Work order is locked by other user`,
             },
@@ -151,6 +151,9 @@ export class ModificationWorkOrdersService {
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
+     * ### Update release v1.28.0
+     * Added new query parameter `include-safety-measures`.
+     *
      * @returns ModificationWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -165,6 +168,7 @@ export class ModificationWorkOrdersService {
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
+        includeSafetyMeasures = false,
     }: {
         workOrderId: string,
         /**
@@ -199,6 +203,10 @@ export class ModificationWorkOrdersService {
          * Include related tags (from object list)
          */
         includeRelatedTags?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
     }): CancelablePromise<ModificationWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -215,6 +223,7 @@ export class ModificationWorkOrdersService {
                 'include-status-details': includeStatusDetails,
                 'include-tag-details': includeTagDetails,
                 'include-related-tags': includeRelatedTags,
+                'include-safety-measures': includeSafetyMeasures,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`modificationWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.

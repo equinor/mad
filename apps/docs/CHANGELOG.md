@@ -1,5 +1,17 @@
 # @equinor/mad-platform-docs
 
+## 0.2.1
+
+### Patch Changes
+
+-   7c4eee0: Renamed `SelectMenu` component family to new `Select` component naming
+
+## 0.2.0
+
+### Minor Changes
+
+-   e103486: Added `Progress` to component docs and added `Button.Icon` props table
+
 ## 0.1.0
 
 ### Minor Changes

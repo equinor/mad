@@ -28,11 +28,16 @@ import {
     ProblemDetails,
     MasterDataForCatalogsService,
     MasterDataForCharacteristicsService,
+    DocumentsService,
 } from "./generated";
 
 export class Plants {
     public static Tag = TagService;
     public static Equipment = EquipmentService;
+    public static Documents = DocumentsService;
+    /**
+     * @deprecated Moved to GeneralMasterData.Plants
+     */
     public static MasterData = MasterDataForPlantsService;
 }
 

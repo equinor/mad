@@ -1,26 +1,14 @@
 import React, { useCallback, useRef, useState } from "react";
 import { LayoutRectangle, Pressable, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
+import { inputTokenStyles } from "../Input/inputStyle";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { SelectMenuItem } from "./types";
-import { selectMenuStyles } from "./selectMenuStyles";
-import { ScrollView } from "react-native-gesture-handler";
+import { SelectBaseProps } from "./types";
 
-type SelectMenuProps<T> = {
-    /**
-     * Array of menu item options from which the user can select.
-     */
-    items: SelectMenuItem<T>[];
-    /**
-     * Placeholder text displayed when no item is selected.
-     */
-    placeholder?: string;
-    /**
-     * Placeholder text displayed when no item is selected.
-     */
-    disabled?: boolean;
+export type SelectProps<T> = SelectBaseProps<T> & {
     /**
      * The currently selected item, or undefined if nothing is selected.
      */
@@ -32,20 +20,23 @@ type SelectMenuProps<T> = {
     onSelect: (value: T | undefined) => void;
 };
 
-export const SelectMenu = <T,>({
+export const Select = <T,>({
     items,
     selectedItem,
     placeholder = "Select an option",
-    disabled,
+    disabled = false,
     onSelect,
-}: SelectMenuProps<T>) => {
+    readOnly = false,
+    variant,
+}: SelectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
 
     const triggerRef = useRef<View | null>(null);
-    const styles = useStyles(selectMenuStyles, {
-        menuOpen,
-        disabled: disabled ?? false,
+    const inputStyles = useStyles(inputTokenStyles, {
+        readOnly,
+        variant,
+        isSelected: menuOpen,
     });
 
     const textColor = selectedItem ? "textPrimary" : "textTertiary";
@@ -62,29 +53,35 @@ export const SelectMenu = <T,>({
     );
 
     const toggleMenuOpen = () => {
-        if (!disabled) {
-            setMenuOpen(!menuOpen);
-        }
+        setMenuOpen(!menuOpen);
     };
 
     return (
         <View>
             <Pressable
-                style={[styles.contentContainer, disabled && styles.disabledContainer]}
+                style={inputStyles.contentContainer}
                 ref={triggerRef}
+                disabled={disabled || readOnly}
                 onPress={toggleMenuOpen}
                 onLayout={event => {
                     const layout = event.nativeEvent.layout;
                     setMenuLayout(layout);
                 }}
             >
-                <Typography color={disabled ? "textDisabled" : textColor}>
+                <Typography
+                    style={inputStyles.textInput}
+                    numberOfLines={1}
+                    color={disabled ? "textDisabled" : textColor}
+                >
                     {selectedItemTitle}
                 </Typography>
-                <Icon
-                    color={disabled ? "textDisabled" : "textPrimary"}
-                    name={menuOpen ? "menu-up" : "menu-down"}
-                />
+                {!readOnly && (
+                    <Icon
+                        style={{ alignSelf: "center" }}
+                        color={disabled ? "textDisabled" : "textPrimary"}
+                        name={menuOpen ? "menu-up" : "menu-down"}
+                    />
+                )}
             </Pressable>
             <Menu
                 key={`menu-${menuLayout?.height}`}
@@ -116,3 +113,5 @@ export const SelectMenu = <T,>({
         </View>
     );
 };
+
+Select.displayName = "Select";
