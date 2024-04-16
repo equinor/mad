@@ -12,7 +12,7 @@ import { obfuscateUser } from "./encrypt";
 import { AppInsightsInitConfig, Envelope, TrackEventPayload } from "./types";
 
 let appInsightsMain: ApplicationInsights;
-let appInsightsLongTermLog: ApplicationInsights;
+let appInsightsLongTermLog: ApplicationInsights | undefined;
 let hasBeenInitialized = false;
 let reactPluginWeb: ReactPlugin;
 let useSHA1: boolean;
@@ -163,7 +163,7 @@ export const addTelemetryInitializer = (envelope: Envelope) => {
         return;
     }
     appInsightsMain.addTelemetryInitializer(envelope);
-    appInsightsLongTermLog.addTelemetryInitializer(envelope);
+    appInsightsLongTermLog?.addTelemetryInitializer(envelope);
 };
 
 const excludeLogFilter = (eventString: string, excludeStrings: string[]): boolean =>
