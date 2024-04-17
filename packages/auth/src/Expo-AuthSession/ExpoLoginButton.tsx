@@ -54,7 +54,7 @@ export const ExpoLoginButton = ({
                         discovery,
                     )
                         .then(result => {
-                            const user = decodeIdToken(result.accessToken);
+                            const user = decodeToken(result.accessToken);
                             if (!user) throw new Error("Unable to decode id token");
                             onAuthenticationSuccessful(
                                 {
@@ -79,9 +79,9 @@ export const ExpoLoginButton = ({
     return <Button title={title} onPress={onPress} {...rest} />;
 };
 
-const decodeIdToken = (idToken: string | undefined) => {
-    if (!idToken) return undefined;
-    const decoded = jwtDecode<UserInfo>(idToken);
+const decodeToken = (token: string | undefined) => {
+    if (!token) return undefined;
+    const decoded = jwtDecode<UserInfo>(token);
     const account: MadAccount = {
         name: decoded.name,
         username: decoded.unique_name,
