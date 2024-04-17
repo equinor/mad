@@ -25,7 +25,7 @@ export const ExpoLoginButton = ({
     ...rest
 }: LoginButtonProps) => {
     const discovery = useAutoDiscovery(
-        "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/",
+        "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/v2.0",
     );
 
     const [request, , promptAsync] = useAuthRequest(
@@ -54,7 +54,8 @@ export const ExpoLoginButton = ({
                         discovery,
                     )
                         .then(result => {
-                            const user = decodeIdToken(result.idToken);
+                            const user = decodeIdToken(result.accessToken);
+                            console.log(result);
                             if (!user) throw new Error("Unable to decode id token");
                             onAuthenticationSuccessful(
                                 {
@@ -64,10 +65,16 @@ export const ExpoLoginButton = ({
                                 "MANUAL",
                             );
                         })
-                        .catch(error => onAuthenticationFailed(error));
+                        .catch(error => {
+                            console.error(error);
+                            onAuthenticationFailed(error);
+                        });
                 }
             })
-            .catch(error => onAuthenticationFailed(error));
+            .catch(error => {
+                console.error(error);
+                onAuthenticationFailed(error);
+            });
     };
 
     return <Button title={title} onPress={onPress} {...rest} />;
@@ -76,6 +83,7 @@ export const ExpoLoginButton = ({
 const decodeIdToken = (idToken: string | undefined) => {
     if (!idToken) return undefined;
     const decoded = jwtDecode<UserInfo>(idToken);
+    console.log(decoded);
     const account: MadAccount = {
         name: decoded.name,
         username: decoded.unique_name,
