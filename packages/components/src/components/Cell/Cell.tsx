@@ -1,10 +1,9 @@
 import React, { ReactNode, forwardRef, useContext, useState } from "react";
 import { View, ViewProps } from "react-native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useStyles } from "../../hooks/useStyles";
-import { useSwipeableMethods } from "../../hooks/useSwipeableMethods";
 import { EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
+import { SwipeableWithContext } from "../_internal/SwipeableWithContext";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { CellSwipeItem } from "./CellSwipeItem";
 import { CellSwipeItemProps } from "./types";
@@ -69,7 +68,6 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
         const [onPressDisabled, setOnPressDisabled] = useState(false);
-        const { swipeableMethods, swipeableRef } = useSwipeableMethods();
 
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
@@ -111,33 +109,24 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
             </View>
         );
         return !!leftSwipeGroup || !!rightSwipeGroup ? (
-            <Swipeable
-                ref={swipeableRef}
+            <SwipeableWithContext
                 onSwipeableWillOpen={() => setOnPressDisabled(true)}
                 onSwipeableWillClose={() => setOnPressDisabled(false)}
                 overshootFriction={8}
                 containerStyle={{ backgroundColor: styles.container.backgroundColor }}
                 renderLeftActions={() =>
                     leftSwipeGroup?.map((swipeItem, index) => (
-                        <CellSwipeItem
-                            key={`leftSwipeItem_${index}`}
-                            {...swipeItem}
-                            swipeableMethods={swipeableMethods}
-                        />
+                        <CellSwipeItem key={`leftSwipeItem_${index}`} {...swipeItem} />
                     ))
                 }
                 renderRightActions={() =>
                     rightSwipeGroup?.map((swipeItem, index) => (
-                        <CellSwipeItem
-                            key={`rightSwipeItem_${index}`}
-                            {...swipeItem}
-                            swipeableMethods={swipeableMethods}
-                        />
+                        <CellSwipeItem key={`rightSwipeItem_${index}`} {...swipeItem} />
                     ))
                 }
             >
                 {CellContent()}
-            </Swipeable>
+            </SwipeableWithContext>
         ) : (
             CellContent()
         );

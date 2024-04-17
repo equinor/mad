@@ -39,6 +39,7 @@ export const CellScreen = () => {
 
     return (
         <ScrollView
+            testID="scroll-view-cell"
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={styles.container}
         >
@@ -226,6 +227,7 @@ export const CellScreen = () => {
                     <Typography>This cell has both, with icons only</Typography>
                 </Cell>
                 <Cell
+                    testID="ping-pong"
                     leftSwipeGroup={[
                         {
                             title: "PING",

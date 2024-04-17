@@ -1,8 +1,12 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import React from "react";
 import { Cell } from "../src/components/Cell/Cell";
-import { SwipeableMethods } from "../src/hooks/useSwipeableMethods";
+import { SwipeableMethods } from "../src/components/_internal/SwipeableWithContext";
 describe("Cell", () => {
+    /**
+     * Note: This test doesn't test if the methods are correct. That's an impossible task for a unit test. In fact, the methods log errors in this test.
+     * This test simply checks if the methods are available
+     */
     it("Should make the available methods available in swipe-group's onPress event: `close`, `openLeft`, `openRight`, `reset`", () => {
         let close, openLeft, openRight, reset;
         const onPress = (methods: SwipeableMethods) => {
@@ -22,7 +26,6 @@ describe("Cell", () => {
             methods.openRight();
             methods.reset();
         };
-
         const cell = (
             <Cell
                 testID="CELL"

@@ -28,6 +28,7 @@ export const LoginScreen = ({
                 <Image source={splash} resizeMode={resizeMode} style={styles.fill} />
                 <View style={styles.secretHitboxContainer}>
                     <Pressable
+                        testID="enable-demo-button"
                         style={styles.fill}
                         onPress={() => setDemoPressCount(count => count + 1)}
                     />
@@ -57,6 +58,7 @@ export const LoginScreen = ({
                     />
                     {shouldDisplayDemoButton && (
                         <Button
+                            testID="demo-button"
                             title={dictionary.login.demo}
                             variant="outlined"
                             onPress={() => {

@@ -1,4 +1,4 @@
-import { SwipeableMethods } from "../../hooks/useSwipeableMethods";
+import { SwipeableMethods } from "../_internal/SwipeableWithContext";
 import { EDSColor } from "../../styling";
 import { IconName } from "../Icon";
 

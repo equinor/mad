@@ -37,7 +37,6 @@ export const ServiceMessageBanner = () => {
             <DisableableSwipeable
                 disabled={!dismissAndURLIsVisible}
                 renderRightActions={() => (
-                    //@ts-expect-error wpjgewojg
                     <CellSwipeItem
                         title="Remove"
                         iconName="close"
