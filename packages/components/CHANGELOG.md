@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.14.2
+
+### Patch Changes
+
+-   13fbceb: `Cell`: swipe buttons have access to swipe methods through the first argument of
+    onPress
+
 ## 0.14.1
 
 ### Patch Changes
