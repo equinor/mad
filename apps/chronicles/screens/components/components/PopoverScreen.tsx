@@ -29,6 +29,7 @@ export const PopoverScreen = () => {
             </Typography>
             <Spacer />
             <Button
+                testID="trigger-popover"
                 title="Trigger popover"
                 ref={firstButtonRef}
                 onPress={() => setIsFirstPopoverOpen(!isFirstPopoverOpen)}
@@ -38,6 +39,7 @@ export const PopoverScreen = () => {
                 anchorEl={firstButtonRef}
                 onClose={() => setIsFirstPopoverOpen(false)}
                 placement="top"
+                testID="popover-1"
             >
                 <Typography>This is a popover</Typography>
             </Popover>
@@ -52,14 +54,16 @@ export const PopoverScreen = () => {
             </Typography>
             <Spacer />
             <Button
+                testID="trigger-popover-2"
                 title="My popover won't stop you from interacting.."
                 ref={secondButtonRef}
                 onPress={() => setIsSecondPopoverOpen(!isSecondPopoverOpen)}
             />
-            <Popover open={isSecondPopoverOpen} anchorEl={secondButtonRef} placement="top">
+            <Popover open={isSecondPopoverOpen} anchorEl={secondButtonRef} placement="top" testID="popover-2">
                 <Typography>But remember to provide a way to close it!</Typography>
                 <Spacer amount="small" />
                 <Button
+                    testID="close-popover-button"
                     title="click me to close the popover"
                     iconName="close"
                     iconPosition="leading"
@@ -69,9 +73,9 @@ export const PopoverScreen = () => {
             </Popover>
             <Spacer />
             <View style={styles.interactiveButtonContainer}>
-                <Button variant="outlined" title="...with me..." />
+                <Button testID="useless-button-1" variant="outlined" title="...with me..." />
                 <Spacer.Horizontal />
-                <Button variant="outlined" title="...or me" />
+                <Button testID="useless-button-2" variant="outlined" title="...or me" />
             </View>
         </ScrollView>
     );
