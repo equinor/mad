@@ -1,4 +1,5 @@
-global.goThroughIntro = async () => {
+
+export const goThroughIntro = async () => {
     await device.launchApp();
 
     await element(by.id("enable-demo-button")).tap();
@@ -12,7 +13,7 @@ global.goThroughIntro = async () => {
     await element(by.text("Save")).tap();
 };
 
-global.goToSection = async sectionName => {
+export const goToSection = async (sectionName: string) => {
     await waitFor(element(by.id(sectionName)))
         .toBeVisible()
         .whileElement(by.id("scroll-view-components"))

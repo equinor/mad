@@ -1,3 +1,6 @@
+import {expect} from 'detox';
+import { goThroughIntro, goToSection } from './_helpers';
+
 describe("Cell", () => {
     beforeAll(async () => {
         await goThroughIntro();
@@ -30,4 +33,6 @@ describe("Cell", () => {
     //         await element(by.text("PONG")).tap();
     //     }
     // });
+
+    afterAll(async () => device.reloadReactNative());
 });
