@@ -1,5 +1,13 @@
 # @equinor/mad-core
 
+## 0.6.1
+
+### Patch Changes
+
+-   13fbceb: add testID to demo button and the invisible pressable used to display the demo button
+-   Updated dependencies [13fbceb]
+    -   @equinor/mad-components@0.14.2
+
 ## 0.6.0
 
 ### Minor Changes
