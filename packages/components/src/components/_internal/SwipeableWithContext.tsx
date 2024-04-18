@@ -6,14 +6,15 @@ const SwipeableWithContextInner = (props: SwipeableProps, ref: LegacyRef<Swipeab
     if (typeof ref === "string" || typeof ref === "function")
         throw new Error("Don't use legacy refs when referencing SwipeableWithContext");
     const refToUse = ref ?? internalRef;
+    const { current } = refToUse;
     const swipeableMethods: SwipeableMethods = useMemo(
         () => ({
-            close: logErrorIfUndefined(refToUse.current?.close),
-            openLeft: logErrorIfUndefined(refToUse.current?.openLeft),
-            openRight: logErrorIfUndefined(refToUse.current?.openRight),
-            reset: logErrorIfUndefined(refToUse.current?.reset),
+            close: logErrorIfUndefined(current?.close),
+            openLeft: logErrorIfUndefined(current?.openLeft),
+            openRight: logErrorIfUndefined(current?.openRight),
+            reset: logErrorIfUndefined(current?.reset),
         }),
-        [refToUse, refToUse.current],
+        [current],
     );
     return (
         <SwipeableMethodsContext.Provider value={swipeableMethods}>
