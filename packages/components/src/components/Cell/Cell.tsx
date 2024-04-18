@@ -1,12 +1,12 @@
 import React, { ReactNode, forwardRef, useContext, useState } from "react";
 import { View, ViewProps } from "react-native";
-import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
-import { CellGroupContext, CellGroupContextType } from "./CellGroup";
+import { EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
-import Swipeable from "react-native-gesture-handler/Swipeable";
-import { CellSwipeItemProps } from "./types";
+import { SwipeableWithContext } from "../_internal/SwipeableWithContext";
+import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { CellSwipeItem } from "./CellSwipeItem";
+import { CellSwipeItemProps } from "./types";
 
 export type AdditionalSurfaceProps = {
     /**
@@ -20,6 +20,7 @@ export type AdditionalSurfaceProps = {
     onPress?: () => void;
 };
 
+type SwipeGroup = CellSwipeItemProps[];
 export type CellProps = {
     /**
      * A component that uses the left-remaining space after the child content of the cell has been adjusted for.
@@ -33,12 +34,12 @@ export type CellProps = {
      * A list of items configuring the components that appear on the right side when a user swipes the cell.
      * Setting this prop makes the cell swipable to the left.
      */
-    rightSwipeGroup?: CellSwipeItemProps[];
+    rightSwipeGroup?: SwipeGroup;
     /**
      * A list of items configuring the components that appear on the left side when a user swipes the cell.
      * Setting this prop makes the cell swipable to the right.
      */
-    leftSwipeGroup?: CellSwipeItemProps[];
+    leftSwipeGroup?: SwipeGroup;
     /**
      * Callback method invoked when a user presses the cell.
      * Leaving this `undefined` causes the cell to not respond to touch or hover events.
@@ -108,7 +109,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
             </View>
         );
         return !!leftSwipeGroup || !!rightSwipeGroup ? (
-            <Swipeable
+            <SwipeableWithContext
                 onSwipeableWillOpen={() => setOnPressDisabled(true)}
                 onSwipeableWillClose={() => setOnPressDisabled(false)}
                 overshootFriction={8}
@@ -125,7 +126,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                 }
             >
                 {CellContent()}
-            </Swipeable>
+            </SwipeableWithContext>
         ) : (
             CellContent()
         );
