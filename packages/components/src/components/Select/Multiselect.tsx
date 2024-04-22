@@ -7,13 +7,20 @@ import { Menu } from "../Menu";
 import { Typography } from "../Typography";
 import { SelectBaseProps } from "./types";
 
+type TestProps = Pick<ViewProps, "testID"> & {
+    /**
+     * a function to set testID prop on menu item elements
+     * @param index
+     */
+    menuItemsTestID?: (index: number) => string;
+};
 export type MultiselectProps<T> = SelectBaseProps<T> & {
     selectedItems: T[];
     /**
      * Callback function called when items are selected or deselected.
      */
     onSelect: (value: T[]) => void;
-} & Pick<ViewProps, "testID">;
+} & TestProps;
 
 export const Multiselect = <T,>({
     items,
@@ -24,6 +31,7 @@ export const Multiselect = <T,>({
     readOnly,
     variant,
     testID,
+    menuItemsTestID,
 }: MultiselectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -98,8 +106,9 @@ export const Multiselect = <T,>({
                 }}
             >
                 <ScrollView>
-                    {items.map(item => (
+                    {items.map((item, index) => (
                         <Menu.Item
+                            testID={menuItemsTestID?.(index)}
                             key={item.value as string}
                             onPress={() => handleSelect(item.value)}
                             title={item.title}

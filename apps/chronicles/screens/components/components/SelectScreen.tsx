@@ -88,6 +88,7 @@ export const SelectScreen = () => {
             <Label label="Select ingredients" />
             <Select.Multi
                 testID="multi-select"
+                menuItemsTestID={index => `multi-select-option-${index}`}
                 placeholder="Select here..."
                 items={ingredients}
                 selectedItems={selectMultipleItems}
