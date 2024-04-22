@@ -28,7 +28,7 @@
     "types": "./dist/index.d.ts",
     "peerDependencies": {
         "expo-auth-session": ">=5.0",
-        "expo-crypto": ">=12.4",
+        "expo-crypto": ">=12.0",
         "react": ">=18.0",
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
@@ -36,6 +36,8 @@
     },
     "dependencies": {
         "@equinor/mad-components": "*",
+        "expo-auth-session": "^5.4.0",
+        "expo-crypto": "^12.8.1",
         "jwt-decode": "^4.0.0"
     },
     "devDependencies": {
