@@ -72,6 +72,7 @@ export const SelectScreen = () => {
             <Label label="Select your potion:" />
             <Select
                 testID="standard-select"
+                menuItemsTestID={index => `standard-select-option-${index}`}
                 placeholder="Select here..."
                 items={potions}
                 selectedItem={selectSingleItem}
@@ -104,6 +105,8 @@ export const SelectScreen = () => {
 
             <Select
                 placeholder="Select here..."
+                testID="disabled-select"
+                menuItemsTestID={index => `disabled-select-option-${index}`}
                 items={potions}
                 selectedItem={selectDisabledItem}
                 onSelect={setSelectDisabledItem}

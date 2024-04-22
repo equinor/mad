@@ -1,19 +1,12 @@
 import React, { useCallback, useRef, useState } from "react";
-import { LayoutRectangle, Pressable, ScrollView, View, ViewProps } from "react-native";
+import { LayoutRectangle, Pressable, ScrollView, View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
 import { inputTokenStyles } from "../Input/inputStyle";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { SelectBaseProps } from "./types";
+import { SelectBaseProps, TestProps } from "./types";
 
-type TestProps = Pick<ViewProps, "testID"> & {
-    /**
-     * a function to set testID prop on menu item elements
-     * @param index
-     */
-    menuItemsTestID?: (index: number) => string;
-};
 export type MultiselectProps<T> = SelectBaseProps<T> & {
     selectedItems: T[];
     /**

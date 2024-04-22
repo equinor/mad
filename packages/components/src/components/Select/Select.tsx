@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useState } from "react";
-import { LayoutRectangle, Pressable, View, ViewProps } from "react-native";
+import { LayoutRectangle, Pressable, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
 import { inputTokenStyles } from "../Input/inputStyle";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { SelectBaseProps } from "./types";
+import { SelectBaseProps, TestProps } from "./types";
 
 export type SelectProps<T> = SelectBaseProps<T> & {
     /**
@@ -18,7 +18,7 @@ export type SelectProps<T> = SelectBaseProps<T> & {
      * Callback function called when an item is selected or deselected.
      */
     onSelect: (value: T | undefined) => void;
-} & Pick<ViewProps, "testID">;
+} & TestProps;
 
 export const Select = <T,>({
     items,
@@ -29,6 +29,7 @@ export const Select = <T,>({
     readOnly = false,
     variant,
     testID,
+    menuItemsTestID,
 }: SelectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -99,9 +100,10 @@ export const Select = <T,>({
                 }}
             >
                 <ScrollView>
-                    {items.map(item => {
+                    {items.map((item, index) => {
                         return (
                             <Menu.Item
+                                testID={menuItemsTestID?.(index)}
                                 key={item.value as string}
                                 onPress={() => handleSelect(item.value)}
                                 title={item.title}
