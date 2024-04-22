@@ -30,7 +30,7 @@
         "react": ">=18.0",
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
-        "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#d6b44b19454226d1bdc30a5d02d424d3e64a5163"
+        "react-native-msal": "*"
     },
     "dependencies": {
         "@equinor/mad-components": "*",
