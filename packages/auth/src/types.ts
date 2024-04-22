@@ -8,8 +8,3 @@ export type MadAuthenticationResult = {
     account: MadAccount;
     accessToken: string;
 };
-export type UserInfo = {
-    name: string;
-    unique_name: string;
-    onprem_sid: string;
-}

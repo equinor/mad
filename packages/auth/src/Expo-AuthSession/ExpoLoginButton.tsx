@@ -7,9 +7,8 @@ import {
     useAuthRequest,
     useAutoDiscovery,
 } from "expo-auth-session";
-import { MadAccount, UserInfo } from "../types";
 import { LoginButtonProps } from "../components";
-import { jwtDecode } from "jwt-decode";
+import { decodeToken } from "./decodeToken";
 import "core-js/stable/atob";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -38,54 +37,36 @@ export const ExpoLoginButton = ({
         discovery,
     );
 
-    const onPress = () => {
-        promptAsync()
-            .then(codeResponse => {
-                if (request && codeResponse?.type === "success" && discovery) {
-                    exchangeCodeAsync(
-                        {
-                            clientId,
-                            code: codeResponse.params["code"],
-                            extraParams: request.codeVerifier
-                                ? { code_verifier: request.codeVerifier }
-                                : undefined,
-                            redirectUri,
-                        },
-                        discovery,
-                    )
-                        .then(result => {
-                            const user = decodeToken(result.accessToken);
-                            if (!user) throw new Error("Unable to decode id token");
-                            onAuthenticationSuccessful(
-                                {
-                                    accessToken: result.accessToken,
-                                    account: user,
-                                },
-                                "MANUAL",
-                            );
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            onAuthenticationFailed(error);
-                        });
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                onAuthenticationFailed(error);
-            });
-    };
+    const onPress = async () => {
+        try {
+            const codeResponse = await promptAsync();
+            if (request && codeResponse?.type === "success" && discovery) {
+                const result = await exchangeCodeAsync(
+                    {
+                        clientId,
+                        code: codeResponse.params["code"],
+                        extraParams: request.codeVerifier
+                            ? { code_verifier: request.codeVerifier }
+                            : undefined,
+                        redirectUri,
+                    },
+                    discovery,
+                );
 
+                const user = decodeToken(result.accessToken);
+                if (!user) throw new Error("Unable to decode id token");
+                onAuthenticationSuccessful(
+                    {
+                        accessToken: result.accessToken,
+                        account: user,
+                    },
+                    "MANUAL",
+                );
+            }
+        } catch (error) {
+            console.error(error);
+            onAuthenticationFailed(error);
+        }
+    };
     return <Button title={title} onPress={onPress} {...rest} />;
-};
-
-const decodeToken = (token: string | undefined) => {
-    if (!token) return undefined;
-    const decoded = jwtDecode<UserInfo>(token);
-    const account: MadAccount = {
-        name: decoded.name,
-        username: decoded.unique_name,
-        identifier: decoded.onprem_sid,
-    };
-    return account;
 };
