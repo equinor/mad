@@ -1,16 +1,18 @@
+import React from "react";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSColor, EDSStyleSheet } from "../../styling";
-import { CellSwipeItemProps } from "./types";
 import { Icon } from "../Icon";
-import { Typography } from "../Typography";
 import { PressableHighlight } from "../PressableHighlight";
-import React from "react";
+import { Typography } from "../Typography";
+import { useSwipeableMethods } from "../_internal/SwipeableWithContext";
+import { CellSwipeItemProps } from "./types";
 
 export const CellSwipeItem = ({ title, iconName, color, onPress }: CellSwipeItemProps) => {
     const styles = useStyles(themeStyles, { color });
+    const swipeableMethods = useSwipeableMethods();
 
     return (
-        <PressableHighlight style={styles.container} onPress={onPress}>
+        <PressableHighlight style={styles.container} onPress={() => onPress?.(swipeableMethods)}>
             {iconName && (
                 <Icon name={iconName} style={styles.textStyle} size={title ? undefined : 28} />
             )}

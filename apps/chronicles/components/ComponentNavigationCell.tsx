@@ -24,6 +24,7 @@ export const ComponentNavigationCell = ({
     return (
         <Cell.Navigation
             title={title}
+            testID={title}
             description={description}
             iconName={iconName}
             onPress={() =>

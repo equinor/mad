@@ -6,7 +6,7 @@ import { ComponentNavigationCell } from "../../components/ComponentNavigationCel
 
 export default function DiscoverScreen() {
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <ScrollView testID="scroll-view-components" contentInsetAdjustmentBehavior="automatic">
             <Spacer />
 
             <Cell.Group title="data display">
