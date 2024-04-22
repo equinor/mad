@@ -67,6 +67,7 @@ export type { EquipmentRelationshipToWorkOrder } from './models/EquipmentRelatio
 export type { EquipmentSearchItem } from './models/EquipmentSearchItem';
 export type { EstimatedCosts } from './models/EstimatedCosts';
 export type { EstimatedCostsJsonPatch } from './models/EstimatedCostsJsonPatch';
+export type { failureImpactId } from './models/failureImpactId';
 export type { FailureMechanism } from './models/FailureMechanism';
 export type { FailureMechanismGroup } from './models/FailureMechanismGroup';
 export type { FailureMode } from './models/FailureMode';
@@ -194,6 +195,7 @@ export type { ProjectWorkOrderWithOperationSelf } from './models/ProjectWorkOrde
 export type { QualitativeCode } from './models/QualitativeCode';
 export type { RelationshipToDocument } from './models/RelationshipToDocument';
 export type { RelationshipToDocumentsAdd } from './models/RelationshipToDocumentsAdd';
+export type { RelationshipToEquipmentAdd } from './models/RelationshipToEquipmentAdd';
 export type { RelationshipToMaintenanceRecordAdd } from './models/RelationshipToMaintenanceRecordAdd';
 export type { RelationshipToTagAdd } from './models/RelationshipToTagAdd';
 export type { RelationshipURLReferencesAdd } from './models/RelationshipURLReferencesAdd';

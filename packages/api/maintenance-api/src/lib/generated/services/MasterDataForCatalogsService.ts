@@ -26,7 +26,7 @@ export class MasterDataForCatalogsService {
      * | V                     |  Measuring points               |
      * | D                     |  Coding                         |
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added catalog for coding to be used for general classification of maintenance records.
      *
      * @returns CodeGroup Success

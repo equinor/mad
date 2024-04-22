@@ -46,7 +46,7 @@ export class ModificationProposalsService {
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -107,7 +107,7 @@ export class ModificationProposalsService {
      * ### Overview
      * Update key fields of a modification proposal.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -163,7 +163,7 @@ export class ModificationProposalsService {
      * ### Update release v1.21.0
      * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -263,7 +263,9 @@ export class ModificationProposalsService {
      * ### Overview
      * Upload attachment for modification proposal
      *
-     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
@@ -302,6 +304,9 @@ export class ModificationProposalsService {
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }

@@ -59,7 +59,7 @@ export class ActivityReportsService {
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -138,7 +138,7 @@ export class ActivityReportsService {
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -199,7 +199,7 @@ export class ActivityReportsService {
      * ### Update release v1.27.0
      * Added support for creating activity report for technical feedback with PSD.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -421,7 +421,7 @@ export class ActivityReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -467,7 +467,7 @@ export class ActivityReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -547,7 +547,10 @@ export class ActivityReportsService {
      * Activity report - Attachment upload
      * ### Overview
      * Upload attachment for activity report
-     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     *
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
@@ -586,6 +589,9 @@ export class ActivityReportsService {
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }

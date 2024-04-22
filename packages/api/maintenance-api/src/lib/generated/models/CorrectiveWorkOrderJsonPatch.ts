@@ -7,7 +7,7 @@ export type CorrectiveWorkOrderJsonPatch = Array<{
     /**
      * JSON Patch operation according to RFC6902.
      *
-     * Operation `replace` is suitable for the following properties: `/text`, `/workCenterId`, `/workCenterPlantId`, `/tagId`, `/tagPlantId`, `/basicStartDateTime`, `/basicEndDateTime`, `/revisionId`, `/sortField`, `/locationId`, `/systemId`, `/title`, `/plannerGroupId`, `/costs`
+     * Operation `replace` is suitable for the following properties: `/text`, `/workCenterId`, `/workCenterPlantId`, `/tagId`, `/tagPlantId`, `/basicStartDateTime`, `/basicEndDateTime`, `/revisionId`, `/sortField`, `/locationId`, `/systemId`, `/title`, `/plannerGroupId`, `/costs` `/additionalCostWBSId` `/costWBSId`
      * Operation `append` is suitable for the following properties: `/text`
      *
      */
@@ -18,7 +18,7 @@ export type CorrectiveWorkOrderJsonPatch = Array<{
      * `/tagId`,`/tagPlantId` must be provided in same request.
      *
      */
-    path?: '/text' | '/workCenterId' | '/workCenterPlantId' | '/tagId' | '/tagPlantId' | '/basicStartDateTime' | '/basicEndDateTime' | '/revisionId' | '/sortField' | '/locationId' | '/systemId' | '/title' | '/plannerGroupId' | '/costs';
+    path?: '/text' | '/workCenterId' | '/workCenterPlantId' | '/tagId' | '/tagPlantId' | '/basicStartDateTime' | '/basicEndDateTime' | '/revisionId' | '/sortField' | '/locationId' | '/systemId' | '/title' | '/plannerGroupId' | '/costs' | '/additionalCostWBSId' | '/costWBSId';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

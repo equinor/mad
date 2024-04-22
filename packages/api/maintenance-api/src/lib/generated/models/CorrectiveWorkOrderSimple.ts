@@ -68,5 +68,9 @@ export type CorrectiveWorkOrderSimple = {
      * Indicates whether the Work Order is open or not.
      */
     isOpen: boolean;
+    costWBSId: string;
+    costWBS: string;
+    additionalCostWBSId: string;
+    additionalCostWBS: string;
 };
 

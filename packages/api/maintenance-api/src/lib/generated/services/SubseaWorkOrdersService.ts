@@ -55,7 +55,7 @@ export class SubseaWorkOrdersService {
      * ### Update release v1.27.0
      * Work orders now include the property 'isOpen'
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added new query parameter `include-safety-measuress`.
      *
      * @returns SubseaWorkOrder Success
