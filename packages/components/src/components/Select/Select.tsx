@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { LayoutRectangle, Pressable, View } from "react-native";
+import { LayoutRectangle, Pressable, View, ViewProps } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
@@ -18,7 +18,7 @@ export type SelectProps<T> = SelectBaseProps<T> & {
      * Callback function called when an item is selected or deselected.
      */
     onSelect: (value: T | undefined) => void;
-};
+} & Pick<ViewProps, "testID">;
 
 export const Select = <T,>({
     items,
@@ -28,6 +28,7 @@ export const Select = <T,>({
     onSelect,
     readOnly = false,
     variant,
+    testID,
 }: SelectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -59,6 +60,7 @@ export const Select = <T,>({
     return (
         <View>
             <Pressable
+                testID={testID}
                 style={inputStyles.contentContainer}
                 ref={triggerRef}
                 disabled={disabled || readOnly}

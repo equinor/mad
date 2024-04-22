@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { LayoutRectangle, Pressable, ScrollView, View } from "react-native";
+import { LayoutRectangle, Pressable, ScrollView, View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { Icon } from "../Icon";
 import { inputTokenStyles } from "../Input/inputStyle";
@@ -13,7 +13,7 @@ export type MultiselectProps<T> = SelectBaseProps<T> & {
      * Callback function called when items are selected or deselected.
      */
     onSelect: (value: T[]) => void;
-};
+} & Pick<ViewProps, "testID">;
 
 export const Multiselect = <T,>({
     items,
@@ -23,6 +23,7 @@ export const Multiselect = <T,>({
     onSelect,
     readOnly,
     variant,
+    testID,
 }: MultiselectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -59,6 +60,7 @@ export const Multiselect = <T,>({
     return (
         <View>
             <Pressable
+                testID={testID}
                 style={inputStyles.contentContainer}
                 ref={triggerRef}
                 onPress={toggleMenuOpen}
