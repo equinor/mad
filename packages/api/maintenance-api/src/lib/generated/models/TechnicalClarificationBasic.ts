@@ -9,7 +9,7 @@ export type TechnicalClarificationBasic = {
     tagPlantId: string;
     equipmentId: string;
     title: string;
-    text: string;
+    text: string | null;
     /**
      * If there is assigned a person responsible
      */

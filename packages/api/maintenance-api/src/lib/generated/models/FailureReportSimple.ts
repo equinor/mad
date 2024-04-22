@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { failureImpactId } from './failureImpactId';
+
 export type FailureReportSimple = {
     recordId: string;
     tagId: string | null;
@@ -10,7 +12,7 @@ export type FailureReportSimple = {
     equipmentId: string;
     title: string;
     requiredEndDate: string | null;
-    failureImpactId: 'D' | 'S' | 'U' | 'X' | null;
+    failureImpactId: failureImpactId;
     isBreakdown: boolean;
     /**
      * Unsafe failure mode identified for failure report ref `R-12137 - Give immediate warning of unsafe failure modes`

@@ -3,23 +3,17 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { failureImpactId } from './failureImpactId';
+
 export type MaintenanceRecordChangeFailureImpact = {
-    /**
-     * Priority:
-     * * `H` - High priority
-     * * `M` - Medium priority
-     * * `L` - Low priority
-     * * null - No priority defined
-     *
-     */
-    priorityId?: 'H' | 'M' | 'L' | null;
+    failureImpactId: failureImpactId;
     /**
      * Title of the activity
      */
-    riskAssessmentTitle?: string;
+    riskAssessmentTitle: string;
     /**
      * The text should describe the risk assessment done
      */
-    riskAssessmentText?: string;
+    riskAssessmentText: string;
 };
 

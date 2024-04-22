@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { failureImpactId } from './failureImpactId';
 import type { MaintenanceRecordItemMetadataCreate } from './MaintenanceRecordItemMetadataCreate';
 
 export type FailureReportCreate = {
@@ -18,7 +19,7 @@ export type FailureReportCreate = {
      * Required to input either tag or equipment
      */
     equipmentId?: string;
-    failureImpactId: 'D' | 'S' | 'U' | 'X';
+    failureImpactId: failureImpactId;
     isBreakdown?: boolean;
     failureModeId: string;
     failureModeGroupId: string;

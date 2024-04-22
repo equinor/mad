@@ -132,7 +132,7 @@ export class PreventiveWorkOrdersService {
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added new query parameter `include-safety-measures`.
      *
      * @returns PreventiveWorkOrder Success
@@ -455,7 +455,9 @@ export class PreventiveWorkOrdersService {
      * Preventive Work order - Attachment upload
      * Upload attachments for Preventive Work Order
      *
-     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -480,6 +482,9 @@ export class PreventiveWorkOrdersService {
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }

@@ -344,6 +344,9 @@ export class WorkOrdersService {
      * ### Update release v1.16.0
      * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
+     * ### Update release v1.29.0
+     * Added property `revision`
+     *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

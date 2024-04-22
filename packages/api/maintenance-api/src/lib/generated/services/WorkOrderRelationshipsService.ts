@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ProblemDetails } from '../models/ProblemDetails';
+import type { RelationshipToEquipmentAdd } from '../models/RelationshipToEquipmentAdd';
 import type { RelationshipToMaintenanceRecordAdd } from '../models/RelationshipToMaintenanceRecordAdd';
 import type { RelationshipToTagAdd } from '../models/RelationshipToTagAdd';
 
@@ -190,6 +191,46 @@ export class WorkOrderRelationshipsService {
                 403: `User does not have sufficient rights to work order`,
                 404: `The specified resource was not found`,
                 409: `Work order is locked by other user or it is not possible to remove the relationship`,
+            },
+        });
+    }
+
+    /**
+     * Work order relationships - Add related equipment
+     * ### Overview
+     * Add new relationship between a work order and an equipment.
+     *
+     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information. This is currently not possible for technical feedback, but is expected to be added in the future.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addRelationshipFromWorkOrderToEquipment({
+        workOrderId,
+        requestBody,
+    }: {
+        /**
+         * Id of the work order (can be any type)
+         */
+        workOrderId: string,
+        /**
+         * Define equipment to add relationship to
+         */
+        requestBody: RelationshipToEquipmentAdd,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/work-order-relationships/{work-order-id}/related-equipment',
+            path: {
+                'work-order-id': workOrderId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to work order`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
             },
         });
     }

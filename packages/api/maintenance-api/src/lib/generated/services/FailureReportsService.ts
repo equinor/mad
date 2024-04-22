@@ -11,6 +11,7 @@ import type { FailureReportSimple } from '../models/FailureReportSimple';
 import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
 import type { MaintenanceRecordActivityCreate } from '../models/MaintenanceRecordActivityCreate';
 import type { MaintenanceRecordActivityJsonPatch } from '../models/MaintenanceRecordActivityJsonPatch';
+import type { MaintenanceRecordChangeFailureImpact } from '../models/MaintenanceRecordChangeFailureImpact';
 import type { MaintenanceRecordExtendRequiredEnd } from '../models/MaintenanceRecordExtendRequiredEnd';
 import type { MaintenanceRecordItemMetadataCreate } from '../models/MaintenanceRecordItemMetadataCreate';
 import type { MaintenanceRecordItemMetadataJsonPatch } from '../models/MaintenanceRecordItemMetadataJsonPatch';
@@ -88,7 +89,7 @@ export class FailureReportsService {
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -213,11 +214,14 @@ export class FailureReportsService {
      * ### Update release 1.4.0
      * Added `workCenter` and `equipment` to response. Fields include descriptions of workCenterId and equipmentId
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * Added properties `codingGroupId` and `codingId`.
+     *
+     * ### Update release 1.29.0
+     * Deprecated update of the property `failureImpactId`. See [Deprecation](#section/Deprecation/Deprecation-policy) for more information.
      *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -353,7 +357,9 @@ export class FailureReportsService {
      * Failure report - Attachment upload
      * Upload attachment for failure report
      *
-     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
      *
      * ### Update release 1.17.0
      * Added `documentTitle` as input. If supplied, the title is added to all files that are sent
@@ -405,6 +411,9 @@ export class FailureReportsService {
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }
@@ -545,7 +554,7 @@ export class FailureReportsService {
      * ### Update release 1.15.0
      * Fixed issue with `relatedWorkOrder` `source` `ObjectList`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -587,7 +596,7 @@ export class FailureReportsService {
      * ### Update release v1.15.0
      * Added response body for 201 response
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -636,7 +645,7 @@ export class FailureReportsService {
      * ### Update release 1.8.0
      * Response type change to return the created tasks.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -686,7 +695,7 @@ export class FailureReportsService {
      *
      * To change status of a task, use endpoint `/maintenance-records/failure-reports/{record-id}/tasks/{task-id}/statuses/{status-id}`
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -790,7 +799,7 @@ export class FailureReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -837,15 +846,15 @@ export class FailureReportsService {
      * Failure report - Extend required end date
      * ### Overview
      * Extend the required end date of the failure report.
-     * This endpoint should only be executed by persons which have access to the 'action box' in Equinor's ERP system.
+     * This endpoint should only be executed by people with access to the 'action box' in Equinor's ERP system.
      *
-     * Client applications should take special care in ensuring the business process of Equinor is followed in advance of calling this endpoint.
+     * Client applications should take special care in ensuring the business process of Equinor is followed when using this endpoint.
      *
      * The activityCodeId defines the reason for the extension
-     * - `A121`= Lack of resources
-     * - `A122`= Lack of spares
-     * - `A123`=Maintenance access
-     * - `A124`=Failure development time
+     * - `A121` = Lack of resources
+     * - `A122` = Lack of spares
+     * - `A123` = Maintenance access
+     * - `A124` = Failure development time
      *
      * An activity for the failure report will be created by this call and the status `Date Extension Required ('EXTR')` will be set.
      *
@@ -858,7 +867,7 @@ export class FailureReportsService {
      * ### Update release v1.15.0
      * Added response schema for 201 success
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -890,6 +899,53 @@ export class FailureReportsService {
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add activities to failure report`,
+                404: `The specified resource was not found`,
+                409: `Failure report is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Failure report - Change failure impact
+     * ### Overview
+     * Change failure impact of the failure report.
+     * This endpoint should only be executed by people with access to the 'action box' in Equinor's ERP system.
+     *
+     * Client applications should take special care in ensuring the business process of Equinor is followed when using this endpoint.
+     *
+     * An activity for the failure report will be created by this call and the `priorityId`, `requiredStartDate`, and `requiredEndDate` will be recalculated.
+     *
+     * ### Important information
+     * Most users will not have sufficient authorizations to execute this endpoint. If a request fails due to missing authorizations, the response code will be HTTP 403.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns MaintenanceRecordActivity Success
+     * @throws ApiError
+     */
+    public static failureReportChangeFailureImpact({
+        recordId,
+        requestBody,
+    }: {
+        /**
+         * id of the failure report
+         */
+        recordId: string,
+        /**
+         * New failure impact - activity to be created on the failure report.
+         */
+        requestBody: MaintenanceRecordChangeFailureImpact,
+    }): CancelablePromise<ProblemDetails | MaintenanceRecordActivity> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/failure-impact-change',
+            path: {
+                'record-id': recordId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `The request body is invalid`,
+                403: `User does not have sufficient rights to execute this endpoint`,
                 404: `The specified resource was not found`,
                 409: `Failure report is locked by other user`,
             },

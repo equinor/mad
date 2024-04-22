@@ -34,6 +34,10 @@ export type WorkOrderOptimizedForQuery = {
      * An identifier to the revision (shutdown or campaign work) this work order is related to
      */
     revisionId: string;
+    /**
+     * Name of the revision (shutdown or campaign work) this work order is related to
+     */
+    revision?: string;
     basicStartDateTime: string | null;
     basicEndDateTime: string | null;
     createdDateTime: string | null;

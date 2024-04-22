@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { failureImpactId } from './failureImpactId';
+
 export type FailureReportBasic = {
     recordId: string;
     tagId: string | null;
@@ -23,7 +25,7 @@ export type FailureReportBasic = {
     locationId: string;
     location: string;
     systemId: string;
-    failureImpactId: 'D' | 'S' | 'U' | 'X' | null;
+    failureImpactId: failureImpactId;
     failureImpact: string;
     priorityId?: 'D' | 'H' | 'L' | 'M' | 'U' | null;
     isBreakdown: boolean;

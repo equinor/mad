@@ -29,7 +29,7 @@ export class MaintenanceRecordRelationshipsService {
      *
      * Existing URL references are available through the lookup endpoints for maintenance records. Examples: `GET /maintenance-records/failure-reports/{record-id}?include-url-references=true&api-version=v1`
      *
-     * ## Update release v1.28.0
+     * ## Update release 1.28.0
      * Added optional input field `documentId`.
      * If documentId is supplied, the attachment will be uploaded specifically to this document.
      *

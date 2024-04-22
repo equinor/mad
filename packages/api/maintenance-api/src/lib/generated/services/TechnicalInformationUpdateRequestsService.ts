@@ -59,7 +59,7 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release v1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -142,7 +142,7 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release v1.21.0
      * Added support for property `sortField`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -277,7 +277,9 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Overview
      * Upload attachment for technical information update request.
      *
-     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
@@ -316,6 +318,9 @@ export class TechnicalInformationUpdateRequestsService {
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }
@@ -381,7 +386,7 @@ export class TechnicalInformationUpdateRequestsService {
      *
      * Added properties personResponsibleId and personResponsibleEmail to response (only populated if include-person-responsible=true in the request).
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -491,7 +496,7 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Important information
      * It is possible to create technical information update request for either tagId or equipmentId.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -530,7 +535,7 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release 1.8.0
      * Response type change to return the created tasks.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -580,7 +585,7 @@ export class TechnicalInformationUpdateRequestsService {
      *
      * To change status of a task, use endpoint `/maintenance-records/technical-information-update-request/{record-id}/tasks/{task-id}/statuses/{status-id}`
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *

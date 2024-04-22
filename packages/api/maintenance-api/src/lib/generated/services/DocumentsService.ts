@@ -64,7 +64,7 @@ export class DocumentsService {
      *
      * Added property `documentTitle` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added property `documentCreatedDate` to the response.
      *
      * @returns RelationshipToDocument Success
@@ -377,6 +377,8 @@ export class DocumentsService {
      * Remove an attachment from an existing DMS document linked to a maintenance record.
      *
      * This endpoint returns no response data. Perform a lookup on the linked maintenance record to get updated information.
+     *
+     * Currently, this endpoint only supports removing attachments from documents of type 'B30'.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

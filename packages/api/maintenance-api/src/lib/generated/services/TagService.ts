@@ -82,7 +82,7 @@ export class TagService {
      * ### Update release v1.27.0
      * Work orders now include the property 'isOpen'
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * `billOfMaterials` now include the property `parentMaterialId`
      *
      * Added `materialId` and `material` to the response
@@ -560,7 +560,7 @@ export class TagService {
      * ### Update release v1.27.0
      * Work orders now include the property 'isOpen'
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * `billOfMaterials` now include the property `parentMaterialId`
      *
      * Added `materialId` and `material` to the response

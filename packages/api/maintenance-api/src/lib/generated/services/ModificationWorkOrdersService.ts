@@ -151,7 +151,7 @@ export class ModificationWorkOrdersService {
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added new query parameter `include-safety-measures`.
      *
      * @returns ModificationWorkOrder Success
