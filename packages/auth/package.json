@@ -36,8 +36,8 @@
     },
     "dependencies": {
         "@equinor/mad-components": "*",
-        "expo-auth-session": "^5.4.0",
-        "expo-crypto": "^12.8.1",
+        "expo-auth-session": "~5.0.2",
+        "expo-crypto": "~12.4.1",
         "jwt-decode": "^4.0.0"
     },
     "devDependencies": {

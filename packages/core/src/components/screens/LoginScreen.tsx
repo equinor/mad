@@ -6,6 +6,7 @@ import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
+import { ExpoLoginButton } from "@equinor/mad-auth/dist/Expo-AuthSession/ExpoLoginButton";
 
 export type LoginScreenProps = Partial<
     Pick<LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
@@ -34,7 +35,7 @@ export const LoginScreen = ({
                     />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <LoginButton
+                    <ExpoLoginButton
                         {...authConfig}
                         onAuthenticationSuccessful={(result, type) => {
                             setUsername(result.account.username, result.account.identifier);
