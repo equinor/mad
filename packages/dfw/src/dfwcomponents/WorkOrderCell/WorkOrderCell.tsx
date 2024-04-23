@@ -22,6 +22,7 @@ const WorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     activeStatusIds: "Active Status IDs",
     basicStartDate: "Basic Start Date",
     basicEndDate: "Basic End Date",
+    requiredEnd: "Required End",
     workCenterId: "Work Center ID",
 } as const;
 
@@ -34,6 +35,7 @@ export type WorkOrder = {
     activeStatusIds?: string;
     basicStartDate?: string;
     basicEndDate?: string;
+    requiredEnd?: string;
     workCenterId?: string;
 };
 
@@ -42,6 +44,7 @@ export type WorkOrderCellProps = {
     onCompleteButtonPress?: () => void;
     onPress?: () => void;
     showSymbols?: boolean;
+    valueColor?: Color;
 } & WorkOrder;
 
 type StatusConfig = {
@@ -85,17 +88,19 @@ export const WorkOrderCell = ({
     onCompleteButtonPress,
     onPress,
     showSymbols,
+    valueColor = "textTertiary",
     ...rest
 }: WorkOrderCellProps) => {
     const styles = useStyles(themeStyles);
     const activeStatuses = rest.activeStatusIds?.split(" ");
 
+    const currentDate = new Date();
+    const requiredEnd = rest.requiredEnd ? new Date(rest.requiredEnd) : null;
+
     const iconsAndLabels = useMemo(() => {
-        const currentDate = new Date();
-        const endDate = rest.basicEndDate ? new Date(rest.basicEndDate) : null;
         const result: StatusConfig[] = [];
 
-        if (endDate && currentDate > endDate) {
+        if (requiredEnd && currentDate > requiredEnd) {
             result.push({
                 icon: "alarm",
                 label: "Required end overdue",
@@ -111,7 +116,7 @@ export const WorkOrderCell = ({
             }
         });
         return result;
-    }, [activeStatuses, rest.basicEndDate]);
+    }, [activeStatuses, rest.requiredEnd]);
 
     const isStartDisabled =
         !!activeStatuses?.includes("STRT") || !!activeStatuses?.includes("RDOP");
@@ -151,8 +156,17 @@ export const WorkOrderCell = ({
                     if (value) {
                         const label = WorkOrderLabelMap[key as keyof WorkOrder];
                         let displayValue = value;
-                        if (key === "basicStartDate" || key === "basicEndDate") {
+                        let requiredEndColor = valueColor;
+
+                        if (
+                            key === "basicStartDate" ||
+                            key === "basicEndDate" ||
+                            key === "requiredEnd"
+                        ) {
                             displayValue = value ? new Date(value).toLocaleDateString() : "";
+                        }
+                        if (key === "requiredEnd" && requiredEnd && currentDate > requiredEnd) {
+                            requiredEndColor = "danger";
                         }
                         return (
                             <PropertyRow
@@ -160,7 +174,7 @@ export const WorkOrderCell = ({
                                 label={label}
                                 value={displayValue}
                                 style={{ marginBottom: 8 }}
-                                textColor={"textTertiary"}
+                                textColor={requiredEndColor}
                             />
                         );
                     }
