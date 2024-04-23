@@ -28,6 +28,7 @@ export const WorkOrderCellScreen = () => {
                 activeStatusIds="STRT"
                 basicStartDate="2023-04-07"
                 basicEndDate="2023-09-12"
+                requiredEnd="2024-04-23"
                 workCenterId="POMISP"
                 onCompleteButtonPress={() => console.log("Complete")}
                 onStartButtonPress={() => console.log("Start")}
@@ -63,6 +64,7 @@ export const WorkOrderCellScreen = () => {
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
                 tagId="TAG-123456"
+                valueColor={"danger"}
             />
         </ScrollView>
     );
