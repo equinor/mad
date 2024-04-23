@@ -27,13 +27,18 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "peerDependencies": {
+        "expo-auth-session": ">=5.0",
+        "expo-crypto": ">=12.0",
         "react": ">=18.0",
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
-        "react-native-msal": "*"
+        "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#52c62cc2f59cd8e6eaa3df5d345296a48283a18b"
     },
     "dependencies": {
-        "@equinor/mad-components": "*"
+        "@equinor/mad-components": "*",
+        "expo-auth-session": "^5.4.0",
+        "expo-crypto": "^12.8.1",
+        "jwt-decode": "^4.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.21.4",
