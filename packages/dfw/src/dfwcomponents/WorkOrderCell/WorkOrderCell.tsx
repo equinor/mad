@@ -11,7 +11,7 @@ import {
     IconName,
     Color,
 } from "@equinor/mad-components";
-import { PropertyRow } from "../PropertyRow";
+import { PropertyRow, PropertyRowProps } from "../PropertyRow";
 
 const WorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     title: "Title",
@@ -42,6 +42,7 @@ export type WorkOrderCellProps = {
     onCompleteButtonPress?: () => void;
     onPress?: () => void;
     showSymbols?: boolean;
+    additionalProperties?: PropertyRowProps[];
 } & WorkOrder;
 
 type StatusConfig = {
@@ -85,6 +86,7 @@ export const WorkOrderCell = ({
     onCompleteButtonPress,
     onPress,
     showSymbols,
+    additionalProperties,
     ...rest
 }: WorkOrderCellProps) => {
     const styles = useStyles(themeStyles);
@@ -117,6 +119,7 @@ export const WorkOrderCell = ({
         !!activeStatuses?.includes("STRT") || !!activeStatuses?.includes("RDOP");
     const isCompleteDisabled =
         !activeStatuses?.includes("STRT") || activeStatuses?.includes("RDOP");
+
     return (
         <Cell
             onPress={onPress ? onPress : undefined}
@@ -165,6 +168,9 @@ export const WorkOrderCell = ({
                     }
                     return null;
                 })}
+                {additionalProperties?.map((props, index) => (
+                    <PropertyRow key={index} {...props} />
+                ))}
                 {(!!onStartButtonPress || !!onCompleteButtonPress) && (
                     <View
                         style={{
