@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.29.0
+
+### Minor Changes
+
+-   035b690: Update wrapper
+
 ## 1.28.0
 
 ### Minor Changes
