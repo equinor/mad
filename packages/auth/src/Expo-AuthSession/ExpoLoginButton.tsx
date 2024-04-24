@@ -4,6 +4,7 @@ import * as WebBrowser from "expo-web-browser";
 import { useExpoAuthenticate } from "./useExpoAuthenticate";
 import { LoginButtonProps } from "../components";
 import "core-js/stable/atob";
+import { ResponseType } from "expo-auth-session";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -17,10 +18,9 @@ export const ExpoLoginButton = ({
     title = "Log in",
     ...rest
 }: LoginButtonProps) => {
+    const config = { clientId, scopes, redirectUri, responseType: ResponseType.Code };
     const { authenticate, authenticationInProgress } = useExpoAuthenticate({
-        clientId,
-        scopes,
-        redirectUri,
+        config,
         onAuthenticationSuccessful,
         onAuthenticationFailed,
         enableAutomaticAuthentication,

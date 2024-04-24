@@ -14,6 +14,7 @@ import { ServiceMessageProvider } from "../components/service-message/ServiceMes
 import { useMadConfig } from "../store";
 import { CoreRoutes } from "../components/navigation/coreRoutes";
 import { getDefaultScreenOptionsForLoginScreen } from "./getDefaultScreenOptionsForLoginScreen";
+import { AuthProvider } from "@equinor/mad-auth";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
@@ -30,47 +31,52 @@ export const createMadCoreNavigator = <T extends ParamListBase>(
         if (!config) return null;
         return (
             <AppInsightsInitializer config={config.applicationInsights}>
-                <EnvironmentProvider>
-                    <ServiceMessageProvider>
-                        <Stack.Navigator {...props} initialRouteName={CoreRoutes.LOGIN}>
-                            {config.login.addScreenManually !== true && (
-                                <Stack.Screen
-                                    name={CoreRoutes.LOGIN}
-                                    component={LoginScreen}
-                                    options={getDefaultScreenOptionsForLoginScreen()}
-                                />
-                            )}
-                            <Stack.Screen
-                                name={CoreRoutes.RELEASE_NOTES}
-                                component={ReleaseNotesScreen}
-                            />
-                            <Stack.Screen name={CoreRoutes.WHATS_NEW} component={WhatsNewScreen} />
-                            {config.about && (
-                                <Stack.Screen name={CoreRoutes.ABOUT} component={AboutScreen} />
-                            )}
-                            {config.serviceNow && (
-                                <Stack.Screen
-                                    name={CoreRoutes.FEEDBACK}
-                                    component={CreateIncidentScreen}
-                                />
-                            )}
-                            {config.language.supportedLanguages.length > 1 && (
-                                <>
+                <AuthProvider>
+                    <EnvironmentProvider>
+                        <ServiceMessageProvider>
+                            <Stack.Navigator {...props} initialRouteName={CoreRoutes.LOGIN}>
+                                {config.login.addScreenManually !== true && (
                                     <Stack.Screen
-                                        name={CoreRoutes.SELECT_LANGUAGE}
-                                        component={SelectLanguageScreen}
+                                        name={CoreRoutes.LOGIN}
+                                        component={LoginScreen}
+                                        options={getDefaultScreenOptionsForLoginScreen()}
                                     />
+                                )}
+                                <Stack.Screen
+                                    name={CoreRoutes.RELEASE_NOTES}
+                                    component={ReleaseNotesScreen}
+                                />
+                                <Stack.Screen
+                                    name={CoreRoutes.WHATS_NEW}
+                                    component={WhatsNewScreen}
+                                />
+                                {config.about && (
+                                    <Stack.Screen name={CoreRoutes.ABOUT} component={AboutScreen} />
+                                )}
+                                {config.serviceNow && (
                                     <Stack.Screen
-                                        name={CoreRoutes.SELECT_LANGUAGE_ONBOARDING}
-                                        component={SelectLanguageScreen}
-                                        options={{ headerBackVisible: false }}
+                                        name={CoreRoutes.FEEDBACK}
+                                        component={CreateIncidentScreen}
                                     />
-                                </>
-                            )}
-                            {props.children}
-                        </Stack.Navigator>
-                    </ServiceMessageProvider>
-                </EnvironmentProvider>
+                                )}
+                                {config.language.supportedLanguages.length > 1 && (
+                                    <>
+                                        <Stack.Screen
+                                            name={CoreRoutes.SELECT_LANGUAGE}
+                                            component={SelectLanguageScreen}
+                                        />
+                                        <Stack.Screen
+                                            name={CoreRoutes.SELECT_LANGUAGE_ONBOARDING}
+                                            component={SelectLanguageScreen}
+                                            options={{ headerBackVisible: false }}
+                                        />
+                                    </>
+                                )}
+                                {props.children}
+                            </Stack.Navigator>
+                        </ServiceMessageProvider>
+                    </EnvironmentProvider>
+                </AuthProvider>
             </AppInsightsInitializer>
         );
     }

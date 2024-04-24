@@ -1,4 +1,5 @@
 import {
+    AuthRequestConfig,
     exchangeCodeAsync,
     ResponseType,
     TokenResponse,
@@ -9,52 +10,27 @@ import { decodeToken } from "./decodeToken";
 import { MadAuthenticationResult } from "../types";
 import { AuthenticationType } from "../hooks";
 import { useEffect, useState } from "react";
-import { useDiscovery } from "./hooks/useDiscovery";
-import { useConfig } from "./hooks/useConfig";
-import { useAuthToken } from "./hooks/useAuthToken";
-import { useUserData } from "./hooks/useUserData";
+import { useAuth } from "./context";
 
 type useExpoAuthenticateProps = {
-    clientId: string;
-    scopes: string[];
-    redirectUri: string;
+    config: AuthRequestConfig;
     onAuthenticationSuccessful: (res: MadAuthenticationResult, type: AuthenticationType) => void;
     onAuthenticationFailed: (error: unknown) => void;
     enableAutomaticAuthentication?: boolean;
 };
 export const useExpoAuthenticate = ({
-    clientId,
-    scopes,
-    redirectUri,
+    config,
     onAuthenticationSuccessful,
     onAuthenticationFailed,
     enableAutomaticAuthentication,
 }: useExpoAuthenticateProps) => {
-    const { config, setConfig } = useConfig();
+    const { token, setToken, userData, setUserData } = useAuth();
     const discovery = useAutoDiscovery(
         "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/v2.0",
     );
-    const { userData, setUserData } = useUserData();
-    const { token, setToken } = useAuthToken();
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
 
-    if (!config) {
-        setConfig({
-            clientId,
-            scopes,
-            redirectUri,
-            responseType: ResponseType.Code,
-        });
-    }
-    const [request, , promptAsync] = useAuthRequest(
-        {
-            clientId,
-            scopes,
-            redirectUri,
-            responseType: ResponseType.Code,
-        },
-        discovery,
-    );
+    const [request, , promptAsync] = useAuthRequest(<AuthRequestConfig>config, discovery);
     const withAuthenticationPromiseHandler = async (authenticationType: "AUTOMATIC" | "MANUAL") => {
         try {
             if (
