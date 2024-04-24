@@ -9,4 +9,4 @@ export {
 export * from "./types";
 export * from "./components";
 export * from "./hooks";
-export { AuthProvider, ExpoLoginButton, useExpoAuthenticate, useAuth } from "./Expo-AuthSession";
+export * from "./Expo-AuthSession";
