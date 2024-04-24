@@ -1,5 +1,17 @@
 # @equinor/mad-dfw
 
+## 0.1.0
+
+### Minor Changes
+
+-   583968f: Add textcolor support for propertyrow and workordercell and add requiredEnd prop to
+    workordercell
+
+### Patch Changes
+
+-   Updated dependencies [a8cc142]
+    -   @equinor/mad-components@0.14.3
+
 ## 0.0.16
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.14.3
+
+### Patch Changes
+
+-   a8cc142: Added flex to the `Select` and `Select.Multi` components
+
 ## 0.14.2
 
 ### Patch Changes
