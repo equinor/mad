@@ -1,7 +1,6 @@
 import {
     AuthRequestConfig,
     exchangeCodeAsync,
-    ResponseType,
     TokenResponse,
     useAuthRequest,
     useAutoDiscovery,
@@ -29,8 +28,9 @@ export const useExpoAuthenticate = ({
         "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/v2.0",
     );
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
-
     const [request, , promptAsync] = useAuthRequest(<AuthRequestConfig>config, discovery);
+    const sleep = (delay: number) => new Promise(resolve => setTimeout(resolve, delay));
+
     const withAuthenticationPromiseHandler = async (authenticationType: "AUTOMATIC" | "MANUAL") => {
         try {
             if (
@@ -39,6 +39,9 @@ export const useExpoAuthenticate = ({
                 TokenResponse.isTokenFresh(token) &&
                 authenticationType === "AUTOMATIC"
             ) {
+                setAuthenticationInProgress(true);
+                await sleep(200);
+                setAuthenticationInProgress(false);
                 onAuthenticationSuccessful(
                     { accessToken: token.accessToken, account: userData },
                     authenticationType,
