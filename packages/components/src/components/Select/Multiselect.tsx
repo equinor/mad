@@ -57,7 +57,7 @@ export const Multiselect = <T,>({
     };
 
     return (
-        <View>
+        <View style={{ flexGrow: 1 }}>
             <Pressable
                 style={inputStyles.contentContainer}
                 ref={triggerRef}
