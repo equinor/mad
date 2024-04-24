@@ -50,6 +50,7 @@ export const SelectScreen = () => {
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={styles.container}
+            testID="scroll-view-select"
         >
             <Typography variant="h3">Potion Brewery Lab</Typography>
 
@@ -70,6 +71,8 @@ export const SelectScreen = () => {
             <Spacer amount="small" />
             <Label label="Select your potion:" />
             <Select
+                testID="standard-select"
+                menuItemsTestID={index => `standard-select-option-${index}`}
                 placeholder="Select here..."
                 items={potions}
                 selectedItem={selectSingleItem}
@@ -85,6 +88,8 @@ export const SelectScreen = () => {
 
             <Label label="Select ingredients" />
             <Select.Multi
+                testID="multi-select"
+                menuItemsTestID={index => `multi-select-option-${index}`}
                 placeholder="Select here..."
                 items={ingredients}
                 selectedItems={selectMultipleItems}
@@ -100,6 +105,8 @@ export const SelectScreen = () => {
 
             <Select
                 placeholder="Select here..."
+                testID="disabled-select"
+                menuItemsTestID={index => `disabled-select-option-${index}`}
                 items={potions}
                 selectedItem={selectDisabledItem}
                 onSelect={setSelectDisabledItem}

@@ -1,3 +1,4 @@
+import { ViewProps } from "react-native";
 import { IconName } from "../Icon";
 
 // Represents a single option within the select menu.
@@ -38,4 +39,12 @@ export type SelectBaseProps<T> = {
      * A variant to use for the validation of the input field.
      */
     variant?: "danger" | "warning" | "success";
+};
+
+export type TestProps = Pick<ViewProps, "testID"> & {
+    /**
+     * a function to set testID prop on menu item elements
+     * @param index
+     */
+    menuItemsTestID?: (index: number) => string;
 };

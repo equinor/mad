@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View } from "react-native";
+import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { PressableHighlight } from "../PressableHighlight";
@@ -34,7 +34,7 @@ export type MenuItemProps = {
      * The name of the icon to show alongside the text of this item.
      */
     iconName?: IconName;
-};
+} & Pick<ViewProps, "testID">;
 
 export const MenuItem = ({
     title,
@@ -43,6 +43,7 @@ export const MenuItem = ({
     onPress = () => null,
     closeMenuOnClick = true,
     iconName,
+    testID,
 }: MenuItemProps) => {
     const menuContext = useContext(MenuContext);
     const styles = useStyles(themeStyles, { active, disabled });
@@ -55,6 +56,7 @@ export const MenuItem = ({
     return (
         <View style={styles.itemContainer}>
             <PressableHighlight
+                testID={testID}
                 style={styles.pressableContainer}
                 onPress={onPressItem}
                 disabled={disabled}
