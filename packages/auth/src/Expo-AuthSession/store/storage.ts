@@ -1,6 +1,5 @@
 import * as SecureStore from "expo-secure-store";
 
-// Utility function to save data to storage
 export const saveToStorage = (key: string, value: unknown) => {
     try {
         const jsonValue = JSON.stringify(value);
@@ -10,7 +9,6 @@ export const saveToStorage = (key: string, value: unknown) => {
     }
 };
 
-// Utility function to load data from storage
 export const loadFromStorage = async (key: string): Promise<unknown> => {
     try {
         const jsonValue = await SecureStore.getItemAsync(key);

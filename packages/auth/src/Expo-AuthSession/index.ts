@@ -1,3 +1,3 @@
-export * from "./ExpoLoginButton";
+export * from "./components/ExpoLoginButton";
 export * from "./useExpoAuthenticate";
-export * from "./context";
+export * from "./store";

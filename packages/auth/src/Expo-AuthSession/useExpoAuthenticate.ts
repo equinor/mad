@@ -1,6 +1,5 @@
 import {
     AuthRequestConfig,
-    DiscoveryDocument,
     exchangeCodeAsync,
     TokenResponse,
     useAuthRequest,
@@ -10,8 +9,8 @@ import { decodeToken } from "./decodeToken";
 import { MadAccount, MadAuthenticationResult } from "../types";
 import { AuthenticationType } from "../hooks";
 import { useEffect, useState } from "react";
-import { useAuth } from "./context";
 import { appInsightsHasBeenInitialized } from "@equinor/mad-insights";
+import { useAuth } from "./store";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -85,6 +84,7 @@ export const useExpoAuthenticate = ({
         if (!authState.discovery || !authState.config)
             throw new Error("discovery or config not defined");
         const refreshToken = await token.refreshAsync(authState.config, authState.discovery);
+        console.log("refreshToken", refreshToken);
         authState.setToken(refreshToken);
         setIsLoggedIn(true);
         onAuthenticationSuccessful(
