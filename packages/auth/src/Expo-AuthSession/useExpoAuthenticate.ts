@@ -31,10 +31,7 @@ export const useExpoAuthenticate = ({
     );
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [request, , promptAsync] = useAuthRequest(
-        <AuthRequestConfig>config,
-        discovery as DiscoveryDocument | null,
-    );
+    const [request, , promptAsync] = useAuthRequest(config, discovery);
     const hasAppInsightsBeenInitialized = appInsightsHasBeenInitialized();
 
     useEffect(() => {
@@ -109,7 +106,6 @@ export const useExpoAuthenticate = ({
                 authState.userData
             ) {
                 if (TokenResponse.isTokenFresh(authState.token)) {
-                    console.log("token is fresh");
                     setIsLoggedIn(true);
                     onAuthenticationSuccessful(
                         { accessToken: authState.token.accessToken, account: authState.userData },

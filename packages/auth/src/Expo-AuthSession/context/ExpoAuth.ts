@@ -1,4 +1,9 @@
-import { AuthRequestConfig, DiscoveryDocument, TokenResponse } from "expo-auth-session";
+import {
+    AuthRequestConfig,
+    DiscoveryDocument,
+    TokenResponse,
+    TokenResponseConfig,
+} from "expo-auth-session";
 import { MadAccount } from "../../types";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
@@ -18,16 +23,16 @@ type AuthState = {
 const useAuthStore = create<AuthState>()(
     devtools(
         set => ({
-            setToken: async (token: TokenResponse) => {
+            setToken: (token: TokenResponse) => {
                 // Need to splice the token JSON as Expo-secure-storage only allows strings of maximum 2048 bytes
                 const { accessToken, refreshToken, ...restOfToken } = token;
-                await saveToStorage("accessToken", accessToken);
-                await saveToStorage("refreshToken", refreshToken);
-                await saveToStorage("restOfResponse", restOfToken);
+                void saveToStorage("accessToken", accessToken);
+                void saveToStorage("refreshToken", refreshToken);
+                void saveToStorage("restOfResponse", restOfToken);
                 set({ token });
             },
-            setUserData: async (account: MadAccount) => {
-                await saveToStorage("userData", account);
+            setUserData: (account: MadAccount) => {
+                void saveToStorage("userData", account);
                 set({ userData: account });
             },
             setDiscovery: (discovery: DiscoveryDocument | null) => {
@@ -47,19 +52,23 @@ function useRestoreAuthState() {
 
     useEffect(() => {
         async function restoreAuthState() {
-            const storedToken = await loadFromStorage("accessToken");
-            const refreshToken = await loadFromStorage("refreshToken");
-            const restOfToken = await loadFromStorage("restOfResponse");
+            const storedToken = (await loadFromStorage("accessToken")) as string;
+            const refreshToken = (await loadFromStorage("refreshToken")) as string;
+            const restOfToken = (await loadFromStorage("restOfResponse")) as Omit<
+                TokenResponseConfig,
+                "accessToken" | "refreshToken"
+            >;
             if (storedToken && refreshToken && restOfToken) {
-                useAuthStore.getState().setToken({
+                const token = new TokenResponse({
                     accessToken: storedToken,
                     refreshToken: refreshToken,
                     ...restOfToken,
                 });
+                useAuthStore.getState().setToken(token);
             }
             const storedUserData = await loadFromStorage("userData");
             if (storedUserData) {
-                useAuthStore.getState().setUserData(storedUserData);
+                useAuthStore.getState().setUserData(storedUserData as MadAccount);
             }
         }
 
