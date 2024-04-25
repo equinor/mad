@@ -1,5 +1,6 @@
 import {
     AuthRequestConfig,
+    DiscoveryDocument,
     exchangeCodeAsync,
     TokenResponse,
     useAuthRequest,
@@ -24,36 +25,50 @@ export const useExpoAuthenticate = ({
     onAuthenticationFailed,
     enableAutomaticAuthentication,
 }: useExpoAuthenticateProps) => {
-    const { token, setToken, userData, setUserData } = useAuth();
+    const authState = useAuth();
     const discovery = useAutoDiscovery(
         "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/v2.0",
     );
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
-    const [request, , promptAsync] = useAuthRequest(<AuthRequestConfig>config, discovery);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [request, , promptAsync] = useAuthRequest(
+        <AuthRequestConfig>config,
+        discovery as DiscoveryDocument | null,
+    );
     const hasAppInsightsBeenInitialized = appInsightsHasBeenInitialized();
+
+    useEffect(() => {
+        if (!authState.config) authState.setConfig(config);
+        if (!authState.discovery) authState.setDiscovery(discovery);
+    }, [discovery]);
 
     const withAuthenticationPromiseHandler = async () => {
         try {
             setAuthenticationInProgress(true);
             const codeResponse = await promptAsync();
-            if (request && codeResponse?.type === "success" && discovery && config) {
+            if (
+                request &&
+                codeResponse?.type === "success" &&
+                authState.discovery &&
+                authState.config
+            ) {
                 const result = await exchangeCodeAsync(
                     {
-                        clientId: config?.clientId,
+                        clientId: authState.config?.clientId,
                         code: codeResponse.params["code"],
                         extraParams: request.codeVerifier
                             ? { code_verifier: request.codeVerifier }
                             : undefined,
-                        redirectUri: config?.redirectUri,
+                        redirectUri: authState.config?.redirectUri,
                     },
-                    discovery,
+                    authState.discovery,
                 );
 
                 const user = decodeToken(result.accessToken);
                 if (!user) throw new Error("Unable to decode id token");
                 setAuthenticationInProgress(false);
-                setUserData(user);
-                setToken(result);
+                authState.setUserData(user);
+                authState.setToken(result);
                 onAuthenticationSuccessful(
                     {
                         accessToken: result.accessToken,
@@ -70,9 +85,11 @@ export const useExpoAuthenticate = ({
     };
 
     const refreshTokenAndAuthenticate = async (token: TokenResponse, userData: MadAccount) => {
-        if (!discovery) throw new Error("discovery not defined");
-        const refreshToken = await token.refreshAsync(config, discovery);
-        setToken(refreshToken);
+        if (!authState.discovery || !authState.config)
+            throw new Error("discovery or config not defined");
+        const refreshToken = await token.refreshAsync(authState.config, authState.discovery);
+        authState.setToken(refreshToken);
+        setIsLoggedIn(true);
         onAuthenticationSuccessful(
             {
                 accessToken: refreshToken.accessToken,
@@ -85,23 +102,26 @@ export const useExpoAuthenticate = ({
     useEffect(() => {
         const maybeAuthenticateSilently = () => {
             if (
+                !isLoggedIn &&
                 hasAppInsightsBeenInitialized &&
                 enableAutomaticAuthentication &&
-                token &&
-                userData
+                authState.token &&
+                authState.userData
             ) {
-                if (TokenResponse.isTokenFresh(token))
+                if (TokenResponse.isTokenFresh(authState.token)) {
+                    console.log("token is fresh");
+                    setIsLoggedIn(true);
                     onAuthenticationSuccessful(
-                        { accessToken: token.accessToken, account: userData },
+                        { accessToken: authState.token.accessToken, account: authState.userData },
                         "AUTOMATIC",
                     );
-                else {
-                    void refreshTokenAndAuthenticate(token, userData);
+                } else {
+                    void refreshTokenAndAuthenticate(authState.token, authState.userData);
                 }
             }
         };
         maybeAuthenticateSilently();
-    }, [token, userData, hasAppInsightsBeenInitialized]);
+    }, [authState.token, authState.userData, hasAppInsightsBeenInitialized]);
 
     return {
         authenticate: () => void withAuthenticationPromiseHandler(),

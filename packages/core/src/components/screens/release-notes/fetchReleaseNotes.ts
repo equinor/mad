@@ -11,7 +11,8 @@ export const fetchReleaseNotes = async (
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
     //const authenticationResponse = await authenticateSilently(scopes);
-    const token = getToken();
+    const token = await getToken();
+    console.log(token);
     if (!token) throw new Error("Unable to authenticate silently");
     const fetchResponse = await fetch(`${baseUrl}/ReleaseNote/${servicePortalName}/${appVersion}`, {
         method: "GET",
@@ -30,7 +31,7 @@ export const fetchAllReleaseNotes = async (
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
     //const authenticationResponse = await authenticateSilently(scopes);
-    const token = getToken();
+    const token = await getToken();
     if (!token) throw new Error("Unable to authenticate silently");
     const fetchResponse = await fetch(`${baseUrl}/ReleaseNote/${servicePortalName}/`, {
         method: "GET",

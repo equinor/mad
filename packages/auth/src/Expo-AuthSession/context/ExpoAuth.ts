@@ -1,4 +1,4 @@
-import { TokenResponse } from "expo-auth-session";
+import { AuthRequestConfig, DiscoveryDocument, TokenResponse } from "expo-auth-session";
 import { MadAccount } from "../../types";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
@@ -10,12 +10,16 @@ type AuthState = {
     setToken: (token: TokenResponse) => void;
     userData?: MadAccount;
     setUserData: (account: MadAccount) => void;
+    discovery?: DiscoveryDocument | null;
+    setDiscovery: (discovery: DiscoveryDocument | null) => void;
+    config?: AuthRequestConfig;
+    setConfig: (config: AuthRequestConfig) => void;
 };
 const useAuthStore = create<AuthState>()(
     devtools(
         set => ({
             setToken: async (token: TokenResponse) => {
-                // Need to splice the token JSON as Expo-secure.storage only allows strings of maximum 2048 bytes
+                // Need to splice the token JSON as Expo-secure-storage only allows strings of maximum 2048 bytes
                 const { accessToken, refreshToken, ...restOfToken } = token;
                 await saveToStorage("accessToken", accessToken);
                 await saveToStorage("refreshToken", refreshToken);
@@ -25,6 +29,12 @@ const useAuthStore = create<AuthState>()(
             setUserData: async (account: MadAccount) => {
                 await saveToStorage("userData", account);
                 set({ userData: account });
+            },
+            setDiscovery: (discovery: DiscoveryDocument | null) => {
+                set({ discovery });
+            },
+            setConfig: (config: AuthRequestConfig) => {
+                set({ config });
             },
         }),
         { name: "core/auth" },
@@ -62,4 +72,18 @@ export const useAuth = (): AuthState => {
     return useAuthStore();
 };
 
-export const getToken = () => useAuthStore.getState().token;
+export const getToken = async () => {
+    const token = useAuthStore.getState().token;
+    const config = useAuthStore.getState().config;
+    const discovery = useAuthStore.getState().discovery;
+    if (token) {
+        if (TokenResponse.isTokenFresh(token)) {
+            return token;
+        } else if (config && discovery) {
+            const refreshedToken = await token.refreshAsync(config, discovery);
+            useAuthStore.getState().setToken(refreshedToken);
+            return refreshedToken;
+        }
+    }
+    throw new Error("Unable to get token");
+};
