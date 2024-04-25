@@ -18,7 +18,12 @@ export const ExpoLoginButton = ({
     title = "Log in",
     ...rest
 }: LoginButtonProps) => {
-    const config = { clientId, scopes, redirectUri, responseType: ResponseType.Code };
+    const config = {
+        clientId,
+        scopes: [...scopes, "openid", "profile", "offline_access"],
+        redirectUri,
+        responseType: ResponseType.Code,
+    };
     const { authenticate, authenticationInProgress } = useExpoAuthenticate({
         config,
         onAuthenticationSuccessful,

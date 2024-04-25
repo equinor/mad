@@ -39,6 +39,7 @@
         "@react-native-async-storage/async-storage": "^1.23.1",
         "expo-auth-session": "~5.0.2",
         "expo-crypto": "~12.4.1",
+        "expo-secure-store": "~12.3.1",
         "jwt-decode": "^4.0.0",
         "zustand": "^4.5.2"
     },

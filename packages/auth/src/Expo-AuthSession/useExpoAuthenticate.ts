@@ -6,10 +6,11 @@ import {
     useAutoDiscovery,
 } from "expo-auth-session";
 import { decodeToken } from "./decodeToken";
-import { MadAuthenticationResult } from "../types";
+import { MadAccount, MadAuthenticationResult } from "../types";
 import { AuthenticationType } from "../hooks";
 import { useEffect, useState } from "react";
 import { useAuth } from "./context";
+import { appInsightsHasBeenInitialized } from "@equinor/mad-insights";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -29,52 +30,37 @@ export const useExpoAuthenticate = ({
     );
     const [authenticationInProgress, setAuthenticationInProgress] = useState(false);
     const [request, , promptAsync] = useAuthRequest(<AuthRequestConfig>config, discovery);
-    const sleep = (delay: number) => new Promise(resolve => setTimeout(resolve, delay));
+    const hasAppInsightsBeenInitialized = appInsightsHasBeenInitialized();
 
-    const withAuthenticationPromiseHandler = async (authenticationType: "AUTOMATIC" | "MANUAL") => {
+    const withAuthenticationPromiseHandler = async () => {
         try {
-            if (
-                token &&
-                userData &&
-                TokenResponse.isTokenFresh(token) &&
-                authenticationType === "AUTOMATIC"
-            ) {
-                setAuthenticationInProgress(true);
-                await sleep(200);
-                setAuthenticationInProgress(false);
-                onAuthenticationSuccessful(
-                    { accessToken: token.accessToken, account: userData },
-                    authenticationType,
+            setAuthenticationInProgress(true);
+            const codeResponse = await promptAsync();
+            if (request && codeResponse?.type === "success" && discovery && config) {
+                const result = await exchangeCodeAsync(
+                    {
+                        clientId: config?.clientId,
+                        code: codeResponse.params["code"],
+                        extraParams: request.codeVerifier
+                            ? { code_verifier: request.codeVerifier }
+                            : undefined,
+                        redirectUri: config?.redirectUri,
+                    },
+                    discovery,
                 );
-            } else if (authenticationType === "MANUAL") {
-                setAuthenticationInProgress(true);
-                const codeResponse = await promptAsync();
-                if (request && codeResponse?.type === "success" && discovery && config) {
-                    const result = await exchangeCodeAsync(
-                        {
-                            clientId: config?.clientId,
-                            code: codeResponse.params["code"],
-                            extraParams: request.codeVerifier
-                                ? { code_verifier: request.codeVerifier }
-                                : undefined,
-                            redirectUri: config?.redirectUri,
-                        },
-                        discovery,
-                    );
 
-                    const user = decodeToken(result.accessToken);
-                    if (!user) throw new Error("Unable to decode id token");
-                    setAuthenticationInProgress(false);
-                    setUserData(user);
-                    setToken(result);
-                    onAuthenticationSuccessful(
-                        {
-                            accessToken: result.accessToken,
-                            account: user,
-                        },
-                        authenticationType,
-                    );
-                }
+                const user = decodeToken(result.accessToken);
+                if (!user) throw new Error("Unable to decode id token");
+                setAuthenticationInProgress(false);
+                setUserData(user);
+                setToken(result);
+                onAuthenticationSuccessful(
+                    {
+                        accessToken: result.accessToken,
+                        account: user,
+                    },
+                    "MANUAL",
+                );
             }
         } catch (error) {
             console.error(error);
@@ -83,18 +69,42 @@ export const useExpoAuthenticate = ({
         }
     };
 
+    const refreshTokenAndAuthenticate = async (token: TokenResponse, userData: MadAccount) => {
+        if (!discovery) throw new Error("discovery not defined");
+        const refreshToken = await token.refreshAsync(config, discovery);
+        setToken(refreshToken);
+        onAuthenticationSuccessful(
+            {
+                accessToken: refreshToken.accessToken,
+                account: userData,
+            },
+            "AUTOMATIC",
+        );
+    };
+
     useEffect(() => {
         const maybeAuthenticateSilently = () => {
-            if (enableAutomaticAuthentication) {
-                void withAuthenticationPromiseHandler("AUTOMATIC");
+            if (
+                hasAppInsightsBeenInitialized &&
+                enableAutomaticAuthentication &&
+                token &&
+                userData
+            ) {
+                if (TokenResponse.isTokenFresh(token))
+                    onAuthenticationSuccessful(
+                        { accessToken: token.accessToken, account: userData },
+                        "AUTOMATIC",
+                    );
+                else {
+                    void refreshTokenAndAuthenticate(token, userData);
+                }
             }
         };
         maybeAuthenticateSilently();
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- we want this to run only once
-    }, []);
+    }, [token, userData, hasAppInsightsBeenInitialized]);
 
     return {
-        authenticate: () => void withAuthenticationPromiseHandler("MANUAL"),
+        authenticate: () => void withAuthenticationPromiseHandler(),
         authenticationInProgress,
     };
 };
