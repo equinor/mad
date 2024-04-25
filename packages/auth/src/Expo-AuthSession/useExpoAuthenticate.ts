@@ -11,6 +11,7 @@ import { AuthenticationType } from "../hooks";
 import { useEffect, useState } from "react";
 import { appInsightsHasBeenInitialized } from "@equinor/mad-insights";
 import { useAuth } from "./store";
+import { refreshToken } from "./refreshToken";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -38,41 +39,16 @@ export const useExpoAuthenticate = ({
         if (!authState.discovery) authState.setDiscovery(discovery);
     }, [discovery]);
 
-    const withAuthenticationPromiseHandler = async () => {
+    const authenticateInteractively = async () => {
         try {
             setAuthenticationInProgress(true);
-            const codeResponse = await promptAsync();
-            if (
-                request &&
-                codeResponse?.type === "success" &&
-                authState.discovery &&
-                authState.config
-            ) {
-                const result = await exchangeCodeAsync(
-                    {
-                        clientId: authState.config?.clientId,
-                        code: codeResponse.params["code"],
-                        extraParams: request.codeVerifier
-                            ? { code_verifier: request.codeVerifier }
-                            : undefined,
-                        redirectUri: authState.config?.redirectUri,
-                    },
-                    authState.discovery,
-                );
-
-                const user = decodeToken(result.accessToken);
-                if (!user) throw new Error("Unable to decode id token");
-                setAuthenticationInProgress(false);
-                authState.setUserData(user);
-                authState.setToken(result);
-                onAuthenticationSuccessful(
-                    {
-                        accessToken: result.accessToken,
-                        account: user,
-                    },
-                    "MANUAL",
-                );
-            }
+            const result = await authenticate();
+            const user = decodeToken(result?.accessToken);
+            if (!result || !user) throw new Error("Unable to authenticate");
+            authState.setUserData(user);
+            authState.setToken(result);
+            setAuthenticationInProgress(false);
+            setLoginSuccess(result, user);
         } catch (error) {
             console.error(error);
             setAuthenticationInProgress(false);
@@ -80,16 +56,45 @@ export const useExpoAuthenticate = ({
         }
     };
 
+    const authenticate = async () => {
+        const codeResponse = await promptAsync();
+        if (
+            request &&
+            codeResponse?.type === "success" &&
+            authState.discovery &&
+            authState.config
+        ) {
+            return await exchangeCodeAsync(
+                {
+                    clientId: authState.config?.clientId,
+                    code: codeResponse.params["code"],
+                    extraParams: request.codeVerifier
+                        ? { code_verifier: request.codeVerifier }
+                        : undefined,
+                    redirectUri: authState.config?.redirectUri,
+                },
+                authState.discovery,
+            );
+        }
+        throw new Error("Unable to authenticate");
+    };
+
     const refreshTokenAndAuthenticate = async (token: TokenResponse, userData: MadAccount) => {
-        if (!authState.discovery || !authState.config)
-            throw new Error("discovery or config not defined");
-        const refreshToken = await token.refreshAsync(authState.config, authState.discovery);
-        console.log("refreshToken", refreshToken);
-        authState.setToken(refreshToken);
+        console.log("discovery:", authState.discovery);
+        console.log("config", authState.config);
+        if (!authState.discovery || !authState.config) return;
+        const newToken = await refreshToken(token, userData);
+        if (newToken) {
+            authState.setToken(newToken);
+            setLoginSuccess(newToken, userData);
+        }
+    };
+
+    const setLoginSuccess = (newToken: TokenResponse, userData: MadAccount) => {
         setIsLoggedIn(true);
         onAuthenticationSuccessful(
             {
-                accessToken: refreshToken.accessToken,
+                accessToken: newToken.accessToken,
                 account: userData,
             },
             "AUTOMATIC",
@@ -106,21 +111,23 @@ export const useExpoAuthenticate = ({
                 authState.userData
             ) {
                 if (TokenResponse.isTokenFresh(authState.token)) {
-                    setIsLoggedIn(true);
-                    onAuthenticationSuccessful(
-                        { accessToken: authState.token.accessToken, account: authState.userData },
-                        "AUTOMATIC",
-                    );
+                    setLoginSuccess(authState.token, authState.userData);
                 } else {
                     void refreshTokenAndAuthenticate(authState.token, authState.userData);
                 }
             }
         };
         maybeAuthenticateSilently();
-    }, [authState.token, authState.userData, hasAppInsightsBeenInitialized]);
+    }, [
+        authState.token,
+        authState.userData,
+        authState.config,
+        authState.discovery,
+        hasAppInsightsBeenInitialized,
+    ]);
 
     return {
-        authenticate: () => void withAuthenticationPromiseHandler(),
+        authenticate: () => void authenticateInteractively(),
         authenticationInProgress,
     };
 };

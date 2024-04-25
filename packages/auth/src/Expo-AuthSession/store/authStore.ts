@@ -25,3 +25,6 @@ export const getToken = async () => {
     }
     throw new Error("Unable to get token");
 };
+
+export const getDiscovery = () => useAuthStore.getState().discovery;
+export const getConfig = () => useAuthStore.getState().config;
