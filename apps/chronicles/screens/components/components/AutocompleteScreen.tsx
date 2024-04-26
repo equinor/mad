@@ -70,6 +70,7 @@ export const AutocompleteScreen = () => {
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={{ flex: 1 }}
             keyboardShouldPersistTaps="handled"
+            testID="scroll-view-autocomplete"
         >
             <View style={styles.container}>
                 <Typography variant="h3">Welcome to the Jungle!</Typography>
@@ -77,6 +78,10 @@ export const AutocompleteScreen = () => {
                 <Typography>Discover the hidden creatures of the Autocomplete.</Typography>
                 <Spacer />
                 <Autocomplete
+                    testID="autocomplete-standard"
+                    clearButtonTestID="autocomplete-standard-clear"
+                    displayOptionsButtonTestID="autocomplete-standard-display-options"
+                    menuItemsTestIDFn={index => `autocomplete-standard-option-${index}`}
                     options={awesomeAnimals}
                     label="Click me and spot a Jungle Creature"
                     placeholder="Type a name and see who's lurking..."
@@ -100,6 +105,10 @@ export const AutocompleteScreen = () => {
                 <Typography>This is a autocomplete with multiple selections.</Typography>
                 <Spacer />
                 <Autocomplete.Multiselect
+                    testID="autocomplete-multiselect"
+                    clearButtonTestID="autocomplete-multiselect-clear"
+                    displayOptionsButtonTestID="autocomplete-multiselect-display-options"
+                    menuItemsTestIDFn={index => `autocomplete-multiselect-option-${index}`}
                     options={animals}
                     label="Click me and spot multiple Jungle Creatures"
                     placeholder="Type a name and see who's lurking..."

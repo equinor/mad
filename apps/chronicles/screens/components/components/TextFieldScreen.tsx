@@ -13,11 +13,11 @@ export const TextFieldScreen = () => {
 
     const handleChange = (text: string) => {
         setInputValue(text);
-        if (text !== "" && !isNaN(Number(text))) {
+        if (text !== "" && !Number.isNaN(Number(text))) {
             setHelperText("This is a valid number");
             setInputVariant("success");
             setValidationIcon("check");
-        } else if (text !== "" && isNaN(Number(text))) {
+        } else if (text !== "" && Number.isNaN(Number(text))) {
             setHelperText("This is not a number");
             setInputVariant("danger");
             setValidationIcon("alert-circle");
@@ -28,13 +28,14 @@ export const TextFieldScreen = () => {
         }
     };
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <ScrollView contentInsetAdjustmentBehavior="automatic" testID="scroll-view-text-field">
             <View style={styles.container}>
                 <Typography>
                     TextField acts as a convenience wrapper for the Input component.
                 </Typography>
                 <Spacer />
                 <TextField
+                    testID="text-field-standard"
                     label="You can add labels.."
                     placeholder="This is a placeholder"
                     helperText="..and helper text."
@@ -42,11 +43,18 @@ export const TextFieldScreen = () => {
                 <Spacer />
                 <Typography>You may add units and meta to it</Typography>
                 <Spacer />
-                <TextField label="Measurement" placeholder="Length" unit="(mm)" meta="(optional)" />
+                <TextField
+                    testID="text-field-with-units"
+                    label="Measurement"
+                    placeholder="Length"
+                    unit="(mm)"
+                    meta="(optional)"
+                />
                 <Spacer />
                 <Typography>It can accept multiple lines of text too</Typography>
                 <Spacer />
                 <TextField
+                    testID="text-field-multiline"
                     multiline
                     label="Say something"
                     placeholder="Anything goes here"
@@ -56,6 +64,7 @@ export const TextFieldScreen = () => {
                 <Typography>It can also add icons</Typography>
                 <Spacer />
                 <TextField
+                    testID="text-field-icons"
                     label="This textfield showcases icons.."
                     placeholder="..it has an icon in the inputfield.."
                     helperText="..and an icon next to the helpertext."
@@ -67,6 +76,7 @@ export const TextFieldScreen = () => {
                 <Typography>You can use a TextField to handle validation.</Typography>
                 <Spacer />
                 <TextField
+                    testID="text-field-validation"
                     inputIcon={validationIcon}
                     helperIcon={validationIcon}
                     helperText={helperText}

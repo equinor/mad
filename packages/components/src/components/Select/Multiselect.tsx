@@ -24,7 +24,7 @@ export const Multiselect = <T,>({
     readOnly,
     variant,
     testID,
-    menuItemsTestID,
+    menuItemsTestIDFn,
 }: MultiselectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -101,7 +101,7 @@ export const Multiselect = <T,>({
                 <ScrollView>
                     {items.map((item, index) => (
                         <Menu.Item
-                            testID={menuItemsTestID?.(index)}
+                            testID={menuItemsTestIDFn?.(index)}
                             key={item.value as string}
                             onPress={() => handleSelect(item.value)}
                             title={item.title}

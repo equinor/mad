@@ -6,7 +6,7 @@ import { EDSStyleSheet } from "../../styling";
 import { IconButton } from "../Button/IconButton";
 import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
-import { GenericAutocompleteProps } from "./types";
+import { GenericAutocompleteProps, TestProps } from "./types";
 
 type AutocompleteProps<T> = {
     /**
@@ -18,13 +18,17 @@ type AutocompleteProps<T> = {
      */
     selectedOption: T | undefined;
 } & Omit<TextFieldProps, "helperIcon" | "inputIcon"> &
-    GenericAutocompleteProps<T>;
+    GenericAutocompleteProps<T> &
+    TestProps;
 
 export const Autocomplete = <T,>({
     options,
     selectedOption,
     onSelect,
     transformItem,
+    clearButtonTestID,
+    displayOptionsButtonTestID,
+    menuItemsTestIDFn,
     ...restProps
 }: AutocompleteProps<T>) => {
     const internalTransform = useCallback(
@@ -69,10 +73,11 @@ export const Autocomplete = <T,>({
         onSelect(undefined);
     };
 
-    const renderItem = (option: T) => {
+    const renderItem = (option: T, index: number) => {
         const stringifiedOption = internalTransform(option);
         return (
             <Menu.Item
+                testID={menuItemsTestIDFn?.(index)}
                 key={stringifiedOption}
                 title={stringifiedOption}
                 onPress={() => {
@@ -113,6 +118,7 @@ export const Autocomplete = <T,>({
                     <View style={styles.adornmentContainer}>
                         {selectedOption && (
                             <IconButton
+                                testID={clearButtonTestID}
                                 name="close"
                                 variant="ghost"
                                 iconSize={18}
@@ -121,6 +127,7 @@ export const Autocomplete = <T,>({
                             />
                         )}
                         <IconButton
+                            testID={displayOptionsButtonTestID}
                             name={isOptionsVisible ? "menu-up" : "menu-down"}
                             variant="ghost"
                             iconSize={18}
@@ -139,7 +146,7 @@ export const Autocomplete = <T,>({
                     style={styles.menuContainer}
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
-                        {filteredOptions.map(option => renderItem(option))}
+                        {filteredOptions.map((option, index) => renderItem(option, index))}
                     </ScrollView>
                 </Menu>
             )}

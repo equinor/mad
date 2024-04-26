@@ -46,5 +46,5 @@ export type TestProps = Pick<ViewProps, "testID"> & {
      * a function to set testID prop on menu item elements
      * @param index
      */
-    menuItemsTestID?: (index: number) => string;
+    menuItemsTestIDFn?: (index: number) => string;
 };

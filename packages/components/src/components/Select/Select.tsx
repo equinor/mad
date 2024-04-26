@@ -29,7 +29,7 @@ export const Select = <T,>({
     readOnly = false,
     variant,
     testID,
-    menuItemsTestID,
+    menuItemsTestIDFn,
 }: SelectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -103,7 +103,7 @@ export const Select = <T,>({
                     {items.map((item, index) => {
                         return (
                             <Menu.Item
-                                testID={menuItemsTestID?.(index)}
+                                testID={menuItemsTestIDFn?.(index)}
                                 key={item.value as string}
                                 onPress={() => handleSelect(item.value)}
                                 title={item.title}

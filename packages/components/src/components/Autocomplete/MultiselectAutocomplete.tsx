@@ -6,7 +6,7 @@ import { EDSStyleSheet } from "../../styling";
 import { IconButton } from "../Button/IconButton";
 import { Menu } from "../Menu";
 import { TextField, TextFieldProps } from "../TextField";
-import { GenericAutocompleteProps } from "./types";
+import { GenericAutocompleteProps, TestProps } from "./types";
 import { Autocomplete } from "./Autocomplete";
 
 type MultiselectAutocompleteProps<T> = {
@@ -16,13 +16,18 @@ type MultiselectAutocompleteProps<T> = {
     onSelect: (value: T[]) => void;
     selectedOptions: T[];
 } & Omit<TextFieldProps, "helperIcon" | "inputIcon"> &
-    GenericAutocompleteProps<T>;
+    GenericAutocompleteProps<T> &
+    TestProps;
 
 export const MultiselectAutocomplete = <T,>({
     options,
     selectedOptions,
     onSelect,
     transformItem,
+    testID,
+    clearButtonTestID,
+    displayOptionsButtonTestID,
+    menuItemsTestIDFn,
     ...restProps
 }: MultiselectAutocompleteProps<T>) => {
     const [inputValue, setInputValue] = useState<string>("");
@@ -58,10 +63,11 @@ export const MultiselectAutocomplete = <T,>({
         onSelect([]);
     };
 
-    const renderMultiselectItem = (option: T, active: boolean | undefined) => {
+    const renderMultiselectItem = (option: T, index: number, active: boolean | undefined) => {
         const stringifiedOption = transformItem?.(option) ?? (option as string);
         return (
             <Menu.Item
+                testID={menuItemsTestIDFn?.(index)}
                 key={stringifiedOption}
                 title={stringifiedOption}
                 active={active}
@@ -87,6 +93,7 @@ export const MultiselectAutocomplete = <T,>({
             style={{ flexGrow: 1 }}
         >
             <TextField
+                testID={testID}
                 ref={inputRef}
                 {...restProps}
                 value={inputValue}
@@ -106,6 +113,7 @@ export const MultiselectAutocomplete = <T,>({
                     <View style={styles.adornmentContainer}>
                         {!!selectedOptions.length && (
                             <IconButton
+                                testID={clearButtonTestID}
                                 name="close"
                                 variant="ghost"
                                 iconSize={18}
@@ -114,6 +122,7 @@ export const MultiselectAutocomplete = <T,>({
                             />
                         )}
                         <IconButton
+                            testID={displayOptionsButtonTestID}
                             name={isOptionsVisible ? "menu-up" : "menu-down"}
                             variant="ghost"
                             iconSize={18}
@@ -137,8 +146,8 @@ export const MultiselectAutocomplete = <T,>({
                     style={styles.menuContainer}
                 >
                     <ScrollView keyboardShouldPersistTaps="always">
-                        {filteredOptions.map(option =>
-                            renderMultiselectItem(option, selectedOptions?.includes(option)),
+                        {filteredOptions.map((option, index) =>
+                            renderMultiselectItem(option, index, selectedOptions?.includes(option)),
                         )}
                     </ScrollView>
                 </Menu>
