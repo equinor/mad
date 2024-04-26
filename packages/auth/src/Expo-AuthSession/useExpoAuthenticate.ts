@@ -11,7 +11,7 @@ import { AuthenticationType } from "../hooks";
 import { useEffect, useState } from "react";
 import { appInsightsHasBeenInitialized } from "@equinor/mad-insights";
 import { useAuth } from "./store";
-import { refreshToken } from "./utils/refreshToken";
+import { tokenRefresh } from "./utils/tokenRefresh";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -81,7 +81,7 @@ export const useExpoAuthenticate = ({
 
     const refreshTokenAndAuthenticate = async (token: TokenResponse, userData: MadAccount) => {
         if (!authState.discovery || !authState.config) return;
-        const newToken = await refreshToken(token);
+        const newToken = await tokenRefresh(token);
         if (newToken) {
             authState.setToken(newToken);
             setLoginSuccess(newToken, userData);

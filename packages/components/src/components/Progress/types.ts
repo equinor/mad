@@ -2,7 +2,7 @@ export type ProgressStatus = "success" | "error" | "notStarted" | "inProgress";
 
 export type ProgressTaskError = {
     /**
-     * A descriptive message detailing the error that occurred. This should provide enough store to understand what went wrong during the task's execution.
+     * A descriptive message detailing the error that occurred. This should provide enough context to understand what went wrong during the task's execution.
      */
     message: string;
     /**

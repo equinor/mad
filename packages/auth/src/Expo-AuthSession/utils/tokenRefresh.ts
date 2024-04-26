@@ -1,7 +1,7 @@
 import { TokenResponse } from "expo-auth-session";
 import { getConfig, getDiscovery } from "../store";
 
-export const refreshToken = async (token: TokenResponse) => {
+export const tokenRefresh = async (token: TokenResponse) => {
     const discovery = getDiscovery();
     const config = getConfig();
     if (!discovery || !config) return;
