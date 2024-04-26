@@ -1,8 +1,7 @@
 import { TokenResponse } from "expo-auth-session";
-import { MadAccount } from "../types";
-import { getConfig, getDiscovery } from "./store";
+import { getConfig, getDiscovery } from "../store";
 
-export const refreshToken = async (token: TokenResponse, userData: MadAccount) => {
+export const refreshToken = async (token: TokenResponse) => {
     const discovery = getDiscovery();
     const config = getConfig();
     if (!discovery || !config) return;

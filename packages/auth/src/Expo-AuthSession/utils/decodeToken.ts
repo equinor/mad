@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { MadAccount } from "../types";
+import { MadAccount } from "../../types";
 
 type UserInfo = {
     name: string;

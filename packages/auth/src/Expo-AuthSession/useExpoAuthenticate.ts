@@ -5,13 +5,13 @@ import {
     useAuthRequest,
     useAutoDiscovery,
 } from "expo-auth-session";
-import { decodeToken } from "./decodeToken";
+import { decodeToken } from "./utils/decodeToken";
 import { MadAccount, MadAuthenticationResult } from "../types";
 import { AuthenticationType } from "../hooks";
 import { useEffect, useState } from "react";
 import { appInsightsHasBeenInitialized } from "@equinor/mad-insights";
 import { useAuth } from "./store";
-import { refreshToken } from "./refreshToken";
+import { refreshToken } from "./utils/refreshToken";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -81,7 +81,7 @@ export const useExpoAuthenticate = ({
 
     const refreshTokenAndAuthenticate = async (token: TokenResponse, userData: MadAccount) => {
         if (!authState.discovery || !authState.config) return;
-        const newToken = await refreshToken(token, userData);
+        const newToken = await refreshToken(token);
         if (newToken) {
             authState.setToken(newToken);
             setLoginSuccess(newToken, userData);
