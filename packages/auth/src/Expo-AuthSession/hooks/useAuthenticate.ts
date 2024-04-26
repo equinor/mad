@@ -1,17 +1,18 @@
 import {
+    AuthRequest,
     AuthRequestConfig,
     exchangeCodeAsync,
     TokenResponse,
     useAuthRequest,
     useAutoDiscovery,
 } from "expo-auth-session";
-import { decodeToken } from "./utils/decodeToken";
-import { MadAccount, MadAuthenticationResult } from "../types";
-import { AuthenticationType } from "../hooks";
+import { decodeToken } from "../utils/decodeToken";
+import { MadAccount, MadAuthenticationResult } from "../../types";
+import { AuthenticationType } from "../../hooks";
 import { useEffect, useState } from "react";
 import { appInsightsHasBeenInitialized } from "@equinor/mad-insights";
-import { useAuth } from "./store";
-import { tokenRefresh } from "./utils/tokenRefresh";
+import { useAuth } from "../store";
+import { tokenRefresh } from "../utils/tokenRefresh";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -19,7 +20,7 @@ type useExpoAuthenticateProps = {
     onAuthenticationFailed: (error: unknown) => void;
     enableAutomaticAuthentication?: boolean;
 };
-export const useExpoAuthenticate = ({
+export const useAuthenticate = ({
     config,
     onAuthenticationSuccessful,
     onAuthenticationFailed,

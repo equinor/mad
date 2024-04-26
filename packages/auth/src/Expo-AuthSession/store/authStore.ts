@@ -56,7 +56,11 @@ export const getToken = async () => {
     }
     throw new Error("Unable to get token");
 };
-
 export const getUserData = () => useAuth.getState().userData;
 export const getDiscovery = () => useAuth.getState().discovery;
 export const getConfig = () => useAuth.getState().config;
+export const setToken = (token: TokenResponse) => useAuth.getState().setToken(token);
+export const setUserData = (userData: MadAccount) => useAuth.getState().setUserData(userData);
+export const setDiscovery = (discovery: DiscoveryDocument) =>
+    useAuth.getState().setDiscovery(discovery);
+export const setConfig = (config: AuthRequestConfig) => useAuth.getState().setConfig(config);

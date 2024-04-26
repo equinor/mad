@@ -9,6 +9,7 @@ type UserInfo = {
 export const decodeToken = (token: string | undefined) => {
     if (!token) return undefined;
     const decoded = jwtDecode<UserInfo>(token);
+    console.log(decoded);
     const account: MadAccount = {
         name: decoded.name,
         username: decoded.unique_name,
