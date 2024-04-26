@@ -80,8 +80,6 @@ export const useExpoAuthenticate = ({
     };
 
     const refreshTokenAndAuthenticate = async (token: TokenResponse, userData: MadAccount) => {
-        console.log("discovery:", authState.discovery);
-        console.log("config", authState.config);
         if (!authState.discovery || !authState.config) return;
         const newToken = await refreshToken(token, userData);
         if (newToken) {

@@ -1,7 +1,7 @@
 import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
-import { LoginButton, LoginButtonProps, ExpoLoginButton } from "@equinor/mad-auth";
+import { LoginButton, LoginButtonProps } from "@equinor/mad-auth";
 import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
@@ -34,7 +34,7 @@ export const LoginScreen = ({
                     />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <ExpoLoginButton
+                    <LoginButton
                         {...authConfig}
                         onAuthenticationSuccessful={(result, type) => {
                             setUsername(result.account.username, result.account.identifier);

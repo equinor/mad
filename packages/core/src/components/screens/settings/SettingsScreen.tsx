@@ -9,7 +9,6 @@ import { SettingsScreenConfiguration } from "./types";
 import { getFinalSettingsConfig } from "../../../utils/getFinalSettingsConfig";
 import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 import { useDictionary } from "../../../language/useDictionary";
-import { useAuth } from "@equinor/mad-auth";
 
 export type SettingsScreenProps = {
     /**
@@ -28,7 +27,7 @@ export const SettingsScreen = ({ config = [], clean = false }: SettingsScreenPro
     const dictionary = useDictionary();
     const signOut = useSignOut();
     const premadeConfig = useSettingsScreenPremadeConfig();
-    const { userData } = useAuth();
+    const account = useAccountOrDemoAccount();
 
     const finalSettingsConfig = getFinalSettingsConfig(config, premadeConfig, clean);
 
@@ -40,7 +39,7 @@ export const SettingsScreen = ({ config = [], clean = false }: SettingsScreenPro
             ))}
             <View style={{ padding: 30 }}>
                 <Typography bold={true}>{dictionary.settings.loggedInAs}</Typography>
-                <Typography>{userData?.username}</Typography>
+                <Typography>{account?.username}</Typography>
             </View>
             <View style={{ flexDirection: "row-reverse" }}>
                 <Button

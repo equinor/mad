@@ -1,4 +1,4 @@
-import { authenticateSilently, getToken } from "@equinor/mad-auth";
+import { authenticateSilently } from "@equinor/mad-auth";
 import { getMadCommonBaseUrl, getMadCommonScopes } from "../../../utils/madCommonUtils";
 import { Release } from "./ChangeLog";
 import { Environment } from "../../../types";
@@ -10,14 +10,12 @@ export const fetchReleaseNotes = async (
 ): Promise<Release> => {
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
-    //const authenticationResponse = await authenticateSilently(scopes);
-    const token = await getToken();
-    console.log(token);
-    if (!token) throw new Error("Unable to authenticate silently");
+    const authenticationResponse = await authenticateSilently(scopes);
+    if (!authenticationResponse) throw new Error("Unable to authenticate silently");
     const fetchResponse = await fetch(`${baseUrl}/ReleaseNote/${servicePortalName}/${appVersion}`, {
         method: "GET",
         headers: new Headers({
-            Authorization: `Bearer ${token.accessToken}`,
+            Authorization: `Bearer ${authenticationResponse.accessToken}`,
         }),
     });
     const result = (await fetchResponse.json()) as Release;
@@ -30,13 +28,12 @@ export const fetchAllReleaseNotes = async (
 ): Promise<Release[]> => {
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
-    //const authenticationResponse = await authenticateSilently(scopes);
-    const token = await getToken();
-    if (!token) throw new Error("Unable to authenticate silently");
+    const authenticationResponse = await authenticateSilently(scopes);
+    if (!authenticationResponse) throw new Error("Unable to authenticate silently");
     const fetchResponse = await fetch(`${baseUrl}/ReleaseNote/${servicePortalName}/`, {
         method: "GET",
         headers: new Headers({
-            Authorization: `Bearer ${token.accessToken}`,
+            Authorization: `Bearer ${authenticationResponse.accessToken}`,
         }),
     });
     const result = (await fetchResponse.json()) as Release[];
