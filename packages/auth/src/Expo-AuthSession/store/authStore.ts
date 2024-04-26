@@ -57,5 +57,6 @@ export const getToken = async () => {
     throw new Error("Unable to get token");
 };
 
+export const getUserData = () => useAuth.getState().userData;
 export const getDiscovery = () => useAuth.getState().discovery;
 export const getConfig = () => useAuth.getState().config;
