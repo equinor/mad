@@ -99,6 +99,12 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
      * @see https://portal.azure.com/#@StatoilSRM.onmicrosoft.com/resource/subscriptions/2ad1b087-ffb8-4cf3-bcc2-8caeebfcd3f3/resourceGroups/mad-test/providers/Microsoft.Storage/storageAccounts/madtest62alhixjcodkm/storagebrowser
      */
     serviceNow?: EnvironmentValues<string>;
+    /**
+     * Experimental features can be toggled to activate new functionality that are in beta.
+     */
+    experimental: {
+        useExpoAuthSession?: boolean;
+    };
 };
 
 export type CoreStackParamListBase = {

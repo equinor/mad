@@ -1,4 +1,4 @@
-import { useAuth } from "../store";
+import { useAuth } from "../store/authStore";
 
 export const useAccount = () => {
     const authState = useAuth();

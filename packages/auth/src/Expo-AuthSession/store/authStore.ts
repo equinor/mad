@@ -3,7 +3,7 @@ import { AuthState } from "../types";
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import { MadAccount } from "../../types";
-import * as SecureStore from "expo-secure-store";
+import { getItem, removeItem, setItem } from "./encryption";
 
 export const useAuth = create<AuthState>()(
     devtools(
@@ -31,9 +31,9 @@ export const useAuth = create<AuthState>()(
                     ),
                 name: "storage",
                 storage: createJSONStorage(() => ({
-                    getItem: SecureStore.getItemAsync,
-                    setItem: SecureStore.setItemAsync,
-                    removeItem: SecureStore.deleteItemAsync,
+                    getItem: getItem,
+                    setItem: setItem,
+                    removeItem: removeItem,
                 })),
             },
         ),
@@ -41,20 +41,9 @@ export const useAuth = create<AuthState>()(
     ),
 );
 
-export const getToken = async () => {
-    const token = useAuth.getState().token;
-    const config = useAuth.getState().config;
-    const discovery = useAuth.getState().discovery;
-    if (token) {
-        if (TokenResponse.isTokenFresh(token)) {
-            return token;
-        } else if (config && discovery) {
-            const refreshedToken = await token.refreshAsync(config, discovery);
-            useAuth.getState().setToken(refreshedToken);
-            return refreshedToken;
-        }
-    }
-    throw new Error("Unable to get token");
+export const getToken = () => {
+    const tokenConfig = useAuth.getState().token;
+    return tokenConfig ? new TokenResponse(tokenConfig) : undefined;
 };
 export const getUserData = () => useAuth.getState().userData;
 export const getDiscovery = () => useAuth.getState().discovery;

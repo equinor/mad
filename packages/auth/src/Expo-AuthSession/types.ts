@@ -1,8 +1,13 @@
-import { AuthRequestConfig, DiscoveryDocument, TokenResponse } from "expo-auth-session";
+import {
+    AuthRequestConfig,
+    DiscoveryDocument,
+    TokenResponse,
+    TokenResponseConfig,
+} from "expo-auth-session";
 import { MadAccount } from "../types";
 
 export type AuthState = {
-    token?: TokenResponse;
+    token?: TokenResponseConfig;
     setToken: (token: TokenResponse) => void;
     userData?: MadAccount;
     setUserData: (account: MadAccount) => void;

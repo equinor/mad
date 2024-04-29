@@ -5,7 +5,6 @@ import { useAuthenticate } from "../hooks/useAuthenticate";
 import { LoginButtonProps } from "../../components";
 import { ResponseType } from "expo-auth-session";
 import "core-js/stable/atob";
-import { authClient } from "../authClient";
 import { View } from "react-native";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -33,20 +32,11 @@ export const LoginButton = ({
         enableAutomaticAuthentication,
     });
 
-    const { authenticateInteractively, authenticateSilently } = authClient(config);
-
     return (
         <View>
             <Button
                 title={title}
-                onPress={() => void authenticateInteractively()}
-                loading={authenticationInProgress}
-                disabled={authenticationInProgress}
-                {...rest}
-            />
-            <Button
-                title={"silent"}
-                onPress={() => void authenticateSilently()}
+                onPress={authenticate}
                 loading={authenticationInProgress}
                 disabled={authenticationInProgress}
                 {...rest}

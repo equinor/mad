@@ -1,8 +1,14 @@
 import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
-import { LoginButton, LoginButtonProps } from "@equinor/mad-auth";
-import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
+import {
+    ExpoAuthSession,
+    LoginButtonProps,
+    LoginButton,
+    MadAuthenticationResult,
+    AuthenticationType,
+} from "@equinor/mad-auth";
+import { getConfig, useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
@@ -22,6 +28,29 @@ export const LoginScreen = ({
     const [demoPressCount, setDemoPressCount] = useState(0);
     const shouldDisplayDemoButton = demoPressCount >= 5;
     const resizeMode = Platform.OS === "web" ? "contain" : "cover";
+    const loginButtonProps = {
+        ...authConfig,
+        onAuthenticationSuccessful: (result: MadAuthenticationResult, type: AuthenticationType) => {
+            setUsername(result.account.username, result.account.identifier);
+            if (type === "AUTOMATIC") {
+                void track(metricKeys.AUTHENTICATION_AUTOMATIC);
+            } else {
+                void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
+            }
+            onAuthenticationSuccessful?.(result, type);
+            navigate({ demoMode: false });
+        },
+        onAuthenticationFailed: (error: unknown) => {
+            void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
+                error,
+            });
+            onAuthenticationFailed?.(error);
+        },
+        title: dictionary.login.logIn,
+        enableAutomaticAuthentication: true,
+        scopes: authConfig.scopes ?? [],
+    };
+
     return (
         <EDSProvider colorScheme="light" density="tablet">
             <View style={styles.container}>
@@ -34,28 +63,11 @@ export const LoginScreen = ({
                     />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <LoginButton
-                        {...authConfig}
-                        onAuthenticationSuccessful={(result, type) => {
-                            setUsername(result.account.username, result.account.identifier);
-                            if (type === "AUTOMATIC") {
-                                void track(metricKeys.AUTHENTICATION_AUTOMATIC);
-                            } else {
-                                void track(metricKeys.AUTHENTICATION, metricStatus.SUCCESS);
-                            }
-                            onAuthenticationSuccessful?.(result, type);
-                            navigate({ demoMode: false });
-                        }}
-                        onAuthenticationFailed={error => {
-                            void track(metricKeys.AUTHENTICATION, metricStatus.FAILED, undefined, {
-                                error,
-                            });
-                            onAuthenticationFailed?.(error);
-                        }}
-                        title={dictionary.login.logIn}
-                        enableAutomaticAuthentication
-                        scopes={authConfig.scopes ?? []}
-                    />
+                    {getConfig().experimental.useExpoAuthSession ? (
+                        <ExpoAuthSession.LoginButton {...loginButtonProps} />
+                    ) : (
+                        <LoginButton {...loginButtonProps} />
+                    )}
                     {shouldDisplayDemoButton && (
                         <Button
                             testID="demo-button"

@@ -1,5 +1,6 @@
-import { MadAccount, useAccount } from "@equinor/mad-auth";
+import { ExpoAuthSession, MadAccount, useAccount } from "@equinor/mad-auth";
 import { useDemoMode } from "../store/demo-mode";
+import { getConfig } from "../store";
 
 const MAD_DEMO_USER: MadAccount = {
     name: "Demo user",
@@ -14,7 +15,9 @@ const MAD_DEMO_USER: MadAccount = {
  */
 export const useAccountOrDemoAccount = () => {
     const demoMode = useDemoMode();
-    const account = useAccount();
+    const account = getConfig().experimental.useExpoAuthSession
+        ? ExpoAuthSession.useAccount()
+        : useAccount();
     if (demoMode.isEnabled) return MAD_DEMO_USER;
     return account;
 };
