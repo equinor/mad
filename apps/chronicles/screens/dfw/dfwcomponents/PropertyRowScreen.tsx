@@ -39,6 +39,20 @@ export const PropertyRowScreen = () => {
                     iconName="barrel"
                 />
             </View>
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>
+                    You can also change the text color of the value by passing a color prop to the
+                    PropertyRow component. The default color is textTertiary.
+                </Typography>
+            </View>
+            <Spacer />
+            <View style={styles.propertyRowContainer}>
+                <PropertyRow label="Label" value="Default" />
+                <PropertyRow label="Label" value="Success" textColor="success" />
+                <PropertyRow label="Label" value="Warning" textColor="warning" />
+                <PropertyRow label="Label" value="Danger" textColor="danger" />
+            </View>
         </ScrollView>
     );
 };
