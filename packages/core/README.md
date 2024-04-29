@@ -455,3 +455,32 @@ instead. If you want to replace components, you should look for equivalent compo
 application insights related items like `track`, `metricStatus`, `metricKeys`,
 `addTelemetryInitializer`, etc in `@equinor/mad-core`. If anything is missing, and you think it
 should be there, create an issue!
+
+#### Step 10: using experimental features
+
+Some functionalities that are implemented but not mature enough for widespread use will be made available as an experimental option for developers to test out.
+
+Currently the only experimental feature is switching from react-native-msal to expo-auth-session for authentication handling.
+
+To use this experimental feature, you have to install `expo-auth-session` and `expo-crypto` in your project.
+
+```
+npm i expo-auth-session expo-crypto
+```
+
+```
+yarn add expo-auth-session expo-crypto
+```
+
+Next, add this to your `mad.config.ts` file:
+
+```ts
+    experimental: {
+        useExpoAuthSession: true
+    }
+```
+
+the `mad-core` package should handle most of the authentication logic for you. If there are certain usages in your app that use any mad-auth functions directly,
+you can import these functions directly by adding
+``import { ExpoAuthSession } from "@equinor/mad-core;"``
+and prepending ``ExpoAuthSession.`` to the methods you currently use from ``mad-core`` that are imported from ``mad-auth``
