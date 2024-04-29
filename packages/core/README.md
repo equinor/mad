@@ -456,7 +456,7 @@ application insights related items like `track`, `metricStatus`, `metricKeys`,
 `addTelemetryInitializer`, etc in `@equinor/mad-core`. If anything is missing, and you think it
 should be there, create an issue!
 
-#### Step 10: using experimental features
+#### Step 10: using experimental features (optional)
 
 Some functionalities that are implemented but not mature enough for widespread use will be made available as an experimental option for developers to test out.
 
