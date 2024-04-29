@@ -21,7 +21,6 @@ import {
 } from "./store/authStore";
 import { tokenRefresh } from "./utils/tokenRefresh";
 import { MadAuthenticationResult } from "../types";
-import * as WebBrowser from "expo-web-browser";
 import "core-js/stable/atob";
 import { decodeToken } from "./utils/decodeToken";
 
@@ -48,7 +47,6 @@ export function authenticationClientExists(): boolean {
  * @returns {MadAuthenticationResult | null} an object containing the access token and the account, or null
  */
 export const authenticateInteractively = async (): Promise<MadAuthenticationResult | null> => {
-    WebBrowser.maybeCompleteAuthSession();
     const discovery = getDiscovery();
     const config = getConfig();
     if (!discovery || !config) return null;
