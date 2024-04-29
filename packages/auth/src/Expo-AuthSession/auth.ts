@@ -10,6 +10,10 @@ import {
     getDiscovery,
     getToken,
     getUserData,
+    resetConfig,
+    resetDiscovery,
+    resetToken,
+    resetUserData,
     setConfig,
     setDiscovery,
     setToken,
@@ -21,6 +25,11 @@ import * as WebBrowser from "expo-web-browser";
 import "core-js/stable/atob";
 import { decodeToken } from "./utils/decodeToken";
 
+/**
+ * Initiates the auth client by setting the needed properties in the zustand store
+ * @param config -- contains app specific configurations for authentication such as clientId, redirectUri etc.
+ * @param discovery -- equivalent to authority from msal but with some more properties
+ */
 export function initiateAuthenticationClient(
     config: AuthRequestConfig,
     discovery: DiscoveryDocument,
@@ -33,6 +42,11 @@ export function authenticationClientExists(): boolean {
     return !!getConfig() && !!getDiscovery();
 }
 
+/**
+ * Authenticate interactively. This will open an in-app browser, or the Microsoft Authenticator app if the
+ * user has it installed
+ * @returns {MadAuthenticationResult | null} an object containing the access token and the account, or null
+ */
 export const authenticateInteractively = async (): Promise<MadAuthenticationResult | null> => {
     WebBrowser.maybeCompleteAuthSession();
     const discovery = getDiscovery();
@@ -61,6 +75,10 @@ export const authenticateInteractively = async (): Promise<MadAuthenticationResu
     return null;
 };
 
+/**
+ * Authenticate silently.
+ * @returns {MadAuthenticationResult | null} an object containing the access token and the account, or null
+ */
 export const authenticateSilently = async (): Promise<MadAuthenticationResult | null> => {
     const userData = getUserData();
     const token = getToken();
@@ -77,3 +95,25 @@ export const authenticateSilently = async (): Promise<MadAuthenticationResult | 
     }
     return null;
 };
+
+/**
+ * Sign out the account.
+ * @returns {boolean} whether we successfully signed out.
+ * Only needed as backwards compatibility for the react-native-msal implementation.
+ */
+export function signOut() {
+    if (!authenticationClientExists()) {
+        throw new Error("Unable to authenticate, authentication client does not exist");
+    }
+    resetUserData();
+    resetToken();
+    return true;
+}
+
+/**
+ * resets the config properties of the auth client
+ */
+export function reset() {
+    resetDiscovery();
+    resetConfig();
+}

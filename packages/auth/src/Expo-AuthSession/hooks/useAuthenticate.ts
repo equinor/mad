@@ -7,7 +7,7 @@ import {
     authenticateInteractively,
     authenticationClientExists,
     authenticateSilently,
-} from "../authClient";
+} from "../auth";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -15,6 +15,12 @@ type useExpoAuthenticateProps = {
     onAuthenticationFailed: (error: unknown) => void;
     enableAutomaticAuthentication?: boolean;
 };
+
+/**
+ * initialize the authentication client, and authenticate the user
+ * @param {UseExpoAuthenticateProps} params params for client initialization and authentication flow
+ * @returns authenticate function, and some helper variables
+ */
 export const useAuthenticate = ({
     config,
     onAuthenticationSuccessful,

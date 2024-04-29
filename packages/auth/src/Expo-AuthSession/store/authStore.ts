@@ -5,6 +5,9 @@ import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import { MadAccount } from "../../types";
 import { getItem, removeItem, setItem } from "./encryption";
 
+/**
+ * Creates a zustand store with all the relevant values for authentication handling. Token and user info is persisted
+ */
 export const useAuth = create<AuthState>()(
     devtools(
         persist(
@@ -20,6 +23,18 @@ export const useAuth = create<AuthState>()(
                 },
                 setConfig: (config: AuthRequestConfig) => {
                     set({ config });
+                },
+                resetToken: () => {
+                    set({ token: undefined });
+                },
+                resetUserData: () => {
+                    set({ userData: undefined });
+                },
+                resetDiscovery: () => {
+                    set({ discovery: undefined });
+                },
+                resetConfig: () => {
+                    set({ config: undefined });
                 },
             }),
             {
@@ -41,6 +56,9 @@ export const useAuth = create<AuthState>()(
     ),
 );
 
+/**
+ * We avoid using hooks for backwards compatibility so these are all methods to interact with the store without the use of hooks.
+ */
 export const getToken = () => {
     const tokenConfig = useAuth.getState().token;
     return tokenConfig ? new TokenResponse(tokenConfig) : undefined;
@@ -53,3 +71,7 @@ export const setUserData = (userData: MadAccount) => useAuth.getState().setUserD
 export const setDiscovery = (discovery: DiscoveryDocument) =>
     useAuth.getState().setDiscovery(discovery);
 export const setConfig = (config: AuthRequestConfig) => useAuth.getState().setConfig(config);
+export const resetToken = () => useAuth.getState().resetToken();
+export const resetUserData = () => useAuth.getState().resetUserData();
+export const resetDiscovery = () => useAuth.getState().resetDiscovery();
+export const resetConfig = () => useAuth.getState().resetConfig();
