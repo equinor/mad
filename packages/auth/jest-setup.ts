@@ -9,3 +9,4 @@ jest.mock("react-native-reanimated");
 jest.mock("react-native-gesture-handler");
 jest.mock("react-native-gesture-handler/Swipeable");
 jest.mock("@expo/vector-icons");
+jest.mock("expo-web-browser");

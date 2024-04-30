@@ -45,4 +45,7 @@ export const config: MadConfig<RootStackParamList> = {
         endpoints: [],
         buildNumber: getBuildNumber(),
     },
+    experimental: {
+        useExpoAuthSession: true,
+    },
 };
