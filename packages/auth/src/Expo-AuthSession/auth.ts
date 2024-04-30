@@ -20,7 +20,7 @@ import {
     setUserData,
 } from "./store/authStore";
 import { tokenRefresh } from "./utils/tokenRefresh";
-import { MadAuthenticationResult } from "../types";
+import { MadAccount, MadAuthenticationResult } from "../types";
 import "core-js/stable/atob";
 import { decodeToken } from "./utils/decodeToken";
 
@@ -93,6 +93,10 @@ export const authenticateSilently = async (): Promise<MadAuthenticationResult | 
     }
     return null;
 };
+
+export function getAccount(): MadAccount | null {
+    return getUserData() ?? null;
+}
 
 /**
  * Sign out the account.
