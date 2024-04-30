@@ -36,7 +36,7 @@ export const authenticateSilently = (scopes: string[]) =>
     useExpoAuthSession ? ExpoAuthSession.authenticateSilently() : msalAuthenticateSilently(scopes);
 /**
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but
- * getAcoount() from expo-auth-session is not inherently async
+ * getAcount() from expo-auth-session is not inherently async
  */
 export const getAccount = async (): Promise<MadAccount | null> =>
     useExpoAuthSession ? Promise.resolve(ExpoAuthSession.getAccount()) : msalGetAccount();
