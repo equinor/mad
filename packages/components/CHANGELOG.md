@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.14.4
+
+### Patch Changes
+
+-   19ecc0a: Added text color in the `Input` component in order to prevent dark text color in dark
+    mode
+
 ## 0.14.3
 
 ### Patch Changes
