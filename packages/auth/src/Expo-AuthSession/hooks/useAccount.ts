@@ -9,9 +9,6 @@ export const useAccountNative = () => {
     return authState.userData;
 };
 
-/**
- * get the authenticated account.
- */
 export const useAccountWeb = () => {
     const [account, setAccount] = useState<MadAccount | null>();
     useEffect(() => {
@@ -29,4 +26,4 @@ export const useAccountWeb = () => {
     return account;
 };
 
-export const useAccount = () => (Platform.OS === "web" ? useAccountWeb() : useAccountNative());
+export const useAccount = Platform.OS === "web" ? useAccountWeb : useAccountNative;
