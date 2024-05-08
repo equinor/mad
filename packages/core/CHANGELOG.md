@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.7.1
+
+### Patch Changes
+
+-   d329bc9: Display authentication method in about screen
+
 ## 0.7.0
 
 ### Minor Changes
