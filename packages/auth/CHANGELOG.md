@@ -1,5 +1,15 @@
 # @equinor/mad-auth
 
+## 0.2.0
+
+### Minor Changes
+
+-   14d79cb: Implemented Expo-Auth-Session as authentication alternative from mad-auth
+
+### Patch Changes
+
+-   1fe26dc: Added msal-browser client implementation
+
 ## 0.1.24
 
 ### Patch Changes

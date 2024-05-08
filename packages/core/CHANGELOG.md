@@ -1,5 +1,23 @@
 # @equinor/mad-core
 
+## 0.7.0
+
+### Minor Changes
+
+-   14d79cb: Implemented Expo-Auth-Session as authentication alternative from mad-auth
+
+### Patch Changes
+
+-   1fe26dc: Added msal-browser client implementation
+-   abb6d1a: Fixed issue with exporting mad-auth package
+-   c2404af: `NavigationContainer`: ref can now be attached and forwarded to the underlying
+    `NavigationContainer` from `react-navigation`
+-   Updated dependencies [1fe26dc]
+-   Updated dependencies [14d79cb]
+-   Updated dependencies [c2404af]
+    -   @equinor/mad-auth@0.2.0
+    -   @equinor/mad-navigation@0.3.1
+
 ## 0.6.1
 
 ### Patch Changes
