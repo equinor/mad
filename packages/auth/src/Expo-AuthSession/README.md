@@ -4,7 +4,6 @@ An authentication library which uses Expo Auth Session under the hood, and requi
 and app registration in Azure. This replaces the previous implementation that is using
 `react-native-msal`.
 
-
 ## Usage
 
 The `LoginButton` provided by this package uses `@equinor/mad-components`'s `Button` component. You
@@ -16,7 +15,7 @@ provided functions below.
 This package provides a few basic functions you can use to either make your own login button, or use
 throughout the app:
 
-If you are not using our login button, nor `useAuthenticate`, use this function to initate the
+If you are not using our login button, nor `useAuthenticate`, use this function to initiate the
 authentication client:
 
 ```ts
@@ -54,3 +53,9 @@ Alternatively, you can use this hook to get account:
 useAccount(): MadAccount | null
 ```
 
+## Expo Web
+
+This API uses `expo-secure-store` to securely store an encryption key for the persisted token. As
+`expo-secure-store` is not working for Expo Web we have implemented a parallel API to
+`expo-auth-session` for web that uses `@azure/msal-browser` instead. This is all handled under the hood, so
+there is no need to do anything if you are developing for Expo Web in addition to iOS/Android.

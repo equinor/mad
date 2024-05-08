@@ -34,7 +34,7 @@ const hasExpoAuthSession = () => getConfig().experimental.useExpoAuthSession;
  */
 export const authenticateSilently = (scopes: string[]) =>
     hasExpoAuthSession()
-        ? ExpoAuthSession.authenticateSilently()
+        ? ExpoAuthSession.authenticateSilently(scopes)
         : msalAuthenticateSilently(scopes);
 /**
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but
@@ -56,5 +56,5 @@ export const signOut = async () =>
  */
 export const authenticateInteractively = (scopes: string[]) =>
     hasExpoAuthSession()
-        ? ExpoAuthSession.authenticateInteractively()
+        ? ExpoAuthSession.authenticateInteractively(scopes)
         : msalAuthenticateInteractively(scopes);
