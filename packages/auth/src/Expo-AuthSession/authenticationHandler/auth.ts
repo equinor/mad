@@ -18,11 +18,11 @@ import {
     setDiscovery,
     setToken,
     setUserData,
-} from "./store/authStore";
-import { tokenRefresh } from "./utils/tokenRefresh";
-import { MadAccount, MadAuthenticationResult } from "../types";
+} from "../store/authStore";
+import { tokenRefresh } from "../utils/tokenRefresh";
+import { MadAccount, MadAuthenticationResult } from "../../types";
 import "core-js/stable/atob";
-import { decodeToken } from "./utils/decodeToken";
+import { decodeToken } from "../utils/decodeToken";
 
 /**
  * Initiates the auth client by setting the needed properties in the zustand store

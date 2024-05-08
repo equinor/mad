@@ -7,7 +7,7 @@ import {
     authenticateInteractively,
     authenticationClientExists,
     authenticateSilently,
-} from "../auth";
+} from "../authenticationHandler";
 
 type useExpoAuthenticateProps = {
     config: AuthRequestConfig;
@@ -54,7 +54,10 @@ export const useAuthenticate = ({
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
 
             if (enableAutomaticAuthentication)
-                await withAuthenticationPromiseHandler(authenticateSilently, "AUTOMATIC");
+                await withAuthenticationPromiseHandler(
+                    () => authenticateSilently(config.scopes),
+                    "AUTOMATIC",
+                );
         };
 
         void initiateClientAndMaybeAuthenticateSilently();
@@ -63,7 +66,10 @@ export const useAuthenticate = ({
     return {
         authenticationInProgress,
         authenticate: () =>
-            void withAuthenticationPromiseHandler(authenticateInteractively, "MANUAL"),
+            void withAuthenticationPromiseHandler(
+                () => authenticateInteractively(config.scopes),
+                "MANUAL",
+            ),
         authenticationClientInitialized:
             authenticationClientExists() && authenticationClientInitialized,
     };

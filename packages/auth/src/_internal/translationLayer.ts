@@ -1,4 +1,4 @@
-import { MSALAccount, MSALResult } from "react-native-msal";
+import { MSALAccount, MSALResult } from "../Expo-AuthSession";
 import { MadAccount, MadAuthenticationResult } from "../types";
 
 export const getMadAccount = (account: MSALAccount): MadAccount => {
