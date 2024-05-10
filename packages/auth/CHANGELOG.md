@@ -1,5 +1,11 @@
 # @equinor/mad-auth
 
+## 0.2.1
+
+### Patch Changes
+
+-   09870d8: Several fixes for expo-auth-session implementation
+
 ## 0.2.0
 
 ### Minor Changes
