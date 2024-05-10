@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { getAccountWeb } from "../authenticationHandler";
 import { Platform } from "react-native";
 
-export const useAccountNative = () => {
+const useAccountNative = () => {
     const authState = useAuth();
     return authState.userData;
 };
 
-export const useAccountWeb = () => {
+const useAccountWeb = () => {
     const [account, setAccount] = useState<MadAccount | null>();
     useEffect(() => {
         const getAndSetAccount = async () => {
