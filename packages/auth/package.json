@@ -32,13 +32,14 @@
         "react": ">=18.0",
         "react-dom": ">=18.0",
         "react-native": ">=0.70",
-        "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#52c62cc2f59cd8e6eaa3df5d345296a48283a18b"
+        "react-native-msal": "*"
     },
     "dependencies": {
         "@equinor/mad-components": "*",
         "@react-native-async-storage/async-storage": "^1.23.1",
         "@types/aes-js": "^3.1.4",
         "aes-js": "^3.1.2",
+        "core-js": "^3.37.0",
         "expo-auth-session": "~5.0.2",
         "expo-crypto": "~12.4.1",
         "expo-secure-store": "~12.3.1",

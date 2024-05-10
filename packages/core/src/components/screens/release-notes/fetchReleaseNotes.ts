@@ -11,7 +11,7 @@ export const fetchReleaseNotes = async (
 ): Promise<Release> => {
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
-    const authenticationResponse = getConfig().experimental.useExpoAuthSession
+    const authenticationResponse = getConfig().experimental?.useExpoAuthSession
         ? await ExpoAuthSession.authenticateSilently(scopes)
         : await authenticateSilently(scopes);
 
@@ -31,7 +31,7 @@ export const fetchAllReleaseNotes = async (
 ): Promise<Release[]> => {
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
-    const authenticationResponse = getConfig().experimental.useExpoAuthSession
+    const authenticationResponse = getConfig().experimental?.useExpoAuthSession
         ? await ExpoAuthSession.authenticateSilently(scopes)
         : await authenticateSilently(scopes);
     if (!authenticationResponse) throw new Error("Unable to authenticate silently");

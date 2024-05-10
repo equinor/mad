@@ -102,7 +102,7 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
     /**
      * Experimental features can be toggled to activate new functionality that are in beta.
      */
-    experimental: {
+    experimental?: {
         useExpoAuthSession?: boolean;
     };
 };

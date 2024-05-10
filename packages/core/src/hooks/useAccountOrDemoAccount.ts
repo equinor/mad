@@ -17,7 +17,7 @@ export const useAccountOrDemoAccount = () => {
     const demoMode = useDemoMode();
     const msalAccount = useAccount();
     const expoAccount = ExpoAuthSession.useAccount();
-    const account = getConfig().experimental.useExpoAuthSession ? expoAccount : msalAccount;
+    const account = getConfig().experimental?.useExpoAuthSession ? expoAccount : msalAccount;
     if (demoMode.isEnabled) return MAD_DEMO_USER;
     return account;
 };
