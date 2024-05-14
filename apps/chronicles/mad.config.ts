@@ -8,7 +8,7 @@ export const config: MadConfig<RootStackParamList> = {
     navigateToMainRouteFn: navigation => navigation.navigate("Root"),
     appVersion: "1.0.0",
     servicePortalName: "Chronicles",
-    currentEnvironment: "prod",
+    currentEnvironment: "test",
     serviceNow: "MAD",
     language: {
         supportedLanguages: [
