@@ -27,7 +27,7 @@ export const config: MadConfig<RootStackParamList> = {
         },
         test: {
             redirectUri: "msauth.com.equinor.mad.chronicles://auth",
-            redirectUriWeb: "http://localhost:8081",
+            redirectUriWeb: "https://web-chronicles-test.radix.equinor.com/",
             clientId: "49222fe1-4e0a-4310-9e81-1a2c3eb9b2ed",
             scopes: ["830a7388-cd89-4e25-a631-bd615bf225a4/user_impersonation"],
         },
