@@ -7,7 +7,6 @@ RUN apk add --no-cache libc6-compat git openssh bash
 
 # Setup yarn and turbo on the alpine base
 FROM alpine as base
-RUN npm install yarn --global --force
 RUN yarn global add turbo
 RUN yarn config set store-dir ~/.yarn-store
 
@@ -30,7 +29,7 @@ COPY --from=pruner /app/out/yarn.lock ./yarn.lock
 COPY --from=pruner /app/out/json/ .
 
 # First install the dependencies (as they change less often)
-RUN yarn install --frozen-lockfile
+RUN yarn install --network-concurrency 1 --frozen-lockfile
 
 # Copy source code of isolated subworkspace
 COPY --from=pruner /app/out/full/ .
