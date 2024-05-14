@@ -43,7 +43,11 @@
         "format:all": "prettier --write .",
         "publish:all": "turbo run build && changeset version && changeset publish",
         "test:all": "turbo run test",
-        "clean:all": "turbo run clean && rm -rf node_modules/"
+        "clean:all": "turbo run clean && rm -rf node_modules/",
+        "push:tags": "git push origin --tags -f && echo Check status: https://console.radix.equinor.com/applications/code-of-conduct/jobs",
+        "fetch:tags": "git fetch origin --tags --force",
+        "release:test": "yarn fetch:tags && git tag -f TEST  && yarn push:tags",
+        "release:prod": "yarn fetch:tags && git tag -f PROD  && yarn push:tags"
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",

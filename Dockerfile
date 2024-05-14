@@ -7,6 +7,7 @@ RUN apk add --no-cache libc6-compat git openssh bash
 
 # Setup yarn and turbo on the alpine base
 FROM alpine as base
+RUN npm install yarn --global --force
 RUN yarn global add turbo
 RUN yarn config set store-dir ~/.yarn-store
 
