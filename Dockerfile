@@ -21,7 +21,7 @@ RUN turbo prune --scope=${PROJECT} --docker
 # Build the project
 FROM base AS builder
 ARG PROJECT=@equinor/mad-chronicles
-
+ARG TARGET_ENVIRONMENTS=test
 WORKDIR /app
 
 # Copy lockfile and package.json's of isolated subworkspace
@@ -34,15 +34,17 @@ RUN yarn install --network-concurrency 1 --frozen-lockfile
 # Copy source code of isolated subworkspace
 COPY --from=pruner /app/out/full/ .
 RUN turbo build
-RUN turbo web --filter=${PROJECT}
+RUN turbo use:${TARGET_ENVIRONMENTS} --filter=${PROJECT}
+RUN turbo docker --filter=${PROJECT}
 RUN rm -rf ./**/*/src
 
 # ---- Prod ----
 
 FROM nginxinc/nginx-unprivileged:alpine
+ARG PROJECT=chronicles
 USER 0
-WORKDIR /app/apps/chronicles
-COPY --from=builder /app/apps/chronicles/dist /app
+WORKDIR /app/apps/${PROJECT}
+COPY --from=builder /app/apps/${PROJECT}/dist /app
 
 RUN echo "server { \
         add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\"; \
