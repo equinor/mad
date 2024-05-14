@@ -33,7 +33,7 @@ RUN yarn install --network-concurrency 1 --frozen-lockfile
 
 # Copy source code of isolated subworkspace
 COPY --from=pruner /app/out/full/ .
-
+RUN turbo build
 RUN turbo web --filter=${PROJECT}
 RUN rm -rf ./**/*/src
 
