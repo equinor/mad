@@ -19,7 +19,11 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
     const { text: textColor } = getToastTokenForType(masterToken, type);
 
     return (
-        <TouchableHighlight disabled={!!onPress} onPress={onPress}>
+        <TouchableHighlight
+            disabled={typeof onPress !== "function"}
+            onPress={onPress}
+            style={{ borderRadius: 4 }}
+        >
             <Paper elevation="raised" style={styles.background}>
                 <Icon name="information-outline" color={textColor} />
                 <Typography color={textColor} numberOfLines={2} style={{ maxWidth: "90%" }}>
