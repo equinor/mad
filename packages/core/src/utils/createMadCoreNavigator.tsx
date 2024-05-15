@@ -14,7 +14,7 @@ import { ServiceMessageProvider } from "../components/service-message/ServiceMes
 import { useMadConfig } from "../store";
 import { CoreRoutes } from "../components/navigation/coreRoutes";
 import { getDefaultScreenOptionsForLoginScreen } from "./getDefaultScreenOptionsForLoginScreen";
-import { ToastEmitter } from "@equinor/mad-toast";
+import { ToastEmitter } from "../components/ToastEmitter";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We need to specify how a general function looks like
 type GeneralFunction = (...args: any) => any;
