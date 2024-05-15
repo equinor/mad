@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { TouchableHighlight } from "react-native";
 import { ToastType } from "../types";
-import { getMaxTextWidth } from "../utils/getMaxTextWidth";
+import { getMaxToastWidth } from "../utils/getMaxToastWidth";
 import { getToastTokenForType } from "../utils/getToastTokenForType";
 
 export type ToastComponentProps = { text: string; type: ToastType; onPress?: () => void };
@@ -17,13 +17,12 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
     const styles = useStyles(theme, type);
     const masterToken = useToken();
     const { text: textColor } = getToastTokenForType(masterToken, type);
-    const maxTextWidth = getMaxTextWidth();
 
     return (
         <TouchableHighlight disabled={!!onPress} onPress={onPress}>
             <Paper elevation="raised" style={styles.background}>
                 <Icon name="information-outline" color={textColor} />
-                <Typography color={textColor} numberOfLines={2} style={{ maxWidth: maxTextWidth }}>
+                <Typography color={textColor} numberOfLines={2} style={{ maxWidth: "90%" }}>
                     {text}
                 </Typography>
             </Paper>
@@ -40,6 +39,7 @@ const theme = EDSStyleSheet.create((token, type: ToastType) => {
             backgroundColor,
             borderRadius: 4,
             gap: 16,
+            maxWidth: getMaxToastWidth(),
             padding: 16,
         },
     };
