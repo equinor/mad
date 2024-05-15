@@ -46,8 +46,7 @@
         "test:all": "turbo run test",
         "clean:all": "turbo run clean && rm -rf node_modules/",
         "push:tags": "git push origin --tags -f && echo Check status: https://console.radix.equinor.com/applications/chronicles/jobs",
-        "fetch:tags": "git fetch origin --tags --force",
-        "release:test": "yarn fetch:tags && git tag -f TEST  && yarn push:tags"
+        "fetch:tags": "git fetch origin --tags --force"
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
