@@ -5,7 +5,7 @@
     "start": "npx expo start --dev-client",
     "android": "npx expo run:android",
     "dev": "npx expo run:ios",
-    "web": "npx expo run:web",
+    "web": "npx expo start --web",
     "build": "npx expo prebuild --platform ios",
     "docker": "npx expo export -p web",
     "ios": "npx expo run:ios",
