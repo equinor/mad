@@ -27,7 +27,7 @@ import {
     ExpoAuthSession,
 } from "@equinor/mad-auth";
 
-const hasExpoAuthSession = () => getConfig().experimental.useExpoAuthSession;
+const hasExpoAuthSession = () => getConfig().experimental?.useExpoAuthSession;
 
 /**
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but

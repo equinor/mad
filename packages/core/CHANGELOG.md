@@ -1,5 +1,13 @@
 # @equinor/mad-core
 
+## 0.7.2
+
+### Patch Changes
+
+-   09870d8: Several fixes for expo-auth-session implementation
+-   Updated dependencies [09870d8]
+    -   @equinor/mad-auth@0.2.1
+
 ## 0.7.1
 
 ### Patch Changes

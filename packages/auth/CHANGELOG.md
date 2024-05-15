@@ -1,5 +1,17 @@
 # @equinor/mad-auth
 
+## 0.2.2
+
+### Patch Changes
+
+-   d8e0946: Fixed issue with getting user info from access token
+
+## 0.2.1
+
+### Patch Changes
+
+-   09870d8: Several fixes for expo-auth-session implementation
+
 ## 0.2.0
 
 ### Minor Changes

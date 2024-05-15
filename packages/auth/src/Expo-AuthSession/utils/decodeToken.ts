@@ -2,9 +2,10 @@ import { jwtDecode } from "jwt-decode";
 import { MadAccount } from "../../types";
 
 type UserInfo = {
-    name: string;
-    unique_name: string;
-    onprem_sid: string;
+    name?: string;
+    unique_name?: string;
+    preferred_username?: string;
+    oid?: string;
 };
 /**
  * For some reason we are unable to exchange the id token for user data.
@@ -17,8 +18,8 @@ export const decodeToken = (token: string | undefined) => {
     const decoded = jwtDecode<UserInfo>(token);
     const account: MadAccount = {
         name: decoded.name,
-        username: decoded.unique_name,
-        identifier: decoded.onprem_sid,
+        username: decoded.unique_name ?? decoded.preferred_username ?? "N/A",
+        identifier: decoded.oid ?? "N/A",
     };
     return account;
 };

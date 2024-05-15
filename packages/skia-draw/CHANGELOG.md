@@ -1,5 +1,11 @@
 # @equinor/react-native-skia-draw
 
+## 0.3.24
+
+### Patch Changes
+
+-   8c913d8: Updated react-native-skia version
+
 ## 0.3.23
 
 ### Patch Changes

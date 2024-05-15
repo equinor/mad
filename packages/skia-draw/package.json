@@ -1,6 +1,6 @@
 {
     "name": "@equinor/react-native-skia-draw",
-    "version": "0.3.23",
+    "version": "0.3.24",
     "description": "A React Native drawing library running on SKIA",
     "type": "module",
     "scripts": {
@@ -34,7 +34,7 @@
         "@equinor/eslint-config-mad": "*"
     },
     "peerDependencies": {
-        "@shopify/react-native-skia": "0.1.225",
+        "@shopify/react-native-skia": "1.2.3",
         "react": ">=18.0",
         "react-native": ">=0.70"
     },
