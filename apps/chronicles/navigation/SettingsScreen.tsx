@@ -22,6 +22,7 @@ export const SampleSettingsScreen = () => {
                 {
                     name: "button",
                     title: "Button",
+                    onPress: () => undefined,
                     iconName: "abacus",
                     color: "primary",
                 },
