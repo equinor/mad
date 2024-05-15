@@ -98,7 +98,7 @@ export const colors = {
     infographic_substitute_pink_rose: "#E24973",
     infographic_substitute_pink_salmon: "#FF92A8",
     infographic_substitute_purple_berry: "#8C1159",
-    
+
     //most of the toast colors are custom, not from EDS foundation
     toast_error_background_light: "#FFD2D1",
     toast_error_background_dark: "#90042C",
@@ -114,7 +114,7 @@ export const colors = {
     toast_info_text_dark: "#D5EAF4",
     toast_warning_background_light: "#FFE7D6",
     toast_warning_background_dark: "#7F4600",
-    toast_warning_text_light: "#FFE7D6",
-    toast_warning_text_dark: "#7F4600"
+    toast_warning_text_light: "#7F4600",
+    toast_warning_text_dark: "#FFE7D6",
 
 } as const;
