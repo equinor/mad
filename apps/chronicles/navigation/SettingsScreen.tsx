@@ -4,6 +4,7 @@ import {
     useMadConfig,
     SettingsScreen,
     SettingsScreenConfiguration,
+    addToast,
 } from "@equinor/mad-core";
 import { Cell, Typography } from "@equinor/mad-components";
 
@@ -22,7 +23,7 @@ export const SampleSettingsScreen = () => {
                 {
                     name: "button",
                     title: "Button",
-                    onPress: () => undefined,
+                    onPress: () => addToast({ type: "ERROR", text: "Hello world" }),
                     iconName: "abacus",
                     color: "primary",
                 },

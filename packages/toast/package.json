@@ -27,7 +27,8 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@equinor/mad-components": "*"
+        "@equinor/mad-components": "*",
+        "react-native-toast-message": "^2.2.0"
     },
     "peerDependencies": {
         "react": ">=18.0",
