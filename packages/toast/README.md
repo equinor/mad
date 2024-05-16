@@ -1,143 +1,81 @@
-# Mad Navigation
+# Mad Toast
 
-Mad Navigation is a layer on top of React Navigation that provides additional features to provide a
-better experience for developers.
+Mad Toast is a wrapper around `react-native-toast-message` that adds EDS styling to the toasts, and
+a queueing system for toasts.
 
 ### Features
 
--   Display custom sub-headers automatically on screens.
--   Add onRouteChange prop to navigation containers
--   (more features coming soon)
-
-### Tested on and confirmed working with these versions
-
-_Note: This package will most likely work well with any version of React Navigation v6. If you are
-running a newer version of v6 and some features are missing, create an issue_
-[_here_](https://github.com/equinor/mad/issues)
-
-| Package                        | Version |
-| ------------------------------ | ------- |
-| @react-navigation/bottom-tabs  | 6.5.7   |
-| @react-navigation/native       | 6.1.6   |
-| @react-navigation/native-stack | 6.9.12  |
+-   EDS styling
+-   Toast queues
+-   Simplified API
 
 ### Installation
 
-`npm install @react-navigation/native @equinor/mad-navigation`
-
-You also have to install the navigators you want to use, e.g `@react-navigation/bottom-tabs` and
-`@react-navigation/native-stack`
+`npm install @equinor/mad-toast`
 
 ### Usage
 
-If you want to add custom sub-headers to your navigation system, you first have to create custom
-navigator-creator functions. You can do so with `createBottomTabNavigatorFactory` and
-`createNativeStackNavigatorFactory`.
-
-Step 1: Create your custom sub-header:
+Add ToastEmitter component to your app. It should be the last child in your View hierarchy in order
+to prevent other components from rendering above it:
 
 ```tsx
-import { Text } from "react-native";
-export const CustomSubHeader = () => <Text>This is a custom sub-header</Text>;
+import { ToastEmitter } from "@equinor/mad-toast";
+
+export function App(props) {
+    return (
+        <>
+            {/* ... */}
+            <ToastEmitter />
+        </>
+    );
+}
 ```
 
-Step 2: Create your new navigator-creator functions:
+Then use `addToast` anywhere in your app
 
 ```tsx
-import {
-    createBottomTabNavigatorFactory,
-    createNativeStackNavigatorFactory,
-} from "@equinor/mad-navigation";
-import { CustomSubHeader } from "path/to/subHeader";
+// Foo.jsx
+import { addToast } from "@equinor/mad-toast";
+import { Button } from "react-native";
 
-export const createBottomTabNavigator = createBottomTabNavigatorFactory(CustomSubHeader);
-export const createNativeStackNavigator = createNativeStackNavigatorFactory(CustomSubHeader);
+export function Foo(props) {
+    const showToast = () => {
+        addToast({
+            type: "success",
+            text: "Hello",
+        });
+    };
+
+    return <Button title="Show toast" onPress={showToast} />;
+}
 ```
 
-Follow [React Navigation’s documentation](https://reactnavigation.org/docs/getting-started/). When
-you get to the point where you are creating a navigator, import your custom navigator-creators.
+### API
 
-You can also import `NavigationContainer` from this package if you need a `onRouteChange` prop.
+#### ToastEmitter
 
-For example:
+The following set of `props` can be passed to the `ToastEmitter` component instance to specify
+certain **defaults for all Toasts that are shown**:
 
-```tsx
-//import { createNativeStackNavigator } from '@react-navigation/native-stack';
-//replace the above line with the line below
-import { createNativeStackNavigator } from "path/to/createNativeStackNavigator";
-```
+| prop             | description                                                                                                                       | type              | default value |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------------- |
+| `position`       | Default Toast position                                                                                                            | `top` or `bottom` | `top`         |
+| `visibilityTime` | Number of milliseconds after which Toast automatically hides. Has effect only in conjunction with `autoHide` prop set to `true`   | `number`          | `4000`        |
+| `autoHide`       | When `true`, the visible Toast automatically hides after a certain number of milliseconds, specified by the `visibilityTime` prop | `boolean`         | `true`        |
+| `topOffset`      | Offset from the top of the screen (in px). Has effect only when `position` is `top`                                               | `number`          | `40`          |
+| `bottomOffset`   | Offset from the bottom of the screen (in px). Has effect only when `position` is `bottom`                                         | `number`          | `40`          |
+| `keyboardOffset` | Offset from the Keyboard (in px). Has effect only when `position` is `bottom` and Keyboard is visible (iOS only)                  | `number`          | `10`          |
+| `onShow`         | Called when any Toast is shown                                                                                                    | `() => void`      |               |
+| `onHide`         | Called when any Toast hides                                                                                                       | `() => void`      |               |
+| `onPress`        | Called on any Toast press                                                                                                         | `() => void`      |               |
 
-Once you've finished the steps above, you should see your custom sub-header in your application. By
-default, the sub-header will display if navigator’s header is displayed. if you want to overwrite
-this behaviour, use the custom `customSubHeaderShown` option. This option can be applied in the
-`Screen`’s `options` prop, or in the `Group` or `Navigator`'s `screenOptions` prop. You can also use
-`customSubHeaderFloat` if you want the sub header to float above the content instead of pushing the
-screen's content down.
+#### addToast
 
-```tsx
-<Stack.Navigator
-    screenOptions={{
-        // add it here
-        customSubHeaderShown: false,
-        customSubHeaderFloat: false,
-    }}
->
-    <Stack.Group
-        screenOptions={{
-            // or here
-            customSubHeaderShown: true,
-            customSubHeaderFloat: true,
-        }}
-    >
-        <Stack.Screen
-            name="Discover"
-            component={DiscoverScreen}
-            options={{
-                // or here
-                customSubHeaderShown: false,
-                customSubHeaderFloat: false,
-            }}
-        />
-    </Stack.Group>
-</Stack.Navigator>
-```
+The complete set of **options** is described below:
 
-_CAUTION: sub-headers will not work properly if `headerLargeTitle` is set to true, and
-`headerLargeTitle` make it hard for elements in your application to calculate header height. It is
-therefore not recommended to use `headerLargeTitle`. If you still decide to use it, we recommend
-disabling sub-headers where it is used, as the sub-headers may cause the header to not work as
-expected._
-
-```tsx
-<DiscoverStack.Navigator
-    initialRouteName="Discover"
-    screenOptions={{
-        headerLargeTitle: true,
-        headerLargeTitleShadowVisible: true,
-        headerLargeTitleStyle: { fontFamily: "Equinor-Bold" },
-        headerTitleStyle: {
-            fontFamily: "Equinor-Regular",
-        },
-        headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
-        customSubHeaderShown: false,
-    }}
->
-```
-
-### Development
-
-This package has custom navigators created by following
-[this guide](https://reactnavigation.org/docs/custom-navigators). If you want to add additional
-navigators or update the current navigators to be in sync with React Navigation’s navigators, follow
-these steps:
-
-1. Go to
-   [React Navigation’s repository](https://github.com/react-navigation/react-navigation/tree/main/packages)
-   and find the navigator you want to copy (usually located within `package-name/src/navigators`
-   directory). Copy the source code.
-2. paste the source code into this package and update imports. Imports that are not provided by the
-   react navigation package should be created manually (usually only the `XNavigationConfig`). The
-   props can also be recreated by exported types from react navigation + your copied
-   `XNavigationConfig`.
-3. Modify the `descriptors` using the `createMadDecorators` function.
-4. Use the modified descriptors instead of the original descriptors in the return function
+| option     | description                                                          | type         | required | default value |
+| ---------- | -------------------------------------------------------------------- | ------------ | -------- | ------------- |
+| `type`     | Toast type. available values: `SUCCESS`, `ERROR`, `INFO`, `WARNING`. | `string`     | yes      |               |
+| `text`     | Text to display in the toast                                         | `string`     | yes      |               |
+| `duration` | Number of milliseconds after which Toast automatically hides.        | `number`     | no       | `4000`        |
+| `onPress`  | Called on Toast press                                                | `() => void` | no       |               |
