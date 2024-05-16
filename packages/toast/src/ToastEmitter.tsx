@@ -7,10 +7,10 @@ import { CustomToastTranslator } from "./components/CustomToastTranslator";
 import { ToastTypes } from "./types";
 
 const toastConfig: ToastConfig = {
-    [ToastTypes.ERROR]: params => <CustomToastTranslator {...params} />,
-    [ToastTypes.SUCCESS]: params => <CustomToastTranslator {...params} />,
-    [ToastTypes.WARNING]: params => <CustomToastTranslator {...params} />,
-    [ToastTypes.INFO]: params => <CustomToastTranslator {...params} />,
+    [ToastTypes.ERROR]: CustomToastTranslator,
+    [ToastTypes.SUCCESS]: CustomToastTranslator,
+    [ToastTypes.WARNING]: CustomToastTranslator,
+    [ToastTypes.INFO]: CustomToastTranslator,
 };
 
 export type ToastEmitterProps = Omit<ImportedToastProps, "config" | "type">
