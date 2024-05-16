@@ -2,12 +2,12 @@ import {
     EDSStyleSheet,
     Icon,
     Paper,
+    PressableHighlight,
     Typography,
     useStyles,
     useToken,
 } from "@equinor/mad-components";
 import React from "react";
-import { TouchableHighlight } from "react-native";
 import { ToastType } from "../types";
 import { getMaxToastWidth } from "../utils/getMaxToastWidth";
 import { getToastTokenForType } from "../utils/getToastTokenForType";
@@ -19,7 +19,7 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
     const { text: textColor } = getToastTokenForType(masterToken, type);
 
     return (
-        <TouchableHighlight
+        <PressableHighlight
             disabled={typeof onPress !== "function"}
             onPress={onPress}
             style={{ borderRadius: 4 }}
@@ -30,7 +30,7 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
                     {text}
                 </Typography>
             </Paper>
-        </TouchableHighlight>
+        </PressableHighlight>
     );
 };
 
