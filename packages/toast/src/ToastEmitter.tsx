@@ -13,7 +13,7 @@ const toastConfig: ToastConfig = {
     [ToastTypes.INFO]: params => <CustomToastTranslator {...params} />,
 };
 
-export type ToastEmitterProps = Omit<ImportedToastProps, "config">;
+export type ToastEmitterProps = Omit<ImportedToastProps, "config" | "type">
 
 export const ToastEmitter = (props: ToastEmitterProps) => {
     return <Toast {...props} config={toastConfig} />;
