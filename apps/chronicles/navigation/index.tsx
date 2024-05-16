@@ -35,7 +35,7 @@ import { DFWDiscoverScreen } from "../screens/dfw/DFWDiscoverScreen";
 import { DFWComponentScreen } from "../screens/dfw/DFWComponentsScreen";
 import { DFWComponentName } from "../types/dfwcomponents";
 import { SampleLoginScreen } from "./LoginScreen";
-import ToastScreen from "../screens/ToastScreen";
+import { ToastScreen } from "../screens/ToastScreen";
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (

@@ -4,7 +4,7 @@ import { ScrollView, View } from "react-native";
 import { addToast } from "@equinor/mad-toast";
 import { useCoreStackNavigation } from "@equinor/mad-core";
 
-export default function ToastScreen() {
+export function ToastScreen() {
     const styles = useStyles(themeStyles);
     const navigation = useCoreStackNavigation();
 
