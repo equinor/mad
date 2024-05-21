@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.14.5
+
+### Patch Changes
+
+-   38bcfa3: Fix `Search` and make it correctly update its internal state (`text`) whenever the
+    `value` prop changes.
+
 ## 0.14.4
 
 ### Patch Changes
