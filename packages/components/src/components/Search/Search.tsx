@@ -73,6 +73,12 @@ export const Search = ({
         });
     }, [isInputFocused, cancellable, animationValue, token.timing.animation.slow]);
 
+    useEffect(() => {
+        if (value) {
+            setText(value);
+        }
+    }, [value]);
+
     const handleCancelPressOut = () => {
         handleCancel();
     };
