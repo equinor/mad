@@ -22,6 +22,12 @@
         "test": {},
         "clean": {
             "cache": false
-        }
+        },
+        "docker": {
+            "outputs": ["dist/**"]
+        },
+        "use:dev": {},
+        "use:test": {},
+        "use:prod": {}
     }
 }

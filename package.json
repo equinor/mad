@@ -30,6 +30,7 @@
         "test:core": "turbo run test --filter @equinor/mad-core",
         "dev:chronicles": "turbo run dev --filter @equinor/mad-chronicles",
         "web:chronicles": "turbo run web --filter @equinor/mad-chronicles",
+        "docker:chronicles": "turbo run docker --filter @equinor/mad-chronicles",
         "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
         "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
         "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper -- $npm_config_input",
@@ -41,9 +42,11 @@
         "dev:all": "turbo run dev",
         "lint:all": "turbo run lint --continue --",
         "format:all": "prettier --write .",
-        "publish:all": "turbo run build && changeset version && changeset publish",
+        "publish:all": "turbo run build && changeset version && changeset publish && yarn fetch:tags && git tag -f PROD  && yarn push:tags",
         "test:all": "turbo run test",
-        "clean:all": "turbo run clean && rm -rf node_modules/"
+        "clean:all": "turbo run clean && rm -rf node_modules/",
+        "push:tags": "git push origin --tags -f && echo Check status: https://console.radix.equinor.com/applications/chronicles/jobs",
+        "fetch:tags": "git fetch origin --tags --force"
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
