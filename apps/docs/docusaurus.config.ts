@@ -73,6 +73,11 @@ const config: Config = {
                             sidebarId: "componentsSidebar",
                             label: "Components",
                         },
+                        {
+                            type: "docSidebar",
+                            sidebarId: "toastSidebar",
+                            label: "MAD Toast",
+                        },
                     ],
                 },
                 {

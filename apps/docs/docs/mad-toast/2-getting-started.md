@@ -1,13 +1,9 @@
-# Mad Toast
+---
+sidebar_label: Getting started
+description: Learn how to configure your app to use mad toast!
+---
 
-Mad Toast is a wrapper around `react-native-toast-message` that adds EDS styling to the toasts, and
-a queueing system for toasts.
-
-### Features
-
--   EDS styling
--   Toast queues
--   Simplified API
+# How to get started
 
 ### Installation
 
@@ -49,8 +45,3 @@ export function Foo(props) {
     return <Button title="Show toast" onPress={showToast} />;
 }
 ```
-
-### Docs
-
-For more detailed information about how to use the package, head to our
-[documentation page](equinor.github.io/mad/docs/mad-toast/introduction)
