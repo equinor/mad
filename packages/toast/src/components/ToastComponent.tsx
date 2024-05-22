@@ -26,7 +26,7 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
         >
             <Paper elevation="raised" style={styles.background}>
                 <Icon name="information-outline" color={textColor} />
-                <Typography color={textColor} numberOfLines={2} style={{ maxWidth: "90%" }}>
+                <Typography color={textColor} numberOfLines={2} style={styles.text}>
                     {text}
                 </Typography>
             </Paper>
@@ -45,6 +45,11 @@ const theme = EDSStyleSheet.create((token, type: ToastType) => {
             gap: 16,
             maxWidth: getMaxToastWidth(),
             padding: 16,
+        },
+        text: {
+            maxWidth: "90%",
+            // prevent selecting text for web, since this disrupts the swipable properties
+            userSelect: "none",
         },
     };
 });
