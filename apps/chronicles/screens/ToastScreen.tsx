@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
-import { addToast } from "@equinor/mad-toast";
+import { ToastTypes, addToast } from "@equinor/mad-toast";
 import { useCoreStackNavigation } from "@equinor/mad-core";
 
 export function ToastScreen() {
@@ -18,25 +18,32 @@ export function ToastScreen() {
                     <Button
                         title={"Success"}
                         color="primary"
-                        onPress={() => addToast({ type: "SUCCESS", text: "Success!" })}
+                        onPress={() => addToast({ type: ToastTypes.SUCCESS, text: "Success!" })}
                     />
                     <Button
                         title={"Info"}
                         color="secondary"
                         onPress={() =>
-                            addToast({ type: "INFO", text: "Display some information here!" })
+                            addToast({
+                                type: ToastTypes.INFO,
+                                text: "Display some information here!",
+                            })
                         }
                     />
                     <Button
                         title={"Warning"}
                         variant="outlined"
                         color="danger"
-                        onPress={() => addToast({ type: "WARNING", text: "Kinda dangerous" })}
+                        onPress={() =>
+                            addToast({ type: ToastTypes.WARNING, text: "Kinda dangerous" })
+                        }
                     />
                     <Button
                         title={"Error"}
                         color="danger"
-                        onPress={() => addToast({ type: "ERROR", text: "Very dangerous!" })}
+                        onPress={() =>
+                            addToast({ type: ToastTypes.ERROR, text: "Very dangerous!" })
+                        }
                     />
                 </View>
                 <Typography>
@@ -47,21 +54,25 @@ export function ToastScreen() {
                         title={"1 second"}
                         color="primary"
                         onPress={() =>
-                            addToast({ type: "INFO", text: "1 second!", duration: 1000 })
+                            addToast({ type: ToastTypes.INFO, text: "1 second!", duration: 1000 })
                         }
                     />
                     <Button
                         title={"2 seconds"}
                         color="secondary"
                         onPress={() =>
-                            addToast({ type: "INFO", text: "2 seconds!", duration: 2000 })
+                            addToast({ type: ToastTypes.INFO, text: "2 seconds!", duration: 2000 })
                         }
                     />
                     <Button
                         title={"10 seconds!"}
                         color="danger"
                         onPress={() =>
-                            addToast({ type: "ERROR", text: "10 seconds!", duration: 10000 })
+                            addToast({
+                                type: ToastTypes.ERROR,
+                                text: "10 seconds!",
+                                duration: 10000,
+                            })
                         }
                     />
                 </View>
@@ -72,7 +83,7 @@ export function ToastScreen() {
                         color="primary"
                         onPress={() =>
                             addToast({
-                                type: "INFO",
+                                type: ToastTypes.INFO,
                                 text: "Press me to navigate to Settings!",
                                 duration: 6000,
                                 onPress: () => navigation.navigate("Settings"),
