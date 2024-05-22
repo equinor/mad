@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
     Button,
     EDSStyleSheet,
@@ -7,7 +7,6 @@ import {
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import { useRef, useState } from "react";
 
 type PopoverButtonProps = {
     icon: IconName;
@@ -42,7 +41,7 @@ export const PopoverButton = ({ icon, title, text }: PopoverButtonProps) => {
     );
 };
 
-const themeStyles = EDSStyleSheet.create(theme => ({
+const themeStyles = EDSStyleSheet.create(() => ({
     title: { marginBottom: 10 },
     popover: { maxWidth: 500 },
 }));

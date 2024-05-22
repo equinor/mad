@@ -44,8 +44,8 @@ export const translateViewPointToCameraPoint = (
     const aspectDifference = aspectRatioView - aspectRatioCamera;
 
     const pxZoom = aspectDifference * cameraWidth;
-    let zoomedPxWidth = pxZoom < 0 ? pxZoom : 0;
-    let zoomedPxHeight = pxZoom > 0 ? pxZoom : 0;
+    const zoomedPxWidth = pxZoom < 0 ? pxZoom : 0;
+    const zoomedPxHeight = pxZoom > 0 ? pxZoom : 0;
 
     const cameraWidthPxVisibleInView = cameraWidth + zoomedPxWidth;
     const cameraHeightPxVisibleInView = cameraHeight + zoomedPxHeight;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Camera,
     useCameraDevice,
@@ -9,7 +9,6 @@ import {
 import { scanOCR } from "@ismaelmoreiraa/vision-camera-ocr";
 import { Skia } from "@shopify/react-native-skia";
 import { LayoutChangeEvent, View, useWindowDimensions } from "react-native";
-import { useState } from "react";
 import { useRunOnJS, useSharedValue } from "react-native-worklets-core";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { MaxTagLength, MinTagLength, OcrUsageSteps, BoundingBoxPadding } from "../../consts";
@@ -117,7 +116,7 @@ export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProp
                         translatedClickedPoint &&
                         isPointInsideBoundingBox(rectangle, translatedClickedPoint)
                     ) {
-                        setScannedTagOnJS(formatTag(block.text));
+                        void setScannedTagOnJS(formatTag(block.text));
                     }
                 }
             });
@@ -146,7 +145,7 @@ export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProp
     };
 
     if (!hasPermission) {
-        requestPermission();
+        void requestPermission();
         onClose();
         return;
     }
