@@ -26,9 +26,9 @@ certain **defaults for all Toasts that are shown**:
 
 The complete set of **options** is described below:
 
-| option     | description                                                          | type         | required | default value |
-| ---------- | -------------------------------------------------------------------- | ------------ | -------- | ------------- |
-| `type`     | Toast type. available values: `SUCCESS`, `ERROR`, `INFO`, `WARNING`. | `string`     | yes      |               |
-| `text`     | Text to display in the toast                                         | `string`     | yes      |               |
-| `duration` | Number of milliseconds after which Toast automatically hides.        | `number`     | no       | `4000`        |
-| `onPress`  | Called on Toast press                                                | `() => void` | no       |               |
+| option     | description                                                          | type                         | required | default value |
+| ---------- | -------------------------------------------------------------------- | ---------------------------- | -------- | ------------- |
+| `type`     | Toast type. available values: `SUCCESS`, `ERROR`, `INFO`, `WARNING`. | `string`                     | yes      |               |
+| `text`     | Text to display in the toast                                         | `string`                     | yes      |               |
+| `duration` | Number of milliseconds after which Toast automatically hides.        | `number`                     | no       | `4000`        |
+| `onPress`  | Called on Toast press                                                | `(hide: () => void) => void` | no       |               |

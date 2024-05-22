@@ -37,7 +37,7 @@ import { Button } from "react-native";
 export function Foo(props) {
     const showToast = () => {
         addToast({
-            type: "SUCCESS",
+            type: "success",
             text: "Hello",
         });
     };
