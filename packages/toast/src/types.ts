@@ -11,5 +11,5 @@ export type AddToastOptions = {
     type: ToastType;
     text: string;
     duration?: number;
-    onPress?: () => void;
+    onPress?: (hide: () => void) => void;
 };

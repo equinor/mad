@@ -86,7 +86,10 @@ export function ToastScreen() {
                                 type: ToastTypes.INFO,
                                 text: "Press me to navigate to Settings!",
                                 duration: 6000,
-                                onPress: () => navigation.navigate("Settings"),
+                                onPress: hide => {
+                                    navigation.navigate("Settings");
+                                    hide();
+                                },
                             })
                         }
                     />
