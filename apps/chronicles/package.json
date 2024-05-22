@@ -7,11 +7,15 @@
     "dev": "npx expo run:ios",
     "web": "npx expo start --web",
     "build": "npx expo prebuild --platform ios",
+    "docker": "npx expo export -p web",
     "ios": "npx expo run:ios",
     "lint": "tsc --noEmit && eslint .",
     "clean": "rm -rf node_modules/ && rm -rf ios/",
     "detox:build": "npx detox build --configuration ios.release",
-    "detox:test": "npx detox test --configuration ios.release"
+    "detox:test": "npx detox test --configuration ios.release",
+    "use:dev": "sed -i \"s/currentEnvironment: \".*\"/currentEnvironment: \\\"dev\\\",/g\" mad.config.ts",
+    "use:test": "sed -i \"s/currentEnvironment: \".*\"/currentEnvironment: \\\"test\\\",/g\" mad.config.ts",
+    "use:prod": "sed -i \"s/currentEnvironment: \".*\"/currentEnvironment: \\\"prod\\\",/g\" mad.config.ts"
   },
   "dependencies": {
     "@equinor/mad-auth": "*",

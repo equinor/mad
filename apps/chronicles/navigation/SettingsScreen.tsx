@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     setEnvironment,
     useMadConfig,
     SettingsScreen,
     SettingsScreenConfiguration,
 } from "@equinor/mad-core";
-import { Cell, Typography } from "@equinor/mad-components";
+import { Button, Cell, Typography } from "@equinor/mad-components";
 
 export const SampleSettingsScreen = () => {
     const currentConfig = useMadConfig();
-    const [isActive, setIsActive] = useState(currentConfig.currentEnvironment === "prod");
     const appSpecificSettingsConfig: SettingsScreenConfiguration = [
         {
             items: [
@@ -43,18 +42,28 @@ export const SampleSettingsScreen = () => {
                     ),
                 },
                 {
-                    name: "switch",
-                    title: "Toggle Environment",
-                    onChange: () => {
-                        setEnvironment(
-                            currentConfig.currentEnvironment === "prod" ? "test" : "prod",
-                        );
-                        setIsActive(!isActive);
-                    },
-                    isActive: isActive,
-                    iconName: "cog",
-                    switchSize: "normal",
-                    description: `Current Environment:  ${currentConfig.currentEnvironment}`,
+                    name: "custom",
+                    key: "Environment",
+                    component: () => (
+                        <Cell
+                            leftAdornment={
+                                <Typography group="cell" variant="title" numberOfLines={1}>
+                                    Select environment:
+                                </Typography>
+                            }
+                            rightAdornment={
+                                <Button.Toggle
+                                    activeIndex={["dev", "test", "prod"].indexOf(
+                                        currentConfig.currentEnvironment,
+                                    )}
+                                >
+                                    <Button title="Dev" onPress={() => setEnvironment("dev")} />
+                                    <Button title="Test" onPress={() => setEnvironment("test")} />
+                                    <Button title="Prod" onPress={() => setEnvironment("prod")} />
+                                </Button.Toggle>
+                            }
+                        />
+                    ),
                 },
             ],
         },
