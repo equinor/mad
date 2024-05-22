@@ -22,7 +22,7 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
         <PressableHighlight
             disabled={typeof onPress !== "function"}
             onPress={onPress}
-            style={{ borderRadius: 4 }}
+            style={styles.pressable}
         >
             <Paper elevation="raised" style={styles.background}>
                 <Icon name="information-outline" color={textColor} />
@@ -37,6 +37,7 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
 const theme = EDSStyleSheet.create((token, type: ToastType) => {
     const { background: backgroundColor } = getToastTokenForType(token, type);
     return {
+        pressable: { borderRadius: 4 },
         background: {
             flexDirection: "row",
             alignItems: "center",
@@ -45,6 +46,7 @@ const theme = EDSStyleSheet.create((token, type: ToastType) => {
             gap: 16,
             maxWidth: getMaxToastWidth(),
             padding: 16,
+            userSelect: "none",
         },
         text: {
             maxWidth: "90%",
