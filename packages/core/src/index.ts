@@ -13,7 +13,7 @@ export {
     trackLongTerm,
     trackShortTerm,
 } from "@equinor/mad-insights";
-export { addToast } from "@equinor/mad-toast";
+export { addToast, ToastTypes, ToastType } from "@equinor/mad-toast";
 export * from "./hooks";
 export * from "./store";
 export * from "./utils/getDefaultScreenOptionsForLoginScreen";
