@@ -1,5 +1,5 @@
 {
-    "name": "@equinor/react-native-skia-draw",
+    "name": "@equinor/react-native-mad-ocr-camera",
     "version": "0.3.24",
     "description": "A React Native drawing library running on SKIA",
     "type": "module",
