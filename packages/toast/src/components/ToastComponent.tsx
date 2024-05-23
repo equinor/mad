@@ -11,12 +11,14 @@ import React from "react";
 import { ToastType } from "../types";
 import { getMaxToastWidth } from "../utils/getMaxToastWidth";
 import { getToastTokenForType } from "../utils/getToastTokenForType";
+import { getIconNameForToastType } from "../utils/getIconNameForToastType";
 
 export type ToastComponentProps = { text: string; type: ToastType; onPress?: () => void };
 export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => {
     const styles = useStyles(theme, type);
     const masterToken = useToken();
     const { text: textColor } = getToastTokenForType(masterToken, type);
+    const iconName = getIconNameForToastType(type);
 
     return (
         <PressableHighlight
@@ -25,7 +27,7 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
             style={styles.pressable}
         >
             <Paper elevation="raised" style={styles.background}>
-                <Icon name="information-outline" color={textColor} />
+                <Icon name={iconName} color={textColor} />
                 <Typography color={textColor} numberOfLines={2} style={styles.text}>
                     {text}
                 </Typography>
