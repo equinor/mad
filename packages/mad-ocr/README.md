@@ -7,7 +7,7 @@ This library adds text scanning for ios devices.
 Import the component called `OCRCamera` as shown below:
 
 ```tsx
-export const myComponent = () => {
+export const MyComponent = () => {
     const onScanResult = (tag: string) => {
         // do someting here
     };
