@@ -1,5 +1,5 @@
 {
-    "name": "@equinor/react-native-mad-ocr",
+    "name": "@equinor/react-native-mad-tag-scanner",
     "version": "0.0.1",
     "description": "A React Native library for scanning tags",
     "type": "module",
