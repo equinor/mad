@@ -1,5 +1,16 @@
 # @equinor/mad-core
 
+## 0.8.0
+
+### Minor Changes
+
+-   7ce28df: `addToast` is available. `react-native-safe-area-context` is now a peer dependency
+
+### Patch Changes
+
+-   Updated dependencies [7ce28df]
+    -   @equinor/mad-components@0.14.6
+
 ## 0.7.2
 
 ### Patch Changes
