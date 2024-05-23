@@ -31,6 +31,7 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "@shopify/react-native-skia": "0.1.225",
+    "@equinor/react-native-mad-tag-scanner": "*",
     "expo": "~49.0.21",
     "expo-asset": "~8.10.1",
     "expo-auth-session": "~5.0.2",

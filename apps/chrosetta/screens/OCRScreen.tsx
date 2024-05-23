@@ -1,6 +1,6 @@
 import React from "react";
-import { Typography } from "@equinor/mad-components";
+import { OCRCamera } from "@equinor/react-native-mad-tag-scanner";
 
 export const OCRScreen = () => {
-    return <Typography>Hello world</Typography>;
+    return <OCRCamera onClose={()=>console.log("close")} onSelectTag={(tag)=>console.log(tag)} />
 };
