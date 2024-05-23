@@ -34,7 +34,8 @@
         "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
         "react-native-vision-camera": "^4.0.4",
         "react-native-worklets-core": "^1.3.3",
-        "@shopify/react-native-skia": "1.2.3"
+        "@shopify/react-native-skia": "1.2.3",
+        "react-native-gesture-handler": "^2.14.0"
     },
     "peerDependencies": {
         "react": ">=18.0",
@@ -42,7 +43,8 @@
         "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
         "react-native-vision-camera": "^4.0.4",
         "react-native-worklets-core": "^1.3.3",
-        "@shopify/react-native-skia": "1.2.3"
+        "@shopify/react-native-skia": "1.2.3",
+        "react-native-gesture-handler": "^2.14.0"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
