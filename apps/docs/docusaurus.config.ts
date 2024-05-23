@@ -73,6 +73,11 @@ const config: Config = {
                             sidebarId: "componentsSidebar",
                             label: "Components",
                         },
+                        {
+                            type: "docSidebar",
+                            sidebarId: "toastSidebar",
+                            label: "MAD Toast",
+                        },
                     ],
                 },
                 {
@@ -94,7 +99,11 @@ const config: Config = {
                         },
                         {
                             label: "MAD Core",
-                            to: "docs/mad-core/getting-started",
+                            to: "docs/mad-core/introduction",
+                        },
+                        {
+                            label: "MAD Toast",
+                            to: "docs/mad-toast/introduction",
                         },
                     ],
                 },

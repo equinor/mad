@@ -99,6 +99,24 @@ export type MasterToken = {
             qa: ColorSchemeValues<Color>;
             text: ColorSchemeValues<Color>;
         };
+        toast: {
+            error: {
+                background: ColorSchemeValues<Color>,
+                text: ColorSchemeValues<Color>
+            },
+            info: {
+                background: ColorSchemeValues<Color>,
+                text: ColorSchemeValues<Color>
+            },
+            warning: {
+                background: ColorSchemeValues<Color>,
+                text: ColorSchemeValues<Color>
+            },
+            success: {
+                background: ColorSchemeValues<Color>,
+                text: ColorSchemeValues<Color>
+            }
+        }
         text: {
             primary: ColorSchemeValues<Color>;
             secondary: ColorSchemeValues<Color>;
