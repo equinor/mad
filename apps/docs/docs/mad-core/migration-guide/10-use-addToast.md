@@ -10,7 +10,7 @@ import { Button } from "@equinor/mad-components";
 const DisplayToastButton = () => {
     const displayToast = () =>
         addToast({
-            type: "INFO",
+            type: "info",
             text: "Hello world!",
             duration: 1000,
             onPress: () => console.log("You pressed the toast"),
