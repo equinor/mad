@@ -41,6 +41,7 @@ export type WorkOrderOptimizedForQuery = {
     basicStartDateTime: string | null;
     basicEndDateTime: string | null;
     createdDateTime: string | null;
+    changedDateTime: string | null;
     /**
      * Field used to assist in grouping/sorting Work orders. Unstructured field used non-consistently between plants
      */

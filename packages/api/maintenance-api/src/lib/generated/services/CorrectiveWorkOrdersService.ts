@@ -258,8 +258,20 @@ export class CorrectiveWorkOrdersService {
      * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
      * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
      * - Update costs
+     * - Update costWBSId and additionalCostWBSId
      *
-     * ### Important information
+     *
+     * ### Important information - costWBSId and additionalCostWBSId
+     * It's generally recommended that the values of `costWBSId` and `additionalCostWBSId` match.
+     * When the work order is released (by setting status `REL`), there is Equinor business logic check to see if they match.
+     * If the work order is released through Maintenance API, different values for costWBSId and additionalCostWBSId will result in an error.
+     * If the work order is released directly in the ERP system, the user will receive a warning and can choose to continue.
+     *
+     * In release 1.29.0, there is a limitation related to update of `costWBSId` and `additionalCostWBSId` on a released work order.
+     * When the work order was released, there were created settlement rules using the wbses. These are currently not updated.
+     * This limitation is planned to be removed in release 1.30.0.
+     *
+     * ### Important information - Text
      * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
      *
      * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
@@ -288,7 +300,7 @@ export class CorrectiveWorkOrdersService {
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
      * ### Update release v1.29.0
-     * Added possibility for update of `additionalCostWBSId` and `costWBSId`.
+     * Added possibility for update of `costWBSId` and `additionalCostWBSId`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

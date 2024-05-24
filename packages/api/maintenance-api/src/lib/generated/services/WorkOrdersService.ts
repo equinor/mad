@@ -345,7 +345,9 @@ export class WorkOrdersService {
      * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
      * ### Update release v1.29.0
-     * Added property `revision`
+     * Added properties `revision` and `changedDatetime`.
+     *
+     * Allow searching by 'changedOnDay' when `is-open` is set. Search by using the new query parameters `changed-after-date` and `changed-before-date`.
      *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -375,6 +377,8 @@ export class WorkOrdersService {
         isOpen,
         createdAfterDate,
         createdBeforeDate,
+        changedAfterDate,
+        changedBeforeDate,
         workOrderTypes,
         sortBy,
         includeText = false,
@@ -474,6 +478,14 @@ export class WorkOrdersService {
          */
         createdBeforeDate?: string,
         /**
+         * Earliest `changedOnDay` date to include. Query parameter `is-open` must be set to `true` or `false` to use this parameter.
+         */
+        changedAfterDate?: string,
+        /**
+         * Latest `changedOnDay` date to include. Query parameter `is-open` must be set to `true` or `false` to use this parameter.
+         */
+        changedBeforeDate?: string,
+        /**
          * Limit to specific work order types (one-of)
          */
         workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
@@ -521,6 +533,8 @@ export class WorkOrdersService {
                 'is-open': isOpen,
                 'created-after-date': createdAfterDate,
                 'created-before-date': createdBeforeDate,
+                'changed-after-date': changedAfterDate,
+                'changed-before-date': changedBeforeDate,
                 'work-order-types': workOrderTypes,
                 'sort-by': sortBy,
                 'include-text': includeText,

@@ -13,5 +13,7 @@ export type PreventiveWorkOrderBasic = (PreventiveWorkOrderSimple & {
      * The type of work order it is an instance of
      */
     workOrderTypeId: 'preventiveWorkOrder';
+    plannerGroup: string;
+    workCenter: string;
 });
 
