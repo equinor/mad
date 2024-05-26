@@ -20,7 +20,8 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 >;
 
 export type RootTabParamList = {
-    Components: undefined;
+    HomeScreen: undefined;
+    OCRScreen: undefined;
     DFW: undefined;
     IconsTab: undefined;
     DrawTab: undefined;

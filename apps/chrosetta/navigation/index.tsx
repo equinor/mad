@@ -21,6 +21,8 @@ import LinkingConfiguration from "./LinkingConfiguration";
 import { SampleLoginScreen } from "./LoginScreen";
 import { SampleSettingsScreen } from "./SettingsScreen";
 import { OCRScreen } from "../screens/OCRScreen";
+import HomeScreen from "../screens/HomeScreen";
+
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
@@ -76,20 +78,26 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
-            initialRouteName="Components"
+            initialRouteName="HomeScreen"
             screenOptions={{
                 tabBarLabelStyle: { fontFamily: "Equinor-Bold" },
                 headerRight: () => <GoToSettingsButton marginRight={8} />,
             }}
         >
             <BottomTab.Screen
-                name="Components"
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{
+                    title: "Home",
+                    tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color as Color} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="OCRScreen"
                 component={OCRScreen}
                 options={{
-                    title: "OCR title",
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="binoculars" color={color as Color} />
-                    ),
+                    title: "Tag Scanner",
+                    tabBarIcon: ({ color }) => <TabBarIcon name="camera" color={color as Color} />,
                 }}
             />
         </BottomTab.Navigator>
