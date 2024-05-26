@@ -34,6 +34,12 @@
                     "photosPermissions": "The app needs access to your photos library in order to process them."
                 }
             ],
+            [
+                "react-native-vision-camera",
+                {
+                    "cameraPermissionText": "chrosetta needs access to your Camera."
+                }
+            ],
             "@config-plugins/detox"
         ],
         "web": {
