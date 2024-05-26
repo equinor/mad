@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.14.6
+
+### Patch Changes
+
+-   7ce28df: Add colors for toast
+
 ## 0.14.5
 
 ### Patch Changes

@@ -14080,6 +14080,11 @@ react-native-vision-camera@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/react-native-vision-camera/-/react-native-vision-camera-4.0.4.tgz#c719b8494028f253527e319d3f928c13fd701d5d"
   integrity sha512-L2GlOHAjytbG83At3JEmRYteCNBaRtDqQCauCgJKKFm0wPEcKtzJeail3ErZkh/yGqqVKzhoQHJtxzlroM2wFg==
+  
+react-native-toast-message@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.2.0.tgz#c53a4746b15616858a7d61c4386b92cbe9fbf911"
+  integrity sha512-AFti8VzUk6JvyGAlLm9/BknTNDXrrhqnUk7ak/pM7uCTxDPveAu2ekszU0on6vnUPFnG04H/QfYE2IlETqeaWw==
 
 react-native-web@~0.19.7:
   version "0.19.11"

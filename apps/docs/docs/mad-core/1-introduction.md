@@ -1,8 +1,13 @@
+---
+sidebar_label: Introduction
+description: Introduction to mad core!
+---
+
 _`@equinor/mad-core` is a package made for the mad team in Equinor. It is opinionated and will not
 work well for other teams. If you work in Equinor and would like to use this package, please contact
 us!_
 
-### Introduction
+# Introduction
 
 `@equinor/mad-core` is designed to handle the general requirements for your react native app, so
 that you can focus on your app's core functionality. It provides:
@@ -30,8 +35,3 @@ that you can focus on your app's core functionality. It provides:
     settings-screen near you!
 -   Probably more, but it's hard to keep track of everything. Do you know of anything that should be
     added here? Create an issue!
-
-### Docs
-
-For more information about how to use this package, head to
-[our documentation](https://equinor.github.io/mad/docs/mad-core/introduction)

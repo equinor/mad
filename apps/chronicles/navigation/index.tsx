@@ -35,6 +35,7 @@ import { DFWDiscoverScreen } from "../screens/dfw/DFWDiscoverScreen";
 import { DFWComponentScreen } from "../screens/dfw/DFWComponentsScreen";
 import { DFWComponentName } from "../types/dfwcomponents";
 import { SampleLoginScreen } from "./LoginScreen";
+import { ToastScreen } from "../screens/ToastScreen";
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
@@ -186,6 +187,16 @@ function BottomTabNavigator() {
                 options={{
                     title: "Icons",
                     tabBarIcon: ({ color }) => <TabBarIcon name="grid" color={color as Color} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="ToastTab"
+                component={ToastScreen}
+                options={{
+                    title: "Toast",
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="bullhorn-outline" color={color as Color} />
+                    ),
                 }}
             />
             <BottomTab.Screen

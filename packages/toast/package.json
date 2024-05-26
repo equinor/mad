@@ -1,7 +1,7 @@
 {
-    "name": "@equinor/mad-components",
-    "version": "0.14.6",
-    "description": "A React Native component library implementing the Equinor Design System.",
+    "name": "@equinor/mad-toast",
+    "version": "0.1.0",
+    "description": "Toast package built on top of `react-native-toast-message`",
     "type": "module",
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
@@ -12,8 +12,9 @@
     },
     "keywords": [
         "react native",
-        "ui",
-        "typescript"
+        "toast",
+        "toast message",
+        "react-native-toast-message"
     ],
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
@@ -25,25 +26,17 @@
     "homepage": "https://github.com/equinor/mad/",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@equinor/mad-components": "*",
+        "react-native-toast-message": "^2.2.0"
+    },
     "peerDependencies": {
         "react": ">=18.0",
         "react-dom": ">=18.0",
-        "react-native": ">=0.70",
-        "expo-font": ">=10.0.0",
-        "react-native-svg": ">=13.0",
-        "react-native-reanimated": ">=2.0",
-        "react-native-gesture-handler": ">=2.0"
-    },
-    "dependencies": {
-        "@floating-ui/react-native": "^0.10.1",
-        "react-error-boundary": "^4.0.11"
+        "react-native": ">=0.70"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "*",
-        "@testing-library/jest-native": "^5.4.3",
-        "@testing-library/react": "^14.0.0",
-        "@testing-library/react-native": "^12.3.0",
-        "react-test-renderer": "18.2.0"
+        "@equinor/eslint-config-mad": "*"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
