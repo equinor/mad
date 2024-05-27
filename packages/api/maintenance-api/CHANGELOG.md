@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.30.0
+
+### Minor Changes
+
+-   db57115: Updated wrapper to 1.30.0
+
 ## 1.29.0
 
 ### Minor Changes
