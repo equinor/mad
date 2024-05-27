@@ -71,6 +71,10 @@ export type RevisionWorkOrderOperation = {
     changedById?: string;
     changedBy?: string | null;
     changedByEmail?: string | null;
+    progressChangedDateTime?: string | null;
+    progressChangedById?: string;
+    progressChangedBy?: string | null;
+    progressChangedByEmail?: string | null;
     materials?: Array<WorkOrderMaterial>;
 };
 

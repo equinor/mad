@@ -345,6 +345,10 @@ export class MasterDataForPlantsService {
      * ### Update version 1.28.0
      * Added `changedDateTime`,`changedById`, `changedBy`, `changedByEmail`.
      *
+     * ### Update release v1.29.0
+     * Added `progressChangedDateTime`, `progressChangedBy`, `progressChangedById` and `progressChangedByEmail` to response.  These values represent the last update datetime for technical feedback.
+     * Altered `changedDateTime`, `changedBy`, `changedById` and `changedByEmail` to only represent last update to the operation.
+     *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

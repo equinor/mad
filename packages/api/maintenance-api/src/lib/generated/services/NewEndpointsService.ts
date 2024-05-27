@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
-import type { MaintenanceRecordChangeFailureImpact } from '../models/MaintenanceRecordChangeFailureImpact';
+import type { DocumentLookup } from '../models/DocumentLookup';
+import type { DocumentSearchItem } from '../models/DocumentSearchItem';
 import type { ProblemDetails } from '../models/ProblemDetails';
-import type { RelationshipToEquipmentAdd } from '../models/RelationshipToEquipmentAdd';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -14,88 +13,191 @@ import { request as __request } from '../core/request';
 export class NewEndpointsService {
 
     /**
-     * Work order relationships - Add related equipment
+     * Document - Search
      * ### Overview
-     * Add new relationship between a work order and an equipment.
+     * Search documents and include related information such as characteristics, materials, equipment and attachments.
      *
-     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information. This is currently not possible for technical feedback, but is expected to be added in the future.
      *
+     * The client must in the request provide at least one of the following search parameters:
+     * * `document-type-any-of`
+     * * `document-number-any-of`
+     * * `characteristic-value-any-of`
+     *
+     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
+     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
+     *
+     * @returns DocumentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static addRelationshipFromWorkOrderToEquipment({
-        workOrderId,
-        requestBody,
+    public static searchDocuments({
+        documentTypeAnyOf,
+        documentNumberAnyOf,
+        characteristicValueAnyOf,
+        characteristicId,
+        classId,
+        includeCharacteristics = false,
+        includeMaterial = false,
+        includeEquipment = false,
+        includeAttachments = false,
+        perPage = 50,
+        page = 1,
     }: {
         /**
-         * Id of the work order (can be any type)
+         * Search based on `documentType`.
          */
-        workOrderId: string,
+        documentTypeAnyOf?: Array<string>,
         /**
-         * Define equipment to add relationship to
+         * Search based on `documentNumber`.
          */
-        requestBody: RelationshipToEquipmentAdd,
-    }): CancelablePromise<ProblemDetails> {
+        documentNumberAnyOf?: Array<string>,
+        /**
+         * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id` Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
+         */
+        characteristicValueAnyOf?: string,
+        /**
+         * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids
+         */
+        characteristicId?: string | null,
+        /**
+         * Required field if `characteristic-value-any-of` is supplied.
+         */
+        classId?: string | null,
+        /**
+         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
+         */
+        includeCharacteristics?: boolean,
+        /**
+         * Include material related to the object
+         */
+        includeMaterial?: boolean,
+        /**
+         * Include equipment related to the object
+         */
+        includeEquipment?: boolean,
+        /**
+         * Include equipment or tag attachments
+         */
+        includeAttachments?: boolean,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<DocumentSearchItem> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-order-relationships/{work-order-id}/related-equipment',
-            path: {
-                'work-order-id': workOrderId,
+            method: 'GET',
+            url: '/documents',
+            query: {
+                'document-type-any-of': documentTypeAnyOf,
+                'document-number-any-of': documentNumberAnyOf,
+                'characteristic-value-any-of': characteristicValueAnyOf,
+                'characteristic-id': characteristicId,
+                'class-id': classId,
+                'include-characteristics': includeCharacteristics,
+                'include-material': includeMaterial,
+                'include-equipment': includeEquipment,
+                'include-attachments': includeAttachments,
+                'per-page': perPage,
+                'page': page,
             },
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to work order`,
+                403: `User does not have sufficient rights to view document`,
                 404: `The specified resource was not found`,
-                409: `Work order is locked by other user`,
             },
         });
     }
 
     /**
-     * Failure report - Change failure impact
+     * Document - Lookup
      * ### Overview
-     * Change failure impact of the failure report.
-     * This endpoint should only be executed by people with access to the 'action box' in Equinor's ERP system.
+     * Lookup document by id. Use the different include parameters to include additional information about the document.
+     * [POST document-relationships/{relationship-type}/{source-id}](#operation/AddRelationshipsToDocument) can be used to link the document to a business object.
      *
-     * Client applications should take special care in ensuring the business process of Equinor is followed when using this endpoint.
+     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
+     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
      *
-     * An activity for the failure report will be created by this call and the `priorityId`, `requiredStartDate`, and `requiredEndDate` will be recalculated.
-     *
-     * ### Important information
-     * Most users will not have sufficient authorizations to execute this endpoint. If a request fails due to missing authorizations, the response code will be HTTP 403.
-     *
+     * @returns DocumentLookup Success
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns MaintenanceRecordActivity Success
      * @throws ApiError
      */
-    public static failureReportChangeFailureImpact({
-        recordId,
-        requestBody,
+    public static lookupDocument({
+        documentId,
+        includeCharacteristics = false,
+        includeMaterial = false,
+        includeEquipment = false,
+        includeAttachments = false,
     }: {
         /**
-         * id of the failure report
+         * Unique id for the document to be used against endpoints for the `/documents` resource
          */
-        recordId: string,
+        documentId: string,
         /**
-         * New failure impact - activity to be created on the failure report.
+         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
          */
-        requestBody: MaintenanceRecordChangeFailureImpact,
-    }): CancelablePromise<ProblemDetails | MaintenanceRecordActivity> {
+        includeCharacteristics?: boolean,
+        /**
+         * Include material related to the object
+         */
+        includeMaterial?: boolean,
+        /**
+         * Include equipment related to the object
+         */
+        includeEquipment?: boolean,
+        /**
+         * Include equipment or tag attachments
+         */
+        includeAttachments?: boolean,
+    }): CancelablePromise<Array<DocumentLookup> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/failure-reports/{record-id}/failure-impact-change',
+            method: 'GET',
+            url: '/documents/{document-id}',
             path: {
-                'record-id': recordId,
+                'document-id': documentId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            query: {
+                'include-characteristics': includeCharacteristics,
+                'include-material': includeMaterial,
+                'include-equipment': includeEquipment,
+                'include-attachments': includeAttachments,
+            },
             errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to execute this endpoint`,
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to view document`,
                 404: `The specified resource was not found`,
-                409: `Failure report is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Document - Attachment download
+     * ### Overview
+     * Download a single attachment from a specific document.
+     *
+     * @returns binary Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static downloadDocumentAttachment({
+        documentId,
+        attachmentId,
+    }: {
+        documentId: string,
+        attachmentId: string,
+    }): CancelablePromise<Blob | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/documents/{document-id}/attachments/{attachment-id}',
+            path: {
+                'document-id': documentId,
+                'attachment-id': attachmentId,
+            },
+            errors: {
+                404: `The specified resource was not found`,
             },
         });
     }

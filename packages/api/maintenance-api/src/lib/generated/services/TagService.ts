@@ -418,6 +418,11 @@ export class TagService {
      *
      * The data will be cached in the API and renewed on a daily basis.
      *
+     * ### Update release v1.30.0
+     * Added property `tag` to the response.
+     *
+     * Added query parameter `sub-hierarchy-limit` which controls how many levels below the root the response will contain.
+     *
      * @returns TagHierachyItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -426,6 +431,7 @@ export class TagService {
         plantId,
         filter,
         rootTagIdAnyOf,
+        subHierarchyLimit = 4,
     }: {
         plantId: string,
         /**
@@ -436,6 +442,12 @@ export class TagService {
          * Comma-separated list of tags (without tagPlantId prefix)
          */
         rootTagIdAnyOf?: string,
+        /**
+         * Limit the response to a certain number of levels below the root tag
+         * If this parameter is omitted, a maximum of 4 sub levels will be included.
+         *
+         */
+        subHierarchyLimit?: number,
     }): CancelablePromise<Array<TagHierachyItem> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -446,6 +458,7 @@ export class TagService {
             query: {
                 'filter': filter,
                 'root-tag-id-any-of': rootTagIdAnyOf,
+                'sub-hierarchy-limit': subHierarchyLimit,
             },
             errors: {
                 404: `The specified resource was not found`,
