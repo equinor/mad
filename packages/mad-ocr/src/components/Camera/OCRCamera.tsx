@@ -25,12 +25,12 @@ import { Button, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import { PopoverButton } from "../InfoButton";
 
 export type OCRCameraProps = {
-    circleOnClick?: { radius: number };
+    fps?: number;
     onSelectTag: (tag: string) => void;
     onClose: () => void;
 };
 
-export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProps) => {
+export const OCRCamera = ({ fps = 60, onSelectTag, onClose }: OCRCameraProps) => {
     const { hasPermission, requestPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
     const device = useCameraDevice("back");
@@ -64,7 +64,7 @@ export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProp
 
     const format = useCameraFormat(device, [
         {
-            fps: 60,
+            fps,
             videoResolution: {
                 width: viewWidth,
                 height: viewHeight,
@@ -121,14 +121,6 @@ export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProp
                 }
             });
 
-            if (translatedClickedPoint && circleOnClick) {
-                frame.drawCircle(
-                    translatedClickedPoint.x,
-                    translatedClickedPoint.y,
-                    circleOnClick.radius,
-                    paintConfig,
-                );
-            }
             clickedPoint.value = undefined;
         },
         [clickedPoint, viewWidthShared, viewHeightShared],
@@ -156,12 +148,7 @@ export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProp
     }
 
     return (
-        <View
-            style={{
-                flex: 1,
-                position: "relative",
-            }}
-        >
+        <View style={styles.container}>
             <SelectTagDialog
                 show={showDialog}
                 tagText={scannedTag}
@@ -183,14 +170,14 @@ export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProp
                     onLayout={onLayout}
                     device={device}
                     format={format}
-                    fps={60}
+                    fps={fps}
                     isActive={!showDialog}
                     style={{ flex: 1 }}
                     resizeMode="cover"
                     frameProcessor={frameProcessor}
                     enableZoomGesture
                     videoStabilizationMode="auto"
-                    orientation={"portrait"}
+                    orientation="portrait"
                 />
             </GestureDetector>
         </View>
@@ -198,6 +185,10 @@ export const OCRCamera = ({ circleOnClick, onSelectTag, onClose }: OCRCameraProp
 };
 
 const themeStyles = EDSStyleSheet.create(theme => ({
+    container: {
+        flex: 1,
+        position: "relative",
+    },
     buttonContainer: {
         zIndex: 1,
         position: "absolute",
