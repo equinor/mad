@@ -64,7 +64,7 @@ export const authenticateInteractively = async (): Promise<MadAuthenticationResu
             redirectUri: config.redirectUri,
         };
         const tokenResponse = await exchangeCodeAsync(accessTokenConfig, discovery);
-        const userData = decodeToken(tokenResponse.accessToken);
+        const userData = decodeToken(tokenResponse.idToken);
         if (!userData) return null;
         setUserData(userData);
         setToken(tokenResponse);
