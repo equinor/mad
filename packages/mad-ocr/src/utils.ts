@@ -1,8 +1,8 @@
-import { PaintStyle, Skia } from "@shopify/react-native-skia";
+import { Color, PaintStyle, Skia } from "@shopify/react-native-skia";
 import { BoundingBox, Point } from "./types";
 import { BoundingBoxPadding } from "./consts";
 
-export const getBoundingBoxCorners = (
+export const getBoundingBox = (
     centerX: number,
     centerY: number,
     width: number,
@@ -67,9 +67,9 @@ export const formatTag = (text: string) => {
         .join("");
 };
 
-export function getPainConfig() {
+export function getPainConfig(color: Color) {
     const paint = Skia.Paint();
-    paint.setColor(Skia.Color("red"));
+    paint.setColor(Skia.Color(color));
     paint.setStyle(PaintStyle.Stroke);
     paint.setStrokeWidth(2);
     return paint;

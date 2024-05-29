@@ -7,16 +7,16 @@ import {
     useSkiaFrameProcessor,
 } from "react-native-vision-camera";
 import { scanOCR } from "@ismaelmoreiraa/vision-camera-ocr";
-import { Skia } from "@shopify/react-native-skia";
+import { Color, Skia } from "@shopify/react-native-skia";
 import { LayoutChangeEvent, View, useWindowDimensions } from "react-native";
 import { useRunOnJS, useSharedValue } from "react-native-worklets-core";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { MaxTagLength, MinTagLength, OcrUsageSteps, BoundingBoxPadding } from "../../consts";
+import { BoundingBoxPadding, MaxTagLength, MinTagLength, OcrUsageSteps } from "../../consts";
 import { Point } from "../../types";
 import {
     formatTag,
     getPainConfig,
-    getBoundingBoxCorners,
+    getBoundingBox,
     isPointInsideBoundingBox,
     translateViewPointToCameraPoint,
 } from "../../utils";
@@ -26,15 +26,21 @@ import { PopoverButton } from "../InfoButton";
 
 export type OCRCameraProps = {
     fps?: number;
+    boundingBoxColor?: Color;
     onSelectTag: (tag: string) => void;
     onClose: () => void;
 };
 
-export const OCRCamera = ({ fps = 60, onSelectTag, onClose }: OCRCameraProps) => {
+export const OCRCamera = ({
+    fps = 60,
+    boundingBoxColor = "red",
+    onSelectTag,
+    onClose,
+}: OCRCameraProps) => {
     const { hasPermission, requestPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
     const device = useCameraDevice("back");
-    const paintConfig = getPainConfig();
+    const paintConfig = getPainConfig(boundingBoxColor);
 
     const [showDialog, setShowDialog] = useState(false);
     const [scannedTag, setScannedTag] = useState<string>("");
@@ -90,37 +96,40 @@ export const OCRCamera = ({ fps = 60, onSelectTag, onClose }: OCRCameraProps) =>
                     clickedPoint.value,
                 );
 
-            scannedOcr.result.blocks.forEach(block => {
-                const isPossibleTag =
+            for (const block of scannedOcr.result.blocks) {
+                const isValidTag =
                     block.text.length >= MinTagLength && block.text.length <= MaxTagLength;
 
-                if (block.frame && isPossibleTag) {
-                    const rectangle = getBoundingBoxCorners(
-                        block.frame.boundingCenterX,
-                        block.frame.boundingCenterY,
-                        block.frame.width,
-                        block.frame.height,
-                    );
+                if (!block?.frame || !isValidTag) continue;
 
-                    frame.drawRect(
-                        Skia.XYWHRect(
-                            rectangle.topLeft.x,
-                            rectangle.topLeft.y,
+                const boundingBox = getBoundingBox(
+                    block.frame.boundingCenterX,
+                    block.frame.boundingCenterY,
+                    block.frame.width,
+                    block.frame.height,
+                );
+
+                frame.drawRRect(
+                    {
+                        rx: 10,
+                        ry: 10,
+                        rect: Skia.XYWHRect(
+                            boundingBox.topLeft.x,
+                            boundingBox.topLeft.y,
                             block.frame.width + BoundingBoxPadding * 2,
                             block.frame.height + BoundingBoxPadding * 2,
                         ),
-                        paintConfig,
-                    );
+                    },
+                    paintConfig,
+                );
 
-                    if (
-                        translatedClickedPoint &&
-                        isPointInsideBoundingBox(rectangle, translatedClickedPoint)
-                    ) {
-                        void setScannedTagOnJS(formatTag(block.text));
-                    }
+                if (
+                    translatedClickedPoint &&
+                    isPointInsideBoundingBox(boundingBox, translatedClickedPoint)
+                ) {
+                    void setScannedTagOnJS(formatTag(block.text));
                 }
-            });
-
+            }
             clickedPoint.value = undefined;
         },
         [clickedPoint, viewWidthShared, viewHeightShared],
