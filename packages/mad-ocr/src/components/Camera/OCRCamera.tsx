@@ -11,8 +11,8 @@ import { Color, Skia } from "@shopify/react-native-skia";
 import { LayoutChangeEvent, View, useWindowDimensions } from "react-native";
 import { useRunOnJS, useSharedValue } from "react-native-worklets-core";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { BoundingBoxPadding, MaxTagLength, MinTagLength, OcrUsageSteps } from "../../consts";
-import { Point } from "../../types";
+import { BoundingBoxPadding, MaxTagLength, OcrUsageSteps } from "../../consts";
+import { BoundingBox, Point } from "../../types";
 import {
     formatTag,
     getPainConfig,
@@ -27,8 +27,10 @@ import { PopoverButton } from "../InfoButton";
 export type OCRCameraProps = {
     fps?: number;
     boundingBoxColor?: Color;
-    onSelectTag: (tag: string) => void;
-    onClose: () => void;
+    onSelectTag?: (tag: string) => void;
+    onClose?: () => void;
+    shouldHighlightText?: (text: string) => boolean;
+    onDetectTextBlock?: (text: string, boundingBox: BoundingBox) => void;
 };
 
 export const OCRCamera = ({
@@ -36,6 +38,8 @@ export const OCRCamera = ({
     boundingBoxColor = "red",
     onSelectTag,
     onClose,
+    shouldHighlightText,
+    onDetectTextBlock,
 }: OCRCameraProps) => {
     const { hasPermission, requestPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
@@ -80,6 +84,16 @@ export const OCRCamera = ({
 
     const tap = Gesture.Tap().onEnd(e => (clickedPoint.value = { x: e.x, y: e.y }));
 
+    const shouldHighlightTextWorklet = (text: string) => {
+        "worklet";
+        return shouldHighlightText ? shouldHighlightText(text) : false;
+    };
+
+    const onDetectTextBlockWorklet = (text: string, boundingBox: BoundingBox) => {
+        "worklet";
+        if (onDetectTextBlock) onDetectTextBlock(text, boundingBox);
+    };
+
     const frameProcessor = useSkiaFrameProcessor(
         frame => {
             "worklet";
@@ -97,10 +111,7 @@ export const OCRCamera = ({
                 );
 
             for (const block of scannedOcr.result.blocks) {
-                const isValidTag =
-                    block.text.length >= MinTagLength && block.text.length <= MaxTagLength;
-
-                if (!block?.frame || !isValidTag) continue;
+                if (!block?.frame || !shouldHighlightTextWorklet(block.text)) continue;
 
                 const boundingBox = getBoundingBox(
                     block.frame.boundingCenterX,
@@ -108,6 +119,8 @@ export const OCRCamera = ({
                     block.frame.width,
                     block.frame.height,
                 );
+
+                onDetectTextBlockWorklet(block.text, boundingBox);
 
                 frame.drawRRect(
                     {
@@ -141,13 +154,13 @@ export const OCRCamera = ({
     };
 
     const confirmSelection = () => {
-        onSelectTag(scannedTag);
+        if (onSelectTag) onSelectTag(scannedTag);
         setShowDialog(false);
     };
 
     if (!hasPermission) {
         void requestPermission();
-        onClose();
+        if (onClose) onClose();
         return;
     }
 
