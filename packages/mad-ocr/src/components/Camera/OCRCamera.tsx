@@ -7,12 +7,12 @@ import {
     useSkiaFrameProcessor,
 } from "react-native-vision-camera";
 import { scanOCR } from "@ismaelmoreiraa/vision-camera-ocr";
-import { Color, Skia } from "@shopify/react-native-skia";
+import { Skia } from "@shopify/react-native-skia";
 import { LayoutChangeEvent, View, useWindowDimensions } from "react-native";
 import { useRunOnJS, useSharedValue } from "react-native-worklets-core";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { BoundingBoxPadding, MaxTagLength, OcrUsageSteps } from "../../consts";
-import { BoundingBox, Point } from "../../types";
+import { BoundingBox, OCRCameraProps, Point } from "../../types";
 import {
     formatTag,
     getPainConfig,
@@ -24,22 +24,13 @@ import { SelectTagDialog } from "../SelectTagDialog";
 import { Button, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import { PopoverButton } from "../InfoButton";
 
-export type OCRCameraProps = {
-    fps?: number;
-    boundingBoxColor?: Color;
-    onSelectTag?: (tag: string) => void;
-    onClose?: () => void;
-    shouldHighlightText?: (text: string) => boolean;
-    onDetectTextBlock?: (text: string, boundingBox: BoundingBox) => void;
-};
-
 export const OCRCamera = ({
+    displayConfirmSelectionDialog = true,
     fps = 60,
     boundingBoxColor = "red",
     onSelectTag,
     onClose,
-    shouldHighlightText,
-    onDetectTextBlock,
+    shouldHighlightTextBlock,
 }: OCRCameraProps) => {
     const { hasPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
@@ -47,14 +38,17 @@ export const OCRCamera = ({
     const paintConfig = getPainConfig(boundingBoxColor);
 
     const [showDialog, setShowDialog] = useState(false);
-    const [scannedTag, setScannedTag] = useState<string>("");
+    const [clickedText, setClickedText] = useState<string>("");
 
     const setScannedTagOnJS = useRunOnJS(
         (text: string) => {
-            if (text) setShowDialog(true);
-            setScannedTag(text);
+            if (!displayConfirmSelectionDialog) confirmSelection(text);
+            else {
+                if (text) setShowDialog(true);
+                setClickedText(text);
+            }
         },
-        [setScannedTag],
+        [setClickedText],
     );
 
     const clickedPoint = useSharedValue<Point | undefined>(undefined);
@@ -84,14 +78,9 @@ export const OCRCamera = ({
 
     const tap = Gesture.Tap().onEnd(e => (clickedPoint.value = { x: e.x, y: e.y }));
 
-    const shouldHighlightTextWorklet = (text: string) => {
+    const shouldHighlightTextBlockWorklet = (text: string, boundingBox: BoundingBox) => {
         "worklet";
-        return shouldHighlightText ? shouldHighlightText(text) : true;
-    };
-
-    const onDetectTextBlockWorklet = (text: string, boundingBox: BoundingBox) => {
-        "worklet";
-        if (onDetectTextBlock) onDetectTextBlock(text, boundingBox);
+        return shouldHighlightTextBlock ? shouldHighlightTextBlock(text, boundingBox) : true;
     };
 
     const frameProcessor = useSkiaFrameProcessor(
@@ -111,7 +100,7 @@ export const OCRCamera = ({
                 );
 
             for (const block of scannedOcr.result.blocks) {
-                if (!block?.frame || !shouldHighlightTextWorklet(block.text)) continue;
+                if (!block?.frame) continue;
 
                 const boundingBox = getBoundingBox(
                     block.frame.boundingCenterX,
@@ -120,7 +109,7 @@ export const OCRCamera = ({
                     block.frame.height,
                 );
 
-                onDetectTextBlockWorklet(block.text, boundingBox);
+                if (!shouldHighlightTextBlockWorklet(block.text, boundingBox)) continue;
 
                 frame.drawRRect(
                     {
@@ -151,12 +140,12 @@ export const OCRCamera = ({
     const onClickClose = () => onClose?.();
 
     const clearSelection = () => {
-        setScannedTag("");
+        setClickedText("");
         setShowDialog(false);
     };
 
-    const confirmSelection = () => {
-        if (onSelectTag) onSelectTag(scannedTag);
+    const confirmSelection = (text: string) => {
+        if (onSelectTag) onSelectTag(text);
         setShowDialog(false);
     };
 
@@ -171,11 +160,11 @@ export const OCRCamera = ({
                 <>
                     <SelectTagDialog
                         show={showDialog}
-                        tagText={scannedTag}
+                        tagText={clickedText}
                         maxTagLength={MaxTagLength}
-                        onChangeTagText={text => setScannedTag(text)}
+                        onChangeTagText={text => setClickedText(text)}
                         onClickRetry={clearSelection}
-                        onClickConfirm={confirmSelection}
+                        onClickConfirm={() => confirmSelection(clickedText)}
                     />
                     <View style={styles.buttonContainer}>
                         <Button.Icon name="close" iconSize={30} onPress={onClickClose} />

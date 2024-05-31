@@ -9,8 +9,18 @@ useful for tasks such as scanning tags on platforms and other facilities.
 This library exports a component called `OCRCamera` that you can import into your project. The code
 below shows how it can be used.
 
+Remember to call the `requestPermission` function from `react-native-vision-camera` before using the
+OCR camera. Also, if your project is using the [React Navigation](https://reactnavigation.org/)
+package, you can call `useFocusEffect` to make sure permission is requested every time you navigate
+to the OCR camera. This ensures the user is always asked for permissions if permission is not
+already given.
+
 ```tsx
 export const MyComponent = () => {
+    const { hasPermission, requestPermission } = useCameraPermission();
+
+    useFocusEffect(() => void requestPermission());
+
     const onScanResult = (tag: string) => {
         // do someting here
     };
@@ -27,7 +37,7 @@ export const MyComponent = () => {
 };
 ```
 
-Note that the `OCRCamera` component currently only supports viewing in portrait.
+Note that the OCR camera only supports viewing in portrait mode.
 
 ## ⚙️ Installation
 
