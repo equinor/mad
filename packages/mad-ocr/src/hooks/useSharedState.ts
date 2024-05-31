@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSharedValue } from "react-native-worklets-core";
 
 export default function useStateToSharedValue<T>(state: T) {
