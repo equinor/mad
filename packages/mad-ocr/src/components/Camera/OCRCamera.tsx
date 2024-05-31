@@ -41,7 +41,7 @@ export const OCRCamera = ({
     shouldHighlightText,
     onDetectTextBlock,
 }: OCRCameraProps) => {
-    const { hasPermission, requestPermission } = useCameraPermission();
+    const { hasPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
     const device = useCameraDevice("back");
     const paintConfig = getPainConfig(boundingBoxColor);
@@ -86,7 +86,7 @@ export const OCRCamera = ({
 
     const shouldHighlightTextWorklet = (text: string) => {
         "worklet";
-        return shouldHighlightText ? shouldHighlightText(text) : false;
+        return shouldHighlightText ? shouldHighlightText(text) : true;
     };
 
     const onDetectTextBlockWorklet = (text: string, boundingBox: BoundingBox) => {
@@ -148,6 +148,8 @@ export const OCRCamera = ({
         [clickedPoint, viewWidthShared, viewHeightShared],
     );
 
+    const onClickClose = () => onClose?.();
+
     const clearSelection = () => {
         setScannedTag("");
         setShowDialog(false);
@@ -158,50 +160,48 @@ export const OCRCamera = ({
         setShowDialog(false);
     };
 
-    if (!hasPermission) {
-        void requestPermission();
-        if (onClose) onClose();
-        return;
-    }
-
-    if (!device) {
-        console.error("No camera device found!");
-        return;
+    if (!device && !hasPermission) {
+        console.error(!device ? "No camera device found" : "No camera permission");
+        onClickClose();
     }
 
     return (
         <View style={styles.container}>
-            <SelectTagDialog
-                show={showDialog}
-                tagText={scannedTag}
-                maxTagLength={MaxTagLength}
-                onChangeTagText={text => setScannedTag(text)}
-                onClickRetry={clearSelection}
-                onClickConfirm={confirmSelection}
-            />
-            <View style={styles.buttonContainer}>
-                <Button.Icon name="close" iconSize={30} onPress={onClose} />
-                <PopoverButton
-                    icon="information"
-                    title="How to use the tag scanner"
-                    text={OcrUsageSteps.join("\n")}
-                />
-            </View>
-            <GestureDetector gesture={tap}>
-                <Camera
-                    onLayout={onLayout}
-                    device={device}
-                    format={format}
-                    fps={fps}
-                    isActive={!showDialog}
-                    style={{ flex: 1 }}
-                    resizeMode="cover"
-                    frameProcessor={frameProcessor}
-                    enableZoomGesture
-                    videoStabilizationMode="auto"
-                    orientation="portrait"
-                />
-            </GestureDetector>
+            {hasPermission && !!device && (
+                <>
+                    <SelectTagDialog
+                        show={showDialog}
+                        tagText={scannedTag}
+                        maxTagLength={MaxTagLength}
+                        onChangeTagText={text => setScannedTag(text)}
+                        onClickRetry={clearSelection}
+                        onClickConfirm={confirmSelection}
+                    />
+                    <View style={styles.buttonContainer}>
+                        <Button.Icon name="close" iconSize={30} onPress={onClickClose} />
+                        <PopoverButton
+                            icon="information"
+                            title="How to use the tag scanner"
+                            text={OcrUsageSteps.join("\n")}
+                        />
+                    </View>
+                    <GestureDetector gesture={tap}>
+                        <Camera
+                            onLayout={onLayout}
+                            device={device}
+                            format={format}
+                            fps={fps}
+                            isActive={!showDialog}
+                            style={{ flex: 1 }}
+                            resizeMode="cover"
+                            frameProcessor={frameProcessor}
+                            enableZoomGesture
+                            videoStabilizationMode="auto"
+                            orientation="portrait"
+                        />
+                    </GestureDetector>
+                </>
+            )}
         </View>
     );
 };

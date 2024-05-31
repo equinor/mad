@@ -5,6 +5,7 @@ import { OCRCameraProps } from "./OCRCamera";
 // Prevents the react-native-vision-camera package from crashing on web
 export const OCRCamera = ({
     fps,
+    boundingBoxColor,
     onSelectTag,
     onClose,
     shouldHighlightText,
