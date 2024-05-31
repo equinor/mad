@@ -12,7 +12,7 @@ import { LayoutChangeEvent, View, useWindowDimensions } from "react-native";
 import { useRunOnJS, useSharedValue } from "react-native-worklets-core";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { BoundingBoxPadding, MaxTagLength, OcrUsageSteps } from "../../consts";
-import { BoundingBox, OCRCameraProps, Point } from "../../types";
+import { BoundingBox, OCRCameraProps, Point, ButtonConfig } from "../../types";
 import {
     formatTag,
     getPainConfig,
@@ -23,9 +23,17 @@ import {
 import { SelectTagDialog } from "../SelectTagDialog";
 import { Button, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import { PopoverButton } from "../InfoButton";
+import useStateToSharedValue from "../../hooks/useSharedState";
+
+const defaultButtonConfig: ButtonConfig = {
+    showCloseButton: true,
+    showInfoButton: true,
+    extraButtons: [],
+};
 
 export const OCRCamera = ({
-    displayConfirmSelectionDialog = true,
+    buttonConfig = defaultButtonConfig,
+    enableConfirmTextDialog = true,
     fps = 60,
     boundingBoxColor = "red",
     onSelectTag,
@@ -35,22 +43,12 @@ export const OCRCamera = ({
     const { hasPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
     const device = useCameraDevice("back");
-    const paintConfig = getPainConfig(boundingBoxColor);
+    const paintConfig = useStateToSharedValue(getPainConfig(boundingBoxColor));
 
-    const [showDialog, setShowDialog] = useState(false);
+    const [showDialog, setShowDialog] = useState<boolean>(false);
     const [clickedText, setClickedText] = useState<string>("");
 
-    const setScannedTagOnJS = useRunOnJS(
-        (text: string) => {
-            if (!displayConfirmSelectionDialog) confirmSelection(text);
-            else {
-                if (text) setShowDialog(true);
-                setClickedText(text);
-            }
-        },
-        [setClickedText],
-    );
-
+    const enableDialog = useStateToSharedValue(enableConfirmTextDialog);
     const clickedPoint = useSharedValue<Point | undefined>(undefined);
 
     const dim = useWindowDimensions();
@@ -58,6 +56,17 @@ export const OCRCamera = ({
     const viewWidthShared = useSharedValue(dim.width);
     const [viewHeight, setViewHeight] = useState(dim.height);
     const viewHeightShared = useSharedValue(dim.height);
+
+    const setScannedTagOnJS = useRunOnJS(
+        (text: string) => {
+            if (!enableDialog.value) confirmSelection(text);
+            else {
+                if (text) setShowDialog(true);
+                setClickedText(text);
+            }
+        },
+        [enableDialog.value],
+    );
 
     const onLayout = (event: LayoutChangeEvent) => {
         setViewWidth(event.nativeEvent.layout.width);
@@ -122,7 +131,7 @@ export const OCRCamera = ({
                             block.frame.height + BoundingBoxPadding * 2,
                         ),
                     },
-                    paintConfig,
+                    paintConfig.value,
                 );
 
                 if (
@@ -134,7 +143,7 @@ export const OCRCamera = ({
             }
             clickedPoint.value = undefined;
         },
-        [clickedPoint, viewWidthShared, viewHeightShared],
+        [clickedPoint, viewWidthShared, viewHeightShared, enableDialog, paintConfig],
     );
 
     const onClickClose = () => onClose?.();
@@ -166,14 +175,23 @@ export const OCRCamera = ({
                         onClickRetry={clearSelection}
                         onClickConfirm={() => confirmSelection(clickedText)}
                     />
-                    <View style={styles.buttonContainer}>
-                        <Button.Icon name="close" iconSize={30} onPress={onClickClose} />
-                        <PopoverButton
-                            icon="information"
-                            title="How to use the tag scanner"
-                            text={OcrUsageSteps.join("\n")}
-                        />
-                    </View>
+                    {!!buttonConfig && (
+                        <View style={styles.buttonContainer}>
+                            {buttonConfig.showCloseButton && (
+                                <Button.Icon name="close" iconSize={30} onPress={onClickClose} />
+                            )}
+                            {buttonConfig.showInfoButton && (
+                                <PopoverButton
+                                    icon="information"
+                                    title="How to use the tag scanner"
+                                    text={OcrUsageSteps.join("\n")}
+                                />
+                            )}
+                            {buttonConfig.extraButtons?.map((buttonProps, index) => (
+                                <Button.Icon key={index} iconSize={30} {...buttonProps} />
+                            ))}
+                        </View>
+                    )}
                     <GestureDetector gesture={tap}>
                         <Camera
                             onLayout={onLayout}

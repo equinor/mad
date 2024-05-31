@@ -1,3 +1,4 @@
+import { IconButtonProps } from "@equinor/mad-components";
 import { Color } from "@shopify/react-native-skia";
 
 export type Point = {
@@ -10,15 +11,26 @@ export type BoundingBox = {
     bottomRight: Point;
 };
 
+export type ButtonConfig = {
+    showCloseButton?: boolean;
+    showInfoButton?: boolean;
+    extraButtons?: IconButtonProps[];
+};
+
 export type OCRCameraProps = {
+    /**
+     * Customize which buttons to show on the top right of the screen
+     */
+    buttonConfig?: ButtonConfig;
     /**
      * Controls whether a confirm selection dialog is shown when the user clicks a text block
      * If true, `onSelectTag` is called after the user has clicked some text and then presses `confirm` in the prompt
      * If false, `onSelectTag` is called immediately when the user clicks a text block
      */
-    displayConfirmSelectionDialog?: boolean;
+    enableConfirmTextDialog?: boolean;
     /**
      * Frames per second (fps) that the camera should use
+     * Can be reduced to limit fps drops when scanning many text blocks simultaneously
      */
     fps?: number;
     /**
