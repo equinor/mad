@@ -17,7 +17,7 @@ export const ProgressItemStatus = ({ taskCounter, status, style }: ProgressItemS
     const token = useToken();
 
     return (
-        <View style={[{ flexDirection: "column", gap: 8, height: "100%" }, style]}>
+        <View style={[{ gap: 8, height: "100%" }, style]}>
             {status === "inProgress" ? (
                 <CircularProgress size={26} />
             ) : (

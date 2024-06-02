@@ -16,14 +16,15 @@ const simulateTask = (duration: number, shouldFail = false) => {
     });
 };
 
-export const useProgressUpload = () => {
+export const useProgressUpload = (animal: "dog" | "cat") => {
+    const animalRhyme = animal === "dog" ? "DogThrowingVeryLongLog" : "CatWithHat";
     const [tasks, setTasks] = useState<ProgressTask[]>([
-        { title: "CatWithHat1.jpg", status: "notStarted" },
-        { title: "CatWithHat2.jpg", status: "notStarted" },
-        { title: "CatWithHat3.jpg", status: "notStarted" },
-        { title: "CatWithHat4.jpg", status: "notStarted" },
-        { title: "CatWithHat5.jpg", status: "notStarted" },
-        { title: "CatWithHat6.jpg", status: "notStarted" },
+        { title: `${animalRhyme}1.jpg`, status: "notStarted" },
+        { title: `${animalRhyme}2.jpg`, status: "notStarted" },
+        { title: `${animalRhyme}3.jpg`, status: "notStarted" },
+        { title: `${animalRhyme}4.jpg`, status: "notStarted" },
+        { title: `${animalRhyme}5.jpg`, status: "notStarted" },
+        { title: `${animalRhyme}6.jpg`, status: "notStarted" },
     ]);
 
     const [isSimulating, setIsSimulating] = useState(false);
@@ -47,7 +48,7 @@ export const useProgressUpload = () => {
         setTasks(
             tasks.map((task, index) => ({
                 ...task,
-                title: `CatWithHat${index + 1}.jpg`,
+                title: `${animalRhyme}${index + 1}.jpg`,
                 status: "notStarted",
                 error: undefined,
             })),
@@ -61,20 +62,19 @@ export const useProgressUpload = () => {
         for (let i = 0; i < tasks.length; i++) {
             if (scenario === "success" || (scenario === "fail" && i !== 3)) {
                 updateTaskStatus(i, "inProgress");
-                await simulateTask(1000);
+                await simulateTask(Math.random() * 2500);
                 updateTaskStatus(i, "success");
             } else if (scenario === "fail" && i === 3) {
                 updateTaskStatus(
                     i,
                     "error",
                     {
-                        message:
-                            "Critical error: Expected CatWithHat4.jpg, but detected DogThrowingLog4.jpg",
+                        message: `Critical error: Expected ${animalRhyme}4.jpg, but detected MouseInDaHouse4.jpg`,
                         code: "Error code: 403",
                         suggestion:
                             "Immediate action required. Ensure system security protocols are enforced and consult security logs for potential intrusions.",
                     },
-                    "DogThrowingLog4.jpg",
+                    `${animalRhyme}4.jpg`,
                 );
                 break;
             }

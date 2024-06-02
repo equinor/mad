@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { Button } from "../Button";
-import { Spacer } from "../Spacer";
 import { Typography } from "../Typography";
 import { ProgressExpandButton } from "./ProgressExpandButton";
 import { ProgressExpandableSection } from "./ProgressExpandableSection";
@@ -103,18 +102,19 @@ export const ProgressItem = ({
     }, [taskHasError, failedTask]);
 
     const renderItemText = () => (
-        <View>
+        <View style={styles.descriptionTextContainer}>
             <Typography
+                numberOfLines={1}
                 bold={taskStatus !== "success"}
                 color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
-                variant="body_short"
-                group="paragraph"
+                group="cell"
+                variant="title"
             >
                 {title}
             </Typography>
 
-            {description ? (
-                <View style={styles.descriptionContainer}>
+            {description && (
+                <>
                     {taskStatus !== "notStarted" && taskCounter > 0 ? (
                         <Typography variant="description" group="cell">
                             {completedTaskCounter} / {taskCounter} {description}
@@ -128,57 +128,61 @@ export const ProgressItem = ({
                             {description}
                         </Typography>
                     )}
-                </View>
-            ) : null}
+                </>
+            )}
         </View>
     );
 
     return (
-        <View style={styles.progressContainer}>
-            <View style={styles.mainContentContainer}>
-                <View style={styles.statusAndTextContainer}>
-                    <ProgressItemStatus
-                        style={styles.status}
-                        taskCounter={taskCounter}
-                        status={taskStatus}
-                    />
-                    <View style={styles.textContainer}>
+        <View style={styles.container}>
+            <View style={styles.topRowContainer}>
+                <ProgressItemStatus
+                    style={styles.status}
+                    taskCounter={taskCounter}
+                    status={taskStatus}
+                />
+                <View style={{ flex: 1 }}>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                        }}
+                    >
                         {renderItemText()}
-                        <ProgressExpandableSection expanded={isExpanded}>
-                            <Spacer amount="small" />
-                            <View style={styles.progressTaskItemContainer}>
-                                {tasks.map((task, index) => (
+                        <ProgressExpandButton
+                            taskStatus={taskStatus}
+                            taskCounter={taskCounter}
+                            isExpanded={isExpanded}
+                            toggleExpand={toggleExpand}
+                        />
+                    </View>
+
+                    <ProgressExpandableSection expanded={isExpanded}>
+                        <View style={styles.progressTaskItemContainer}>
+                            {tasks.map((task, index) => (
+                                <>
                                     <ProgressTaskItem
                                         key={index}
                                         task={task}
                                         status={task.status}
                                     />
-                                ))}
-                            </View>
-                        </ProgressExpandableSection>
-                    </View>
+                                    {onCopyTextButtonPress && isExpanded && task?.error && (
+                                        <Button
+                                            title="Copy to clipboard"
+                                            iconName="clipboard-outline"
+                                            variant="outlined"
+                                            onPress={handleCopyTextButtonPress}
+                                        />
+                                    )}
+                                </>
+                            ))}
+                        </View>
+                    </ProgressExpandableSection>
                 </View>
-                <ProgressExpandButton
-                    taskStatus={taskStatus}
-                    taskCounter={taskCounter}
-                    isExpanded={isExpanded}
-                    toggleExpand={toggleExpand}
-                />
             </View>
 
-            {taskHasError && (onCopyTextButtonPress ?? onRetryButtonPress) ? (
-                <View style={[styles.actionContainer, !failedTask?.error && { marginTop: 0 }]}>
-                    {onCopyTextButtonPress && isExpanded && failedTask?.error && (
-                        <Button
-                            title="Copy to clipboard"
-                            variant="outlined"
-                            onPress={handleCopyTextButtonPress}
-                        />
-                    )}
-                    {onRetryButtonPress && (
-                        <Button title="Retry" onPress={handleRetryButtonPress} />
-                    )}
-                </View>
+            {taskHasError && onRetryButtonPress ? (
+                <Button iconName="restart" title="Retry" onPress={handleRetryButtonPress} />
             ) : null}
         </View>
     );
@@ -187,39 +191,24 @@ export const ProgressItem = ({
 ProgressItem.displayName = "Progress.Item";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
-    progressContainer: {
+    container: {
         backgroundColor: theme.colors.container.default,
         paddingHorizontal: theme.spacing.menu.item.paddingHorizontal,
         borderRadius: theme.geometry.border.elementBorderRadius,
         justifyContent: "space-between",
         flexDirection: "column",
     },
-    mainContentContainer: {
-        flex: 1,
+    topRowContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        alignItems: "center",
         paddingVertical: theme.spacing.container.paddingVertical,
     },
-    statusAndTextContainer: {
+    descriptionTextContainer: {
         flex: 1,
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    descriptionContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: theme.spacing.button.iconGap,
-    },
-    textContainer: {
-        flex: 1,
-        flexDirection: "column",
-    },
-    actionContainer: {
-        marginTop: theme.spacing.container.paddingVertical,
-        marginBottom: theme.spacing.container.paddingVertical,
-        gap: theme.spacing.spacer.small,
+        gap: theme.spacing.cell.content.titleDescriptionGap,
     },
     progressTaskItemContainer: {
+        paddingVertical: theme.spacing.element.paddingVertical,
         gap: theme.spacing.cell.gapHorizontal,
     },
     status: {

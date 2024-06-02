@@ -96,7 +96,7 @@ function DiscoverNavigator() {
                 },
                 headerBackTitleStyle: { fontFamily: "Equinor-Regular" },
                 customSubHeaderShown: false,
-                headerRight: () => <GoToSettingsButton marginRight={-12} />,
+                headerRight: () => <GoToSettingsButton />,
             }}
         >
             <ComponentsStack.Screen name="Discover" component={DiscoverScreen} />

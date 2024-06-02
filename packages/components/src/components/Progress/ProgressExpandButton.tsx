@@ -18,23 +18,23 @@ export const ProgressExpandButton = ({
 }: ProgressExpandButtonProps) => {
     const breakpoint = useBreakpoint();
 
-    let title;
-    if (breakpoint === "xs") {
-        title = isExpanded ? "Hide" : "Show";
-    } else {
-        title = isExpanded ? "Show less" : "Show more";
-    }
-
     return (
         taskStatus !== "notStarted" &&
-        taskCounter > 0 && (
+        taskCounter > 0 &&
+        (breakpoint === "xs" ? (
+            <Button.Icon
+                name={isExpanded ? "chevron-up" : "chevron-down"}
+                variant="ghost"
+                onPress={toggleExpand}
+            />
+        ) : (
             <Button
                 iconName={isExpanded ? "chevron-up" : "chevron-down"}
-                title={title}
+                title={isExpanded ? "Show less" : "Show more"}
                 iconPosition="trailing"
                 onPress={toggleExpand}
                 variant="ghost"
-            ></Button>
-        )
+            />
+        ))
     );
 };

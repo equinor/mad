@@ -11,6 +11,11 @@ import {
 import { ScrollView, View } from "react-native";
 import { useProgressUpload } from "../../../hooks/useProgressUpload";
 
+type UploadSimulatorProps = {
+    onUploadSuccess: () => void;
+    onUploadFailed: () => void;
+};
+
 const UploadSimulator = ({ onUploadSuccess, onUploadFailed }: UploadSimulatorProps) => {
     const styles = useStyles(themeStyles);
 
@@ -21,34 +26,38 @@ const UploadSimulator = ({ onUploadSuccess, onUploadFailed }: UploadSimulatorPro
             </Typography>
             <Typography>Press the buttons below to simulate the progress component</Typography>
             <View style={styles.simulateButtonContainer}>
-                <Button
-                    title="Run successfull progress"
-                    onPress={() => {
-                        onUploadSuccess();
-                    }}
-                />
+                <Button title="Run successfull progress" onPress={onUploadSuccess} />
                 <Button title="Run failed progress" onPress={onUploadFailed} />
             </View>
         </View>
     );
 };
 
-type UploadSimulatorProps = {
-    onUploadSuccess: () => void;
-    onUploadFailed: () => void;
-};
-
 export const ProgressScreen = () => {
-    const { tasks, startUploadSimulation, handleCopyErrorMessage, handleRetry } =
-        useProgressUpload();
+    const {
+        tasks: catTasks,
+        startUploadSimulation: startCatUpload,
+        handleCopyErrorMessage: handleCopyCatErrorMessage,
+        handleRetry: handleRetryCatUpload,
+    } = useProgressUpload("cat");
+
+    const {
+        tasks: dogTasks,
+        startUploadSimulation: startDogUpload,
+        handleCopyErrorMessage: handleCopyDogErrorMessage,
+        handleRetry: handleRetryDogUpload,
+    } = useProgressUpload("dog");
+
     const styles = useStyles(themeStyles);
 
-    const handleUploadSuccess = async () => {
-        await startUploadSimulation("success");
+    const handleUploadSuccess = () => {
+        void startCatUpload("success");
+        void startDogUpload("success");
     };
 
-    const handleUploadFailed = async () => {
-        await startUploadSimulation("fail");
+    const handleUploadFailed = () => {
+        void startCatUpload("fail");
+        void startDogUpload("fail");
     };
 
     return (
@@ -56,41 +65,52 @@ export const ProgressScreen = () => {
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={styles.contentContainer}
         >
-            <Typography group="basic" variant="h2">
-                Progress
-            </Typography>
+            <View style={styles.textContainer}>
+                <Typography group="basic" variant="h2">
+                    Progress
+                </Typography>
 
-            <Typography>
-                The Progress component can be used for tracking and displaying the progress of tasks
-                or processes, such as «create folder» or «upload images».
-            </Typography>
-            <Typography>
-                Progress can be used with one or multiple Progress Items, and one Progress Item can
-                contain one single task or multiple tasks.
-            </Typography>
-
-            <Spacer amount="small" />
-            <Typography>
-                Tasks have different statuses that is based on the overall progress.
-            </Typography>
-            <Typography> Status can either be:</Typography>
-            <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-                <Typography color="primary">inProgress</Typography>
-                <CircularProgress size={18} value={0.7} />
-                <Typography color="textTertiary">, notStarted, </Typography>
-                <Typography color="success">sucess</Typography>
-                <Typography>or</Typography>
-                <Typography color="danger">error</Typography>
+                <Typography>
+                    The Progress component can be used for tracking and displaying the progress of
+                    tasks or processes, such as «create folder» or «upload images».
+                </Typography>
+                <Typography>
+                    Progress can be used with one or multiple Progress Items, and one Progress Item
+                    can contain one single task or multiple tasks.
+                </Typography>
             </View>
+
             <Spacer amount="small" />
-            <UploadSimulator
-                onUploadSuccess={() => void handleUploadSuccess()}
-                onUploadFailed={() => void handleUploadFailed()}
-            />
+
+            <View style={styles.textContainer}>
+                <Typography>
+                    Tasks have different statuses that is based on the overall progress.
+                </Typography>
+                <Typography> Status can either be:</Typography>
+                <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
+                    <Typography color="primary">inProgress</Typography>
+                    <CircularProgress size={18} value={0.7} />
+                    <Typography color="textTertiary">, notStarted, </Typography>
+                    <Typography color="success">sucess</Typography>
+                    <Typography>or</Typography>
+                    <Typography color="danger">error</Typography>
+                </View>
+            </View>
+
+            <Spacer amount="small" />
+
+            <View style={styles.textContainer}>
+                <UploadSimulator
+                    onUploadSuccess={() => void handleUploadSuccess()}
+                    onUploadFailed={() => void handleUploadFailed()}
+                />
+            </View>
 
             <Spacer />
 
-            <Typography>Progress with one single task: </Typography>
+            <View style={styles.textContainer}>
+                <Typography>Progress with one single task: </Typography>
+            </View>
 
             <Spacer amount="small" />
             <Progress title="Create folder">
@@ -103,22 +123,37 @@ export const ProgressScreen = () => {
 
             <Spacer />
 
-            <Typography>Progress with multiple tasks: </Typography>
+            <View style={styles.textContainer}>
+                <Typography>Progress with multiple tasks: </Typography>
+            </View>
+
             <Spacer amount="small" />
-            <Progress title="Upload cat images">
+
+            <Progress title="Upload animal images">
                 <Progress.Item
-                    title="Upload images of cats with hats"
+                    title="Upload images of cats"
                     description="uploading cats with hats"
-                    tasks={tasks}
-                    onCopyTextButtonPress={handleCopyErrorMessage}
-                    onRetryButtonPress={() => void handleRetry()}
+                    tasks={catTasks}
+                    onCopyTextButtonPress={handleCopyCatErrorMessage}
+                    onRetryButtonPress={() => void handleRetryCatUpload()}
+                />
+                <Progress.Item
+                    title="Upload images of dogs throwing logs"
+                    description="uploading dogs throwing logs"
+                    tasks={dogTasks}
+                    onCopyTextButtonPress={handleCopyDogErrorMessage}
+                    onRetryButtonPress={() => void handleRetryDogUpload()}
                 />
             </Progress>
 
             <Spacer />
 
-            <Typography>Progress with multiple progress items:</Typography>
+            <View style={styles.textContainer}>
+                <Typography>Progress with multiple progress items:</Typography>
+            </View>
+
             <Spacer amount="small" />
+
             <Progress title="Multiple progress items">
                 <Progress.Item title="Preparing cat hats" status="success" />
                 <Progress.Item title="Training cats to wear hats" status="inProgress" />
@@ -136,10 +171,11 @@ export const ProgressScreen = () => {
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     contentContainer: {
-        paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical,
     },
-
+    textContainer: {
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+    },
     uploadSimulatorContainer: {
         paddingVertical: theme.spacing.container.paddingVertical,
         gap: theme.spacing.cell.content.titleDescriptionGap,

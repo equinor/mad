@@ -55,7 +55,14 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
         <View style={styles.taskContainer}>
             <View style={styles.taskTitleContainer}>
                 {taskStatusIndicator}
-                <Typography>{task.title}</Typography>
+                <Typography
+                    group="paragraph"
+                    variant="body_short"
+                    bold={task.status === "error" || task.status === "inProgress"}
+                    color={status === "notStarted" ? "textTertiary" : "textPrimary"}
+                >
+                    {task.title}
+                </Typography>
             </View>
             {showErrorDetails && renderError()}
         </View>
@@ -64,7 +71,7 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     taskContainer: {
-        gap: theme.spacing.cell.content.titleDescriptionGap,
+        gap: theme.spacing.element.paddingVertical,
     },
     taskTitleContainer: {
         flexDirection: "row",
