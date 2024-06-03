@@ -21,7 +21,9 @@ export const OCRScreen = () => {
                 setBoundingBoxColor(boundingBoxColor === "red" ? "green" : "red");
                 addToast({
                     type: "info",
-                    text: `Bounding box color is now ${boundingBoxColor.toString()}`,
+                    text: `Bounding box color is now ${
+                        boundingBoxColor === "red" ? "green" : "red".toString()
+                    }`,
                     duration: 2000,
                     onPress: hide => hide(),
                 });
@@ -34,7 +36,7 @@ export const OCRScreen = () => {
                 addToast({
                     type: "info",
                     text: `Clicked text dialog is now ${
-                        showPopoverOnClick ? "enabled" : "disabled"
+                        !showPopoverOnClick ? "enabled" : "disabled"
                     }`,
                     duration: 2000,
                     onPress: hide => hide(),
@@ -47,7 +49,7 @@ export const OCRScreen = () => {
         addToast({
             type: "success",
             text: `🎉 "${tag}" was selected 🎉`,
-            duration: 5000,
+            duration: 2000,
             onPress: hide => hide(),
         });
 
