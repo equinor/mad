@@ -4,6 +4,7 @@ import { addToast } from "@equinor/mad-core";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCameraPermission } from "react-native-vision-camera";
 import { Color } from "@shopify/react-native-skia";
+import { IconButtonProps } from "@equinor/mad-components";
 
 export const OCRScreen = () => {
     const navigation = useNavigation();
@@ -13,7 +14,7 @@ export const OCRScreen = () => {
 
     useFocusEffect(() => void requestPermission());
 
-    const extraButtons = [
+    const extraButtons: IconButtonProps[] = [
         {
             name: "format-paint",
             onPress: () => {
