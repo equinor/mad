@@ -1,5 +1,13 @@
 # @equinor/mad-components
 
+## 0.14.7
+
+### Patch Changes
+
+-   2012158: `Progress.Item` tasks are now allowed to use more screen estate
+-   2012158: "Copy to clipboard" button for task errors now render under the respective error
+-   2012158: `Progress.Item` task lines now visually indicate the current progress better
+
 ## 0.14.6
 
 ### Patch Changes
