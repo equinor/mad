@@ -29,11 +29,7 @@ export const MyComponent = () => {
         // do something here
     };
 
-    return (
-        <>
-            <OCRCamera onSelectTag={onScanResult} onClose={onScanCancel} />
-        </>
-    );
+    return <OCRCamera onSelectTag={onScanResult} onClose={onScanCancel} />;
 };
 ```
 
