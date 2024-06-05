@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { OCRCamera } from "@equinor/react-native-mad-tag-scanner";
+import { OCRCamera } from "@equinor/react-native-mad-tag-ocr";
 import { addToast } from "@equinor/mad-core";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCameraPermission } from "react-native-vision-camera";
