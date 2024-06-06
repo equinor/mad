@@ -52,9 +52,14 @@ export const OCRCamera = ({
     const clickedPoint = useSharedValue<Point | undefined>(undefined);
 
     const [viewWidth, setViewWidth] = useState(dim.width);
-    const viewWidthShared = useSharedValue(dim.width);
+    const viewWidthShared = useStateToSharedValue(viewWidth);
     const [viewHeight, setViewHeight] = useState(dim.height);
-    const viewHeightShared = useSharedValue(dim.height);
+    const viewHeightShared = useSharedValue(viewHeight);
+
+    const onLayout = (event: LayoutChangeEvent) => {
+        setViewWidth(event.nativeEvent.layout.width);
+        setViewHeight(event.nativeEvent.layout.height);
+    };
 
     const setScannedTagOnJS = useRunOnJS(
         (text: string) => {
@@ -67,11 +72,9 @@ export const OCRCamera = ({
         [enableDialog.value],
     );
 
-    const onLayout = (event: LayoutChangeEvent) => {
-        setViewWidth(event.nativeEvent.layout.width);
-        setViewHeight(event.nativeEvent.layout.height);
-        viewWidthShared.value = event.nativeEvent.layout.width;
-        viewHeightShared.value = event.nativeEvent.layout.height;
+    const shouldHighlightTextBlockWorklet = (text: string, boundingBox: BoundingBox) => {
+        "worklet";
+        return shouldHighlightTextBlock ? shouldHighlightTextBlock(text, boundingBox) : true;
     };
 
     const format = useCameraFormat(device, [
@@ -83,11 +86,6 @@ export const OCRCamera = ({
             },
         },
     ]);
-
-    const shouldHighlightTextBlockWorklet = (text: string, boundingBox: BoundingBox) => {
-        "worklet";
-        return shouldHighlightTextBlock ? shouldHighlightTextBlock(text, boundingBox) : true;
-    };
 
     const frameProcessor = useSkiaFrameProcessor(
         frame => {
@@ -164,56 +162,53 @@ export const OCRCamera = ({
         setShowDialog(false);
     };
 
-    if (!device && !hasPermission) {
+    if (!device || !hasPermission) {
         console.error(!device ? "No camera device found" : "No camera permission");
         onClickClose();
+        return null;
     }
 
     return (
         <View style={styles.container}>
-            {hasPermission && !!device && (
-                <>
-                    <SelectTagDialog
-                        show={showDialog}
-                        tagText={clickedText}
-                        maxTagLength={MaxTagLength}
-                        onChangeTagText={text => setClickedText(text)}
-                        onClickRetry={clearSelection}
-                        onClickConfirm={() => confirmSelection(clickedText)}
-                    />
-                    {!!buttonConfig && (
-                        <View style={styles.buttonContainer}>
-                            {buttonConfig.showCloseButton && (
-                                <Button.Icon name="close" iconSize={30} onPress={onClickClose} />
-                            )}
-                            {buttonConfig.showInfoButton && (
-                                <PopoverButton
-                                    icon="information"
-                                    title="How to use the tag scanner"
-                                    text={OcrUsageSteps.join("\n")}
-                                />
-                            )}
-                            {buttonConfig.extraButtons?.map((buttonProps, index) => (
-                                <Button.Icon key={index} iconSize={30} {...buttonProps} />
-                            ))}
-                        </View>
+            <SelectTagDialog
+                show={showDialog}
+                tagText={clickedText}
+                maxTagLength={MaxTagLength}
+                onChangeTagText={text => setClickedText(text)}
+                onClickRetry={clearSelection}
+                onClickConfirm={() => confirmSelection(clickedText)}
+            />
+            {!!buttonConfig && (
+                <View style={styles.buttonContainer}>
+                    {buttonConfig.showCloseButton && (
+                        <Button.Icon name="close" iconSize={30} onPress={onClickClose} />
                     )}
-                    <Camera
-                        onLayout={onLayout}
-                        onTouchStart={onTap}
-                        device={device}
-                        format={format}
-                        fps={fps}
-                        isActive={!showDialog}
-                        style={{ flex: 1 }}
-                        resizeMode="cover"
-                        frameProcessor={frameProcessor}
-                        enableZoomGesture
-                        videoStabilizationMode="auto"
-                        orientation="portrait"
-                    />
-                </>
+                    {buttonConfig.showInfoButton && (
+                        <PopoverButton
+                            icon="information"
+                            title="How to use the tag scanner"
+                            text={OcrUsageSteps.join("\n")}
+                        />
+                    )}
+                    {buttonConfig.extraButtons?.map((buttonProps, index) => (
+                        <Button.Icon key={index} iconSize={30} {...buttonProps} />
+                    ))}
+                </View>
             )}
+            <Camera
+                onLayout={onLayout}
+                onTouchStart={onTap}
+                device={device}
+                format={format}
+                fps={fps}
+                isActive={!showDialog}
+                style={{ flex: 1 }}
+                resizeMode="cover"
+                frameProcessor={frameProcessor}
+                enableZoomGesture
+                videoStabilizationMode="auto"
+                orientation="portrait"
+            />
         </View>
     );
 };

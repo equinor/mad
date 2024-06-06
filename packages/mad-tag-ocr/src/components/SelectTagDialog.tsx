@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, EDSStyleSheet, TextField, Typography, useStyles } from "@equinor/mad-components";
+import { Button, TextField, Typography } from "@equinor/mad-components";
 import { Dialog } from "@equinor/mad-components/dist/components/Dialog";
 import { DialogActions } from "@equinor/mad-components/dist/components/Dialog/DialogActions";
 import { DialogCustomContent } from "@equinor/mad-components/dist/components/Dialog/DialogCustomContent";
@@ -23,7 +23,6 @@ export const SelectTagDialog = ({
     onClickRetry,
     onClickConfirm,
 }: DialogOptions) => {
-    const styles = useStyles(themeStyles);
     return (
         <Dialog isOpen={show}>
             <DialogHeader>
@@ -36,7 +35,7 @@ export const SelectTagDialog = ({
                     value={tagText}
                     onChange={onChangeTagText}
                     maxLength={maxTagLength}
-                    style={styles.textField}
+                    style={{ textAlign: "center" }}
                 />
             </DialogCustomContent>
             <DialogActions align="left">
@@ -55,11 +54,3 @@ export const SelectTagDialog = ({
         </Dialog>
     );
 };
-
-const themeStyles = EDSStyleSheet.create(theme => {
-    return {
-        textField: {
-            textAlign: "center",
-        },
-    };
-});
