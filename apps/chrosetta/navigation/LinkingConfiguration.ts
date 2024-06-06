@@ -15,7 +15,6 @@ const linking: LinkingOptions<RootStackParamList> = {
             Root: {
                 screens: {},
             },
-            Modal: "modal",
             NotFound: "*",
         },
     },
