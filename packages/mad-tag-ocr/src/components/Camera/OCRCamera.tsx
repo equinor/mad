@@ -8,9 +8,8 @@ import {
 } from "react-native-vision-camera";
 import { scanOCR } from "@ismaelmoreiraa/vision-camera-ocr";
 import { Skia } from "@shopify/react-native-skia";
-import { LayoutChangeEvent, View, useWindowDimensions } from "react-native";
+import { GestureResponderEvent, LayoutChangeEvent, View, useWindowDimensions } from "react-native";
 import { useRunOnJS, useSharedValue } from "react-native-worklets-core";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { BoundingBoxPadding, MaxTagLength, OcrUsageSteps } from "../../consts";
 import { BoundingBox, OCRCameraProps, Point, ButtonConfig } from "../../types";
 import {
@@ -85,8 +84,6 @@ export const OCRCamera = ({
         },
     ]);
 
-    const tap = Gesture.Tap().onEnd(e => (clickedPoint.value = { x: e.x, y: e.y }));
-
     const shouldHighlightTextBlockWorklet = (text: string, boundingBox: BoundingBox) => {
         "worklet";
         return shouldHighlightTextBlock ? shouldHighlightTextBlock(text, boundingBox) : true;
@@ -141,10 +138,19 @@ export const OCRCamera = ({
                     void setScannedTagOnJS(formatTag(block.text));
                 }
             }
+            if (clickedPoint.value)
+                frame.drawCircle(clickedPoint.value.x, clickedPoint.value.y, 35, paintConfig.value);
             clickedPoint.value = undefined;
         },
         [clickedPoint, viewWidthShared, viewHeightShared, enableDialog, paintConfig],
     );
+
+    const onTap = (event: GestureResponderEvent) => {
+        clickedPoint.value = {
+            x: event.nativeEvent.locationX,
+            y: event.nativeEvent.locationY,
+        };
+    };
 
     const onClickClose = () => onClose?.();
 
@@ -192,21 +198,20 @@ export const OCRCamera = ({
                             ))}
                         </View>
                     )}
-                    <GestureDetector gesture={tap}>
-                        <Camera
-                            onLayout={onLayout}
-                            device={device}
-                            format={format}
-                            fps={fps}
-                            isActive={!showDialog}
-                            style={{ flex: 1 }}
-                            resizeMode="cover"
-                            frameProcessor={frameProcessor}
-                            enableZoomGesture
-                            videoStabilizationMode="auto"
-                            orientation="portrait"
-                        />
-                    </GestureDetector>
+                    <Camera
+                        onLayout={onLayout}
+                        onTouchStart={onTap}
+                        device={device}
+                        format={format}
+                        fps={fps}
+                        isActive={!showDialog}
+                        style={{ flex: 1 }}
+                        resizeMode="cover"
+                        frameProcessor={frameProcessor}
+                        enableZoomGesture
+                        videoStabilizationMode="auto"
+                        orientation="portrait"
+                    />
                 </>
             )}
         </View>
