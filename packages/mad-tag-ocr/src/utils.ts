@@ -31,31 +31,26 @@ export const isPointInsideBoundingBox = (rectangle: BoundingBox, point: Point) =
     );
 };
 
-export const translateViewPointToCameraPoint = (
-    viewWidth: number,
-    viewHeight: number,
+export const translatePointToFrame = (
+    frameWidth: number,
+    frameHeight: number,
     cameraWidth: number,
     cameraHeight: number,
+    screenScale: number,
     point: Point,
 ): Point => {
     "worklet";
     const aspectRatioCamera = cameraWidth / cameraHeight;
-    const aspectRatioView = viewWidth / viewHeight;
-    const aspectDifference = aspectRatioView - aspectRatioCamera;
+    const aspectRatioFrame = frameWidth / frameHeight;
+    const aspectRatioDifference = aspectRatioCamera - aspectRatioFrame;
 
-    const pxZoom = aspectDifference * cameraWidth;
-    const zoomedPxWidth = pxZoom < 0 ? pxZoom : 0;
-    const zoomedPxHeight = pxZoom > 0 ? pxZoom : 0;
+    const pxZoomHeight = aspectRatioDifference > 0 ? aspectRatioDifference * frameHeight : 0;
+    const pxZoomWidth = aspectRatioDifference < 0 ? -aspectRatioDifference * frameWidth : 0;
 
-    const cameraWidthPxVisibleInView = cameraWidth + zoomedPxWidth;
-    const cameraHeightPxVisibleInView = cameraHeight + zoomedPxHeight;
-
-    const ratioX = cameraWidthPxVisibleInView / viewWidth;
-    const ratioY = cameraHeightPxVisibleInView / viewHeight;
-
+    const densityRatio = frameWidth / cameraWidth;
     return {
-        x: (point.x - zoomedPxWidth / 2) * ratioX,
-        y: (point.y - zoomedPxHeight / 2) * ratioY,
+        x: point.x * densityRatio + pxZoomWidth / 2 / screenScale,
+        y: point.y * densityRatio + pxZoomHeight / 2 / screenScale,
     };
 };
 

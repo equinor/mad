@@ -17,7 +17,7 @@ import {
     getPainConfig,
     getBoundingBox,
     isPointInsideBoundingBox,
-    translateViewPointToCameraPoint,
+    translatePointToFrame,
 } from "../../utils";
 import { SelectTagDialog } from "../SelectTagDialog";
 import { Button, EDSStyleSheet, useStyles } from "@equinor/mad-components";
@@ -39,6 +39,7 @@ export const OCRCamera = ({
     onClose,
     shouldHighlightTextBlock,
 }: OCRCameraProps) => {
+    const dim = useWindowDimensions();
     const { hasPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
     const device = useCameraDevice("back");
@@ -50,7 +51,6 @@ export const OCRCamera = ({
     const enableDialog = useStateToSharedValue(enableConfirmTextDialog);
     const clickedPoint = useSharedValue<Point | undefined>(undefined);
 
-    const dim = useWindowDimensions();
     const [viewWidth, setViewWidth] = useState(dim.width);
     const viewWidthShared = useSharedValue(dim.width);
     const [viewHeight, setViewHeight] = useState(dim.height);
@@ -92,55 +92,55 @@ export const OCRCamera = ({
     const frameProcessor = useSkiaFrameProcessor(
         frame => {
             "worklet";
-            const scannedOcr = scanOCR(frame);
-            frame.render();
+            try {
+                const scannedOcr = scanOCR(frame);
+                frame.render();
 
-            const translatedClickedPoint =
-                clickedPoint.value &&
-                translateViewPointToCameraPoint(
-                    viewWidthShared.value,
-                    viewHeightShared.value,
-                    frame.width,
-                    frame.height,
-                    clickedPoint.value,
-                );
+                const translatedPoint =
+                    clickedPoint.value &&
+                    translatePointToFrame(
+                        frame.width,
+                        frame.height,
+                        viewWidthShared.value,
+                        viewHeightShared.value,
+                        dim.scale,
+                        clickedPoint.value,
+                    );
 
-            for (const block of scannedOcr.result.blocks) {
-                if (!block?.frame) continue;
+                for (const block of scannedOcr.result.blocks) {
+                    if (!block?.frame) continue;
 
-                const boundingBox = getBoundingBox(
-                    block.frame.boundingCenterX,
-                    block.frame.boundingCenterY,
-                    block.frame.width,
-                    block.frame.height,
-                );
+                    const boundingBox = getBoundingBox(
+                        block.frame.boundingCenterX,
+                        block.frame.boundingCenterY,
+                        block.frame.width,
+                        block.frame.height,
+                    );
 
-                if (!shouldHighlightTextBlockWorklet(block.text, boundingBox)) continue;
+                    if (!shouldHighlightTextBlockWorklet(block.text, boundingBox)) continue;
 
-                frame.drawRRect(
-                    {
-                        rx: 10,
-                        ry: 10,
-                        rect: Skia.XYWHRect(
-                            boundingBox.topLeft.x,
-                            boundingBox.topLeft.y,
-                            block.frame.width + BoundingBoxPadding * 2,
-                            block.frame.height + BoundingBoxPadding * 2,
-                        ),
-                    },
-                    paintConfig.value,
-                );
+                    frame.drawRRect(
+                        {
+                            rx: 10,
+                            ry: 10,
+                            rect: Skia.XYWHRect(
+                                boundingBox.topLeft.x,
+                                boundingBox.topLeft.y,
+                                block.frame.width + BoundingBoxPadding * 2,
+                                block.frame.height + BoundingBoxPadding * 2,
+                            ),
+                        },
+                        paintConfig.value,
+                    );
 
-                if (
-                    translatedClickedPoint &&
-                    isPointInsideBoundingBox(boundingBox, translatedClickedPoint)
-                ) {
-                    void setScannedTagOnJS(formatTag(block.text));
+                    if (translatedPoint && isPointInsideBoundingBox(boundingBox, translatedPoint)) {
+                        void setScannedTagOnJS(formatTag(block.text));
+                    }
                 }
+                clickedPoint.value = undefined;
+            } catch (error) {
+                console.error(error);
             }
-            if (clickedPoint.value)
-                frame.drawCircle(clickedPoint.value.x, clickedPoint.value.y, 35, paintConfig.value);
-            clickedPoint.value = undefined;
         },
         [clickedPoint, viewWidthShared, viewHeightShared, enableDialog, paintConfig],
     );

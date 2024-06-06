@@ -4,6 +4,7 @@
     "scripts": {
         "start": "npx expo start --dev-client",
         "ios": "npx expo run:ios",
+        "android": "expo run:android",
         "device": "npx expo run:ios --device",
         "web": "npx expo start --web",
         "build": "npx expo prebuild --platform ios",
