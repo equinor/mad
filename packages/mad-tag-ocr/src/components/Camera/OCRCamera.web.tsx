@@ -7,8 +7,8 @@ export const OCRCamera = ({
     buttonConfig,
     enableConfirmTextDialog,
     fps,
-    boundingBoxColor,
+    textHighlightColor,
     onSelectTag,
     onClose,
-    shouldHighlightTextBlock,
+    shouldHighlightText,
 }: OCRCameraProps) => null;

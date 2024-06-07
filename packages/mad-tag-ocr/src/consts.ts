@@ -1,3 +1,5 @@
+import { ButtonConfig } from "./types";
+
 export const MaxTagLength = 20;
 export const MinTagLength = 4;
 export const BoundingBoxPadding = 10;
@@ -8,3 +10,9 @@ export const OcrUsageSteps = [
     "4. A new prompt appears where you can make adjustments to the tag text if needed",
     "5. Click confirm to search",
 ];
+
+export const defaultButtonConfig: ButtonConfig = {
+    showCloseButton: true,
+    showInfoButton: true,
+    extraButtons: [],
+};

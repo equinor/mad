@@ -36,7 +36,7 @@ export type OCRCameraProps = {
     /**
      * Color of the bounding box shown around text blocks
      */
-    boundingBoxColor?: Color;
+    textHighlightColor?: Color;
     /**
      * Is called when the user confirms selected text
      */
@@ -49,5 +49,5 @@ export type OCRCameraProps = {
      * Is called whenever a block of text is detected. If this returns false, then the text block is not highlighted on screen and is not pressable
      * The bounding box represents the corners of the detected text block
      */
-    shouldHighlightTextBlock?: (text: string, boundingBox: BoundingBox) => boolean;
+    shouldHighlightText?: (text: string, textBoundingBox: BoundingBox) => boolean;
 };

@@ -9,7 +9,7 @@ import { IconButtonProps } from "@equinor/mad-components";
 export const OCRScreen = () => {
     const navigation = useNavigation();
     const [showPopoverOnClick, setShowPopoverOnClick] = useState(true);
-    const [boundingBoxColor, setBoundingBoxColor] = useState<Color>("red");
+    const [textHighlightColor, setTextHighlightColor] = useState<Color>("red");
     const { hasPermission, requestPermission } = useCameraPermission();
 
     useFocusEffect(() => void requestPermission());
@@ -18,11 +18,11 @@ export const OCRScreen = () => {
         {
             name: "format-paint",
             onPress: () => {
-                setBoundingBoxColor(boundingBoxColor === "red" ? "green" : "red");
+                setTextHighlightColor(textHighlightColor === "red" ? "green" : "red");
                 addToast({
                     type: "info",
                     text: `Bounding box color is now ${
-                        boundingBoxColor === "red" ? "green" : "red".toString()
+                        textHighlightColor === "red" ? "green" : "red".toString()
                     }`,
                     duration: 2000,
                     onPress: hide => hide(),
@@ -58,7 +58,7 @@ export const OCRScreen = () => {
             {hasPermission && (
                 <OCRCamera
                     enableConfirmTextDialog={showPopoverOnClick}
-                    boundingBoxColor={boundingBoxColor}
+                    textHighlightColor={textHighlightColor}
                     onClose={() => navigation.goBack()}
                     onSelectTag={onSelectTag}
                     buttonConfig={{
