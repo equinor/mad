@@ -1,5 +1,15 @@
 # @equinor/mad-components
 
+## 0.14.8
+
+### Patch Changes
+
+-   8c8e10c: Adjusted the position of the `copy` and `return` button in the `Progress` component.
+    They are now next to the task item. Retry button can also be shown at the bottom of the
+    `Progress.Item`
+-   8c8e10c: Added `removed` status to the `Progress` component.
+-   8c8e10c: Added animations to the progress line in the `Progress` component.
+
 ## 0.14.7
 
 ### Patch Changes
