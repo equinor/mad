@@ -1,6 +1,6 @@
 {
     "name": "@equinor/react-native-mad-tag-ocr",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "description": "A React Native library for scanning tags",
     "type": "module",
     "scripts": {
