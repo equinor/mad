@@ -18,13 +18,53 @@ const simulateTask = (duration: number, shouldFail = false) => {
 
 export const useProgressUpload = (animal: "dog" | "cat") => {
     const animalRhyme = animal === "dog" ? "DogThrowingVeryLongLog" : "CatWithHat";
+
+    const handleRetry = async () => {
+        await startUploadSimulation("fail");
+    };
+
+    const handleCopyErrorMessage = (taskError: ProgressTaskError) => {
+        if (taskError?.message) {
+            Alert.alert("Message copied: \n", taskError.message);
+        }
+    };
     const [tasks, setTasks] = useState<ProgressTask[]>([
-        { title: `${animalRhyme}1.jpg`, status: "notStarted" },
-        { title: `${animalRhyme}2.jpg`, status: "notStarted" },
-        { title: `${animalRhyme}3.jpg`, status: "notStarted" },
-        { title: `${animalRhyme}4.jpg`, status: "notStarted" },
-        { title: `${animalRhyme}5.jpg`, status: "notStarted" },
-        { title: `${animalRhyme}6.jpg`, status: "notStarted" },
+        {
+            title: `${animalRhyme}1.jpg`,
+            status: "notStarted",
+            onCopyTextButtonPress: handleCopyErrorMessage,
+            onRetryButtonPress: () => void handleRetry(),
+        },
+        {
+            title: `${animalRhyme}2.jpg`,
+            status: "notStarted",
+            onCopyTextButtonPress: handleCopyErrorMessage,
+            onRetryButtonPress: () => void handleRetry(),
+        },
+        {
+            title: `${animalRhyme}3.jpg`,
+            status: "notStarted",
+            onCopyTextButtonPress: handleCopyErrorMessage,
+            onRetryButtonPress: () => void handleRetry(),
+        },
+        {
+            title: `${animalRhyme}4.jpg`,
+            status: "notStarted",
+            onCopyTextButtonPress: handleCopyErrorMessage,
+            onRetryButtonPress: () => void handleRetry(),
+        },
+        {
+            title: `${animalRhyme}5.jpg`,
+            status: "notStarted",
+            onCopyTextButtonPress: handleCopyErrorMessage,
+            onRetryButtonPress: () => void handleRetry(),
+        },
+        {
+            title: `${animalRhyme}6.jpg`,
+            status: "notStarted",
+            onCopyTextButtonPress: handleCopyErrorMessage,
+            onRetryButtonPress: () => void handleRetry(),
+        },
     ]);
 
     const [isSimulating, setIsSimulating] = useState(false);
@@ -58,39 +98,46 @@ export const useProgressUpload = (animal: "dog" | "cat") => {
         if (isSimulating) return;
         setIsSimulating(true);
 
+        const simulateAndSetStatus = async (index: number, status: ProgressStatus) => {
+            updateTaskStatus(index, "inProgress");
+            await simulateTask(Math.random() * 2500);
+            updateTaskStatus(index, status);
+        };
+
         resetTasks();
+
+        const TASK_TO_REMOVE = 4;
+        const TASK_TO_FAIL = 3;
+
         for (let i = 0; i < tasks.length; i++) {
-            if (scenario === "success" || (scenario === "fail" && i !== 3)) {
-                updateTaskStatus(i, "inProgress");
-                await simulateTask(Math.random() * 2500);
-                updateTaskStatus(i, "success");
-            } else if (scenario === "fail" && i === 3) {
-                updateTaskStatus(
-                    i,
-                    "error",
-                    {
-                        message: `Critical error: Expected ${animalRhyme}4.jpg, but detected MouseInDaHouse4.jpg`,
-                        code: "Error code: 403",
-                        suggestion:
-                            "Immediate action required. Ensure system security protocols are enforced and consult security logs for potential intrusions.",
-                    },
-                    `${animalRhyme}4.jpg`,
-                );
-                break;
+            if (scenario === "success") {
+                if (i === TASK_TO_REMOVE) {
+                    await simulateAndSetStatus(i, "removed");
+                } else {
+                    await simulateAndSetStatus(i, "success");
+                }
+            } else if (scenario === "fail") {
+                if (i === TASK_TO_FAIL) {
+                    updateTaskStatus(
+                        i,
+                        "error",
+                        {
+                            message: `Critical error: Expected ${animalRhyme}4.jpg, but detected MouseInDaHouse4.jpg`,
+                            code: "Error code: 403",
+                            suggestion:
+                                "Immediate action required. Ensure system security protocols are enforced and consult security logs for potential intrusions.",
+                        },
+                        `${animalRhyme}4.jpg`,
+                    );
+                    break;
+                } else {
+                    await simulateAndSetStatus(i, "success");
+                }
             }
         }
         setIsSimulating(false);
     };
 
-    const handleRetry = async () => {
-        await startUploadSimulation("fail");
-    };
-
-    const handleCopyErrorMessage = (taskError: ProgressTaskError) => {
-        if (taskError?.message) {
-            Alert.alert("Message copied: \n", taskError.message);
-        }
-    };
     return {
         tasks,
         startUploadSimulation,

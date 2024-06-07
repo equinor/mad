@@ -1,4 +1,4 @@
-export type ProgressStatus = "success" | "error" | "notStarted" | "inProgress";
+export type ProgressStatus = "success" | "error" | "notStarted" | "inProgress" | "removed";
 
 export type ProgressTaskError = {
     /**
@@ -28,4 +28,14 @@ export type ProgressTask = {
      * Optional details about any error that has occurred during the task's execution. If provided, this should include a message detailing the error, and may also include an error code and suggestions for how to resolve the issue.
      */
     error?: ProgressTaskError;
+    /**
+     * Callback function that is called when the copy text button is pressed, providing the error details of the failed task.
+     * @param message An object containing details of the task error.
+     */
+    onCopyTextButtonPress?: (message: ProgressTaskError) => void;
+    /**
+     * Callback function that is invoked when the retry button is pressed, allowing the specific failed task to be retried.
+     * @param task The task object that failed and needs to be retried.
+     */
+    onRetryButtonPress?: (task: ProgressTask) => void;
 };
