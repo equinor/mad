@@ -39,15 +39,11 @@ Note that the OCR camera only supports viewing in portrait mode.
 
 This library has the following peer dependencies. You have to install these in your project.
 
-```
-"@shopify/react-native-skia": "1.2.3",
-"react-native-vision-camera": "^4.0.4",
-"@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
-"react-native-worklets-core": "^1.3.3",
-"react-native-gesture-handler": "^2.14.0",
-```
-
-Please refer to the installation guides when installing
-[React Native Skia](https://shopify.github.io/react-native-skia/),
-[React Native Vision Camera](https://github.com/mrousavy/react-native-vision-camera) and
-[React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation).
+-   [React Native Skia](https://shopify.github.io/react-native-skia/) for drawing on the camera
+    screen
+-   [React Native Vision Camera](https://github.com/mrousavy/react-native-vision-camera) provides
+    the underlying camera component that support frame processor plugins such as OCR
+-   [React Native Worklets Core](https://github.com/margelo/react-native-worklets-core) for running
+    frame processors on a seperate thread
+-   [Vision Camera OCR](https://github.com/ismaelsousa/vision-camera-ocr#readme) is a frame
+    processor plugin for the vision camera package that provides OCR
