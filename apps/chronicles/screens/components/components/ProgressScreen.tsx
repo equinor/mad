@@ -123,8 +123,8 @@ export const ProgressScreen = () => {
                     error message.
                 </Typography>
                 <Typography>
-                    The retry button can be shown on the specific item that failed or at the bottom
-                    of the Progress.Item.
+                    The retry button can be shown on the specific task item that failed or at the
+                    bottom of the Progress.Item.
                 </Typography>
                 <Spacer amount="small" />
                 <Typography>Progress with multiple tasks: </Typography>

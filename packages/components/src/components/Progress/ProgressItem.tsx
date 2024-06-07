@@ -18,7 +18,6 @@ type ProgressItemPropsOptions =
            * Specifying `tasks` will automatically determine the overall status of the progress item based on the individual statuses of these tasks.
            */
           tasks: ProgressTask[];
-
           /**
            * The `status` prop should not be used when `tasks` is provided. The overall status is computed based on the progress of the individual tasks.
            */

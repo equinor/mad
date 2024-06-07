@@ -38,7 +38,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         flex: 1,
         alignSelf: "center",
         backgroundColor: theme.colors.text.disabled,
-        height: theme.geometry.border.borderWidth,
         width: theme.geometry.border.borderWidth,
     },
     fill: {
