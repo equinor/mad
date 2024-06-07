@@ -22,7 +22,7 @@ import {
 import { SelectTagDialog } from "../SelectTagDialog";
 import { Button, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import { PopoverButton } from "../PopoverButton";
-import useStateToSharedValue from "../../hooks/useSharedState";
+import { useStateToSharedValue } from "../../hooks/useSharedState";
 
 const defaultButtonConfig: ButtonConfig = {
     showCloseButton: true,

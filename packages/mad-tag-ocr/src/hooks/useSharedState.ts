@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSharedValue } from "react-native-worklets-core";
 
-export default function useStateToSharedValue<T>(state: T) {
+export function useStateToSharedValue<T>(state: T) {
     const sharedValue = useSharedValue<T>(state);
 
     useEffect(() => {
