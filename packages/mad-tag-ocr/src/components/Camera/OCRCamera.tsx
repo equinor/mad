@@ -14,7 +14,7 @@ import { BoundingBoxPadding, MaxTagLength, OcrUsageSteps } from "../../consts";
 import { BoundingBox, OCRCameraProps, Point, ButtonConfig } from "../../types";
 import {
     formatTag,
-    getPainConfig,
+    getPaintConfig,
     getBoundingBox,
     isPointInsideBoundingBox,
     translatePointToFrame,
@@ -43,7 +43,7 @@ export const OCRCamera = ({
     const { hasPermission } = useCameraPermission();
     const styles = useStyles(themeStyles);
     const device = useCameraDevice("back");
-    const paintConfig = useStateToSharedValue(getPainConfig(boundingBoxColor));
+    const paintConfig = useStateToSharedValue(getPaintConfig(boundingBoxColor));
 
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [clickedText, setClickedText] = useState<string>("");

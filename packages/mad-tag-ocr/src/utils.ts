@@ -62,7 +62,7 @@ export const formatTag = (text: string) => {
         .join("");
 };
 
-export function getPainConfig(color: Color) {
+export function getPaintConfig(color: Color) {
     const paint = Skia.Paint();
     paint.setColor(Skia.Color(color));
     paint.setStyle(PaintStyle.Stroke);
