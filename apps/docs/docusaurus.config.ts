@@ -78,6 +78,11 @@ const config: Config = {
                             sidebarId: "toastSidebar",
                             label: "MAD Toast",
                         },
+                        {
+                            type: "docSidebar",
+                            sidebarId: "tagOCRSidebar",
+                            label: "MAD Tag OCR",
+                        },
                     ],
                 },
                 {
@@ -104,6 +109,10 @@ const config: Config = {
                         {
                             label: "MAD Toast",
                             to: "docs/mad-toast/introduction",
+                        },
+                        {
+                            label: "MAD Tag OCR",
+                            to: "docs/mad-tag-ocr/introduction",
                         },
                     ],
                 },

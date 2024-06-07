@@ -19,24 +19,24 @@ export type ButtonConfig = {
 
 export type OCRCameraProps = {
     /**
-     * Customize which buttons to show on the top right of the screen
-     */
-    buttonConfig?: ButtonConfig;
-    /**
-     * Controls whether a confirm selection dialog is shown when the user clicks a text block
-     * If true, `onSelectTag` is called after the user has clicked some text and then presses `confirm` in the prompt
-     * If false, `onSelectTag` is called immediately when the user clicks a text block
-     */
-    enableConfirmTextDialog?: boolean;
-    /**
-     * Frames per second (fps) that the camera should use
+     * Target frames per second that the camera should use
      * Can be reduced to limit fps drops when scanning many text blocks simultaneously
      */
     fps?: number;
     /**
+     * Controls whether a confirm selection dialog is shown when the user clicks a highlighted text block
+     * If true, `onSelectTag` is called after the user presses `confirm` in the dialog
+     * If false, `onSelectTag` is called immediately when the user clicks a highlighted text block
+     */
+    enableConfirmTextDialog?: boolean;
+    /**
      * Color of the bounding box shown around text blocks
      */
     textHighlightColor?: Color;
+    /**
+     * Customize which buttons to show on the top right of the screen
+     */
+    buttonConfig?: ButtonConfig;
     /**
      * Is called when the user confirms selected text
      */
@@ -47,7 +47,6 @@ export type OCRCameraProps = {
     onClose?: () => void;
     /**
      * Is called whenever a block of text is detected. If this returns false, then the text block is not highlighted on screen and is not pressable
-     * The bounding box represents the corners of the detected text block
      */
     shouldHighlightText?: (text: string, textBoundingBox: BoundingBox) => boolean;
 };
