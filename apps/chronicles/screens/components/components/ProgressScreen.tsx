@@ -37,16 +37,10 @@ export const ProgressScreen = () => {
     const {
         tasks: catTasks,
         startUploadSimulation: startCatUpload,
-        handleCopyErrorMessage: handleCopyCatErrorMessage,
         handleRetry: handleRetryCatUpload,
     } = useProgressUpload("cat");
 
-    const {
-        tasks: dogTasks,
-        startUploadSimulation: startDogUpload,
-        handleCopyErrorMessage: handleCopyDogErrorMessage,
-        handleRetry: handleRetryDogUpload,
-    } = useProgressUpload("dog");
+    const { tasks: dogTasks, startUploadSimulation: startDogUpload } = useProgressUpload("dog");
 
     const styles = useStyles(themeStyles);
 
@@ -124,6 +118,15 @@ export const ProgressScreen = () => {
             <Spacer />
 
             <View style={styles.textContainer}>
+                <Typography>
+                    If some of the tasks fail, you can either retry uploading the task or copy the
+                    error message.
+                </Typography>
+                <Typography>
+                    The retry button can be shown on the specific task item that failed or at the
+                    bottom of the Progress.Item.
+                </Typography>
+                <Spacer amount="small" />
                 <Typography>Progress with multiple tasks: </Typography>
             </View>
 
@@ -134,15 +137,12 @@ export const ProgressScreen = () => {
                     title="Upload images of cats"
                     description="uploading cats with hats"
                     tasks={catTasks}
-                    onCopyTextButtonPress={handleCopyCatErrorMessage}
                     onRetryButtonPress={() => void handleRetryCatUpload()}
                 />
                 <Progress.Item
                     title="Upload images of dogs throwing logs"
                     description="uploading dogs throwing logs"
                     tasks={dogTasks}
-                    onCopyTextButtonPress={handleCopyDogErrorMessage}
-                    onRetryButtonPress={() => void handleRetryDogUpload()}
                 />
             </Progress>
 
@@ -155,13 +155,17 @@ export const ProgressScreen = () => {
             <Spacer amount="small" />
 
             <Progress title="Multiple progress items">
-                <Progress.Item title="Preparing cat hats" status="success" />
+                <Progress.Item title="Preparing cat hats" status="notStarted" />
                 <Progress.Item title="Training cats to wear hats" status="inProgress" />
                 <Progress.Item title="Cats refusing to wear hats" status="error" />
                 <Progress.Item
+                    title="Terminate all cats that refuse to wear hats"
+                    status="removed"
+                />
+                <Progress.Item
                     title="Uploading images of cats with hats"
                     description="uploading cats with hats"
-                    status="notStarted"
+                    status="success"
                 />
             </Progress>
             <Spacer />

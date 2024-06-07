@@ -7,14 +7,21 @@ import { ProgressStatusLine } from "./ProgressStatusLine";
 import { statusToColor, statusToIconName } from "./progressUtils";
 import { View, ViewStyle } from "react-native";
 
-type ProgressItemStatusProps = {
+export type ProgressItemStatusProps = {
     taskCounter: number;
     status: ProgressStatus;
     style?: ViewStyle;
+    completedTaskCounter: number;
 };
 
-export const ProgressItemStatus = ({ taskCounter, status, style }: ProgressItemStatusProps) => {
+export const ProgressItemStatus = ({
+    taskCounter,
+    status,
+    style,
+    completedTaskCounter,
+}: ProgressItemStatusProps) => {
     const token = useToken();
+    const progress = taskCounter > 0 ? completedTaskCounter / taskCounter : 0;
 
     return (
         <View style={[{ gap: 8, height: "100%" }, style]}>
@@ -27,7 +34,9 @@ export const ProgressItemStatus = ({ taskCounter, status, style }: ProgressItemS
                     size={26}
                 />
             )}
-            {taskCounter > 0 && <ProgressStatusLine color={statusToColor(status, token)} />}
+            {taskCounter > 0 && (
+                <ProgressStatusLine color={statusToColor(status, token)} progress={progress} />
+            )}
         </View>
     );
 };

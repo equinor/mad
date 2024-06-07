@@ -9,7 +9,7 @@ import { ProgressExpandableSection } from "./ProgressExpandableSection";
 import { ProgressItemStatus } from "./ProgressItemStatus";
 import { ProgressTaskItem } from "./ProgressTaskItem";
 import { computeTaskStatus } from "./progressUtils";
-import { ProgressStatus, ProgressTask, ProgressTaskError } from "./types";
+import { ProgressStatus, ProgressTask } from "./types";
 
 type ProgressItemPropsOptions =
     | {
@@ -30,7 +30,7 @@ type ProgressItemPropsOptions =
            */
           tasks?: never;
           /**
-           * Manually set the overall status of the progress item. Valid statuses; 'notStarted', 'inProgress', 'success', or 'error'.
+           * Manually set the overall status of the progress item. Valid statuses; 'notStarted', 'inProgress', 'success', 'removed' or 'error'.
            */
           status: ProgressStatus;
       };
@@ -45,11 +45,6 @@ export type ProgressItemProps = {
      */
     description?: string;
     /**
-     * Callback function that is called when the copy text button is pressed, providing the error details of the failed task.
-     * @param message An object containing details of the task error.
-     */
-    onCopyTextButtonPress?: (message: ProgressTaskError) => void;
-    /**
      * Callback function that is invoked when the retry button is pressed, allowing the specific failed task to be retried.
      * @param task The task object that failed and needs to be retried.
      */
@@ -61,25 +56,18 @@ export const ProgressItem = ({
     description,
     status = "notStarted",
     tasks = [],
-    onCopyTextButtonPress,
     onRetryButtonPress,
 }: ProgressItemProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const styles = useStyles(themeStyles);
 
-    const taskCounter = tasks?.length;
+    const taskCounter = tasks?.filter(task => task.status !== "removed").length;
     const completedTaskCounter = tasks?.filter(task => task.status === "success").length;
 
     const taskStatus = computeTaskStatus(tasks, status);
     const taskHasError = taskStatus === "error";
     const failedTask = tasks.find(task => task.status === "error");
-
-    const handleCopyTextButtonPress = () => {
-        if (failedTask?.error) {
-            onCopyTextButtonPress && onCopyTextButtonPress(failedTask?.error);
-        }
-    };
 
     const handleRetryButtonPress = () => {
         if (failedTask) {
@@ -106,7 +94,11 @@ export const ProgressItem = ({
             <Typography
                 numberOfLines={1}
                 bold={taskStatus !== "success"}
-                color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
+                color={
+                    taskStatus === "notStarted" || taskStatus === "removed"
+                        ? "textDisabled"
+                        : "textPrimary"
+                }
                 group="cell"
                 variant="title"
             >
@@ -121,7 +113,11 @@ export const ProgressItem = ({
                         </Typography>
                     ) : (
                         <Typography
-                            color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
+                            color={
+                                taskStatus === "notStarted" || taskStatus === "removed"
+                                    ? "textDisabled"
+                                    : "textPrimary"
+                            }
                             variant="description"
                             group="cell"
                         >
@@ -140,6 +136,7 @@ export const ProgressItem = ({
                     style={styles.status}
                     taskCounter={taskCounter}
                     status={taskStatus}
+                    completedTaskCounter={completedTaskCounter}
                 />
                 <View style={{ flex: 1 }}>
                     <View
@@ -160,28 +157,19 @@ export const ProgressItem = ({
                     <ProgressExpandableSection expanded={isExpanded}>
                         <View style={styles.progressTaskItemContainer}>
                             {tasks.map((task, index) => (
-                                <>
-                                    <ProgressTaskItem
-                                        key={index}
-                                        task={task}
-                                        status={task.status}
-                                    />
-                                    {onCopyTextButtonPress && isExpanded && task?.error && (
-                                        <Button
-                                            title="Copy to clipboard"
-                                            iconName="clipboard-outline"
-                                            variant="outlined"
-                                            onPress={handleCopyTextButtonPress}
-                                        />
-                                    )}
-                                </>
+                                <ProgressTaskItem
+                                    key={index}
+                                    task={task}
+                                    status={task.status}
+                                    onCopyTextButtonPress={task.onCopyTextButtonPress}
+                                    onRetryButtonPress={task.onRetryButtonPress}
+                                />
                             ))}
                         </View>
                     </ProgressExpandableSection>
                 </View>
             </View>
-
-            {taskHasError && onRetryButtonPress ? (
+            {onRetryButtonPress && taskHasError ? (
                 <Button iconName="restart" title="Retry" onPress={handleRetryButtonPress} />
             ) : null}
         </View>

@@ -7,19 +7,41 @@ import { Icon } from "../Icon";
 import { CircularProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
 import { statusToColor, statusToIconName } from "./progressUtils";
-import { ProgressStatus, ProgressTask } from "./types";
+import { ProgressStatus, ProgressTask, ProgressTaskError } from "./types";
+import { Button } from "../Button";
 
 type ProgressTaskProps = {
     task: ProgressTask;
     status: ProgressStatus;
+    onCopyTextButtonPress?: (message: ProgressTaskError) => void;
+    onRetryButtonPress?: (task: ProgressTask) => void;
 };
 
-export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
+export const ProgressTaskItem = ({
+    task,
+    status,
+    onCopyTextButtonPress,
+    onRetryButtonPress,
+}: ProgressTaskProps) => {
     const styles = useStyles(themeStyles);
     const token = useToken();
 
     const taskInProgress = status === "inProgress";
     const showErrorDetails = task.status === "error" && task.error;
+
+    const taskHasError = task.status === "error";
+
+    const handleRetryButtonPress = () => {
+        if (taskHasError) {
+            onRetryButtonPress && onRetryButtonPress(task);
+        }
+    };
+
+    const handleCopyTextButtonPress = () => {
+        if (task?.error) {
+            onCopyTextButtonPress && onCopyTextButtonPress(task?.error);
+        }
+    };
 
     const renderError = () => {
         return task.error ? (
@@ -59,12 +81,29 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
                     group="paragraph"
                     variant="body_short"
                     bold={task.status === "error" || task.status === "inProgress"}
-                    color={status === "notStarted" ? "textTertiary" : "textPrimary"}
+                    color={
+                        status === "notStarted" || status === "removed"
+                            ? "textTertiary"
+                            : "textPrimary"
+                    }
                 >
                     {task.title}
                 </Typography>
             </View>
             {showErrorDetails && renderError()}
+            <View style={styles.actionContainer}>
+                {onCopyTextButtonPress && task?.status === "error" && (
+                    <Button
+                        title="Copy to clipboard"
+                        iconName="clipboard-outline"
+                        variant="outlined"
+                        onPress={handleCopyTextButtonPress}
+                    />
+                )}
+                {onRetryButtonPress && task.status === "error" ? (
+                    <Button iconName="restart" title="Retry" onPress={handleRetryButtonPress} />
+                ) : null}
+            </View>
         </View>
     );
 };
@@ -75,11 +114,14 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     taskTitleContainer: {
         flexDirection: "row",
-        alignItems: "center",
         gap: theme.spacing.button.iconGap,
     },
     errorContainer: {
         flexDirection: "column",
         gap: theme.spacing.cell.content.titleDescriptionGap,
+    },
+    actionContainer: {
+        flexDirection: "row",
+        gap: theme.spacing.spacer.small,
     },
 }));
