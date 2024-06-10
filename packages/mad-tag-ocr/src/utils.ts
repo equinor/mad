@@ -7,12 +7,7 @@ export const getSkiaRoundedRect = (boundingBox: BoundingBox): InputRRect => {
     return {
         rx: 10,
         ry: 10,
-        rect: Skia.XYWHRect(
-            boundingBox.topLeft.x,
-            boundingBox.topLeft.y,
-            boundingBox.width + BoundingBoxPadding * 2,
-            boundingBox.height + BoundingBoxPadding * 2,
-        ),
+        rect: boundingBox,
     };
 };
 
@@ -24,26 +19,20 @@ export const getBoundingBox = (
 ): BoundingBox => {
     "worklet";
     return {
-        topLeft: {
-            x: centerX - width / 2 - BoundingBoxPadding,
-            y: centerY - height / 2 - BoundingBoxPadding,
-        },
-        bottomRight: {
-            x: centerX + width / 2 + BoundingBoxPadding,
-            y: centerY + height / 2 + BoundingBoxPadding,
-        },
-        width,
-        height,
+        x: centerX - width / 2 - BoundingBoxPadding,
+        y: centerY - height / 2 - BoundingBoxPadding,
+        width: width + BoundingBoxPadding * 2,
+        height: height + BoundingBoxPadding * 2,
     };
 };
 
-export const isPointInsideBoundingBox = (rectangle: BoundingBox, point: Point) => {
+export const isPointInsideBoundingBox = (boundingBox: BoundingBox, point: Point) => {
     "worklet";
     return (
-        point.x >= rectangle.topLeft.x &&
-        point.x <= rectangle.bottomRight.x &&
-        point.y >= rectangle.topLeft.y &&
-        point.y <= rectangle.bottomRight.y
+        point.x >= boundingBox.x &&
+        point.x <= boundingBox.x + boundingBox.width &&
+        point.y >= boundingBox.y &&
+        point.y <= boundingBox.y + boundingBox.height
     );
 };
 

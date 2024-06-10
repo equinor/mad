@@ -1,5 +1,6 @@
 import { IconButtonProps } from "@equinor/mad-components";
-import { Color } from "@shopify/react-native-skia";
+
+export type Color = string | number | Float32Array | number[];
 
 export type Point = {
     x: number;
@@ -7,8 +8,8 @@ export type Point = {
 };
 
 export type BoundingBox = {
-    topLeft: Point;
-    bottomRight: Point;
+    x: number;
+    y: number;
     width: number;
     height: number;
 };
