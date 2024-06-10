@@ -1,6 +1,20 @@
-import { Color, PaintStyle, Skia } from "@shopify/react-native-skia";
+import { Color, InputRRect, PaintStyle, Skia } from "@shopify/react-native-skia";
 import { BoundingBox, Point } from "./types";
 import { BoundingBoxPadding } from "./consts";
+
+export const getSkiaRoundedRect = (boundingBox: BoundingBox): InputRRect => {
+    "worklet";
+    return {
+        rx: 10,
+        ry: 10,
+        rect: Skia.XYWHRect(
+            boundingBox.topLeft.x,
+            boundingBox.topLeft.y,
+            boundingBox.width + BoundingBoxPadding * 2,
+            boundingBox.height + BoundingBoxPadding * 2,
+        ),
+    };
+};
 
 export const getBoundingBox = (
     centerX: number,
@@ -18,6 +32,8 @@ export const getBoundingBox = (
             x: centerX + width / 2 + BoundingBoxPadding,
             y: centerY + height / 2 + BoundingBoxPadding,
         },
+        width,
+        height,
     };
 };
 

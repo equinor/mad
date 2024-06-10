@@ -4,17 +4,25 @@ import {
     useCameraDevice,
     useCameraFormat,
     useCameraPermission,
+    useSkiaFrameProcessor,
 } from "react-native-vision-camera";
 import { GestureResponderEvent, LayoutChangeEvent, View, useWindowDimensions } from "react-native";
 import { useRunOnJS, useSharedValue } from "react-native-worklets-core";
 import { MaxTagLength, OcrUsageSteps, defaultButtonConfig } from "../../consts";
-import { OCRCameraProps, Point } from "../../types";
-import { formatTag } from "../../utils";
+import { BoundingBox, OCRCameraProps, Point } from "../../types";
+import {
+    formatTag,
+    getBoundingBox,
+    getPaintConfig,
+    getSkiaRoundedRect,
+    isPointInsideBoundingBox,
+    translatePointToFrame,
+} from "../../utils";
 import { SelectTagDialog } from "../SelectTagDialog";
 import { Button, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import { PopoverButton } from "../PopoverButton";
 import { useStateToSharedValue } from "../../hooks/useSharedState";
-import { useOCRFrameProcessor } from "../../hooks/useOCRFrameProcessor";
+import { scanOCR } from "@ismaelmoreiraa/vision-camera-ocr";
 
 export const OCRCamera = ({
     buttonConfig = defaultButtonConfig,
@@ -26,6 +34,7 @@ export const OCRCamera = ({
     shouldHighlightText,
 }: OCRCameraProps) => {
     const dim = useWindowDimensions();
+    const paintConfig = useStateToSharedValue(getPaintConfig(textHighlightColor));
     const styles = useStyles(themeStyles);
     const device = useCameraDevice("back");
     const { hasPermission } = useCameraPermission();
@@ -57,6 +66,16 @@ export const OCRCamera = ({
         [enableDialogShared.value],
     );
 
+    const clearSelection = () => {
+        setClickedText("");
+        setShowDialog(false);
+    };
+
+    const confirmSelection = (text: string) => {
+        if (onSelectTag) onSelectTag(text);
+        setShowDialog(false);
+    };
+
     const format = useCameraFormat(device, [
         {
             fps,
@@ -67,23 +86,62 @@ export const OCRCamera = ({
         },
     ]);
 
-    const frameProcessor = useOCRFrameProcessor({
-        cameraDimensions: { cameraWidthShared, cameraHeightShared },
-        clickedPointShared,
-        textHighlightColor,
-        shouldHighlightText,
-        handleHighlightedTextClick: (text: string) => void setScannedTagOnJS(formatTag(text)),
-    });
-
-    const clearSelection = () => {
-        setClickedText("");
-        setShowDialog(false);
+    const shouldHighlightTextWorklet = (text: string, boundingBox: BoundingBox) => {
+        "worklet";
+        return shouldHighlightText ? shouldHighlightText(text, boundingBox) : true;
     };
 
-    const confirmSelection = (text: string) => {
-        if (onSelectTag) onSelectTag(text);
-        setShowDialog(false);
+    const handleHighlightedTextClickWorklet = (text: string) => {
+        "worklet";
+        void setScannedTagOnJS(formatTag(text));
     };
+
+    const frameProcessor = useSkiaFrameProcessor(
+        frame => {
+            "worklet";
+            try {
+                const scannedOcr = scanOCR(frame);
+                frame.render();
+
+                const translatedPoint =
+                    clickedPointShared.value &&
+                    translatePointToFrame(
+                        frame.width,
+                        frame.height,
+                        cameraWidthShared.value,
+                        cameraHeightShared.value,
+                        dim.scale,
+                        clickedPointShared.value,
+                    );
+
+                for (const block of scannedOcr.result.blocks) {
+                    if (!block?.frame) continue;
+
+                    const boundingBox = getBoundingBox(
+                        block.frame.boundingCenterX,
+                        block.frame.boundingCenterY,
+                        block.frame.width,
+                        block.frame.height,
+                    );
+
+                    if (shouldHighlightTextWorklet(block.text, boundingBox)) {
+                        frame.drawRRect(getSkiaRoundedRect(boundingBox), paintConfig.value);
+
+                        if (
+                            translatedPoint &&
+                            isPointInsideBoundingBox(boundingBox, translatedPoint)
+                        ) {
+                            handleHighlightedTextClickWorklet(block.text);
+                        }
+                    }
+                }
+                clickedPointShared.value = undefined;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        [clickedPointShared.value, cameraWidthShared.value, cameraHeightShared.value, paintConfig],
+    );
 
     const onTap = (event: GestureResponderEvent) => {
         clickedPointShared.value = {

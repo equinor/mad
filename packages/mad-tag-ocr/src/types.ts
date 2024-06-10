@@ -9,6 +9,8 @@ export type Point = {
 export type BoundingBox = {
     topLeft: Point;
     bottomRight: Point;
+    width: number;
+    height: number;
 };
 
 export type ButtonConfig = {
