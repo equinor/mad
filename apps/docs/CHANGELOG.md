@@ -1,5 +1,11 @@
 # @equinor/mad-platform-docs
 
+## 0.3.0
+
+### Minor Changes
+
+-   0ef529f: Add mad-tag-ocr package
+
 ## 0.2.1
 
 ### Patch Changes

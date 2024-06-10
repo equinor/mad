@@ -1,5 +1,11 @@
 # @equinor/react-native-skia-draw
 
+## 0.3.25
+
+### Patch Changes
+
+-   0ef529f: Add mad-tag-ocr package
+
 ## 0.3.24
 
 ### Patch Changes
