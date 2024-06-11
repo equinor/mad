@@ -132,7 +132,6 @@ const themeStyles = EDSStyleSheet.create(theme => ({
         gap: theme.spacing.button.iconGap,
     },
     icon: {
-        justifyContent: "flex-end",
         paddingHorizontal: theme.spacing.button.paddingHorizontal,
     },
     errorContainer: {

@@ -1,4 +1,3 @@
-import { Color } from "../../styling";
 import { IconName } from "../Icon";
 
 export type ProgressStatus = "success" | "error" | "notStarted" | "inProgress" | "removed";
