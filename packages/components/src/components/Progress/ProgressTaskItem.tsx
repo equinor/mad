@@ -129,6 +129,7 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     taskStatusAndTitle: {
         flexDirection: "row",
+        alignItems: "center",
         gap: theme.spacing.button.iconGap,
     },
     icon: {
