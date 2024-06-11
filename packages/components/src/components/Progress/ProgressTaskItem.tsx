@@ -74,22 +74,32 @@ export const ProgressTaskItem = ({
     );
 
     return (
-        <View style={styles.taskContainer}>
-            <View style={styles.taskTitleContainer}>
-                {taskStatusIndicator}
-                <Typography
-                    group="paragraph"
-                    variant="body_short"
-                    bold={task.status === "error" || task.status === "inProgress"}
-                    color={
-                        status === "notStarted" || status === "removed"
-                            ? "textTertiary"
-                            : "textPrimary"
-                    }
-                >
-                    {task.title}
-                </Typography>
+        <View style={styles.container}>
+            <View style={styles.taskContainer}>
+                <View style={styles.taskStatusAndTitle}>
+                    {taskStatusIndicator}
+                    <Typography
+                        group="paragraph"
+                        variant="body_short"
+                        bold={task.status === "error" || task.status === "inProgress"}
+                        color={
+                            status === "notStarted" || status === "removed"
+                                ? "textTertiary"
+                                : "textPrimary"
+                        }
+                    >
+                        {task.title}
+                    </Typography>
+                </View>
+                {task.icon && (
+                    <Icon
+                        color={task.iconColor ?? "secondary"}
+                        style={styles.icon}
+                        name={task.icon}
+                    />
+                )}
             </View>
+
             {showErrorDetails && renderError()}
             <View style={styles.actionContainer}>
                 {onCopyTextButtonPress && task?.status === "error" && (
@@ -109,12 +119,21 @@ export const ProgressTaskItem = ({
 };
 
 const themeStyles = EDSStyleSheet.create(theme => ({
-    taskContainer: {
+    container: {
         gap: theme.spacing.element.paddingVertical,
     },
-    taskTitleContainer: {
+    taskContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    taskStatusAndTitle: {
         flexDirection: "row",
         gap: theme.spacing.button.iconGap,
+    },
+    icon: {
+        justifyContent: "flex-end",
+        paddingHorizontal: theme.spacing.button.paddingHorizontal,
     },
     errorContainer: {
         flexDirection: "column",

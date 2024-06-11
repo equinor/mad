@@ -1,3 +1,6 @@
+import { Color } from "../../styling";
+import { IconName } from "../Icon";
+
 export type ProgressStatus = "success" | "error" | "notStarted" | "inProgress" | "removed";
 
 export type ProgressTaskError = {
@@ -20,6 +23,14 @@ export type ProgressTask = {
      * The title of the task. This should be a concise but descriptive string that identifies the task being performed to the user.
      */
     title: string;
+    /**
+     * This is an optional icon that can be displayed next to the task title on the right side to provide visual context for the task being performed.
+     */
+    icon?: IconName;
+    /**
+     * The color of the icon.
+     */
+    iconColor?: "primary" | "secondary" | "danger";
     /**
      * The current status of the task. This status should reflect where in the execution process the task currently is, such as 'notStarted', 'inProgress', 'success', or 'error'.
      */

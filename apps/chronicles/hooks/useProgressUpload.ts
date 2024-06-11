@@ -32,18 +32,21 @@ export const useProgressUpload = (animal: "dog" | "cat") => {
         {
             title: `${animalRhyme}1.jpg`,
             status: "notStarted",
+            icon: animal,
             onCopyTextButtonPress: handleCopyErrorMessage,
             onRetryButtonPress: () => void handleRetry(),
         },
         {
             title: `${animalRhyme}2.jpg`,
             status: "notStarted",
+            icon: animal,
             onCopyTextButtonPress: handleCopyErrorMessage,
             onRetryButtonPress: () => void handleRetry(),
         },
         {
             title: `${animalRhyme}3.jpg`,
             status: "notStarted",
+            icon: animal,
             onCopyTextButtonPress: handleCopyErrorMessage,
             onRetryButtonPress: () => void handleRetry(),
         },
