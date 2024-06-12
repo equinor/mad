@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.8.1
+
+### Patch Changes
+
+-   771e14d: Fixed keyboard covering the input fields in the feedback screen
+
 ## 0.8.0
 
 ### Minor Changes
