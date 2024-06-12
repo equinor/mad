@@ -72,7 +72,11 @@ export const CreateIncidentScreen = () => {
     };
 
     return (
-        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={115}>
+        <KeyboardAvoidingView
+            behavior="padding"
+            keyboardVerticalOffset={115}
+            style={styles.container}
+        >
             <ScrollView contentInsetAdjustmentBehavior="automatic">
                 <Spacer />
                 <Cell>
@@ -137,7 +141,7 @@ export const CreateIncidentScreen = () => {
 
 const createIncidentStyles = EDSStyleSheet.create(theme => ({
     container: {
-        paddingVertical: theme.spacing.container.paddingVertical,
+        flex: 1,
     },
     topTextContainer: {
         paddingBottom: theme.geometry.dimension.cell.minHeight,
