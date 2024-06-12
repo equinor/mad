@@ -62,8 +62,10 @@ export const ProgressItem = ({
 
     const styles = useStyles(themeStyles);
 
-    const taskCounter = tasks?.filter(task => task.status !== "removed").length;
-    const completedTaskCounter = tasks?.filter(task => task.status === "success").length;
+    const taskCounter = tasks?.length;
+    const completedTaskCounter = tasks?.filter(
+        task => task.status === "success" || task.status === "removed",
+    ).length;
 
     const taskStatus = computeTaskStatus(tasks, status);
     const taskHasError = taskStatus === "error";
