@@ -1,5 +1,14 @@
 # @equinor/mad-components
 
+## 0.14.9
+
+### Patch Changes
+
+-   4ba6843: Fixed issue where tasks with removed status was not included in the task counter in the
+    `Progress` component
+-   4ba6843: Added new `icon` and `iconColor` props, allowing users to display an icon on the right
+    side of the progress task title in the `Progress` component.
+
 ## 0.14.8
 
 ### Patch Changes
