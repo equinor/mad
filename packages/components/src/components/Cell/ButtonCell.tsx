@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
@@ -37,53 +37,59 @@ export type ButtonCellProps = {
     color?: ButtonColor;
 } & Omit<CellProps, "leftAdornment" | "rightAdornment" | "onPress">;
 
-export const ButtonCell = ({
-    title,
-    onPress,
-    disabled = false,
-    description,
-    iconName,
-    color = "primary",
-    ...cellProps
-}: ButtonCellProps) => {
-    const styles = useStyles(themeStyles);
+export const ButtonCell = forwardRef<View, ButtonCellProps>(
+    (
+        {
+            title,
+            onPress,
+            disabled = false,
+            description,
+            iconName,
+            color = "primary",
+            ...cellProps
+        },
+        ref,
+    ) => {
+        const styles = useStyles(themeStyles);
 
-    const IconAdornment = () =>
-        iconName && (
-            <View style={styles.iconContainer}>
-                <Icon name={iconName} color={disabled ? "textDisabled" : color} />
-            </View>
-        );
+        const IconAdornment = () =>
+            iconName && (
+                <View style={styles.iconContainer}>
+                    <Icon name={iconName} color={disabled ? "textDisabled" : color} />
+                </View>
+            );
 
-    return (
-        <Cell
-            leftAdornment={IconAdornment()}
-            onPress={disabled ? undefined : onPress}
-            {...cellProps}
-        >
-            <View style={styles.contentContainer}>
-                <Typography
-                    group="cell"
-                    variant="title"
-                    numberOfLines={1}
-                    color={disabled ? "textDisabled" : color}
-                >
-                    {title}
-                </Typography>
-                {description && (
+        return (
+            <Cell
+                ref={ref}
+                leftAdornment={IconAdornment()}
+                onPress={disabled ? undefined : onPress}
+                {...cellProps}
+            >
+                <View style={styles.contentContainer}>
                     <Typography
                         group="cell"
-                        variant="description"
-                        numberOfLines={2}
-                        color={disabled ? "textDisabled" : "textTertiary"}
+                        variant="title"
+                        numberOfLines={1}
+                        color={disabled ? "textDisabled" : color}
                     >
-                        {description}
+                        {title}
                     </Typography>
-                )}
-            </View>
-        </Cell>
-    );
-};
+                    {description && (
+                        <Typography
+                            group="cell"
+                            variant="description"
+                            numberOfLines={2}
+                            color={disabled ? "textDisabled" : "textTertiary"}
+                        >
+                            {description}
+                        </Typography>
+                    )}
+                </View>
+            </Cell>
+        );
+    },
+);
 
 ButtonCell.displayName = "Cell.Button";
 
