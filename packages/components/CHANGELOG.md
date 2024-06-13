@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.14.10
+
+### Patch Changes
+
+-   8046826: Add `forwardRef` support to `Cell.Button`
+
 ## 0.14.9
 
 ### Patch Changes
