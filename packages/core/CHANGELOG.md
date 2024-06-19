@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.9.0
+
+### Minor Changes
+
+-   4b172f9: Update mad api base urls. Content Security Policies may need to be updated
+
 ## 0.8.1
 
 ### Patch Changes
