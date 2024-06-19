@@ -51,7 +51,7 @@ RUN echo "server { \
         add_header X-Frame-Options \"SAMEORIGIN\"; \
         add_header X-Content-Type-Options \"nosniff\";  \
         add_header Referrer-Policy \"strict-origin-when-cross-origin\"; \
-        add_header Content-Security-Policy \"default-src https: data: blob: 'self'; connect-src 'self' https://api.statoil.com/ https://login.microsoftonline.com/ https://dc.services.visualstudio.com/; style-src 'unsafe-inline'; media-src 'self' https://api.statoil.com/ https://*.blob.core.windows.net/; img-src 'self' blob: data: \"; \
+        add_header Content-Security-Policy \"default-src https: data: blob: 'self'; connect-src 'self' https://api.statoil.com/ https://*.radix.equinor.com https://login.microsoftonline.com/ https://dc.services.visualstudio.com/; style-src 'unsafe-inline'; media-src 'self' https://api.statoil.com/ https://*.radix.equinor.com https://*.blob.core.windows.net/; img-src 'self' blob: data: \"; \
         add_header Permissions-Policy \" camera=(), microphone=(), payment=(), usb=() \"; \
         listen 3000; \
         root /app; \
