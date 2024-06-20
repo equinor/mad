@@ -70,6 +70,11 @@ const config: Config = {
                         },
                         {
                             type: "docSidebar",
+                            sidebarId: "navigationSidebar",
+                            label: "MAD Navigation",
+                        },
+                        {
+                            type: "docSidebar",
                             sidebarId: "componentsSidebar",
                             label: "Components",
                         },
@@ -104,6 +109,10 @@ const config: Config = {
                         },
                         {
                             label: "MAD Core",
+                            to: "docs/mad-core/introduction",
+                        },
+                        {
+                            label: "MAD Navigation",
                             to: "docs/mad-core/introduction",
                         },
                         {
