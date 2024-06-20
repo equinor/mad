@@ -12,4 +12,3 @@ better experience for developers.
 
 -   Display custom sub-headers automatically on screens.
 -   Add onRouteChange prop to navigation containers
--   (more features coming soon)
