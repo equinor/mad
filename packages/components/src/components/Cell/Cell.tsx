@@ -1,7 +1,10 @@
-import React, { ReactNode, forwardRef, useContext, useState } from "react";
+import React, { ReactNode, forwardRef, useContext } from "react";
 import { View, ViewProps } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
+import { useFadeAnimation } from "../../styling/animations";
 import { PressableHighlight } from "../PressableHighlight";
 import { SwipeableWithContext } from "../_internal/SwipeableWithContext";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
@@ -66,8 +69,11 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         ref,
     ) => {
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
+        const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
+
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
-        const [onPressDisabled, setOnPressDisabled] = useState(false);
+
+        const swipable = !!leftSwipeGroup || !!rightSwipeGroup;
 
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
@@ -83,37 +89,41 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                             <View style={styles.verticalLine} />
                         </>
                     )}
-                    <PressableHighlight
-                        disabled={!onPress || onPressDisabled}
-                        onPress={onPress}
-                        style={{ flex: 1 }}
-                    >
-                        <View style={styles.contentContainer}>
-                            {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
-                            <View style={styles.children}>
-                                <View style={{ flex: 1, justifyContent: "center" }}>
-                                    {children}
+                    <Animated.View style={[animatedStyle, { flex: 1 }]}>
+                        <TouchableWithoutFeedback
+                            disabled={!onPress}
+                            onPressIn={handlePressIn}
+                            onPressOut={handlePressOut}
+                            onPress={onPress}
+                            containerStyle={{ flex: 1 }}
+                        >
+                            <View style={styles.contentContainer}>
+                                {leftAdornment && (
+                                    <View style={styles.adornment}>{leftAdornment}</View>
+                                )}
+                                <View style={styles.children}>{children}</View>
+                                {rightAdornment && (
+                                    <View style={styles.adornment}>{rightAdornment}</View>
+                                )}
+                            </View>
+                            {!isLastCell && (
+                                <View style={styles.dividerOuter}>
+                                    <View style={styles.dividerInner} />
                                 </View>
-                            </View>
-                            {rightAdornment && (
-                                <View style={styles.adornment}>{rightAdornment}</View>
                             )}
-                        </View>
-                        {!isLastCell && (
-                            <View style={styles.dividerOuter}>
-                                <View style={styles.dividerInner} />
-                            </View>
-                        )}
-                    </PressableHighlight>
+                        </TouchableWithoutFeedback>
+                    </Animated.View>
                 </View>
             </View>
         );
-        return !!leftSwipeGroup || !!rightSwipeGroup ? (
+
+        return swipable ? (
             <SwipeableWithContext
-                onSwipeableWillOpen={() => setOnPressDisabled(true)}
-                onSwipeableWillClose={() => setOnPressDisabled(false)}
+                key={`${leftSwipeGroup?.length}-${rightSwipeGroup?.length}`}
                 overshootFriction={8}
-                containerStyle={{ backgroundColor: styles.container.backgroundColor }}
+                containerStyle={{
+                    backgroundColor: styles.container.backgroundColor,
+                }}
                 renderLeftActions={() =>
                     leftSwipeGroup?.map((swipeItem, index) => (
                         <CellSwipeItem key={`leftSwipeItem_${index}`} {...swipeItem} />
