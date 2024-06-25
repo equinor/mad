@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import { Pressable, PressableProps, StyleSheet, View, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import { useFadeAnimation } from "../../styling/animations";
+import { DisabledPressable } from "./DisabledPressable";
 
 export type PressableHightlightProps = {
     /**
@@ -23,9 +24,10 @@ export const PressableHighlight = forwardRef<
     React.PropsWithChildren<PressableHightlightProps>
 >(({ style, children, disabled, onPress, ...rest }, ref) => {
     const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
+    const PressableComponent = disabled ? DisabledPressable : Pressable;
 
     return (
-        <Pressable
+        <PressableComponent
             {...rest}
             style={style}
             onPressIn={disabled ? undefined : handlePressIn}
@@ -36,7 +38,7 @@ export const PressableHighlight = forwardRef<
         >
             <Animated.View style={[animatedStyle, styles.overlay]} />
             {children}
-        </Pressable>
+        </PressableComponent>
     );
 });
 
