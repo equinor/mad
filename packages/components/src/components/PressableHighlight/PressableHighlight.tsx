@@ -14,33 +14,43 @@ export type PressableHightlightProps = {
      * Any stylings based on the state of the press is applied on top of this.
      */
     style?: ViewStyle;
-    /**
-     * Callback function to handle press event.
-     */
 } & Omit<PressableProps, "children">;
 
 export const PressableHighlight = forwardRef<
     View,
     React.PropsWithChildren<PressableHightlightProps>
->(({ style, children, disabled, onPress, ...rest }, ref) => {
-    const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
-    const PressableComponent = disabled ? DisabledPressable : Pressable;
+>(
+    (
+        {
+            style,
+            children,
+            disabled,
+            onPress,
 
-    return (
-        <PressableComponent
-            {...rest}
-            style={style}
-            onPressIn={disabled ? undefined : handlePressIn}
-            onPressOut={disabled ? undefined : handlePressOut}
-            onPress={disabled ? undefined : onPress}
-            disabled={disabled}
-            ref={ref}
-        >
-            <Animated.View style={[animatedStyle, styles.overlay]} />
-            {children}
-        </PressableComponent>
-    );
-});
+            ...rest
+        }: React.PropsWithChildren<PressableHightlightProps>,
+        ref,
+    ) => {
+        const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
+
+        const PressableComponent = disabled ? DisabledPressable : Pressable;
+
+        return (
+            <PressableComponent
+                {...rest}
+                ref={ref}
+                style={style}
+                onPressIn={event => !disabled && (handlePressIn(), rest.onPressIn?.(event))}
+                onPressOut={event => !disabled && (handlePressOut(), rest.onPressOut?.(event))}
+                onPress={event => !disabled && !!onPress && onPress(event)}
+                disabled={disabled}
+            >
+                <Animated.View style={[animatedStyle, styles.overlay]} />
+                {children}
+            </PressableComponent>
+        );
+    },
+);
 
 const styles = StyleSheet.create({
     overlay: {
