@@ -70,10 +70,9 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
     ) => {
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
-
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
 
-        const swipable = !!leftSwipeGroup || !!rightSwipeGroup;
+        const swipeable = !!leftSwipeGroup || !!rightSwipeGroup;
 
         const CellContent = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
@@ -115,7 +114,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
             </View>
         );
 
-        return swipable ? (
+        return swipeable ? (
             <SwipeableWithContext
                 key={`${leftSwipeGroup?.length}-${rightSwipeGroup?.length}`}
                 overshootFriction={8}
