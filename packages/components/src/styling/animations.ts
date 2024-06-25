@@ -12,7 +12,7 @@ export const useFadeAnimation = () => {
 
     const handlePressIn = () => {
         fadeAnimation.value = withTiming(1, {
-            duration: token.timing.animation.normal,
+            duration: token.timing.animation.fast,
         });
     };
 

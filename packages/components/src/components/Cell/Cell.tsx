@@ -90,28 +90,26 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                         </>
                     )}
                     <Animated.View style={[animatedStyle, { flex: 1 }]}>
-                        <TouchableWithoutFeedback
-                            disabled={!onPress}
-                            onPressIn={handlePressIn}
-                            onPressOut={handlePressOut}
-                            onPress={onPress}
-                            containerStyle={{ flex: 1 }}
-                        >
-                            <View style={styles.contentContainer}>
-                                {leftAdornment && (
-                                    <View style={styles.adornment}>{leftAdornment}</View>
-                                )}
-                                <View style={styles.children}>{children}</View>
-                                {rightAdornment && (
-                                    <View style={styles.adornment}>{rightAdornment}</View>
-                                )}
-                            </View>
-                            {!isLastCell && (
-                                <View style={styles.dividerOuter}>
-                                    <View style={styles.dividerInner} />
-                                </View>
+                        <View style={styles.contentContainer}>
+                            {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
+                            <TouchableWithoutFeedback
+                                disabled={!onPress}
+                                onPressIn={handlePressIn}
+                                onPressOut={handlePressOut}
+                                onPress={onPress}
+                                containerStyle={{ flex: 1 }}
+                            >
+                                {children}
+                            </TouchableWithoutFeedback>
+                            {rightAdornment && (
+                                <View style={styles.adornment}>{rightAdornment}</View>
                             )}
-                        </TouchableWithoutFeedback>
+                        </View>
+                        {!isLastCell && (
+                            <View style={styles.dividerOuter}>
+                                <View style={styles.dividerInner} />
+                            </View>
+                        )}
                     </Animated.View>
                 </View>
             </View>
@@ -160,10 +158,6 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         gap: theme.spacing.cell.gapHorizontal,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.cell.paddingVertical,
-    },
-    children: {
-        flex: 1,
-        flexDirection: "row",
     },
     adornment: {
         flexDirection: "row",
