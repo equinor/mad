@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
-import { Pressable, PressableProps, StyleSheet, View, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
+import { Gesture, GestureDetector, TouchableHighlightProps } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 import { useFadeAnimation } from "../../styling/animations";
 import { DisabledPressable } from "./DisabledPressable";
@@ -14,7 +15,7 @@ export type PressableHightlightProps = {
      * Any stylings based on the state of the press is applied on top of this.
      */
     style?: ViewStyle;
-} & Omit<PressableProps, "children">;
+} & Omit<TouchableHighlightProps, "children">;
 
 export const PressableHighlight = forwardRef<
     View,
@@ -32,22 +33,25 @@ export const PressableHighlight = forwardRef<
         ref,
     ) => {
         const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
+        const tap = Gesture.Tap();
 
         const PressableComponent = disabled ? DisabledPressable : Pressable;
 
         return (
-            <PressableComponent
-                {...rest}
-                ref={ref}
-                style={style}
-                onPressIn={event => !disabled && (handlePressIn(), rest.onPressIn?.(event))}
-                onPressOut={event => !disabled && (handlePressOut(), rest.onPressOut?.(event))}
-                onPress={event => !disabled && !!onPress && onPress(event)}
-                disabled={disabled}
-            >
-                <Animated.View style={[animatedStyle, styles.overlay]} />
-                {children}
-            </PressableComponent>
+            <GestureDetector gesture={tap}>
+                <PressableComponent
+                    {...rest}
+                    ref={ref}
+                    style={style}
+                    onPressIn={event => !disabled && (handlePressIn(), rest.onPressIn?.(event))}
+                    onPressOut={event => !disabled && (handlePressOut(), rest.onPressOut?.(event))}
+                    onPress={event => !disabled && !!onPress && onPress(event)}
+                    disabled={disabled}
+                >
+                    <Animated.View style={[animatedStyle, styles.overlay]} />
+                    {children}
+                </PressableComponent>
+            </GestureDetector>
         );
     },
 );
