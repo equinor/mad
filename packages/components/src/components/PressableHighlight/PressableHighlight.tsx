@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
-import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
-import { Gesture, GestureDetector, TouchableHighlightProps } from "react-native-gesture-handler";
+import { Pressable, PressableProps, StyleSheet, View, ViewStyle } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 import { useFadeAnimation } from "../../styling/animations";
 import { DisabledPressable } from "./DisabledPressable";
@@ -15,7 +15,7 @@ export type PressableHightlightProps = {
      * Any stylings based on the state of the press is applied on top of this.
      */
     style?: ViewStyle;
-} & Omit<TouchableHighlightProps, "children">;
+} & Omit<PressableProps, "children">;
 
 export const PressableHighlight = forwardRef<
     View,

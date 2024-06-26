@@ -193,32 +193,3 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         flexDirection: "row",
     },
 }));
-
-/* 
-                    <Animated.View style={[animatedStyle, { flex: 1 }]}>
-                        <View style={styles.contentContainer}>
-                            {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
-                            <TouchableWithoutFeedback
-                                disabled={!onPress}
-                                onPressIn={handlePressIn}
-                                onPressOut={handlePressOut}
-                                onPress={onPress}
-                                containerStyle={{ flex: 1 }}
-                            >
-                                <View style={styles.children}>
-                                    <View style={{ flex: 1, justifyContent: "center" }}>
-                                        {children}
-                                    </View>
-                                </View>
-                            </TouchableWithoutFeedback>
-                            {rightAdornment && (
-                                <View style={styles.adornment}>{rightAdornment}</View>
-                            )}
-                        </View>
-                        {!isLastCell && (
-                            <View style={styles.dividerOuter}>
-                                <View style={styles.dividerInner} />
-                            </View>
-                        )}
-
-*/
