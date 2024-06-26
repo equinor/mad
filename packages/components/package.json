@@ -39,11 +39,13 @@
         "react-error-boundary": "^4.0.11"
     },
     "devDependencies": {
+        "jest-expo": "~49.0.0",
         "@equinor/eslint-config-mad": "*",
         "@testing-library/jest-native": "^5.4.3",
         "@testing-library/react": "^14.0.0",
         "@testing-library/react-native": "^12.3.0",
-        "react-test-renderer": "18.2.0"
+        "react-test-renderer": "18.2.0",
+        "react-native-gesture-handler": ">=2.0"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
