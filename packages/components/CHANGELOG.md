@@ -1,5 +1,16 @@
 # @equinor/mad-components
 
+## 0.14.11
+
+### Patch Changes
+
+-   c81ddfe: Resolved an issue with the `Cell` component on web where it failed to re-render after
+    interaction with the swipeable content
+-   c81ddfe: Resolved an issue with the `Cell` component where swiping triggered the `onPress` event
+    and left the Cell color highlighted
+-   c81ddfe: Updated animation for the `PressableHighlight` component. It now uses
+    react-native-reanimated.
+
 ## 0.14.10
 
 ### Patch Changes
