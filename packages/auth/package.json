@@ -50,6 +50,7 @@
         "zustand": "^4.5.2"
     },
     "devDependencies": {
+        "react-native-msal": "*",
         "@babel/core": "^7.21.4",
         "@equinor/eslint-config-mad": "*",
         "@testing-library/jest-native": "^5.4.3",
