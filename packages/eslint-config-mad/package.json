@@ -14,14 +14,14 @@
         "eslint-config-prettier": "^9.1.0",
         "eslint-import-resolver-typescript": "^3.6.1",
         "eslint-plugin-eslint-comments": "^3.2.0",
-        "eslint-plugin-import": "^2.29.0",
-        "eslint-plugin-react": "7.33.2",
-        "eslint-plugin-react-hooks": "^4.6.0",
-        "eslint-plugin-simple-import-sort": "^10.0.0"
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-react": "7.34.3",
+        "eslint-plugin-react-hooks": "^4.6.2",
+        "eslint-plugin-simple-import-sort": "^12.1.0"
     },
     "peerDependencies": {
-        "@typescript-eslint/eslint-plugin": "^6.13.2",
-        "@typescript-eslint/parser": "^6.13.2",
+        "@typescript-eslint/eslint-plugin": "^7.14.1",
+        "@typescript-eslint/parser": "^7.14.1",
         "eslint": "^8"
     },
     "peerDependenciesMeta": {
