@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.9.1
+
+### Patch Changes
+
+-   ff2a015: Fixed incident request url for the feedback screen
+
 ## 0.9.0
 
 ### Minor Changes
