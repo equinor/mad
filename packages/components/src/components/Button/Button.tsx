@@ -46,11 +46,11 @@ export type ButtonSpecificProps = {
     /**
      * Callback method invoked when the user presses in the button.
      */
-    onPressIn?: (event: GestureResponderEvent) => void;
+    onPressIn?: () => void;
     /**
      * Callback method invoked when the user presses out the button.
      */
-    onPressOut?: (event: GestureResponderEvent) => void;
+    onPressOut?: () => void;
 };
 
 export type ButtonProps = ButtonSpecificProps & ViewProps;
