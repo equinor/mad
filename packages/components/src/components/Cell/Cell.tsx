@@ -1,10 +1,7 @@
 import React, { ReactNode, forwardRef, useContext } from "react";
 import { View, ViewProps } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import Animated from "react-native-reanimated";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
-import { useFadeAnimation } from "../../styling/animations";
 import { PressableHighlight } from "../PressableHighlight";
 import { SwipeableWithContext } from "../_internal/SwipeableWithContext";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
@@ -69,7 +66,6 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         ref,
     ) => {
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
-        const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
 
         const swipeable = !!leftSwipeGroup || !!rightSwipeGroup;
@@ -88,34 +84,24 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                             <View style={styles.verticalLine} />
                         </>
                     )}
-                    <Animated.View style={[animatedStyle, { flex: 1 }]}>
-                        <TouchableWithoutFeedback
-                            disabled={!onPress}
-                            onPressIn={handlePressIn}
-                            onPressOut={handlePressOut}
-                            onPress={onPress}
-                        >
-                            <View style={styles.contentContainer}>
-                                {leftAdornment && (
-                                    <View style={styles.adornment}>{leftAdornment}</View>
-                                )}
-
-                                <View style={styles.children}>
-                                    <View style={{ flex: 1, justifyContent: "center" }}>
-                                        {children}
-                                    </View>
+                    <PressableHighlight disabled={!onPress} onPress={onPress} style={{ flex: 1 }}>
+                        <View style={styles.contentContainer}>
+                            {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
+                            <View style={styles.children}>
+                                <View style={{ flex: 1, justifyContent: "center" }}>
+                                    {children}
                                 </View>
-                                {rightAdornment && (
-                                    <View style={styles.adornment}>{rightAdornment}</View>
-                                )}
                             </View>
-                            {!isLastCell && (
-                                <View style={styles.dividerOuter}>
-                                    <View style={styles.dividerInner} />
-                                </View>
+                            {rightAdornment && (
+                                <View style={styles.adornment}>{rightAdornment}</View>
                             )}
-                        </TouchableWithoutFeedback>
-                    </Animated.View>
+                        </View>
+                        {!isLastCell && (
+                            <View style={styles.dividerOuter}>
+                                <View style={styles.dividerInner} />
+                            </View>
+                        )}
+                    </PressableHighlight>
                 </View>
             </View>
         );

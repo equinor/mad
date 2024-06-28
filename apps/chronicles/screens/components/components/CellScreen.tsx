@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import {
     Button,
     Cell,
+    CircularProgress,
     EDSStyleSheet,
     Radio,
     Spacer,
     Typography,
+    alert,
     useStyles,
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
@@ -24,18 +26,40 @@ export const CellScreen = () => {
 
     const MyCustomCell = (customCellProps: { title: string }) => (
         <Cell
+            leftAdornment={<CircularProgress size={24} />}
             rightAdornment={
-                <Button.Toggle activeIndex={activeToggleIndex}>
-                    <Button title="1" onPress={() => setActiveToggleIndex(0)} />
-                    <Button title="2" onPress={() => setActiveToggleIndex(1)} />
-                </Button.Toggle>
+                <Button.Icon
+                    onPress={triggerAlert}
+                    variant="ghost"
+                    name="head-dots-horizontal"
+                ></Button.Icon>
             }
+            onPress={() => console.log("Custom cell pressed")}
         >
             <View style={{ flex: 1, justifyContent: "center" }}>
                 <Typography>{customCellProps.title}</Typography>
             </View>
         </Cell>
     );
+
+    const triggerAlert = () =>
+        alert(
+            "Alert",
+            "Your answer was saved, but we could not submit this quiz due to some technical issues. Please try again.",
+            [
+                {
+                    text: "Dismiss",
+                    style: "destructive",
+                    onPress: () => undefined,
+                },
+                {
+                    text: "Retry",
+                    onPress: () => undefined,
+                    icon: "refresh",
+                    isPreferred: true,
+                },
+            ],
+        );
 
     return (
         <ScrollView
@@ -80,6 +104,7 @@ export const CellScreen = () => {
                     title="This cell is a switch cell"
                     isActive={false}
                     onChange={() => null}
+                    onPress={() => null}
                 />
                 <Cell.Navigation
                     title="This is a navigation cell"
@@ -174,6 +199,7 @@ export const CellScreen = () => {
             <Spacer />
             <Cell.Group title="Swipe items">
                 <Cell
+                    onPress={triggerAlert}
                     rightSwipeGroup={[
                         {
                             title: "hello world",
