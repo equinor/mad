@@ -91,7 +91,7 @@ export const PressableHighlight = forwardRef<
                         style={style}
                         onPressIn={() => !disabled && (handlePressIn(), rest.onPressIn?.())}
                         onPressOut={() => !disabled && (handlePressOut(), rest.onPressOut?.())}
-                        onPress={onPress}
+                        onPress={() => !disabled && !!onPress && onPress()}
                         disabled={disabled}
                     >
                         <Animated.View style={[animatedStyle, styles.overlay]} />
