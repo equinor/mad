@@ -34,7 +34,10 @@
                     "photosPermissions": "The app needs access to your photos library in order to process them."
                 }
             ],
-            "@config-plugins/detox"
+            "@config-plugins/detox",
+            "expo-asset",
+            "expo-font",
+            "expo-localization"
         ],
         "web": {
             "favicon": "./assets/images/favicon.png",
