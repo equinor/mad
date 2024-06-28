@@ -31,7 +31,6 @@ export const PressableHighlight = forwardRef<
             children,
             disabled,
             onPress,
-
             ...rest
         }: React.PropsWithChildren<PressableHighlightProps>,
         ref,
