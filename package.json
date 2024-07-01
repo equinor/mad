@@ -49,7 +49,9 @@
         "test:all": "turbo run test",
         "clean:all": "turbo run clean && rm -rf node_modules .turbo .yarn",
         "push:tags": "git push origin --tags -f && echo Check status: https://console.radix.equinor.com/applications/chronicles/jobs",
-        "fetch:tags": "git fetch origin --tags --force"
+        "fetch:tags": "git fetch origin --tags --force",
+        "testing-node": "which node",
+        "testing-two": "yarn dlx testing-node"
     },
     "devDependencies": {
         "@changesets/cli": "^2.27.7",
@@ -69,7 +71,7 @@
         "typescript": "5.3.3"
     },
     "engines": {
-        "node": ">=18.0.0"
+        "node": ">=20.0.0"
     },
     "packageManager": "yarn@4.3.1"
 }
