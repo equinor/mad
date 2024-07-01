@@ -10,11 +10,11 @@ type IncidentData = {
 
 export type CreateIncidentResponse = {
     result: {
-        status: string,
+        status: string;
         details: {
-            number: string,
-        }
-    }
+            number: string;
+        };
+    };
 };
 
 export const createIncident = async (
@@ -25,15 +25,17 @@ export const createIncident = async (
     const baseUrl = getMadCommonBaseUrl(env);
     const scopes = getMadCommonScopes(env);
     const authenticationResponse = await authenticateSilently(scopes);
-    if(!authenticationResponse) throw new Error("Unable to authenticate silently");
-    const fetchResponse = await fetch(`${baseUrl}ServiceNow/apps/${serviceNow}/incidents`, {
+    if (!authenticationResponse) throw new Error("Unable to authenticate silently");
+    const fetchResponse = await fetch(`${baseUrl}/ServiceNow/apps/${serviceNow}/incidents`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: new Headers({
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
             Authorization: `Bearer ${authenticationResponse.accessToken}`,
         }),
     });
-    return await fetchResponse.json().then((result: string) => JSON.parse(result) as CreateIncidentResponse) ;
+    return await fetchResponse
+        .json()
+        .then((result: string) => JSON.parse(result) as CreateIncidentResponse);
 };
