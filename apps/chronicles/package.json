@@ -19,12 +19,12 @@
         "use:prod": "sed -i \"s/currentEnvironment: \".*\"/currentEnvironment: \\\"prod\\\",/g\" mad.config.ts"
     },
     "dependencies": {
-        "@equinor/mad-auth": "*",
-        "@equinor/mad-components": "*",
-        "@equinor/mad-core": "*",
-        "@equinor/mad-dfw": "*",
-        "@equinor/mad-navigation": "*",
-        "@equinor/react-native-skia-draw": "*",
+        "@equinor/mad-auth": "workspace:*",
+        "@equinor/mad-components": "workspace:*",
+        "@equinor/mad-core": "workspace:*",
+        "@equinor/mad-dfw": "workspace:*",
+        "@equinor/mad-navigation": "workspace:*",
+        "@equinor/react-native-skia-draw": "workspace:*",
         "@expo/metro-runtime": "~3.2.1",
         "@expo/vector-icons": "^14.0.2",
         "@react-native-async-storage/async-storage": "^1.19.3",

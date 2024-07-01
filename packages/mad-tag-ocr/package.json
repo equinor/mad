@@ -26,10 +26,10 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@equinor/mad-components": "*"
+        "@equinor/mad-components": "workspace:*"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "*",
+        "@equinor/eslint-config-mad": "workspace:*",
         "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
         "@types/react": "~18.2.45",
         "react-native-vision-camera": "^4.0.4",
