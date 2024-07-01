@@ -27,6 +27,7 @@
             }
         },
         "plugins": [
+            "@config-plugins/detox",
             ["react-native-msal", {}],
             [
                 "expo-image-picker",
