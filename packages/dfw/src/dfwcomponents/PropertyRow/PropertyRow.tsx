@@ -18,12 +18,14 @@ export type PropertyRowProps = {
     value: string;
     iconName?: IconName;
     textColor?: Color;
+    selectable?: boolean;
 } & ViewProps;
 export const PropertyRow = ({
     label,
     value,
     iconName,
     textColor = "textTertiary",
+    selectable,
     ...rest
 }: PropertyRowProps) => {
     const breakpoint = useBreakpoint();
@@ -51,6 +53,7 @@ export const PropertyRow = ({
                     variant="body_short"
                     color={textColor}
                     numberOfLines={1}
+                    selectable={selectable}
                 >
                     {value}
                 </Typography>
