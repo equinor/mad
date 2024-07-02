@@ -25,7 +25,7 @@ export class ActivityReportsService {
      * ### Overview
      * Lookup a single activity report. The activity report represents work performed for a maintenance activity against a tag or an equipment.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added `createdDateTime` for attachments.
      *
      * ### Update release v.1.6.0
@@ -33,35 +33,38 @@ export class ActivityReportsService {
      *
      * Added `isOpen` to lookup response.
      *
-     * ### Update release v1.10.0
+     * ### Update release 1.10.0
      * Added query parameter `include-url-references`.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added property `documentTitle` to `urlReferences`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.17.0
+     * ### Update release 1.17.0
      * Added query parameter `include-measurements`.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `urlReferences` and `attachments` now include the property `documentCreatedDate`
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added query parameters `include-additional-metadata` and `include-additional-data-characteristics`
      * Added `additionalMetadata` to response
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Added `isReadonlyText` property to `activities` in the response.
      *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -181,27 +184,30 @@ export class ActivityReportsService {
      * ### Important information
      * Equinor governing documents states that activity reports should be created at the lowest possible level in the tag hierachy.
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Added workCenterId, workCenterPlantId to create endpoint.
      *
      * Added activities to create endpoint.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * Added `relatedWorkOrder` to create endpoint. This will allow a relationship to be established on creation to either technical feedback or object list of a work order.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      *
      * Added `isOpen` to create endpoint. isOpen set to true enables creation of activity report in status `OSNO - Outstanding Notification`. By default `isOpen` is set to false, and activity report is created with `NOCO - Notification Completed` status.
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added `createdDateTime` to create endpoint.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added support for creating activity report for technical feedback with PSD.
      *
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Removed requirement for providing `reasonId` as part of the `technicalFeedbackParameters` when `source` is `TechnicalFeedback`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ActivityReportBasic Created
@@ -567,7 +573,7 @@ export class ActivityReportsService {
     }: {
         recordId: string,
         /**
-         * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
          *
          */
         documentId?: string | null,

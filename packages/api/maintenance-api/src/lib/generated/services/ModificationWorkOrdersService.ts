@@ -28,12 +28,15 @@ export class ModificationWorkOrdersService {
      * ### Important information
      * The primary cost wbs of a modification work order is typically resolved automatically from the provided tag. However, in order to later set the modification work order to status `REL - Release`, you need to provide an additional cost wbs (property `additionalCostWBSId`) on creation.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ModificationWorkOrderBasic Created
@@ -103,56 +106,63 @@ export class ModificationWorkOrdersService {
      * ### Overview
      * Lookup single Modification Work order with related information.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * If work-order-id exist, but is not a `modificationWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
      *
-     * ### Update release v1.3.0
+     * ### Update release 1.3.0
      * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Introduced property calculationKey for operations.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added equipmentId and equipment to the response of tagsRelated.
      *
      * Adding sourceId to related maintenance records.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added properties `additionalCostWBSId` and `additionalCostWBS`.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area` to tag details.
      *
      * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.26.0
-     * Added property 'isEquipmentRental' to services in serviceOperations.
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
      * Added `materials` to serviceOperations.
      *
-     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
      *
-     * ### Update release v1.27.0
-     * Work orders now include the property 'isOpen'
+     * ### Update release 1.27.0
+     * Work orders now include the property `isOpen`
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
      * ### Update release 1.28.0
      * Added new query parameter `include-safety-measures`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
      * @returns ModificationWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -257,22 +267,22 @@ export class ModificationWorkOrdersService {
      *
      * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Added additional properties to update
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added possibility for update of sortField and revisionId.
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added possibility for update of locationId and systemId.
      *
-     * ### Update release v1.18.0
+     * ### Update release 1.18.0
      * Added possibility for update of `title` and `plannerGroupId`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *

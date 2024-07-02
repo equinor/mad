@@ -11,7 +11,7 @@ export type TaskWorkOrderOperationJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/operationId' | '/workCenterId' | '/workCenterPlantId' | '/title' | '/text' | '/capacityCount' | '/standardTextTemplate' | '/plannedDuration' | '/plannedWorkHours' | '/calculationKey';
+    path: '/operationId' | '/workCenterId' | '/workCenterPlantId' | '/title' | '/text' | '/capacityCount' | '/standardTextTemplate' | '/systemCondition' | '/plannedDuration' | '/plannedWorkHours' | '/calculationKey';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

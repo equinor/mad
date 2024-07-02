@@ -11,6 +11,7 @@ import type { EquipmentCreate } from '../models/EquipmentCreate';
 import type { EquipmentJsonPatch } from '../models/EquipmentJsonPatch';
 import type { EquipmentListItem } from '../models/EquipmentListItem';
 import type { EquipmentSearchItem } from '../models/EquipmentSearchItem';
+import type { InstallEquipment } from '../models/InstallEquipment';
 import type { ProblemDetails } from '../models/ProblemDetails';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -32,39 +33,39 @@ export class EquipmentService {
      * ### Example usage
      * `/equipment/11948620?include-maintenance-records=true&include-maintenance-record-types=failure-report&include-only-open-maintenance-records=true&include-work-orders=true&include-work-order-types=preventiveWorkOrders,subseaWorkOrders&include-only-open-work-orders=true&include-characteritics=true&include-status-details=true&api-version=v1` - Lookup equipment with status details and characteristics. Include open failure reports where the equipment is used as main reference. Include open subsea work orders and open preventive work orders where the equipment is either a material component or the main reference (`equipmentId` at work order header level).
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * `include-work-orders` now include work orders where the `equipmentId` is the main reference (`equipmentId` at work order header level).
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Fixed known limitation for `include-work-orders` and `include-only-open-work-orders=false`.
      *
      * Bugfix for include-work-orders related to deleted equipment reservations.
      *
      * Added revisionId and revision to related work orders (represents shutdown or campaign work).
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * For `include-work-orders`, add information on the relationship between the equipment and the work order (for example the id of the reservation)
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added property parentEquipmentId.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus for failure reports.
      *
-     * ### Update release v1.10.0
+     * ### Update release 1.10.0
      * Added property `maintenanceRecordId` to measurements of measuring points.
      *
-     * ### Update release v1.12.0
+     * ### Update release 1.12.0
      * Added properties `equipmentCategoryId` and `quantityUnitId`.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added `workOrderId` to the lastMeasurement.
      *
      * Added query parameter `include-url-references`.
      *
      * `modification-proposal` in `include-maintenance-record-types` now includes modification proposals in the response.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added property `classId` to characteristics.
      *
      * Added properties `manufacturer` and `modelNumber`.
@@ -73,27 +74,30 @@ export class EquipmentService {
      *
      * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
-     * ### Update release v1.17.0
+     * ### Update release 1.17.0
      * Add property `characteristics` to `urlReferences` in response
      *
      * Add query parameter `include-url-characteristics`
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added query parameter `include-person-responsible`, that expands work order response with person responsible.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `urlReferences` and `attachments` now include the property `documentCreatedDate`
      *
      * Added property `cmrIndicator` for WorkOrders
      *
-     * ### Update release v1.25.0
+     * ### Update release 1.25.0
      * Added query parameter `include-sub-equipment`
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added properties `tagId` and `tagPlantId`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.31.0
+     * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight`to response body.
      *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -159,7 +163,7 @@ export class EquipmentService {
          */
         includeAttachments?: boolean,
         /**
-         * Include URL references for equipment or tag
+         * Include URL references for object
          */
         includeUrlReferences?: boolean,
         /**
@@ -227,7 +231,7 @@ export class EquipmentService {
      * Supports:
      * - Update `warrantyStartDate` and `warrantyEndDate`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Allow for update of `materialId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -256,6 +260,109 @@ export class EquipmentService {
                 403: `User does not have sufficient rights to update equipment`,
                 404: `The specified resource was not found`,
                 409: `Equipment is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Equipment - Install
+     * ### Overview
+     * Install Equipment on a tag hierarchy.
+     *
+     * An equipment can be either installed on a Tag, or an Equipment.
+     *
+     * If `equipmentId` is provided in the body, the `equipmentId` from the path will be installed here.
+     * If `tagPlantId`-`tagId` is provided in the body, the `equipmentId` from the path will be installed here.
+     *
+     * ### Important information
+     * Both of these cases cannot be supported at the same time.
+     * An equipment can not be installed at more than one place at a time.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns string Created - No body available for response. Use lookup from location header
+     * @throws ApiError
+     */
+    public static installEquipment({
+        equipmentId,
+        requestBody,
+    }: {
+        /**
+         * The unique equipmentId in Equinor's system
+         */
+        equipmentId: string,
+        /**
+         * Install Equipment in a hierarchy.
+         */
+        requestBody: InstallEquipment,
+    }): CancelablePromise<ProblemDetails | string> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/equipment/{equipment-id}/install',
+            path: {
+                'equipment-id': equipmentId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            responseHeader: 'Location',
+            errors: {
+                400: `Request is missing required parameters or \`equipmentId\` is located in the body alongside \`tagPlantId\`-\`tagId\``,
+                403: `User does not have sufficient rights to install an equipment to a hierarchy`,
+            },
+        });
+    }
+
+    /**
+     * Equipment - Dismantle
+     * ### Overview
+     * Dismantle Equipment on a tag hierarchy.
+     *
+     * An equipment can be either installed on a Tag, or an Equipment.
+     * The correct installation needs to be provided in the body to be successfull.
+     *
+     * If `equipmentId` is provided in the body, the `equipmentId` from the path will be dismantled here.
+     * If `tagPlantId`-`tagId` is provided in the body, the `equipmentId` from the path will be dismantled here.
+     *
+     * ### Important information
+     * Both of these cases cannot be supported at the same time.
+     * An equipment can not be installed at more than one place at a time.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns string Created - No body available for response. Use lookup from location header
+     * @throws ApiError
+     */
+    public static dismantleEquipment({
+        equipmentId,
+        requestBody,
+        deleteEquipment = false,
+    }: {
+        /**
+         * The unique equipmentId in Equinor's system
+         */
+        equipmentId: string,
+        /**
+         * Dismantle Equipment in a hierarchy.
+         */
+        requestBody: InstallEquipment,
+        /**
+         * Delete the equipment after dismantling
+         */
+        deleteEquipment?: boolean,
+    }): CancelablePromise<ProblemDetails | string> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/equipment/{equipment-id}/dismantle',
+            path: {
+                'equipment-id': equipmentId,
+            },
+            query: {
+                'delete-equipment': deleteEquipment,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            responseHeader: 'Location',
+            errors: {
+                400: `Request is missing required parameters or \`equipmentId\` is located in the body alongside \`tagPlantId\`-\`tagId\``,
+                403: `User does not have sufficient rights to dismantle an equipment to a hierarchy`,
             },
         });
     }
@@ -436,8 +543,11 @@ export class EquipmentService {
      *
      * Access to the role `YO059 - Static Process Equipment Data Establisher (SAPP03)` is required.
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added properties `tagId` and `tagPlantId` to response body.
+     *
+     * ### Update release 1.31.0
+     * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight`to response body.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns EquipmentBasicV2 Created
@@ -477,6 +587,7 @@ export class EquipmentService {
      * * `material-id-any-of`
      * * `characteristic-value-any-of`
      * * `equipment-any-of`
+     * * `technical-id-any-of`
      *
      * These parameters allow a comma-separated list of entries.
      *
@@ -494,60 +605,65 @@ export class EquipmentService {
      *
      * `/equipment?characteristic-value-any-of=%3D17445%2F9818,%3D17433/6333&class-id=L_PART&characteristic-id=L_E3DREF&plant-id=1201&api-version=v1`
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * `include-work-orders` now include work orders where the `equipmentId` is the main reference (`equipmentId` at work order header level).
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Fixed known limitation for `include-work-orders` and `include-only-open-work-orders=false`.
      *
      * Bugfix for include-work-orders related to deleted equipment reservations.
      *
      * Added revisionId and revision to related work orders (represents shutdown or campaign work).
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * For `include-work-orders`, add information on the relationship between the equipment and the work order (for example the id of the reservation)
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added property parentEquipmentId.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus for failure reports.
      *
-     * ### Update release v1.12.0
+     * ### Update release 1.12.0
      * Added property `quantityUnitId`
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * `modification-proposal` in `include-maintenance-record-types` now includes modification proposals in the response.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added property `classId` to characteristics.
      *
      * Added properties `manufacturer` and `modelNumber`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added query parameter `include-person-responsible`, that expands work order response with person responsible.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added `include-measuring-points` and `include-last-measurement` query parameters.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added `characteristic-value-any-of`, `class-id`, `characteristic-id` and `plant-id-any-of` query parameters.
      * Can be used to search for equipment based on values of a characteristic.
      * In addition, an optional filter on a plant can be supplied.
      *
      * Added property `cmrIndicator` for WorkOrders.
      *
-     * Added query parameter `equipment-any-of`, a wildcard search based on equipment
+     * Added query parameter `equipment-any-of`, a wildcard search based on `equipment`
      *
-     * ### Update release v1.25.0
+     * ### Update release 1.25.0
      * Added query parameter `include-sub-equipment`
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added query parameter `include-status-details`.
      * Added properties `tagId` and `tagPlantId`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.31.0
+     * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight`to response body.
+     *
+     * Added query parameter `technical-identification-number-any-of` to allow searching based on `technicalIdentificationNumber`.
      *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -561,6 +677,7 @@ export class EquipmentService {
         characteristicValueAnyOf,
         plantIdAnyOf,
         equipmentAnyOf,
+        technicalIdentificationNumberAnyOf,
         characteristicId,
         classId,
         includeMaintenanceRecords = false,
@@ -606,6 +723,10 @@ export class EquipmentService {
          * Optional comma separated string array of equipment descriptions/titles (`equipment` in response model). Wildcards are supported.
          */
         equipmentAnyOf?: string | null,
+        /**
+         * Optional comma separated string array of technical identification numbers (`technicalIdentificationNumber` in response model). Wildcards are not supported.
+         */
+        technicalIdentificationNumberAnyOf?: string,
         /**
          * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids
          */
@@ -684,6 +805,7 @@ export class EquipmentService {
                 'characteristic-value-any-of': characteristicValueAnyOf,
                 'plant-id-any-of': plantIdAnyOf,
                 'equipment-any-of': equipmentAnyOf,
+                'technical-identification-number-any-of': technicalIdentificationNumberAnyOf,
                 'characteristic-id': characteristicId,
                 'class-id': classId,
                 'include-maintenance-records': includeMaintenanceRecords,

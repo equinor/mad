@@ -46,5 +46,15 @@ export type EquipmentBasicV2 = (EquipmentMinimal & {
     tagPlantId?: string | null;
     plannerGroupId: string;
     plannerGroup: string;
+    /**
+     * Manufacturer part number. This field will only be filled out if `partNumber` is longer than 30 characters.
+     */
+    manufacturerPartNumber?: string;
+    /**
+     * Technical Identification Number
+     */
+    technicalIdentificationNumber?: string;
+    objectWeight?: string;
+    unitOfWeight?: string;
 });
 

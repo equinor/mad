@@ -54,30 +54,30 @@ export class CorrectiveWorkOrdersService {
      *
      * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
      * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * If work-order-id exist, but is not a `correctiveWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
      *
-     * ### Update release v1.3.0
+     * ### Update release 1.3.0
      * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Introduced property calculationKey for operations.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added equipmentId and equipment to the response of tagsRelated.
      *
      * Adding sourceId to related maintenance records.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Introduced property activeStatusIds for operations.
      *
      * ### Update release 1.12.0
@@ -85,41 +85,41 @@ export class CorrectiveWorkOrdersService {
      *
      * Introduced property `detectionMethodGroupId` and `detectionMethodId` for technical feedback.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added new query parameter `include-measurements`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added properties `costs` and `costsCurrency`.
      * Added property `area` to tag details.
      *
      * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
      *
      * Added activeStatusIds to related maintenance records.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
      * Removed 'urlReferences' field from response object, and removed 'include-url-references' query parameter. URLReferences are only supported for Notifications.
      *
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.26.0
-     * Added property 'isEquipmentRental' to services in serviceOperations.
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
      * Added `materials` to serviceOperations.
      *
      * 'tagDetails' object now includes the new field 'maintenanceConceptId'
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
      * ### Update release 1.28.0
@@ -131,6 +131,13 @@ export class CorrectiveWorkOrdersService {
      *
      * ### Update release 1.29.0
      * Added new properties for `additionalCostWBSId` and `costWBSId`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
      * @returns CorrectiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -244,7 +251,7 @@ export class CorrectiveWorkOrdersService {
     /**
      * Corrective Work order - Update
      * ### Overview
-     * Update corrective work order.
+     * Update a Corrective Work Order.
      *
      * Supports:
      * - Append and replace text
@@ -259,6 +266,7 @@ export class CorrectiveWorkOrdersService {
      * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
      * - Update costs
      * - Update costWBSId and additionalCostWBSId
+     * - Update priorityId
      *
      *
      * ### Important information - costWBSId and additionalCostWBSId
@@ -278,29 +286,35 @@ export class CorrectiveWorkOrdersService {
      *
      * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
-     * ### Update release v1.0.0
+     * ### Important information - priorityId
+     * `priorityId` can only be updated if the Corrective Work Order has a different priority than the FailureReport connected to this workorder.
+     *
+     * ### Update release 1.0.0
      * Added additional properties to update
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added possibility for update of sortField and revisionId.
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added possibility for update of locationId and systemId.
      *
-     * ### Update release v1.18.0
+     * ### Update release 1.18.0
      * Added possibility for update of `title` and `plannerGroupId`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added possibility for update of `costs`.
      *
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.29.0
+     * ### Update release 1.29.0
      * Added possibility for update of `costWBSId` and `additionalCostWBSId`.
+     *
+     * ### Update release 1.31.0
+     * Added possibility for update of `priorityId`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -335,15 +349,18 @@ export class CorrectiveWorkOrdersService {
     /**
      * Corrective Work order - Add operation(s)
      * Add operations
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added support for calculation key, which determines the relationship between plannedWorkDuration plannedWorkHours, and capacityCount.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added support for  `standardTextTemplate` (standard text template identifier), `systemCondition` (describes required process condition for each operation) and `isExcludedFromWorkOrderPlan` (based on operation status).
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Created - No body available for response. Use lookup from location header
@@ -388,7 +405,7 @@ export class CorrectiveWorkOrdersService {
      * Update the work order operation.
      * Currently, we support completing the operation but additional functionality will be added in future releases.
      *
-     * ### Update release v0.11.0
+     * ### Update release 0.11.0
      * Deprecated endpoint
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -475,7 +492,7 @@ export class CorrectiveWorkOrdersService {
      * ### Overview
      * Add time ticket for work performed
      *
-     * ### Update release v0.8.0
+     * ### Update release 0.8.0
      * Text multi-line property now is persisted as expected in ERP system.
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -692,25 +709,25 @@ export class CorrectiveWorkOrdersService {
      * - plant-id
      * - maintenance-type-id
      *
-     * ### Update release v0.9.0
+     * ### Update release 0.9.0
      * Added filter by-maintenance-type-id.
      *
-     * ### Update release v0.11.0
+     * ### Update release 0.11.0
      * Added system-id as optional parameter til filter before-required-end-date.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added properties `costs` and `costsCurrency`.
      *
      * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
      * @returns CorrectiveWorkOrderSimple Success
@@ -795,29 +812,32 @@ export class CorrectiveWorkOrdersService {
      *
      * To lookup the created corrective work order use endpoint `/work-orders/corrective-work-orders/{work-order-id}`
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * Added externalPartnerWorkOrderId property to be used as reference to work order in external partner system.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
      *
-     * ### Update release v1.21.0
-     * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
+     * ### Update release 1.21.0
+     * Add property `IsExcludedFromWorkOrderPlan` to operations model.
      *
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns CorrectiveWorkOrderBasic Created

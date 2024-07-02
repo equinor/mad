@@ -22,29 +22,29 @@ export class CertificationReportsService {
      * For PSV certification, details are reported as measurements for 33 predefined measuring points.
      * For lifting certification, details are stored in attachment and possibly as characteristics on the tag/equipment.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added `301` response.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area` to tag details.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
-     * ### Update release v1.26.0
-     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     * ### Update release 1.26.0
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
      * ### Update release 1.28.0

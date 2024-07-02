@@ -2,9 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { DocumentLookup } from '../models/DocumentLookup';
-import type { DocumentSearchItem } from '../models/DocumentSearchItem';
+import type { ConceptActivities } from '../models/ConceptActivities';
+import type { DocumentRelationshipToBusinessObjectsAdd } from '../models/DocumentRelationshipToBusinessObjectsAdd';
+import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
+import type { MaintenanceRecordOverridePriority } from '../models/MaintenanceRecordOverridePriority';
 import type { ProblemDetails } from '../models/ProblemDetails';
+import type { WorkOrderMaterialJsonPatch } from '../models/WorkOrderMaterialJsonPatch';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -13,188 +16,186 @@ import { request as __request } from '../core/request';
 export class NewEndpointsService {
 
     /**
-     * Document - Search
+     * Documents - Add new relationships to a document
      * ### Overview
-     * Search documents and include related information such as characteristics, materials, equipment and attachments.
+     * Add new relationships between a single document and one or more business objects.
      *
+     * Example url: `/documents/10004099768-A01-000-00?api-version=v1`
      *
-     * The client must in the request provide at least one of the following search parameters:
-     * * `document-type-any-of`
-     * * `document-number-any-of`
-     * * `characteristic-value-any-of`
+     * This endpoint returns no response data.
      *
-     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
-     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
-     *
-     * @returns DocumentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
+     * @returns string Created - No body available for response. Use lookup from location header
      * @throws ApiError
      */
-    public static searchDocuments({
-        documentTypeAnyOf,
-        documentNumberAnyOf,
-        characteristicValueAnyOf,
-        characteristicId,
-        classId,
-        includeCharacteristics = false,
-        includeMaterial = false,
-        includeEquipment = false,
-        includeAttachments = false,
-        perPage = 50,
-        page = 1,
+    public static addRelationshipBetweenBusinessObjectsAndSingleDocument({
+        documentId,
+        requestBody,
     }: {
         /**
-         * Search based on `documentType`.
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
          */
-        documentTypeAnyOf?: Array<string>,
+        documentId: string,
         /**
-         * Search based on `documentNumber`.
+         * Business objects to add a relationship to from the specified `documentId`
          */
-        documentNumberAnyOf?: Array<string>,
-        /**
-         * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id` Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
-         */
-        characteristicValueAnyOf?: string,
-        /**
-         * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids
-         */
-        characteristicId?: string | null,
-        /**
-         * Required field if `characteristic-value-any-of` is supplied.
-         */
-        classId?: string | null,
-        /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include material related to the object
-         */
-        includeMaterial?: boolean,
-        /**
-         * Include equipment related to the object
-         */
-        includeEquipment?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-        /**
-         * Results to return pr page
-         */
-        perPage?: number,
-        /**
-         * Page to fetch
-         */
-        page?: number,
-    }): CancelablePromise<Array<DocumentSearchItem> | ProblemDetails> {
+        requestBody: Array<DocumentRelationshipToBusinessObjectsAdd>,
+    }): CancelablePromise<ProblemDetails | string> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/documents',
-            query: {
-                'document-type-any-of': documentTypeAnyOf,
-                'document-number-any-of': documentNumberAnyOf,
-                'characteristic-value-any-of': characteristicValueAnyOf,
-                'characteristic-id': characteristicId,
-                'class-id': classId,
-                'include-characteristics': includeCharacteristics,
-                'include-material': includeMaterial,
-                'include-equipment': includeEquipment,
-                'include-attachments': includeAttachments,
-                'per-page': perPage,
-                'page': page,
+            method: 'POST',
+            url: '/documents/{document-id}/relationships',
+            path: {
+                'document-id': documentId,
             },
+            body: requestBody,
+            mediaType: 'application/json',
+            responseHeader: 'Location',
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to view document`,
+                403: `User does not have sufficient rights to update document`,
                 404: `The specified resource was not found`,
+                409: `Document is locked by other user`,
             },
         });
     }
 
     /**
-     * Document - Lookup
+     * Work order operation - Update material
      * ### Overview
-     * Lookup document by id. Use the different include parameters to include additional information about the document.
-     * [POST document-relationships/{relationship-type}/{source-id}](#operation/AddRelationshipsToDocument) can be used to link the document to a business object.
+     * Update a material in a work order operation (of any work order type).
      *
-     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
-     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
+     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consist of two internal ids from the ERP system called routing number and counter separated by the `-` character.
      *
-     * @returns DocumentLookup Success
+     * The ´reservation-id´ parameter to use in the url can be found using the include-materials query parameter to work order lookup.
+     *
+     * The following fields are possible to update:
+     *
+     * - `finalLocation`
+     * - `temporaryLocation`
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupDocument({
-        documentId,
-        includeCharacteristics = false,
-        includeMaterial = false,
-        includeEquipment = false,
-        includeAttachments = false,
+    public static updateMaterialInWorkOrderOperation({
+        operationId,
+        reservationId,
+        requestBody,
     }: {
+        operationId: string,
         /**
-         * Unique id for the document to be used against endpoints for the `/documents` resource
+         * Reservation id for the material found through work order lookup with include-materials
          */
-        documentId: string,
+        reservationId: string,
         /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
+         * Update material details
          */
-        includeCharacteristics?: boolean,
-        /**
-         * Include material related to the object
-         */
-        includeMaterial?: boolean,
-        /**
-         * Include equipment related to the object
-         */
-        includeEquipment?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-    }): CancelablePromise<Array<DocumentLookup> | ProblemDetails> {
+        requestBody: Array<WorkOrderMaterialJsonPatch>,
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/documents/{document-id}',
+            method: 'PATCH',
+            url: '/work-order-operations/{operation-id}/materials/{reservation-id}',
             path: {
-                'document-id': documentId,
+                'operation-id': operationId,
+                'reservation-id': reservationId,
             },
-            query: {
-                'include-characteristics': includeCharacteristics,
-                'include-material': includeMaterial,
-                'include-equipment': includeEquipment,
-                'include-attachments': includeAttachments,
-            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to view document`,
+                403: `User does not have sufficient rights to update operation`,
                 404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
             },
         });
     }
 
     /**
-     * Document - Attachment download
+     * Failure report - Override priority
      * ### Overview
-     * Download a single attachment from a specific document.
+     * Override the `priorityId` value of a failure report.
+     * The `priorityId` was initially calculated based on `failureImpactId` and the `ABCId` of the tag/equipment when the failure report was created. See [GL1561 - Work orders and notifications types](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCVIEW=FALSE?DOCID=1046023) for more details.
      *
-     * @returns binary Success
+     * This endpoint should only be executed by people with access to the 'action box' in Equinor's ERP system.
+     *
+     * Client applications should take special care in ensuring the business process of Equinor is followed when using this endpoint.
+     *
+     * The activityCodeId defines the reason for overriding the priority
+     * - `A111` = Incorrect ABC
+     * - `A112` = Abnormal situation
+     * - `A113` = Dummy FL/Missing FL
+     *
+     * An activity for the failure report will be created by this call.
+     *
+     * ### Important information
+     * Most users will not have sufficient authorizations to execute this endpoint. If a request fails due to missing authorizations, the response code will be HTTP 403.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns MaintenanceRecordActivity Success
+     * @throws ApiError
+     */
+    public static overrideFailureReportPriority({
+        recordId,
+        requestBody,
+    }: {
+        /**
+         * id of the failure report
+         */
+        recordId: string,
+        /**
+         * Extended end date-activity to be created on the failure report.
+         */
+        requestBody: MaintenanceRecordOverridePriority,
+    }): CancelablePromise<ProblemDetails | MaintenanceRecordActivity> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/maintenance-records/failure-reports/{record-id}/override-priority',
+            path: {
+                'record-id': recordId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `The request body is invalid`,
+                403: `User does not have sufficient rights to override priority`,
+                404: `The specified resource was not found`,
+                409: `Failure report is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Concept activities - Get
+     * ### Overview
+     *
+     * Get the list of Maintenance Items implemented to a tag.
+     *
+     * @returns ConceptActivities Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static downloadDocumentAttachment({
-        documentId,
-        attachmentId,
+    public static getConceptActivities({
+        plantId,
+        tagId,
+        includeItemCalls = true,
     }: {
-        documentId: string,
-        attachmentId: string,
-    }): CancelablePromise<Blob | ProblemDetails> {
+        /**
+         * Plant identifier
+         */
+        plantId: string,
+        tagId: string,
+        /**
+         * Include calls to maintenance plan item
+         */
+        includeItemCalls?: boolean,
+    }): CancelablePromise<Array<ConceptActivities> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/documents/{document-id}/attachments/{attachment-id}',
-            path: {
-                'document-id': documentId,
-                'attachment-id': attachmentId,
+            url: '/reports/concept-activities',
+            query: {
+                'plant-id': plantId,
+                'tag-id': tagId,
+                'include-item-calls': includeItemCalls,
             },
             errors: {
                 404: `The specified resource was not found`,

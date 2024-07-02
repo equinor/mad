@@ -30,9 +30,9 @@ export type MeasuringPointCreate = {
     quantitativeCharacteristicId?: string;
     /**
      * Key used to identify a measuring point category
-     * 'R' - Process Inspection Meas. Point
-     * 'M' - MeasPoint (general)
-     * 'B' - PM General M&C (Warning)
+     * `R` - Process Inspection Meas. Point
+     * `M` - MeasPoint (general)
+     * `B` - PM General M&C (Warning)
      *
      */
     categoryId?: string;
