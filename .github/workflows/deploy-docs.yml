@@ -13,6 +13,9 @@ jobs:
             - name: 👀 Checkout Repo
               uses: actions/checkout@v4
 
+            - name: ⚛️ Enable Corepack
+              run: corepack enable
+
             - name: 🌈 Setup Node.js 20
               uses: actions/setup-node@v4
               with:

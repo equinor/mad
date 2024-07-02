@@ -25,6 +25,9 @@ jobs:
               with:
                   ref: ${{ github.head_ref }}
 
+            - name: ⚛️ Enable Corepack
+              run: corepack enable
+
             - name: 🌈 Setup Node.js 20
               uses: actions/setup-node@v4
               with:
