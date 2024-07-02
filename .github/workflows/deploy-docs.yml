@@ -13,14 +13,15 @@ jobs:
             - name: 👀 Checkout Repo
               uses: actions/checkout@v4
 
-            - name: 🌈 Setup Node.js 18
+            - name: 🌈 Setup Node.js 20
               uses: actions/setup-node@v4
               with:
-                  node-version: 18
+                  node-version: 20
                   cache: yarn
+                  cache-dependency-path: yarn.lock
 
             - name: 📦 Install Dependencies
-              run: yarn install
+              run: yarn install --immutable
 
             - name: 👩‍🏭 Build website
               run: yarn build:docs
