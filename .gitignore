@@ -42,3 +42,12 @@ android
 
 # Snyk cache
 .dccache
+
+# package manager
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
