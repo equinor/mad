@@ -18453,7 +18453,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/764df5a7dc5599b4f9a9be22c900c77bab554cdbc38a75aa8d5fd188c89754a9abdd28b63cea9c1642ba6c2bba2f826505794a26dd950f46bfaf07c2f6ffa69d
+  checksum: 10c0/5cbf4f735bd7806fad0f7f8ae15f7b32f28d829660ff3ad578b0e0fe76047d2fb779bc2993efa76e9a9efae56d6b16a4fb60d87c26b09f28298b99829c05d49e
   languageName: node
   linkType: hard
 
