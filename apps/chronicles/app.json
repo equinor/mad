@@ -27,6 +27,7 @@
             }
         },
         "plugins": [
+            "@config-plugins/detox",
             ["react-native-msal", {}],
             [
                 "expo-image-picker",
@@ -34,7 +35,9 @@
                     "photosPermissions": "The app needs access to your photos library in order to process them."
                 }
             ],
-            "@config-plugins/detox"
+            "expo-asset",
+            "expo-font",
+            "expo-localization"
         ],
         "web": {
             "favicon": "./assets/images/favicon.png",

@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
-import Navigation from "./navigation";
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { EDSProvider, useBreakpoint } from "@equinor/mad-components";
-import { Envelope, addTelemetryInitializer, ErrorBoundary, trackCustom } from "@equinor/mad-core";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
+import { useBreakpoint, EDSProvider } from "@equinor/mad-components";
+import { Envelope, addTelemetryInitializer, trackCustom, ErrorBoundary } from "@equinor/mad-core";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Navigation from "./navigation";
+import { StatusBar } from "react-native";
 import * as APP from "./app.json";
 
 export default function App() {

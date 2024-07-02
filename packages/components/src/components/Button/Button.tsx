@@ -1,14 +1,14 @@
 import React, { forwardRef, useContext } from "react";
 import { GestureResponderEvent, View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
-import { Color, EDSStyleSheet } from "../../styling";
+import { EDSStyleSheet } from "../../styling";
 import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
 import { Icon, IconName } from "../Icon";
+import { PressableHighlight } from "../PressableHighlight";
 import { DotProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
 import { ButtonGroupContext } from "./ButtonGroup";
 import { ToggleButtonContext } from "./ToggleButton";
-import { PressableHighlight } from "../PressableHighlight";
 
 export type ButtonSpecificProps = {
     /**
@@ -88,13 +88,13 @@ export const Button = forwardRef<View, ButtonProps>(
         const ButtonContent = () => (
             <>
                 {iconName && iconPosition === "leading" && (
-                    <Icon name={iconName} color={styles.textStyle.color as Color} />
+                    <Icon name={iconName} color={styles.textStyle.color} />
                 )}
                 <Typography group="interactive" variant="button" style={styles.textStyle}>
                     {title}
                 </Typography>
                 {iconName && iconPosition === "trailing" && (
-                    <Icon name={iconName} color={styles.textStyle.color as Color} />
+                    <Icon name={iconName} color={styles.textStyle.color} />
                 )}
             </>
         );

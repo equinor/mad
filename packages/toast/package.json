@@ -8,7 +8,7 @@
         "test": "jest",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/",
-        "clean": "rm -rf node_modules/ && rm -rf dist/"
+        "clean": "rm -rf node_modules dist .turbo"
     },
     "keywords": [
         "react native",
@@ -27,7 +27,7 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@equinor/mad-components": "*",
+        "@equinor/mad-components": "workspace:*",
         "react-native-toast-message": "^2.2.0"
     },
     "peerDependencies": {
@@ -36,7 +36,7 @@
         "react-native": ">=0.70"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "*"
+        "@equinor/eslint-config-mad": "workspace:*"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
