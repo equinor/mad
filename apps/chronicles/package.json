@@ -7,7 +7,7 @@
         "android": "npx expo run:android",
         "dev": "npx expo run:ios",
         "web": "npx expo start --web",
-        "build": "npx expo prebuild --platform ios && rm ios/.xcode.env.local",
+        "build": "npx expo prebuild --platform ios && rm -f ./ios/.xcode.env.local",
         "docker": "npx expo export -p web",
         "ios": "npx expo run:ios",
         "lint": "tsc --noEmit && eslint .",
