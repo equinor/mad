@@ -11,7 +11,7 @@
         "docker": "npx expo export -p web",
         "ios": "npx expo run:ios",
         "lint": "tsc --noEmit && eslint .",
-        "clean": "rm -rf node_modules ios .turbo .expo && watchman watch-del-all",
+        "clean": "rm -rf node_modules ios .turbo .expo",
         "detox:build": "npx detox build --configuration ios.release",
         "detox:test": "npx detox test --configuration ios.release",
         "use:dev": "sed -i \"s/currentEnvironment: \".*\"/currentEnvironment: \\\"dev\\\",/g\" mad.config.ts",
