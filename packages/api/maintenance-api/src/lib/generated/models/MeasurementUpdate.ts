@@ -18,9 +18,9 @@ export type MeasurementUpdate = {
      * Path specific information:
      * - /measurementTitle - max-length 40 characters
      * - /processingStatusId
-     * - '1' - MeasReading processed: activities need to be carried out
-     * - '2' - MeasReading processed: activities covered by planned task
-     * - '7' - MeasReading processed: no activities need to be carried out
+     * - `1` - MeasReading processed: activities need to be carried out
+     * - `2` - MeasReading processed: activities covered by planned task
+     * - `7` - MeasReading processed: no activities need to be carried out
      *
      */
     value: string;

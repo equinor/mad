@@ -93,11 +93,11 @@ export type FailureReportCreate = {
          */
         sourceId?: string;
         /**
-         * For source `TechnicalFeedback` these parameters are normally also supplied. If they are not supplied, the relationship between maintenance and technical feedback is of type optional.
+         * For source `TechnicalFeedback`, `sourceId` needs to be supplied.
          */
         technicalFeedbackParameters?: {
             statusId?: string;
-            reasonId?: string;
+            reasonId?: string | null;
         };
     };
 };

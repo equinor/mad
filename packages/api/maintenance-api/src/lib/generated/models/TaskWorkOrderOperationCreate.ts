@@ -34,6 +34,10 @@ export type TaskWorkOrderOperationCreate = {
     executionFactor?: number;
     standardTextTemplate?: string;
     /**
+     * Required process conditions for each operation
+     */
+    systemCondition?: string;
+    /**
      * Used to the describe the activity type produced by the related cost center
      */
     activityTypeId?: string;

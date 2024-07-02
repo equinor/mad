@@ -17,9 +17,9 @@ export type Measurement = {
     qualitativeCodeGroupId: string;
     qualitativeCodeId: string;
     /**
-     * '1' - MeasReading processed: activities need to be carried out
-     * '2' - MeasReading processed: activities covered by planned task
-     * '7'-  MeasReading processed: no activities need to be carried out
+     * `1` - MeasReading processed: activities need to be carried out
+     * `2` - MeasReading processed: activities covered by planned task
+     * `7` -  MeasReading processed: no activities need to be carried out
      *
      */
     processingStatusId: string;

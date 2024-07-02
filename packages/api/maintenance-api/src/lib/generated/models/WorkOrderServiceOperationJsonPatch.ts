@@ -27,9 +27,9 @@ export type WorkOrderServiceOperationJsonPatch = {
      * - `FNET` - Finish no earlier than
      * - `FNLT` - Finish no later than
      *
-     * /service path only allows for the 'replace' operation, but it serves as either an 'add' or a 'replace' operation, depending upon if a service with the given 'lineId' exists or not.
-     * - If a service with the given 'lineId' is not found, it will be added.
-     * - If a service with the given 'lineId' is  found, it will be replaced with the 'service' object.
+     * /service path only allows for the `replace` operation, but it serves as either an `add` or a `replace` operation, depending upon if a service with the given `lineId` exists or not.
+     * - If a service with the given `lineId` is not found, it will be added.
+     * - If a service with the given `lineId` is  found, it will be replaced with the `service` object.
      *
      */
     value: (string | boolean | number | ServiceJsonPatch);

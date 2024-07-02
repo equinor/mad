@@ -25,12 +25,12 @@ export class MasterDataForMaintenanceRecordsService {
      *
      * `/maintenance-records/activity-codes?catalog-profile-id=PM-600&maintenance-record-type=failure-report&api-version=v1` - Use when maintenance record does not already exist. Get catalog-profile-id from tag or equipment to be used when the maintenance record is created
      *
-     * ### Update release v0.9.0
+     * ### Update release 0.9.0
      * Endpoint now requires a query parameter maintenance-record-id. The values returned are dependent on the maintenance record type and possibly tag or equipment for the maintenance record.
      *
      * activityCodeHelpText added as property.
      *
-     * ### Update release v0.10.0
+     * ### Update release 0.10.0
      * Endpoint requires either query parameter maintenance-record-id or both catalog-profile-id and maintenance-record-type.
      *
      * @returns ActivityCodeGroup Success
@@ -89,7 +89,7 @@ export class MasterDataForMaintenanceRecordsService {
      * taskCodeHelpText is defined for relatively few codes.
      *
      * Required to provide parameter `maintenance-record-id` or `catalog-profile-id` and `maintenance-record-type`
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added support for technical information update request
      *
      * @returns TaskCodeGroup Success

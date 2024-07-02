@@ -6,6 +6,7 @@
 import type { BillOfMaterialItem } from './BillOfMaterialItem';
 import type { CatalogProfileDetails } from './CatalogProfileDetails';
 import type { CorrectiveWorkOrderSimple } from './CorrectiveWorkOrderSimple';
+import type { DocumentAttachment } from './DocumentAttachment';
 import type { EquipmentBasic } from './EquipmentBasic';
 import type { GenericWorkOrderSimple } from './GenericWorkOrderSimple';
 import type { LinearData } from './LinearData';
@@ -17,7 +18,6 @@ import type { ProjectWorkOrderSimple } from './ProjectWorkOrderSimple';
 import type { SASChangeWorkOrderSimple } from './SASChangeWorkOrderSimple';
 import type { SimpleMaintenanceRecordsList } from './SimpleMaintenanceRecordsList';
 import type { Status } from './Status';
-import type { TagAttachment } from './TagAttachment';
 import type { TagBasic } from './TagBasic';
 import type { TagCharacteristic } from './TagCharacteristic';
 import type { URLReference } from './URLReference';
@@ -86,6 +86,6 @@ export type Tag = (TagBasic & {
     /**
      * All Attachments saved at this tag
      */
-    attachments?: Array<TagAttachment>;
+    attachments?: Array<DocumentAttachment>;
 });
 

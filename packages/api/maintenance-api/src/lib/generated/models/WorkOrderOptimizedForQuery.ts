@@ -84,6 +84,10 @@ export type WorkOrderOptimizedForQuery = {
      */
     hasStatusTECO: boolean;
     /**
+     * Has status Released
+     */
+    hasStatusREL?: boolean;
+    /**
      * Main maintenance record
      */
     maintenanceRecord: (FailureReportSimpleSelf | ActivityReportSimpleSelf | CertificationReportSimpleSelf | ModificationProposalSimpleSelf | TechnicalInformationUpdateRequestSimpleSelf | TechnicalClarificationSimpleSelf) | null;

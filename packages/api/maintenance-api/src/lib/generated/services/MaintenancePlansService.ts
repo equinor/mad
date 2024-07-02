@@ -84,27 +84,30 @@ export class MaintenancePlansService {
      *
      * The task list describes the maintenance activities with the necessary support activities to be performed in the maintenance programme. These are divided into operations that are listed in an order that is natural for the practical implementation of the maintenance. The task List also sets the interval of operations through maintenance packages.
      *
-     * ### Update release v1.2.0
+     * ### Update release 1.2.0
      * Added `calculationKey` for operations in the task list.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Bugfix related to text for operation.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * New properties were added to the calls expand: duePackages, schedulingType, callDate, completionDate
      *
-     * ### Update release v1.9.0
+     * ### Update release 1.9.0
      * Added property objectId for objectList.
      *
-     * ### Update release v1.13.0
+     * ### Update release 1.13.0
      * Added parameter include-item-object-list-linkage with default value true. Added uniqueKey in TaskListOperations.
      *
-     * ### Update release v1.14.0
+     * ### Update release 1.14.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.20.0
-     * Added the field `changedDateTime` on maintenanceItem and on taskList. The value of the field on the task list level represents the latest date at which the taskList or any of its operations has been changed, added, or deleted.
+     * ### Update release 1.20.0
+     * Added the property `changedDateTime` on maintenanceItem and on taskList. The value of the field on the task list level represents the latest date at which the taskList or any of its operations has been changed, added, or deleted.
+     *
+     * ### Update release 1.31.0
+     * Added the property `systemCondition`
      *
      * @returns MaintenancePlanItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -555,15 +558,18 @@ export class MaintenancePlansService {
      *
      * Use the HTTP GET endpoint `/maintenance-plans/{plan-id}/items/{item-id}?include-task-list=true` for retrieving current data and necessary ids.
      *
-     * ### Update for release v1.2.0
+     * ### Update for release 1.2.0
      * Added `calculationKey` as updatable field.
      *
-     * ### Update release v1.5.0 + v1.11.0
+     * ### Update release 1.5.0 + 1.11.0
      * Bugfix related to text for operation.
      *
-     * ### Update release v1.14.0
+     * ### Update release 1.14.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Added property `systemCondition`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -683,12 +689,15 @@ export class MaintenancePlansService {
      *
      * `activityTypeId` is related to cost center and fiscal year, and there is currently no endpoint to get possible values.
      * Creating operation with `suboperationId` is not supported.
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Bugfix related to text for operation.
      *
-     * ### Update release v1.14.0
+     * ### Update release 1.14.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Added property `systemCondition`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns TaskListOperationBasic Success

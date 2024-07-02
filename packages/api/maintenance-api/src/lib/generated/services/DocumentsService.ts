@@ -3,11 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CharacteristicsUpdate } from '../models/CharacteristicsUpdate';
+import type { Document } from '../models/Document';
 import type { DocumentAddClass } from '../models/DocumentAddClass';
 import type { DocumentBasic } from '../models/DocumentBasic';
 import type { DocumentCreate } from '../models/DocumentCreate';
-import type { DocumentLookup } from '../models/DocumentLookup';
-import type { DocumentSearchItem } from '../models/DocumentSearchItem';
+import type { DocumentRelationshipToBusinessObjectsAdd } from '../models/DocumentRelationshipToBusinessObjectsAdd';
+import type { DocumentURLReferencesAdd } from '../models/DocumentURLReferencesAdd';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { RelationshipToDocument } from '../models/RelationshipToDocument';
 import type { RelationshipToDocumentsAdd } from '../models/RelationshipToDocumentsAdd';
@@ -17,36 +18,6 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class DocumentsService {
-
-    /**
-     * Document - Create
-     * ### Overview
-     * Create a new document.
-     * This document will not be linked to any business object, but can be linked afterwards by calling POST `/document-relationships/{relationship-type}/{source-id}`.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns DocumentBasic Created
-     * @throws ApiError
-     */
-    public static createDocument({
-        requestBody,
-    }: {
-        /**
-         * Document to create
-         */
-        requestBody: DocumentCreate,
-    }): CancelablePromise<ProblemDetails | DocumentBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/documents',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad request, for example documentType is invalid.`,
-                403: `User does not have sufficient rights to create an equipment.`,
-            },
-        });
-    }
 
     /**
      * Document - Search
@@ -62,7 +33,15 @@ export class DocumentsService {
      * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
      * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
      *
-     * @returns DocumentSearchItem Success
+     * ### Update release 1.31.0
+     * Added `include-inventory-count` query parameter to include `equipmentInventoryCount` and `materialInventoryCount` property in the response.
+     *
+     * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
+     *
+     * ### Update in upcoming release
+     * Added `include-url-references` query parameter to include URL references in the response.
+     *
+     * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -75,7 +54,12 @@ export class DocumentsService {
         includeCharacteristics = false,
         includeMaterial = false,
         includeEquipment = false,
+        includeTags = false,
+        includeMaintenanceRecords = false,
+        includeMeasuringPoints = false,
         includeAttachments = false,
+        includeInventoryCount = false,
+        includeUrlReferences = false,
         perPage = 50,
         page = 1,
     }: {
@@ -112,9 +96,26 @@ export class DocumentsService {
          */
         includeEquipment?: boolean,
         /**
+         * Include tags.
+         */
+        includeTags?: boolean,
+        /**
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
+         */
+        includeMaintenanceRecords?: boolean,
+        /**
+         * Include measuring points for this tag
+         */
+        includeMeasuringPoints?: boolean,
+        /**
          * Include equipment or tag attachments
          */
         includeAttachments?: boolean,
+        includeInventoryCount?: boolean,
+        /**
+         * Include URL references for object
+         */
+        includeUrlReferences?: boolean,
         /**
          * Results to return pr page
          */
@@ -123,7 +124,7 @@ export class DocumentsService {
          * Page to fetch
          */
         page?: number,
-    }): CancelablePromise<Array<DocumentSearchItem> | ProblemDetails> {
+    }): CancelablePromise<Array<Document> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/documents',
@@ -136,7 +137,12 @@ export class DocumentsService {
                 'include-characteristics': includeCharacteristics,
                 'include-material': includeMaterial,
                 'include-equipment': includeEquipment,
+                'include-tags': includeTags,
+                'include-maintenance-records': includeMaintenanceRecords,
+                'include-measuring-points': includeMeasuringPoints,
                 'include-attachments': includeAttachments,
+                'include-inventory-count': includeInventoryCount,
+                'include-url-references': includeUrlReferences,
                 'per-page': perPage,
                 'page': page,
             },
@@ -144,6 +150,36 @@ export class DocumentsService {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to view document`,
                 404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Document - Create
+     * ### Overview
+     * Create a new document.
+     * This document will not be linked to any business object, but can be linked afterwards by calling POST `/document-relationships/{relationship-type}/{source-id}`.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns DocumentBasic Created
+     * @throws ApiError
+     */
+    public static createDocument({
+        requestBody,
+    }: {
+        /**
+         * Document to create
+         */
+        requestBody: DocumentCreate,
+    }): CancelablePromise<ProblemDetails | DocumentBasic> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/documents',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad request, for example documentType is invalid.`,
+                403: `User does not have sufficient rights to create an equipment.`,
             },
         });
     }
@@ -157,7 +193,15 @@ export class DocumentsService {
      * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
      * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
      *
-     * @returns DocumentLookup Success
+     * ### Update release 1.31.0
+     * Added `include-inventory-count` query parameter to include `equipmentInventoryCount` and `materialInventoryCount` property in the response.
+     *
+     * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
+     *
+     * ### Update in upcoming release
+     * Added `include-url-references` query parameter to include URL references in the response.
+     *
+     * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -166,7 +210,12 @@ export class DocumentsService {
         includeCharacteristics = false,
         includeMaterial = false,
         includeEquipment = false,
+        includeTags = false,
+        includeMaintenanceRecords = false,
+        includeMeasuringPoints = false,
         includeAttachments = false,
+        includeInventoryCount = false,
+        includeUrlReferences = false,
     }: {
         /**
          * Unique id for the document to be used against endpoints for the `/documents` resource
@@ -185,10 +234,27 @@ export class DocumentsService {
          */
         includeEquipment?: boolean,
         /**
+         * Include tags.
+         */
+        includeTags?: boolean,
+        /**
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
+         */
+        includeMaintenanceRecords?: boolean,
+        /**
+         * Include measuring points for this tag
+         */
+        includeMeasuringPoints?: boolean,
+        /**
          * Include equipment or tag attachments
          */
         includeAttachments?: boolean,
-    }): CancelablePromise<Array<DocumentLookup> | ProblemDetails> {
+        includeInventoryCount?: boolean,
+        /**
+         * Include URL references for object
+         */
+        includeUrlReferences?: boolean,
+    }): CancelablePromise<Document | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/documents/{document-id}',
@@ -199,12 +265,150 @@ export class DocumentsService {
                 'include-characteristics': includeCharacteristics,
                 'include-material': includeMaterial,
                 'include-equipment': includeEquipment,
+                'include-tags': includeTags,
+                'include-maintenance-records': includeMaintenanceRecords,
+                'include-measuring-points': includeMeasuringPoints,
                 'include-attachments': includeAttachments,
+                'include-inventory-count': includeInventoryCount,
+                'include-url-references': includeUrlReferences,
             },
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to view document`,
                 404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Documents - Add new relationships to a document
+     * ### Overview
+     * Add new relationships between a single document and one or more business objects.
+     *
+     * Example url: `/documents/10004099768-A01-000-00?api-version=v1`
+     *
+     * This endpoint returns no response data.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns string Created - No body available for response. Use lookup from location header
+     * @throws ApiError
+     */
+    public static addRelationshipBetweenBusinessObjectsAndSingleDocument({
+        documentId,
+        requestBody,
+    }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId: string,
+        /**
+         * Business objects to add a relationship to from the specified `documentId`
+         */
+        requestBody: Array<DocumentRelationshipToBusinessObjectsAdd>,
+    }): CancelablePromise<ProblemDetails | string> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/documents/{document-id}/relationships',
+            path: {
+                'document-id': documentId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            responseHeader: 'Location',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update document`,
+                404: `The specified resource was not found`,
+                409: `Document is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Document -  Add URL reference
+     * ### Overview
+     * Add a URL reference to a document.
+     *
+     * URL references are stored in the Document Management System (DMS).
+     *
+     * The following characteristicId can be used:
+     * - `DISCIPLINE_B30`
+     * - `ADDITIONAL_REFERENCE_B30`
+     * - `DATE_OF_DOCUMENT_B30` (Date of photo/report)
+     *
+     * Existing URL references are available through the lookup endpoints for documents. Examples: `GET /documents/{document-id}?include-url-references=true&api-version=v1`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addUrlReferenceToDocument({
+        documentId,
+        requestBody,
+    }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId: string,
+        /**
+         * Define URL reference to add
+         */
+        requestBody: DocumentURLReferencesAdd,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/documents/{document-id}/url-references',
+            path: {
+                'document-id': documentId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights for updating document`,
+                404: `The specified resource was not found`,
+                409: `Document is locked by other user, characteristicId used are not suitable for the document`,
+            },
+        });
+    }
+
+    /**
+     * Document - Remove URL reference
+     * ### Overview
+     * Remove a URL reference from an existing Document.
+     *
+     * Existing URL references can be found through the lookup endpoints for documents. Example: `GET /documents/{document-id}?include-url-references=true&api-version=v1`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static removeUrlReferenceFromDocument({
+        documentId,
+        urlReferenceId,
+    }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId: string,
+        /**
+         * Id of the URL reference
+         */
+        urlReferenceId: string,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/documents/{document-id}/url-references/{url-reference-id}',
+            path: {
+                'document-id': documentId,
+                'url-reference-id': urlReferenceId,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to remove URL reference`,
+                404: `The specified resource was not found`,
+                409: `Document is locked by other user`,
             },
         });
     }
@@ -221,7 +425,7 @@ export class DocumentsService {
      * - Maintenance records: `/document-relationships/maintenance-records/45939208?api-version=v1`
      * - Materials: `/document-relationships/materials/741466?api-version=v1`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added support for business objects: Equipment, Measuring points and Maintenance records.
      *
      * Added `include-characteristics` and `include-attachments`.
@@ -278,9 +482,9 @@ export class DocumentsService {
     }
 
     /**
-     * Document relationships - Add new relationships
+     * Document relationships - Add new document relationships to a business object
      * ### Overview
-     * Add new relationship between a business object and documents.
+     * Add new relationships between a single business object and one or more documents.
      *
      * The documents specified in the the request must contain one of:
      * - `documentId`
@@ -296,7 +500,7 @@ export class DocumentsService {
      *
      * This endpoint returns no response data.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added support for business objects: Equipment, Measuring points and Maintenance records.
      *
      * ### Update release 1.30.0
@@ -363,7 +567,7 @@ export class DocumentsService {
      * ### Important information
      * NOTE: Take special care when using this endpoint. The PUT operation will remove any document relationships from the `source-id`(for example tags) which are not present in the request body. Normally, the corresponding POST operation should be used as it only adds new relationships and never removes existing ones.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added support for business objects: Equipment, Measuring points and Maintenance records.
      *
      * ### Update release 1.30.0
@@ -427,7 +631,7 @@ export class DocumentsService {
      *
      * This endpoint returns no response data.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added support for business objects: Equipment, Measuring points and Maintenance records.
      *
      * ### Update release 1.30.0
@@ -491,6 +695,10 @@ export class DocumentsService {
         documentId,
         requestBody,
     }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
         documentId: string,
         /**
          * Characteristics to add to the document.
@@ -526,6 +734,10 @@ export class DocumentsService {
         documentId,
         requestBody,
     }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
         documentId: string,
         /**
          * Characteristics to be updated, based on JsonPatch standard
@@ -562,6 +774,10 @@ export class DocumentsService {
         documentId,
         attachmentId,
     }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
         documentId: string,
         attachmentId: string,
     }): CancelablePromise<Blob | ProblemDetails> {
@@ -594,6 +810,10 @@ export class DocumentsService {
         documentId,
         attachmentId,
     }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
         documentId: string,
         attachmentId: string,
     }): CancelablePromise<ProblemDetails> {

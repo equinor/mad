@@ -37,15 +37,15 @@ export class MeasuringPointsService {
      *
      * Qualitative measurement codes are defined by qualitativeCodeGroupId.
      *
-     * ### Update release v1.10.0
+     * ### Update release 1.10.0
      * Added property `maintenanceRecordId` to measurements.
      *
      * Added `include-characteristics` and `include-characteristics-without-value` query parameter.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added `workOrderId` to response.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Measuring points for equipment now include the `tagId` and `tagPlantId` of the tag the equipment is installed on.
      *
      * @returns MeasuringPoint Success
@@ -175,25 +175,25 @@ export class MeasuringPointsService {
      *
      * `/measuring-points?characteristic-value-any-of=%3D17445%2F9818,%3D17433/6333&class-id=L_PART&characteristic-id=L_E3DREF&plant-id=1201&api-version=v1`
      *
-     * ### Update release v1.10.0
+     * ### Update release 1.10.0
      * Added property `maintenanceRecordId` to measurements.
      *
      * Added `include-characteristics` and `include-characteristics-without-value` query parameter.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added `workOrderId` to response.
      *
-     * ### Update release v1.20.0
+     * ### Update release 1.20.0
      * Edited the response structure to support pagination. Use the parameters `page` and `per-page` in the parameters to edit wanted response.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Measuring points for equipment are now included in searches based on `plant-id`.
      * Measuring points for equipment now include the `tagId` and `tagPlantId` of the tag the equipment is installed on.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * To limit the response data for filter `by-plant`, at least one of the additional parameters must be provided.
      *
-     * ### Update release v1.30.0
+     * ### Update release 1.30.0
      * Added `characteristic-value-any-of`, `class-id` and `characteristic-id` query parameters.
      * Can be used to search for measuring points based on values of a characteristic.
      *
@@ -364,10 +364,10 @@ export class MeasuringPointsService {
      *
      * Qualitative measurement codes are defined by qualitativeCodeGroupId property of the measuring point.
      *
-     * ### Update release v1.10.0
+     * ### Update release 1.10.0
      * Added `maintenanceRecordId` to request.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added `workOrderId` to request and response.
      *
      * @returns ProblemDetails Response for other HTTP status codes

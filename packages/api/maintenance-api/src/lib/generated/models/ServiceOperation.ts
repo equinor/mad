@@ -33,6 +33,8 @@ export type ServiceOperation = {
     purchaseOrderItemId?: string;
     isServiceOperation?: boolean;
     scopeOfWork?: string;
+    agreement?: string;
+    agreementItem?: string;
     services?: Array<Service>;
     materials?: Array<WorkOrderMaterial> | null;
 };

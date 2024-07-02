@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 /**
- * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+ * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
  *
  */
 export type documentIdQuery = string | null;
