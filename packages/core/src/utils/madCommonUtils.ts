@@ -10,4 +10,4 @@ const scopesRecord: Record<Environment, string[]> = {
 export const getMadCommonScopes = (env: Environment) => scopesRecord[env];
 
 export const getMadCommonBaseUrl = (env: Environment) =>
-    `https://api.statoil.com/app/mad/${env.toLowerCase() === "prod" ? `` : `${env}/`}api/v1.1/`;
+    `https://api-mad-api-${env}.radix.equinor.com/api/v1.1/`;
