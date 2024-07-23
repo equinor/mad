@@ -24,11 +24,11 @@ export type RelationshipToMaintenanceRecordAdd = {
      */
     sourceId?: string;
     /**
-     * For source `TechnicalFeedback` these parameters are must be supplied.
+     * For source `TechnicalFeedback`, `statusId` must be supplied.
      */
     technicalFeedbackParameters?: {
         statusId?: string;
-        reasonId?: string;
+        reasonId?: string | null;
     };
 };
 

@@ -52,9 +52,10 @@ export class WorkOrdersService {
      * Example of usage:
      * - `/work-order-plan/{planning-plant-id}?filter=by-person-responsible&person-responsible-email=shortname@equinor.com&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added query parameter `work-center-id-any-of`.
      *
+     * ### Update release 1.29.0
      * Added properties `cmrIndicator` and `maintenanceRecordId`.
      *
      * @returns WorkOrderInPlan Success
@@ -188,31 +189,31 @@ export class WorkOrdersService {
      * - cost-wbs-id
      * - plant-id (optional)
      *
-     * ### Update release v0.11.0
+     * ### Update release 0.11.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
      * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
      *
      * Filter by-external-partner-work-order-id added.
-     * ### Update release v1.3.0
+     * ### Update release 1.3.0
      * Bugfix related to plantId source.
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Introduced property calculationKey for operations.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.12.0
+     * ### Update release 1.12.0
      * Improved performance of endpoint.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added filter `by-cost-wbs`, with required parameter `cost-wbs-id`. Can be used in combination with optional parameter`plant-id`.
      * This filter only includes work orders where the WBS is represented on the work order level. It does not include work orders where WBS is only represented in the settlement rules.
      *
@@ -220,8 +221,14 @@ export class WorkOrdersService {
      *
      * Added property `cmrIndicator` for WorkOrders
      *
-     * ### Update release v1.27.0
-     * Work orders now include the property 'isOpen'
+     * ### Update release 1.27.0
+     * Work orders now include the property `isOpen`
+     *
+     * ### Update release 1.30.0
+     * Modified GET work order to fetch data from Maintenance plant from the sap field `swerk`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -335,19 +342,24 @@ export class WorkOrdersService {
      *
      * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&status-any-of=PREP,RDEX&created-after-date=2021-06-01` - Return work orders with status PREP or RDEX and created after a certain date
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.12.0
+     * ### Update release 1.12.0
      * Added query parameter `include-maintenance-record`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
-     * ### Update release v1.29.0
+     * ### Update release 1.29.0
      * Added properties `revision` and `changedDatetime`.
      *
-     * Allow searching by 'changedOnDay' when `is-open` is set. Search by using the new query parameters `changed-after-date` and `changed-before-date`.
+     * Allow searching by `changedOnDay` when `is-open` is set. Search by using the new query parameters `changed-after-date` and `changed-before-date`.
+     *
+     * ### Update release 1.31.0
+     * Added list of supported statuses for `status-all-of`, `status-any-of` and `status-not` query parameters. Status `REL` is now supported.
+     *
+     * Added property `hasStatusREL` to the response.
      *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -456,15 +468,15 @@ export class WorkOrdersService {
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAllOf?: Array<string>,
+        statusAllOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL'>,
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAnyOf?: Array<string>,
+        statusAnyOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL'>,
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusNot?: Array<string>,
+        statusNot?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL'>,
         /**
          * Include only open work orders or only closed work orders. By default, all work orders are included.
          */

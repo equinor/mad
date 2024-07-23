@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TagAttachment = {
+export type DocumentAttachment = {
     attachmentId: string;
     fileName: string;
     fileSize: string;

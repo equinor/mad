@@ -42,22 +42,22 @@ export class MaintenanceRecordsService {
      * - changed-since-datetime
      * - before-datetime (optional)
      *
-     * ### Update release v1.2.0
+     * ### Update release 1.2.0
      * Added filter `my-recent-maintenance-records`.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added filter `recently-changed` and maintenance record types `modification-proposal`, `certification-report`,`technical-information-update-request` and `technical-clarification`.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus for failure reports.
      *
-     * ### Update release v1.9.0
+     * ### Update release 1.9.0
      * Renamed property plannerGroupPlantId to planningPlantId.
      *
-     * ### Update release v1.12.0
+     * ### Update release 1.12.0
      * Added property `maintenanceRecordTypeId`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
      * @returns MaintenanceRecordList Success

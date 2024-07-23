@@ -35,10 +35,10 @@ export class TechnicalInformationUpdateRequestsService {
      *
      * Equinor's governing document [GL1561 - Work orders and notifications types](https://docmap.equinor.com/Docmap/page/doc/dmDocAll.html?DOCVIEW=FALSE?DOCKEYID=525791) provides additional information for this maintenance record type.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added `createdDateTime` for attachments.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added `301` response.
      *
      * ### Update release 1.11.0
@@ -47,16 +47,16 @@ export class TechnicalInformationUpdateRequestsService {
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area` to tag details.
      *
-     * ### Update release v1.26.0
-     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     * ### Update release 1.26.0
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
      * ### Update release 1.28.0
@@ -139,7 +139,7 @@ export class TechnicalInformationUpdateRequestsService {
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added support for property `sortField`.
      *
      * ### Update release 1.28.0
@@ -296,7 +296,7 @@ export class TechnicalInformationUpdateRequestsService {
     }: {
         recordId: string,
         /**
-         * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
          *
          */
         documentId?: string | null,

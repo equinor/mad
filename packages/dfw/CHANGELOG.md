@@ -1,5 +1,11 @@
 # @equinor/mad-dfw
 
+## 0.1.1
+
+### Patch Changes
+
+-   350b5fc: Added a selectable prop to the PropertyRow component
+
 ## 0.1.0
 
 ### Minor Changes

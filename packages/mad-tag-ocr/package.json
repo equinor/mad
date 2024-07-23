@@ -7,7 +7,7 @@
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/",
-        "clean": "rm -rf node_modules/ && rm -rf dist/"
+        "clean": "rm -rf node_modules dist .turbo"
     },
     "keywords": [
         "react native",
@@ -26,25 +26,23 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "dependencies": {
-        "@equinor/mad-components": "*"
+        "@equinor/mad-components": "workspace:*"
     },
     "devDependencies": {
-        "@types/react": "~18.2.43",
-        "@equinor/eslint-config-mad": "*",
+        "@equinor/eslint-config-mad": "workspace:*",
         "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
+        "@types/react": "~18.2.45",
         "react-native-vision-camera": "^4.0.4",
-        "react-native-worklets-core": "^1.3.3",
-        "@shopify/react-native-skia": "1.2.3",
-        "react-native-gesture-handler": "^2.14.0"
+        "react-native-worklets-core": "^1.3.3"
     },
     "peerDependencies": {
+        "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
+        "@shopify/react-native-skia": "1.2.3",
         "react": ">=18.0",
         "react-native": ">=0.70",
-        "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
+        "react-native-gesture-handler": ">=2.14",
         "react-native-vision-camera": "^4.0.4",
-        "react-native-worklets-core": "^1.3.3",
-        "@shopify/react-native-skia": "1.2.3",
-        "react-native-gesture-handler": "^2.14.0"
+        "react-native-worklets-core": "^1.3.3"
     },
     "files": [
         "CODE_OF_CONDUCT.md",

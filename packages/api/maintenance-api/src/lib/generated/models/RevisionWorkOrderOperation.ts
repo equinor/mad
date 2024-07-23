@@ -47,16 +47,16 @@ export type RevisionWorkOrderOperation = {
     earliestStartDateTime: string | null;
     earliestFinishDateTime: string | null;
     /**
-     * Constraint: * `MSO` - Must start on * `SNET` - Start no earlier than * `SNLT` - Start no later than
+     * Constraint: * `MSO` - Must start on * `SNET` - Start no earlier than * `SNLT` - Start no later than * `SFRP` - Start from resource planning
      *
      */
-    schedulingStartConstraintId: 'MSO' | 'SNET' | 'SNLT' | '5' | null;
+    schedulingStartConstraintId: 'MSO' | 'SNET' | 'SNLT' | 'SFRP' | null;
     schedulingStartConstraintDateTime: string | null;
     /**
-     * Constraint: * `MFO` - Must finish on date * `FNET` - Finish no earlier than * `FNLT` - Finish no later than
+     * Constraint: * `MFO` - Must finish on date * `FNET` - Finish no earlier than * `FNLT` - Finish no later than * `FFC` - Finish from confirmation
      *
      */
-    schedulingFinishConstraintId: 'MFO' | 'FNET' | 'FNLT' | '4' | null;
+    schedulingFinishConstraintId: 'MFO' | 'FNET' | 'FNLT' | 'FFC' | null;
     schedulingFinishConstraintDateTime: string | null;
     /**
      * Calculation key defines which of the fields plannedWorkHours,capacityCount and plannedDuration are derived based on the values of the two others. If calculation key is `CALC_KEY_MANUAL`, all fields are filled in manually.
@@ -75,6 +75,10 @@ export type RevisionWorkOrderOperation = {
     progressChangedById?: string;
     progressChangedBy?: string | null;
     progressChangedByEmail?: string | null;
+    confirmationDateTime?: string | null;
+    confirmationBy?: string | null;
+    confirmationById?: string | null;
+    confirmationByEmail?: string | null;
     materials?: Array<WorkOrderMaterial>;
 };
 

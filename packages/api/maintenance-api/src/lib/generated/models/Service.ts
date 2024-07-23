@@ -12,5 +12,8 @@ export type Service = {
     materialGroup: string;
     costElement: string;
     isEquipmentRental: boolean;
+    grossPrice?: number;
+    netValue?: number;
+    currency?: string;
 };
 
