@@ -7,9 +7,6 @@
         "packages/*",
         "packages/**/*"
     ],
-    "nohoist": [
-        "**/react-native-msal"
-    ],
     "scripts": {
         "dev:docs": "turbo run dev --filter @equinor/mad-platform-docs",
         "build:docs": "turbo run build --filter @equinor/mad-platform-docs",
