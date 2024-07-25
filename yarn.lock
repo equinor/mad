@@ -2929,7 +2929,7 @@ __metadata:
     react-native: "npm:0.74.2"
     react-native-device-info: "npm:^10.9.0"
     react-native-gesture-handler: "npm:~2.16.1"
-    react-native-msal: "git+https://github.com/equinor/react-native-msal.git#38c1bac756b8019e3b7f916893a7f588c811e407"
+    react-native-msal: "git+https://github.com/equinor/react-native-msal.git#1679459a2054c3a536b208d28fb8a769f402f34a"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.1"
     react-native-screens: "npm:3.31.1"
@@ -18613,16 +18613,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-msal@git+https://github.com/equinor/react-native-msal.git#38c1bac756b8019e3b7f916893a7f588c811e407":
+"react-native-msal@git+https://github.com/equinor/react-native-msal.git#1679459a2054c3a536b208d28fb8a769f402f34a":
   version: 1.0.6
-  resolution: "react-native-msal@https://github.com/equinor/react-native-msal.git#commit=38c1bac756b8019e3b7f916893a7f588c811e407"
+  resolution: "react-native-msal@https://github.com/equinor/react-native-msal.git#commit=1679459a2054c3a536b208d28fb8a769f402f34a"
   dependencies:
     "@azure/msal-browser": "npm:^2.3.4"
     "@expo/config-plugins": "npm:~7.2.2"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/cc26067d6bfb376030c7225e065163cebede82fcc92f1cf68a5a57aca763cbffed752ea1fe2b038fcb5da1456c01f3a499177a57a38c2ee4ca9f75d5fe090ec8
+  checksum: 10c0/764df5a7dc5599b4f9a9be22c900c77bab554cdbc38a75aa8d5fd188c89754a9abdd28b63cea9c1642ba6c2bba2f826505794a26dd950f46bfaf07c2f6ffa69d
   languageName: node
   linkType: hard
 
