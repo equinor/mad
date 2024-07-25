@@ -25,7 +25,7 @@ jobs:
                   cache-dependency-path: yarn.lock
 
             - name: 📦 Install Dependencies
-              run: yarn install --immutable --no-check-files
+              run: yarn install --immutable
 
             - name: 🦋 Create Release Pull Request
               id: changesets
