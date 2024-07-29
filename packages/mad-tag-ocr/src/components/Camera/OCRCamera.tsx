@@ -199,7 +199,7 @@ export const OCRCamera = ({
                     frameProcessor={frameProcessor}
                     enableZoomGesture
                     videoStabilizationMode="auto"
-                    // outputOrientation="portrait"
+                    outputOrientation="device"
                 />
             </View>
         </>
