@@ -49,7 +49,7 @@ const CircularProgressSection = () => {
             <Typography variant="h3">Indeterminate</Typography>
             <Spacer />
             <View style={styles.progressRow}>
-                <CircularProgress />
+                <CircularProgress size={100} />
                 <CircularProgress size={75} />
                 <CircularProgress size={50} />
                 <CircularProgress size={25} />
