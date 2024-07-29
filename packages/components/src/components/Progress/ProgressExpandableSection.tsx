@@ -54,7 +54,7 @@ export const ProgressExpandableSection = ({
 
     return (
         <Animated.View style={[animatedStyle, { overflow: "hidden" }]}>
-            <View style={{ position: "absolute" }} onLayout={onLayout}>
+            <View style={{ position: "absolute", width: "100%" }} onLayout={onLayout}>
                 {children}
             </View>
         </Animated.View>

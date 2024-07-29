@@ -53,32 +53,32 @@ export class PreventiveWorkOrdersService {
      *
      * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
      * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * If work-order-id exist, but is not a `preventiveWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
      *
-     * ### Update release v1.3.0
+     * ### Update release 1.3.0
      * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Introduced property calculationKey for operations.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added equipmentId and equipment to the response of tagsRelated.
      *
      * Added sourceId to related maintenance records.
      *
      * Added isActive property for maintenance plan details.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Introduced property activeStatusIds for operations.
      *
      * ### Update release 1.11.0
@@ -94,46 +94,53 @@ export class PreventiveWorkOrdersService {
      *
      * Introduced property `detectionMethodGroupId` and `detectionMethodId` for technical feedback.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added new query parameter `include-measurements`
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area` to tag details.
      *
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
      *
      * Added activeStatusIds to related maintenance records.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
-     * Removed 'urlReferences' field from response object, and removed 'include-url-references' query parameter. URLReferences are only supported for Notifications.
+     * Removed `urlReferences` field from response object, and removed `include-url-references` query parameter. URLReferences are only supported for Notifications.
      *
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.26.0
-     * Added property 'isEquipmentRental' to services in serviceOperations.
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
      * Added `materials` to serviceOperations.
      *
-     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
      * ### Update release 1.28.0
      * Added new query parameter `include-safety-measures`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -269,22 +276,22 @@ export class PreventiveWorkOrdersService {
      *
      * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Added additional properties to update
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added possibility for update of sortField and revisionId.
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added possibility for update of locationId and systemId.
      *
-     * ### Update release v1.18.0
+     * ### Update release 1.18.0
      * Added possibility for update of `externalPartnerWorkOrderId`, `title` and `plannerGroupId`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -321,15 +328,18 @@ export class PreventiveWorkOrdersService {
     /**
      * Preventive Work order - Add operation(s)
      * Add operations
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added support for calculation key, which determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added support for  `standardTextTemplate` (standard text template identifier), `systemCondition` (describes required process condition for each operation) and `isExcludedFromWorkOrderPlan` (based on operation status).
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Created - No body available for response. Use lookup from location header
@@ -374,7 +384,7 @@ export class PreventiveWorkOrdersService {
      * Update the work order operation.
      * Currently, we support completing the operation but additional functionality will be added in future releases.
      *
-     * ### Update release v0.11.0
+     * ### Update release 0.11.0
      * Deprecated endpoint.
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -415,7 +425,7 @@ export class PreventiveWorkOrdersService {
      * ### Overview
      * Add time ticket for work performed
      *
-     * ### Update release v0.8.0
+     * ### Update release 0.8.0
      * Text multi-line property now is persisted as expected in ERP system.
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -627,23 +637,23 @@ export class PreventiveWorkOrdersService {
      * - plant-id
      * - maintenance-type-id
      *
-     * ### Update release v0.9.0
+     * ### Update release 0.9.0
      * Added filter by-maintenance-type-id.
      *
-     * ### Update release v0.11.0
+     * ### Update release 0.11.0
      * Added system-id as optional parameter til filter before-planned-date.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
      * @returns PreventiveWorkOrderSimple Success
@@ -737,7 +747,7 @@ export class PreventiveWorkOrdersService {
      * ### Overview
      * Create new Preventive Work order.
      *
-     * In addition to the required fields, one also needs to supply either 'equipmentId' or a Tag ('tagPlantId'-'tagId')
+     * In addition to the required fields, one also needs to supply either `equipmentId` or a Tag (`tagPlantId`-`tagId`)
      *
      * It's possible to supply operations in the add operations endpoint. If no operations are passed, a default operation will be created automatically.
      *
@@ -748,7 +758,7 @@ export class PreventiveWorkOrdersService {
      *
      * There is an on-going initiative to prevent the possibility to create in SAP PM02 work orders outside of MaintenancePlans, hence the planned removal of this endpoint.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
      * @returns ProblemDetails Response for other HTTP status codes

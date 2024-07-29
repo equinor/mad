@@ -1,5 +1,23 @@
 # @equinor/mad-core
 
+## 0.9.1
+
+### Patch Changes
+
+-   ff2a015: Fixed incident request url for the feedback screen
+
+## 0.9.0
+
+### Minor Changes
+
+-   4b172f9: Update mad api base urls. Content Security Policies may need to be updated
+
+## 0.8.1
+
+### Patch Changes
+
+-   771e14d: Fixed keyboard covering the input fields in the feedback screen
+
 ## 0.8.0
 
 ### Minor Changes

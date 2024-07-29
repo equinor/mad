@@ -27,6 +27,7 @@ export type Attachment = {
     documentCreatedDate?: string | null;
     _links: {
         enclosure?: string;
+        documentEnclosure?: string;
     };
 };
 

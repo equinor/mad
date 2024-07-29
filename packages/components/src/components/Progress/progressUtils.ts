@@ -10,6 +10,8 @@ export const statusToIconName = (status: ProgressStatus): IconName => {
             return "alert-circle-outline";
         case "notStarted":
             return "clock-time-five-outline";
+        case "removed":
+            return "minus";
         default:
             return "blank";
     }
@@ -20,14 +22,17 @@ export const statusToColor = (
     token: WithoutThemeOptionValues<MasterToken>,
 ) => {
     switch (status) {
+        case "inProgress":
         case "success":
             return token.colors.feedback.success;
         case "error":
             return token.colors.feedback.danger;
         case "notStarted":
+        case "removed":
             return token.colors.text.disabled;
-        case "inProgress":
-            return token.colors.interactive.primary;
+
+        default:
+            return token.colors.text.primary;
     }
 };
 
@@ -40,7 +45,8 @@ export const computeTaskStatus = (
     }
     const hasOngoing = tasks.some(task => task.status === "inProgress");
     const hasError = tasks.some(task => task.status === "error");
-    const allSuccess = tasks.every(task => task.status === "success");
+    const hasRemoved = tasks.some(task => task.status === "removed");
+    const allSuccess = tasks.every(task => task.status === "success" || task.status === "removed");
 
     if (hasError) {
         return "error";
@@ -48,6 +54,8 @@ export const computeTaskStatus = (
         return "inProgress";
     } else if (allSuccess) {
         return "success";
+    } else if (hasRemoved) {
+        return "removed";
     } else {
         return "notStarted";
     }

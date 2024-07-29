@@ -3,14 +3,13 @@ import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { Button } from "../Button";
-import { Spacer } from "../Spacer";
 import { Typography } from "../Typography";
 import { ProgressExpandButton } from "./ProgressExpandButton";
 import { ProgressExpandableSection } from "./ProgressExpandableSection";
 import { ProgressItemStatus } from "./ProgressItemStatus";
 import { ProgressTaskItem } from "./ProgressTaskItem";
 import { computeTaskStatus } from "./progressUtils";
-import { ProgressStatus, ProgressTask, ProgressTaskError } from "./types";
+import { ProgressStatus, ProgressTask } from "./types";
 
 type ProgressItemPropsOptions =
     | {
@@ -31,7 +30,7 @@ type ProgressItemPropsOptions =
            */
           tasks?: never;
           /**
-           * Manually set the overall status of the progress item. Valid statuses; 'notStarted', 'inProgress', 'success', or 'error'.
+           * Manually set the overall status of the progress item. Valid statuses; 'notStarted', 'inProgress', 'success', 'removed' or 'error'.
            */
           status: ProgressStatus;
       };
@@ -46,11 +45,6 @@ export type ProgressItemProps = {
      */
     description?: string;
     /**
-     * Callback function that is called when the copy text button is pressed, providing the error details of the failed task.
-     * @param message An object containing details of the task error.
-     */
-    onCopyTextButtonPress?: (message: ProgressTaskError) => void;
-    /**
      * Callback function that is invoked when the retry button is pressed, allowing the specific failed task to be retried.
      * @param task The task object that failed and needs to be retried.
      */
@@ -62,7 +56,6 @@ export const ProgressItem = ({
     description,
     status = "notStarted",
     tasks = [],
-    onCopyTextButtonPress,
     onRetryButtonPress,
 }: ProgressItemProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -70,17 +63,13 @@ export const ProgressItem = ({
     const styles = useStyles(themeStyles);
 
     const taskCounter = tasks?.length;
-    const completedTaskCounter = tasks?.filter(task => task.status === "success").length;
+    const completedTaskCounter = tasks?.filter(
+        task => task.status === "success" || task.status === "removed",
+    ).length;
 
     const taskStatus = computeTaskStatus(tasks, status);
     const taskHasError = taskStatus === "error";
     const failedTask = tasks.find(task => task.status === "error");
-
-    const handleCopyTextButtonPress = () => {
-        if (failedTask?.error) {
-            onCopyTextButtonPress && onCopyTextButtonPress(failedTask?.error);
-        }
-    };
 
     const handleRetryButtonPress = () => {
         if (failedTask) {
@@ -103,82 +92,87 @@ export const ProgressItem = ({
     }, [taskHasError, failedTask]);
 
     const renderItemText = () => (
-        <View>
+        <View style={styles.descriptionTextContainer}>
             <Typography
+                numberOfLines={1}
                 bold={taskStatus !== "success"}
-                color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
-                variant="body_short"
-                group="paragraph"
+                color={
+                    taskStatus === "notStarted" || taskStatus === "removed"
+                        ? "textDisabled"
+                        : "textPrimary"
+                }
+                group="cell"
+                variant="title"
             >
                 {title}
             </Typography>
 
-            {description ? (
-                <View style={styles.descriptionContainer}>
+            {description && (
+                <>
                     {taskStatus !== "notStarted" && taskCounter > 0 ? (
                         <Typography variant="description" group="cell">
                             {completedTaskCounter} / {taskCounter} {description}
                         </Typography>
                     ) : (
                         <Typography
-                            color={taskStatus === "notStarted" ? "textDisabled" : "textPrimary"}
+                            color={
+                                taskStatus === "notStarted" || taskStatus === "removed"
+                                    ? "textDisabled"
+                                    : "textPrimary"
+                            }
                             variant="description"
                             group="cell"
                         >
                             {description}
                         </Typography>
                     )}
-                </View>
-            ) : null}
+                </>
+            )}
         </View>
     );
 
     return (
-        <View style={styles.progressContainer}>
-            <View style={styles.mainContentContainer}>
-                <View style={styles.statusAndTextContainer}>
-                    <ProgressItemStatus
-                        style={styles.status}
-                        taskCounter={taskCounter}
-                        status={taskStatus}
-                    />
-                    <View style={styles.textContainer}>
-                        {renderItemText()}
-                        <ProgressExpandableSection expanded={isExpanded}>
-                            <Spacer amount="small" />
-                            <View style={styles.progressTaskItemContainer}>
-                                {tasks.map((task, index) => (
-                                    <ProgressTaskItem
-                                        key={index}
-                                        task={task}
-                                        status={task.status}
-                                    />
-                                ))}
-                            </View>
-                        </ProgressExpandableSection>
-                    </View>
-                </View>
-                <ProgressExpandButton
-                    taskStatus={taskStatus}
+        <View style={styles.container}>
+            <View style={styles.topRowContainer}>
+                <ProgressItemStatus
+                    style={styles.status}
                     taskCounter={taskCounter}
-                    isExpanded={isExpanded}
-                    toggleExpand={toggleExpand}
+                    status={taskStatus}
+                    completedTaskCounter={completedTaskCounter}
                 />
-            </View>
-
-            {taskHasError && (onCopyTextButtonPress ?? onRetryButtonPress) ? (
-                <View style={[styles.actionContainer, !failedTask?.error && { marginTop: 0 }]}>
-                    {onCopyTextButtonPress && isExpanded && failedTask?.error && (
-                        <Button
-                            title="Copy to clipboard"
-                            variant="outlined"
-                            onPress={handleCopyTextButtonPress}
+                <View style={{ flex: 1 }}>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        {renderItemText()}
+                        <ProgressExpandButton
+                            taskStatus={taskStatus}
+                            taskCounter={taskCounter}
+                            isExpanded={isExpanded}
+                            toggleExpand={toggleExpand}
                         />
-                    )}
-                    {onRetryButtonPress && (
-                        <Button title="Retry" onPress={handleRetryButtonPress} />
-                    )}
+                    </View>
+
+                    <ProgressExpandableSection expanded={isExpanded}>
+                        <View style={styles.progressTaskItemContainer}>
+                            {tasks.map((task, index) => (
+                                <ProgressTaskItem
+                                    key={index}
+                                    task={task}
+                                    status={task.status}
+                                    onCopyTextButtonPress={task.onCopyTextButtonPress}
+                                    onRetryButtonPress={task.onRetryButtonPress}
+                                />
+                            ))}
+                        </View>
+                    </ProgressExpandableSection>
                 </View>
+            </View>
+            {onRetryButtonPress && taskHasError ? (
+                <Button iconName="restart" title="Retry" onPress={handleRetryButtonPress} />
             ) : null}
         </View>
     );
@@ -187,39 +181,24 @@ export const ProgressItem = ({
 ProgressItem.displayName = "Progress.Item";
 
 const themeStyles = EDSStyleSheet.create(theme => ({
-    progressContainer: {
+    container: {
         backgroundColor: theme.colors.container.default,
         paddingHorizontal: theme.spacing.menu.item.paddingHorizontal,
         borderRadius: theme.geometry.border.elementBorderRadius,
         justifyContent: "space-between",
         flexDirection: "column",
     },
-    mainContentContainer: {
-        flex: 1,
+    topRowContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        alignItems: "center",
         paddingVertical: theme.spacing.container.paddingVertical,
     },
-    statusAndTextContainer: {
+    descriptionTextContainer: {
         flex: 1,
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    descriptionContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: theme.spacing.button.iconGap,
-    },
-    textContainer: {
-        flex: 1,
-        flexDirection: "column",
-    },
-    actionContainer: {
-        marginTop: theme.spacing.container.paddingVertical,
-        marginBottom: theme.spacing.container.paddingVertical,
-        gap: theme.spacing.spacer.small,
+        gap: theme.spacing.cell.content.titleDescriptionGap,
     },
     progressTaskItemContainer: {
+        paddingVertical: theme.spacing.element.paddingVertical,
         gap: theme.spacing.cell.gapHorizontal,
     },
     status: {

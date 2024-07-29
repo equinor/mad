@@ -1,5 +1,15 @@
 # @equinor/mad-auth
 
+## 0.2.3
+
+### Patch Changes
+
+-   9093ffb: Decode id token instead of access token
+-   Updated dependencies [2012158]
+-   Updated dependencies [2012158]
+-   Updated dependencies [2012158]
+    -   @equinor/mad-components@0.14.7
+
 ## 0.2.2
 
 ### Patch Changes

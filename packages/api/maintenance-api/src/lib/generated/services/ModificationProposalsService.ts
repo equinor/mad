@@ -22,28 +22,28 @@ export class ModificationProposalsService {
      * In Equinor for upstream offshore, a modification proposal initiates the business processes 'OM103.01 - Initiate projects on plants in operation' or 'OM103.70.01 - Propose simple modifications in safety and automation systems'.
      * This request looks up a single Modification proposal.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
      * ### Update release 1.6.0
      * Added `301` response.
      *
-     * ### Update release v1.9.0
+     * ### Update release 1.9.0
      * Renamed property plannerGroupPlantId to planningPlantId.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added `quantity` for tasks.
      *
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
      * ### Update release 1.28.0
@@ -157,11 +157,11 @@ export class ModificationProposalsService {
      * ### Important information
      * The `isSimpleProposal` attribute determines if this is a simple proposal. For a simple proposal, `reasonGroupId` and `reasonId` are not required.
      *
-     * ### Update release v1.9.0
+     * ### Update release 1.9.0
      * Renamed property plannerGroupPlantId to planningPlantId.
      *
-     * ### Update release v1.21.0
-     * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
+     * ### Update release 1.21.0
+     * Add property `isExcludedFromWorkOrderPlan` to operations model.
      *
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
@@ -282,7 +282,7 @@ export class ModificationProposalsService {
     }: {
         recordId: string,
         /**
-         * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
          *
          */
         documentId?: string | null,

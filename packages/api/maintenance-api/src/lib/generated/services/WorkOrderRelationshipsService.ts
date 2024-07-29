@@ -28,11 +28,14 @@ export class WorkOrderRelationshipsService {
      * ### Important information
      * The maintenance record must not be closed.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added relationship of type `TechnicalFeedback`.
      *
      * ### Update release 1.15.0
      * Fixed issue with `relatedWorkOrder` `source` `ObjectList`.
+     *
+     * ### Update release 1.31.0
+     * Removed requirement for providing `reasonId` as part of the `technicalFeedbackParameters` when `source` is `TechnicalFeedback`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

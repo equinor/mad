@@ -8,7 +8,7 @@
         "test": "jest",
         "dev": "tsup-node --watch --clean=false",
         "lint": "eslint src/",
-        "clean": "rm -rf node_modules/ && rm -rf dist/"
+        "clean": "rm -rf node_modules dist .turbo"
     },
     "keywords": [
         "react native",
@@ -26,20 +26,17 @@
     "homepage": "https://github.com/equinor/mad/",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "dependencies": {
-        "@react-navigation/elements": "1.3.21"
-    },
     "peerDependencies": {
-        "react": ">=18.0",
-        "react-dom": ">=18.0",
-        "react-native": ">=0.70",
+        "@react-navigation/bottom-tabs": ">=6",
+        "@react-navigation/elements": "1.3.30",
         "@react-navigation/native": ">=6",
         "@react-navigation/native-stack": ">=6",
-        "@react-navigation/bottom-tabs": ">=6",
-        "@react-navigation/elements": "1.3.21"
+        "react": ">=18.0",
+        "react-dom": ">=18.0",
+        "react-native": ">=0.70"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "*"
+        "@equinor/eslint-config-mad": "workspace:*"
     },
     "files": [
         "CODE_OF_CONDUCT.md",

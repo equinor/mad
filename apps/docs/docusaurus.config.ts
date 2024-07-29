@@ -70,6 +70,11 @@ const config: Config = {
                         },
                         {
                             type: "docSidebar",
+                            sidebarId: "navigationSidebar",
+                            label: "MAD Navigation",
+                        },
+                        {
+                            type: "docSidebar",
                             sidebarId: "componentsSidebar",
                             label: "Components",
                         },
@@ -77,6 +82,11 @@ const config: Config = {
                             type: "docSidebar",
                             sidebarId: "toastSidebar",
                             label: "MAD Toast",
+                        },
+                        {
+                            type: "docSidebar",
+                            sidebarId: "tagOCRSidebar",
+                            label: "MAD Tag OCR",
                         },
                     ],
                 },
@@ -102,8 +112,16 @@ const config: Config = {
                             to: "docs/mad-core/introduction",
                         },
                         {
+                            label: "MAD Navigation",
+                            to: "docs/mad-core/introduction",
+                        },
+                        {
                             label: "MAD Toast",
                             to: "docs/mad-toast/introduction",
+                        },
+                        {
+                            label: "MAD Tag OCR",
+                            to: "docs/mad-tag-ocr/introduction",
                         },
                     ],
                 },

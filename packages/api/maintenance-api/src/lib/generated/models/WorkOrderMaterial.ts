@@ -30,6 +30,18 @@ export type WorkOrderMaterial = {
     quantityUnitId: string;
     location: string;
     /**
+     * The final location of the material.
+     * Extracted from `location`.
+     *
+     */
+    finalLocation: string;
+    /**
+     * Temporary location of the material.
+     * Extracted from `location`.
+     *
+     */
+    temporaryLocation: string;
+    /**
      * Flag to indicate the delivery should be held at supplying base instead of immediately being delivered to its destination
      */
     holdDeliveryOnshore: boolean;

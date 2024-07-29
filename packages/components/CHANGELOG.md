@@ -1,5 +1,49 @@
 # @equinor/mad-components
 
+## 0.14.11
+
+### Patch Changes
+
+-   c81ddfe: Resolved an issue with the `Cell` component on web where it failed to re-render after
+    interaction with the swipeable content
+-   c81ddfe: Resolved an issue with the `Cell` component where swiping triggered the `onPress` event
+    and left the Cell color highlighted
+-   c81ddfe: Updated animation for the `PressableHighlight` component. It now uses
+    react-native-reanimated.
+
+## 0.14.10
+
+### Patch Changes
+
+-   8046826: Add `forwardRef` support to `Cell.Button`
+
+## 0.14.9
+
+### Patch Changes
+
+-   4ba6843: Fixed issue where tasks with removed status was not included in the task counter in the
+    `Progress` component
+-   4ba6843: Added new `icon` and `iconColor` props, allowing users to display an icon on the right
+    side of the progress task title in the `Progress` component.
+
+## 0.14.8
+
+### Patch Changes
+
+-   8c8e10c: Adjusted the position of the `copy` and `return` button in the `Progress` component.
+    They are now next to the task item. Retry button can also be shown at the bottom of the
+    `Progress.Item`
+-   8c8e10c: Added `removed` status to the `Progress` component.
+-   8c8e10c: Added animations to the progress line in the `Progress` component.
+
+## 0.14.7
+
+### Patch Changes
+
+-   2012158: `Progress.Item` tasks are now allowed to use more screen estate
+-   2012158: "Copy to clipboard" button for task errors now render under the respective error
+-   2012158: `Progress.Item` task lines now visually indicate the current progress better
+
 ## 0.14.6
 
 ### Patch Changes

@@ -7,19 +7,41 @@ import { Icon } from "../Icon";
 import { CircularProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
 import { statusToColor, statusToIconName } from "./progressUtils";
-import { ProgressStatus, ProgressTask } from "./types";
+import { ProgressStatus, ProgressTask, ProgressTaskError } from "./types";
+import { Button } from "../Button";
 
 type ProgressTaskProps = {
     task: ProgressTask;
     status: ProgressStatus;
+    onCopyTextButtonPress?: (message: ProgressTaskError) => void;
+    onRetryButtonPress?: (task: ProgressTask) => void;
 };
 
-export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
+export const ProgressTaskItem = ({
+    task,
+    status,
+    onCopyTextButtonPress,
+    onRetryButtonPress,
+}: ProgressTaskProps) => {
     const styles = useStyles(themeStyles);
     const token = useToken();
 
     const taskInProgress = status === "inProgress";
     const showErrorDetails = task.status === "error" && task.error;
+
+    const taskHasError = task.status === "error";
+
+    const handleRetryButtonPress = () => {
+        if (taskHasError) {
+            onRetryButtonPress && onRetryButtonPress(task);
+        }
+    };
+
+    const handleCopyTextButtonPress = () => {
+        if (task?.error) {
+            onCopyTextButtonPress && onCopyTextButtonPress(task?.error);
+        }
+    };
 
     const renderError = () => {
         return task.error ? (
@@ -52,27 +74,73 @@ export const ProgressTaskItem = ({ task, status }: ProgressTaskProps) => {
     );
 
     return (
-        <View style={styles.taskContainer}>
-            <View style={styles.taskTitleContainer}>
-                {taskStatusIndicator}
-                <Typography>{task.title}</Typography>
+        <View style={styles.container}>
+            <View style={styles.taskContainer}>
+                <View style={styles.taskStatusAndTitle}>
+                    {taskStatusIndicator}
+                    <Typography
+                        group="paragraph"
+                        variant="body_short"
+                        bold={task.status === "error" || task.status === "inProgress"}
+                        color={
+                            status === "notStarted" || status === "removed"
+                                ? "textTertiary"
+                                : "textPrimary"
+                        }
+                    >
+                        {task.title}
+                    </Typography>
+                </View>
+                {task.icon && (
+                    <Icon
+                        color={task.iconColor ?? "secondary"}
+                        style={styles.icon}
+                        name={task.icon}
+                    />
+                )}
             </View>
+
             {showErrorDetails && renderError()}
+            <View style={styles.actionContainer}>
+                {onCopyTextButtonPress && task?.status === "error" && (
+                    <Button
+                        title="Copy to clipboard"
+                        iconName="clipboard-outline"
+                        variant="outlined"
+                        onPress={handleCopyTextButtonPress}
+                    />
+                )}
+                {onRetryButtonPress && task.status === "error" ? (
+                    <Button iconName="restart" title="Retry" onPress={handleRetryButtonPress} />
+                ) : null}
+            </View>
         </View>
     );
 };
 
 const themeStyles = EDSStyleSheet.create(theme => ({
-    taskContainer: {
-        gap: theme.spacing.cell.content.titleDescriptionGap,
+    container: {
+        gap: theme.spacing.element.paddingVertical,
     },
-    taskTitleContainer: {
+    taskContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    taskStatusAndTitle: {
         flexDirection: "row",
         alignItems: "center",
         gap: theme.spacing.button.iconGap,
     },
+    icon: {
+        paddingHorizontal: theme.spacing.button.paddingHorizontal,
+    },
     errorContainer: {
         flexDirection: "column",
         gap: theme.spacing.cell.content.titleDescriptionGap,
+    },
+    actionContainer: {
+        flexDirection: "row",
+        gap: theme.spacing.spacer.small,
     },
 }));
