@@ -132,7 +132,7 @@ export const ProgressIndicatorScreen = () => {
             <CircularProgressSection />
             <Spacer amount="large" />
             <Spacer amount="large" />
-            {/* <LinearProgressSection /> */}
+            <LinearProgressSection />
             <Spacer amount="large" />
             <Spacer amount="large" />
             <DotProgressSection />

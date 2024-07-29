@@ -17,13 +17,11 @@ export const useAnimatedProgress = (value?: number, invertedDefaltProgress = fal
 
     useEffect(() => {
         if (value !== undefined) {
-            ("worklet");
             progressValue.value = withTiming(value, {
                 duration: token.timing.animation.normal,
                 easing: Easing.inOut(Easing.ease),
             });
         } else {
-            ("worklet");
             progressValue.value = withTiming(defaultProgress, {
                 duration: token.timing.animation.normal,
                 easing: Easing.inOut(Easing.ease),

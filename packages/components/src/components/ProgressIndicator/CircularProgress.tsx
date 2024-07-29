@@ -30,7 +30,7 @@ const CIRCUMFERENCE = Math.PI * 2 * RADIUS;
 export const CircularProgress = ({ color, value, size = 48, ...rest }: CircularProgressProps) => {
     const styles = useStyles(themeStyles, { color });
     const progressValue = useAnimatedProgress(value);
-    const rotationValue = useNoProgressAnimation(value);
+    const rotationValue = useNoProgressAnimation();
 
     const strokeDashoffset = useAnimatedProps(() => {
         const dashOffset = interpolate(progressValue.value, [0, 1], [2 * Math.PI * RADIUS, 0]);
@@ -40,11 +40,14 @@ export const CircularProgress = ({ color, value, size = 48, ...rest }: CircularP
     }, [progressValue]);
 
     const animatedStyle = useAnimatedStyle(() => {
+        if (value !== undefined) {
+            return { transform: [{ rotate: `-90deg` }] };
+        }
         const phi = interpolate(rotationValue.value, [0, 1], [-90, 270]);
         return {
             transform: [{ rotate: `${phi}deg` }],
         };
-    }, [rotationValue]);
+    }, [rotationValue, value]);
 
     return (
         <View {...rest} style={[{ width: size, height: size }, rest.style]}>
