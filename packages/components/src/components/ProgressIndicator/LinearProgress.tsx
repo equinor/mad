@@ -6,7 +6,7 @@ import Animated, {
     useDerivedValue,
     Extrapolation,
 } from "react-native-reanimated";
-import Svg, { Rect } from "react-native-svg";
+import { Rect, Svg } from "react-native-svg";
 import { useToken } from "../../hooks/useToken";
 import { ProgressIndicatorProps } from "./types";
 import { useAnimatedProgress } from "./useAnimatedProgress";
@@ -21,7 +21,7 @@ const STROKE_WIDTH = 6;
 export const LinearProgress = ({ value, ...rest }: LinearProgressProps) => {
     const token = useToken();
     const progressValue = useAnimatedProgress(value, true);
-    const slideValue = useNoProgressAnimation(value);
+    const slideValue = useNoProgressAnimation();
 
     const progress = useDerivedValue(() => {
         return interpolate(progressValue.value, [0, 1], [0, 1], Extrapolation.CLAMP);

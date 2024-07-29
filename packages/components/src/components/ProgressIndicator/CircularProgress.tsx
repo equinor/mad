@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ViewProps } from "react-native";
 import Animated, { interpolate, useAnimatedProps, useAnimatedStyle } from "react-native-reanimated";
-import Svg, { Circle } from "react-native-svg";
+import { Circle, Svg } from "react-native-svg";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { ProgressIndicatorProps } from "./types";
