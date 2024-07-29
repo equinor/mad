@@ -1,6 +1,24 @@
-import { useEffect, useRef } from "react";
-import { Animated } from "react-native";
+import { useEffect } from "react";
+import {
+    useSharedValue,
+    withTiming,
+    withRepeat,
+    Easing,
+    EasingFunction,
+} from "react-native-reanimated";
 import { useToken } from "../../hooks/useToken";
+
+/**
+ * Easing function that accelerates until halfway, then decelerates.
+ * This function provides a smooth transition that starts slowly,
+ * accelerates in the middle, and then slows down towards the end.
+ *
+ * @param t - The current time (usually between 0 and 1).
+ * @returns The interpolated value at the given time `t`.
+ */
+const easeInOutCubic: EasingFunction = t => {
+    return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+};
 
 /**
  * Creates a smooth looping animated value.
@@ -8,31 +26,30 @@ import { useToken } from "../../hooks/useToken";
  * @returns An animated value between 0 and 1 representing the current loop progress.
  */
 export const useNoProgressAnimation = (value?: number) => {
-    const loopValue = useRef(new Animated.Value(value ?? 0)).current;
+    const loopValue = useSharedValue<number>(value ?? 0);
     const token = useToken();
 
-    const endlessAnimation = Animated.loop(
-        Animated.timing(loopValue, {
-            toValue: 1,
-            duration: 1500,
-            useNativeDriver: true,
-        }),
-    );
-
-    const resetAnimation = Animated.timing(loopValue, {
-        toValue: 0,
-        duration: token.timing.animation.normal,
-        useNativeDriver: true,
-    });
-
     useEffect(() => {
+        const animationConfig = {
+            duration: 1500,
+            easing: easeInOutCubic,
+        };
         if (value !== undefined) {
-            resetAnimation.start(() => endlessAnimation.stop());
+            ("worklet");
+            loopValue.value = withTiming(
+                0,
+                {
+                    duration: token.timing.animation.normal,
+                    easing: Easing.inOut(Easing.ease),
+                },
+                () => {
+                    loopValue.value = withRepeat(withTiming(1, animationConfig), -1, false);
+                },
+            );
         } else {
-            endlessAnimation.start();
+            ("worklet");
+            loopValue.value = withRepeat(withTiming(1, animationConfig), -1, false);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
-    }, [value]);
-
+    }, [value, token.timing.animation.normal, loopValue]);
     return loopValue;
 };

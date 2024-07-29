@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
-import { Circle, Svg } from "react-native-svg";
-import { ProgressIndicatorProps } from "./types";
+import React from "react";
 import { View, ViewProps } from "react-native";
+import Animated, { interpolate, useAnimatedProps, useAnimatedStyle } from "react-native-reanimated";
+import Svg, { Circle } from "react-native-svg";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
-
-import Animated, {
-    useAnimatedProps,
-    useSharedValue,
-    withTiming,
-    withRepeat,
-    Easing,
-} from "react-native-reanimated";
-import { useToken } from "../../hooks/useToken";
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+import { ProgressIndicatorProps } from "./types";
+import { useAnimatedProgress } from "./useAnimatedProgress";
+import { useNoProgressAnimation } from "./useNoProgressAnimation";
 
 export type CircularProgressProps = {
     /**
@@ -27,70 +20,70 @@ export type CircularProgressProps = {
 } & ProgressIndicatorProps &
     ViewProps;
 
-export const CircularProgress = ({
-    size = 100,
-    color = "primary",
-    value = 0,
-    style,
-    ...rest
-}: CircularProgressProps) => {
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
+const RELATIVE_SIZE_VALUE = 12;
+const STROKE_WIDTH = 1.0;
+const RADIUS = (RELATIVE_SIZE_VALUE - STROKE_WIDTH) / 2;
+const CIRCUMFERENCE = Math.PI * 2 * RADIUS;
+
+export const CircularProgress = ({ color, value, size = 48, ...rest }: CircularProgressProps) => {
     const styles = useStyles(themeStyles, { color });
-    const token = useToken();
+    const progressValue = useAnimatedProgress(value);
+    const rotationValue = useNoProgressAnimation(value);
 
-    const strokeColor = styles.circle.color;
-    const strokeWidth = 10;
-    const radius = (size - strokeWidth) / 2;
-    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = useAnimatedProps(() => {
+        const dashOffset = interpolate(progressValue.value, [0, 1], [2 * Math.PI * RADIUS, 0]);
+        return {
+            strokeDashoffset: dashOffset,
+        };
+    }, [progressValue]);
 
-    const progress = useSharedValue(value ?? 0);
-    const animatedProps = useAnimatedProps(() => ({
-        strokeDashoffset: circumference * (1 - progress.value),
-    }));
-
-    useEffect(() => {
-        if (value === undefined) {
-            // Indeterminate mode
-            progress.value = withRepeat(
-                withTiming(1, { duration: token.timing.animation.slow, easing: Easing.linear }),
-                -1,
-                false,
-            );
-        } else {
-            // Determinate mode
-            progress.value = withTiming(value, { duration: token.timing.animation.normal });
-        }
-    }, [progress, value]);
+    const animatedStyle = useAnimatedStyle(() => {
+        const phi = interpolate(rotationValue.value, [0, 1], [-90, 270]);
+        return {
+            transform: [{ rotate: `${phi}deg` }],
+        };
+    }, [rotationValue]);
 
     return (
-        <View style={[{ width: size, height: size }, style]} {...rest}>
-            <Svg width={size} height={size}>
-                <Circle
-                    stroke="#e0e0e0"
-                    fill="none"
-                    cx={size / 2}
-                    cy={size / 2}
-                    r={radius}
-                    strokeWidth={strokeWidth}
-                />
-                <AnimatedCircle
-                    stroke={strokeColor}
-                    fill="none"
-                    cx={size / 2}
-                    cy={size / 2}
-                    r={radius}
-                    strokeWidth={strokeWidth}
-                    strokeDasharray={`${circumference} ${circumference}`}
-                    animatedProps={animatedProps}
-                    strokeLinecap="round"
-                />
-            </Svg>
+        <View {...rest} style={[{ width: size, height: size }, rest.style]}>
+            <Animated.View style={animatedStyle}>
+                <Svg
+                    width={size}
+                    height={size}
+                    role="progressbar"
+                    viewBox={`0 0 ${RELATIVE_SIZE_VALUE} ${RELATIVE_SIZE_VALUE}`}
+                >
+                    <Circle
+                        opacity={styles.circle.opacity}
+                        stroke={styles.circle.color}
+                        strokeWidth={STROKE_WIDTH}
+                        fill="none"
+                        cx={RELATIVE_SIZE_VALUE / 2}
+                        cy={RELATIVE_SIZE_VALUE / 2}
+                        r={RADIUS}
+                    />
+                    <AnimatedCircle
+                        fill="none"
+                        cx={RELATIVE_SIZE_VALUE / 2}
+                        cy={RELATIVE_SIZE_VALUE / 2}
+                        r={RADIUS}
+                        stroke={styles.circle.color}
+                        strokeWidth={STROKE_WIDTH}
+                        strokeDasharray={`${CIRCUMFERENCE} ${CIRCUMFERENCE}`}
+                        animatedProps={strokeDashoffset}
+                        strokeLinecap="round"
+                    />
+                </Svg>
+            </Animated.View>
         </View>
     );
 };
+
 CircularProgress.displayName = "CircularProgress";
 
 type CircularProgressStyleProps = Pick<CircularProgressProps, "color">;
-
 const themeStyles = EDSStyleSheet.create((theme, props: CircularProgressStyleProps) => {
     const color =
         props.color === "neutral"
