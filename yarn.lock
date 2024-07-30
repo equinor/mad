@@ -2918,7 +2918,7 @@ __metadata:
     react-native: "npm:0.74.2"
     react-native-device-info: "npm:^10.9.0"
     react-native-gesture-handler: "npm:~2.16.1"
-    react-native-msal: "git+https://github.com/equinor/react-native-msal.git#aab47eeeec682d94413c8fa1f682ac766093a417"
+    react-native-msal: "git+https://github.com/equinor/react-native-msal.git#335a17ede118b637b50e03ee9062f30faab4affd"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.1"
     react-native-screens: "npm:3.31.1"
@@ -3444,36 +3444,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:~7.2.2":
-  version: 7.2.5
-  resolution: "@expo/config-plugins@npm:7.2.5"
-  dependencies:
-    "@expo/config-types": "npm:^49.0.0-alpha.1"
-    "@expo/json-file": "npm:~8.2.37"
-    "@expo/plist": "npm:^0.0.20"
-    "@expo/sdk-runtime-versions": "npm:^1.0.0"
-    "@react-native/normalize-color": "npm:^2.0.0"
-    chalk: "npm:^4.1.2"
-    debug: "npm:^4.3.1"
-    find-up: "npm:~5.0.0"
-    getenv: "npm:^1.0.0"
-    glob: "npm:7.1.6"
-    resolve-from: "npm:^5.0.0"
-    semver: "npm:^7.5.3"
-    slash: "npm:^3.0.0"
-    xcode: "npm:^3.0.1"
-    xml2js: "npm:0.6.0"
-  checksum: 10c0/304390f43db2d44ed85a4c0e2ba8b58b2432984adfc91b8090f045ae5a9ec1707923fb89c56abf4b4322e540ff98e54798366dc5065932a1d407ec6354d4b07c
-  languageName: node
-  linkType: hard
-
-"@expo/config-types@npm:^49.0.0-alpha.1":
-  version: 49.0.0
-  resolution: "@expo/config-types@npm:49.0.0"
-  checksum: 10c0/63ff00ab2ed908ce0656eeb320e0bd8536dd31753840f7214c5c3b90b9f60fe815c06d3b237ba3d9315e8de6411548bf19202a79f5eeafe0a802b56f25d183f5
-  languageName: node
-  linkType: hard
-
 "@expo/config-types@npm:^51.0.0-unreleased":
   version: 51.0.2
   resolution: "@expo/config-types@npm:51.0.2"
@@ -3563,17 +3533,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/json-file@npm:~8.2.37":
-  version: 8.2.37
-  resolution: "@expo/json-file@npm:8.2.37"
-  dependencies:
-    "@babel/code-frame": "npm:~7.10.4"
-    json5: "npm:^2.2.2"
-    write-file-atomic: "npm:^2.3.0"
-  checksum: 10c0/2a78b1fda38c4ad7e6147f6a86e7982a8fc1b3e7a91543408ce9d3a435e4b07e45b8f863b718668dfdfb9876b213c53e14e418064ca4cc5f57fea2362be64864
-  languageName: node
-  linkType: hard
-
 "@expo/metro-config@npm:0.18.9, @expo/metro-config@npm:~0.18.6":
   version: 0.18.9
   resolution: "@expo/metro-config@npm:0.18.9"
@@ -3636,17 +3595,6 @@ __metadata:
     split: "npm:^1.0.1"
     sudo-prompt: "npm:9.1.1"
   checksum: 10c0/4ec8e550c0a6cbf9b28e9c2b2d884552e0e8f4cee3e553419f829cc9b979c256cb5554a733e3f0575ad61413d4a6614abbd167da36e79601d2963a7b7d467354
-  languageName: node
-  linkType: hard
-
-"@expo/plist@npm:^0.0.20":
-  version: 0.0.20
-  resolution: "@expo/plist@npm:0.0.20"
-  dependencies:
-    "@xmldom/xmldom": "npm:~0.7.7"
-    base64-js: "npm:^1.2.3"
-    xmlbuilder: "npm:^14.0.0"
-  checksum: 10c0/4efbe59296f5ffde8021e0be4c63dfb552189187e5fb3ecbb3b1420591ff8a76c170a916d11aaac49963a53deededd19f967550f676a488935a22b1553e8bc3d
   languageName: node
   linkType: hard
 
@@ -5038,13 +4986,6 @@ __metadata:
   peerDependencies:
     "@babel/core": "*"
   checksum: 10c0/321510680c14d2cab86889feee0ba0c6374a5805031fd52c5bdbc69c6f7451e733715ffe9fc4e08d1fab02f9b4caf705be5c53954f89164eb881c9f490b20f18
-  languageName: node
-  linkType: hard
-
-"@react-native/normalize-color@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "@react-native/normalize-color@npm:2.1.0"
-  checksum: 10c0/95814a1e2aac9c00dfc2c65f9e2caec07f70d3dba903b5640f5cf24605bf39863e572f2a5138a85d1c514fb3c33f6931595e0a9f738a58b5c220ee74f2bec13b
   languageName: node
   linkType: hard
 
@@ -18602,16 +18543,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-msal@git+https://github.com/equinor/react-native-msal.git#aab47eeeec682d94413c8fa1f682ac766093a417":
+"react-native-msal@git+https://github.com/equinor/react-native-msal.git#335a17ede118b637b50e03ee9062f30faab4affd":
   version: 1.0.6
-  resolution: "react-native-msal@https://github.com/equinor/react-native-msal.git#commit=aab47eeeec682d94413c8fa1f682ac766093a417"
+  resolution: "react-native-msal@https://github.com/equinor/react-native-msal.git#commit=335a17ede118b637b50e03ee9062f30faab4affd"
   dependencies:
     "@azure/msal-browser": "npm:^2.3.4"
-    "@expo/config-plugins": "npm:~7.2.2"
+    "@expo/config-plugins": "npm:~8.0.8"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/4d58b1c50ef1e7b2937033d98e6b71bf0c7071b56967a7eb98e3ab3f0a13b855170bb031c500e57d74700579b54f0bd5b315477a458e336d91f96011e072a8a9
+  checksum: 10c0/f139dc983490375a360bde3ccbb4e9a279b81cc2f7aa11103c1aec3a1fdd59cdea8f3a1641fc6bf90c86f3927a706d786f24c6654cad17727d121bb536a1252d
   languageName: node
   linkType: hard
 
