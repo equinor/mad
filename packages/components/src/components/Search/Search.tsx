@@ -1,26 +1,25 @@
-// eslint-disable-next-line import/default
-import Animated, {
-    interpolate,
-    useAnimatedStyle,
-    useSharedValue,
-    withTiming,
-} from "react-native-reanimated";
 import React, { FocusEvent, useEffect, useRef, useState } from "react";
 import {
+    LayoutChangeEvent,
     NativeSyntheticEvent,
     Platform,
     TextInput,
     TextInputFocusEventData,
     View,
 } from "react-native";
+import Animated, {
+    interpolate,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming,
+} from "react-native-reanimated";
 
 import { Button } from "../../components/Button";
-import { TextField } from "../../components/TextField";
 import { useStyles } from "../../hooks/useStyles";
 import { useToken } from "../../hooks/useToken";
 import { EDSStyleSheet } from "../../styling/EDSStyleSheet";
-import { InputProps } from "../Input";
 import { Icon } from "../Icon";
+import { Input, InputProps } from "../Input";
 
 export type SearchProps = Omit<InputProps, "multiline"> & {
     cancellable?: boolean;
@@ -38,17 +37,17 @@ export const Search = ({
 }: SearchProps) => {
     const [text, setText] = useState(value ?? "");
     const [isInputFocused, setIsInputFocused] = useState(false);
-    const [cancelButtonWidth, setCancelButtonWidth] = useState<number>(0);
 
-    const styles = useStyles(themedStyles);
+    const styles = useStyles(themedStyles, { isInputFocused });
     const token = useToken();
 
     const inputRef = useRef<TextInput>(null);
     const animationValue = useSharedValue(0);
+    const cancelButtonWidth = useSharedValue(0);
 
     const cancelButtonStyle = useAnimatedStyle(() => {
         const opacity = interpolate(animationValue.value, [0, 1], [0, 1]);
-        const translateX = interpolate(animationValue.value, [0, 1], [cancelButtonWidth, 0]);
+        const translateX = interpolate(animationValue.value, [0, 1], [cancelButtonWidth.value, 0]);
 
         return {
             opacity: opacity,
@@ -61,7 +60,7 @@ export const Search = ({
             marginRight: interpolate(
                 animationValue.value,
                 [0, 1],
-                [0, cancelButtonWidth + token.spacing.element.paddingHorizontal],
+                [0, cancelButtonWidth.value + token.spacing.element.paddingHorizontal],
             ),
         };
     });
@@ -71,7 +70,7 @@ export const Search = ({
         animationValue.value = withTiming(isInputFocused ? 1 : 0, {
             duration: token.timing.animation.slow,
         });
-    }, [isInputFocused, cancellable, animationValue, token.timing.animation.slow]);
+    }, [isInputFocused, text, cancellable, animationValue, token.timing.animation.slow]);
 
     useEffect(() => {
         if (value) {
@@ -117,7 +116,7 @@ export const Search = ({
     return (
         <View style={styles.container}>
             <Animated.View style={inputStyle}>
-                <TextField
+                <Input
                     {...restProps}
                     readOnly={disabled}
                     ref={inputRef}
@@ -159,15 +158,10 @@ export const Search = ({
             </Animated.View>
             {cancellable && (
                 <Animated.View
-                    style={[
-                        cancelButtonStyle,
-                        {
-                            position: "absolute",
-                            right: 0,
-                            pointerEvents: isInputFocused ? "auto" : "none",
-                        },
-                    ]}
-                    onLayout={event => setCancelButtonWidth(event.nativeEvent.layout.width)}
+                    style={[cancelButtonStyle, styles.buttonWrapper]}
+                    onLayout={(event: LayoutChangeEvent) => {
+                        cancelButtonWidth.value = event.nativeEvent.layout.width;
+                    }}
                 >
                     <Button
                         variant="ghost"
@@ -181,7 +175,7 @@ export const Search = ({
     );
 };
 
-const themedStyles = EDSStyleSheet.create(theme => {
+const themedStyles = EDSStyleSheet.create((theme, props: { isInputFocused: boolean }) => {
     return {
         container: {
             flexGrow: 1,
@@ -198,6 +192,11 @@ const themedStyles = EDSStyleSheet.create(theme => {
             paddingLeft: 16,
             paddingRight: 4,
             paddingVertical: theme.spacing.element.paddingVertical,
+        },
+        buttonWrapper: {
+            right: 0,
+            position: "absolute",
+            pointerEvents: props.isInputFocused ? "auto" : "none",
         },
     };
 });
