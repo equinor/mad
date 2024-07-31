@@ -24,6 +24,10 @@ jobs:
                   cache: yarn
                   cache-dependency-path: yarn.lock
 
+            - name: Replace workspace dependencies
+              run: |
+                find . -name "package.json" -type f -exec sed -i "" -e 's/workspace:\*/\*/g' {} +            
+
             - name: 📦 Install Dependencies
               run: yarn install --immutable
 
