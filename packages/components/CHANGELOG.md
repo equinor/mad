@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.14.13
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+
 ## 0.14.12
 
 ### Patch Changes

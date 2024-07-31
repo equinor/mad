@@ -1,5 +1,13 @@
 # @equinor/mad-auth
 
+## 0.2.5
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+-   Updated dependencies [fc6505c]
+    -   @equinor/mad-components@0.14.13
+
 ## 0.2.4
 
 ### Patch Changes
