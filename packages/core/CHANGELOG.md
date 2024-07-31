@@ -1,5 +1,17 @@
 # @equinor/mad-core
 
+## 0.9.3
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+-   Updated dependencies [fc6505c]
+    -   @equinor/mad-auth@0.2.5
+    -   @equinor/mad-components@0.14.13
+    -   @equinor/mad-insights@0.1.4
+    -   @equinor/mad-navigation@0.3.2
+    -   @equinor/mad-toast@0.1.2
+
 ## 0.9.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @equinor/eslint-config-mad
 
+## 0.4.1
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+
 ## 0.4.0
 
 ### Minor Changes
