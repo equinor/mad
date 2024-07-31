@@ -1,5 +1,17 @@
 # @equinor/mad-components
 
+## 0.14.12
+
+### Patch Changes
+
+-   dab732c: Prevent `CircularProgress` from rotating/animate in determinate mode.
+-   dab732c: Prevent `CircularProgress` from freezing on web after one rotation.
+-   00e6e0a: Prevent the clear text button from overlapping with the cancel button in the `Search`
+    component while typing
+-   dab732c: Updated linear and circular progress indicators. They now use animations from
+    `react-native-reanimated`
+-   00e6e0a: Fix unwanted flicker effect in `Progress` component during status updates
+
 ## 0.14.11
 
 ### Patch Changes
