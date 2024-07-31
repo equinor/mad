@@ -1,13 +1,14 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { LayoutChangeEvent, View } from "react-native";
 import Animated, {
-    Easing,
-    ReduceMotion,
     useAnimatedStyle,
+    useDerivedValue,
     useSharedValue,
     withTiming,
 } from "react-native-reanimated";
+import { useStyles } from "../../hooks/useStyles";
 import { useToken } from "../../hooks/useToken";
+import { EDSStyleSheet } from "../../styling";
 
 type ProgressExpandableSectionProps = {
     children: ReactNode;
@@ -18,45 +19,45 @@ export const ProgressExpandableSection = ({
     children,
     expanded,
 }: ProgressExpandableSectionProps) => {
-    const [height, setHeight] = useState(0);
-    const animatedHeight = useSharedValue(0);
+    const styles = useStyles(themeStyles);
     const token = useToken();
 
-    const onLayout = (event: LayoutChangeEvent) => {
-        const onLayoutHeight = event.nativeEvent.layout.height;
+    const height = useSharedValue(0);
 
-        if (onLayoutHeight > 0 && height !== onLayoutHeight) {
-            setHeight(onLayoutHeight);
-        }
-    };
-
-    const animatedStyle = useAnimatedStyle(() => {
-        const opacity = withTiming(expanded ? 1 : 0, {
+    const derivedHeight = useDerivedValue(() =>
+        withTiming(height.value * Number(expanded), {
             duration: token.timing.animation.slow,
-        });
-        animatedHeight.value = expanded
-            ? withTiming(height, {
-                  duration: token.timing.animation.slow,
-                  easing: Easing.inOut(Easing.quad),
-                  reduceMotion: ReduceMotion.System,
-              })
-            : withTiming(0, {
-                  duration: token.timing.animation.slow,
-                  easing: Easing.inOut(Easing.quad),
-                  reduceMotion: ReduceMotion.System,
-              });
+        }),
+    );
 
-        return {
-            height: animatedHeight.value,
-            opacity,
-        };
-    }, [expanded, height]);
+    const bodyStyle = useAnimatedStyle(() => ({
+        height: derivedHeight.value,
+        opacity: withTiming(expanded ? 1 : 0, {
+            duration: token.timing.animation.slow,
+        }),
+    }));
 
     return (
-        <Animated.View style={[animatedStyle, { overflow: "hidden" }]}>
-            <View style={{ position: "absolute", width: "100%" }} onLayout={onLayout}>
+        <Animated.View style={[styles.animatedView, bodyStyle]}>
+            <View
+                style={styles.wrapper}
+                onLayout={(event: LayoutChangeEvent) => {
+                    height.value = event.nativeEvent.layout.height;
+                }}
+            >
                 {children}
             </View>
         </Animated.View>
     );
 };
+
+const themeStyles = EDSStyleSheet.create(() => ({
+    animatedView: {
+        width: "100%",
+        overflow: "hidden",
+    },
+    wrapper: {
+        width: "100%",
+        position: "absolute",
+    },
+}));
