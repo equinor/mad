@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.9.5
+
+### Patch Changes
+
+-   12a30db: fixed logout button error
+
 ## 0.9.4
 
 ### Patch Changes
