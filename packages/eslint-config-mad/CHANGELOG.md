@@ -1,5 +1,17 @@
 # @equinor/eslint-config-mad
 
+## 0.4.1
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+
+## 0.4.0
+
+### Minor Changes
+
+-   ed5db74: Upgrade to use major version 7 for peer dependencies to typescript parser and plugin
+
 ## 0.3.1
 
 ### Patch Changes

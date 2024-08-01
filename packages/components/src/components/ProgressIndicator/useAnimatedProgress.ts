@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { Animated, Easing } from "react-native";
+import { useEffect } from "react";
+import { useSharedValue, withTiming, Easing } from "react-native-reanimated";
 import { useToken } from "../../hooks/useToken";
 
 const DEFAULT_PROGRESS = 0.618033; // Golden angle / ratio, if anyone is interested...
@@ -13,26 +13,21 @@ const DEFAULT_PROGRESS = 0.618033; // Golden angle / ratio, if anyone is interes
 export const useAnimatedProgress = (value?: number, invertedDefaltProgress = false) => {
     const defaultProgress = invertedDefaltProgress ? 1 - DEFAULT_PROGRESS : DEFAULT_PROGRESS;
     const token = useToken();
-    const progressValue = useRef(new Animated.Value(value ?? defaultProgress)).current;
-
-    const setProgressAnimation = (val: number) =>
-        Animated.timing(progressValue, {
-            toValue: val,
-            duration: token.timing.animation.normal,
-            useNativeDriver: true,
-            easing: Easing.inOut(Easing.ease),
-        });
+    const progressValue = useSharedValue<number>(value ?? defaultProgress);
 
     useEffect(() => {
-        if (value === undefined) {
-            setProgressAnimation(defaultProgress).start(() =>
-                setProgressAnimation(defaultProgress).stop(),
-            );
+        if (value !== undefined) {
+            progressValue.value = withTiming(value, {
+                duration: token.timing.animation.normal,
+                easing: Easing.inOut(Easing.ease),
+            });
         } else {
-            setProgressAnimation(value).start();
+            progressValue.value = withTiming(defaultProgress, {
+                duration: token.timing.animation.normal,
+                easing: Easing.inOut(Easing.ease),
+            });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
-    }, [value]);
+    }, [value, defaultProgress, token.timing.animation.normal, progressValue]);
 
     return progressValue;
 };

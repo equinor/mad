@@ -1,5 +1,11 @@
 # @equinor/mad-navigation
 
+## 0.3.2
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+
 ## 0.3.1
 
 ### Patch Changes

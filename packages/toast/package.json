@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-toast",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "description": "Toast package built on top of `react-native-toast-message`",
     "type": "module",
     "scripts": {
