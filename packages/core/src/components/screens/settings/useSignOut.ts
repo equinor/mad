@@ -1,17 +1,18 @@
 import { useCallback } from "react";
-import { useCoreStackNavigation } from "../../../hooks/useCoreStackNavigation";
+import { useCoreStackNavigation } from "../../../hooks";
 import { ExpoAuthSession, signOut } from "@equinor/mad-auth";
 import { alert } from "@equinor/mad-components";
-import { useDemoMode } from "../../../store/demo-mode";
 import { CoreRoutes } from "../../navigation/coreRoutes";
-import { getConfig } from "../../../store";
+import { useDemoMode, getConfig } from "../../../store";
 
 export const useSignOut = () => {
     const navigation = useCoreStackNavigation();
     const demoMode = useDemoMode();
     const signOutFn = useCallback(async () => {
         try {
-            const result = getConfig() ? ExpoAuthSession.signOut() : await signOut();
+            const result = getConfig().experimental?.useExpoAuthSession
+                ? ExpoAuthSession.signOut()
+                : await signOut();
             if (!demoMode.isEnabled && !result) throw new Error("Unable to sign out");
             demoMode.disableDemoMode();
             navigation.navigate(CoreRoutes.LOGIN);
