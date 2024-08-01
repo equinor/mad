@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.9.4
+
+### Patch Changes
+
+-   01751ef: update mad base url
+
 ## 0.9.3
 
 ### Patch Changes
