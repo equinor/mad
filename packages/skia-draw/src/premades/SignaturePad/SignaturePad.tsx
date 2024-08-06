@@ -1,20 +1,19 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
-import { Canvas } from "../../Canvas/Canvas";
-import { SignaturePadProps } from "../../types";
-import { View, StyleSheet, Text } from "react-native";
-import { SkRect } from "@shopify/react-native-skia";
 import { Button } from "@equinor/mad-components";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Canvas } from "../../Canvas/Canvas";
 import {
     CanvasControlProvider,
     CanvasControls,
     CanvasImageControls,
 } from "../../CanvasControlProvider";
+import { ImageSnapshotConfig, SignaturePadProps } from "../../types";
 
 export const SignaturePad = forwardRef<CanvasImageControls, SignaturePadProps>((props, ref) => {
     const canvasRef = useRef<CanvasControls>(null);
     useImperativeHandle(ref, () => ({
-        makeImageSnapshot: (rect?: SkRect) =>
-            canvasRef.current?.makeImageSnapshot(rect) ?? undefined,
+        makeImageSnapshot: (config?: ImageSnapshotConfig) =>
+            canvasRef.current?.makeImageSnapshot(config) ?? undefined,
     }));
     const canvasStyle = StyleSheet.flatten([styles.canvas, { height: props.height ?? 200 }]);
 
