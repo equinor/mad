@@ -1,8 +1,8 @@
-import { StyleSheet, View } from "react-native";
-import { PressableHighlight, PressableHightlightProps } from "@equinor/mad-components";
+import { PressableHighlight, PressableHighlightProps } from "@equinor/mad-components";
 import React, { ReactNode, forwardRef } from "react";
+import { StyleSheet, View } from "react-native";
 
-type EDSControlPanelButtonProps = { children?: ReactNode } & PressableHightlightProps;
+type EDSControlPanelButtonProps = { children?: ReactNode } & PressableHighlightProps;
 
 export const EDSControlPanelButton = forwardRef<View, EDSControlPanelButtonProps>(
     ({ children, ...rest }, ref) => {
