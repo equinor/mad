@@ -1,6 +1,8 @@
 ---
-"@equinor/react-native-skia-draw": patch
+"@equinor/react-native-skia-draw": minor
 ---
 
-Add support for setting encoding options on the `makeImageSnapshot` method and expose raw base64
-image data.
+-   **BREAKING:** Change method signature of `makeImageSnapshot` to only accept the
+    `ImageSnapshotConfig` object (was previously `SKRect`).
+-   Add support for setting encoding options on the `makeImageSnapshot` method.
+-   Expose raw base64 data through the `makeImageSnapshot` method.

@@ -1,6 +1,6 @@
 import { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { PropsWithChildren } from "react";
-import { ImageFormat } from "@shopify/react-native-skia";
+import { ImageFormat, SkRect } from "@shopify/react-native-skia";
 
 export type SkiaDrawSnapshot = {
     /**
@@ -38,9 +38,13 @@ export type CanvasProps = {
 };
 
 /**
- * Options object for configuring how the {@linkcode makeImageSnapshot} method encodes the resulting image.
+ * Options object for configuring how the {@linkcode makeImageSnapshot} method takes and encodes the current canvas state.
  */
-export type ImageSnapshotEncodingOptions = {
+export type ImageSnapshotConfig = {
+    /**
+     * The rectangle to capture. If omitted, the entire canvas will be captured.
+     */
+    rect?: SkRect;
     /**
      * The format to encode the image in. Defaults to PNG.
      */

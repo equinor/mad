@@ -1,9 +1,9 @@
+import { ImageFormat, SkiaDomView } from "@shopify/react-native-skia";
 import { ForwardedRef, MutableRefObject, RefObject, useImperativeHandle } from "react";
-import { ImageFormat, SkiaDomView, SkRect } from "@shopify/react-native-skia";
-import { useRerender } from "./useRerender";
 import { CanvasData } from "../Canvas/types";
 import { CanvasControls } from "../CanvasControlProvider";
-import { ImageSnapshotEncodingOptions, SkiaDrawSnapshot } from "../types";
+import { ImageSnapshotConfig, SkiaDrawSnapshot } from "../types";
+import { useRerender } from "./useRerender";
 
 const ImageFormatMimeTypeMap: Record<ImageFormat, string> = {
     [ImageFormat.JPEG]: "image/jpeg",
@@ -37,14 +37,11 @@ export const useCanvasControlHandle = (
         rerender();
     };
 
-    const makeImageSnapshot = (
-        rect?: SkRect,
-        encodingOptions?: ImageSnapshotEncodingOptions,
-    ): SkiaDrawSnapshot | undefined => {
-        const skImage = skiaCanvasRef.current?.makeImageSnapshot(rect) ?? undefined;
+    const makeImageSnapshot = (config?: ImageSnapshotConfig): SkiaDrawSnapshot | undefined => {
+        const skImage = skiaCanvasRef.current?.makeImageSnapshot(config?.rect) ?? undefined;
         if (skImage === undefined) return undefined;
-        const imageFormat = encodingOptions?.imageFormat ?? ImageFormat.PNG;
-        const b64Data = skImage.encodeToBase64(imageFormat, encodingOptions?.quality ?? 100);
+        const imageFormat = config?.imageFormat ?? ImageFormat.PNG;
+        const b64Data = skImage.encodeToBase64(imageFormat, config?.quality ?? 100);
         const data = b64Data;
         const uri = `data:${ImageFormatMimeTypeMap[imageFormat]};base64,${b64Data}`;
         const height = skImage.height() / 2;

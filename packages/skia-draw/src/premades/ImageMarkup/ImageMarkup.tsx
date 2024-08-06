@@ -1,13 +1,14 @@
-import { View, StyleSheet, ViewProps, KeyboardAvoidingView } from "react-native";
+import { Image as SKImage, useImage } from "@shopify/react-native-skia";
+import React, { forwardRef, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { KeyboardAvoidingView, StyleSheet, View, ViewProps } from "react-native";
 import { Canvas } from "../../Canvas/Canvas";
-import { EDSControlPanel } from "./EDSControlPanel";
-import React, { useImperativeHandle, useMemo, useRef, useState, forwardRef } from "react";
-import { useImage, Image as SKImage, SkRect } from "@shopify/react-native-skia";
 import {
     CanvasControlProvider,
     CanvasControls,
     CanvasImageControls,
 } from "../../CanvasControlProvider";
+import { ImageSnapshotConfig } from "../../types";
+import { EDSControlPanel } from "./EDSControlPanel";
 
 export type ImageMarkupProps = {
     markupImage?: string;
@@ -24,8 +25,8 @@ export const ImageMarkup = forwardRef<CanvasImageControls, ImageMarkupProps>((pr
     const canvasRef = useRef<CanvasControls>(null);
 
     useImperativeHandle(ref, () => ({
-        makeImageSnapshot: (rect?: SkRect, encodingOptions?: ImageEncodeOptions) =>
-            canvasRef.current?.makeImageSnapshot(rect, encodingOptions) ?? undefined,
+        makeImageSnapshot: (config?: ImageSnapshotConfig) =>
+            canvasRef.current?.makeImageSnapshot(config) ?? undefined,
     }));
 
     const image = useImage(props.markupImage);
