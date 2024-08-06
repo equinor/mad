@@ -13,8 +13,8 @@ import {
 export const SignaturePad = forwardRef<CanvasImageControls, SignaturePadProps>((props, ref) => {
     const canvasRef = useRef<CanvasControls>(null);
     useImperativeHandle(ref, () => ({
-        makeImageSnapshot: (rect?: SkRect) =>
-            canvasRef.current?.makeImageSnapshot(rect) ?? undefined,
+        makeImageSnapshot: (rect?: SkRect, encodingOptions?: ImageEncodeOptions) =>
+            canvasRef.current?.makeImageSnapshot(rect, encodingOptions) ?? undefined,
     }));
     const canvasStyle = StyleSheet.flatten([styles.canvas, { height: props.height ?? 200 }]);
 

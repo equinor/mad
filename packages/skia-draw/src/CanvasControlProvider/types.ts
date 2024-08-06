@@ -1,6 +1,6 @@
 import type { Color, SkRect } from "@shopify/react-native-skia";
 import type { CanvasTool } from "../Canvas/types";
-import { SkiaDrawSnapshot } from "../types";
+import { ImageSnapshotEncodingOptions, SkiaDrawSnapshot } from "../types";
 
 export type CanvasControlProviderProps = {
     /**
@@ -63,7 +63,10 @@ export type CanvasControlContextValues = {
 export type CanvasControls = {
     undo: () => void;
     clear: () => void;
-    makeImageSnapshot: (rect?: SkRect) => SkiaDrawSnapshot | undefined;
+    makeImageSnapshot: (
+        rect?: SkRect,
+        encodingOptions?: ImageSnapshotEncodingOptions,
+    ) => SkiaDrawSnapshot | undefined;
 };
 
 export type CanvasImageControls = Pick<Partial<CanvasControls>, "makeImageSnapshot">;

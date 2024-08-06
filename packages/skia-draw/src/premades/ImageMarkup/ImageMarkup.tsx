@@ -2,7 +2,7 @@ import { View, StyleSheet, ViewProps, KeyboardAvoidingView } from "react-native"
 import { Canvas } from "../../Canvas/Canvas";
 import { EDSControlPanel } from "./EDSControlPanel";
 import React, { useImperativeHandle, useMemo, useRef, useState, forwardRef } from "react";
-import { useImage, Image as SKImage } from "@shopify/react-native-skia";
+import { useImage, Image as SKImage, SkRect } from "@shopify/react-native-skia";
 import {
     CanvasControlProvider,
     CanvasControls,
@@ -24,7 +24,8 @@ export const ImageMarkup = forwardRef<CanvasImageControls, ImageMarkupProps>((pr
     const canvasRef = useRef<CanvasControls>(null);
 
     useImperativeHandle(ref, () => ({
-        makeImageSnapshot: () => canvasRef.current?.makeImageSnapshot() ?? undefined,
+        makeImageSnapshot: (rect?: SkRect, encodingOptions?: ImageEncodeOptions) =>
+            canvasRef.current?.makeImageSnapshot(rect, encodingOptions) ?? undefined,
     }));
 
     const image = useImage(props.markupImage);
