@@ -1,5 +1,14 @@
 # @equinor/react-native-skia-draw
 
+## 0.4.0
+
+### Minor Changes
+
+-   89ba65d: - **BREAKING:** Change method signature of `makeImageSnapshot` to only accept the
+    `ImageSnapshotConfig` object (was previously `SKRect`).
+    -   Add support for setting encoding options on the `makeImageSnapshot` method.
+    -   Expose raw base64 data through the `makeImageSnapshot` method.
+
 ## 0.3.27
 
 ### Patch Changes
