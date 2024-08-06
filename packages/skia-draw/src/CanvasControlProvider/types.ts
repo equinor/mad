@@ -1,4 +1,4 @@
-import type { Color, SkRect } from "@shopify/react-native-skia";
+import type { Color } from "@shopify/react-native-skia";
 import type { CanvasTool } from "../Canvas/types";
 import { ImageSnapshotConfig, SkiaDrawSnapshot } from "../types";
 
