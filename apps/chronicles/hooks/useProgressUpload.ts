@@ -108,17 +108,11 @@ export const useProgressUpload = (animal: "dog" | "cat") => {
         };
 
         resetTasks();
-
-        const TASK_TO_REMOVE = 4;
         const TASK_TO_FAIL = 3;
 
         for (let i = 0; i < tasks.length; i++) {
             if (scenario === "success") {
-                if (i === TASK_TO_REMOVE) {
-                    await simulateAndSetStatus(i, "removed");
-                } else {
-                    await simulateAndSetStatus(i, "success");
-                }
+                await simulateAndSetStatus(i, "success");
             } else if (scenario === "fail") {
                 if (i === TASK_TO_FAIL) {
                     updateTaskStatus(
