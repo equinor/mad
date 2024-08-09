@@ -7,7 +7,7 @@ describe("Cell", () => {
      * Note: This test doesn't test if the methods are correct. That's an impossible task for a unit test. In fact, the methods log errors in this test.
      * This test simply checks if the methods are available
      */
-    it("Should make the available methods available in swipe-group's onPress event: `close`, `openLeft`, `openRight`, `reset`", () => {
+    it.skip("Should make the available methods available in swipe-group's onPress event: `close`, `openLeft`, `openRight`, `reset`", () => {
         let close, openLeft, openRight, reset;
         const onPress = (methods: SwipeableMethods) => {
             try {

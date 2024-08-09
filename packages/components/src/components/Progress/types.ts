@@ -1,6 +1,6 @@
 import { IconName } from "../Icon";
 
-export type ProgressStatus = "success" | "error" | "notStarted" | "inProgress" | "removed";
+export type ProgressStatus = "success" | "error" | "notStarted" | "inProgress";
 
 export type ProgressTaskError = {
     /**

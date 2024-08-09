@@ -159,10 +159,6 @@ export const ProgressScreen = () => {
                 <Progress.Item title="Training cats to wear hats" status="inProgress" />
                 <Progress.Item title="Cats refusing to wear hats" status="error" />
                 <Progress.Item
-                    title="Terminate all cats that refuse to wear hats"
-                    status="removed"
-                />
-                <Progress.Item
                     title="Uploading images of cats with hats"
                     description="uploading cats with hats"
                     status="success"

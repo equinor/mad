@@ -1,6 +1,6 @@
 import { MasterToken, WithoutThemeOptionValues } from "../../styling";
 import { IconName } from "../Icon";
-import { ProgressStatus, ProgressTask } from "./types";
+import { ProgressStatus } from "./types";
 
 export const statusToIconName = (status: ProgressStatus): IconName => {
     switch (status) {
@@ -10,8 +10,6 @@ export const statusToIconName = (status: ProgressStatus): IconName => {
             return "alert-circle-outline";
         case "notStarted":
             return "clock-time-five-outline";
-        case "removed":
-            return "minus";
         default:
             return "blank";
     }
@@ -28,35 +26,16 @@ export const statusToColor = (
         case "error":
             return token.colors.feedback.danger;
         case "notStarted":
-        case "removed":
-            return token.colors.text.disabled;
-
         default:
             return token.colors.text.primary;
     }
 };
 
-export const computeTaskStatus = (
-    tasks: ProgressTask[],
-    status: ProgressStatus,
-): ProgressStatus => {
-    if (tasks.length === 0 && status) {
-        return status;
-    }
-    const hasOngoing = tasks.some(task => task.status === "inProgress");
-    const hasError = tasks.some(task => task.status === "error");
-    const hasRemoved = tasks.some(task => task.status === "removed");
-    const allSuccess = tasks.every(task => task.status === "success" || task.status === "removed");
-
-    if (hasError) {
-        return "error";
-    } else if (hasOngoing) {
+export const summarizeStatuses = (statuses: ProgressStatus[]): ProgressStatus => {
+    const statusPrecedence: ProgressStatus[] = ["error", "inProgress", "success", "notStarted"];
+    const precedenceReduced = statusPrecedence.filter(status => statuses.includes(status)).at(0);
+    if (!precedenceReduced) return "notStarted";
+    if (precedenceReduced === "success" && statuses.some(status => status !== "success"))
         return "inProgress";
-    } else if (allSuccess) {
-        return "success";
-    } else if (hasRemoved) {
-        return "removed";
-    } else {
-        return "notStarted";
-    }
+    return precedenceReduced;
 };
