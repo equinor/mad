@@ -93,7 +93,8 @@ const getUrl = (config: OpenAPIConfig, options: ApiRequestOptions): string => {
             return substring;
         });
 
-    const url = `${config.BASE}${path}`;
+    const url = `${config.BASE}${path}` + (path.endsWith('/') ? '' : '/');
+
     if (options.query) {
         return `${url}${getQueryString(options.query)}`;
     }
@@ -213,8 +214,8 @@ export const sendRequest = async (
     }
 
     onCancel(() => controller.abort());
-
-    return await fetch(url, request);
+    const response = await fetch(url, request);
+    return response;
 };
 
 export const getResponseHeader = (response: Response, responseHeader?: string): string | undefined => {
