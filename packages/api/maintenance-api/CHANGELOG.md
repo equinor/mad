@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.31.2
+
+### Patch Changes
+
+-   1ca3bfe: Moved to using the fetch API client
+
 ## 1.31.1
 
 ### Patch Changes

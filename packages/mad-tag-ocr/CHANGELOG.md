@@ -1,5 +1,12 @@
 # @equinor/react-native-mad-ocr
 
+## 0.0.4
+
+### Patch Changes
+
+-   Updated dependencies [2a428d6]
+    -   @equinor/mad-components@0.15.0
+
 ## 0.0.3
 
 ### Patch Changes
