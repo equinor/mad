@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.15.0
+
+### Minor Changes
+
+-   2a428d6: **Breaking change**: removed the `removed` status of the `Progress` components and its
+    decendants. Use `success` instead.
+
 ## 0.14.13
 
 ### Patch Changes
