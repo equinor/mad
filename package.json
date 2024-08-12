@@ -36,7 +36,7 @@
         "docker:chronicles": "turbo run docker --filter @equinor/mad-chronicles",
         "build:chronicles": "turbo run build --filter @equinor/mad-chronicles",
         "build:maintenance-api": "turbo run build --filter @equinor/mad-maintenance-api-ts-wrapper",
-        "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper -- $npm_config_input",
+        "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper --",
         "test:maintenance-api": "turbo run test --filter @equinor/mad-maintenance-api-ts-wrapper",
         "dev:dfw": "turbo run dev --filter @equinor/mad-dfw",
         "build:dfw": "turbo run build --filter @equinor/mad-dfw",
