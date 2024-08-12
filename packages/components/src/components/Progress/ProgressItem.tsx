@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
@@ -8,7 +8,7 @@ import { ProgressExpandButton } from "./ProgressExpandButton";
 import { ProgressExpandableSection } from "./ProgressExpandableSection";
 import { ProgressItemStatus } from "./ProgressItemStatus";
 import { ProgressTaskItem } from "./ProgressTaskItem";
-import { computeTaskStatus } from "./progressUtils";
+import { summarizeStatuses } from "./progressUtils";
 import { ProgressStatus, ProgressTask } from "./types";
 
 type ProgressItemPropsOptions =
@@ -54,7 +54,7 @@ export type ProgressItemProps = {
 export const ProgressItem = ({
     title,
     description,
-    status = "notStarted",
+    status: inputStatus,
     tasks = [],
     onRetryButtonPress,
 }: ProgressItemProps) => {
@@ -63,12 +63,14 @@ export const ProgressItem = ({
     const styles = useStyles(themeStyles);
 
     const taskCounter = tasks?.length;
-    const completedTaskCounter = tasks?.filter(
-        task => task.status === "success" || task.status === "removed",
-    ).length;
+    const completedTaskCounter = tasks?.filter(task => task.status === "success").length;
 
-    const taskStatus = computeTaskStatus(tasks, status);
-    const taskHasError = taskStatus === "error";
+    const status = useMemo(() => {
+        const allStatuses = tasks.map(task => task.status);
+        return inputStatus ?? summarizeStatuses(allStatuses);
+    }, [inputStatus, tasks]);
+
+    const taskHasError = status === "error";
     const failedTask = tasks.find(task => task.status === "error");
 
     const handleRetryButtonPress = () => {
@@ -95,12 +97,8 @@ export const ProgressItem = ({
         <View style={styles.descriptionTextContainer}>
             <Typography
                 numberOfLines={1}
-                bold={taskStatus !== "success"}
-                color={
-                    taskStatus === "notStarted" || taskStatus === "removed"
-                        ? "textDisabled"
-                        : "textPrimary"
-                }
+                bold={status !== "success"}
+                color={status === "notStarted" ? "textDisabled" : "textPrimary"}
                 group="cell"
                 variant="title"
             >
@@ -109,17 +107,13 @@ export const ProgressItem = ({
 
             {description && (
                 <>
-                    {taskStatus !== "notStarted" && taskCounter > 0 ? (
+                    {status !== "notStarted" && taskCounter > 0 ? (
                         <Typography variant="description" group="cell">
                             {completedTaskCounter} / {taskCounter} {description}
                         </Typography>
                     ) : (
                         <Typography
-                            color={
-                                taskStatus === "notStarted" || taskStatus === "removed"
-                                    ? "textDisabled"
-                                    : "textPrimary"
-                            }
+                            color={status === "notStarted" ? "textDisabled" : "textPrimary"}
                             variant="description"
                             group="cell"
                         >
@@ -137,7 +131,7 @@ export const ProgressItem = ({
                 <ProgressItemStatus
                     style={styles.status}
                     taskCounter={taskCounter}
-                    status={taskStatus}
+                    status={status}
                     completedTaskCounter={completedTaskCounter}
                 />
                 <View style={{ flex: 1 }}>
@@ -149,7 +143,7 @@ export const ProgressItem = ({
                     >
                         {renderItemText()}
                         <ProgressExpandButton
-                            taskStatus={taskStatus}
+                            taskStatus={status}
                             taskCounter={taskCounter}
                             isExpanded={isExpanded}
                             toggleExpand={toggleExpand}

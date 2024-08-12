@@ -82,11 +82,7 @@ export const ProgressTaskItem = ({
                         group="paragraph"
                         variant="body_short"
                         bold={task.status === "error" || task.status === "inProgress"}
-                        color={
-                            status === "notStarted" || status === "removed"
-                                ? "textTertiary"
-                                : "textPrimary"
-                        }
+                        color={status === "notStarted" ? "textTertiary" : "textPrimary"}
                     >
                         {task.title}
                     </Typography>
