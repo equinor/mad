@@ -1,5 +1,11 @@
 # @equinor/mad-toast
 
+## 0.1.4
+
+### Patch Changes
+
+-   a529b4a: Fixed an issue where toasts could be locked for eternity
+
 ## 0.1.3
 
 ### Patch Changes
