@@ -1,6 +1,5 @@
 import React, { forwardRef } from "react";
 import { Pressable, PressableProps, StyleSheet, View, ViewStyle } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 import { useFadeAnimation } from "../../styling/animations";
 import { DisabledPressable } from "./DisabledPressable";
@@ -33,25 +32,22 @@ export const PressableHighlight = forwardRef<
         ref,
     ) => {
         const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
-        const tap = Gesture.Tap();
 
         const PressableComponent = disabled ? DisabledPressable : Pressable;
 
         return (
-            <GestureDetector gesture={tap}>
-                <PressableComponent
-                    {...rest}
-                    ref={ref}
-                    style={style}
-                    onPressIn={event => !disabled && (handlePressIn(), rest.onPressIn?.(event))}
-                    onPressOut={event => !disabled && (handlePressOut(), rest.onPressOut?.(event))}
-                    onPress={event => !disabled && !!onPress && onPress(event)}
-                    disabled={disabled}
-                >
-                    <Animated.View style={[animatedStyle, styles.overlay]} />
-                    {children}
-                </PressableComponent>
-            </GestureDetector>
+            <PressableComponent
+                {...rest}
+                ref={ref}
+                style={style}
+                onPressIn={event => !disabled && (handlePressIn(), rest.onPressIn?.(event))}
+                onPressOut={event => !disabled && (handlePressOut(), rest.onPressOut?.(event))}
+                onPress={event => !disabled && !!onPress && onPress(event)}
+                disabled={disabled}
+            >
+                <Animated.View style={[animatedStyle, styles.overlay]} />
+                {children}
+            </PressableComponent>
         );
     },
 );

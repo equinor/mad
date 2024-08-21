@@ -24,6 +24,7 @@ export type AdditionalSurfaceProps = {
 };
 
 type SwipeGroup = CellSwipeItemProps[];
+
 export type CellProps = {
     /**
      * A component that uses the left-remaining space after the child content of the cell has been adjusted for.
@@ -75,6 +76,24 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         const swipeable = !!leftSwipeGroup || !!rightSwipeGroup;
 
         const CellContent = () => (
+            <>
+                <View style={styles.contentContainer}>
+                    {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
+
+                    <View style={styles.children}>
+                        <View style={{ flex: 1, justifyContent: "center" }}>{children}</View>
+                    </View>
+                    {rightAdornment && <View style={styles.adornment}>{rightAdornment}</View>}
+                </View>
+                {!isLastCell && (
+                    <View style={styles.dividerOuter}>
+                        <View style={styles.dividerInner} />
+                    </View>
+                )}
+            </>
+        );
+
+        const Cell = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
                 <View style={{ flexDirection: "row" }}>
                     {additionalSurface && (
@@ -86,35 +105,30 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                                 {additionalSurface.component}
                             </PressableHighlight>
                             <View style={styles.verticalLine} />
-                        </>
-                    )}
-                    <Animated.View style={[animatedStyle, { flex: 1 }]}>
-                        <TouchableWithoutFeedback
-                            disabled={!onPress}
-                            onPressIn={handlePressIn}
-                            onPressOut={handlePressOut}
-                            onPress={onPress}
-                        >
-                            <View style={styles.contentContainer}>
-                                {leftAdornment && (
-                                    <View style={styles.adornment}>{leftAdornment}</View>
-                                )}
 
-                                <View style={styles.children}>
-                                    <View style={{ flex: 1, justifyContent: "center" }}>
-                                        {children}
-                                    </View>
-                                </View>
-                                {rightAdornment && (
-                                    <View style={styles.adornment}>{rightAdornment}</View>
-                                )}
-                            </View>
                             {!isLastCell && (
                                 <View style={styles.dividerOuter}>
                                     <View style={styles.dividerInner} />
                                 </View>
                             )}
-                        </TouchableWithoutFeedback>
+                        </>
+                    )}
+
+                    <Animated.View style={[animatedStyle, { flex: 1 }]}>
+                        {swipeable ? (
+                            <TouchableWithoutFeedback
+                                disabled={!onPress}
+                                onPressIn={handlePressIn}
+                                onPressOut={handlePressOut}
+                                onPress={onPress}
+                            >
+                                <CellContent />
+                            </TouchableWithoutFeedback>
+                        ) : (
+                            <PressableHighlight disabled={!onPress} onPress={onPress}>
+                                <CellContent />
+                            </PressableHighlight>
+                        )}
                     </Animated.View>
                 </View>
             </View>
@@ -138,10 +152,10 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                     ))
                 }
             >
-                {CellContent()}
+                <Cell />
             </SwipeableWithContext>
         ) : (
-            CellContent()
+            <Cell />
         );
     },
 );
@@ -183,8 +197,7 @@ const themeStyle = EDSStyleSheet.create((theme, props: CellGroupContextType) => 
         alignItems: "center",
     },
     verticalLine: {
-        borderRightWidth: 1,
-        borderStyle: "solid",
+        borderRightWidth: theme.geometry.border.borderWidth,
         borderColor: theme.colors.border.medium,
         marginVertical: theme.spacing.menu.item.paddingVertical,
     },
