@@ -1,5 +1,14 @@
 # @equinor/mad-components
 
+## 0.15.1
+
+### Patch Changes
+
+-   1224665: Adjusted the `Cell` component. Instead of using `PressableHighlight`, it now uses a
+    different press component from `react-native-gesture-handler` when the cell is `swipeable`.
+-   1224665: Fix issue in the `Cell` component where cells with `additionalSurface` were incorrectly
+    displayed in `Cell.Groups`. The divider was not fully streched out.
+
 ## 0.15.0
 
 ### Minor Changes
