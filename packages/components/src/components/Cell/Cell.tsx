@@ -75,7 +75,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
 
         const swipeable = !!leftSwipeGroup || !!rightSwipeGroup;
 
-        const CellContent = () => (
+        const cellContent = () => (
             <>
                 <View style={styles.contentContainer}>
                     {leftAdornment && <View style={styles.adornment}>{leftAdornment}</View>}
@@ -93,7 +93,7 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
             </>
         );
 
-        const Cell = () => (
+        const renderCell = () => (
             <View {...rest} style={[styles.container, rest.style]} ref={ref}>
                 <View style={{ flexDirection: "row" }}>
                     {additionalSurface && (
@@ -122,11 +122,11 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                                 onPressOut={handlePressOut}
                                 onPress={onPress}
                             >
-                                <CellContent />
+                                {cellContent()}
                             </TouchableWithoutFeedback>
                         ) : (
                             <PressableHighlight disabled={!onPress} onPress={onPress}>
-                                <CellContent />
+                                {cellContent()}
                             </PressableHighlight>
                         )}
                     </Animated.View>
@@ -152,10 +152,10 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                     ))
                 }
             >
-                <Cell />
+                {renderCell()}
             </SwipeableWithContext>
         ) : (
-            <Cell />
+            renderCell()
         );
     },
 );
