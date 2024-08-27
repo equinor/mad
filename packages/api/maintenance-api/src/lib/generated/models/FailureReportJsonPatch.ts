@@ -6,8 +6,34 @@
 export type FailureReportJsonPatch = {
     /**
      * JSON Patch operation according to RFC6902
+     *
+     * Operation `replace` is suitable for the following properties:
+     * - `/tagId`
+     * - `/tagPlantId`
+     * - `/equipmentId`
+     * - `/failureImpactId`
+     * - `/failureModeId`
+     * - `/failureModeGroupId`
+     * - `/detectionMethodId`
+     * - `/detectionMethodGroupId`
+     * - `/failureMechanismId`
+     * - `/failureMechanismGroupId`
+     * - `/codingId`
+     * - `/codingGroupId`
+     * - `/workCenterId`
+     * - `/workCenterPlantId`
+     * - `/locationId`
+     * - `/title`
+     * - `/text`
+     * - `/failureStartDateTime`
+     * - `/failureEndDateTime`
+     * - `/plannerGroupId`
+     *
+     * Operation `append` is suitable for the following properties:
+     * - `/text`
+     *
      */
-    op: 'replace';
+    op: 'replace' | 'append';
     /**
      * Path indicating the property to be impacted by the operation
      */

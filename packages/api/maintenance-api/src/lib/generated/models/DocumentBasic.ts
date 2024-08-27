@@ -32,5 +32,13 @@ export type DocumentBasic = {
      * Date when the document was created
      */
     documentCreatedDate?: string | null;
+    /**
+     * Id of the Document status
+     */
+    statusId?: string;
+    /**
+     * Document status
+     */
+    statusText?: string;
 };
 

@@ -40,6 +40,9 @@ export type ProjectWorkOrderSimple = {
     basicStartDateTime: string | null;
     basicEndDateTime: string | null;
     createdDateTime: string | null;
+    /**
+     * Date and time of when the Work order was changed
+     */
     changedDateTime: string | null;
     costWBSId: string;
     projectId: string;

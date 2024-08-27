@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
 import type { Status } from './Status';
 import type { SubseaServiceOperation } from './SubseaServiceOperation';
 import type { SubseaWorkOrderBasic } from './SubseaWorkOrderBasic';
 import type { SubseaWorkOrderOperation } from './SubseaWorkOrderOperation';
 import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
+import type { WorkOrderAttachment } from './WorkOrderAttachment';
 
 export type SubseaWorkOrder = (SubseaWorkOrderBasic & {
     /**
@@ -28,7 +28,7 @@ export type SubseaWorkOrder = (SubseaWorkOrderBasic & {
     /**
      * Attachments for this Subsea Work order
      */
-    attachments?: Array<Attachment>;
+    attachments?: Array<WorkOrderAttachment>;
     /**
      * Related equipment
      */

@@ -37,6 +37,9 @@ export type CorrectiveWorkOrderSimple = {
     basicStartDateTime: string | null;
     basicEndDateTime: string | null;
     createdDateTime: string | null;
+    /**
+     * Date and time of when the Work order was changed
+     */
     changedDateTime: string | null;
     /**
      * Field used to assist in grouping/sorting Work orders. Unstructured field used non-consistently between plants

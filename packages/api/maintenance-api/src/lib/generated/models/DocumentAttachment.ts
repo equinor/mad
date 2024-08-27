@@ -10,6 +10,10 @@ export type DocumentAttachment = {
     mimeType: string;
     createdDateTime: string | null;
     /**
+     * Date and time of when the attachment was changed
+     */
+    changedDateTime: string | null;
+    /**
      * Document title providing additional information to the attachment
      */
     documentTitle: string;

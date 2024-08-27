@@ -5,6 +5,7 @@
 
 import type { Attachment } from './Attachment';
 import type { FailureReportBasic } from './FailureReportBasic';
+import type { MaintenancePlanItemTaskNotification } from './MaintenancePlanItemTaskNotification';
 import type { MaintenanceRecordActivity } from './MaintenanceRecordActivity';
 import type { MaintenanceRecordItemMetadata } from './MaintenanceRecordItemMetadata';
 import type { MaintenanceRecordTask } from './MaintenanceRecordTask';
@@ -56,5 +57,9 @@ export type FailureReport = (FailureReportBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
+    /**
+     * Related task list including operations
+     */
+    taskList?: Array<MaintenancePlanItemTaskNotification>;
 });
 

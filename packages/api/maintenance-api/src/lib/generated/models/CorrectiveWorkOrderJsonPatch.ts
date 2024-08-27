@@ -7,8 +7,27 @@ export type CorrectiveWorkOrderJsonPatch = Array<{
     /**
      * JSON Patch operation according to RFC6902.
      *
-     * Operation `replace` is suitable for the following properties: `/text`, `/workCenterId`, `/workCenterPlantId`, `/tagId`, `/tagPlantId`, `/basicStartDateTime`, `/basicEndDateTime`, `/revisionId`, `/sortField`, `/locationId`, `/systemId`, `/title`, `/plannerGroupId`, `/costs`, `/additionalCostWBSId`, `/costWBSId`, `/priorityId`.
-     * Operation `append` is suitable for the following properties: `/text`
+     * Operation `replace` is suitable for the following properties:
+     * - `/workCenterId`
+     * - `/workCenterPlantId`
+     * - `/tagId`
+     * - `/tagPlantId`
+     * - `/basicStartDateTime`
+     * - `/basicEndDateTime`
+     * - `/revisionId`
+     * - `/sortField`
+     * - `/locationId`
+     * - `/systemId`
+     * - `/title`
+     * - `/plannerGroupId`
+     * - `/costs`
+     * - `/additionalCostWBSId`
+     * - `/costWBSId`
+     * - `/priorityId`
+     * - `/text`
+     *
+     * Operation `append` is suitable for the following properties:
+     * - `/text`
      *
      */
     op?: 'append' | 'replace';

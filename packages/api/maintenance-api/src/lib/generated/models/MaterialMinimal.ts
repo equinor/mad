@@ -12,5 +12,13 @@ export type MaterialMinimal = {
      * Material name
      */
     material?: string;
+    /**
+     * Part number for the material
+     */
+    partNumber?: string;
+    /**
+     * Manufacturer of the material
+     */
+    manufacturer?: string;
 };
 

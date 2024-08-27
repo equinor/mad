@@ -10,6 +10,7 @@ import type { TagBasic } from '../models/TagBasic';
 import type { TagCreate } from '../models/TagCreate';
 import type { TagHierachyItem } from '../models/TagHierachyItem';
 import type { TagHierachyItemDeprecated } from '../models/TagHierachyItemDeprecated';
+import type { TagHierarchyTree } from '../models/TagHierarchyTree';
 import type { TagJsonPatch } from '../models/TagJsonPatch';
 import type { TagSearch } from '../models/TagSearch';
 
@@ -86,6 +87,9 @@ export class TagService {
      * `billOfMaterials` now include the property `parentMaterialId`
      *
      * Added `materialId` and `material` to the response
+     *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
      *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -376,6 +380,7 @@ export class TagService {
         plantId,
         filter,
         rootTags,
+        subHierarchyLimit = 4,
     }: {
         plantId: string,
         /**
@@ -386,6 +391,12 @@ export class TagService {
          * Comma-separated list of tags (without tagPlantId prefix)
          */
         rootTags?: string,
+        /**
+         * Limit the response to a certain number of levels below the root tag
+         * If this parameter is omitted, a maximum of 4 sub levels will be included.
+         *
+         */
+        subHierarchyLimit?: number,
     }): CancelablePromise<Array<TagHierachyItemDeprecated> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -396,6 +407,7 @@ export class TagService {
             query: {
                 'filter': filter,
                 'root-tags': rootTags,
+                'sub-hierarchy-limit': subHierarchyLimit,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -458,6 +470,59 @@ export class TagService {
             query: {
                 'filter': filter,
                 'root-tag-id-any-of': rootTagIdAnyOf,
+                'sub-hierarchy-limit': subHierarchyLimit,
+            },
+            errors: {
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Tag hierarchy tree - Get
+     * Get the entire tag hierarchy for a plant in a tree structure.
+     * For each tag you will be provided with catalog profile and the parent tag.
+     *
+     * ### Important information
+     * The query parameter `root-tag-id` is mandatory and is the root tag for the hierarchy.
+     * Use the query parameter `sub-hierarchy-limit` to control how many levels below the root the response will contain.
+     *
+     * The data will be cached in the API and renewed on a daily basis.
+     *
+     * The property `subTagHierarchy` is an array of `TagHierarchyTree` objects, meaning that this is a recursive property.
+     * When the array is empty, either the sub-limit has restricted further levels to serialize, or the hierarchy has reached the bottom.
+     * The property `isEndNode` indicates if there are further tags in the hierarchy which can be looked up with a subsequent request.
+     *
+     * @returns TagHierarchyTree Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getTagHierarchyTree({
+        plantId,
+        rootTagId,
+        subHierarchyLimit = 4,
+    }: {
+        plantId: string,
+        /**
+         * The root tag for the hierarchy
+         */
+        rootTagId: string,
+        /**
+         * Limit the response to a certain number of levels below the root tag.
+         * If this parameter is omitted, a maximum of 4 sub levels will be included.
+         * Setting this parameter to 0 will output the full depth of the hierarchy tree.
+         *
+         */
+        subHierarchyLimit?: number,
+    }): CancelablePromise<TagHierarchyTree | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/plants/{plant-id}/tag-hierarchy-tree',
+            path: {
+                'plant-id': plantId,
+            },
+            query: {
+                'root-tag-id': rootTagId,
                 'sub-hierarchy-limit': subHierarchyLimit,
             },
             errors: {
@@ -577,6 +642,9 @@ export class TagService {
      * `billOfMaterials` now include the property `parentMaterialId`
      *
      * Added `materialId` and `material` to the response
+     *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
      *
      * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes

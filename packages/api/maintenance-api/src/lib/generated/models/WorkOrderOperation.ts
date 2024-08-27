@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
 import type { SafetyMeasure } from './SafetyMeasure';
+import type { WorkOrderAttachment } from './WorkOrderAttachment';
 import type { WorkOrderMaterial } from './WorkOrderMaterial';
 import type { WorkOrderOperationSimple } from './WorkOrderOperationSimple';
 
@@ -14,7 +14,7 @@ export type WorkOrderOperation = (WorkOrderOperationSimple & {
     /**
      * Attachments for the work order operation
      */
-    attachments?: Array<Attachment> | null;
+    attachments?: Array<WorkOrderAttachment> | null;
     /**
      * Safety measures for the work order operation
      */

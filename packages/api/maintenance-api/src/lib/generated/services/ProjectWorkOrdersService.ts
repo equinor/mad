@@ -111,6 +111,9 @@ export class ProjectWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
+     * ### Update in an upcoming release
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
      * @returns ProjectWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

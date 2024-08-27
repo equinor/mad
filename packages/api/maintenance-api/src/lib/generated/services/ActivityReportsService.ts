@@ -66,6 +66,9 @@ export class ActivityReportsService {
      * ### Update release 1.31.0
      * Added `isReadonlyText` property to `activities` in the response.
      *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
+     *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -144,6 +147,9 @@ export class ActivityReportsService {
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.32.0
+     * Added ability to append text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info.
      *
      * @returns ActivityReportBasic Success, the activity report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -552,7 +558,7 @@ export class ActivityReportsService {
     /**
      * Activity report - Attachment upload
      * ### Overview
-     * Upload attachment for activity report
+     * **Upload attachment for activity report**
      *
      * Limitations of Attachment upload endpoints:
      * - No support for parallel calls (uploading multiple attachments at once).

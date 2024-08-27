@@ -3,13 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
 import type { MaintenanceRecordMinimal } from './MaintenanceRecordMinimal';
 import type { SASChangeWorkOrderBasic } from './SASChangeWorkOrderBasic';
 import type { ServiceOperation } from './ServiceOperation';
 import type { Status } from './Status';
 import type { TagBasic } from './TagBasic';
 import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
+import type { WorkOrderAttachment } from './WorkOrderAttachment';
 import type { WorkOrderOperation } from './WorkOrderOperation';
 
 export type SASChangeWorkOrder = (SASChangeWorkOrderBasic & {
@@ -31,6 +31,6 @@ export type SASChangeWorkOrder = (SASChangeWorkOrderBasic & {
     /**
      * Attachments for the SAS Change Work order
      */
-    attachments?: Array<Attachment>;
+    attachments?: Array<WorkOrderAttachment>;
 });
 

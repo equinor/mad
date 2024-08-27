@@ -10,6 +10,9 @@ export type MaintenancePlanItemSimple = {
     planningPlantId: string;
     mainTagId: string | null;
     mainTagPlantId: string;
+    /**
+     * Date and time of when the item was changed
+     */
     changedDateTime?: string | null;
 };
 

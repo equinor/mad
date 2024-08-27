@@ -11,32 +11,35 @@ import type { MaterialMinimal } from './MaterialMinimal';
 import type { MeasuringPointBasic } from './MeasuringPointBasic';
 import type { SimpleMaintenanceRecordsList } from './SimpleMaintenanceRecordsList';
 import type { TagMinimal } from './TagMinimal';
-import type { URLReferenceWithCharacteristics } from './URLReferenceWithCharacteristics';
+import type { URLReference } from './URLReference';
 
 export type Document = (DocumentBasic & {
     /**
-     * Characteristics for this business object
+     * Characteristics related to the document
      */
     characteristics?: Array<Characteristic>;
     /**
-     * Equipment for this business object
+     * Equipment related to the document
      */
     equipment?: Array<EquipmentBasicV2>;
     /**
-     * Material for this business object
+     * Material related to the document
      */
     material?: Array<MaterialMinimal>;
     /**
-     * Tags for this business object
+     * Tags related to the document
      */
     tags?: Array<TagMinimal>;
     /**
-     * Measuring points for this business object
+     * Measuring points related to the document
      */
     measuringPoints?: Array<MeasuringPointBasic>;
-    maintenanceRecords?: SimpleMaintenanceRecordsList;
     /**
-     * Attachments for this business object
+     * Maintenance records related to the document
+     */
+    maintenanceRecords?: Array<SimpleMaintenanceRecordsList>;
+    /**
+     * Attachments for this document
      */
     attachments?: Array<DocumentAttachment>;
     /**
@@ -51,6 +54,6 @@ export type Document = (DocumentBasic & {
      *
      */
     materialInventoryCount?: number;
-    urlReferences?: Array<URLReferenceWithCharacteristics>;
+    urlReferences?: Array<URLReference>;
 });
 

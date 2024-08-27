@@ -7,6 +7,7 @@ import type { Document } from '../models/Document';
 import type { DocumentAddClass } from '../models/DocumentAddClass';
 import type { DocumentBasic } from '../models/DocumentBasic';
 import type { DocumentCreate } from '../models/DocumentCreate';
+import type { DocumentJsonPatch } from '../models/DocumentJsonPatch';
 import type { DocumentRelationshipToBusinessObjectsAdd } from '../models/DocumentRelationshipToBusinessObjectsAdd';
 import type { DocumentURLReferencesAdd } from '../models/DocumentURLReferencesAdd';
 import type { ProblemDetails } from '../models/ProblemDetails';
@@ -38,8 +39,12 @@ export class DocumentsService {
      *
      * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
      *
-     * ### Update in upcoming release
+     * ### Update release 1.32.0
      * Added `include-url-references` query parameter to include URL references in the response.
+     *
+     * Added properties `statusId` and `statusText` to the response.
+     *
+     * Added properties `partNumber` & `manufacturer` to `material` in the response.
      *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -84,7 +89,7 @@ export class DocumentsService {
          */
         classId?: string | null,
         /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
+         * Include characteristics'
          */
         includeCharacteristics?: boolean,
         /**
@@ -160,6 +165,16 @@ export class DocumentsService {
      * Create a new document.
      * This document will not be linked to any business object, but can be linked afterwards by calling POST `/document-relationships/{relationship-type}/{source-id}`.
      *
+     * **Note:** Documents of type 'B30' may only be created with one of the following `statusId`s:
+     * - `CV` (Current Version)
+     * - `WO` (Working)
+     * - `CA` (Cancelled)
+     *
+     * ### Update release 1.32.0
+     * Added property `statusId` to the request body schema to allow setting the status of a document during its creation.
+     *
+     * Added properties `statusId` and `statusText` to the response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns DocumentBasic Created
      * @throws ApiError
@@ -198,8 +213,14 @@ export class DocumentsService {
      *
      * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
      *
-     * ### Update in upcoming release
+     * ### Update release 1.32.0
      * Added `include-url-references` query parameter to include URL references in the response.
+     *
+     * Added `changedDateTime` for attachments.
+     *
+     * Added properties `statusId` and `statusText` to the response.
+     *
+     * Added properties `partNumber` & `manufacturer` to `material` in the response.
      *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -222,7 +243,7 @@ export class DocumentsService {
          */
         documentId: string,
         /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
+         * Include characteristics'
          */
         includeCharacteristics?: boolean,
         /**
@@ -276,6 +297,47 @@ export class DocumentsService {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to view document`,
                 404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Document - Update
+     * ### Overview
+     * Update a Document.
+     *
+     * Supports updating the following properties:
+     * - `statusId`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateDocument({
+        documentId,
+        requestBody,
+    }: {
+        /**
+         * Unique id of the document that will be updated
+         */
+        documentId: string,
+        /**
+         * The information to be updated
+         */
+        requestBody: Array<DocumentJsonPatch>,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/documents/{document-id}',
+            path: {
+                'document-id': documentId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update Document`,
+                404: `The specified resource was not found`,
+                409: `Document is locked by other user`,
             },
         });
     }
@@ -438,6 +500,9 @@ export class DocumentsService {
      * ### Update release 1.30.0
      * Added possibility to search by document relationship to material.
      *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
+     *
      * @returns RelationshipToDocument Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -454,7 +519,7 @@ export class DocumentsService {
         relationshipType: 'tags' | 'equipment' | 'measuring-points' | 'maintenance-records' | 'materials',
         sourceId: string,
         /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
+         * Include characteristics'
          */
         includeCharacteristics?: boolean,
         /**

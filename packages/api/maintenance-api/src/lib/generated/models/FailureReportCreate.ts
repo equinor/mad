@@ -58,11 +58,11 @@ export type FailureReportCreate = {
      */
     createdDateTime?: string;
     /**
-     * The point in time where the failure started
+     * The point in time when the failure started
      */
     failureStartDateTime?: string;
     /**
-     * The point in time where the failure resolved
+     * The point in time when the failure was resolved
      */
     failureEndDateTime?: string;
     /**
