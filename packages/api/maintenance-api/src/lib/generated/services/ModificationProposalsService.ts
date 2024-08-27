@@ -50,6 +50,12 @@ export class ModificationProposalsService {
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
+     *
+     * ### Upcoming changes
+     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     *
      * @returns ModificationProposal Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -261,7 +267,7 @@ export class ModificationProposalsService {
     /**
      * Modification Proposal - Attachment upload
      * ### Overview
-     * Upload attachment for modification proposal
+     * **Upload attachment for modification proposal**
      *
      * Limitations of Attachment upload endpoints:
      * - No support for parallel calls (uploading multiple attachments at once).

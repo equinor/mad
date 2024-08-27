@@ -54,6 +54,9 @@ export class TechnicalClarificationsService {
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
+     *
      * @returns TechnicalClarification Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

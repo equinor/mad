@@ -99,6 +99,9 @@ export class EquipmentService {
      * ### Update release 1.31.0
      * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight`to response body.
      *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -317,7 +320,7 @@ export class EquipmentService {
      * Dismantle Equipment on a tag hierarchy.
      *
      * An equipment can be either installed on a Tag, or an Equipment.
-     * The correct installation needs to be provided in the body to be successfull.
+     * The correct installation needs to be provided in the body to be successful.
      *
      * If `equipmentId` is provided in the body, the `equipmentId` from the path will be dismantled here.
      * If `tagPlantId`-`tagId` is provided in the body, the `equipmentId` from the path will be dismantled here.

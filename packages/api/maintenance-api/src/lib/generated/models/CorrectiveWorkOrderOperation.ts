@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { CorrectiveWorkOrderMaterial } from './CorrectiveWorkOrderMaterial';
 import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
 import type { TechnicalFeedback } from './TechnicalFeedback';
 import type { WorkOrderOperation } from './WorkOrderOperation';
@@ -16,5 +17,6 @@ export type CorrectiveWorkOrderOperation = (WorkOrderOperation & {
      * Technical feedback to be completed as part of work order execution
      */
     technicalFeedback?: Array<TechnicalFeedback>;
+    materials?: Array<CorrectiveWorkOrderMaterial> | null;
 });
 

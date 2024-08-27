@@ -2,12 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ConceptActivities } from '../models/ConceptActivities';
-import type { DocumentRelationshipToBusinessObjectsAdd } from '../models/DocumentRelationshipToBusinessObjectsAdd';
-import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
-import type { MaintenanceRecordOverridePriority } from '../models/MaintenanceRecordOverridePriority';
+import type { CatalogProfile } from '../models/CatalogProfile';
+import type { CatalogProfileWithText } from '../models/CatalogProfileWithText';
+import type { CertificationReportBasic } from '../models/CertificationReportBasic';
+import type { CertificationReportCreate } from '../models/CertificationReportCreate';
+import type { DocumentURLReferencesAdd } from '../models/DocumentURLReferencesAdd';
 import type { ProblemDetails } from '../models/ProblemDetails';
-import type { WorkOrderMaterialJsonPatch } from '../models/WorkOrderMaterialJsonPatch';
+import type { TagHierarchyTree } from '../models/TagHierarchyTree';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -16,19 +17,76 @@ import { request as __request } from '../core/request';
 export class NewEndpointsService {
 
     /**
-     * Documents - Add new relationships to a document
-     * ### Overview
-     * Add new relationships between a single document and one or more business objects.
+     * Tag hierarchy tree - Get
+     * Get the entire tag hierarchy for a plant in a tree structure.
+     * For each tag you will be provided with catalog profile and the parent tag.
      *
-     * Example url: `/documents/10004099768-A01-000-00?api-version=v1`
+     * ### Important information
+     * The query parameter `root-tag-id` is mandatory and is the root tag for the hierarchy.
+     * Use the query parameter `sub-hierarchy-limit` to control how many levels below the root the response will contain.
      *
-     * This endpoint returns no response data.
+     * The data will be cached in the API and renewed on a daily basis.
      *
+     * The property `subTagHierarchy` is an array of `TagHierarchyTree` objects, meaning that this is a recursive property.
+     * When the array is empty, either the sub-limit has restricted further levels to serialize, or the hierarchy has reached the bottom.
+     * The property `isEndNode` indicates if there are further tags in the hierarchy which can be looked up with a subsequent request.
+     *
+     * @returns TagHierarchyTree Success
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns string Created - No body available for response. Use lookup from location header
      * @throws ApiError
      */
-    public static addRelationshipBetweenBusinessObjectsAndSingleDocument({
+    public static getTagHierarchyTree({
+        plantId,
+        rootTagId,
+        subHierarchyLimit = 4,
+    }: {
+        plantId: string,
+        /**
+         * The root tag for the hierarchy
+         */
+        rootTagId: string,
+        /**
+         * Limit the response to a certain number of levels below the root tag.
+         * If this parameter is omitted, a maximum of 4 sub levels will be included.
+         * Setting this parameter to 0 will output the full depth of the hierarchy tree.
+         *
+         */
+        subHierarchyLimit?: number,
+    }): CancelablePromise<TagHierarchyTree | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/plants/{plant-id}/tag-hierarchy-tree',
+            path: {
+                'plant-id': plantId,
+            },
+            query: {
+                'root-tag-id': rootTagId,
+                'sub-hierarchy-limit': subHierarchyLimit,
+            },
+            errors: {
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Document -  Add URL reference
+     * ### Overview
+     * Add a URL reference to a document.
+     *
+     * URL references are stored in the Document Management System (DMS).
+     *
+     * The following characteristicId can be used:
+     * - `DISCIPLINE_B30`
+     * - `ADDITIONAL_REFERENCE_B30`
+     * - `DATE_OF_DOCUMENT_B30` (Date of photo/report)
+     *
+     * Existing URL references are available through the lookup endpoints for documents. Examples: `GET /documents/{document-id}?include-url-references=true&api-version=v1`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addUrlReferenceToDocument({
         documentId,
         requestBody,
     }: {
@@ -38,22 +96,61 @@ export class NewEndpointsService {
          */
         documentId: string,
         /**
-         * Business objects to add a relationship to from the specified `documentId`
+         * Define URL reference to add
          */
-        requestBody: Array<DocumentRelationshipToBusinessObjectsAdd>,
-    }): CancelablePromise<ProblemDetails | string> {
+        requestBody: DocumentURLReferencesAdd,
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/documents/{document-id}/relationships',
+            url: '/documents/{document-id}/url-references',
             path: {
                 'document-id': documentId,
             },
             body: requestBody,
             mediaType: 'application/json',
-            responseHeader: 'Location',
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update document`,
+                403: `User does not have sufficient rights for updating document`,
+                404: `The specified resource was not found`,
+                409: `Document is locked by other user, characteristicId used are not suitable for the document`,
+            },
+        });
+    }
+
+    /**
+     * Document - Remove URL reference
+     * ### Overview
+     * Remove a URL reference from an existing Document.
+     *
+     * Existing URL references can be found through the lookup endpoints for documents. Example: `GET /documents/{document-id}?include-url-references=true&api-version=v1`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static removeUrlReferenceFromDocument({
+        documentId,
+        urlReferenceId,
+    }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId: string,
+        /**
+         * Id of the URL reference
+         */
+        urlReferenceId: string,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/documents/{document-id}/url-references/{url-reference-id}',
+            path: {
+                'document-id': documentId,
+                'url-reference-id': urlReferenceId,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to remove URL reference`,
                 404: `The specified resource was not found`,
                 409: `Document is locked by other user`,
             },
@@ -61,144 +158,181 @@ export class NewEndpointsService {
     }
 
     /**
-     * Work order operation - Update material
+     * Catalog Profiles - Search
      * ### Overview
-     * Update a material in a work order operation (of any work order type).
+     * Returns a list of Catalog Profiles for the given `catalog-profile-id`s. This endpoint allows for including the following multi-line `helpText` properties if `include-text=true` is set in the request:
+     * - `failureModeHelpText` for `failureModes`
+     * - `detectionMethodHelpText` for `detectionMethods`
+     * - `failureMechanismHelpText` for `failureMechanisms`
      *
-     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consist of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     * These are not included by default due to their detrimental effect on the performance of this endpoint.
      *
-     * The ´reservation-id´ parameter to use in the url can be found using the include-materials query parameter to work order lookup.
-     *
-     * The following fields are possible to update:
-     *
-     * - `finalLocation`
-     * - `temporaryLocation`
-     *
+     * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static updateMaterialInWorkOrderOperation({
-        operationId,
-        reservationId,
-        requestBody,
+    public static searchCatalogProfiles({
+        catalogProfileId,
+        includeText = false,
     }: {
-        operationId: string,
         /**
-         * Reservation id for the material found through work order lookup with include-materials
+         * List of `catalog-profile-id`s to search for
          */
-        reservationId: string,
+        catalogProfileId: string,
         /**
-         * Update material details
+         * Include helpText properties for failureModes, detectionMethods and failureMechanisms in the response. Affects performance.
          */
-        requestBody: Array<WorkOrderMaterialJsonPatch>,
-    }): CancelablePromise<ProblemDetails> {
+        includeText?: boolean,
+    }): CancelablePromise<Array<(CatalogProfile | CatalogProfileWithText)> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-order-operations/{operation-id}/materials/{reservation-id}',
-            path: {
-                'operation-id': operationId,
-                'reservation-id': reservationId,
+            method: 'GET',
+            url: '/catalogs/profiles',
+            query: {
+                'catalog-profile-id': catalogProfileId,
+                'include-text': includeText,
             },
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update operation`,
+                400: `The request was malformed or contained invalid parameters.`,
                 404: `The specified resource was not found`,
-                409: `Work order is locked by other user`,
             },
         });
     }
 
     /**
-     * Failure report - Override priority
-     * ### Overview
-     * Override the `priorityId` value of a failure report.
-     * The `priorityId` was initially calculated based on `failureImpactId` and the `ABCId` of the tag/equipment when the failure report was created. See [GL1561 - Work orders and notifications types](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCVIEW=FALSE?DOCID=1046023) for more details.
+     * Work order operation - Remove safety measure
+     * Remove a safety measure from a work order operation.
      *
-     * This endpoint should only be executed by people with access to the 'action box' in Equinor's ERP system.
+     * The `operation-id` and `document-id` parameters to use in the request URL can be found using the various Lookup and Search endpoints for Work orders, typically by using the `include-operations` query parameter.
      *
-     * Client applications should take special care in ensuring the business process of Equinor is followed when using this endpoint.
-     *
-     * The activityCodeId defines the reason for overriding the priority
-     * - `A111` = Incorrect ABC
-     * - `A112` = Abnormal situation
-     * - `A113` = Dummy FL/Missing FL
-     *
-     * An activity for the failure report will be created by this call.
-     *
-     * ### Important information
-     * Most users will not have sufficient authorizations to execute this endpoint. If a request fails due to missing authorizations, the response code will be HTTP 403.
+     * - `operation-id` consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     * - `document-id` consists of four parts separated by the `-` character: A `document number` of up to 25 characters (e.g. `WORK AT HEIGHT`), the `document type` (e.g. `B30`, `A01`), a 3-digit `document part` (e.g. `000`), and a 2-digit `document version` part (e.g. `01`).
      *
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns MaintenanceRecordActivity Success
      * @throws ApiError
      */
-    public static overrideFailureReportPriority({
-        recordId,
-        requestBody,
+    public static removeSafetyMeasure({
+        operationId,
+        documentId,
     }: {
         /**
-         * id of the failure report
+         * The `operation-id` of the Work order operation that has the safety measure document to remove.
          */
-        recordId: string,
+        operationId: string,
         /**
-         * Extended end date-activity to be created on the failure report.
+         * Unique id for the safety measure document to remove.
          */
-        requestBody: MaintenanceRecordOverridePriority,
-    }): CancelablePromise<ProblemDetails | MaintenanceRecordActivity> {
+        documentId: string,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/work-order-operations/{operation-id}/safety-measures/{document-id}',
+            path: {
+                'operation-id': operationId,
+                'document-id': documentId,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update work order operation`,
+                404: `The specified resource was not found`,
+                409: `Work order operation is locked by other user or it is not possible to remove the safety measure`,
+            },
+        });
+    }
+
+    /**
+     * Certification report - Attachment upload
+     * Upload attachment for certification report
+     *
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
+     *
+     * ### Important information
+     * If `documentTitle` is supplied, the title is added to all files that are sent
+     * in the current request. If different titles are wanted for different files, they have to be sent in separately
+     * (one file, one document title per request). When supplying a document-title, a new document will always be created for the attachment
+     *
+     * If documentTitle is supplied both as form-data and query parameter, the query parameter
+     * will take precedence.
+     *
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document. `document-title` and `document-id` cannot be supplied together.
+     *
+     * @returns any Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static uploadCertificationReportAttachment({
+        recordId,
+        documentTitle = null,
+        documentId = null,
+        formData,
+    }: {
+        recordId: string,
+        documentTitle?: string | null,
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId?: string | null,
+        formData?: {
+            files: Array<Blob>;
+            'document-title'?: string | null;
+        },
+    }): CancelablePromise<any | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/maintenance-records/failure-reports/{record-id}/override-priority',
+            url: '/maintenance-records/certification-reports/{record-id}/attachments',
             path: {
                 'record-id': recordId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            query: {
+                'document-title': documentTitle,
+                'document-id': documentId,
+            },
+            formData: formData,
+            mediaType: 'multipart/form-data',
             errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to override priority`,
+                403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
-                409: `Failure report is locked by other user`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }
 
     /**
-     * Concept activities - Get
-     * ### Overview
+     * Certification report - Create
+     * Create new certification report.
      *
-     * Get the list of Maintenance Items implemented to a tag.
+     * The following endpoints can be used to find possible values for input:
+     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
+     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
+     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
+     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
      *
-     * @returns ConceptActivities Success
+     * ### Important information
+     * It is possible to create certification report for either tagId or equipmentId.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
+     * @returns CertificationReportBasic Created
      * @throws ApiError
      */
-    public static getConceptActivities({
-        plantId,
-        tagId,
-        includeItemCalls = true,
+    public static createCertificationReport({
+        requestBody,
     }: {
         /**
-         * Plant identifier
+         * Certification report to create
          */
-        plantId: string,
-        tagId: string,
-        /**
-         * Include calls to maintenance plan item
-         */
-        includeItemCalls?: boolean,
-    }): CancelablePromise<Array<ConceptActivities> | ProblemDetails> {
+        requestBody: CertificationReportCreate,
+    }): CancelablePromise<ProblemDetails | CertificationReportBasic> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/reports/concept-activities',
-            query: {
-                'plant-id': plantId,
-                'tag-id': tagId,
-                'include-item-calls': includeItemCalls,
-            },
+            method: 'POST',
+            url: '/maintenance-records/certification-reports',
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
-                404: `The specified resource was not found`,
+                403: `User does not have sufficient rights to create a failure report`,
             },
         });
     }

@@ -142,6 +142,9 @@ export class PreventiveWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
+     * ### Update in an upcoming release
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -463,7 +466,7 @@ export class PreventiveWorkOrdersService {
 
     /**
      * Preventive Work order - Attachment upload
-     * Upload attachments for Preventive Work Order
+     * **Upload attachment for Preventive Work Order**
      *
      * Limitations of Attachment upload endpoints:
      * - No support for parallel calls (uploading multiple attachments at once).

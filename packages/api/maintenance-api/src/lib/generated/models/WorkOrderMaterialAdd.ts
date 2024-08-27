@@ -28,10 +28,34 @@ export type WorkOrderMaterialAdd = {
      */
     purchasingGroup?: string;
     goodsRecipient?: string;
-    unloadingPoint?: string;
     /**
      * Specifies the group of materials which have similar attributes
      */
     materialGroup?: string;
+    /**
+     * Account Number of Supplier
+     */
+    supplierId?: string;
+    /**
+     * Material Number Used by Vendor
+     */
+    vendorsMaterialNumber?: string;
+    /**
+     * Indicates for whom the material is to be ordered
+     */
+    requisitionerId?: string;
+    /**
+     * Specifies the point at which the material is to be unloaded
+     */
+    unloadingPoint?: string;
+    /**
+     * time in days it takes for the vendor to deliver the material
+     */
+    deliveryTimeInDays?: number;
+    /**
+     * Flag to indicate the delivery should be held at supplying base instead of immediately being delivered to its destination
+     */
+    holdDeliveryOnshore?: boolean;
+    text?: string;
 };
 

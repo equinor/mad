@@ -63,6 +63,12 @@ export class TechnicalInformationUpdateRequestsService {
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
+     *
+     * ### Upcoming changes
+     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     *
      * @returns TechnicalInformationUpdateRequest Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -275,7 +281,7 @@ export class TechnicalInformationUpdateRequestsService {
     /**
      * Technical Information Update Request - Attachment upload
      * ### Overview
-     * Upload attachment for technical information update request.
+     * **Upload attachment for technical information update request**
      *
      * Limitations of Attachment upload endpoints:
      * - No support for parallel calls (uploading multiple attachments at once).
@@ -538,6 +544,9 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Upcoming changes
+     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordTask Success

@@ -280,6 +280,9 @@ export class MasterDataForPlantsService {
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
+     * ### Update in an upcoming release
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -359,6 +362,9 @@ export class MasterDataForPlantsService {
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * Split parts of `location` on `materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * ### Update in an upcoming release
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -586,12 +592,20 @@ export class MasterDataForPlantsService {
      *
      * The text of the template follows the advanced formatting as described in [Resource text](#section/Modelling-of-resources/Resource-text).
      *
+     * ### Update release 1.32.0
+     *
+     * Added support for the following templates:
+     * - `M1_SIMPLIFIED_SAS`
+     * - `M1_ENKEL_SAS`
+     * - `M5N`
+     * - `M1N`
+     *
      * @returns TextTemplate Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchTextTemplates({
-        templateNameAnyOf,
+        templateNameAnyOf = 'M2_Task,-M2-X',
     }: {
         /**
          * Comma-separated list of text templates to return

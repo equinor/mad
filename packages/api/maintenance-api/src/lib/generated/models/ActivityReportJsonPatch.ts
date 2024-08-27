@@ -6,8 +6,16 @@
 export type ActivityReportJsonPatch = {
     /**
      * JSON Patch operation according to RFC6902
+     *
+     * Operation `replace` is suitable for the following properties:
+     * - `/title`
+     * - `/text`
+     *
+     * Operation `append` is suitable for the following properties:
+     * - `/text`
+     *
      */
-    op: 'replace';
+    op: 'replace' | 'append';
     /**
      * Path indicating the property to be impacted by the operation
      */

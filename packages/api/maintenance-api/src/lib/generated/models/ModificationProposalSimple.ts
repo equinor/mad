@@ -37,11 +37,11 @@ export type ModificationProposalSimple = {
     requiredStartDate: string;
     requiredEndDate: string | null;
     /**
-     * The point in time where the failure report was created
+     * The point in time when the failure report was created
      */
     createdDateTime: string | null;
     /**
-     * The point in time where the failure report was completed
+     * The point in time when the failure report was completed
      */
     completedDateTime: string | null;
 };

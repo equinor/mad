@@ -42,21 +42,21 @@ export type FailureReportSimple = {
      */
     isOpen: boolean;
     /**
-     * The point in time where the failure report was created
+     * The point in time when the failure report was created
      */
     createdDateTime: string | null;
     /**
-     * The point in time where the failure report was completed
+     * The point in time when the failure report was completed
      */
     completedDateTime: string | null;
     correctiveWorkOrderExist: boolean;
     correctiveWorkOrderId: string;
     /**
-     * The point in time where the failure started
+     * The point in time when the failure started
      */
     failureStartDateTime: string | null;
     /**
-     * The point in time where the failure resolved
+     * The point in time when the failure was resolved
      */
     failureEndDateTime: string | null;
     workCenterId: string | null;
