@@ -14,4 +14,3 @@ export type PreventiveWorkOrderBasic = (PreventiveWorkOrderSimple & {
    workCenter: string;
    text: string;
 });
-
