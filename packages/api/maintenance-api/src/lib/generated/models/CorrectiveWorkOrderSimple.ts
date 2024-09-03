@@ -37,6 +37,9 @@ export type CorrectiveWorkOrderSimple = {
     basicStartDateTime: string | null;
     basicEndDateTime: string | null;
     createdDateTime: string | null;
+    /**
+     * Date and time of when the Work order was changed
+     */
     changedDateTime: string | null;
     /**
      * Field used to assist in grouping/sorting Work orders. Unstructured field used non-consistently between plants
@@ -68,5 +71,9 @@ export type CorrectiveWorkOrderSimple = {
      * Indicates whether the Work Order is open or not.
      */
     isOpen: boolean;
+    costWBSId: string;
+    costWBS: string;
+    additionalCostWBSId: string;
+    additionalCostWBS: string;
 };
 

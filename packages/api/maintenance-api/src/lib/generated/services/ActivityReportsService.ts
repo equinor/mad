@@ -25,7 +25,7 @@ export class ActivityReportsService {
      * ### Overview
      * Lookup a single activity report. The activity report represents work performed for a maintenance activity against a tag or an equipment.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added `createdDateTime` for attachments.
      *
      * ### Update release v.1.6.0
@@ -33,35 +33,41 @@ export class ActivityReportsService {
      *
      * Added `isOpen` to lookup response.
      *
-     * ### Update release v1.10.0
+     * ### Update release 1.10.0
      * Added query parameter `include-url-references`.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added property `documentTitle` to `urlReferences`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.17.0
+     * ### Update release 1.17.0
      * Added query parameter `include-measurements`.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `urlReferences` and `attachments` now include the property `documentCreatedDate`
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added query parameters `include-additional-metadata` and `include-additional-data-characteristics`
      * Added `additionalMetadata` to response
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Added `isReadonlyText` property to `activities` in the response.
+     *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
      *
      * @returns ActivityReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -138,9 +144,12 @@ export class ActivityReportsService {
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.32.0
+     * Added ability to append text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info.
      *
      * @returns ActivityReportBasic Success, the activity report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -181,27 +190,30 @@ export class ActivityReportsService {
      * ### Important information
      * Equinor governing documents states that activity reports should be created at the lowest possible level in the tag hierachy.
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Added workCenterId, workCenterPlantId to create endpoint.
      *
      * Added activities to create endpoint.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * Added `relatedWorkOrder` to create endpoint. This will allow a relationship to be established on creation to either technical feedback or object list of a work order.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      *
      * Added `isOpen` to create endpoint. isOpen set to true enables creation of activity report in status `OSNO - Outstanding Notification`. By default `isOpen` is set to false, and activity report is created with `NOCO - Notification Completed` status.
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added `createdDateTime` to create endpoint.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added support for creating activity report for technical feedback with PSD.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Removed requirement for providing `reasonId` as part of the `technicalFeedbackParameters` when `source` is `TechnicalFeedback`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns ActivityReportBasic Created
@@ -421,7 +433,7 @@ export class ActivityReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -467,7 +479,7 @@ export class ActivityReportsService {
      *
      * To find possible activityCodeGroupId and activityCodeId use the  `/maintenance-records/activity-codes?maintenance-record-id=...`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -546,8 +558,11 @@ export class ActivityReportsService {
     /**
      * Activity report - Attachment upload
      * ### Overview
-     * Upload attachment for activity report
-     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     * **Upload attachment for activity report**
+     *
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
      *
      * ### Update release 1.28.0
      * Added the optional parameter `document-id` as a query parameter.
@@ -564,7 +579,7 @@ export class ActivityReportsService {
     }: {
         recordId: string,
         /**
-         * `documentId` can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
          *
          */
         documentId?: string | null,
@@ -586,6 +601,9 @@ export class ActivityReportsService {
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }

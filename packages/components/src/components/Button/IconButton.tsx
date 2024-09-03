@@ -1,10 +1,10 @@
 import React, { forwardRef } from "react";
 import { View, ViewProps } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
-import { Color, EDSStyleSheet } from "../../styling";
-import { PressableHighlight } from "../PressableHighlight";
-import { Icon, IconName } from "../Icon";
+import { EDSStyleSheet } from "../../styling";
 import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
+import { Icon, IconName } from "../Icon";
+import { PressableHighlight } from "../PressableHighlight";
 
 export type IconButtonProps = {
     /**
@@ -63,7 +63,7 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
                         onPress={onPress}
                         style={styles.pressableContainer}
                     >
-                        <Icon name={name} size={iconSize} color={styles.textStyle.color as Color} />
+                        <Icon name={name} size={iconSize} color={styles.textStyle.color} />
                     </PressableHighlight>
                 </View>
             </View>

@@ -23,36 +23,39 @@ export class TechnicalClarificationsService {
      *
      * Equinor's governing document [GL1561 - Work orders and notifications types](https://docmap.equinor.com/Docmap/page/doc/dmDocAll.html?DOCVIEW=FALSE?DOCKEYID=525791) provides additional information for this maintenance record type.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added `301` response.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added `quantity` for tasks.
      *
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area` to tag details.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
-     * ### Update release v1.26.0
-     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     * ### Update release 1.26.0
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
      *
      * @returns TechnicalClarification Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -130,10 +133,10 @@ export class TechnicalClarificationsService {
      * ## Important information
      * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added support for property `sortField`.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -261,7 +264,7 @@ export class TechnicalClarificationsService {
      *
      * Added properties personResponsibleId and personResponsibleEmail to response (only populated if include-person-responsible=true in the request).
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -368,7 +371,7 @@ export class TechnicalClarificationsService {
      * ### Important information
      * It is possible to create technical clarification for either tagId or equipmentId.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *

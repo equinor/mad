@@ -3,24 +3,24 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TagAttachment = {
+export type WorkOrderAttachment = {
     attachmentId: string;
     fileName: string;
     fileSize: string;
     mimeType: string;
     createdDateTime: string | null;
     /**
-     * Document title providing additional information to the attachment
+     * Document title providing additional information
      */
-    documentTitle: string;
+    documentTitle: string | null;
     /**
      * Internal type id of the document
      */
-    documentType: string;
+    documentType: string | null;
     /**
      * Internal document number
      */
-    documentNumber: string;
+    documentNumber: string | null;
     /**
      * Date when the document was created
      */

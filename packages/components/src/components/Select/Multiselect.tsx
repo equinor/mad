@@ -59,7 +59,7 @@ export const Multiselect = <T,>({
     };
 
     return (
-        <View>
+        <View style={{ flexGrow: 1 }}>
             <Pressable
                 testID={testID}
                 style={inputStyles.contentContainer}

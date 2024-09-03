@@ -98,4 +98,23 @@ export const colors = {
     infographic_substitute_pink_rose: "#E24973",
     infographic_substitute_pink_salmon: "#FF92A8",
     infographic_substitute_purple_berry: "#8C1159",
+
+    //most of the toast colors are custom, not from EDS foundation
+    toast_error_background_light: "#FFD2D1",
+    toast_error_background_dark: "#90042C",
+    toast_error_text_light: "#90042C",
+    toast_error_text_dark: "#FFE1E0",
+    toast_success_background_light: "#D9F7E2",
+    toast_success_background_dark: "#15682D",
+    toast_success_text_light: "#15682D",
+    toast_success_text_dark: "#D9F7E2",
+    toast_info_background_light: "#D5EAF4",
+    toast_info_background_dark: "#045E8D",
+    toast_info_text_light: "#045E8D",
+    toast_info_text_dark: "#D5EAF4",
+    toast_warning_background_light: "#FFE7D6",
+    toast_warning_background_dark: "#7F4600",
+    toast_warning_text_light: "#7F4600",
+    toast_warning_text_dark: "#FFE7D6",
+
 } as const;

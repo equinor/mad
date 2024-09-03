@@ -25,8 +25,13 @@ export type EquipmentAttachment = {
      * Date when the document was created
      */
     documentCreatedDate?: string | null;
+    /**
+     * Date and time of when the attachment was changed
+     */
+    changedDateTime?: string | null;
     _links: {
         enclosure?: string;
+        documentEnclosure?: string;
     };
 };
 

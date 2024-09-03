@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Attachment } from './Attachment';
 import type { MaintenancePlanSimple } from './MaintenancePlanSimple';
 import type { MaintenanceRecordMinimalWithActiveStatusIds } from './MaintenanceRecordMinimalWithActiveStatusIds';
 import type { Measurement } from './Measurement';
@@ -13,6 +12,7 @@ import type { ServiceOperation } from './ServiceOperation';
 import type { Status } from './Status';
 import type { TagBasic } from './TagBasic';
 import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
+import type { WorkOrderAttachment } from './WorkOrderAttachment';
 
 export type PreventiveWorkOrder = (PreventiveWorkOrderBasic & {
     operations?: Array<PreventiveWorkOrderOperation>;
@@ -34,7 +34,7 @@ export type PreventiveWorkOrder = (PreventiveWorkOrderBasic & {
     /**
      * Attachments for this Preventive Work Order
      */
-    attachments?: Array<Attachment>;
+    attachments?: Array<WorkOrderAttachment>;
     /**
      * Related measurements
      */

@@ -1,5 +1,109 @@
 # @equinor/mad-components
 
+## 0.15.1
+
+### Patch Changes
+
+-   1224665: Adjusted the `Cell` component. Instead of using `PressableHighlight`, it now uses a
+    different press component from `react-native-gesture-handler` when the cell is `swipeable`.
+-   1224665: Fix issue in the `Cell` component where cells with `additionalSurface` were incorrectly
+    displayed in `Cell.Groups`. The divider was not fully streched out.
+
+## 0.15.0
+
+### Minor Changes
+
+-   2a428d6: **Breaking change**: removed the `removed` status of the `Progress` components and its
+    decendants. Use `success` instead.
+
+## 0.14.13
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+
+## 0.14.12
+
+### Patch Changes
+
+-   dab732c: Prevent `CircularProgress` from rotating/animate in determinate mode.
+-   dab732c: Prevent `CircularProgress` from freezing on web after one rotation.
+-   00e6e0a: Prevent the clear text button from overlapping with the cancel button in the `Search`
+    component while typing
+-   dab732c: Updated linear and circular progress indicators. They now use animations from
+    `react-native-reanimated`
+-   00e6e0a: Fix unwanted flicker effect in `Progress` component during status updates
+
+## 0.14.11
+
+### Patch Changes
+
+-   c81ddfe: Resolved an issue with the `Cell` component on web where it failed to re-render after
+    interaction with the swipeable content
+-   c81ddfe: Resolved an issue with the `Cell` component where swiping triggered the `onPress` event
+    and left the Cell color highlighted
+-   c81ddfe: Updated animation for the `PressableHighlight` component. It now uses
+    react-native-reanimated.
+
+## 0.14.10
+
+### Patch Changes
+
+-   8046826: Add `forwardRef` support to `Cell.Button`
+
+## 0.14.9
+
+### Patch Changes
+
+-   4ba6843: Fixed issue where tasks with removed status was not included in the task counter in the
+    `Progress` component
+-   4ba6843: Added new `icon` and `iconColor` props, allowing users to display an icon on the right
+    side of the progress task title in the `Progress` component.
+
+## 0.14.8
+
+### Patch Changes
+
+-   8c8e10c: Adjusted the position of the `copy` and `return` button in the `Progress` component.
+    They are now next to the task item. Retry button can also be shown at the bottom of the
+    `Progress.Item`
+-   8c8e10c: Added `removed` status to the `Progress` component.
+-   8c8e10c: Added animations to the progress line in the `Progress` component.
+
+## 0.14.7
+
+### Patch Changes
+
+-   2012158: `Progress.Item` tasks are now allowed to use more screen estate
+-   2012158: "Copy to clipboard" button for task errors now render under the respective error
+-   2012158: `Progress.Item` task lines now visually indicate the current progress better
+
+## 0.14.6
+
+### Patch Changes
+
+-   7ce28df: Add colors for toast
+
+## 0.14.5
+
+### Patch Changes
+
+-   38bcfa3: Fix `Search` and make it correctly update its internal state (`text`) whenever the
+    `value` prop changes.
+
+## 0.14.4
+
+### Patch Changes
+
+-   19ecc0a: Added text color in the `Input` component in order to prevent dark text color in dark
+    mode
+
+## 0.14.3
+
+### Patch Changes
+
+-   a8cc142: Added flex to the `Select` and `Select.Multi` components
+
 ## 0.14.2
 
 ### Patch Changes

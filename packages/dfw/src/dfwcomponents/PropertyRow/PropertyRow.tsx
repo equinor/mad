@@ -7,6 +7,7 @@ import {
     IconName,
     Icon,
     Typography,
+    Color,
 } from "@equinor/mad-components";
 import { View, ViewProps } from "react-native";
 type PropertyRowStyleProps = {
@@ -16,8 +17,17 @@ export type PropertyRowProps = {
     label: string;
     value: string;
     iconName?: IconName;
+    textColor?: Color;
+    selectable?: boolean;
 } & ViewProps;
-export const PropertyRow = ({ label, value, iconName, ...rest }: PropertyRowProps) => {
+export const PropertyRow = ({
+    label,
+    value,
+    iconName,
+    textColor = "textTertiary",
+    selectable,
+    ...rest
+}: PropertyRowProps) => {
     const breakpoint = useBreakpoint();
     const styles = useStyles(themeStyles, { breakpoint });
     const renderIcon = () =>
@@ -41,8 +51,9 @@ export const PropertyRow = ({ label, value, iconName, ...rest }: PropertyRowProp
                 <Typography
                     group="paragraph"
                     variant="body_short"
-                    color="textTertiary"
+                    color={textColor}
                     numberOfLines={1}
+                    selectable={selectable}
                 >
                     {value}
                 </Typography>

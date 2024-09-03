@@ -14,6 +14,9 @@ export type TextTemplate = {
      */
     title: string;
     createdDateTime: string | null;
+    /**
+     * Date and time of when the text template was changed
+     */
     changedDateTime: string | null;
 };
 

@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CertificationReport } from '../models/CertificationReport';
+import type { CertificationReportBasic } from '../models/CertificationReportBasic';
+import type { CertificationReportCreate } from '../models/CertificationReportCreate';
 import type { CertificationReportSimple } from '../models/CertificationReportSimple';
 import type { ProblemDetails } from '../models/ProblemDetails';
 
@@ -22,34 +24,39 @@ export class CertificationReportsService {
      * For PSV certification, details are reported as measurements for 33 predefined measuring points.
      * For lifting certification, details are stored in attachment and possibly as characteristics on the tag/equipment.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added `301` response.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added properties `createdById`,`createdBy` and `createdByEmail`.
      * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area` to tag details.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
-     * ### Update release v1.26.0
-     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     * ### Update release 1.26.0
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Added `maintenanceRecordTypeId` to the response.
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
+     *
+     * Added properties `failureStartDateTime` and `failureEndDateTime` to response.
      *
      * @returns CertificationReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -114,6 +121,68 @@ export class CertificationReportsService {
                 Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
                 `,
                 404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Certification report - Attachment upload
+     * Upload attachment for certification report
+     *
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
+     *
+     * ### Important information
+     * If `documentTitle` is supplied, the title is added to all files that are sent
+     * in the current request. If different titles are wanted for different files, they have to be sent in separately
+     * (one file, one document title per request). When supplying a document-title, a new document will always be created for the attachment
+     *
+     * If documentTitle is supplied both as form-data and query parameter, the query parameter
+     * will take precedence.
+     *
+     * If `document-id` is supplied, the attachment will be uploaded specifically to this document. `document-title` and `document-id` cannot be supplied together.
+     *
+     * @returns any Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static uploadCertificationReportAttachment({
+        recordId,
+        documentTitle = null,
+        documentId = null,
+        formData,
+    }: {
+        recordId: string,
+        documentTitle?: string | null,
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId?: string | null,
+        formData?: {
+            files: Array<Blob>;
+            'document-title'?: string | null;
+        },
+    }): CancelablePromise<any | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/maintenance-records/certification-reports/{record-id}/attachments',
+            path: {
+                'record-id': recordId,
+            },
+            query: {
+                'document-title': documentTitle,
+                'document-id': documentId,
+            },
+            formData: formData,
+            mediaType: 'multipart/form-data',
+            errors: {
+                403: `User does not have sufficient rights to upload attachment`,
+                404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }
@@ -204,6 +273,42 @@ export class CertificationReportsService {
                 'max-days-since-activation': maxDaysSinceActivation,
                 'created-after-datetime': createdAfterDatetime,
                 'include-completed': includeCompleted,
+            },
+        });
+    }
+
+    /**
+     * Certification report - Create
+     * Create new certification report.
+     *
+     * The following endpoints can be used to find possible values for input:
+     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
+     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
+     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
+     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
+     *
+     * ### Important information
+     * It is possible to create certification report for either tagId or equipmentId.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns CertificationReportBasic Created
+     * @throws ApiError
+     */
+    public static createCertificationReport({
+        requestBody,
+    }: {
+        /**
+         * Certification report to create
+         */
+        requestBody: CertificationReportCreate,
+    }): CancelablePromise<ProblemDetails | CertificationReportBasic> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/maintenance-records/certification-reports',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                403: `User does not have sufficient rights to create a failure report`,
             },
         });
     }

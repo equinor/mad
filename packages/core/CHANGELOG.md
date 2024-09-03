@@ -1,5 +1,132 @@
 # @equinor/mad-core
 
+## 0.9.8
+
+### Patch Changes
+
+-   Updated dependencies [1224665]
+-   Updated dependencies [1224665]
+    -   @equinor/mad-components@0.15.1
+    -   @equinor/mad-auth@0.2.7
+    -   @equinor/mad-toast@0.1.5
+
+## 0.9.7
+
+### Patch Changes
+
+-   Updated dependencies [a529b4a]
+    -   @equinor/mad-toast@0.1.4
+
+## 0.9.6
+
+### Patch Changes
+
+-   Updated dependencies [2a428d6]
+    -   @equinor/mad-components@0.15.0
+    -   @equinor/mad-auth@0.2.6
+    -   @equinor/mad-toast@0.1.3
+
+## 0.9.5
+
+### Patch Changes
+
+-   12a30db: fixed logout button error
+
+## 0.9.4
+
+### Patch Changes
+
+-   01751ef: update mad base url
+
+## 0.9.3
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+-   Updated dependencies [fc6505c]
+    -   @equinor/mad-auth@0.2.5
+    -   @equinor/mad-components@0.14.13
+    -   @equinor/mad-insights@0.1.4
+    -   @equinor/mad-navigation@0.3.2
+    -   @equinor/mad-toast@0.1.2
+
+## 0.9.2
+
+### Patch Changes
+
+-   c9f698e: updated mad api base url
+-   Updated dependencies [dab732c]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+    -   @equinor/mad-components@0.14.12
+    -   @equinor/mad-auth@0.2.4
+    -   @equinor/mad-toast@0.1.1
+    -   @equinor/mad-insights@0.1.3
+    -   @equinor/mad-navigation@0.3.1
+
+## 0.9.1
+
+### Patch Changes
+
+-   ff2a015: Fixed incident request url for the feedback screen
+
+## 0.9.0
+
+### Minor Changes
+
+-   4b172f9: Update mad api base urls. Content Security Policies may need to be updated
+
+## 0.8.1
+
+### Patch Changes
+
+-   771e14d: Fixed keyboard covering the input fields in the feedback screen
+
+## 0.8.0
+
+### Minor Changes
+
+-   7ce28df: `addToast` is available. `react-native-safe-area-context` is now a peer dependency
+
+### Patch Changes
+
+-   Updated dependencies [7ce28df]
+    -   @equinor/mad-components@0.14.6
+
+## 0.7.2
+
+### Patch Changes
+
+-   09870d8: Several fixes for expo-auth-session implementation
+-   Updated dependencies [09870d8]
+    -   @equinor/mad-auth@0.2.1
+
+## 0.7.1
+
+### Patch Changes
+
+-   d329bc9: Display authentication method in about screen
+
+## 0.7.0
+
+### Minor Changes
+
+-   14d79cb: Implemented Expo-Auth-Session as authentication alternative from mad-auth
+
+### Patch Changes
+
+-   1fe26dc: Added msal-browser client implementation
+-   abb6d1a: Fixed issue with exporting mad-auth package
+-   c2404af: `NavigationContainer`: ref can now be attached and forwarded to the underlying
+    `NavigationContainer` from `react-navigation`
+-   Updated dependencies [1fe26dc]
+-   Updated dependencies [14d79cb]
+-   Updated dependencies [c2404af]
+    -   @equinor/mad-auth@0.2.0
+    -   @equinor/mad-navigation@0.3.1
+
 ## 0.6.1
 
 ### Patch Changes

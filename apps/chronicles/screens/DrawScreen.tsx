@@ -1,8 +1,8 @@
+import React, { useRef, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { CanvasImageControls, ImageMarkup } from "@equinor/react-native-skia-draw";
 import { Button, Typography } from "@equinor/mad-components";
 import * as ImagePicker from "expo-image-picker";
-import React, { useRef, useState } from "react";
 
 export const DrawScreen = () => {
     const canvasHandle = useRef<CanvasImageControls>(null);

@@ -4,6 +4,9 @@
 /* eslint-disable */
 
 export type DocumentCreate = {
+    /**
+     * Document title providing additional information
+     */
     documentTitle: string;
     /**
      * Internal type id of the document
@@ -21,5 +24,9 @@ export type DocumentCreate = {
      * Internal document number
      */
     documentNumber?: string;
+    /**
+     * Id of the Document status
+     */
+    statusId?: string;
 };
 

@@ -30,6 +30,18 @@ export type WorkOrderMaterial = {
     quantityUnitId: string;
     location: string;
     /**
+     * The final location of the material.
+     * Extracted from `location`.
+     *
+     */
+    finalLocation: string;
+    /**
+     * Temporary location of the material.
+     * Extracted from `location`.
+     *
+     */
+    temporaryLocation: string;
+    /**
      * Flag to indicate the delivery should be held at supplying base instead of immediately being delivered to its destination
      */
     holdDeliveryOnshore: boolean;
@@ -37,5 +49,19 @@ export type WorkOrderMaterial = {
      * Specifies the date and time for when the material is needed at its destination
      */
     requiredDatetime: string | null;
+    /**
+     * Specifies the recipient for whom the material is destined
+     */
+    goodsRecipientId?: string;
+    /**
+     * Specifies the point at which the material is to be unloaded
+     */
+    unloadingPoint?: string;
+    price?: number;
+    priceCurrency?: string;
+    /**
+     * Key for a buyer or a group of buyers, who is/are responsible for certain purchasing activities
+     */
+    purchasingGroup?: string;
 };
 

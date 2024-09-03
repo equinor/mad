@@ -49,59 +49,66 @@ export class SasChangeWorkOrdersService {
      * ### Overview
      * Lookup single SAS Change Work order with related information
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
      * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * If work-order-id exist, but is not a `sasChangeWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
      *
-     * ### Update release v1.3.0
+     * ### Update release 1.3.0
      * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Introduced property calculationKey for operations.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added equipmentId and equipment to the response of tagsRelated.
      *
      * Adding sourceId to related maintenance records.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Introduced property activeStatusIds for operations.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area` to tag details.
      *
      * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.26.0
-     * Added property 'isEquipmentRental' to services in serviceOperations.
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
      * Added `materials` to serviceOperations.
      *
-     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
      *
-     * ### Update release v1.27.0
-     * Work orders now include the property 'isOpen'
+     * ### Update release 1.27.0
+     * Work orders now include the property `isOpen`
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
-     * ### Update release v1.28.0
-     * Added new query parameter `include-safety-measuress`.
+     * ### Update release 1.28.0
+     * Added new query parameter `include-safety-measures`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
      * @returns SASChangeWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -206,22 +213,22 @@ export class SasChangeWorkOrdersService {
      *
      * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Added additional properties to update
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added possibility for update of sortField and revisionId.
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added possibility for update of locationId and systemId.
      *
-     * ### Update release v1.18.0
+     * ### Update release 1.18.0
      * Added possibility for update of `title` and `plannerGroupId`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
@@ -340,14 +347,14 @@ export class SasChangeWorkOrdersService {
      * ### Update release 1.4.0
      * Added location-id and system-id to filter `open-by-plant`.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added filter `by-cost-wbs`, with required parameter `cost-wbs-id`. Can be used in combination with optional parameter`plant-id`.
      * This filter only includes work orders where the WBS is represented on the work order level. It does not include work orders where WBS is only represented in the settlement rules.
      *
@@ -355,7 +362,7 @@ export class SasChangeWorkOrdersService {
      *
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
      * @returns SASChangeWorkOrderSimple Success
@@ -427,20 +434,23 @@ export class SasChangeWorkOrdersService {
      * Create new SAS Change Work order
      *
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns SASChangeWorkOrderBasic Created
@@ -469,13 +479,13 @@ export class SasChangeWorkOrdersService {
     /**
      * SAS Change Work order - Add operation(s)
      * Add operations
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added support for calculation key, which determines the relationship between plannedWorkDuration plannedWorkHours, and capacityCount.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added support for  `standardTextTemplate` (standard text template identifier), `systemCondition` (describes required process condition for each operation) and `isExcludedFromWorkOrderPlan` (based on operation status).
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *

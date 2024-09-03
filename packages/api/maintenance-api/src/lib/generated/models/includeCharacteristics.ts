@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
+ * Include characteristics'
  */
 export type includeCharacteristics = boolean;

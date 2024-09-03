@@ -52,6 +52,7 @@ export type RootTabParamList = {
     Components: undefined;
     DFW: undefined;
     IconsTab: undefined;
+    ToastTab: undefined;
     DrawTab: undefined;
     SignTab: undefined;
     Settings: undefined;

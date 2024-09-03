@@ -52,6 +52,7 @@ export const inputTokenStyles = EDSStyleSheet.create((token, props: InputStylePr
             paddingTop: token.spacing.textField.paddingVertical,
             paddingBottom: token.spacing.textField.paddingVertical,
             paddingHorizontal: token.spacing.textField.paddingHorizontal,
+            color: token.colors.text.primary,
             ...token.typography.basic.input,
         },
         placeholder: {

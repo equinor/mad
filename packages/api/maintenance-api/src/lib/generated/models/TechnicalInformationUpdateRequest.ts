@@ -24,6 +24,10 @@ export type TechnicalInformationUpdateRequest = (TechnicalInformationUpdateReque
      */
     createdByEmail?: string | null;
     /**
+     * Date and time of when the the notification was last changed.
+     */
+    changedDateTime?: string | null;
+    /**
      * All statuses possible with information about activation
      */
     statuses?: Array<Status>;

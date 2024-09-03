@@ -34,6 +34,18 @@ export type MaintenanceRecordTask = {
      * Value is dependent on taskResponsibleType
      */
     taskResponsibleId: string;
+    /**
+     * The full name of the person who is responsible for the task.
+     */
+    taskResponsible?: string;
+    /**
+     * The email address of the person who is responsible for the task.
+     */
+    taskResponsibleEmail?: string;
+    /**
+     * Date and time of when the the task was last changed.
+     */
+    changedDateTime?: string | null;
     plannedStartDateTime: string | null;
     plannedEndDateTime: string | null;
     createdDateTime: string | null;

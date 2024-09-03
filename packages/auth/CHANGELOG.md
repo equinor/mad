@@ -1,5 +1,71 @@
 # @equinor/mad-auth
 
+## 0.2.7
+
+### Patch Changes
+
+-   Updated dependencies [1224665]
+-   Updated dependencies [1224665]
+    -   @equinor/mad-components@0.15.1
+
+## 0.2.6
+
+### Patch Changes
+
+-   Updated dependencies [2a428d6]
+    -   @equinor/mad-components@0.15.0
+
+## 0.2.5
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+-   Updated dependencies [fc6505c]
+    -   @equinor/mad-components@0.14.13
+
+## 0.2.4
+
+### Patch Changes
+
+-   Updated dependencies [dab732c]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+    -   @equinor/mad-components@0.14.12
+
+## 0.2.3
+
+### Patch Changes
+
+-   9093ffb: Decode id token instead of access token
+-   Updated dependencies [2012158]
+-   Updated dependencies [2012158]
+-   Updated dependencies [2012158]
+    -   @equinor/mad-components@0.14.7
+
+## 0.2.2
+
+### Patch Changes
+
+-   d8e0946: Fixed issue with getting user info from access token
+
+## 0.2.1
+
+### Patch Changes
+
+-   09870d8: Several fixes for expo-auth-session implementation
+
+## 0.2.0
+
+### Minor Changes
+
+-   14d79cb: Implemented Expo-Auth-Session as authentication alternative from mad-auth
+
+### Patch Changes
+
+-   1fe26dc: Added msal-browser client implementation
+
 ## 0.1.24
 
 ### Patch Changes

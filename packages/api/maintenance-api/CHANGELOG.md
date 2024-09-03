@@ -1,5 +1,41 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.32.0
+
+### Minor Changes
+
+-   18e080d: Update wrapper to 1.32.0
+
+## 1.31.2
+
+### Patch Changes
+
+-   1ca3bfe: Moved to using the fetch API client
+
+## 1.31.1
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+
+## 1.31.0
+
+### Minor Changes
+
+-   397d9de: Update to v1.31.0
+
+## 1.30.0
+
+### Minor Changes
+
+-   db57115: Updated wrapper to 1.30.0
+
+## 1.29.0
+
+### Minor Changes
+
+-   035b690: Update wrapper
+
 ## 1.28.0
 
 ### Minor Changes

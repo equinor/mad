@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { failureImpactId } from './failureImpactId';
+
 export type FailureReportBasic = {
     recordId: string;
     tagId: string | null;
@@ -23,7 +25,7 @@ export type FailureReportBasic = {
     locationId: string;
     location: string;
     systemId: string;
-    failureImpactId: 'D' | 'S' | 'U' | 'X' | null;
+    failureImpactId: failureImpactId;
     failureImpact: string;
     priorityId?: 'D' | 'H' | 'L' | 'M' | 'U' | null;
     isBreakdown: boolean;
@@ -67,19 +69,19 @@ export type FailureReportBasic = {
      */
     isOpen: boolean;
     /**
-     * The point in time where the failure report was created
+     * The point in time when the failure report was created
      */
     createdDateTime: string | null;
     /**
-     * The point in time where the failure report was completed
+     * The point in time when the failure report was completed
      */
     completedDateTime: string | null;
     /**
-     * The point in time where the failure started
+     * The point in time when the failure started
      */
     failureStartDateTime: string | null;
     /**
-     * The point in time where the failure resolved
+     * The point in time when the failure was resolved
      */
     failureEndDateTime: string | null;
 };

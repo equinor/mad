@@ -9,6 +9,7 @@ import type { SubseaWorkOrderMaterial } from '../models/SubseaWorkOrderMaterial'
 import type { TechnicalFeedbackJsonPatch } from '../models/TechnicalFeedbackJsonPatch';
 import type { WorkOrderMaterial } from '../models/WorkOrderMaterial';
 import type { WorkOrderMaterialAdd } from '../models/WorkOrderMaterialAdd';
+import type { WorkOrderMaterialJsonPatch } from '../models/WorkOrderMaterialJsonPatch';
 import type { WorkOrderOperationJsonPatch } from '../models/WorkOrderOperationJsonPatch';
 import type { WorkOrderServiceOperationJsonPatch } from '../models/WorkOrderServiceOperationJsonPatch';
 
@@ -22,7 +23,7 @@ export class WorkOrderOperationsService {
      * Work order - Update operation
      * ### Overview
      * Update the work order operation for all work order types.
-     * The `operation-id` parameter to use in the url can be found using the various lookup and search endpoints for work orders. `operation-id` consist of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     * The `operation-id` parameter to use in the url can be found using the various lookup and search endpoints for work orders. `operation-id` consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
      *
      * The following fields are possible to update:
      * - actualPercentageComplete
@@ -51,15 +52,18 @@ export class WorkOrderOperationsService {
      * - 4 – Full production shutdown
      * - 5 - Reset condition value
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added support for `operationId`, `title`, `text`, `workCenterId`, `workCenterPlantId`, `standardTextTemplate`, `plannedWorkHours`, `plannedWorkDuration`, `capacityCount`, `calculationKey`, `systemCondition,` and `isExcludedFromWorkOrderPlan`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added support to reset `systemCondition` by passing in the value `5`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -95,7 +99,7 @@ export class WorkOrderOperationsService {
      * Work order operation - Remove operation
      * ### Overview
      * Remove an operation from a work order (of any work order type).
-     * The `operation-id` parameter to use in the url can be found using the various lookup and search endpoints for work orders. `operation-id` consist of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     * The `operation-id` parameter to use in the url can be found using the various lookup and search endpoints for work orders. `operation-id` consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
      *
      * It is not allowed to delete an already confirmed or partly confirmed operation, as well as the last open operation within a work order. Once a work order is completed, it is not possible to remove operations.
      *
@@ -130,6 +134,9 @@ export class WorkOrderOperationsService {
      * Required fields must be supplied:  `materialGroup`, `purchasingGroup`, `purchasingOrganization`.
      * One service has to be created with the following data:
      * `lineId`, `quantity`, `unit`, `materialGroup`, `costElement`, and either a `title` (for a text item service) or `serviceId`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -220,7 +227,7 @@ export class WorkOrderOperationsService {
      * Work order - Add materials
      * ### Overview
      * Add materials to a work order operation (of any work order type).
-     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consist of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
      *
      * There are three types of materials which can be added to work orders:
      * 1. Material identified by `materialId`
@@ -229,7 +236,7 @@ export class WorkOrderOperationsService {
      *
      * Each item in the request must include one of `materialId`, `equipmentId` or `material`.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added possibility of adding materials without a materialId (also known as text items).
      * In this case, the purchasing fields mentioned below need to be provided as input:
      * - `material`
@@ -239,6 +246,12 @@ export class WorkOrderOperationsService {
      * - `goodsRecipient`
      * - `unloadingPoint`
      * - `materialGroup`
+     *
+     * ### Update release 1.31.0
+     * Split parts of `location` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * ### Update in an upcoming release
+     * Added support for new properties `supplierId`, `vendorsMaterialNumber`, `deliveryTimeInDays`, `requisitionerId`, `holdDeliveryOnshore`, and `text`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns any Created
@@ -276,7 +289,7 @@ export class WorkOrderOperationsService {
      * Work order operation - Remove material
      * ### Overview
      * Remove a material from a work order operation (of any work order type).
-     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consist of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
      * The ´reservation-id´ parameter to use in the url can be found using the include-materials query parameter to work order lookup.
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -309,8 +322,56 @@ export class WorkOrderOperationsService {
     }
 
     /**
-     * Add safety measure to a work order operation
-     * Add safety measure for work order operation. Safety measures are needed when a work order operation requires special safety practices or risk management
+     * Work order operation - Update material
+     * ### Overview
+     * Update a material in a work order operation (of any work order type).
+     *
+     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     *
+     * The ´reservation-id´ parameter to use in the url can be found using the include-materials query parameter to work order lookup.
+     *
+     * ### Update in an upcoming release
+     * Added support for the same properties which can be used for material creation.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateMaterialInWorkOrderOperation({
+        operationId,
+        reservationId,
+        requestBody,
+    }: {
+        operationId: string,
+        /**
+         * Reservation id for the material found through work order lookup with include-materials
+         */
+        reservationId: string,
+        /**
+         * Update material details
+         */
+        requestBody: Array<WorkOrderMaterialJsonPatch>,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/work-order-operations/{operation-id}/materials/{reservation-id}',
+            path: {
+                'operation-id': operationId,
+                'reservation-id': reservationId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Work order operation - Add safety measure
+     * Add safety measure to work order operation. Safety measures are needed when a work order operation requires special safety practices or risk management.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns SafetyMeasure Created
@@ -335,8 +396,49 @@ export class WorkOrderOperationsService {
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                403: `User does not have sufficient rights edit the work order`,
+                403: `User does not have sufficient rights to edit the work order`,
                 404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Work order operation - Remove safety measure
+     * Remove a safety measure from a work order operation.
+     *
+     * The `operation-id` and `document-id` parameters to use in the request URL can be found using the various Lookup and Search endpoints for Work orders, typically by using the `include-operations` query parameter.
+     *
+     * - `operation-id` consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     * - `document-id` consists of four parts separated by the `-` character: A `document number` of up to 25 characters (e.g. `WORK AT HEIGHT`), the `document type` (e.g. `B30`, `A01`), a 3-digit `document part` (e.g. `000`), and a 2-digit `document version` part (e.g. `01`).
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static removeSafetyMeasure({
+        operationId,
+        documentId,
+    }: {
+        /**
+         * The `operation-id` of the Work order operation that has the safety measure document to remove.
+         */
+        operationId: string,
+        /**
+         * Unique id for the safety measure document to remove.
+         */
+        documentId: string,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/work-order-operations/{operation-id}/safety-measures/{document-id}',
+            path: {
+                'operation-id': operationId,
+                'document-id': documentId,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update work order operation`,
+                404: `The specified resource was not found`,
+                409: `Work order operation is locked by other user or it is not possible to remove the safety measure`,
             },
         });
     }

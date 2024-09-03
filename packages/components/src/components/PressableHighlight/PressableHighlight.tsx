@@ -1,14 +1,7 @@
-import React, { forwardRef, useRef } from "react";
-import {
-    Animated,
-    Pressable,
-    PressableProps,
-    View,
-    ViewStyle,
-    StyleSheet,
-    GestureResponderEvent,
-} from "react-native";
-import { useToken } from "../../hooks/useToken";
+import React, { forwardRef } from "react";
+import { Pressable, PressableProps, StyleSheet, View, ViewStyle } from "react-native";
+import Animated from "react-native-reanimated";
+import { useFadeAnimation } from "../../styling/animations";
 import { DisabledPressable } from "./DisabledPressable";
 
 export type PressableHightlightProps = {
@@ -21,7 +14,7 @@ export type PressableHightlightProps = {
      * Any stylings based on the state of the press is applied on top of this.
      */
     style?: ViewStyle;
-} & PressableProps;
+} & Omit<PressableProps, "children">;
 
 export const PressableHighlight = forwardRef<
     View,
@@ -33,30 +26,12 @@ export const PressableHighlight = forwardRef<
             children,
             disabled,
             onPress,
+
             ...rest
         }: React.PropsWithChildren<PressableHightlightProps>,
         ref,
     ) => {
-        const theme = useToken();
-        const fadeAnim = useRef(new Animated.Value(0)).current;
-
-        const handlePressIn = (event: GestureResponderEvent) => {
-            Animated.timing(fadeAnim, {
-                toValue: 1,
-                duration: 0,
-                useNativeDriver: true,
-            }).start();
-            rest.onPressIn?.(event);
-        };
-
-        const handlePressOut = (event: GestureResponderEvent) => {
-            Animated.timing(fadeAnim, {
-                toValue: 0,
-                duration: theme.timing.animation.normal,
-                useNativeDriver: true,
-            }).start();
-            rest.onPressOut?.(event);
-        };
+        const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
 
         const PressableComponent = disabled ? DisabledPressable : Pressable;
 
@@ -65,19 +40,12 @@ export const PressableHighlight = forwardRef<
                 {...rest}
                 ref={ref}
                 style={style}
-                onPressIn={event => !disabled && handlePressIn(event)}
-                onPressOut={event => !disabled && handlePressOut(event)}
+                onPressIn={event => !disabled && (handlePressIn(), rest.onPressIn?.(event))}
+                onPressOut={event => !disabled && (handlePressOut(), rest.onPressOut?.(event))}
                 onPress={event => !disabled && !!onPress && onPress(event)}
+                disabled={disabled}
             >
-                <Animated.View
-                    style={[
-                        styles.overlay,
-                        {
-                            backgroundColor: theme.colors.interactive.pressedOverlay,
-                            opacity: fadeAnim,
-                        },
-                    ]}
-                />
+                <Animated.View style={[animatedStyle, styles.overlay]} />
                 {children}
             </PressableComponent>
         );

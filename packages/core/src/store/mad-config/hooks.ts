@@ -54,6 +54,11 @@ export const useAbout = () => {
     return config.about;
 };
 
+export const useExperimentalFeatures = () => {
+    const config = useMadConfig();
+    return config.experimental;
+};
+
 export const useServiceNow = () => {
     const config = useMadConfig();
     return config.serviceNow;

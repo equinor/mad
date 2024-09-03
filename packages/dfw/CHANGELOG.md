@@ -1,5 +1,57 @@
 # @equinor/mad-dfw
 
+## 0.1.5
+
+### Patch Changes
+
+-   Updated dependencies [1224665]
+-   Updated dependencies [1224665]
+    -   @equinor/mad-components@0.15.1
+
+## 0.1.4
+
+### Patch Changes
+
+-   Updated dependencies [2a428d6]
+    -   @equinor/mad-components@0.15.0
+
+## 0.1.3
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+-   Updated dependencies [fc6505c]
+    -   @equinor/mad-components@0.14.13
+
+## 0.1.2
+
+### Patch Changes
+
+-   Updated dependencies [dab732c]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+    -   @equinor/mad-components@0.14.12
+
+## 0.1.1
+
+### Patch Changes
+
+-   350b5fc: Added a selectable prop to the PropertyRow component
+
+## 0.1.0
+
+### Minor Changes
+
+-   583968f: Add textcolor support for propertyrow and workordercell and add requiredEnd prop to
+    workordercell
+
+### Patch Changes
+
+-   Updated dependencies [a8cc142]
+    -   @equinor/mad-components@0.14.3
+
 ## 0.0.16
 
 ### Patch Changes

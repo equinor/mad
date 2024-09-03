@@ -16,7 +16,7 @@ export class MaintenanceConceptsService {
      * ### Overview
      * Lookup single maintenance concept
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added property conceptInstructions to maintenance concept and property text for maintenance activity.
      *
      * ### Update release 1.9.0

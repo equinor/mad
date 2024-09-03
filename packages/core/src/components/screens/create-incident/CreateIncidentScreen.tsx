@@ -8,7 +8,7 @@ import {
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import { View, LayoutAnimation, ScrollView } from "react-native";
+import { View, LayoutAnimation, ScrollView, KeyboardAvoidingView } from "react-native";
 import { UserInfo } from "./UserInfo";
 import { useAccountOrDemoAccount } from "../../../hooks";
 import * as Device from "expo-device";
@@ -72,70 +72,76 @@ export const CreateIncidentScreen = () => {
     };
 
     return (
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-            <Spacer />
-            <Cell>
-                <View style={styles.topTextContainer}>
-                    <Typography variant={"h1"}>Create ticket in ServiceNow</Typography>
-                    <Typography group={"paragraph"} variant={"body_short"}>
-                        We collect information about your device as part of our feedback process. By
-                        submitting, you agree to share the following information:
-                    </Typography>
-                </View>
-                <UserInfo infoType={"User"} infoValue={account?.username} />
-                <UserInfo infoType={"Device Brand"} infoValue={Device.brand} />
-                <UserInfo infoType={"Device"} infoValue={Device.deviceName} />
-                <UserInfo infoType={"Operating System"} infoValue={Device.osVersion} />
-                <UserInfo infoType={"Time Zone"} infoValue={Localization.timezone} />
-                <UserInfo infoType={"Area"} infoValue={Localization.locale} />
-                {ticketNumber && (
-                    <View style={[styles.popupBox, styles.popupSuccess]}>
-                        <Typography>{`Ticket number: ${ticketNumber}`}</Typography>
-                    </View>
-                )}
-                {error && (
-                    <View style={[styles.popupBox, styles.popupDanger]}>
-                        <Typography>
-                            {/* eslint-disable-next-line @typescript-eslint/no-base-to-string,@typescript-eslint/restrict-template-expressions -- this rule sucks */}
-                            {`An error occurred creating your ticket: ${error}`}
+        <KeyboardAvoidingView
+            behavior="padding"
+            keyboardVerticalOffset={115}
+            style={styles.container}
+        >
+            <ScrollView contentInsetAdjustmentBehavior="automatic">
+                <Spacer />
+                <Cell>
+                    <View style={styles.topTextContainer}>
+                        <Typography variant={"h1"}>Create ticket in ServiceNow</Typography>
+                        <Typography group={"paragraph"} variant={"body_short"}>
+                            We collect information about your device as part of our feedback
+                            process. By submitting, you agree to share the following information:
                         </Typography>
                     </View>
-                )}
-                <View style={styles.titleField}>
-                    <TextField
-                        onChange={setTicketTitle}
-                        value={ticketTitle}
-                        placeholder={"Write a title for the Service Now ticket"}
-                        readOnly={isSending}
-                    />
-                </View>
-                <View style={styles.titleField}>
-                    <TextField
-                        multiline
-                        onChange={setTicketDescription}
-                        placeholder={
-                            "Write a complete description of your issue. You do not need to provide information about your device."
-                        }
-                        value={ticketDescription}
-                        readOnly={isSending}
-                    />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        disabled={!ticketTitle || !ticketDescription || isSending}
-                        onPress={onSubmit}
-                        style={{ width: 81 }}
-                        title={"Send"}
-                    ></Button>
-                </View>
-            </Cell>
-        </ScrollView>
+                    <UserInfo infoType={"User"} infoValue={account?.username} />
+                    <UserInfo infoType={"Device Brand"} infoValue={Device.brand} />
+                    <UserInfo infoType={"Device"} infoValue={Device.deviceName} />
+                    <UserInfo infoType={"Operating System"} infoValue={Device.osVersion} />
+                    <UserInfo infoType={"Time Zone"} infoValue={Localization.timezone} />
+                    <UserInfo infoType={"Area"} infoValue={Localization.locale} />
+                    {ticketNumber && (
+                        <View style={[styles.popupBox, styles.popupSuccess]}>
+                            <Typography>{`Ticket number: ${ticketNumber}`}</Typography>
+                        </View>
+                    )}
+                    {error && (
+                        <View style={[styles.popupBox, styles.popupDanger]}>
+                            <Typography>
+                                {/* eslint-disable-next-line @typescript-eslint/no-base-to-string,@typescript-eslint/restrict-template-expressions -- this rule sucks */}
+                                {`An error occurred creating your ticket: ${error}`}
+                            </Typography>
+                        </View>
+                    )}
+                    <View style={styles.titleField}>
+                        <TextField
+                            onChange={setTicketTitle}
+                            value={ticketTitle}
+                            placeholder={"Write a title for the Service Now ticket"}
+                            readOnly={isSending}
+                        />
+                    </View>
+                    <View style={styles.titleField}>
+                        <TextField
+                            multiline
+                            onChange={setTicketDescription}
+                            placeholder={
+                                "Write a complete description of your issue. You do not need to provide information about your device."
+                            }
+                            value={ticketDescription}
+                            readOnly={isSending}
+                        />
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button
+                            disabled={!ticketTitle || !ticketDescription || isSending}
+                            onPress={onSubmit}
+                            style={{ width: 81 }}
+                            title={"Send"}
+                        ></Button>
+                    </View>
+                </Cell>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
 const createIncidentStyles = EDSStyleSheet.create(theme => ({
     container: {
-        paddingVertical: theme.spacing.container.paddingVertical,
+        flex: 1,
     },
     topTextContainer: {
         paddingBottom: theme.geometry.dimension.cell.minHeight,

@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Include URL references for equipment or tag
+ * Include URL references for object
  */
 export type includeURLReferences = boolean;

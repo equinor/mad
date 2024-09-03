@@ -1,10 +1,10 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "globalDependencies": ["**/.env.*local"],
-    "pipeline": {
+    "tasks": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": ["dist/**", "build/**"]
+            "outputs": ["dist/**", "build/**", "ios/**"]
         },
         "lint": {
             "outputs": [],
@@ -19,9 +19,17 @@
         "generate": {
             "cache": false
         },
-        "test": {},
+        "test": {
+            "cache": false
+        },
         "clean": {
             "cache": false
-        }
+        },
+        "docker": {
+            "outputs": ["dist/**"]
+        },
+        "use:dev": {},
+        "use:test": {},
+        "use:prod": {}
     }
 }

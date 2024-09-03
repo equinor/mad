@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { failureImpactId } from './failureImpactId';
 import type { MaintenanceRecordItemMetadataCreate } from './MaintenanceRecordItemMetadataCreate';
 
 export type FailureReportCreate = {
@@ -18,7 +19,7 @@ export type FailureReportCreate = {
      * Required to input either tag or equipment
      */
     equipmentId?: string;
-    failureImpactId: 'D' | 'S' | 'U' | 'X';
+    failureImpactId: failureImpactId;
     isBreakdown?: boolean;
     failureModeId: string;
     failureModeGroupId: string;
@@ -57,11 +58,11 @@ export type FailureReportCreate = {
      */
     createdDateTime?: string;
     /**
-     * The point in time where the failure started
+     * The point in time when the failure started
      */
     failureStartDateTime?: string;
     /**
-     * The point in time where the failure resolved
+     * The point in time when the failure was resolved
      */
     failureEndDateTime?: string;
     /**
@@ -92,11 +93,11 @@ export type FailureReportCreate = {
          */
         sourceId?: string;
         /**
-         * For source `TechnicalFeedback` these parameters are normally also supplied. If they are not supplied, the relationship between maintenance and technical feedback is of type optional.
+         * For source `TechnicalFeedback`, `sourceId` needs to be supplied.
          */
         technicalFeedbackParameters?: {
             statusId?: string;
-            reasonId?: string;
+            reasonId?: string | null;
         };
     };
 };

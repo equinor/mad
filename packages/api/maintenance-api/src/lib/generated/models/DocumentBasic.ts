@@ -28,6 +28,17 @@ export type DocumentBasic = {
      * Identifies the version of the document
      */
     documentVersion?: string | null;
-    createdDateTime?: string | null;
+    /**
+     * Date when the document was created
+     */
+    documentCreatedDate?: string | null;
+    /**
+     * Id of the Document status
+     */
+    statusId?: string;
+    /**
+     * Document status
+     */
+    statusText?: string;
 };
 

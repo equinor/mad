@@ -10,7 +10,7 @@ on:
 jobs:
     title:
         name: 🛂 Lint PR title
-        runs-on: ubuntu-latest
+        runs-on: macos-latest
         steps:
             - uses: amannn/action-semantic-pull-request@v5
               env:
@@ -21,19 +21,22 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: 👀 Checkout Repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   ref: ${{ github.head_ref }}
 
-            - name: 🌈 Setup Node.js 18
-              uses: actions/setup-node@v3
+            - name: ⚛️ Enable Corepack
+              run: corepack enable
+
+            - name: 🌈 Setup Node.js 20
+              uses: actions/setup-node@v4
               with:
-                  node-version: 18
+                  node-version: 20
                   cache: yarn
                   cache-dependency-path: yarn.lock
 
             - name: 📦 Install Dependencies
-              run: yarn install --frozen-lockfile
+              run: yarn install --immutable
 
             - name: 🏭 Build packages
               run: yarn build:all

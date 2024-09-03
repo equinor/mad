@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CommunicationCreate } from '../models/CommunicationCreate';
 import type { CorrectiveWorkOrder } from '../models/CorrectiveWorkOrder';
 import type { CorrectiveWorkOrderBasic } from '../models/CorrectiveWorkOrderBasic';
 import type { CorrectiveWorkOrderCreate } from '../models/CorrectiveWorkOrderCreate';
@@ -54,30 +55,30 @@ export class CorrectiveWorkOrdersService {
      *
      * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
      *
-     * ### Update release v1.0.0
+     * ### Update release 1.0.0
      * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
      * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * If work-order-id exist, but is not a `correctiveWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
      *
-     * ### Update release v1.3.0
+     * ### Update release 1.3.0
      * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Introduced property calculationKey for operations.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added createdDateTime for attachments.
      *
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added equipmentId and equipment to the response of tagsRelated.
      *
      * Adding sourceId to related maintenance records.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Introduced property activeStatusIds for operations.
      *
      * ### Update release 1.12.0
@@ -85,49 +86,65 @@ export class CorrectiveWorkOrdersService {
      *
      * Introduced property `detectionMethodGroupId` and `detectionMethodId` for technical feedback.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added new query parameter `include-measurements`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added properties `costs` and `costsCurrency`.
      * Added property `area` to tag details.
      *
      * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.22.0
+     * ### Update release 1.22.0
      * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
      *
      * Added activeStatusIds to related maintenance records.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `attachments` now include the property `documentCreatedDate`
      *
      * Removed 'urlReferences' field from response object, and removed 'include-url-references' query parameter. URLReferences are only supported for Notifications.
      *
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.26.0
-     * Added property 'isEquipmentRental' to services in serviceOperations.
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
      * Added `materials` to serviceOperations.
      *
      * 'tagDetails' object now includes the new field 'maintenanceConceptId'
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * Added new query parameter `include-safety-measure`.
      *
      * Added new query parameter `include-estimated-costs`.
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
+     *
+     * ### Update release 1.29.0
+     * Added new properties for `additionalCostWBSId` and `costWBSId`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
+     *
+     *
+     * ### Upcoming changes
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials` .
+     * Added `include-communications` to query parameters.
+     * Added `communications` to the response.
      *
      * @returns CorrectiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -149,6 +166,7 @@ export class CorrectiveWorkOrdersService {
         includeMeasurements = false,
         includeSafetyMeasures = false,
         includeEstimatedCosts = false,
+        includeCommunications = false,
     }: {
         workOrderId: string,
         /**
@@ -207,6 +225,10 @@ export class CorrectiveWorkOrdersService {
          * Include estimated costs
          */
         includeEstimatedCosts?: boolean,
+        /**
+         * Include communications to a reservation or service operation
+         */
+        includeCommunications?: boolean,
     }): CancelablePromise<CorrectiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -229,6 +251,7 @@ export class CorrectiveWorkOrdersService {
                 'include-measurements': includeMeasurements,
                 'include-safety-measures': includeSafetyMeasures,
                 'include-estimated-costs': includeEstimatedCosts,
+                'include-communications': includeCommunications,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`correctiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -241,7 +264,7 @@ export class CorrectiveWorkOrdersService {
     /**
      * Corrective Work order - Update
      * ### Overview
-     * Update corrective work order.
+     * Update a Corrective Work Order.
      *
      * Supports:
      * - Append and replace text
@@ -255,34 +278,59 @@ export class CorrectiveWorkOrdersService {
      * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
      * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
      * - Update costs
+     * - Update costWBSId and additionalCostWBSId
+     * - Update priorityId
      *
-     * ### Important information
+     *
+     * ### Important information - costWBSId and additionalCostWBSId
+     * It's generally recommended that the values of `costWBSId` and `additionalCostWBSId` match.
+     * When the work order is released (by setting status `REL`), there is Equinor business logic check to see if they match.
+     * If the work order is released through Maintenance API, different values for costWBSId and additionalCostWBSId will result in an error.
+     * If the work order is released directly in the ERP system, the user will receive a warning and can choose to continue.
+     *
+     * Updating of `costWBSId` will trigger a new determination of the settlement rule in the ERP system. If a settlemet rule already exists, the updating of `costWBSId` will automatically update the settlement rule. Hence the `costWBSId` and settlement rule are allways aligned.
+     *
+     *
+     * ### Important information - Text
      * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
      *
      * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
      *
      * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
-     * ### Update release v1.0.0
+     * ### Important information - priorityId
+     * `priorityId` can only be updated if the Corrective Work Order has a different priority than the FailureReport connected to this workorder.
+     *
+     * ### Update release 1.0.0
      * Added additional properties to update
      *
-     * ### Update release v1.4.0
+     * ### Update release 1.4.0
      * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added possibility for update of sortField and revisionId.
      *
-     * ### Update release v1.7.0
+     * ### Update release 1.7.0
      * Added possibility for update of locationId and systemId.
      *
-     * ### Update release v1.18.0
+     * ### Update release 1.18.0
      * Added possibility for update of `title` and `plannerGroupId`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added possibility for update of `costs`.
      *
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.29.0
+     * Added possibility for update of `costWBSId` and `additionalCostWBSId`.
+     *
+     * ### Update release 1.31.0
+     * Added possibility for update of `priorityId`.
+     *
+     * ### Update release 1.32.0
+     *
+     * Updating of `costWBSId` from now on triggers the determination/updating of the settlement rule.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -317,15 +365,18 @@ export class CorrectiveWorkOrdersService {
     /**
      * Corrective Work order - Add operation(s)
      * Add operations
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added support for calculation key, which determines the relationship between plannedWorkDuration plannedWorkHours, and capacityCount.
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added support for  `standardTextTemplate` (standard text template identifier), `systemCondition` (describes required process condition for each operation) and `isExcludedFromWorkOrderPlan` (based on operation status).
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns string Created - No body available for response. Use lookup from location header
@@ -370,7 +421,7 @@ export class CorrectiveWorkOrdersService {
      * Update the work order operation.
      * Currently, we support completing the operation but additional functionality will be added in future releases.
      *
-     * ### Update release v0.11.0
+     * ### Update release 0.11.0
      * Deprecated endpoint
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -402,6 +453,155 @@ export class CorrectiveWorkOrdersService {
                 403: `User does not have sufficient rights to update work order operation`,
                 404: `The specified resource was not found`,
                 409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Corrective Work Order - Add communication
+     * ### Overview
+     *
+     * Add communication to Corrective Work order.
+     * Purchaser and Requestor collaboration text used on the order for a material.
+     *
+     * ### Important information
+     * The communication is stored differently for each operation type PM01 (`operations`) or PM03 (`service-operations`).
+     *
+     * #### For PM01 (`operations`)
+     * The communication will be stored on a unique reservation, and the reservation id is used to identify the reservation. Reservation id can be found under `materials` for a given operation.
+     *
+     * #### For PM03 (`service-operations`)
+     * The communication will be stored on a unique service operation, and the service operation id is used to identify the service operation. Service operation id can be found under `serviceOperations` for a given work order.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addCorrectiveWorkOrderOperationCommunication({
+        workOrderId,
+        operation,
+        requestBody,
+    }: {
+        workOrderId: string,
+        operation: string,
+        /**
+         * Communication to add to Corrective Work order
+         */
+        requestBody: CommunicationCreate,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}/communication',
+            path: {
+                'work-order-id': workOrderId,
+                'operation': operation,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                403: `User does not have sufficient rights to add communication to work order`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Corrective Work Order Communication - Attachment upload
+     * ### Overview
+     * **Upload attachment for Corrective Work Order Communication and PM03 service-operations**
+     *
+     * ### Important information
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
+     * - There will be created a new DMS document for the communication, or reuse already existing document if an attachment is already uploaded.
+     *
+     * Please use the endpoint `/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}/communication` to add communication before uploading attachments.
+     *
+     * Please use the endpoint `/documents/{document-id}/attachments/{attachment-id}` to download attachments. `attachment-id` can be found in the response of the LookupCorrectiveWorkOrder endpoint.
+     *
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static uploadCorrectiveWorkOrderOperationCommunicationAttachment({
+        workOrderId,
+        operation,
+        formData,
+    }: {
+        workOrderId: string,
+        operation: string,
+        formData?: {
+            files?: Array<Blob>;
+        },
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}/communication/attachments',
+            path: {
+                'work-order-id': workOrderId,
+                'operation': operation,
+            },
+            formData: formData,
+            mediaType: 'multipart/form-data',
+            errors: {
+                403: `User does not have sufficient rights to upload attachment`,
+                404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
+            },
+        });
+    }
+
+    /**
+     * Corrective Work Order Material Communication - Attachment upload
+     * ### Overview
+     * **Upload attachment for Corrective Work Order Communication and PM01 operations**
+     *
+     * ### Important information
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
+     * - There will be created a new DMS document for the communication, or reuse already existing document if an attachment is already uploaded.
+     *
+     * Please use the endpoint `/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}/communication` to add communication before uploading attachments.
+     *
+     * Please use the endpoint `/documents/{document-id}/attachments/{attachment-id}` to download attachments. `attachment-id` can be found in the response of the LookupCorrectiveWorkOrder endpoint.
+     *
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static uploadCorrectiveWorkOrderOperationCommunicationMaterialAttachment({
+        workOrderId,
+        operation,
+        reservationId,
+        formData,
+    }: {
+        workOrderId: string,
+        operation: string,
+        reservationId: string,
+        formData?: {
+            files?: Array<Blob>;
+        },
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/work-orders/corrective-work-orders/{work-order-id}/operations/{operation}/materials/{reservation-id}/communication/attachments',
+            path: {
+                'work-order-id': workOrderId,
+                'operation': operation,
+                'reservation-id': reservationId,
+            },
+            formData: formData,
+            mediaType: 'multipart/form-data',
+            errors: {
+                403: `User does not have sufficient rights to upload attachment`,
+                404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }
@@ -457,7 +657,7 @@ export class CorrectiveWorkOrdersService {
      * ### Overview
      * Add time ticket for work performed
      *
-     * ### Update release v0.8.0
+     * ### Update release 0.8.0
      * Text multi-line property now is persisted as expected in ERP system.
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -495,9 +695,11 @@ export class CorrectiveWorkOrdersService {
 
     /**
      * Corrective Work order - Attachment upload
-     * Upload attachments for Corrective Work Order
+     * **Upload attachment for Corrective Work Order**
      *
-     * Note: Attachment upload endpoints (including this one) do not support being called in parallel.
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -522,6 +724,9 @@ export class CorrectiveWorkOrdersService {
             errors: {
                 403: `User does not have sufficient rights to upload attachment`,
                 404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
             },
         });
     }
@@ -669,25 +874,25 @@ export class CorrectiveWorkOrdersService {
      * - plant-id
      * - maintenance-type-id
      *
-     * ### Update release v0.9.0
+     * ### Update release 0.9.0
      * Added filter by-maintenance-type-id.
      *
-     * ### Update release v0.11.0
+     * ### Update release 0.11.0
      * Added system-id as optional parameter til filter before-required-end-date.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added properties `costs` and `costsCurrency`.
      *
      * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
      * @returns CorrectiveWorkOrderSimple Success
@@ -772,29 +977,48 @@ export class CorrectiveWorkOrdersService {
      *
      * To lookup the created corrective work order use endpoint `/work-orders/corrective-work-orders/{work-order-id}`
      *
-     * ### Update release v1.1.0
+     * ### Important information
+     *
+     * Up until release 1.32.0, we have enabled creating operations with `operationId` `0010` through the API, allowing the user to customize this operation during creation.
+     *
+     * Starting from release 1.32.0, the API logic for creating operations has been aligned with the new logic enforced by the SAP backend system. The new logic adds operations from the task list of any failure report that the work order is created from.
+     *
+     * As a result, creating an operation with a reserved `operationId` is no longer allowed.
+     * This always affects operations with `operationId` equal to `0010`, but can also apply to other operations.
+     *
+     * To see which operations are already reserved, use `/maintenance-api/maintenance-records/failure-reports/{record-id}&include-task-list=true`
+     *
+     * ### Update release 1.1.0
      * Added externalPartnerWorkOrderId property to be used as reference to work order in external partner system.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release v1.6.0
+     * ### Update release 1.6.0
      * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
      *
-     * ### Update release v1.21.0
-     * Add property 'IsExcludedFromWorkOrderPlan' to operations model.
+     * ### Update release 1.21.0
+     * Add property `IsExcludedFromWorkOrderPlan` to operations model.
      *
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * ### Update release 1.32.0
+     * Restriction to create a work order with operationId `0010` and other reserved operationIds.
+     *
+     * To see which operationIds are already reserved, use `/maintenance-api/maintenance-records/failure-reports/{record-id}&include-task-list=true`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns CorrectiveWorkOrderBasic Created

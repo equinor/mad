@@ -10,6 +10,7 @@ import type { TagBasic } from '../models/TagBasic';
 import type { TagCreate } from '../models/TagCreate';
 import type { TagHierachyItem } from '../models/TagHierachyItem';
 import type { TagHierachyItemDeprecated } from '../models/TagHierachyItemDeprecated';
+import type { TagHierarchyTree } from '../models/TagHierarchyTree';
 import type { TagJsonPatch } from '../models/TagJsonPatch';
 import type { TagSearch } from '../models/TagSearch';
 
@@ -24,10 +25,10 @@ export class TagService {
      * ### Overview
      * Lookup a single tag with related information
      *
-     * ### Update release v0.9.0
+     * ### Update release 0.9.0
      * Added `include-measuring-points` and `include-last-measurement` query parameters.
      *
-     * ### Update release v1.1.0
+     * ### Update release 1.1.0
      * Added additional characteristics with ids CRIT_MAIN_FUNCTION and CRIT_SUB_FUNCTION.
      *
      * Added certification-report, technical-information-update-requests and technical-clarifications for `include-maintenance-records` query parameter.
@@ -38,24 +39,24 @@ export class TagService {
      *
      * Fixed bug for `include-installed-equipment`.
      *
-     * ### Update release v1.3.0
+     * ### Update release 1.3.0
      * Added `workCenterId`, `workCenterPlantId`, `workCenter`, `planningPlantId`,`plannerGroupId` and `plannerGroup` properties.
      *
      * Added `include-bill-of-materials` query parameter.
      *
-     * ### Update release v1.5.0
+     * ### Update release 1.5.0
      * Added `revisionId` and `revision` to related work orders (represents shutdown or campaign work).
      *
-     * ### Update release v1.8.0
+     * ### Update release 1.8.0
      * Added properties `hasUnsafeFailureMode` and `unsafeFailureModeStatus` for failure reports.
      *
-     * ### Update release v1.10.0
+     * ### Update release 1.10.0
      * Added property `maintenanceRecordId` to measurements of measuring points.
      *
-     * ### Update release v1.11.0
+     * ### Update release 1.11.0
      * Added property `costWBSId`.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added `workOrderId` to response.
      *
      * Added `include-linear-data` and `include-status-details` query parameters.
@@ -64,28 +65,31 @@ export class TagService {
      *
      * Added `modification-proposal` as a maintenance record type to include with `include-maintenance-record-types` parameter.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added property `classId` to characteristics.
      *
      * Added query parameters `include-attachments` and `include-url-references`.
      *
      * Added property `workCenterId`
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area`.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * `urlReferences` and `attachments` now include the property `documentCreatedDate`
      *
      * Added property `cmrIndicator` for WorkOrders
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * `billOfMaterials` now include the property `parentMaterialId`
      *
      * Added `materialId` and `material` to the response
+     *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
      *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -161,7 +165,7 @@ export class TagService {
          */
         includeAttachments?: boolean,
         /**
-         * Include URL references for equipment or tag
+         * Include URL references for object
          */
         includeUrlReferences?: boolean,
         /**
@@ -224,7 +228,7 @@ export class TagService {
      * ### Update release 1.19.0
      * Added support for activation and deactivation of tag statuses. The property `activeStatusIds` should provide all the the old and new statuses a tag should have, and any statuses not provided will be deactivated.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      *
      * Added support for property `area`
      *
@@ -361,7 +365,7 @@ export class TagService {
      *
      * The data will be cached in the API and renewed on a daily basis.
      *
-     * ### Update release v0.9.0
+     * ### Update release 0.9.0
      * Added filter-by-root-tags filter.
      *
      * ### Important information
@@ -376,6 +380,7 @@ export class TagService {
         plantId,
         filter,
         rootTags,
+        subHierarchyLimit = 4,
     }: {
         plantId: string,
         /**
@@ -386,6 +391,12 @@ export class TagService {
          * Comma-separated list of tags (without tagPlantId prefix)
          */
         rootTags?: string,
+        /**
+         * Limit the response to a certain number of levels below the root tag
+         * If this parameter is omitted, a maximum of 4 sub levels will be included.
+         *
+         */
+        subHierarchyLimit?: number,
     }): CancelablePromise<Array<TagHierachyItemDeprecated> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -396,6 +407,7 @@ export class TagService {
             query: {
                 'filter': filter,
                 'root-tags': rootTags,
+                'sub-hierarchy-limit': subHierarchyLimit,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -418,6 +430,11 @@ export class TagService {
      *
      * The data will be cached in the API and renewed on a daily basis.
      *
+     * ### Update release 1.30.0
+     * Added property `tag` to the response.
+     *
+     * Added query parameter `sub-hierarchy-limit` which controls how many levels below the root the response will contain.
+     *
      * @returns TagHierachyItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -426,6 +443,7 @@ export class TagService {
         plantId,
         filter,
         rootTagIdAnyOf,
+        subHierarchyLimit = 4,
     }: {
         plantId: string,
         /**
@@ -436,6 +454,12 @@ export class TagService {
          * Comma-separated list of tags (without tagPlantId prefix)
          */
         rootTagIdAnyOf?: string,
+        /**
+         * Limit the response to a certain number of levels below the root tag
+         * If this parameter is omitted, a maximum of 4 sub levels will be included.
+         *
+         */
+        subHierarchyLimit?: number,
     }): CancelablePromise<Array<TagHierachyItem> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -446,6 +470,60 @@ export class TagService {
             query: {
                 'filter': filter,
                 'root-tag-id-any-of': rootTagIdAnyOf,
+                'sub-hierarchy-limit': subHierarchyLimit,
+            },
+            errors: {
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Tag hierarchy tree - Get
+     * Get the entire tag hierarchy for a plant in a tree structure.
+     * For each tag you will be provided with catalog profile and the parent tag.
+     *
+     * ### Important information
+     * The query parameter `root-tag-id` is mandatory and is the root tag for the hierarchy.
+     * Use the query parameter `sub-hierarchy-limit` to control how many levels below the root the response will contain.
+     *
+     * The data will be cached in the API and renewed on a daily basis.
+     *
+     * The property `subTagHierarchy` is an array of `TagHierarchyTree` objects, meaning that this is a recursive property.
+     * When the array is empty, either the sub-limit has restricted further levels to serialize, or the hierarchy has reached the bottom.
+     * The property `isEndNode` indicates if there are further tags in the hierarchy which can be looked up with a subsequent request.
+     *
+     * @returns TagHierarchyTree Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getTagHierarchyTree({
+        plantId,
+        rootTagId,
+        subHierarchyLimit = 4,
+    }: {
+        plantId: string,
+        /**
+         * The root tag for the hierarchy
+         */
+        rootTagId: string,
+        /**
+         * Limit the response to a certain number of levels below the root tag.
+         * If this parameter is omitted, a maximum of 4 sub levels will be included.
+         * Setting this parameter to 0 will output the full depth of the hierarchy tree.
+         *
+         */
+        subHierarchyLimit?: number,
+    }): CancelablePromise<TagHierarchyTree | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/plants/{plant-id}/tag-hierarchy-tree',
+            path: {
+                'plant-id': plantId,
+            },
+            query: {
+                'root-tag-id': rootTagId,
+                'sub-hierarchy-limit': subHierarchyLimit,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -466,11 +544,11 @@ export class TagService {
      *
      * Please note that to execute this request, elevated roles are required in Equinor's ERP system.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      *
      * Added support for property `area`.
      *
-     * ### Update release v1.26.0
+     * ### Update release 1.26.0
      * Added property `maintenanceConceptId` to response.
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -536,34 +614,37 @@ export class TagService {
      *
      * Edited the response structure to support pagination if filter `by-tag-prefix` is set. Use the parameters `page` and `per-page` in the parameters to edit wanted response.
      *
-     * ### Update release v1.15.0
+     * ### Update release 1.15.0
      * Added `include-linear-data` and `include-status-details` query parameters.
      *
      * Added properties `tagCategoryId`, `activeStatusIds`, `startUpDate` and `endOfUseDate`.
      *
-     * ### Update release v1.16.0
+     * ### Update release 1.16.0
      * Added property `classId` to characteristics
      *
-     * ### Update release v1.18.0
+     * ### Update release 1.18.0
      * Added new filter `by-external-system-reference`.
      * Added new property `semiModelId`.
      *
-     * ### Update release v1.21.0
+     * ### Update release 1.21.0
      * Added property `area`.
      *
-     * ### Update release v1.24.0
+     * ### Update release 1.24.0
      * Added query parameters `include-attachments` and `include-url-references`.
      * `urlReferences` and `attachments` now include the property `documentCreatedDate`
      *
      * Added property `cmrIndicator` for WorkOrders
      *
-     * ### Update release v1.27.0
+     * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
-     * ### Update release v1.28.0
+     * ### Update release 1.28.0
      * `billOfMaterials` now include the property `parentMaterialId`
      *
      * Added `materialId` and `material` to the response
+     *
+     * ### Update release 1.32.0
+     * Added `changedDateTime` for attachments.
      *
      * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -656,7 +737,7 @@ export class TagService {
          */
         includeAttachments?: boolean,
         /**
-         * Include URL references for equipment or tag
+         * Include URL references for object
          */
         includeUrlReferences?: boolean,
         /**

@@ -274,8 +274,14 @@ export class MasterDataForPlantsService {
      * ### Examples
      * `/plants/1310/revisions?filter=by-revision-id&revision-id-any-of=OFP,OFP%202022,&include-work-order-operations=true&include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&api-version=v1`
      *
-     * ### Update release v1.19.0
+     * ### Update release 1.19.0
      * Added parameter `include-text-item-materials`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * ### Update in an upcoming release
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -344,6 +350,21 @@ export class MasterDataForPlantsService {
      *
      * ### Update version 1.28.0
      * Added `changedDateTime`,`changedById`, `changedBy`, `changedByEmail`.
+     *
+     * ### Update release 1.29.0
+     * Added `progressChangedDateTime`, `progressChangedBy`, `progressChangedById` and `progressChangedByEmail` to response.  These values represent the last update datetime for technical feedback.
+     * Altered `changedDateTime`, `changedBy`, `changedById` and `changedByEmail` to only represent last update to the operation.
+     *
+     * ### Update release 1.30.1
+     * Added fields `confirmationDateTime`, `confirmationBy`, `confirmationByEmail` and `confirmationById`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * Split parts of `location` on `materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * ### Update in an upcoming release
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -530,7 +551,7 @@ export class MasterDataForPlantsService {
      *
      * If query parameter `include-authorization` is true, the request will check if the user has the necessary basic accesses required for the API. Consumer applications could use the response to display general instructions for applying to access if `authorization.hasAccessToAPI` is false.
      *
-     * ### Update  release v1.26.0
+     * ### Update  release 1.26.0
      * Add query parameter `include-is-discipline-responsible` with default value false. Add parameter `isDisciplineResponsible` to response.
      *
      * @returns User Success
@@ -571,12 +592,20 @@ export class MasterDataForPlantsService {
      *
      * The text of the template follows the advanced formatting as described in [Resource text](#section/Modelling-of-resources/Resource-text).
      *
+     * ### Update release 1.32.0
+     *
+     * Added support for the following templates:
+     * - `M1_SIMPLIFIED_SAS`
+     * - `M1_ENKEL_SAS`
+     * - `M5N`
+     * - `M1N`
+     *
      * @returns TextTemplate Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchTextTemplates({
-        templateNameAnyOf,
+        templateNameAnyOf = 'M2_Task,-M2-X',
     }: {
         /**
          * Comma-separated list of text templates to return

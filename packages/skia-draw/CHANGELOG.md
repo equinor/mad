@@ -1,5 +1,60 @@
 # @equinor/react-native-skia-draw
 
+## 0.4.2
+
+### Patch Changes
+
+-   Updated dependencies [1224665]
+-   Updated dependencies [1224665]
+    -   @equinor/mad-components@0.15.1
+
+## 0.4.1
+
+### Patch Changes
+
+-   Updated dependencies [2a428d6]
+    -   @equinor/mad-components@0.15.0
+
+## 0.4.0
+
+### Minor Changes
+
+-   89ba65d: - **BREAKING:** Change method signature of `makeImageSnapshot` to only accept the
+    `ImageSnapshotConfig` object (was previously `SKRect`).
+    -   Add support for setting encoding options on the `makeImageSnapshot` method.
+    -   Expose raw base64 data through the `makeImageSnapshot` method.
+
+## 0.3.27
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+-   Updated dependencies [fc6505c]
+    -   @equinor/mad-components@0.14.13
+
+## 0.3.26
+
+### Patch Changes
+
+-   Updated dependencies [dab732c]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+-   Updated dependencies [dab732c]
+-   Updated dependencies [00e6e0a]
+    -   @equinor/mad-components@0.14.12
+
+## 0.3.25
+
+### Patch Changes
+
+-   0ef529f: Add mad-tag-ocr package
+
+## 0.3.24
+
+### Patch Changes
+
+-   8c913d8: Updated react-native-skia version
+
 ## 0.3.23
 
 ### Patch Changes

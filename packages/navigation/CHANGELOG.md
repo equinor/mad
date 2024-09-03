@@ -1,5 +1,18 @@
 # @equinor/mad-navigation
 
+## 0.3.2
+
+### Patch Changes
+
+-   fc6505c: Add Replace step for all "workspace:\*" dependencies
+
+## 0.3.1
+
+### Patch Changes
+
+-   c2404af: `NavigationContainer`: ref can now be attached and forwarded to the underlying
+    `NavigationContainer` from `react-navigation`
+
 ## 0.3.0
 
 ### Minor Changes

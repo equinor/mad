@@ -3,15 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type MaintenancePlanItemBasic = {
-    maintenancePlanItemId: string;
-    maintenancePlanItem: string;
-    maintenancePlanId: string;
-    planningPlantId: string;
-    mainTagId: string | null;
-    mainTagPlantId: string;
+import type { MaintenancePlanItemSimple } from './MaintenancePlanItemSimple';
+
+export type MaintenancePlanItemBasic = (MaintenancePlanItemSimple & {
     maintenanceActivityTypeId: string;
     maintenanceActivityType: string;
-    changedDateTime?: string;
-};
+});
 
