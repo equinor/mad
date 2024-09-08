@@ -1,222 +1,128 @@
+import { Button, Cell, EDSStyleSheet, Label, Typography, useStyles } from "@equinor/mad-components";
+import moment from "moment";
 import React, { useMemo } from "react";
 import { View } from "react-native";
-import {
-    Button,
-    Cell,
-    Icon,
-    Label,
-    Typography,
-    useStyles,
-    EDSStyleSheet,
-    IconName,
-    Color,
-} from "@equinor/mad-components";
-import { PropertyRow } from "../PropertyRow";
-
-const WorkOrderLabelMap: Record<keyof WorkOrder, string> = {
-    title: "Title",
-    workOrderId: "Work Order ID",
-    maintenanceType: "Maintenance Type",
-    tagId: "Tag ID",
-    equipmentId: "Equipment ID",
-    activeStatusIds: "Active Status IDs",
-    basicStartDate: "Basic Start Date",
-    basicEndDate: "Basic End Date",
-    requiredEnd: "Required End",
-    workCenterId: "Work Center ID",
-} as const;
-
-export type WorkOrder = {
-    title: string;
-    workOrderId: string;
-    maintenanceType?: string;
-    tagId?: string;
-    equipmentId?: string;
-    activeStatusIds?: string;
-    basicStartDate?: string;
-    basicEndDate?: string;
-    requiredEnd?: string;
-    workCenterId?: string;
-};
-
-export type WorkOrderCellProps = {
-    onStartButtonPress?: () => void;
-    onCompleteButtonPress?: () => void;
-    onPress?: () => void;
-    showSymbols?: boolean;
-    valueColor?: Color;
-} & WorkOrder;
-
-type StatusConfig = {
-    icon: IconName;
-    label: string;
-    textColor: Color;
-    iconColor: Color;
-};
-
-const getStatusIconConfig = (status: string): StatusConfig | undefined => {
-    switch (status) {
-        case "RDEX":
-            return {
-                icon: "circle-outline",
-                label: "Ready for execution",
-                textColor: "textTertiary",
-                iconColor: "textPrimary",
-            };
-        case "STRT":
-            return {
-                icon: "circle-half-full",
-                label: "Started",
-                textColor: "textTertiary",
-                iconColor: "textPrimary",
-            };
-        case "RDOP":
-            return {
-                icon: "circle",
-                label: "Ready for operation",
-                textColor: "textTertiary",
-                iconColor: "textPrimary",
-            };
-    }
-    return undefined;
-};
+import { PropertyList } from "./PropertyList";
+import { StatusIcon } from "./StatusIcon";
+import { WorkOrderCellProps } from "./types";
+import { getStatusIconsAndLabels } from "./utils";
 
 export const WorkOrderCell = ({
     title,
     maintenanceType,
-    onStartButtonPress,
-    onCompleteButtonPress,
-    onPress,
     showSymbols,
     valueColor = "textTertiary",
+    isHseCritical,
+    isProductionCritical,
+    showActions,
+    overwriteLabel,
+    style,
+    onStartButtonPress,
+    onCompleteButtonPress,
+    onTecoButtonPress,
     ...rest
 }: WorkOrderCellProps) => {
-    const styles = useStyles(themeStyles);
+    const iconDirection = typeof showSymbols === "string" ? showSymbols : "column";
+
+    const styles = useStyles(themeStyles, { iconDirection });
+
+    const currentDate = moment();
     const activeStatuses = rest.activeStatusIds?.split(" ");
-
-    const currentDate = new Date();
-    const requiredEnd = rest.requiredEnd ? new Date(rest.requiredEnd) : null;
-
-    const iconsAndLabels = useMemo(() => {
-        const result: StatusConfig[] = [];
-
-        if (requiredEnd && currentDate > requiredEnd) {
-            result.push({
-                icon: "alarm",
-                label: "Required end overdue",
-                textColor: "textTertiary",
-                iconColor: "danger",
-            });
-        }
-
-        activeStatuses?.forEach(status => {
-            const statusConfig = getStatusIconConfig(status);
-            if (statusConfig) {
-                result.push(statusConfig);
-            }
-        });
-        return result;
-    }, [activeStatuses, rest.requiredEnd]);
-
-    const isStartDisabled =
-        !!activeStatuses?.includes("STRT") || !!activeStatuses?.includes("RDOP");
+    const isStartDisabled = activeStatuses?.includes("STRT") ?? activeStatuses?.includes("RDOP");
     const isCompleteDisabled =
-        !activeStatuses?.includes("STRT") || activeStatuses?.includes("RDOP");
-    return (
-        <Cell
-            onPress={onPress ? onPress : undefined}
-            rightAdornment={
-                onPress ? (
-                    <View style={{ justifyContent: "center" }}>
-                        <Icon name="chevron-right" />
-                    </View>
-                ) : null
-            }
-        >
-            <View style={{ flex: 1 }}>
-                <Typography numberOfLines={1} variant="h5" bold style={{ marginBottom: 16 }}>
-                    {title}
-                </Typography>
-                {showSymbols &&
-                    iconsAndLabels?.map((item, index) => (
-                        <View key={index} style={styles.iconContainer}>
-                            <Icon name={item.icon} size={24} color={item.iconColor} />
-                            <Typography
-                                numberOfLines={1}
-                                group="paragraph"
-                                variant="caption"
-                                color={item.textColor}
-                            >
-                                {item.label}
-                            </Typography>
-                        </View>
-                    ))}
-                <Label label={maintenanceType} style={{ marginBottom: 8 }} />
-                {Object.entries(rest).map(([key, value], index) => {
-                    if (value) {
-                        const label = WorkOrderLabelMap[key as keyof WorkOrder];
-                        let displayValue = value;
-                        let requiredEndColor = valueColor;
+        !activeStatuses?.includes("STRT") ?? activeStatuses?.includes("RDOP");
 
-                        if (
-                            key === "basicStartDate" ||
-                            key === "basicEndDate" ||
-                            key === "requiredEnd"
-                        ) {
-                            displayValue = value ? new Date(value).toLocaleDateString() : "";
-                        }
-                        if (key === "requiredEnd" && requiredEnd && currentDate > requiredEnd) {
-                            requiredEndColor = "danger";
-                        }
-                        return (
-                            <PropertyRow
-                                key={index}
-                                label={label}
-                                value={displayValue}
-                                style={{ marginBottom: 8 }}
-                                textColor={requiredEndColor}
-                            />
-                        );
-                    }
-                    return null;
-                })}
-                {(!!onStartButtonPress || !!onCompleteButtonPress) && (
-                    <View
-                        style={{
-                            gap: 16,
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            marginTop: 22,
-                        }}
-                    >
-                        {onStartButtonPress && (
-                            <Button
-                                title={"Start"}
-                                onPress={onStartButtonPress}
-                                variant="outlined"
-                                disabled={isStartDisabled}
-                            />
-                        )}
-                        {onCompleteButtonPress && (
-                            <Button
-                                title={"Complete"}
-                                onPress={onCompleteButtonPress}
-                                variant="outlined"
-                                disabled={isCompleteDisabled}
-                            />
-                        )}
-                    </View>
-                )}
-            </View>
+    const iconsAndLabels = useMemo(
+        () =>
+            getStatusIconsAndLabels(
+                rest.activeStatusIds,
+                rest.requiredEnd ?? null,
+                currentDate,
+                isHseCritical,
+                isProductionCritical,
+            ),
+        [rest.activeStatusIds, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
+    );
+
+    return (
+        <Cell style={style}>
+            <Typography numberOfLines={1} variant="h5" bold style={styles.title}>
+                {title}
+            </Typography>
+            {showSymbols && (
+                <View style={[styles.iconListContainer, { flexDirection: iconDirection }]}>
+                    {iconsAndLabels.map((item, index) => (
+                        <StatusIcon key={index} statusConfig={item} />
+                    ))}
+                </View>
+            )}
+            {maintenanceType && <Label label={maintenanceType} style={styles.label} />}
+            <PropertyList
+                workOrder={rest}
+                overwriteLabel={overwriteLabel}
+                valueColor={valueColor}
+                currentDate={currentDate.toDate()}
+            />
+            {showActions && (
+                <View style={styles.actionContainer}>
+                    {onStartButtonPress && showActions.startButton && (
+                        <Button
+                            title="Start job"
+                            variant="outlined"
+                            disabled={isStartDisabled}
+                            onPress={onStartButtonPress}
+                        />
+                    )}
+                    {onCompleteButtonPress && showActions.completeButton && (
+                        <Button
+                            title="Ready for operation"
+                            variant="outlined"
+                            disabled={isCompleteDisabled}
+                            onPress={onCompleteButtonPress}
+                        />
+                    )}
+                    {onTecoButtonPress && showActions.tecoButton && (
+                        <Button
+                            title="Technical complete"
+                            variant="outlined"
+                            onPress={onTecoButtonPress}
+                        />
+                    )}
+                </View>
+            )}
         </Cell>
     );
 };
 
-const themeStyles = EDSStyleSheet.create(() => ({
-    iconContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 8,
-        marginBottom: 8,
-    },
-}));
+const themeStyles = EDSStyleSheet.create(
+    (theme, { iconDirection }: { iconDirection: "row" | "column" }) => ({
+        iconContainer: {
+            flexDirection: "row",
+            alignItems: "center",
+
+            gap: theme.spacing.cell.content.titleDescriptionGap,
+            marginBottom: theme.spacing.cell.group.titleBottomPadding,
+        },
+        actionContainer: {
+            gap: theme.spacing.container.paddingVertical,
+            marginTop: theme.spacing.spacer.medium,
+            flexDirection: "row",
+            justifyContent: "center",
+        },
+        title: {
+            marginBottom: theme.spacing.container.paddingVertical,
+        },
+        label: {
+            marginBottom: theme.spacing.cell.group.titleBottomPadding,
+        },
+        iconListContainer: {
+            flexWrap: "wrap",
+            flexDirection: iconDirection,
+            paddingBottom: theme.spacing.cell.group.titleBottomPadding,
+            gap:
+                iconDirection === "row"
+                    ? theme.spacing.spacer.medium
+                    : theme.spacing.cell.content.titleDescriptionGap,
+        },
+    }),
+);
