@@ -30,7 +30,7 @@ export const WorkOrderCellScreen = () => {
                 equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
                 basicStartDate="2023-04-07"
-                basicEndDate="2023-09-12"
+                basicFinishDate="2023-09-12"
                 requiredEnd="2024-04-23"
                 workCenterId="POMISP"
                 isHseCritical
@@ -52,6 +52,7 @@ export const WorkOrderCellScreen = () => {
                     Work Order ID.
                 </Typography>
             </View>
+            <Spacer />
             <WorkOrderCell
                 title="Work Order Cell"
                 workOrderId="25282760"
@@ -59,7 +60,7 @@ export const WorkOrderCellScreen = () => {
                 tagId="TAG-123456"
                 equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
-                basicEndDate="2023-04-07"
+                basicFinishDate="2023-04-07"
                 requiredEnd="2024-04-23"
                 workCenterId="POMISP"
                 isHseCritical
@@ -90,7 +91,7 @@ export const WorkOrderCellScreen = () => {
                 tagId="TAG-123456"
                 equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
-                basicEndDate="2023-04-07"
+                basicFinishDate="2023-04-07"
                 basicStartDate="2023-02-07"
                 requiredEnd="2024-04-23"
                 workCenterId="POMISP"

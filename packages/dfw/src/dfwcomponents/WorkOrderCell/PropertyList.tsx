@@ -12,7 +12,7 @@ const defaultWorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     equipmentId: "Equipment ID",
     activeStatusIds: "Active status IDs",
     basicStartDate: "Basic start",
-    basicEndDate: "Basic end",
+    basicFinishDate: "Basic finish",
     requiredEnd: "Required end",
     workCenterId: "Work center ID",
     functionalLocation: "Functional Location",
@@ -38,7 +38,7 @@ export const PropertyList = ({
 
     const getLabel = (key: keyof WorkOrder, combinedDates: string | null) => {
         if (key === "basicStartDate" && combinedDates) {
-            return "Basic start / end";
+            return "Basic start / finish";
         }
         return overwriteLabel?.[key] ?? defaultWorkOrderLabelMap[key];
     };
@@ -51,15 +51,15 @@ export const PropertyList = ({
         if (key === "basicStartDate" && combinedDates) {
             return combinedDates;
         }
-        if (["basicStartDate", "basicEndDate", "requiredEnd"].includes(key)) {
+        if (["basicStartDate", "basicFinishDate", "requiredEnd"].includes(key)) {
             return value ? formatDate(value) : "";
         }
         return value;
     };
 
     const combinedDates =
-        workOrder.basicStartDate && workOrder.basicEndDate
-            ? `${formatDate(workOrder.basicStartDate)} - ${formatDate(workOrder.basicEndDate)}`
+        workOrder.basicStartDate && workOrder.basicFinishDate
+            ? `${formatDate(workOrder.basicStartDate)} - ${formatDate(workOrder.basicFinishDate)}`
             : null;
 
     return (
@@ -67,7 +67,7 @@ export const PropertyList = ({
             {Object.entries(workOrder).map(([key, value], index) => {
                 const typedKey = key as keyof WorkOrder;
 
-                if (combinedDates && typedKey === "basicEndDate") return null;
+                if (combinedDates && typedKey === "basicFinishDate") return null;
 
                 if (value || (typedKey === "basicStartDate" && combinedDates)) {
                     const label = getLabel(typedKey, combinedDates);

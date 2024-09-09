@@ -9,7 +9,7 @@ export type WorkOrder = {
     equipmentId?: string;
     activeStatusIds?: string;
     basicStartDate?: string;
-    basicEndDate?: string;
+    basicFinishDate?: string;
     requiredEnd?: string;
     workCenterId?: string;
     functionalLocation?: string;
