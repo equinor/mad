@@ -46,7 +46,12 @@ export const WorkOrderCellScreen = () => {
                 showSymbols
             />
             <Spacer />
-
+            <View style={styles.readableContent}>
+                <Typography>
+                    WorkOrderCell with status icons aligned in a row and a customized label for the
+                    Work Order ID.
+                </Typography>
+            </View>
             <WorkOrderCell
                 title="Work Order Cell"
                 workOrderId="25282760"
@@ -60,8 +65,7 @@ export const WorkOrderCellScreen = () => {
                 isHseCritical
                 isProductionCritical
                 overwriteLabel={{
-                    workOrderId: "WO ID",
-                    requiredEnd: "Due Date",
+                    workOrderId: "Adjusted WO ID label",
                 }}
                 showActions={{
                     startButton: true,
@@ -79,7 +83,6 @@ export const WorkOrderCellScreen = () => {
                 </Typography>
             </View>
             <Spacer />
-
             <WorkOrderCell.Navigation
                 title="Work Order Cell"
                 workOrderId="25282760"
