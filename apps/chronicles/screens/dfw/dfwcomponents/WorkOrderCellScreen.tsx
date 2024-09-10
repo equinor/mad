@@ -6,6 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 
 export const WorkOrderCellScreen = () => {
     const styles = useStyles(themeStyles);
+
     return (
         <ScrollView
             contentInsetAdjustmentBehavior="automatic"
@@ -13,9 +14,11 @@ export const WorkOrderCellScreen = () => {
         >
             <View style={styles.readableContent}>
                 <Typography>
-                    This is the WorkOrderCell component! It takes a title, label and property data
-                    in order to display multiple PropertyRows with workorder data. It can also
-                    display icons based on workorder status and overdue time.
+                    The WorkOrderCell component displays work order information using a title,
+                    customizable labels, and property data. It generates multiple PropertyRow
+                    elements to present the data, with the option to override default labels for
+                    each property. Additionally, the component can show status icons, buttons and
+                    highlight overdue work orders based on their status and time constraints.
                 </Typography>
             </View>
             <Spacer />
@@ -23,32 +26,78 @@ export const WorkOrderCellScreen = () => {
                 title="Work Order Cell"
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
-                tagId="TAG-123456"
+                functionalLocation="TAG-123456"
                 equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
                 basicStartDate="2023-04-07"
-                basicEndDate="2023-09-12"
+                basicFinishDate="2023-09-12"
                 requiredEnd="2024-04-23"
                 workCenterId="POMISP"
+                isHseCritical
+                isProductionCritical
+                showActions={{
+                    startButton: true,
+                    completeButton: true,
+                    tecoButton: true,
+                }}
                 onCompleteButtonPress={() => console.log("Complete")}
                 onStartButtonPress={() => console.log("Start")}
+                onTecoButtonPress={() => console.log("TECO")}
                 showSymbols
             />
             <Spacer />
             <View style={styles.readableContent}>
                 <Typography>
-                    This workorder cell lets you call an onPress function, this can be used for
-                    navigating when the cell is pressed.
+                    WorkOrderCell with status icons aligned in a row and a customized label for the
+                    Work Order ID.
                 </Typography>
             </View>
             <Spacer />
             <WorkOrderCell
-                title="Work Order Navigation Cell"
+                title="Work Order Cell"
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
-                tagId="TAG-123456"
-                showSymbols
+                functionalLocation="TAG-123456"
+                equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
+                basicFinishDate="2023-04-07"
+                requiredEnd="2024-04-23"
+                workCenterId="POMISP"
+                isHseCritical
+                isProductionCritical
+                overwriteLabel={{
+                    functionalLocation: "Adjusted label",
+                }}
+                showActions={{
+                    startButton: true,
+                    completeButton: true,
+                }}
+                onCompleteButtonPress={() => console.log("Complete")}
+                onStartButtonPress={() => console.log("Start")}
+                showSymbols
+                symbolDirection="row"
+            />
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>
+                    This is a WorkOrderCell.Navigation lets you call an onPress function, this can
+                    be used for navigating when the cell is pressed.
+                </Typography>
+            </View>
+            <Spacer />
+            <WorkOrderCell.Navigation
+                title="Work Order Cell"
+                workOrderId="25282760"
+                maintenanceType="Surface monitoring"
+                functionalLocation="TAG-123456"
+                equipmentId="EQUIP-123456"
+                activeStatusIds="STRT"
+                basicFinishDate="2023-04-07"
+                basicStartDate="2023-02-07"
+                requiredEnd="2024-04-23"
+                workCenterId="POMISP"
+                isHseCritical
+                isProductionCritical
                 onPress={() => console.log("Pressed")}
             />
             <Spacer />
@@ -63,8 +112,8 @@ export const WorkOrderCellScreen = () => {
                 title="Basic Work Order Cell"
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
-                tagId="TAG-123456"
-                valueColor={"danger"}
+                functionalLocation="TAG-123456"
+                valueColor="danger"
             />
         </ScrollView>
     );
