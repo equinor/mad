@@ -3,21 +3,21 @@ import { ViewProps } from "react-native";
 
 export type WorkOrder = {
     title: string;
-    workOrderId: string;
+    workOrder: string;
     maintenanceType?: string;
-    equipmentId?: string;
-    activeStatusIds?: string;
+    equipment?: string;
+    activeStatus?: string;
     basicStartDate?: string;
     basicFinishDate?: string;
     requiredEnd?: string;
-    workCenterId?: string;
+    workCenter?: string;
     functionalLocation?: string;
 };
 
-export type WorkOrderCellActions = {
-    startButton?: boolean;
-    completeButton?: boolean;
-    tecoButton?: boolean;
+type ButtonOptions = {
+    disabled?: boolean;
+    visible: boolean;
+    onPress: () => void;
 };
 
 export type WorkOrderCellProps = {
@@ -28,10 +28,9 @@ export type WorkOrderCellProps = {
     isProductionCritical?: boolean;
     style?: ViewProps["style"];
     overwriteLabel?: Partial<Record<keyof WorkOrder, string>>;
-    showActions?: WorkOrderCellActions;
-    onStartButtonPress?: () => void;
-    onCompleteButtonPress?: () => void;
-    onTecoButtonPress?: () => void;
+    startJobButton?: ButtonOptions;
+    readyForOperationButton?: ButtonOptions;
+    tecoButton?: ButtonOptions;
 } & WorkOrder;
 
 export type StatusConfig = {

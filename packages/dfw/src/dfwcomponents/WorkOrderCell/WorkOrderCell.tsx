@@ -1,4 +1,12 @@
-import { Button, Cell, EDSStyleSheet, Label, Typography, useStyles } from "@equinor/mad-components";
+import {
+    Button,
+    Cell,
+    EDSStyleSheet,
+    Label,
+    Typography,
+    useBreakpoint,
+    useStyles,
+} from "@equinor/mad-components";
 import moment from "moment";
 import React, { useMemo } from "react";
 import { View } from "react-native";
@@ -15,32 +23,29 @@ export const WorkOrderCell = ({
     valueColor = "textTertiary",
     isHseCritical,
     isProductionCritical,
-    showActions,
     overwriteLabel,
     style,
-    onStartButtonPress,
-    onCompleteButtonPress,
-    onTecoButtonPress,
+    startJobButton,
+    readyForOperationButton,
+    tecoButton,
     ...rest
 }: WorkOrderCellProps) => {
+    const breakpoint = useBreakpoint();
     const styles = useStyles(themeStyles, { symbolDirection });
 
+    const anyButtonVisible =
+        startJobButton?.visible ?? readyForOperationButton?.visible ?? tecoButton?.visible;
     const currentDate = moment();
-    const activeStatuses = rest.activeStatusIds?.split(" ");
-    const isStartDisabled = activeStatuses?.includes("STRT") ?? activeStatuses?.includes("RDOP");
-    const isCompleteDisabled =
-        !activeStatuses?.includes("STRT") ?? activeStatuses?.includes("RDOP");
-
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
-                rest.activeStatusIds,
+                rest.activeStatus,
                 rest.requiredEnd ?? null,
                 currentDate,
                 isHseCritical,
                 isProductionCritical,
             ),
-        [rest.activeStatusIds, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
+        [rest.activeStatus, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
     );
 
     return (
@@ -62,29 +67,35 @@ export const WorkOrderCell = ({
                 valueColor={valueColor}
                 currentDate={currentDate.toDate()}
             />
-            {showActions && (
-                <View style={styles.actionContainer}>
-                    {showActions.startButton && (
+            {anyButtonVisible && (
+                <View
+                    style={[
+                        styles.actionContainer,
+                        breakpoint === "xs" && { flexDirection: "column" },
+                    ]}
+                >
+                    {startJobButton?.visible && (
                         <Button
                             title="Start job"
                             variant="outlined"
-                            disabled={isStartDisabled}
-                            onPress={onStartButtonPress}
+                            disabled={startJobButton.disabled}
+                            onPress={startJobButton.onPress}
                         />
                     )}
-                    {showActions.completeButton && (
+                    {readyForOperationButton?.visible && (
                         <Button
                             title="Ready for operation"
                             variant="outlined"
-                            disabled={isCompleteDisabled}
-                            onPress={onCompleteButtonPress}
+                            disabled={readyForOperationButton.disabled}
+                            onPress={readyForOperationButton?.onPress}
                         />
                     )}
-                    {showActions.tecoButton && (
+                    {tecoButton?.visible && (
                         <Button
                             title="Technical complete"
                             variant="outlined"
-                            onPress={onTecoButtonPress}
+                            disabled={tecoButton.disabled}
+                            onPress={tecoButton.onPress}
                         />
                     )}
                 </View>
@@ -98,13 +109,12 @@ const themeStyles = EDSStyleSheet.create(
         iconContainer: {
             flexDirection: "row",
             alignItems: "center",
-
             gap: theme.spacing.cell.content.titleDescriptionGap,
             marginBottom: theme.spacing.cell.group.titleBottomPadding,
         },
         actionContainer: {
-            gap: theme.spacing.container.paddingVertical,
-            marginTop: theme.spacing.spacer.medium,
+            gap: theme.spacing.spacer.small,
+            marginTop: theme.spacing.container.paddingVertical,
             flexDirection: "row",
             justifyContent: "center",
         },
@@ -120,7 +130,7 @@ const themeStyles = EDSStyleSheet.create(
             paddingBottom: theme.spacing.cell.group.titleBottomPadding,
             gap:
                 symbolDirection === "row"
-                    ? theme.spacing.spacer.medium
+                    ? theme.spacing.spacer.small
                     : theme.spacing.cell.content.titleDescriptionGap,
         },
     }),

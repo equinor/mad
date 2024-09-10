@@ -6,15 +6,15 @@ import { Color, useToken } from "@equinor/mad-components";
 
 const defaultWorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     title: "Title",
-    workOrderId: "Work order ID",
+    workOrder: "Work order",
     maintenanceType: "Maintenance type",
     functionalLocation: "Functional Location",
-    equipmentId: "Equipment",
-    activeStatusIds: "Active status",
+    equipment: "Equipment",
+    activeStatus: "Active status",
     basicStartDate: "Basic start",
     basicFinishDate: "Basic finish",
     requiredEnd: "Required end",
-    workCenterId: "Work center",
+    workCenter: "Work center",
 } as const;
 
 type PropertyListProps = {
