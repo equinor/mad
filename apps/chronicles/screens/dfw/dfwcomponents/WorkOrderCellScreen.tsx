@@ -41,6 +41,7 @@ export const WorkOrderCellScreen = () => {
                 }}
                 readyForOperationButton={{
                     visible: true,
+                    disabled: true,
                     onPress: () => console.log("Complete"),
                 }}
                 tecoButton={{
