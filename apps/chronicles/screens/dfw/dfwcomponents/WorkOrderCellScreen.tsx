@@ -74,7 +74,8 @@ export const WorkOrderCellScreen = () => {
                 }}
                 onCompleteButtonPress={() => console.log("Complete")}
                 onStartButtonPress={() => console.log("Start")}
-                showSymbols="row"
+                showSymbols
+                symbolDirection="row"
             />
             <Spacer />
             <View style={styles.readableContent}>

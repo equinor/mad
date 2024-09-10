@@ -11,6 +11,7 @@ export const WorkOrderCell = ({
     title,
     maintenanceType,
     showSymbols,
+    symbolDirection = "column",
     valueColor = "textTertiary",
     isHseCritical,
     isProductionCritical,
@@ -22,9 +23,7 @@ export const WorkOrderCell = ({
     onTecoButtonPress,
     ...rest
 }: WorkOrderCellProps) => {
-    const iconDirection = typeof showSymbols === "string" ? showSymbols : "column";
-
-    const styles = useStyles(themeStyles, { iconDirection });
+    const styles = useStyles(themeStyles, { symbolDirection });
 
     const currentDate = moment();
     const activeStatuses = rest.activeStatusIds?.split(" ");
@@ -50,9 +49,9 @@ export const WorkOrderCell = ({
                 {title}
             </Typography>
             {showSymbols && (
-                <View style={[styles.iconListContainer, { flexDirection: iconDirection }]}>
+                <View style={[styles.iconListContainer, { flexDirection: symbolDirection }]}>
                     {iconsAndLabels.map((item, index) => (
-                        <StatusIcon key={index} statusConfig={item} />
+                        <StatusIcon key={index} {...item} />
                     ))}
                 </View>
             )}
@@ -65,7 +64,7 @@ export const WorkOrderCell = ({
             />
             {showActions && (
                 <View style={styles.actionContainer}>
-                    {onStartButtonPress && showActions.startButton && (
+                    {showActions.startButton && (
                         <Button
                             title="Start job"
                             variant="outlined"
@@ -73,7 +72,7 @@ export const WorkOrderCell = ({
                             onPress={onStartButtonPress}
                         />
                     )}
-                    {onCompleteButtonPress && showActions.completeButton && (
+                    {showActions.completeButton && (
                         <Button
                             title="Ready for operation"
                             variant="outlined"
@@ -81,7 +80,7 @@ export const WorkOrderCell = ({
                             onPress={onCompleteButtonPress}
                         />
                     )}
-                    {onTecoButtonPress && showActions.tecoButton && (
+                    {showActions.tecoButton && (
                         <Button
                             title="Technical complete"
                             variant="outlined"
@@ -95,7 +94,7 @@ export const WorkOrderCell = ({
 };
 
 const themeStyles = EDSStyleSheet.create(
-    (theme, { iconDirection }: { iconDirection: "row" | "column" }) => ({
+    (theme, { symbolDirection }: { symbolDirection: "row" | "column" }) => ({
         iconContainer: {
             flexDirection: "row",
             alignItems: "center",
@@ -117,10 +116,10 @@ const themeStyles = EDSStyleSheet.create(
         },
         iconListContainer: {
             flexWrap: "wrap",
-            flexDirection: iconDirection,
+            flexDirection: symbolDirection,
             paddingBottom: theme.spacing.cell.group.titleBottomPadding,
             gap:
-                iconDirection === "row"
+                symbolDirection === "row"
                     ? theme.spacing.spacer.medium
                     : theme.spacing.cell.content.titleDescriptionGap,
         },

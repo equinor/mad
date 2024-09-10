@@ -1,39 +1,16 @@
+import { EDSStyleSheet, Icon, Typography, useStyles } from "@equinor/mad-components";
 import React from "react";
 import { View } from "react-native";
-import {
-    Icon,
-    Typography,
-    useStyles,
-    Color,
-    IconName,
-    EDSStyleSheet,
-} from "@equinor/mad-components";
+import { StatusConfig } from "./types";
 
-type StatusConfig = {
-    icon: IconName;
-    label: string;
-    textColor: Color;
-    iconColor: Color;
-};
-
-type StatusIconProps = {
-    statusConfig: StatusConfig;
-    hideLabel?: boolean;
-};
-
-export const StatusIcon = ({ statusConfig, hideLabel }: StatusIconProps) => {
+export const StatusIcon = ({ icon, label, textColor, iconColor }: StatusConfig) => {
     const styles = useStyles(themeStyles);
     return (
         <View style={styles.iconContainer}>
-            <Icon name={statusConfig.icon} size={24} color={statusConfig.iconColor} />
-            {!hideLabel && (
-                <Typography
-                    numberOfLines={1}
-                    group="paragraph"
-                    variant="caption"
-                    color={statusConfig.textColor}
-                >
-                    {statusConfig.label}
+            <Icon name={icon} size={24} color={iconColor} />
+            {label && (
+                <Typography numberOfLines={1} group="paragraph" variant="caption" color={textColor}>
+                    {label}
                 </Typography>
             )}
         </View>

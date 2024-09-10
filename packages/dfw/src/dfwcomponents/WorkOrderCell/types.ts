@@ -15,18 +15,21 @@ export type WorkOrder = {
     functionalLocation?: string;
 };
 
+export type WorkOrderCellActions = {
+    startButton?: boolean;
+    completeButton?: boolean;
+    tecoButton?: boolean;
+};
+
 export type WorkOrderCellProps = {
-    showSymbols?: boolean | "column" | "row";
+    showSymbols?: boolean;
+    symbolDirection?: "column" | "row";
     valueColor?: Color;
     isHseCritical?: boolean;
     isProductionCritical?: boolean;
     style?: ViewProps["style"];
     overwriteLabel?: Partial<Record<keyof WorkOrder, string>>;
-    showActions?: {
-        startButton?: boolean;
-        completeButton?: boolean;
-        tecoButton?: boolean;
-    };
+    showActions?: WorkOrderCellActions;
     onStartButtonPress?: () => void;
     onCompleteButtonPress?: () => void;
     onTecoButtonPress?: () => void;
@@ -34,7 +37,7 @@ export type WorkOrderCellProps = {
 
 export type StatusConfig = {
     icon: IconName;
-    label: string;
+    label?: string;
     textColor: Color;
     iconColor: Color;
 };

@@ -56,7 +56,7 @@ export const WorkOrderCellNavigation = ({
                 {showSymbols && (
                     <View style={styles.iconListContainer}>
                         {iconsAndLabels.map((item, index) => (
-                            <StatusIcon key={index} statusConfig={item} hideLabel />
+                            <StatusIcon key={index} {...item} label={undefined} />
                         ))}
                     </View>
                 )}

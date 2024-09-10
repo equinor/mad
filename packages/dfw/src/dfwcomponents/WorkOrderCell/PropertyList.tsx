@@ -31,23 +31,25 @@ export const PropertyList = ({
     currentDate,
     overwriteLabel = {},
 }: PropertyListProps) => {
-    const requiredEnd = workOrder.requiredEnd ? new Date(workOrder.requiredEnd) : null;
-
-    const formatDate = (dateString: string) => moment(dateString).format("DD.MM.YYYY");
     const token = useToken();
 
-    const getLabel = (key: keyof WorkOrder, combinedDates: string | null) => {
+    const formatDate = (dateString: string) => moment(dateString).format("DD.MM.YYYY");
+
+    const requiredEnd = workOrder.requiredEnd ? new Date(workOrder.requiredEnd) : null;
+
+    const combinedDates =
+        workOrder.basicStartDate && workOrder.basicFinishDate
+            ? `${formatDate(workOrder.basicStartDate)} - ${formatDate(workOrder.basicFinishDate)}`
+            : null;
+
+    const getLabel = (key: keyof WorkOrder) => {
         if (key === "basicStartDate" && combinedDates) {
             return "Basic start / finish";
         }
         return overwriteLabel?.[key] ?? defaultWorkOrderLabelMap[key];
     };
 
-    const getDisplayValue = (
-        key: keyof WorkOrder,
-        value: string | undefined,
-        combinedDates: string | null,
-    ) => {
+    const getDisplayValue = (key: keyof WorkOrder, value: string | undefined) => {
         if (key === "basicStartDate" && combinedDates) {
             return combinedDates;
         }
@@ -57,11 +59,6 @@ export const PropertyList = ({
         return value;
     };
 
-    const combinedDates =
-        workOrder.basicStartDate && workOrder.basicFinishDate
-            ? `${formatDate(workOrder.basicStartDate)} - ${formatDate(workOrder.basicFinishDate)}`
-            : null;
-
     return (
         <>
             {Object.entries(workOrder).map(([key, value], index) => {
@@ -70,8 +67,8 @@ export const PropertyList = ({
                 if (combinedDates && typedKey === "basicFinishDate") return null;
 
                 if (value || (typedKey === "basicStartDate" && combinedDates)) {
-                    const label = getLabel(typedKey, combinedDates);
-                    const displayValue = getDisplayValue(typedKey, value, combinedDates);
+                    const label = getLabel(typedKey);
+                    const displayValue = getDisplayValue(typedKey, value);
 
                     const textColor =
                         typedKey === "requiredEnd" && requiredEnd && currentDate > requiredEnd
