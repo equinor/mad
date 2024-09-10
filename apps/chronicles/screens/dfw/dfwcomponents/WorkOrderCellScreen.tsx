@@ -35,7 +35,7 @@ export const WorkOrderCellScreen = () => {
                 workCenter="POMISP"
                 isHseCritical
                 isProductionCritical
-                startButton={{
+                startJobButton={{
                     visible: true,
                     onPress: () => console.log("Start"),
                 }}
@@ -73,7 +73,7 @@ export const WorkOrderCellScreen = () => {
                 overwriteLabel={{
                     functionalLocation: "Adjusted label",
                 }}
-                startButton={{
+                startJobButton={{
                     visible: true,
                     onPress: () => console.log("Start"),
                 }}

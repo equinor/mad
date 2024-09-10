@@ -25,7 +25,7 @@ export const WorkOrderCell = ({
     isProductionCritical,
     overwriteLabel,
     style,
-    startButton,
+    startJobButton,
     readyForOperationButton,
     tecoButton,
     ...rest
@@ -34,7 +34,7 @@ export const WorkOrderCell = ({
     const styles = useStyles(themeStyles, { symbolDirection });
 
     const anyButtonVisible =
-        startButton?.visible ?? readyForOperationButton?.visible ?? tecoButton?.visible;
+        startJobButton?.visible ?? readyForOperationButton?.visible ?? tecoButton?.visible;
     const currentDate = moment();
     const iconsAndLabels = useMemo(
         () =>
@@ -74,12 +74,12 @@ export const WorkOrderCell = ({
                         breakpoint === "xs" && { flexDirection: "column" },
                     ]}
                 >
-                    {startButton?.visible && (
+                    {startJobButton?.visible && (
                         <Button
                             title="Start job"
                             variant="outlined"
-                            disabled={startButton.disabled}
-                            onPress={startButton.onPress}
+                            disabled={startJobButton.disabled}
+                            onPress={startJobButton.onPress}
                         />
                     )}
                     {readyForOperationButton?.visible && (

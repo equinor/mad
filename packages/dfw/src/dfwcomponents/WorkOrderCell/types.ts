@@ -28,7 +28,7 @@ export type WorkOrderCellProps = {
     isProductionCritical?: boolean;
     style?: ViewProps["style"];
     overwriteLabel?: Partial<Record<keyof WorkOrder, string>>;
-    startButton?: ButtonOptions;
+    startJobButton?: ButtonOptions;
     readyForOperationButton?: ButtonOptions;
     tecoButton?: ButtonOptions;
 } & WorkOrder;
