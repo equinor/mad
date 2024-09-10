@@ -1,5 +1,21 @@
 # @equinor/mad-dfw
 
+## 0.2.0
+
+### Minor Changes
+
+-   f5133b3: Splitted `WorkOrderCell` into a new component `WorkOrderCell.Navigation`. Removed
+    `onPress` from the WorkOrderCell. To get the onPress / navigation functionality, use
+    WorkOrderCell.Navigation. `tagId` label is removed/replaced with `functionalLocation`
+
+### Patch Changes
+
+-   f5133b3: Added technical complete button to the `WorkOrderCell` and a prop, showActions for
+    controlling the visibility of buttons
+-   f5133b3: Updated the default work order labels and added an overwriteLabel prop to allow
+    customization
+-   f5133b3: Created a new component `WorkOrderCell.Navigation`
+
 ## 0.1.5
 
 ### Patch Changes
