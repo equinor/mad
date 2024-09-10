@@ -29,13 +29,13 @@ export const WorkOrderCellNavigation = ({
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
-                rest.activeStatusIds,
+                rest.activeStatus,
                 rest.requiredEnd ?? null,
                 currentDate,
                 isHseCritical,
                 isProductionCritical,
             ),
-        [rest.activeStatusIds, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
+        [rest.activeStatus, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
     );
 
     return (

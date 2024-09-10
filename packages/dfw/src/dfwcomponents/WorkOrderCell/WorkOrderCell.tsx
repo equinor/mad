@@ -1,4 +1,12 @@
-import { Button, Cell, EDSStyleSheet, Label, Typography, useStyles } from "@equinor/mad-components";
+import {
+    Button,
+    Cell,
+    EDSStyleSheet,
+    Label,
+    Typography,
+    useBreakpoint,
+    useStyles,
+} from "@equinor/mad-components";
 import moment from "moment";
 import React, { useMemo } from "react";
 import { View } from "react-native";
@@ -15,32 +23,29 @@ export const WorkOrderCell = ({
     valueColor = "textTertiary",
     isHseCritical,
     isProductionCritical,
-    showActions,
+    actions,
     overwriteLabel,
     style,
     onStartButtonPress,
-    onCompleteButtonPress,
+    onReadyForOperationPress,
     onTecoButtonPress,
     ...rest
 }: WorkOrderCellProps) => {
+    const breakpoint = useBreakpoint();
     const styles = useStyles(themeStyles, { symbolDirection });
 
     const currentDate = moment();
-    const activeStatuses = rest.activeStatusIds?.split(" ");
-    const isStartDisabled = activeStatuses?.includes("STRT") ?? activeStatuses?.includes("RDOP");
-    const isCompleteDisabled =
-        !activeStatuses?.includes("STRT") ?? activeStatuses?.includes("RDOP");
 
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
-                rest.activeStatusIds,
+                rest.activeStatus,
                 rest.requiredEnd ?? null,
                 currentDate,
                 isHseCritical,
                 isProductionCritical,
             ),
-        [rest.activeStatusIds, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
+        [rest.activeStatus, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
     );
 
     return (
@@ -62,28 +67,34 @@ export const WorkOrderCell = ({
                 valueColor={valueColor}
                 currentDate={currentDate.toDate()}
             />
-            {showActions && (
-                <View style={styles.actionContainer}>
-                    {showActions.startButton && (
+            {actions && (
+                <View
+                    style={[
+                        styles.actionContainer,
+                        breakpoint === "xs" && { flexDirection: "column" },
+                    ]}
+                >
+                    {actions.startButton?.visible && (
                         <Button
                             title="Start job"
                             variant="outlined"
-                            disabled={isStartDisabled}
+                            disabled={actions.startButton.disabled}
                             onPress={onStartButtonPress}
                         />
                     )}
-                    {showActions.completeButton && (
+                    {actions.readyForOperationButton?.visible && (
                         <Button
                             title="Ready for operation"
                             variant="outlined"
-                            disabled={isCompleteDisabled}
-                            onPress={onCompleteButtonPress}
+                            disabled={actions.readyForOperationButton.disabled}
+                            onPress={onReadyForOperationPress}
                         />
                     )}
-                    {showActions.tecoButton && (
+                    {actions.tecoButton?.visible && (
                         <Button
                             title="Technical complete"
                             variant="outlined"
+                            disabled={actions.tecoButton.disabled}
                             onPress={onTecoButtonPress}
                         />
                     )}
@@ -98,13 +109,12 @@ const themeStyles = EDSStyleSheet.create(
         iconContainer: {
             flexDirection: "row",
             alignItems: "center",
-
             gap: theme.spacing.cell.content.titleDescriptionGap,
             marginBottom: theme.spacing.cell.group.titleBottomPadding,
         },
         actionContainer: {
-            gap: theme.spacing.container.paddingVertical,
-            marginTop: theme.spacing.spacer.medium,
+            gap: theme.spacing.spacer.small,
+            marginTop: theme.spacing.container.paddingVertical,
             flexDirection: "row",
             justifyContent: "center",
         },
@@ -120,7 +130,7 @@ const themeStyles = EDSStyleSheet.create(
             paddingBottom: theme.spacing.cell.group.titleBottomPadding,
             gap:
                 symbolDirection === "row"
-                    ? theme.spacing.spacer.medium
+                    ? theme.spacing.spacer.small
                     : theme.spacing.cell.content.titleDescriptionGap,
         },
     }),

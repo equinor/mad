@@ -24,23 +24,29 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell
                 title="Work Order Cell"
-                workOrderId="25282760"
+                workOrder="25282760"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
-                equipmentId="EQUIP-123456"
-                activeStatusIds="STRT"
+                equipment="EQUIP-123456"
+                activeStatus="STRT"
                 basicStartDate="2023-04-07"
                 basicFinishDate="2023-09-12"
                 requiredEnd="2024-04-23"
-                workCenterId="POMISP"
+                workCenter="POMISP"
                 isHseCritical
                 isProductionCritical
-                showActions={{
-                    startButton: true,
-                    completeButton: true,
-                    tecoButton: true,
+                actions={{
+                    startButton: {
+                        visible: true,
+                    },
+                    readyForOperationButton: {
+                        visible: true,
+                    },
+                    tecoButton: {
+                        visible: true,
+                    },
                 }}
-                onCompleteButtonPress={() => console.log("Complete")}
+                onReadyForOperationPress={() => console.log("Complete")}
                 onStartButtonPress={() => console.log("Start")}
                 onTecoButtonPress={() => console.log("TECO")}
                 showSymbols
@@ -55,24 +61,28 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell
                 title="Work Order Cell"
-                workOrderId="25282760"
+                workOrder="25282760"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
-                equipmentId="EQUIP-123456"
-                activeStatusIds="STRT"
+                equipment="EQUIP-123456"
+                activeStatus="STRT"
                 basicFinishDate="2023-04-07"
                 requiredEnd="2024-04-23"
-                workCenterId="POMISP"
+                workCenter="POMISP"
                 isHseCritical
                 isProductionCritical
                 overwriteLabel={{
                     functionalLocation: "Adjusted label",
                 }}
-                showActions={{
-                    startButton: true,
-                    completeButton: true,
+                actions={{
+                    startButton: {
+                        visible: true,
+                    },
+                    readyForOperationButton: {
+                        visible: true,
+                    },
                 }}
-                onCompleteButtonPress={() => console.log("Complete")}
+                onReadyForOperationPress={() => console.log("Complete")}
                 onStartButtonPress={() => console.log("Start")}
                 showSymbols
                 symbolDirection="row"
@@ -87,15 +97,15 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell.Navigation
                 title="Work Order Cell"
-                workOrderId="25282760"
+                workOrder="25282760"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
-                equipmentId="EQUIP-123456"
-                activeStatusIds="STRT"
+                equipment="EQUIP-123456"
+                activeStatus="STRT"
                 basicFinishDate="2023-04-07"
                 basicStartDate="2023-02-07"
                 requiredEnd="2024-04-23"
-                workCenterId="POMISP"
+                workCenter="POMISP"
                 isHseCritical
                 isProductionCritical
                 onPress={() => console.log("Pressed")}
@@ -110,7 +120,7 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell
                 title="Basic Work Order Cell"
-                workOrderId="25282760"
+                workOrder="25282760"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
                 valueColor="danger"
