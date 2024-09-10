@@ -5,7 +5,6 @@ export type WorkOrder = {
     title: string;
     workOrderId: string;
     maintenanceType?: string;
-    tagId?: string;
     equipmentId?: string;
     activeStatusIds?: string;
     basicStartDate?: string;

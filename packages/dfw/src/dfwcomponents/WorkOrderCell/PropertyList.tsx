@@ -8,14 +8,13 @@ const defaultWorkOrderLabelMap: Record<keyof WorkOrder, string> = {
     title: "Title",
     workOrderId: "Work order ID",
     maintenanceType: "Maintenance type",
-    tagId: "Tag ID",
-    equipmentId: "Equipment ID",
-    activeStatusIds: "Active status IDs",
+    functionalLocation: "Functional Location",
+    equipmentId: "Equipment",
+    activeStatusIds: "Active status",
     basicStartDate: "Basic start",
     basicFinishDate: "Basic finish",
     requiredEnd: "Required end",
-    workCenterId: "Work center ID",
-    functionalLocation: "Functional Location",
+    workCenterId: "Work center",
 } as const;
 
 type PropertyListProps = {

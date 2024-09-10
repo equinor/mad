@@ -26,7 +26,7 @@ export const WorkOrderCellScreen = () => {
                 title="Work Order Cell"
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
-                tagId="TAG-123456"
+                functionalLocation="TAG-123456"
                 equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
                 basicStartDate="2023-04-07"
@@ -57,7 +57,7 @@ export const WorkOrderCellScreen = () => {
                 title="Work Order Cell"
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
-                tagId="TAG-123456"
+                functionalLocation="TAG-123456"
                 equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
                 basicFinishDate="2023-04-07"
@@ -66,7 +66,7 @@ export const WorkOrderCellScreen = () => {
                 isHseCritical
                 isProductionCritical
                 overwriteLabel={{
-                    workOrderId: "Adjusted WO ID label",
+                    functionalLocation: "Adjusted label",
                 }}
                 showActions={{
                     startButton: true,
@@ -89,7 +89,7 @@ export const WorkOrderCellScreen = () => {
                 title="Work Order Cell"
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
-                tagId="TAG-123456"
+                functionalLocation="TAG-123456"
                 equipmentId="EQUIP-123456"
                 activeStatusIds="STRT"
                 basicFinishDate="2023-04-07"
@@ -112,7 +112,7 @@ export const WorkOrderCellScreen = () => {
                 title="Basic Work Order Cell"
                 workOrderId="25282760"
                 maintenanceType="Surface monitoring"
-                tagId="TAG-123456"
+                functionalLocation="TAG-123456"
                 valueColor="danger"
             />
         </ScrollView>
