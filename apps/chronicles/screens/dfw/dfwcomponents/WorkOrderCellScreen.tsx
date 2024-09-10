@@ -35,20 +35,18 @@ export const WorkOrderCellScreen = () => {
                 workCenter="POMISP"
                 isHseCritical
                 isProductionCritical
-                actions={{
-                    startButton: {
-                        visible: true,
-                    },
-                    readyForOperationButton: {
-                        visible: true,
-                    },
-                    tecoButton: {
-                        visible: true,
-                    },
+                startButton={{
+                    visible: true,
+                    onPress: () => console.log("Start"),
                 }}
-                onReadyForOperationPress={() => console.log("Complete")}
-                onStartButtonPress={() => console.log("Start")}
-                onTecoButtonPress={() => console.log("TECO")}
+                readyForOperationButton={{
+                    visible: true,
+                    onPress: () => console.log("Complete"),
+                }}
+                tecoButton={{
+                    visible: true,
+                    onPress: () => console.log("TECO"),
+                }}
                 showSymbols
             />
             <Spacer />
@@ -74,16 +72,14 @@ export const WorkOrderCellScreen = () => {
                 overwriteLabel={{
                     functionalLocation: "Adjusted label",
                 }}
-                actions={{
-                    startButton: {
-                        visible: true,
-                    },
-                    readyForOperationButton: {
-                        visible: true,
-                    },
+                startButton={{
+                    visible: true,
+                    onPress: () => console.log("Start"),
                 }}
-                onReadyForOperationPress={() => console.log("Complete")}
-                onStartButtonPress={() => console.log("Start")}
+                readyForOperationButton={{
+                    visible: true,
+                    onPress: () => console.log("Complete"),
+                }}
                 showSymbols
                 symbolDirection="row"
             />

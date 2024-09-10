@@ -14,19 +14,10 @@ export type WorkOrder = {
     functionalLocation?: string;
 };
 
-export type WorkOrderCellActions = {
-    startButton?: {
-        visible: boolean;
-        disabled?: boolean;
-    };
-    readyForOperationButton?: {
-        visible: boolean;
-        disabled?: boolean;
-    };
-    tecoButton?: {
-        visible: boolean;
-        disabled?: boolean;
-    };
+type ButtonOptions = {
+    disabled?: boolean;
+    visible: boolean;
+    onPress: () => void;
 };
 
 export type WorkOrderCellProps = {
@@ -37,10 +28,9 @@ export type WorkOrderCellProps = {
     isProductionCritical?: boolean;
     style?: ViewProps["style"];
     overwriteLabel?: Partial<Record<keyof WorkOrder, string>>;
-    actions?: WorkOrderCellActions;
-    onStartButtonPress?: () => void;
-    onReadyForOperationPress?: () => void;
-    onTecoButtonPress?: () => void;
+    startButton?: ButtonOptions;
+    readyForOperationButton?: ButtonOptions;
+    tecoButton?: ButtonOptions;
 } & WorkOrder;
 
 export type StatusConfig = {

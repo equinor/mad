@@ -23,19 +23,19 @@ export const WorkOrderCell = ({
     valueColor = "textTertiary",
     isHseCritical,
     isProductionCritical,
-    actions,
     overwriteLabel,
     style,
-    onStartButtonPress,
-    onReadyForOperationPress,
-    onTecoButtonPress,
+    startButton,
+    readyForOperationButton,
+    tecoButton,
     ...rest
 }: WorkOrderCellProps) => {
     const breakpoint = useBreakpoint();
     const styles = useStyles(themeStyles, { symbolDirection });
 
+    const anyButtonVisible =
+        startButton?.visible ?? readyForOperationButton?.visible ?? tecoButton?.visible;
     const currentDate = moment();
-
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
@@ -67,35 +67,35 @@ export const WorkOrderCell = ({
                 valueColor={valueColor}
                 currentDate={currentDate.toDate()}
             />
-            {actions && (
+            {anyButtonVisible && (
                 <View
                     style={[
                         styles.actionContainer,
                         breakpoint === "xs" && { flexDirection: "column" },
                     ]}
                 >
-                    {actions.startButton?.visible && (
+                    {startButton?.visible && (
                         <Button
                             title="Start job"
                             variant="outlined"
-                            disabled={actions.startButton.disabled}
-                            onPress={onStartButtonPress}
+                            disabled={startButton.disabled}
+                            onPress={startButton.onPress}
                         />
                     )}
-                    {actions.readyForOperationButton?.visible && (
+                    {readyForOperationButton?.visible && (
                         <Button
                             title="Ready for operation"
                             variant="outlined"
-                            disabled={actions.readyForOperationButton.disabled}
-                            onPress={onReadyForOperationPress}
+                            disabled={readyForOperationButton.disabled}
+                            onPress={readyForOperationButton?.onPress}
                         />
                     )}
-                    {actions.tecoButton?.visible && (
+                    {tecoButton?.visible && (
                         <Button
                             title="Technical complete"
                             variant="outlined"
-                            disabled={actions.tecoButton.disabled}
-                            onPress={onTecoButtonPress}
+                            disabled={tecoButton.disabled}
+                            onPress={tecoButton.onPress}
                         />
                     )}
                 </View>
