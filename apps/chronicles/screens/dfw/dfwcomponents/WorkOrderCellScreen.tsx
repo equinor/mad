@@ -24,7 +24,8 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell
                 title="Work Order Cell"
-                workOrder="25282760"
+                workOrderId="25282760"
+                workOrderType="PM02"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
                 equipment="EQUIP-123456"
@@ -37,6 +38,7 @@ export const WorkOrderCellScreen = () => {
                 isProductionCritical
                 startJobButton={{
                     visible: true,
+                    loading: true,
                     onPress: () => console.log("Start"),
                 }}
                 readyForOperationButton={{
@@ -60,7 +62,8 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell
                 title="Work Order Cell"
-                workOrder="25282760"
+                workOrderId="25282760"
+                workOrderType="PM02"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
                 equipment="EQUIP-123456"
@@ -82,7 +85,6 @@ export const WorkOrderCellScreen = () => {
                     onPress: () => console.log("Complete"),
                 }}
                 showSymbols
-                symbolDirection="row"
             />
             <Spacer />
             <View style={styles.readableContent}>
@@ -94,7 +96,8 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell.Navigation
                 title="Work Order Cell"
-                workOrder="25282760"
+                workOrderId="25282760"
+                workOrderType="PM02"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
                 equipment="EQUIP-123456"
@@ -117,10 +120,12 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <WorkOrderCell
                 title="Basic Work Order Cell"
-                workOrder="25282760"
+                workOrderId="25282760"
+                workOrderType="PM02"
                 maintenanceType="Surface monitoring"
                 functionalLocation="TAG-123456"
                 valueColor="danger"
+                showSymbols={false}
             />
         </ScrollView>
     );

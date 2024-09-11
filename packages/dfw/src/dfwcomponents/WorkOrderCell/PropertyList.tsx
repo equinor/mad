@@ -1,12 +1,11 @@
+import { Color } from "@equinor/mad-components";
 import React from "react";
 import { PropertyRow } from "../PropertyRow";
 import { WorkOrder } from "./types";
-import moment from "moment";
-import { Color, useToken } from "@equinor/mad-components";
+import { formatDate } from "./utils";
 
-const defaultWorkOrderLabelMap: Record<keyof WorkOrder, string> = {
+const workOrderLabelMap: Record<string, string | undefined> = {
     title: "Title",
-    workOrder: "Work order",
     maintenanceType: "Maintenance type",
     functionalLocation: "Functional Location",
     equipment: "Equipment",
@@ -18,22 +17,12 @@ const defaultWorkOrderLabelMap: Record<keyof WorkOrder, string> = {
 } as const;
 
 type PropertyListProps = {
-    workOrder: Partial<WorkOrder>;
+    data: Partial<WorkOrder>;
     valueColor: Color;
-    currentDate: Date;
-    overwriteLabel?: Partial<Record<keyof WorkOrder, string>>;
 };
 
-export const PropertyList = ({
-    workOrder,
-    valueColor,
-    currentDate,
-    overwriteLabel = {},
-}: PropertyListProps) => {
-    const token = useToken();
-
-    const formatDate = (dateString: string) => moment(dateString).format("DD.MM.YYYY");
-
+export const PropertyList = ({ data: workOrder, valueColor }: PropertyListProps) => {
+    const currentDate = new Date();
     const requiredEnd = workOrder.requiredEnd ? new Date(workOrder.requiredEnd) : null;
 
     const combinedDates =
@@ -41,11 +30,11 @@ export const PropertyList = ({
             ? `${formatDate(workOrder.basicStartDate)} - ${formatDate(workOrder.basicFinishDate)}`
             : null;
 
-    const getLabel = (key: keyof WorkOrder) => {
+    const getLabel = (key: string) => {
         if (key === "basicStartDate" && combinedDates) {
             return "Basic start / finish";
         }
-        return overwriteLabel?.[key] ?? defaultWorkOrderLabelMap[key];
+        return workOrderLabelMap[key];
     };
 
     const getDisplayValue = (key: keyof WorkOrder, value: string | undefined) => {
@@ -64,7 +53,6 @@ export const PropertyList = ({
                 const typedKey = key as keyof WorkOrder;
 
                 if (combinedDates && typedKey === "basicFinishDate") return null;
-
                 if (value || (typedKey === "basicStartDate" && combinedDates)) {
                     const label = getLabel(typedKey);
                     const displayValue = getDisplayValue(typedKey, value);
@@ -75,13 +63,14 @@ export const PropertyList = ({
                             : valueColor;
 
                     return (
-                        <PropertyRow
-                            key={index}
-                            label={label}
-                            value={displayValue ?? ""}
-                            style={{ marginBottom: token.spacing.cell.group.titleBottomPadding }}
-                            textColor={textColor}
-                        />
+                        label && (
+                            <PropertyRow
+                                key={index}
+                                label={label}
+                                value={displayValue ?? ""}
+                                textColor={textColor}
+                            />
+                        )
                     );
                 }
                 return null;
