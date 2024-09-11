@@ -1,5 +1,13 @@
 # @equinor/mad-dfw
 
+## 0.4.0
+
+### Minor Changes
+
+-   7d09c9b: WorkOrderCell adjusted. Renamed prop `workOrder` to `workOrderId`. Added new prop,
+    `workOrderType`, this relates to the workOrderId. Removed the `symbolDirection` and
+    `overwriteLabel` props. The symbol direction is now column by default.
+
 ## 0.3.1
 
 ### Patch Changes
