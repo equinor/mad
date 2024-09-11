@@ -1,5 +1,11 @@
 # @equinor/mad-dfw
 
+## 0.3.1
+
+### Patch Changes
+
+-   ae0f906: Added loading prop to the buttons in the `WorkOrderCell` component
+
 ## 0.3.0
 
 ### Minor Changes
