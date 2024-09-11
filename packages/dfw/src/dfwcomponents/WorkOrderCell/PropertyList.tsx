@@ -21,13 +21,13 @@ type PropertyListProps = {
     valueColor: Color;
 };
 
-export const PropertyList = ({ data: workOrder, valueColor }: PropertyListProps) => {
+export const PropertyList = ({ data, valueColor }: PropertyListProps) => {
     const currentDate = new Date();
-    const requiredEnd = workOrder.requiredEnd ? new Date(workOrder.requiredEnd) : null;
+    const requiredEnd = data.requiredEnd ? new Date(data.requiredEnd) : null;
 
     const combinedDates =
-        workOrder.basicStartDate && workOrder.basicFinishDate
-            ? `${formatDate(workOrder.basicStartDate)} - ${formatDate(workOrder.basicFinishDate)}`
+        data.basicStartDate && data.basicFinishDate
+            ? `${formatDate(data.basicStartDate)} - ${formatDate(data.basicFinishDate)}`
             : null;
 
     const getLabel = (key: string) => {
@@ -49,7 +49,7 @@ export const PropertyList = ({ data: workOrder, valueColor }: PropertyListProps)
 
     return (
         <>
-            {Object.entries(workOrder).map(([key, value], index) => {
+            {Object.entries(data).map(([key, value], index) => {
                 const typedKey = key as keyof WorkOrder;
 
                 if (combinedDates && typedKey === "basicFinishDate") return null;
