@@ -16,6 +16,7 @@ export type WorkOrder = {
 
 type ButtonOptions = {
     disabled?: boolean;
+    loading?: boolean;
     visible: boolean;
     onPress: () => void;
 };
