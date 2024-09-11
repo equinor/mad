@@ -79,6 +79,7 @@ export const WorkOrderCell = ({
                             title="Start job"
                             variant="outlined"
                             disabled={startJobButton.disabled}
+                            loading={startJobButton.loading}
                             onPress={startJobButton.onPress}
                         />
                     )}
@@ -87,7 +88,8 @@ export const WorkOrderCell = ({
                             title="Ready for operation"
                             variant="outlined"
                             disabled={readyForOperationButton.disabled}
-                            onPress={readyForOperationButton?.onPress}
+                            loading={readyForOperationButton.loading}
+                            onPress={readyForOperationButton.onPress}
                         />
                     )}
                     {tecoButton?.visible && (
@@ -95,6 +97,7 @@ export const WorkOrderCell = ({
                             title="Technical complete"
                             variant="outlined"
                             disabled={tecoButton.disabled}
+                            loading={tecoButton.loading}
                             onPress={tecoButton.onPress}
                         />
                     )}
