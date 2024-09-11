@@ -1,7 +1,7 @@
-import { Cell, EDSStyleSheet, Icon, Label, Typography, useStyles } from "@equinor/mad-components";
-import moment from "moment";
+import { Cell, EDSStyleSheet, Icon, Typography, useStyles } from "@equinor/mad-components";
 import React, { useMemo } from "react";
 import { View } from "react-native";
+import { PropertyRow } from "../PropertyRow";
 import { PropertyList } from "./PropertyList";
 import { StatusIcon } from "./StatusIcon";
 import { WorkOrderCellProps } from "./types";
@@ -13,19 +13,20 @@ type WorkOrderCellNavigationProps = WorkOrderCellProps & {
 
 export const WorkOrderCellNavigation = ({
     title,
+    workOrderId,
+    workOrderType,
     maintenanceType,
     valueColor = "textTertiary",
     isHseCritical,
     isProductionCritical,
     showSymbols = true,
-    overwriteLabel,
     onPress,
     style,
     ...rest
 }: WorkOrderCellNavigationProps) => {
     const styles = useStyles(themeStyles);
 
-    const currentDate = moment();
+    const currentDate = useMemo(() => new Date(), []);
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
@@ -45,13 +46,13 @@ export const WorkOrderCellNavigation = ({
                     <Typography numberOfLines={1} variant="h5" bold style={styles.title}>
                         {title}
                     </Typography>
-                    {maintenanceType && <Label label={maintenanceType} style={styles.label} />}
-                    <PropertyList
-                        workOrder={rest}
-                        overwriteLabel={overwriteLabel}
-                        valueColor={valueColor}
-                        currentDate={currentDate.toDate()}
-                    />
+                    <View style={styles.dataContainer}>
+                        <Typography group="paragraph" variant="body_short" color="textTertiary">
+                            {maintenanceType}
+                        </Typography>
+                        <PropertyRow label={workOrderType} value={workOrderId} />
+                        <PropertyList data={rest} valueColor={valueColor} />
+                    </View>
                 </View>
                 {showSymbols && (
                     <View style={styles.iconListContainer}>
@@ -79,8 +80,8 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     title: {
         marginBottom: theme.spacing.container.paddingVertical,
     },
-    label: {
-        marginBottom: theme.spacing.cell.group.titleBottomPadding,
+    dataContainer: {
+        gap: theme.spacing.cell.group.titleBottomPadding,
     },
     iconListContainer: {
         position: "absolute",

@@ -1,9 +1,21 @@
 import { Color, IconName } from "@equinor/mad-components";
 import { ViewProps } from "react-native";
 
+export type WorkOrderType =
+    | "PM01"
+    | "PM02"
+    | "PM03"
+    | "PM04"
+    | "PM05"
+    | "PM06"
+    | "PM10"
+    | "PM15"
+    | "PM20";
+
 export type WorkOrder = {
+    workOrderId: string;
+    workOrderType: WorkOrderType;
     title: string;
-    workOrder: string;
     maintenanceType?: string;
     equipment?: string;
     activeStatus?: string;
@@ -22,8 +34,9 @@ type ButtonOptions = {
 };
 
 export type WorkOrderCellProps = {
+    workOrderId: string;
+    workOrderType: WorkOrderType;
     showSymbols?: boolean;
-    symbolDirection?: "column" | "row";
     valueColor?: Color;
     isHseCritical?: boolean;
     isProductionCritical?: boolean;

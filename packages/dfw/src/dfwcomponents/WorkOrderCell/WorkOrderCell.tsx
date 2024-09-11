@@ -2,14 +2,14 @@ import {
     Button,
     Cell,
     EDSStyleSheet,
-    Label,
     Typography,
     useBreakpoint,
     useStyles,
+    useToken,
 } from "@equinor/mad-components";
-import moment from "moment";
 import React, { useMemo } from "react";
 import { View } from "react-native";
+import { PropertyRow } from "../PropertyRow";
 import { PropertyList } from "./PropertyList";
 import { StatusIcon } from "./StatusIcon";
 import { WorkOrderCellProps } from "./types";
@@ -17,13 +17,13 @@ import { getStatusIconsAndLabels } from "./utils";
 
 export const WorkOrderCell = ({
     title,
+    workOrderId,
+    workOrderType,
     maintenanceType,
-    showSymbols,
-    symbolDirection = "column",
+    showSymbols = true,
     valueColor = "textTertiary",
     isHseCritical,
     isProductionCritical,
-    overwriteLabel,
     style,
     startJobButton,
     readyForOperationButton,
@@ -31,11 +31,14 @@ export const WorkOrderCell = ({
     ...rest
 }: WorkOrderCellProps) => {
     const breakpoint = useBreakpoint();
-    const styles = useStyles(themeStyles, { symbolDirection });
+    const token = useToken();
+    const styles = useStyles(themeStyles);
 
     const anyButtonVisible =
         startJobButton?.visible ?? readyForOperationButton?.visible ?? tecoButton?.visible;
-    const currentDate = moment();
+
+    const currentDate = useMemo(() => new Date(), []);
+
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
@@ -50,23 +53,28 @@ export const WorkOrderCell = ({
 
     return (
         <Cell style={style}>
-            <Typography numberOfLines={1} variant="h5" bold style={styles.title}>
+            <Typography
+                numberOfLines={1}
+                variant="h5"
+                bold
+                style={!showSymbols && { paddingBottom: token.spacing.container.paddingVertical }}
+            >
                 {title}
             </Typography>
-            {showSymbols && (
-                <View style={[styles.iconListContainer, { flexDirection: symbolDirection }]}>
+            {showSymbols && iconsAndLabels.length > 0 && (
+                <View style={styles.iconListContainer}>
                     {iconsAndLabels.map((item, index) => (
                         <StatusIcon key={index} {...item} />
                     ))}
                 </View>
             )}
-            {maintenanceType && <Label label={maintenanceType} style={styles.label} />}
-            <PropertyList
-                workOrder={rest}
-                overwriteLabel={overwriteLabel}
-                valueColor={valueColor}
-                currentDate={currentDate.toDate()}
-            />
+            <View style={styles.dataContainer}>
+                <Typography group="paragraph" variant="body_short" color="textTertiary">
+                    {maintenanceType}
+                </Typography>
+                <PropertyRow label={workOrderType} value={workOrderId} />
+                <PropertyList data={rest} valueColor={valueColor} />
+            </View>
             {anyButtonVisible && (
                 <View
                     style={[
@@ -107,34 +115,18 @@ export const WorkOrderCell = ({
     );
 };
 
-const themeStyles = EDSStyleSheet.create(
-    (theme, { symbolDirection }: { symbolDirection: "row" | "column" }) => ({
-        iconContainer: {
-            flexDirection: "row",
-            alignItems: "center",
-            gap: theme.spacing.cell.content.titleDescriptionGap,
-            marginBottom: theme.spacing.cell.group.titleBottomPadding,
-        },
-        actionContainer: {
-            gap: theme.spacing.spacer.small,
-            marginTop: theme.spacing.container.paddingVertical,
-            flexDirection: "row",
-            justifyContent: "center",
-        },
-        title: {
-            marginBottom: theme.spacing.container.paddingVertical,
-        },
-        label: {
-            marginBottom: theme.spacing.cell.group.titleBottomPadding,
-        },
-        iconListContainer: {
-            flexWrap: "wrap",
-            flexDirection: symbolDirection,
-            paddingBottom: theme.spacing.cell.group.titleBottomPadding,
-            gap:
-                symbolDirection === "row"
-                    ? theme.spacing.spacer.small
-                    : theme.spacing.cell.content.titleDescriptionGap,
-        },
-    }),
-);
+const themeStyles = EDSStyleSheet.create(theme => ({
+    actionContainer: {
+        gap: theme.spacing.spacer.small,
+        marginTop: theme.spacing.container.paddingVertical,
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    dataContainer: {
+        gap: theme.spacing.cell.group.titleBottomPadding,
+    },
+    iconListContainer: {
+        paddingVertical: theme.spacing.container.paddingVertical,
+        gap: theme.spacing.cell.content.titleDescriptionGap,
+    },
+}));
