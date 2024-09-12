@@ -1,5 +1,12 @@
 # @equinor/mad-dfw
 
+## 0.4.1
+
+### Patch Changes
+
+-   93cd63d: Added new value to the `WorkOrderType`. Prevent excess padding when the
+    `maintenanceType` is not being used.
+
 ## 0.4.0
 
 ### Minor Changes
