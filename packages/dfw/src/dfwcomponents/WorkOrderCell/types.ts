@@ -11,7 +11,7 @@ export type WorkOrderType =
     | "PM10"
     | "PM15"
     | "PM20"
-    | "Unknown";
+    | "unknown";
 
 export type WorkOrder = {
     workOrderId: string;
