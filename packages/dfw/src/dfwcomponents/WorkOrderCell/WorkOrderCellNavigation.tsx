@@ -47,9 +47,11 @@ export const WorkOrderCellNavigation = ({
                         {title}
                     </Typography>
                     <View style={styles.dataContainer}>
-                        <Typography group="paragraph" variant="body_short" color="textTertiary">
-                            {maintenanceType}
-                        </Typography>
+                        {maintenanceType && (
+                            <Typography group="paragraph" variant="body_short" color="textTertiary">
+                                {maintenanceType}
+                            </Typography>
+                        )}
                         <PropertyRow label={workOrderType} value={workOrderId} />
                         <PropertyList data={rest} valueColor={valueColor} />
                     </View>
