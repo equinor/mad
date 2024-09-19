@@ -21,18 +21,17 @@ export const getStatusIconConfig = (status: string): StatusConfig | undefined =>
 };
 
 export const getStatusIconsAndLabels = (
-    activeStatusIds: string | undefined,
-    requiredEndDate: string | null,
-    currentDate: Date,
+    activeStatusIds?: string,
+    requiredEndDate?: string,
     hseCritical?: boolean,
     productionCritical?: boolean,
 ): StatusConfig[] => {
     const requiredEnd = requiredEndDate ? new Date(requiredEndDate) : null;
     const activeStatuses = activeStatusIds?.split(" ");
-
+    const today = new Date();
     const iconsAndLabels: StatusConfig[] = [];
 
-    if (requiredEnd && currentDate > requiredEnd) {
+    if (requiredEnd && today > requiredEnd) {
         iconsAndLabels.push({
             icon: "alarm",
             label: "Required end overdue",

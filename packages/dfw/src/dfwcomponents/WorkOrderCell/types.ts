@@ -18,13 +18,16 @@ export type WorkOrder = {
     workOrderType: WorkOrderType;
     title: string;
     maintenanceType?: string;
-    equipment?: string;
-    activeStatus?: string;
+    tagId?: string;
+    tagPlantId?: string;
+    equipmentId?: string;
+    activeStatusIds?: string;
     basicStartDate?: string;
-    basicFinishDate?: string;
-    requiredEnd?: string;
-    workCenter?: string;
-    functionalLocation?: string;
+    basicEndDate?: string;
+    requiredEndDate?: string;
+    workCenterId?: string;
+    isHseCritical?: boolean;
+    isProductionCritical?: boolean;
 };
 
 type ButtonOptions = {
@@ -35,18 +38,27 @@ type ButtonOptions = {
 };
 
 export type WorkOrderCellProps = {
-    workOrderId: string;
-    workOrderType: WorkOrderType;
+    /**
+     * Boolean value indicating whether or not the work order cell should display statuses as icons.
+     */
     showSymbols?: boolean;
-    valueColor?: Color;
-    isHseCritical?: boolean;
-    isProductionCritical?: boolean;
-    style?: ViewProps["style"];
-    overwriteLabel?: Partial<Record<keyof WorkOrder, string>>;
+    /**
+     * Button configuration for the start job button.
+     */
     startJobButton?: ButtonOptions;
+    /**
+     * Button configuration for the ready for operation button.
+     */
     readyForOperationButton?: ButtonOptions;
+    /**
+     * Button configuration for the complete button.
+     */
     tecoButton?: ButtonOptions;
-} & WorkOrder;
+    /**
+     * Work order data to display in the cell.
+     */
+    workOrder: WorkOrder;
+} & Omit<ViewProps, "children">;
 
 export type StatusConfig = {
     icon: IconName;

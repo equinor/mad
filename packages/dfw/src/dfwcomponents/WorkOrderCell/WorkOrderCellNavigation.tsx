@@ -1,59 +1,48 @@
 import { Cell, EDSStyleSheet, Icon, Typography, useStyles } from "@equinor/mad-components";
 import React, { useMemo } from "react";
 import { View } from "react-native";
-import { PropertyRow } from "../PropertyRow";
-import { PropertyList } from "./PropertyList";
 import { StatusIcon } from "./StatusIcon";
 import { WorkOrderCellProps } from "./types";
 import { getStatusIconsAndLabels } from "./utils";
+import { WorkOrderPropertyList } from "./WorkOrderPropertyList";
 
 type WorkOrderCellNavigationProps = WorkOrderCellProps & {
     onPress: () => void;
 };
 
 export const WorkOrderCellNavigation = ({
-    title,
-    workOrderId,
-    workOrderType,
-    maintenanceType,
-    valueColor = "textTertiary",
-    isHseCritical,
-    isProductionCritical,
     showSymbols = true,
     onPress,
-    style,
+    workOrder,
     ...rest
 }: WorkOrderCellNavigationProps) => {
     const styles = useStyles(themeStyles);
 
-    const currentDate = useMemo(() => new Date(), []);
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
-                rest.activeStatus,
-                rest.requiredEnd ?? null,
-                currentDate,
-                isHseCritical,
-                isProductionCritical,
+                workOrder.activeStatusIds,
+                workOrder.requiredEndDate,
+                workOrder.isHseCritical,
+                workOrder.isProductionCritical,
             ),
-        [rest.activeStatus, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
+        [workOrder],
     );
 
     return (
-        <Cell onPress={onPress} style={style}>
+        <Cell {...rest} onPress={onPress}>
             <View style={styles.container}>
                 <View style={styles.contentContainer}>
                     <Typography numberOfLines={1} variant="h5" bold style={styles.title}>
-                        {title}
+                        {workOrder.title}
                     </Typography>
                     <View style={styles.dataContainer}>
-                        {maintenanceType && (
+                        {workOrder.maintenanceType && (
                             <Typography group="paragraph" variant="body_short" color="textTertiary">
-                                {maintenanceType}
+                                {workOrder.maintenanceType}
                             </Typography>
                         )}
-                        <PropertyRow label={workOrderType} value={workOrderId} />
-                        <PropertyList data={rest} valueColor={valueColor} />
+                        <WorkOrderPropertyList workOrder={workOrder} />
                     </View>
                 </View>
                 {showSymbols && (

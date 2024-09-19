@@ -9,25 +9,17 @@ import {
 } from "@equinor/mad-components";
 import React, { useMemo } from "react";
 import { View } from "react-native";
-import { PropertyRow } from "../PropertyRow";
-import { PropertyList } from "./PropertyList";
 import { StatusIcon } from "./StatusIcon";
 import { WorkOrderCellProps } from "./types";
 import { getStatusIconsAndLabels } from "./utils";
+import { WorkOrderPropertyList } from "./WorkOrderPropertyList";
 
 export const WorkOrderCell = ({
-    title,
-    workOrderId,
-    workOrderType,
-    maintenanceType,
     showSymbols = true,
-    valueColor = "textTertiary",
-    isHseCritical,
-    isProductionCritical,
-    style,
     startJobButton,
     readyForOperationButton,
     tecoButton,
+    workOrder,
     ...rest
 }: WorkOrderCellProps) => {
     const breakpoint = useBreakpoint();
@@ -37,29 +29,26 @@ export const WorkOrderCell = ({
     const anyButtonVisible =
         startJobButton?.visible ?? readyForOperationButton?.visible ?? tecoButton?.visible;
 
-    const currentDate = useMemo(() => new Date(), []);
-
     const iconsAndLabels = useMemo(
         () =>
             getStatusIconsAndLabels(
-                rest.activeStatus,
-                rest.requiredEnd ?? null,
-                currentDate,
-                isHseCritical,
-                isProductionCritical,
+                workOrder.activeStatusIds,
+                workOrder.requiredEndDate,
+                workOrder.isHseCritical,
+                workOrder.isProductionCritical,
             ),
-        [rest.activeStatus, rest.requiredEnd, currentDate, isHseCritical, isProductionCritical],
+        [workOrder],
     );
 
     return (
-        <Cell style={style}>
+        <Cell {...rest}>
             <Typography
                 numberOfLines={1}
                 variant="h5"
                 bold
                 style={!showSymbols && { paddingBottom: token.spacing.container.paddingVertical }}
             >
-                {title}
+                {workOrder.title}
             </Typography>
             {showSymbols && iconsAndLabels.length > 0 && (
                 <View style={styles.iconListContainer}>
@@ -69,13 +58,12 @@ export const WorkOrderCell = ({
                 </View>
             )}
             <View style={styles.dataContainer}>
-                {maintenanceType && (
+                {workOrder.maintenanceType && (
                     <Typography group="paragraph" variant="body_short" color="textTertiary">
-                        {maintenanceType}
+                        {workOrder.maintenanceType}
                     </Typography>
                 )}
-                <PropertyRow label={workOrderType} value={workOrderId} />
-                <PropertyList data={rest} valueColor={valueColor} />
+                <WorkOrderPropertyList workOrder={workOrder} />
             </View>
             {anyButtonVisible && (
                 <View

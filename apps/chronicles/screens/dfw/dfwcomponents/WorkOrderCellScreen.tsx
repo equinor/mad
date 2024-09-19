@@ -15,27 +15,29 @@ export const WorkOrderCellScreen = () => {
             <View style={styles.readableContent}>
                 <Typography>
                     The WorkOrderCell component displays work order information using a title,
-                    customizable labels, and property data. It generates multiple PropertyRow
-                    elements to present the data, with the option to override default labels for
-                    each property. Additionally, the component can show status icons, buttons and
-                    highlight overdue work orders based on their status and time constraints.
+                    customizable labels, and property data. It automatically formats the work order
+                    properties according to the data you provide it with. It also comes with
+                    actionable buttons that relate to the work order. All you need to think about is
+                    passing it the right data.
                 </Typography>
             </View>
             <Spacer />
             <WorkOrderCell
-                title="Work Order Cell"
-                workOrderId="25282760"
-                workOrderType="PM02"
-                maintenanceType="Surface monitoring"
-                functionalLocation="TAG-123456"
-                equipment="EQUIP-123456"
-                activeStatus="STRT"
-                basicStartDate="2023-04-07"
-                basicFinishDate="2023-09-12"
-                requiredEnd="2024-04-23"
-                workCenter="POMISP"
-                isHseCritical
-                isProductionCritical
+                workOrder={{
+                    title: "Work Order Cell",
+                    workOrderId: "25282760",
+                    workOrderType: "PM02",
+                    maintenanceType: "Surface monitoring",
+                    tagId: "TAG-123456",
+                    equipmentId: "EQUIP-123456",
+                    activeStatusIds: "STRT",
+                    basicStartDate: "2023-04-07",
+                    basicEndDate: "2023-09-12",
+                    requiredEndDate: "2024-04-23",
+                    workCenterId: "POMISP",
+                    isHseCritical: true,
+                    isProductionCritical: true,
+                }}
                 startJobButton={{
                     visible: true,
                     loading: true,
@@ -55,77 +57,103 @@ export const WorkOrderCellScreen = () => {
             <Spacer />
             <View style={styles.readableContent}>
                 <Typography>
-                    WorkOrderCell with status icons aligned in a row and a customized label for the
-                    Work Order ID.
+                    If you want, you can toggle to not display the icons that summarize the work
+                    order statuses and the critical flags provided.
                 </Typography>
             </View>
             <Spacer />
             <WorkOrderCell
-                title="Work Order Cell"
-                workOrderId="25282760"
-                workOrderType="PM02"
-                maintenanceType="Surface monitoring"
-                functionalLocation="TAG-123456"
-                equipment="EQUIP-123456"
-                activeStatus="STRT"
-                basicFinishDate="2023-04-07"
-                requiredEnd="2024-04-23"
-                workCenter="POMISP"
-                isHseCritical
-                isProductionCritical
-                overwriteLabel={{
-                    functionalLocation: "Adjusted label",
+                workOrder={{
+                    title: "Work Order Cell",
+                    workOrderId: "25282760",
+                    workOrderType: "PM02",
+                    maintenanceType: "Surface monitoring",
+                    tagId: "TAG-123456",
+                    activeStatusIds: "STRT",
+                    basicStartDate: "2023-04-07",
+                    basicEndDate: "2023-09-12",
+                    requiredEndDate: "2024-04-23",
+                    workCenterId: "POMISP",
+                    isHseCritical: true,
+                    isProductionCritical: true,
                 }}
-                startJobButton={{
-                    visible: true,
-                    onPress: () => console.log("Start"),
-                }}
-                readyForOperationButton={{
-                    visible: true,
-                    onPress: () => console.log("Complete"),
-                }}
-                showSymbols
+                showSymbols={false}
             />
             <Spacer />
             <View style={styles.readableContent}>
                 <Typography>
-                    This is a WorkOrderCell.Navigation lets you call an onPress function, this can
-                    be used for navigating when the cell is pressed.
+                    Check out how passing different props to the WorkOrderCell changes how the cell
+                    is displayed.
+                </Typography>
+            </View>
+            <Spacer />
+            <View style={styles.workOrderCellList}>
+                <WorkOrderCell
+                    workOrder={{
+                        title: "With tag id only",
+                        workOrderType: "PM02",
+                        workOrderId: "25282760",
+                        tagId: "TAG-123456",
+                    }}
+                />
+                <WorkOrderCell
+                    workOrder={{
+                        title: "With tag id + tag plant id",
+                        workOrderType: "PM02",
+                        workOrderId: "25282760",
+                        tagId: "TAG-123456",
+                        tagPlantId: "1900",
+                    }}
+                />
+                <WorkOrderCell
+                    workOrder={{
+                        title: "With required end date in the past",
+                        workOrderType: "PM02",
+                        workOrderId: "25282760",
+                        requiredEndDate: "2022-04-23",
+                    }}
+                />
+                <WorkOrderCell
+                    workOrder={{
+                        title: "With only basic start date",
+                        workOrderType: "PM02",
+                        workOrderId: "25282760",
+                        basicStartDate: "2023-04-07",
+                    }}
+                />
+                <WorkOrderCell
+                    workOrder={{
+                        title: "With both basic start date and end date",
+                        workOrderType: "PM02",
+                        workOrderId: "25282760",
+                        basicStartDate: "2023-04-07",
+                        basicEndDate: "2023-09-12",
+                    }}
+                />
+            </View>
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>
+                    There is also a navigation version of the WorkOrderCell that allows you to pass
+                    an onPress method to the Cell. This also slightly changes the layout of the
+                    icons displayed.
                 </Typography>
             </View>
             <Spacer />
             <WorkOrderCell.Navigation
-                title="Work Order Cell"
-                workOrderId="25282760"
-                workOrderType="PM02"
-                maintenanceType="Surface monitoring"
-                functionalLocation="TAG-123456"
-                equipment="EQUIP-123456"
-                activeStatus="STRT"
-                basicFinishDate="2023-04-07"
-                basicStartDate="2023-02-07"
-                requiredEnd="2024-04-23"
-                workCenter="POMISP"
-                isHseCritical
-                isProductionCritical
+                workOrder={{
+                    title: "Work Order Cell",
+                    workOrderId: "25282760",
+                    workOrderType: "PM02",
+                    tagId: "TAG-123456",
+                    activeStatusIds: "STRT",
+                    basicStartDate: "2023-02-07",
+                    basicEndDate: "2023-04-07",
+                    workCenterId: "POMISP",
+                    isHseCritical: true,
+                    isProductionCritical: true,
+                }}
                 onPress={() => console.log("Pressed")}
-            />
-            <Spacer />
-            <View style={styles.readableContent}>
-                <Typography>
-                    This workorder cell does not show the symbols for activeStatusIds or required
-                    end overdue. This is an optional prop that can be switched on and off.
-                </Typography>
-            </View>
-            <Spacer />
-            <WorkOrderCell
-                title="Basic Work Order Cell"
-                workOrderId="25282760"
-                workOrderType="PM02"
-                maintenanceType="Surface monitoring"
-                functionalLocation="TAG-123456"
-                valueColor="danger"
-                showSymbols={false}
             />
         </ScrollView>
     );
@@ -137,5 +165,8 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     },
     readableContent: {
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
+    },
+    workOrderCellList: {
+        gap: theme.spacing.spacer.small,
     },
 }));
