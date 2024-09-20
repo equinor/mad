@@ -1,5 +1,25 @@
 # @equinor/mad-dfw
 
+## 0.5.0
+
+### Minor Changes
+
+-   c3cd036: - Introduced `tagPlantId` field on `WorkOrder` type.
+
+    -   Expanded the allowed props on the `WorkOrderCell` to accept all non-child view props in
+        addition to its fundamental props.
+
+    **Breaking changes:**
+
+    -   Moved all work order related data into the `workOrder` prop of the cell
+    -   Renamed `requiredEnd` to `requiredEndDate`
+    -   Renamed `workCenter` to `workCenterId`
+    -   Renamed `functionalLocation` to `tagId`
+    -   Renamed `basicFinishDate` to `basicEndDate`
+    -   Renamed `equipment` to `equipmentId`
+    -   Renamed `activeStatus` to `activeStatusIds`
+    -   Removed the `overwriteLabel` prop on `WorkOrderCellProps`
+
 ## 0.4.1
 
 ### Patch Changes
