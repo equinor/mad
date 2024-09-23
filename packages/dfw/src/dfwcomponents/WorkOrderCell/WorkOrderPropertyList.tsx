@@ -20,11 +20,6 @@ const propertyRowConfig: PropertyRowConfig = [
         condition: () => true,
     },
     {
-        label: "Functional Location",
-        value: wo => `${wo.tagPlantId}-${wo.tagId}`,
-        condition: wo => !!wo.tagId && !!wo.tagPlantId,
-    },
-    {
         label: "Tag",
         value: wo => wo.tagId!,
         condition: wo => !!wo.tagId && !wo.tagPlantId,
@@ -50,24 +45,34 @@ const propertyRowConfig: PropertyRowConfig = [
         value: wo => formatDate(wo.basicStartDate!),
         condition: wo => !!wo.basicStartDate && !wo.basicEndDate,
     },
-
     {
         label: "Basic finish",
         value: wo => formatDate(wo.basicEndDate!),
         condition: wo => !!wo.basicEndDate && !wo.basicStartDate,
     },
-
     {
         label: "Required end",
         value: wo => formatDate(wo.requiredEndDate!),
         color: wo => (new Date() > new Date(wo.requiredEndDate!) ? "danger" : "textTertiary"),
         condition: wo => !!wo.requiredEndDate,
     },
-
     {
         label: "Work center",
         value: wo => wo.workCenterId ?? "",
         condition: wo => !!wo.workCenterId,
+    },
+    {
+        label: "Functional location",
+        value: wo => `${wo.operationsFromFilter} operations`,
+        condition: wo => !!wo.tagId && !!wo.tagPlantId,
+    },
+    {
+        label: "Operations from filter",
+        value: wo =>
+            `${wo.operationsFromFilter} ${
+                wo.operationsFromFilter === 1 ? "operation" : "operations"
+            }`,
+        condition: wo => !!wo.operationsFromFilter,
     },
 ] as const;
 
