@@ -1,6 +1,11 @@
 import { Color, IconName } from "@equinor/mad-components";
 import { ViewProps } from "react-native";
 
+export type AdditionalPropertyRow = {
+    label: string;
+    value: string;
+};
+
 export type WorkOrderType =
     | "PM01"
     | "PM02"
@@ -26,7 +31,6 @@ export type WorkOrder = {
     basicEndDate?: string;
     requiredEndDate?: string;
     workCenterId?: string;
-    operationsFromFilter: number;
     isHseCritical?: boolean;
     isProductionCritical?: boolean;
 };
@@ -59,6 +63,10 @@ export type WorkOrderCellProps = {
      * Work order data to display in the cell.
      */
     workOrder: WorkOrder;
+    /*
+     * Additional property rows to be displayed under the work order data
+     */
+    additionalPropertyRows?: AdditionalPropertyRow[];
 } & Omit<ViewProps, "children">;
 
 export type StatusConfig = {

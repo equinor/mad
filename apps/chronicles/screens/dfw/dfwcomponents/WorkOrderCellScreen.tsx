@@ -129,6 +129,16 @@ export const WorkOrderCellScreen = () => {
                         basicStartDate: "2023-04-07",
                         basicEndDate: "2023-09-12",
                     }}
+                    additionalPropertyRows={[
+                        {
+                            label: "Additional Label 1",
+                            value: "Additional Value 1",
+                        },
+                        {
+                            label: "Additional Label 2",
+                            value: "Additional Value 2",
+                        },
+                    ]}
                 />
             </View>
             <Spacer />

@@ -1,7 +1,7 @@
 import { Color } from "@equinor/mad-components";
 import React from "react";
 import { PropertyRow } from "../PropertyRow";
-import { WorkOrder } from "./types";
+import { AdditionalPropertyRow, WorkOrder } from "./types";
 import { formatDate } from "./utils";
 
 type PropertyRowEntry = {
@@ -62,25 +62,21 @@ const propertyRowConfig: PropertyRowConfig = [
         condition: wo => !!wo.workCenterId,
     },
     {
-        label: "Functional location",
-        value: wo => `${wo.operationsFromFilter} operations`,
+        label: "Functional Location",
+        value: wo => `${wo.tagPlantId}-${wo.tagId}`,
         condition: wo => !!wo.tagId && !!wo.tagPlantId,
-    },
-    {
-        label: "Operations from filter",
-        value: wo =>
-            `${wo.operationsFromFilter} ${
-                wo.operationsFromFilter === 1 ? "operation" : "operations"
-            }`,
-        condition: wo => !!wo.operationsFromFilter,
     },
 ] as const;
 
 type WorkOrderPropertyListProps = {
     workOrder: WorkOrder;
+    additionalPropertyRows?: AdditionalPropertyRow[];
 };
 
-export const WorkOrderPropertyList = ({ workOrder }: WorkOrderPropertyListProps) => {
+export const WorkOrderPropertyList = ({
+    workOrder,
+    additionalPropertyRows = [],
+}: WorkOrderPropertyListProps) => {
     return (
         <>
             {propertyRowConfig.map(item => {
@@ -98,6 +94,10 @@ export const WorkOrderPropertyList = ({ workOrder }: WorkOrderPropertyListProps)
                     />
                 );
             })}
+
+            {additionalPropertyRows.map((item, index) => (
+                <PropertyRow key={`additional-${index}`} label={item.label} value={item.value} />
+            ))}
         </>
     );
 };
