@@ -129,6 +129,16 @@ export const WorkOrderCellScreen = () => {
                         basicStartDate: "2023-04-07",
                         basicEndDate: "2023-09-12",
                     }}
+                    additionalPropertyRows={[
+                        {
+                            label: "Additional Label 1",
+                            value: "Additional Value 1",
+                        },
+                        {
+                            label: "Additional Label 2",
+                            value: "Additional Value 2",
+                        },
+                    ]}
                 />
             </View>
             <Spacer />
@@ -154,6 +164,38 @@ export const WorkOrderCellScreen = () => {
                     isProductionCritical: true,
                 }}
                 onPress={() => console.log("Pressed")}
+            />
+            <Spacer />
+            <View style={styles.readableContent}>
+                <Typography>The WorkOrderCell.Navigation can also be swipeable.</Typography>
+            </View>
+            <Spacer />
+            <WorkOrderCell.Navigation
+                workOrder={{
+                    title: "Work Order Cell",
+                    workOrderId: "25282760",
+                    workOrderType: "PM02",
+                    tagId: "TAG-123456",
+                    activeStatusIds: "STRT",
+                    basicStartDate: "2023-02-07",
+                    basicEndDate: "2023-04-07",
+                    workCenterId: "POMISP",
+                    isHseCritical: true,
+                    isProductionCritical: true,
+                }}
+                onPress={() => console.log("Pressed")}
+                leftSwipeGroup={[
+                    {
+                        title: "Left side here",
+                        color: "success",
+                    },
+                ]}
+                rightSwipeGroup={[
+                    {
+                        title: "Right side here",
+                        color: "primary",
+                    },
+                ]}
             />
         </ScrollView>
     );

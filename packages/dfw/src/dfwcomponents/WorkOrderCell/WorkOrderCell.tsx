@@ -20,6 +20,7 @@ export const WorkOrderCell = ({
     readyForOperationButton,
     tecoButton,
     workOrder,
+    additionalPropertyRows = [],
     ...rest
 }: WorkOrderCellProps) => {
     const breakpoint = useBreakpoint();
@@ -63,7 +64,10 @@ export const WorkOrderCell = ({
                         {workOrder.maintenanceType}
                     </Typography>
                 )}
-                <WorkOrderPropertyList workOrder={workOrder} />
+                <WorkOrderPropertyList
+                    workOrder={workOrder}
+                    additionalPropertyRows={additionalPropertyRows}
+                />
             </View>
             {anyButtonVisible && (
                 <View

@@ -1,7 +1,7 @@
 import { Color } from "@equinor/mad-components";
 import React from "react";
 import { PropertyRow } from "../PropertyRow";
-import { WorkOrder } from "./types";
+import { AdditionalPropertyRow, WorkOrder } from "./types";
 import { formatDate } from "./utils";
 
 type PropertyRowEntry = {
@@ -18,11 +18,6 @@ const propertyRowConfig: PropertyRowConfig = [
         label: wo => wo.workOrderType,
         value: wo => wo.workOrderId,
         condition: () => true,
-    },
-    {
-        label: "Functional Location",
-        value: wo => `${wo.tagPlantId}-${wo.tagId}`,
-        condition: wo => !!wo.tagId && !!wo.tagPlantId,
     },
     {
         label: "Tag",
@@ -50,32 +45,38 @@ const propertyRowConfig: PropertyRowConfig = [
         value: wo => formatDate(wo.basicStartDate!),
         condition: wo => !!wo.basicStartDate && !wo.basicEndDate,
     },
-
     {
         label: "Basic finish",
         value: wo => formatDate(wo.basicEndDate!),
         condition: wo => !!wo.basicEndDate && !wo.basicStartDate,
     },
-
     {
         label: "Required end",
         value: wo => formatDate(wo.requiredEndDate!),
         color: wo => (new Date() > new Date(wo.requiredEndDate!) ? "danger" : "textTertiary"),
         condition: wo => !!wo.requiredEndDate,
     },
-
     {
         label: "Work center",
         value: wo => wo.workCenterId ?? "",
         condition: wo => !!wo.workCenterId,
     },
+    {
+        label: "Functional location",
+        value: wo => `${wo.tagPlantId}-${wo.tagId}`,
+        condition: wo => !!wo.tagId && !!wo.tagPlantId,
+    },
 ] as const;
 
 type WorkOrderPropertyListProps = {
     workOrder: WorkOrder;
+    additionalPropertyRows?: AdditionalPropertyRow[];
 };
 
-export const WorkOrderPropertyList = ({ workOrder }: WorkOrderPropertyListProps) => {
+export const WorkOrderPropertyList = ({
+    workOrder,
+    additionalPropertyRows = [],
+}: WorkOrderPropertyListProps) => {
     return (
         <>
             {propertyRowConfig.map(item => {
@@ -93,6 +94,10 @@ export const WorkOrderPropertyList = ({ workOrder }: WorkOrderPropertyListProps)
                     />
                 );
             })}
+
+            {additionalPropertyRows.map((item, index) => (
+                <PropertyRow key={`additional-${index}`} label={item.label} value={item.value} />
+            ))}
         </>
     );
 };
