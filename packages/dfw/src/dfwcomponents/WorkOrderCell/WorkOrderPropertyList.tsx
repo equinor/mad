@@ -62,7 +62,7 @@ const propertyRowConfig: PropertyRowConfig = [
         condition: wo => !!wo.workCenterId,
     },
     {
-        label: "Functional Location",
+        label: "Functional location",
         value: wo => `${wo.tagPlantId}-${wo.tagId}`,
         condition: wo => !!wo.tagId && !!wo.tagPlantId,
     },
