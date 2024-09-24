@@ -7,7 +7,6 @@
 -   0bab79b: The `WorkOrderCell.Navigation` component is now swipeable.
 -   0bab79b: New prop for `WorkOrderCell` components ,`additionalPropertyRows`: Adds custom rows to
     standard details.
--   0bab79b: Added new value, `Operations from filter`, to the `WorkOrderPropertyList`.
 
 ## 0.5.0
 
