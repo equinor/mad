@@ -5,7 +5,7 @@ import { Icon } from "../Icon";
 import { inputTokenStyles } from "../Input/inputStyle";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { SelectBaseProps } from "./types";
+import { SelectBaseProps, TestProps } from "./types";
 
 export type MultiselectProps<T> = SelectBaseProps<T> & {
     selectedItems: T[];
@@ -13,7 +13,7 @@ export type MultiselectProps<T> = SelectBaseProps<T> & {
      * Callback function called when items are selected or deselected.
      */
     onSelect: (value: T[]) => void;
-};
+} & TestProps;
 
 export const Multiselect = <T,>({
     items,
@@ -23,6 +23,8 @@ export const Multiselect = <T,>({
     onSelect,
     readOnly,
     variant,
+    testID,
+    menuItemsTestIDFn,
 }: MultiselectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -59,6 +61,7 @@ export const Multiselect = <T,>({
     return (
         <View style={{ flexGrow: 1 }}>
             <Pressable
+                testID={testID}
                 style={inputStyles.contentContainer}
                 ref={triggerRef}
                 onPress={toggleMenuOpen}
@@ -96,8 +99,9 @@ export const Multiselect = <T,>({
                 }}
             >
                 <ScrollView>
-                    {items.map(item => (
+                    {items.map((item, index) => (
                         <Menu.Item
+                            testID={menuItemsTestIDFn?.(index)}
                             key={item.value as string}
                             onPress={() => handleSelect(item.value)}
                             title={item.title}

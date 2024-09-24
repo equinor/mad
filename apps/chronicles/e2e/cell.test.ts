@@ -1,15 +1,18 @@
+import {expect} from 'detox';
+import { goThroughIntro, goToSection, scrollUntilElementIsVisible } from './_helpers';
+
 describe("Cell", () => {
     beforeAll(async () => {
         await goThroughIntro();
         await goToSection("Cell");
     });
 
+    const scrollViewID = "scroll-view-cell"
+
     it("swiping the ping pong cell to the right, should display a 'PING' button on the left side", async () => {
         const cellId = "ping-pong";
-        await waitFor(element(by.id(cellId)))
-            .toBeVisible()
-            .whileElement(by.id("scroll-view-cell"))
-            .scroll(500, "down");
+        await scrollUntilElementIsVisible(scrollViewID, cellId);
+        
         await element(by.id(cellId)).swipe("right", "fast", 0.5);
         await expect(await element(by.text("PING"))).toBeVisible();
     });
@@ -30,4 +33,6 @@ describe("Cell", () => {
     //         await element(by.text("PONG")).tap();
     //     }
     // });
+
+    afterAll(async () => device.reloadReactNative());
 });

@@ -107,6 +107,7 @@ export const Button = forwardRef<View, ButtonProps>(
                     onPressIn={onPressIn}
                     onPressOut={onPressOut}
                     style={styles.pressableContainer}
+                    testID={rest.testID}
                 >
                     <View style={styles.labelContainer}>
                         {loading ? (

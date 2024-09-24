@@ -6,7 +6,7 @@ import { Icon } from "../Icon";
 import { inputTokenStyles } from "../Input/inputStyle";
 import { Menu } from "../Menu";
 import { Typography } from "../Typography";
-import { SelectBaseProps } from "./types";
+import { SelectBaseProps, TestProps } from "./types";
 
 export type SelectProps<T> = SelectBaseProps<T> & {
     /**
@@ -18,7 +18,7 @@ export type SelectProps<T> = SelectBaseProps<T> & {
      * Callback function called when an item is selected or deselected.
      */
     onSelect: (value: T | undefined) => void;
-};
+} & TestProps;
 
 export const Select = <T,>({
     items,
@@ -28,6 +28,8 @@ export const Select = <T,>({
     onSelect,
     readOnly = false,
     variant,
+    testID,
+    menuItemsTestIDFn,
 }: SelectProps<T>) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuLayout, setMenuLayout] = useState<LayoutRectangle | undefined>();
@@ -59,6 +61,7 @@ export const Select = <T,>({
     return (
         <View style={{ flexGrow: 1 }}>
             <Pressable
+                testID={testID}
                 style={inputStyles.contentContainer}
                 ref={triggerRef}
                 disabled={disabled || readOnly}
@@ -97,9 +100,10 @@ export const Select = <T,>({
                 }}
             >
                 <ScrollView>
-                    {items.map(item => {
+                    {items.map((item, index) => {
                         return (
                             <Menu.Item
+                                testID={menuItemsTestIDFn?.(index)}
                                 key={item.value as string}
                                 onPress={() => handleSelect(item.value)}
                                 title={item.title}
