@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 import type { Attachment } from './Attachment';
-import type { MaintenanceRecordTask } from './MaintenanceRecordTask';
+import type { MaintenanceRecordTaskWithResponsibleDetails } from './MaintenanceRecordTaskWithResponsibleDetails';
 import type { ModificationProposalBasic } from './ModificationProposalBasic';
 import type { Status } from './Status';
 
@@ -28,7 +28,7 @@ export type ModificationProposal = (ModificationProposalBasic & {
     /**
      * Tasks for this Modification Proposal
      */
-    tasks?: Array<MaintenanceRecordTask>;
+    tasks?: Array<MaintenanceRecordTaskWithResponsibleDetails>;
     /**
      * All statuses possible with information about activation
      */

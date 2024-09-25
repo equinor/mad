@@ -10,6 +10,7 @@ import type { Location } from './Location';
 import type { PlannerGroup } from './PlannerGroup';
 import type { PlanningPlantRevisionBasic } from './PlanningPlantRevisionBasic';
 import type { PlantBasic } from './PlantBasic';
+import type { ResponsiblePerson } from './ResponsiblePerson';
 import type { SurfaceDegradationFactor } from './SurfaceDegradationFactor';
 import type { WorkCenter } from './WorkCenter';
 
@@ -50,5 +51,9 @@ export type Plant = (PlantBasic & {
      * An identifier to the revision (shutdown or campaign work)
      */
     revisions?: Array<PlanningPlantRevisionBasic>;
+    /**
+     * Responsible persons for plant
+     */
+    responsiblePersons?: Array<ResponsiblePerson>;
 });
 

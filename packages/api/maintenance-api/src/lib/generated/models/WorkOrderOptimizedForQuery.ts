@@ -9,10 +9,11 @@ import type { FailureReportSimpleSelf } from './FailureReportSimpleSelf';
 import type { ModificationProposalSimpleSelf } from './ModificationProposalSimpleSelf';
 import type { TechnicalClarificationSimpleSelf } from './TechnicalClarificationSimpleSelf';
 import type { TechnicalInformationUpdateRequestSimpleSelf } from './TechnicalInformationUpdateRequestSimpleSelf';
+import type { WorkOrderTypeId } from './WorkOrderTypeId';
 
 export type WorkOrderOptimizedForQuery = {
     workOrderId: string;
-    workOrderTypeId: 'correctiveWorkOrder' | 'preventiveWorkOrder' | 'modificationWorkOrder' | 'sasChangeWorkOrder' | 'projectWorkOrder' | 'subseaWorkOrder';
+    workOrderTypeId: WorkOrderTypeId;
     tagId: string | null;
     tagPlantId: string;
     title: string;

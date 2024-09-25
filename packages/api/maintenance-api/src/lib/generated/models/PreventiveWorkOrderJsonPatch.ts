@@ -23,8 +23,11 @@ export type PreventiveWorkOrderJsonPatch = Array<{
      * Operation `append` is suitable for the following properties:
      * - `/text`
      *
+     * Operation `prepend` is suitable for the following properties:
+     * - `/text`
+     *
      */
-    op?: 'append' | 'replace';
+    op?: 'append' | 'replace' | 'prepend';
     /**
      * The property to be updated by the non-trivial patch operation.
      * `/workCenterId` and `/workCenterPlantId` must be provided in same request.

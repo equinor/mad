@@ -151,6 +151,9 @@ export class ActivityReportsService {
      * ### Update release 1.32.0
      * Added ability to append text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info.
      *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current text.
+     *
      * @returns ActivityReportBasic Success, the activity report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

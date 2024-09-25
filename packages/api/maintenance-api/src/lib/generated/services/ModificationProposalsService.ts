@@ -53,8 +53,8 @@ export class ModificationProposalsService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     * ### Update release 1.33.0
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
      *
      * @returns ModificationProposal Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -66,6 +66,7 @@ export class ModificationProposalsService {
         includeStatusDetails = false,
         includeAttachments = false,
         includeCreatedByDetails = false,
+        includeTaskResponsibleDetails = false,
     }: {
         recordId: string,
         /**
@@ -84,6 +85,10 @@ export class ModificationProposalsService {
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
         includeCreatedByDetails?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<ModificationProposal | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -96,6 +101,7 @@ export class ModificationProposalsService {
                 'include-status-details': includeStatusDetails,
                 'include-attachments': includeAttachments,
                 'include-created-by-details': includeCreatedByDetails,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location

@@ -11,7 +11,7 @@ export type WorkOrderMaterialJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/finalLocation' | '/temporaryLocation' | '/price' | '/priceUnitId' | '/purchasingGroup' | '/goodsRecipient' | '/unloadingPoint' | '/materialGroup' | '/supplierId' | '/vendorsMaterialNumber' | '/deliveryTimeInDays' | '/requisitionerId' | '/holdDeliveryOnshore' | '/text';
+    path: '/finalLocation' | '/temporaryLocation' | '/price' | '/priceUnitId' | '/purchasingGroup' | '/goodsRecipient' | '/unloadingPoint' | '/materialGroup' | '/supplierId' | '/vendorsMaterialNumber' | '/deliveryTimeInDays' | '/requisitionerId' | '/holdDeliveryOnshore' | '/text' | '/operationId' | '/quantity' | '/requiredDatetime';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

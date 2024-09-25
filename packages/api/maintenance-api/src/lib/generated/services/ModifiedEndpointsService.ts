@@ -4,25 +4,25 @@
 /* eslint-disable */
 import type { ActivityReportBasic } from '../models/ActivityReportBasic';
 import type { ActivityReportJsonPatch } from '../models/ActivityReportJsonPatch';
-import type { CertificationReport } from '../models/CertificationReport';
-import type { CorrectiveWorkOrderBasic } from '../models/CorrectiveWorkOrderBasic';
-import type { CorrectiveWorkOrderCreate } from '../models/CorrectiveWorkOrderCreate';
+import type { CorrectiveWorkOrder } from '../models/CorrectiveWorkOrder';
 import type { CorrectiveWorkOrderJsonPatch } from '../models/CorrectiveWorkOrderJsonPatch';
-import type { Document } from '../models/Document';
-import type { DocumentBasic } from '../models/DocumentBasic';
-import type { DocumentCreate } from '../models/DocumentCreate';
-import type { Equipment } from '../models/Equipment';
 import type { FailureReport } from '../models/FailureReport';
 import type { FailureReportBasic } from '../models/FailureReportBasic';
 import type { FailureReportJsonPatch } from '../models/FailureReportJsonPatch';
+import type { GenericWorkOrderJsonPatch } from '../models/GenericWorkOrderJsonPatch';
 import type { ModificationProposal } from '../models/ModificationProposal';
+import type { PlanningPlantRevision } from '../models/PlanningPlantRevision';
+import type { PreventiveWorkOrder } from '../models/PreventiveWorkOrder';
+import type { PreventiveWorkOrderJsonPatch } from '../models/PreventiveWorkOrderJsonPatch';
 import type { ProblemDetails } from '../models/ProblemDetails';
-import type { RelationshipToDocument } from '../models/RelationshipToDocument';
-import type { Tag } from '../models/Tag';
-import type { TagSearch } from '../models/TagSearch';
+import type { ProjectWorkOrder } from '../models/ProjectWorkOrder';
+import type { RevisionWorkOrderOperation } from '../models/RevisionWorkOrderOperation';
+import type { SubseaWorkOrderMaterial } from '../models/SubseaWorkOrderMaterial';
 import type { TechnicalClarification } from '../models/TechnicalClarification';
 import type { TechnicalInformationUpdateRequest } from '../models/TechnicalInformationUpdateRequest';
-import type { TextTemplate } from '../models/TextTemplate';
+import type { WorkOrderMaterial } from '../models/WorkOrderMaterial';
+import type { WorkOrderMaterialAdd } from '../models/WorkOrderMaterialAdd';
+import type { WorkOrderMaterialJsonPatch } from '../models/WorkOrderMaterialJsonPatch';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -31,185 +31,77 @@ import { request as __request } from '../core/request';
 export class ModifiedEndpointsService {
 
     /**
-     * Tag - Lookup
+     * Revisions - Search
      * ### Overview
-     * Lookup a single tag with related information
+     * Search revisions for a single plant with related information.
      *
-     * ### Update release 0.9.0
-     * Added `include-measuring-points` and `include-last-measurement` query parameters.
+     * ### Filter: by-revision-id
+     * Search by revision ids for a single plant
      *
-     * ### Update release 1.1.0
-     * Added additional characteristics with ids CRIT_MAIN_FUNCTION and CRIT_SUB_FUNCTION.
+     * Parameters:
+     * - revision-id-any-of
+     * - include-work-order-operations (default: false)
+     * - include-work-order-operation-text (default: false)
+     * - include-only-work-order-operations-with-materials (default: false)
      *
-     * Added certification-report, technical-information-update-requests and technical-clarifications for `include-maintenance-records` query parameter.
+     * ### Examples
+     * `/plants/1310/revisions?filter=by-revision-id&revision-id-any-of=OFP,OFP%202022,&include-work-order-operations=true&include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&api-version=v1`
      *
-     * Added `include-work-orders` to return work orders where the requested tag is the main reference. `include-work-order-types` can be used to limit to certain work order types.
+     * ### Update release 1.19.0
+     * Added parameter `include-text-item-materials`.
      *
-     * Added isOpen and completedDateTime properties for maintenance records if `include-maintenance-records` is true.
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * Fixed bug for `include-installed-equipment`.
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
-     * ### Update release 1.3.0
-     * Added `workCenterId`, `workCenterPlantId`, `workCenter`, `planningPlantId`,`plannerGroupId` and `plannerGroup` properties.
-     *
-     * Added `include-bill-of-materials` query parameter.
-     *
-     * ### Update release 1.5.0
-     * Added `revisionId` and `revision` to related work orders (represents shutdown or campaign work).
-     *
-     * ### Update release 1.8.0
-     * Added properties `hasUnsafeFailureMode` and `unsafeFailureModeStatus` for failure reports.
-     *
-     * ### Update release 1.10.0
-     * Added property `maintenanceRecordId` to measurements of measuring points.
-     *
-     * ### Update release 1.11.0
-     * Added property `costWBSId`.
-     *
-     * ### Update release 1.15.0
-     * Added `workOrderId` to response.
-     *
-     * Added `include-linear-data` and `include-status-details` query parameters.
-     *
-     * Added properties `tagCategoryId`, `activeStatusIds`, `startUpDate` and `endOfUseDate`.
-     *
-     * Added `modification-proposal` as a maintenance record type to include with `include-maintenance-record-types` parameter.
-     *
-     * ### Update release 1.16.0
-     * Added property `classId` to characteristics.
-     *
-     * Added query parameters `include-attachments` and `include-url-references`.
-     *
-     * Added property `workCenterId`
-     *
-     * ### Update release 1.21.0
-     * Added property `area`.
-     *
-     * ### Update release 1.24.0
-     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
-     *
-     * Added property `cmrIndicator` for WorkOrders
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.28.0
-     * `billOfMaterials` now include the property `parentMaterialId`
-     *
-     * Added `materialId` and `material` to the response
-     *
-     * ### Update release 1.32.0
-     * Added `changedDateTime` for attachments.
-     *
-     * @returns Tag Success
+     * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupTag({
+    public static searchRevisions({
         plantId,
-        tagId,
-        includeMaintenanceRecords = false,
-        includeMaintenanceRecordTypes,
-        includeWorkOrders = true,
-        includeWorkOrderTypes,
-        includeInstalledEquipment = false,
-        includeCatalogProfileDetails = false,
-        includeMaintenancePlanItems = false,
-        includeMeasuringPoints = false,
-        includeLastMeasurement = false,
-        includeCharacteristics = false,
-        includeBillOfMaterials = false,
-        includeAttachments = false,
-        includeUrlReferences = false,
-        includeStatusDetails = false,
-        includeLinearData = false,
+        filter,
+        revisionIdAnyOf,
+        includeWorkOrderOperations = false,
+        includeOnlyWorkOrderOperationsWithMaterials = false,
+        includeTextItemMaterials = false,
     }: {
         plantId: string,
-        tagId: string,
         /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
+         * Filter to limit revisions
          */
-        includeMaintenanceRecords?: boolean,
+        filter: 'by-revision-id',
         /**
-         * Include which types of maintenance records
+         * Comma-separated list of revision-id
          */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        revisionIdAnyOf?: string,
         /**
-         * Include work orders. If include-work-order-types is not supplied, all supported types are returned.
+         * Include the work order operations
          */
-        includeWorkOrders?: boolean,
+        includeWorkOrderOperations?: boolean,
         /**
-         * Include which types of work orders. Use comma-separated list of entries.
+         * Limit the work order operations to only those which have material
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
         /**
-         * Include installed equipment
+         * Include text item materials
          */
-        includeInstalledEquipment?: boolean,
-        /**
-         * Include possible detection methods, failure modes and failure mechanisms
-         */
-        includeCatalogProfileDetails?: boolean,
-        /**
-         * Include Maintenance Plan items this functional location is part of
-         */
-        includeMaintenancePlanItems?: boolean,
-        /**
-         * Include measuring points for this tag
-         */
-        includeMeasuringPoints?: boolean,
-        /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include bill of materials (also known as structure list) for tag and installed equipment
-         */
-        includeBillOfMaterials?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-        /**
-         * Include URL references for object
-         */
-        includeUrlReferences?: boolean,
-        /**
-         * Include detailed information for statuses (both active and non-active)
-         */
-        includeStatusDetails?: boolean,
-        /**
-         * Include linear data
-         */
-        includeLinearData?: boolean,
-    }): CancelablePromise<Tag | ProblemDetails> {
+        includeTextItemMaterials?: boolean,
+    }): CancelablePromise<Array<PlanningPlantRevision> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/plants/{plant-id}/tags/{tag-id}',
+            url: '/plants/{plant-id}/revisions',
             path: {
                 'plant-id': plantId,
-                'tag-id': tagId,
             },
             query: {
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
+                'filter': filter,
+                'revision-id-any-of': revisionIdAnyOf,
+                'include-work-order-operations': includeWorkOrderOperations,
+                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                'include-text-item-materials': includeTextItemMaterials,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -218,312 +110,57 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Equipment - Lookup
+     * Revisions Work Order Operations - Search
      * ### Overview
-     * Lookup a single equipment with related maintenance information.
+     * Search revision work order operations on a plant.
      *
-     * The endpoint has several include query parameters which allows a client to retrieve only the information which is relevant for their use case.
+     * Parameters:
+     * - include-work-order-operation-text (default: false)
+     * - include-only-work-order-operations-with-materials (default: false)
      *
-     * ### Important information
-     * For warehouse and logistics data of an equipment, use SCM Logistics API.
+     * ### Examples
+     * `/plants/1310/revisions/PS01-23?include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&page=1&per-page=10&api-version=v1`
      *
-     * ### Example usage
-     * `/equipment/11948620?include-maintenance-records=true&include-maintenance-record-types=failure-report&include-only-open-maintenance-records=true&include-work-orders=true&include-work-order-types=preventiveWorkOrders,subseaWorkOrders&include-only-open-work-orders=true&include-characteritics=true&include-status-details=true&api-version=v1` - Lookup equipment with status details and characteristics. Include open failure reports where the equipment is used as main reference. Include open subsea work orders and open preventive work orders where the equipment is either a material component or the main reference (`equipmentId` at work order header level).
+     * ### Update version 1.28.0
+     * Added `changedDateTime`,`changedById`, `changedBy`, `changedByEmail`.
      *
-     * ### Update release 1.4.0
-     * `include-work-orders` now include work orders where the `equipmentId` is the main reference (`equipmentId` at work order header level).
+     * ### Update release 1.29.0
+     * Added `progressChangedDateTime`, `progressChangedBy`, `progressChangedById` and `progressChangedByEmail` to response.  These values represent the last update datetime for technical feedback.
+     * Altered `changedDateTime`, `changedBy`, `changedById` and `changedByEmail` to only represent last update to the operation.
      *
-     * ### Update release 1.5.0
-     * Fixed known limitation for `include-work-orders` and `include-only-open-work-orders=false`.
-     *
-     * Bugfix for include-work-orders related to deleted equipment reservations.
-     *
-     * Added revisionId and revision to related work orders (represents shutdown or campaign work).
-     *
-     * ### Update release 1.6.0
-     * For `include-work-orders`, add information on the relationship between the equipment and the work order (for example the id of the reservation)
-     *
-     * ### Update release 1.7.0
-     * Added property parentEquipmentId.
-     *
-     * ### Update release 1.8.0
-     * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus for failure reports.
-     *
-     * ### Update release 1.10.0
-     * Added property `maintenanceRecordId` to measurements of measuring points.
-     *
-     * ### Update release 1.12.0
-     * Added properties `equipmentCategoryId` and `quantityUnitId`.
-     *
-     * ### Update release 1.15.0
-     * Added `workOrderId` to the lastMeasurement.
-     *
-     * Added query parameter `include-url-references`.
-     *
-     * `modification-proposal` in `include-maintenance-record-types` now includes modification proposals in the response.
-     *
-     * ### Update release 1.16.0
-     * Added property `classId` to characteristics.
-     *
-     * Added properties `manufacturer` and `modelNumber`.
-     *
-     * `urlReferences` and `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
-     *
-     * Added property `workCenterId` to `maintenanceRecords.failureReports`
-     *
-     * ### Update release 1.17.0
-     * Add property `characteristics` to `urlReferences` in response
-     *
-     * Add query parameter `include-url-characteristics`
-     *
-     * ### Update release 1.21.0
-     * Added query parameter `include-person-responsible`, that expands work order response with person responsible.
-     *
-     * ### Update release 1.24.0
-     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
-     *
-     * Added property `cmrIndicator` for WorkOrders
-     *
-     * ### Update release 1.25.0
-     * Added query parameter `include-sub-equipment`
-     *
-     * ### Update release 1.26.0
-     * Added properties `tagId` and `tagPlantId`
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
+     * ### Update release 1.30.1
+     * Added fields `confirmationDateTime`, `confirmationBy`, `confirmationByEmail` and `confirmationById`.
      *
      * ### Update release 1.31.0
-     * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight`to response body.
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * ### Update release 1.32.0
-     * Added `changedDateTime` for attachments.
+     * Split parts of `location` on `materials` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * @returns Equipment Success
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
+     * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupEquipment({
-        equipmentId,
-        includeMaintenanceRecords = false,
-        includeMaintenanceRecordTypes,
-        includeOnlyOpenMaintenanceRecords = false,
-        includeWorkOrders = true,
-        includeWorkOrderTypes,
-        includeOnlyOpenWorkOrders = false,
-        includeCatalogProfileDetails = false,
-        includeCharacteristics = false,
-        includeAttachments = false,
-        includeUrlReferences = false,
-        includeUrlCharacteristics = false,
-        includeMeasuringPoints = false,
-        includeLastMeasurement = false,
-        includePersonResponsible = false,
-        includeSubEquipment = false,
-        includeStatusDetails = false,
+    public static searchRevisionWorkOrderOperations({
+        plantId,
+        revisionId,
+        includeOnlyWorkOrderOperationsWithMaterials = false,
+        includeTextItemMaterials = false,
+        perPage,
+        page,
     }: {
+        plantId: string,
+        revisionId: string,
         /**
-         * The unique equipmentId in Equinor's system
+         * Limit the work order operations to only those which have material
          */
-        equipmentId: string,
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
         /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
+         * Include text item materials
          */
-        includeMaintenanceRecords?: boolean,
-        /**
-         * Include which types of maintenance records
-         */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
-        /**
-         * Limit include-maintenance-records to only open maintenance records
-         */
-        includeOnlyOpenMaintenanceRecords?: boolean,
-        /**
-         * Include work orders. If include-work-order-types is not supplied, all supported types are returned.
-         */
-        includeWorkOrders?: boolean,
-        /**
-         * Include which types of work orders. Use comma-separated list of entries.
-         */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
-        /**
-         * Limit include-work-orders to only open work order
-         */
-        includeOnlyOpenWorkOrders?: boolean,
-        /**
-         * Include possible detection methods, failure modes and failure mechanisms
-         */
-        includeCatalogProfileDetails?: boolean,
-        /**
-         * Include equipment characteristics such as 'Kontrollkort gyldig til' and 'Equipment group'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-        /**
-         * Include URL references for object
-         */
-        includeUrlReferences?: boolean,
-        /**
-         * Include characteristics for URL References
-         */
-        includeUrlCharacteristics?: boolean,
-        /**
-         * Include measuring points for this tag
-         */
-        includeMeasuringPoints?: boolean,
-        /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include person responsible information in response
-         */
-        includePersonResponsible?: boolean,
-        /**
-         * Include child equipment for an equipment.
-         * Limit to only the first level childs of the hierarchy.
-         *
-         */
-        includeSubEquipment?: boolean,
-        /**
-         * Include detailed information for statuses (both active and non-active)
-         */
-        includeStatusDetails?: boolean,
-    }): CancelablePromise<Equipment | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/equipment/{equipment-id}',
-            path: {
-                'equipment-id': equipmentId,
-            },
-            query: {
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-only-open-work-orders': includeOnlyOpenWorkOrders,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-characteristics': includeCharacteristics,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-url-characteristics': includeUrlCharacteristics,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-person-responsible': includePersonResponsible,
-                'include-sub-equipment': includeSubEquipment,
-                'include-status-details': includeStatusDetails,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Document - Search
-     * ### Overview
-     * Search documents and include related information such as characteristics, materials, equipment and attachments.
-     *
-     *
-     * The client must in the request provide at least one of the following search parameters:
-     * * `document-type-any-of`
-     * * `document-number-any-of`
-     * * `characteristic-value-any-of`
-     *
-     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
-     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
-     *
-     * ### Update release 1.31.0
-     * Added `include-inventory-count` query parameter to include `equipmentInventoryCount` and `materialInventoryCount` property in the response.
-     *
-     * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
-     *
-     * ### Update release 1.32.0
-     * Added `include-url-references` query parameter to include URL references in the response.
-     *
-     * Added properties `statusId` and `statusText` to the response.
-     *
-     * Added properties `partNumber` & `manufacturer` to `material` in the response.
-     *
-     * @returns Document Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchDocuments({
-        documentTypeAnyOf,
-        documentNumberAnyOf,
-        characteristicValueAnyOf,
-        characteristicId,
-        classId,
-        includeCharacteristics = false,
-        includeMaterial = false,
-        includeEquipment = false,
-        includeTags = false,
-        includeMaintenanceRecords = false,
-        includeMeasuringPoints = false,
-        includeAttachments = false,
-        includeInventoryCount = false,
-        includeUrlReferences = false,
-        perPage = 50,
-        page = 1,
-    }: {
-        /**
-         * Search based on `documentType`.
-         */
-        documentTypeAnyOf?: Array<string>,
-        /**
-         * Search based on `documentNumber`.
-         */
-        documentNumberAnyOf?: Array<string>,
-        /**
-         * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id` Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
-         */
-        characteristicValueAnyOf?: string,
-        /**
-         * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids
-         */
-        characteristicId?: string | null,
-        /**
-         * Required field if `characteristic-value-any-of` is supplied.
-         */
-        classId?: string | null,
-        /**
-         * Include characteristics'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include material related to the object
-         */
-        includeMaterial?: boolean,
-        /**
-         * Include equipment related to the object
-         */
-        includeEquipment?: boolean,
-        /**
-         * Include tags.
-         */
-        includeTags?: boolean,
-        /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
-         */
-        includeMaintenanceRecords?: boolean,
-        /**
-         * Include measuring points for this tag
-         */
-        includeMeasuringPoints?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-        includeInventoryCount?: boolean,
-        /**
-         * Include URL references for object
-         */
-        includeUrlReferences?: boolean,
+        includeTextItemMaterials?: boolean,
         /**
          * Results to return pr page
          */
@@ -532,244 +169,565 @@ export class ModifiedEndpointsService {
          * Page to fetch
          */
         page?: number,
-    }): CancelablePromise<Array<Document> | ProblemDetails> {
+    }): CancelablePromise<Array<RevisionWorkOrderOperation> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/documents',
+            url: '/plants/{plant-id}/revisions/{revision-id}/work-order-operations',
+            path: {
+                'plant-id': plantId,
+                'revision-id': revisionId,
+            },
             query: {
-                'document-type-any-of': documentTypeAnyOf,
-                'document-number-any-of': documentNumberAnyOf,
-                'characteristic-value-any-of': characteristicValueAnyOf,
-                'characteristic-id': characteristicId,
-                'class-id': classId,
-                'include-characteristics': includeCharacteristics,
-                'include-material': includeMaterial,
-                'include-equipment': includeEquipment,
-                'include-tags': includeTags,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-attachments': includeAttachments,
-                'include-inventory-count': includeInventoryCount,
-                'include-url-references': includeUrlReferences,
+                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                'include-text-item-materials': includeTextItemMaterials,
                 'per-page': perPage,
                 'page': page,
             },
             errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to view document`,
                 404: `The specified resource was not found`,
             },
         });
     }
 
     /**
-     * Document - Create
+     * Preventive Work order - Lookup
      * ### Overview
-     * Create a new document.
-     * This document will not be linked to any business object, but can be linked afterwards by calling POST `/document-relationships/{relationship-type}/{source-id}`.
+     * Lookup single Preventive Work order with related information.
      *
-     * **Note:** Documents of type 'B30' may only be created with one of the following `statusId`s:
-     * - `CV` (Current Version)
-     * - `WO` (Working)
-     * - `CA` (Cancelled)
+     * ### Technical feedback
+     * Technical feedback ensures a common and best practice maintenance based on the type of tag/equipment. It's mostly used by preventive work orders, but can in some cases be used in corrective work orders.
+     * As part of work order execution, the technical feedback items will need to be completed.
      *
-     * ### Update release 1.32.0
-     * Added property `statusId` to the request body schema to allow setting the status of a document during its creation.
+     * The endpoint `/work-orders/technical-feedback-master-data` describes the business rules for when it's necessary to create a maintenance record based on the status(`feedbackStatusId`) and reason(`feedbackReasonId`) found for the technical feedback.
      *
-     * Added properties `statusId` and `statusText` to the response.
+     * The `include-technical-feedback` query parameter for preventive and corrective work order lookup endpoints will return the technical feedback for each operation of the provided work order.
      *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns DocumentBasic Created
-     * @throws ApiError
-     */
-    public static createDocument({
-        requestBody,
-    }: {
-        /**
-         * Document to create
-         */
-        requestBody: DocumentCreate,
-    }): CancelablePromise<ProblemDetails | DocumentBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/documents',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad request, for example documentType is invalid.`,
-                403: `User does not have sufficient rights to create an equipment.`,
-            },
-        });
-    }
-
-    /**
-     * Document - Lookup
-     * ### Overview
-     * Lookup document by id. Use the different include parameters to include additional information about the document.
-     * [POST document-relationships/{relationship-type}/{source-id}](#operation/AddRelationshipsToDocument) can be used to link the document to a business object.
+     * If a technical feedback has `isDetailedFeedback: true`, it requires a very specific feedback type currently not supported by the Maintenance API.
      *
-     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
-     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
+     * When executing a technical feedback item, the end-user will complete the steps described in `maintenanceActivityText` and end up with a result in the form of a status(`feedbackStatusId`) and a reason(`feedbackReasonId`). Compare the result with the business rules defined by `/work-orders/technical-feedback-master-data`:
+     *
+     * * `hasRequiredMaintenanceRecord: true`: Create a new maintenance record for technical feedback using the `POST /maintenance-records/failure-reports` or `POST /maintenance-records/activity-reports` endpoints with the relatedWorkOrder properties in the request to specify the work order and technical feedback
+     *
+     * * `hasRequiredMaintenanceRecord: true` As no maintenance record is required, the technical feedback is completed using the endpoint `PATCH /work-order-operations/{operation-id}/technical-feedback/{feedback-id}`
+     *
+     * If you want to include the maintenance records of a technical feedback, one needs to apply both `include-technical-feedback=True`, and `include-maintenance-records=True`.
+     *
+     * ### Production Resources/Tool (PRT)
+     * Production resources/tools (PRT) are used for materials, tools and equipment that are needed to carry out the task and are to be returned after use.
+     *
+     * In Equinor, this is normally added as part of maintenance program.
+     * Maintenance API supports the following PRT resources:
+     * - Attachments (through query parameter `include-attachments=true`)
+     * - Measuring points (through query parameter `include-measuring-points=true`)
+     * - URL references (through query parameter `include-url-references=true`)
+     *
+     * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
+     *
+     * ### Update release 1.0.0
+     * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
+     * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
+     *
+     * ### Update release 1.1.0
+     * If work-order-id exist, but is not a `preventiveWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
+     *
+     * ### Update release 1.3.0
+     * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
+     *
+     * ### Update release 1.4.0
+     * Introduced property calculationKey for operations.
+     *
+     * ### Update release 1.5.0
+     * Added createdDateTime for attachments.
+     *
+     * Added revisionId and revision to work order response (represents shutdown or campaign work).
+     *
+     * ### Update release 1.7.0
+     * Added equipmentId and equipment to the response of tagsRelated.
+     *
+     * Added sourceId to related maintenance records.
+     *
+     * Added isActive property for maintenance plan details.
+     *
+     * ### Update release 1.8.0
+     * Introduced property activeStatusIds for operations.
+     *
+     * ### Update release 1.11.0
+     * Added the following properties:
+     *
+     * * personResponsibleId and personResponsibleEmail
+     * * isProductionCritical and isHSECritical
+     * * workCenter
+     * * plannerGroup
+     *
+     * ### Update release 1.12.0
+     * Added new query parameter `include-technical-feedback`. It returns related technical feedback required to be completed as part of work order execution.
+     *
+     * Introduced property `detectionMethodGroupId` and `detectionMethodId` for technical feedback.
+     *
+     * ### Update release 1.15.0
+     * Added new query parameter `include-measurements`
+     *
+     * ### Update release 1.16.0
+     * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * ### Update release 1.19.0
+     * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
+     *
+     * ### Update release 1.21.0
+     * Added property `area` to tag details.
+     *
+     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.22.0
+     * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
+     *
+     * Added activeStatusIds to related maintenance records.
+     *
+     * ### Update release 1.24.0
+     * `attachments` now include the property `documentCreatedDate`
+     *
+     * Removed `urlReferences` field from response object, and removed `include-url-references` query parameter. URLReferences are only supported for Notifications.
+     *
+     * Added property `cmrIndicator` in the response.
+     *
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
+     * Added `materials` to serviceOperations.
+     *
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
+     *
+     * ### Update release 1.27.0
+     * Work orders now include the property 'isOpen'
+     *
+     * Added `tag` and `title` to `maintenanceRecords` expand.
+     *
+     * ### Update release 1.28.0
+     * Added new query parameter `include-safety-measures`.
      *
      * ### Update release 1.31.0
-     * Added `include-inventory-count` query parameter to include `equipmentInventoryCount` and `materialInventoryCount` property in the response.
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * ### Update release 1.32.0
-     * Added `include-url-references` query parameter to include URL references in the response.
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
-     * Added `changedDateTime` for attachments.
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
-     * Added properties `statusId` and `statusText` to the response.
-     *
-     * Added properties `partNumber` & `manufacturer` to `material` in the response.
-     *
-     * @returns Document Success
+     * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupDocument({
-        documentId,
-        includeCharacteristics = false,
-        includeMaterial = false,
-        includeEquipment = false,
-        includeTags = false,
+    public static lookupPreventiveWorkOrder({
+        workOrderId,
+        includeOperations = true,
+        includeServiceOperations = true,
+        includeTechnicalFeedback = false,
+        includeMaterials = false,
         includeMaintenanceRecords = false,
-        includeMeasuringPoints = false,
+        includeMaintenancePlanDetails = false,
         includeAttachments = false,
-        includeInventoryCount = false,
-        includeUrlReferences = false,
+        includeStatusDetails = false,
+        includeTagDetails = false,
+        includeRelatedTags = false,
+        includeMeasuringPoints = false,
+        includeLastMeasurement = false,
+        includeMeasurements = false,
+        includeSafetyMeasures = false,
     }: {
+        workOrderId: string,
         /**
-         * Unique id for the document to be used against endpoints for the `/documents` resource
+         * Include Work order operations
          */
-        documentId: string,
+        includeOperations?: boolean,
         /**
-         * Include characteristics'
+         * Include Work order service operations
          */
-        includeCharacteristics?: boolean,
+        includeServiceOperations?: boolean,
         /**
-         * Include material related to the object
+         * Include technical feedback required to be completed as part of work order execution.
          */
-        includeMaterial?: boolean,
+        includeTechnicalFeedback?: boolean,
         /**
-         * Include equipment related to the object
+         * Include materials for Work order operations
          */
-        includeEquipment?: boolean,
+        includeMaterials?: boolean,
         /**
-         * Include tags.
-         */
-        includeTags?: boolean,
-        /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
+         * Include related maintenance records (from object list and technical feedback)
          */
         includeMaintenanceRecords?: boolean,
         /**
-         * Include measuring points for this tag
+         * Include details for maintenance plan
+         */
+        includeMaintenancePlanDetails?: boolean,
+        /**
+         * Include Work order attachments (including PRT attachments)
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include detailed information for statuses (both active and non-active)
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Include detailed for the main tag of the Work order
+         */
+        includeTagDetails?: boolean,
+        /**
+         * Include related tags (from object list)
+         */
+        includeRelatedTags?: boolean,
+        /**
+         * Include related measuring points from PRT
          */
         includeMeasuringPoints?: boolean,
         /**
-         * Include equipment or tag attachments
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
          */
-        includeAttachments?: boolean,
-        includeInventoryCount?: boolean,
+        includeLastMeasurement?: boolean,
         /**
-         * Include URL references for object
+         * Include related measurements
          */
-        includeUrlReferences?: boolean,
-    }): CancelablePromise<Document | ProblemDetails> {
+        includeMeasurements?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
+    }): CancelablePromise<PreventiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/documents/{document-id}',
+            url: '/work-orders/preventive-work-orders/{work-order-id}',
             path: {
-                'document-id': documentId,
+                'work-order-id': workOrderId,
             },
             query: {
-                'include-characteristics': includeCharacteristics,
-                'include-material': includeMaterial,
-                'include-equipment': includeEquipment,
-                'include-tags': includeTags,
+                'include-operations': includeOperations,
+                'include-service-operations': includeServiceOperations,
+                'include-technical-feedback': includeTechnicalFeedback,
+                'include-materials': includeMaterials,
                 'include-maintenance-records': includeMaintenanceRecords,
-                'include-measuring-points': includeMeasuringPoints,
+                'include-maintenance-plan-details': includeMaintenancePlanDetails,
                 'include-attachments': includeAttachments,
-                'include-inventory-count': includeInventoryCount,
-                'include-url-references': includeUrlReferences,
+                'include-status-details': includeStatusDetails,
+                'include-tag-details': includeTagDetails,
+                'include-related-tags': includeRelatedTags,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-last-measurement': includeLastMeasurement,
+                'include-measurements': includeMeasurements,
+                'include-safety-measures': includeSafetyMeasures,
             },
             errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to view document`,
+                301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
+                `,
                 404: `The specified resource was not found`,
             },
         });
     }
 
     /**
-     * Document relationships - Get relationships
+     * Preventive Work order - Update
      * ### Overview
-     * Get relationship between a business object and documents.
+     * Update preventive work order.
      *
-     * Example urls:
-     * - Tags: `/document-relationships/tags/1100-AE5566?api-version=v1`
-     * - Equipment: `/document-relationships/equipment/11948620?api-version=v1`
-     * - Measuring points: `/document-relationships/measuring-points/14626974?api-version=v1`
-     * - Maintenance records: `/document-relationships/maintenance-records/45939208?api-version=v1`
-     * - Materials: `/document-relationships/materials/741466?api-version=v1`
+     * Supports:
+     * - Append to text
+     * - Update workCenterId and workCenterPlantId
+     * - Update tagId and tagPlantId
+     * - Update basicStartDateTime and basicEndDateTime
+     * - Update sortField
+     * - Update externalPartnerWorkOrderId
+     * - Update title
+     * - Update plannerGroupId
+     * - Update revisionId (Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values)
+     * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
+     * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
      *
-     * ### Update release 1.27.0
-     * Added support for business objects: Equipment, Measuring points and Maintenance records.
+     * ### Important information
+     * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
      *
-     * Added `include-characteristics` and `include-attachments`.
+     * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
      *
-     * Added property `documentTitle` to the response.
+     * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
-     * ### Update release 1.28.0
-     * Added property `documentCreatedDate` to the response.
+     * ### Update release 1.0.0
+     * Added additional properties to update
      *
-     * ### Update release 1.30.0
-     * Added possibility to search by document relationship to material.
+     * ### Update release 1.4.0
+     * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
      *
-     * ### Update release 1.32.0
-     * Added `changedDateTime` for attachments.
+     * ### Update release 1.6.0
+     * Added possibility for update of sortField and revisionId.
      *
-     * @returns RelationshipToDocument Success
+     * ### Update release 1.7.0
+     * Added possibility for update of locationId and systemId.
+     *
+     * ### Update release 1.18.0
+     * Added possibility for update of `externalPartnerWorkOrderId`, `title` and `plannerGroupId`.
+     *
+     * ### Update release 1.21.0
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current work order text.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupRelationshipsToDocument({
-        relationshipType,
-        sourceId,
-        includeCharacteristics = false,
-        includeAttachments = false,
+    public static updatePreventiveWorkOrder({
+        workOrderId,
+        requestBody,
     }: {
+        workOrderId: string,
         /**
-         * Type of business object to replace relationships to documents for
+         * The information to be updated
          */
-        relationshipType: 'tags' | 'equipment' | 'measuring-points' | 'maintenance-records' | 'materials',
-        sourceId: string,
-        /**
-         * Include characteristics'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-    }): CancelablePromise<Array<RelationshipToDocument> | ProblemDetails> {
+        requestBody: PreventiveWorkOrderJsonPatch,
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/document-relationships/{relationship-type}/{source-id}',
+            method: 'PATCH',
+            url: '/work-orders/preventive-work-orders/{work-order-id}',
             path: {
-                'relationship-type': relationshipType,
-                'source-id': sourceId,
+                'work-order-id': workOrderId,
             },
-            query: {
-                'include-characteristics': includeCharacteristics,
-                'include-attachments': includeAttachments,
-            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to view document`,
+                403: `User does not have sufficient rights to update work order operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Corrective Work order - Lookup
+     * ### Overview
+     * Lookup single Corrective Work order with related information
+     *
+     * ### Technical feedback
+     * Technical feedback ensures a common and best practice maintenance based on the type of tag/equipment. It's mostly used by preventive work orders, but can in some cases be used in corrective work orders.
+     * As part of work order execution, the technical feedback will need to be completed.
+     *
+     * The endpoint `/work-orders/technical-feedback-master-data` describes the business rules for when it's necessary to create a maintenance record based on the status (`feedbackStatusId`) and reason  (`feedbackReasonId`) found for the technical feedback.
+     *
+     * The `include-technical-feedback` query parameter for preventive and corrective work order lookup endpoints will return the technical feedback for each operation of the provided work order.
+     *
+     * If a technical feedback has `isDetailedFeedback: true`, it requires a very specific feedback type currently not supported by the Maintenance API.
+     *
+     * When executing a technical feedback item, the end-user will complete the steps described in `maintenanceActivityText` and end up with a result in the form of a status (`feedbackStatusId`) and a reason (`feedbackReasonId`). Compare the result with the business rules defined by `/work-orders/technical-feedback-master-data` and base the next step based on the value of `hasRequiredMaintenanceRecord`:
+     *
+     * * `hasRequiredMaintenanceRecord: true`: Create a new maintenance record for technical feedback using the `POST /maintenance-records/failure-reports` or `POST /maintenance-records/activity-reports` endpoints with the relatedWorkOrder properties in the request to specify the work order and technical feedback
+     *
+     * * `hasRequiredMaintenanceRecord: false` As no maintenance record is required, the technical feedback is completed using the endpoint `PATCH /work-order-operations/{operation-id}/technical-feedback/{feedback-id}`
+     *
+     * If you want to include the maintenance records of a technical feedback, one needs to apply both `include-technical-feedback=True`, and `include-maintenance-records=True`.
+     *
+     * ### Production Resources/Tool (PRT)
+     * Production resources/tools (PRT) are used for materials, tools and equipment that are needed to carry out the task and are to be returned after use.
+     *
+     * In Equinor, this is normally added as part of maintenance program.
+     * Maintenance API supports the following PRT resources:
+     * - Attachments (through query parameter `include-attachments=true`)
+     * - Measuring points (through query parameter `include-measuring-points=true`)
+     * - URL references (through query parameter `include-url-references=true`)
+     *
+     * For more information see governing document [GL1624 Guidelines for the establishment of a preventive maintenance programme in SAP](https://docmap.equinor.com/Docmap/page/doc/dmDocIndex.html?DOCKEYID=533758).
+     *
+     * ### Update release 1.0.0
+     * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
+     * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
+     *
+     * ### Update release 1.1.0
+     * If work-order-id exist, but is not a `correctiveWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
+     *
+     * ### Update release 1.3.0
+     * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
+     *
+     * ### Update release 1.4.0
+     * Introduced property calculationKey for operations.
+     *
+     * ### Update release 1.5.0
+     * Added createdDateTime for attachments.
+     *
+     * Added revisionId and revision to work order response (represents shutdown or campaign work).
+     *
+     * ### Update release 1.7.0
+     * Added equipmentId and equipment to the response of tagsRelated.
+     *
+     * Adding sourceId to related maintenance records.
+     *
+     * ### Update release 1.8.0
+     * Introduced property activeStatusIds for operations.
+     *
+     * ### Update release 1.12.0
+     * Added new query parameter `include-technical-feedback`. It returns related technical feedback required to be completed as part of work order execution. Technical feedback is mostly used for preventive work orders, but can also be used for corrective work orders.
+     *
+     * Introduced property `detectionMethodGroupId` and `detectionMethodId` for technical feedback.
+     *
+     * ### Update release 1.15.0
+     * Added new query parameter `include-measurements`.
+     *
+     * ### Update release 1.16.0
+     * Added new query parameters `include-measuring-points`, `include-last-measurement` and `include-url-references`. `include-attachments` extended to also return PRT attachments of an operation.  `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
+     *
+     * ### Update release 1.19.0
+     * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
+     *
+     * ### Update release 1.21.0
+     * Added properties `costs` and `costsCurrency`.
+     * Added property `area` to tag details.
+     *
+     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.22.0
+     * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
+     *
+     * Added activeStatusIds to related maintenance records.
+     *
+     * ### Update release 1.24.0
+     * `attachments` now include the property `documentCreatedDate`
+     *
+     * Removed 'urlReferences' field from response object, and removed 'include-url-references' query parameter. URLReferences are only supported for Notifications.
+     *
+     * Added property `cmrIndicator` in the response.
+     *
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
+     * Added `materials` to serviceOperations.
+     *
+     * 'tagDetails' object now includes the new field 'maintenanceConceptId'
+     *
+     * ### Update release 1.27.0
+     * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.28.0
+     * Added new query parameter `include-safety-measure`.
+     *
+     * Added new query parameter `include-estimated-costs`.
+     *
+     * Added `tag` and `title` to `maintenanceRecords` expand.
+     *
+     * ### Update release 1.29.0
+     * Added new properties for `additionalCostWBSId` and `costWBSId`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
+     *
+     *
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials` .
+     *
+     * @returns CorrectiveWorkOrder Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static lookupCorrectiveWorkOrder({
+        workOrderId,
+        includeOperations = true,
+        includeServiceOperations = true,
+        includeTechnicalFeedback = false,
+        includeMaterials = true,
+        includeMaintenanceRecords = false,
+        includeAttachments = false,
+        includeStatusDetails = false,
+        includeTagDetails = false,
+        includeRelatedTags = false,
+        includeMeasuringPoints = false,
+        includeLastMeasurement = false,
+        includeMeasurements = false,
+        includeSafetyMeasures = false,
+        includeEstimatedCosts = false,
+    }: {
+        workOrderId: string,
+        /**
+         * Include Work order operations
+         */
+        includeOperations?: boolean,
+        /**
+         * Include Work order service operations
+         */
+        includeServiceOperations?: boolean,
+        /**
+         * Include technical feedback required to be completed as part of work order execution.
+         */
+        includeTechnicalFeedback?: boolean,
+        /**
+         * Include materials for Work order operations
+         */
+        includeMaterials?: boolean,
+        /**
+         * Include related maintenance records (from object list)
+         */
+        includeMaintenanceRecords?: boolean,
+        /**
+         * Include Work order attachments (including PRT attachments)
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include detailed information for statuses (both active and non-active)
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Include detailed for the main tag of the Work order
+         */
+        includeTagDetails?: boolean,
+        /**
+         * Include related tags (from object list)
+         */
+        includeRelatedTags?: boolean,
+        /**
+         * Include related measuring points from PRT
+         */
+        includeMeasuringPoints?: boolean,
+        /**
+         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
+         */
+        includeLastMeasurement?: boolean,
+        /**
+         * Include related measurements
+         */
+        includeMeasurements?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
+        /**
+         * Include estimated costs
+         */
+        includeEstimatedCosts?: boolean,
+    }): CancelablePromise<CorrectiveWorkOrder | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/work-orders/corrective-work-orders/{work-order-id}',
+            path: {
+                'work-order-id': workOrderId,
+            },
+            query: {
+                'include-operations': includeOperations,
+                'include-service-operations': includeServiceOperations,
+                'include-technical-feedback': includeTechnicalFeedback,
+                'include-materials': includeMaterials,
+                'include-maintenance-records': includeMaintenanceRecords,
+                'include-attachments': includeAttachments,
+                'include-status-details': includeStatusDetails,
+                'include-tag-details': includeTagDetails,
+                'include-related-tags': includeRelatedTags,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-last-measurement': includeLastMeasurement,
+                'include-measurements': includeMeasurements,
+                'include-safety-measures': includeSafetyMeasures,
+                'include-estimated-costs': includeEstimatedCosts,
+            },
+            errors: {
+                301: `If work-order-id exist, but is not a \`correctiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
+                `,
                 404: `The specified resource was not found`,
             },
         });
@@ -802,7 +760,7 @@ export class ModifiedEndpointsService {
      * If the work order is released through Maintenance API, different values for costWBSId and additionalCostWBSId will result in an error.
      * If the work order is released directly in the ERP system, the user will receive a warning and can choose to continue.
      *
-     * Updating of `costWBSId` will trigger a new determination of the settlement rule in the ERP system. If a settlemet rule already exists, the updating of `costWBSId` will automatically update the settlement rule. Hence the `costWBSId` and settlement rule are allways aligned.
+     * Updating of `costWBSId` will trigger a new determination of the settlement rule in the ERP system. If a settlement rule already exists, the updating of `costWBSId` will automatically update the settlement rule. Hence the `costWBSId` and settlement rule are allways aligned.
      *
      *
      * ### Important information - Text
@@ -846,6 +804,9 @@ export class ModifiedEndpointsService {
      *
      * Updating of `costWBSId` from now on triggers the determination/updating of the settlement rule.
      *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current work order text.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -877,285 +838,488 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Corrective Work order - Create
+     * Project Work order - Lookup
      * ### Overview
-     * Create new Corrective Work order based on a supplied failure report.
+     * Lookup single Project Work order with related information
      *
-     * It's possible to supply operations in the create operation. If no operations are passed, a default operation will be created automatically.
-     *
-     * To lookup the created corrective work order use endpoint `/work-orders/corrective-work-orders/{work-order-id}`
-     *
-     * ### Important information
-     *
-     * Up until release 1.32.0, we have enabled creating operations with `operationId` `0010` through the API, allowing the user to customize this operation during creation.
-     *
-     * Starting from release 1.32.0, the API logic for creating operations has been aligned with the new logic enforced by the SAP backend system. The new logic adds operations from the task list of any failure report that the work order is created from.
-     *
-     * As a result, creating an operation with a reserved `operationId` is no longer allowed.
-     * This always affects operations with `operationId` equal to `0010`, but can also apply to other operations.
-     *
-     * To see which operations are already reserved, use `/maintenance-api/maintenance-records/failure-reports/{record-id}&include-task-list=true`
+     * ### Update release 1.0.0
+     * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
+     * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
      *
      * ### Update release 1.1.0
-     * Added externalPartnerWorkOrderId property to be used as reference to work order in external partner system.
+     * If work-order-id exist, but is not a `projectWorkOrder`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
+     *
+     * ### Update release 1.3.0
+     * Introduced holdDeliveryOnshore and requiredDatetime properties for materials.
+     *
+     * ### Update release 1.4.0
+     * Introduced property calculationKey for operations.
      *
      * ### Update release 1.5.0
+     * Added createdDateTime for attachments.
+     *
      * Added revisionId and revision to work order response (represents shutdown or campaign work).
      *
-     * ### Update release 1.6.0
-     * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
+     * ### Update release 1.7.0
+     * Added equipmentId and equipment to the response of tagsRelated.
+     *
+     * Adding sourceId to related maintenance records.
      *
      * ### Update release 1.8.0
-     * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
+     * Introduced property activeStatusIds for operations.
+     *
+     * ### Update release 1.19.0
+     * Added properties `systemCondition` and `isExcludedFromWorkOrderPlan` for operations.
      *
      * ### Update release 1.21.0
-     * Add property `IsExcludedFromWorkOrderPlan` to operations model.
+     * Added property `area` to tag details.
      *
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.22.0
+     * Added new query parameter `include-service-operations`. Operations of type Service - PM03 previously available in the `operations` have been moved to `serviceOperations`.
      *
      * ### Update release 1.24.0
      * Added property `cmrIndicator` in the response.
      *
+     * ### Update release 1.26.0
+     * Added property `isEquipmentRental` to services in serviceOperations.
+     * Added `materials` to serviceOperations.
+     *
+     * `tagDetails` object now includes the new field `maintenanceConceptId`
+     *
      * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
+     * Work orders now include the property `isOpen`
+     *
+     * Added `tag` and `title` to `maintenanceRecords` expand.
+     *
+     * ### Update release 1.28.0
+     * Added new query parameter `include-safety-measures`.
      *
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * ### Update release 1.32.0
-     * Restriction to create a work order with operationId `0010` and other reserved operationIds.
+     * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * To see which operationIds are already reserved, use `/maintenance-api/maintenance-records/failure-reports/{record-id}&include-task-list=true`
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
+     * @returns ProjectWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns CorrectiveWorkOrderBasic Created
      * @throws ApiError
      */
-    public static createCorrectiveWorkOrder({
-        requestBody,
+    public static lookupProjectWorkOrder({
+        workOrderId,
+        includeOperations = true,
+        includeServiceOperations = true,
+        includeMaterials = true,
+        includeMaintenanceRecords = false,
+        includeAttachments = false,
+        includeStatusDetails = false,
+        includeTagDetails = false,
+        includeRelatedTags = false,
+        includeSafetyMeasures = false,
     }: {
+        workOrderId: string,
         /**
-         * Corrective Work order to create
+         * Include Work order operations
          */
-        requestBody: CorrectiveWorkOrderCreate,
-    }): CancelablePromise<ProblemDetails | CorrectiveWorkOrderBasic> {
+        includeOperations?: boolean,
+        /**
+         * Include Work order service operations
+         */
+        includeServiceOperations?: boolean,
+        /**
+         * Include materials for Work order operations
+         */
+        includeMaterials?: boolean,
+        /**
+         * Include related maintenance records (from object list)
+         */
+        includeMaintenanceRecords?: boolean,
+        /**
+         * Include Work order attachments (on header and for operation)
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include detailed information for statuses (both active and non-active)
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Include detailed for the main tag of the Work order
+         */
+        includeTagDetails?: boolean,
+        /**
+         * Include related tags (from object list)
+         */
+        includeRelatedTags?: boolean,
+        /**
+         * Include safety-measures in work order operations
+         */
+        includeSafetyMeasures?: boolean,
+    }): CancelablePromise<ProjectWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/corrective-work-orders',
-            body: requestBody,
-            mediaType: 'application/json',
+            method: 'GET',
+            url: '/work-orders/project-work-orders/{work-order-id}',
+            path: {
+                'work-order-id': workOrderId,
+            },
+            query: {
+                'include-operations': includeOperations,
+                'include-service-operations': includeServiceOperations,
+                'include-materials': includeMaterials,
+                'include-maintenance-records': includeMaintenanceRecords,
+                'include-attachments': includeAttachments,
+                'include-status-details': includeStatusDetails,
+                'include-tag-details': includeTagDetails,
+                'include-related-tags': includeRelatedTags,
+                'include-safety-measures': includeSafetyMeasures,
+            },
             errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to create a Project Work order`,
+                301: `If work-order-id exist, but is not a \`projectWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
+                `,
                 404: `The specified resource was not found`,
             },
         });
     }
 
     /**
-     * Tag - Search
-     * Search tags for a plant based on the first few characters of the tag.
+     * Project Work order - Update
+     * ### Overview
+     * Update project work order.
      *
-     * The results include key information for a tag.
-     * Additional information for each tag can be retrieved by using the endpoint `/plants/{plant-id}/tags/{tag-id}`.
-     *
-     * If there are no tags found for the search, the response will be HTTP 200 with an empty array as content.
+     * Supports:
+     * - Append and replace text
+     * - Update workCenterId and workCenterPlantId
+     * - Update tagId and tagPlantId
+     * - Update basicStartDateTime and basicEndDateTime
+     * - Update sortField
+     * - Update title
+     * - Update plannerGroupId
+     * - Update revisionId (Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values)
+     * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
+     * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
      *
      * ### Important information
+     * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
      *
-     * The value of the tag-prefix parameter should be url-encoded in order to support special characters
+     * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
      *
-     * ### Examples
-     * `/plants/1219/tags?tag-prefix=44&api-version=v1`
+     * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
      *
-     * `/plants/1100/tags?tag-prefix=02%22-EC-%202525-M&api-version=v1`
+     * ### Update release 1.0.0
+     * Added additional properties to update
      *
-     * ### Update 1.14.0
-     * Added support for filter `by-tag-ids` with accompanying parameter `tag-ids-any-of`
-     * Filter is not required and defaults to `by-tag-prefix` to keep backwards compatibility.
+     * ### Update release 1.4.0
+     * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
      *
-     * Added options to include more data using the same data model as on `Tag - Lookup`, but all includes are defaulted
-     * to false.
+     * ### Update release 1.6.0
+     * Added possibility for update of sortField and revisionId.
      *
-     * `by-tag-prefix` filter now supports wildcards (`*`) in the tag prefix
-     *
-     * Edited the response structure to support pagination if filter `by-tag-prefix` is set. Use the parameters `page` and `per-page` in the parameters to edit wanted response.
-     *
-     * ### Update release 1.15.0
-     * Added `include-linear-data` and `include-status-details` query parameters.
-     *
-     * Added properties `tagCategoryId`, `activeStatusIds`, `startUpDate` and `endOfUseDate`.
-     *
-     * ### Update release 1.16.0
-     * Added property `classId` to characteristics
+     * ### Update release 1.7.0
+     * Added possibility for update of locationId and systemId.
      *
      * ### Update release 1.18.0
-     * Added new filter `by-external-system-reference`.
-     * Added new property `semiModelId`.
+     * Added possibility for update of `title` and `plannerGroupId`.
      *
      * ### Update release 1.21.0
-     * Added property `area`.
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update release 1.24.0
-     * Added query parameters `include-attachments` and `include-url-references`.
-     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current work order text.
      *
-     * Added property `cmrIndicator` for WorkOrders
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.28.0
-     * `billOfMaterials` now include the property `parentMaterialId`
-     *
-     * Added `materialId` and `material` to the response
-     *
-     * ### Update release 1.32.0
-     * Added `changedDateTime` for attachments.
-     *
-     * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static searchTags({
-        plantId,
-        filter = 'by-tag-prefix',
-        tagPrefix,
-        tagIdsAnyOf,
-        externalSystemReference,
-        includeMaintenanceRecords = false,
-        includeMaintenanceRecordTypes,
-        includeWorkOrders = true,
-        includeWorkOrderTypes,
-        includeInstalledEquipment = false,
-        includeCatalogProfileDetails = false,
-        includeMaintenancePlanItems = false,
-        includeMeasuringPoints = false,
-        includeLastMeasurement = false,
-        includeCharacteristics = false,
-        includeBillOfMaterials = false,
-        includeAttachments = false,
-        includeUrlReferences = false,
-        includeStatusDetails = false,
-        includeLinearData = false,
-        perPage = 100,
-        page = 1,
+    public static updateProjectWorkOrder({
+        workOrderId,
+        requestBody,
     }: {
-        plantId: string,
-        filter?: 'by-tag-ids' | 'by-tag-prefix' | 'by-external-system-reference' | null,
+        workOrderId: string,
         /**
-         * The first few characters of the tag, required if filter is empty or `by-tag-prefix`
+         * The information to be updated
          */
-        tagPrefix?: string | null,
-        /**
-         * The tagIds as a comma separated list, required if filter is `by-tag-ids`
-         */
-        tagIdsAnyOf?: Array<string>,
-        /**
-         * Required if filter is `by-external-system-reference`
-         */
-        externalSystemReference?: string | null,
-        /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
-         */
-        includeMaintenanceRecords?: boolean,
-        /**
-         * Include which types of maintenance records
-         */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
-        /**
-         * Include work orders. If include-work-order-types is not supplied, all supported types are returned.
-         */
-        includeWorkOrders?: boolean,
-        /**
-         * Include which types of work orders. Use comma-separated list of entries.
-         */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
-        /**
-         * Include installed equipment
-         */
-        includeInstalledEquipment?: boolean,
-        /**
-         * Include possible detection methods, failure modes and failure mechanisms
-         */
-        includeCatalogProfileDetails?: boolean,
-        /**
-         * Include Maintenance Plan items this functional location is part of
-         */
-        includeMaintenancePlanItems?: boolean,
-        /**
-         * Include measuring points for this tag
-         */
-        includeMeasuringPoints?: boolean,
-        /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include bill of materials (also known as structure list) for tag and installed equipment
-         */
-        includeBillOfMaterials?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-        /**
-         * Include URL references for object
-         */
-        includeUrlReferences?: boolean,
-        /**
-         * Include detailed information for statuses (both active and non-active)
-         */
-        includeStatusDetails?: boolean,
-        /**
-         * Include linear data
-         */
-        includeLinearData?: boolean,
-        /**
-         * Results to return pr page
-         */
-        perPage?: number,
-        /**
-         * Page to fetch
-         */
-        page?: number,
-    }): CancelablePromise<Array<TagSearch> | ProblemDetails> {
+        requestBody: GenericWorkOrderJsonPatch,
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tags',
+            method: 'PATCH',
+            url: '/work-orders/project-work-orders/{work-order-id}',
             path: {
-                'plant-id': plantId,
+                'work-order-id': workOrderId,
             },
-            query: {
-                'filter': filter,
-                'tag-prefix': tagPrefix,
-                'tag-ids-any-of': tagIdsAnyOf,
-                'external-system-reference': externalSystemReference,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
-                'per-page': perPage,
-                'page': page,
-            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update work order operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Modification Work order - Update
+     * ### Overview
+     * Update modification work order.
+     *
+     * Supports:
+     * - Append and replace text
+     * - Update workCenterId and workCenterPlantId
+     * - Update tagId and tagPlantId
+     * - Update basicStartDateTime and basicEndDateTime
+     * - Update sortField
+     * - Update title
+     * - Update plannerGroupId
+     * - Update revisionId (Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values)
+     * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
+     * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
+     *
+     * ### Important information
+     * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
+     *
+     * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
+     *
+     * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
+     *
+     * ### Update release 1.0.0
+     * Added additional properties to update
+     *
+     * ### Update release 1.4.0
+     * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
+     *
+     * ### Update release 1.6.0
+     * Added possibility for update of sortField and revisionId.
+     *
+     * ### Update release 1.7.0
+     * Added possibility for update of locationId and systemId.
+     *
+     * ### Update release 1.18.0
+     * Added possibility for update of `title` and `plannerGroupId`.
+     *
+     * ### Update release 1.21.0
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current work order text.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateModificationWorkOrder({
+        workOrderId,
+        requestBody,
+    }: {
+        workOrderId: string,
+        /**
+         * The information to be updated
+         */
+        requestBody: GenericWorkOrderJsonPatch,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/work-orders/modification-work-orders/{work-order-id}',
+            path: {
+                'work-order-id': workOrderId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update work order operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * SAS Change Work order - Update
+     * ### Overview
+     * Update SAS Change work order.
+     *
+     * Supports:
+     * - Append to text
+     * - Update workCenterId and workCenterPlantId
+     * - Update tagId and tagPlantId
+     * - Update basicStartDateTime and basicEndDateTime
+     * - Update sortField
+     * - Update title
+     * - Update plannerGroupId
+     * - Update revisionId (Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values)
+     * - Update locationId (Use `/plants/{plant-id}?include-locations=true&api-version=v1` to get a list of possible values)
+     * - Update systemId (Use `/plants/{plant-id}?include-systems=true&api-version=v1` to get a list of possible values)
+     *
+     * ### Important information
+     * Append to text follows requirement `I-103209 - Notation in long text field - Upstream offshore`.
+     *
+     * Newest information in text is added above existing information and is automatically signed with date and full name of logged on user.
+     *
+     * ***When Advanced ERP text is enabled, information is not automatically signed and has to be sent with the input when using append***
+     *
+     * ### Update release 1.0.0
+     * Added additional properties to update
+     *
+     * ### Update release 1.4.0
+     * Adjusted logic for append text to work order. Newest information in text is now added above existing information.
+     *
+     * ### Update release 1.6.0
+     * Added possibility for update of sortField and revisionId.
+     *
+     * ### Update release 1.7.0
+     * Added possibility for update of locationId and systemId.
+     *
+     * ### Update release 1.18.0
+     * Added possibility for update of `title` and `plannerGroupId`.
+     *
+     * ### Update release 1.21.0
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current work order text.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateSasChangeWorkOrder({
+        workOrderId,
+        requestBody,
+    }: {
+        workOrderId: string,
+        /**
+         * The information to be updated
+         */
+        requestBody: GenericWorkOrderJsonPatch,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/work-orders/sas-change-work-orders/{work-order-id}',
+            path: {
+                'work-order-id': workOrderId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update work order operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Work order - Add materials
+     * ### Overview
+     * Add materials to a work order operation (of any work order type).
+     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     *
+     * There are three types of materials which can be added to work orders:
+     * 1. Material identified by `materialId`
+     * 2. Material identified by `equipmentId` (only for Subsea work orders)
+     * 3. Material identified only by the `material` field (also known as text items).
+     *
+     * Each item in the request must include one of `materialId`, `equipmentId` or `material`.
+     *
+     * ### Update release 1.22.0
+     * Added possibility of adding materials without a materialId (also known as text items).
+     * In this case, the purchasing fields mentioned below need to be provided as input:
+     * - `material`
+     * - `price`
+     * - `priceUnitId`
+     * - `purchasingGroup`
+     * - `goodsRecipient`
+     * - `unloadingPoint`
+     * - `materialGroup`
+     *
+     * ### Update release 1.31.0
+     * Split parts of `location` into `finalLocation` and `temporaryLocation` in the response.
+     *
+     * ### Update release 1.33.0
+     * Added support for new properties `supplierId`, `vendorsMaterialNumber`, `deliveryTimeInDays`, `requisitionerId`, `holdDeliveryOnshore`, `text`.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns any Created
+     * @throws ApiError
+     */
+    public static addMaterialToWorkOrderOperation({
+        operationId,
+        requestBody,
+    }: {
+        operationId: string,
+        /**
+         * Add material details
+         */
+        requestBody: Array<WorkOrderMaterialAdd>,
+    }): CancelablePromise<ProblemDetails | Array<(WorkOrderMaterial | SubseaWorkOrderMaterial)>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/work-order-operations/{operation-id}/materials',
+            path: {
+                'operation-id': operationId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad request, for example if both \`materialId\` and \`material\` is supplied for the same item`,
+                403: `User does not have sufficient rights to update operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+                501: `(__Production environment only__) Not implemented yet`,
+            },
+        });
+    }
+
+    /**
+     * Work order operation - Update material
+     * ### Overview
+     * Update a material in a work order operation (of any work order type).
+     *
+     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
+     *
+     * The ´reservation-id´ parameter to use in the url can be found using the include-materials query parameter to work order lookup.
+     *
+     * ### Update release 1.33.0
+     * Added support for the same properties which can be used for material creation.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static updateMaterialInWorkOrderOperation({
+        operationId,
+        reservationId,
+        requestBody,
+    }: {
+        operationId: string,
+        /**
+         * Reservation id for the material found through work order lookup with include-materials
+         */
+        reservationId: string,
+        /**
+         * Update material details
+         */
+        requestBody: Array<WorkOrderMaterialJsonPatch>,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/work-order-operations/{operation-id}/materials/{reservation-id}',
+            path: {
+                'operation-id': operationId,
+                'reservation-id': reservationId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
             },
         });
     }
@@ -1235,8 +1399,8 @@ export class ModifiedEndpointsService {
      *
      * Added a query parameter `include-task-list` and `taskList` in the response. When a work order is created based on this notification, operations from the `taskList` will be automatically copied into the work order.
      *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     * ### Update release 1.33.0
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
      *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1255,6 +1419,7 @@ export class ModifiedEndpointsService {
         includeUrlReferences = false,
         includeMeasurements = false,
         includeTaskList = false,
+        includeTaskResponsibleDetails = false,
     }: {
         /**
          * The recordId of the failure report.
@@ -1304,6 +1469,10 @@ export class ModifiedEndpointsService {
          * Include task list with task list operations
          */
         includeTaskList?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<FailureReport | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1323,6 +1492,7 @@ export class ModifiedEndpointsService {
                 'include-url-references': includeUrlReferences,
                 'include-measurements': includeMeasurements,
                 'include-task-list': includeTaskList,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1375,6 +1545,9 @@ export class ModifiedEndpointsService {
      * ### Update release 1.32.0
      * Added ability to append text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info.
      *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current text.
+     *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -1421,6 +1594,9 @@ export class ModifiedEndpointsService {
      *
      * ### Update release 1.32.0
      * Added ability to append text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info.
+     *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current text.
      *
      * @returns ActivityReportBasic Success, the activity report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1492,8 +1668,8 @@ export class ModifiedEndpointsService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     * ### Update release 1.33.0
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
      *
      * @returns ModificationProposal Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1505,6 +1681,7 @@ export class ModifiedEndpointsService {
         includeStatusDetails = false,
         includeAttachments = false,
         includeCreatedByDetails = false,
+        includeTaskResponsibleDetails = false,
     }: {
         recordId: string,
         /**
@@ -1523,6 +1700,10 @@ export class ModifiedEndpointsService {
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
         includeCreatedByDetails?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<ModificationProposal | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1535,117 +1716,7 @@ export class ModifiedEndpointsService {
                 'include-status-details': includeStatusDetails,
                 'include-attachments': includeAttachments,
                 'include-created-by-details': includeCreatedByDetails,
-            },
-            errors: {
-                301: `The specified resource exists in another location
-                This can occur when requesting a resource which type does not match the route you are using.
-
-                Example: \`/maintenance-api/resource-a/{resource-b-id}/\` gives \`301\` response.
-                `,
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Certification report - Lookup
-     * ### Overview
-     * Lookup a single certification report.
-     *
-     * The certification report represents the results of PSV or lifting certification.
-     *
-     * For PSV certification, details are reported as measurements for 33 predefined measuring points.
-     * For lifting certification, details are stored in attachment and possibly as characteristics on the tag/equipment.
-     *
-     * ### Update release 1.5.0
-     * Added createdDateTime for attachments.
-     *
-     * ### Update release 1.6.0
-     * Added `301` response.
-     *
-     * ### Update release 1.11.0
-     * Added properties `createdById`,`createdBy` and `createdByEmail`.
-     * `createdById` will always be have value in response. `createdBy` and `createdByEmail` will only have value in response if the `include-created-by-details` query parameter is `true`.
-     *
-     * ### Update release 1.16.0
-     * `attachments` now include properties `documentType`, `documentNumber` and `documentTitle`.
-     *
-     * ### Update release 1.21.0
-     * Added property `area` to tag details.
-     *
-     * ### Update release 1.24.0
-     * `attachments` now include the property `documentCreatedDate`
-     *
-     * ### Update release 1.26.0
-     * `tagDetails` object now includes the new field `maintenanceConceptId`
-     *
-     * ### Update release 1.27.0
-     * Added `maintenanceRecordTypeId` to the response.
-     *
-     * ### Update release 1.28.0
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.32.0
-     * Added `changedDateTime` for attachments.
-     *
-     * Added properties `failureStartDateTime` and `failureEndDateTime` to response.
-     *
-     * @returns CertificationReport Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static lookupCertification({
-        recordId,
-        includeStatusDetails = false,
-        includeTagDetails = false,
-        includeAttachments = false,
-        includeMeasuringPoints = false,
-        includeLastMeasurement = false,
-        includeCreatedByDetails = false,
-    }: {
-        /**
-         * The recordId of the certification report
-         */
-        recordId: string,
-        /**
-         * Include detailed information for statuses (both active and non-active)
-         */
-        includeStatusDetails?: boolean,
-        /**
-         * Include details about tag for failure report
-         */
-        includeTagDetails?: boolean,
-        /**
-         * Include attachments
-         */
-        includeAttachments?: boolean,
-        /**
-         * Include measuring points related to tagId/equipmentId
-         */
-        includeMeasuringPoints?: boolean,
-        /**
-         * Include last measurement for the measuring points
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
-         */
-        includeCreatedByDetails?: boolean,
-    }): CancelablePromise<CertificationReport | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/maintenance-records/certification-reports/{record-id}',
-            path: {
-                'record-id': recordId,
-            },
-            query: {
-                'include-status-details': includeStatusDetails,
-                'include-tag-details': includeTagDetails,
-                'include-attachments': includeAttachments,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-created-by-details': includeCreatedByDetails,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1706,8 +1777,10 @@ export class ModifiedEndpointsService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     * ### Update release 1.33.0
+     * Added `changedDateTime` to the response.
+     *
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
      *
      * @returns TechnicalInformationUpdateRequest Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1721,6 +1794,7 @@ export class ModifiedEndpointsService {
         includeTagDetails = false,
         includePersonResponsible = false,
         includeCreatedByDetails = false,
+        includeTaskResponsibleDetails = false,
     }: {
         /**
          * The recordId of the technical information update request
@@ -1750,6 +1824,10 @@ export class ModifiedEndpointsService {
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
         includeCreatedByDetails?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<TechnicalInformationUpdateRequest | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1764,6 +1842,7 @@ export class ModifiedEndpointsService {
                 'include-tag-details': includeTagDetails,
                 'include-person-responsible': includePersonResponsible,
                 'include-created-by-details': includeCreatedByDetails,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1820,6 +1899,9 @@ export class ModifiedEndpointsService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
+     * ### update release 1.33.0
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
+     *
      * @returns TechnicalClarification Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -1832,6 +1914,7 @@ export class ModifiedEndpointsService {
         includeTagDetails = false,
         includePersonResponsible = false,
         includeCreatedByDetails = false,
+        includeTaskResponsibleDetails = false,
     }: {
         /**
          * The recordId of the technical clarification
@@ -1861,6 +1944,10 @@ export class ModifiedEndpointsService {
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
         includeCreatedByDetails?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<TechnicalClarification | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -1875,6 +1962,7 @@ export class ModifiedEndpointsService {
                 'include-tag-details': includeTagDetails,
                 'include-person-responsible': includePersonResponsible,
                 'include-created-by-details': includeCreatedByDetails,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -1884,46 +1972,6 @@ export class ModifiedEndpointsService {
                 `,
                 403: `User does not have sufficient rights to read technical clarification`,
                 404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Text templates - Search
-     * ### Overview
-     * Get one or more text templates to be used in maintenance records, work orders or maintenance program.
-     *
-     * There is an allowlist for which templates are available through this endpoint and it includes:
-     * - Failure report templates: Pattern `<plant>-M2-<X>` such as `1100-M2` and `1100-M2-X`
-     * - Failure report task templates: `M2_TASK_EXTR`, `M2_TASK_TICO` and `M2_TASK_TICO_ENG`
-     *
-     * The text of the template follows the advanced formatting as described in [Resource text](#section/Modelling-of-resources/Resource-text).
-     *
-     * ### Update release 1.32.0
-     *
-     * Added support for the following templates:
-     * - `M1_SIMPLIFIED_SAS`
-     * - `M1_ENKEL_SAS`
-     * - `M5N`
-     * - `M1N`
-     *
-     * @returns TextTemplate Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchTextTemplates({
-        templateNameAnyOf = 'M2_Task,-M2-X',
-    }: {
-        /**
-         * Comma-separated list of text templates to return
-         */
-        templateNameAnyOf?: string,
-    }): CancelablePromise<Array<TextTemplate> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/text-templates',
-            query: {
-                'template-name-any-of': templateNameAnyOf,
             },
         });
     }
