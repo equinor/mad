@@ -1,5 +1,12 @@
 # @equinor/mad-dfw
 
+## 0.5.2
+
+### Patch Changes
+
+-   3388a03: Updated button validation to fix visibility issues on buttons in the `WorkOrderCell`
+    component
+
 ## 0.5.1
 
 ### Patch Changes
