@@ -27,8 +27,10 @@ export const WorkOrderCell = ({
     const token = useToken();
     const styles = useStyles(themeStyles);
 
-    const anyButtonVisible =
-        startJobButton?.visible ?? readyForOperationButton?.visible ?? tecoButton?.visible;
+    const shouldShowActions =
+        (startJobButton?.visible ?? false) ||
+        (readyForOperationButton?.visible ?? false) ||
+        (tecoButton?.visible ?? false);
 
     const iconsAndLabels = useMemo(
         () =>
@@ -69,7 +71,7 @@ export const WorkOrderCell = ({
                     additionalPropertyRows={additionalPropertyRows}
                 />
             </View>
-            {anyButtonVisible && (
+            {shouldShowActions && (
                 <View
                     style={[
                         styles.actionContainer,
