@@ -4,10 +4,11 @@
 /* eslint-disable */
 
 import type { WorkOrderOperationInPlan } from './WorkOrderOperationInPlan';
+import type { WorkOrderTypeId } from './WorkOrderTypeId';
 
 export type WorkOrderInPlan = {
     workOrderId: string;
-    workOrderTypeId: 'correctiveWorkOrder' | 'preventiveWorkOrder' | 'modificationWorkOrder' | 'sasChangeWorkOrder' | 'projectWorkOrder' | 'subseaWorkOrder';
+    workOrderTypeId: WorkOrderTypeId;
     tagId: string | null;
     tagPlantId: string;
     tag: string;
@@ -28,8 +29,15 @@ export type WorkOrderInPlan = {
      *
      */
     cmrIndicator?: boolean;
+    /**
+     * Work center id from the operation
+     */
     workCenterId: string;
     workCenterPlantId: string;
+    /**
+     * Main work center id on the header level
+     */
+    mainWorkCenterId?: string;
     /**
      * Structured location within the plant where the tag is located
      */
@@ -67,6 +75,10 @@ export type WorkOrderInPlan = {
      * The internal id of the person responsible for the processing of the technical clarification. The id represents the employee id of the person.
      */
     personResponsibleId: string | null;
+    /**
+     * Value only returned if include-person-responsible=true. The name of the person responsible.
+     */
+    personResponsible?: string | null;
     /**
      * Value only returned if include-person-responsible=true. The email of the person responsible for the processing of the technical clarification. This is the preferred way of identifying the person as it's consistent across systems.
      */

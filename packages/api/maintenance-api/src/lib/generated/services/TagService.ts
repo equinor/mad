@@ -384,7 +384,7 @@ export class TagService {
     }: {
         plantId: string,
         /**
-         * Filter to limit the tag hierachy by
+         * Filter to limit the tag hierarchy by
          */
         filter?: 'filter-by-root-tags',
         /**
@@ -484,8 +484,8 @@ export class TagService {
      * For each tag you will be provided with catalog profile and the parent tag.
      *
      * ### Important information
-     * The query parameter `root-tag-id` is mandatory and is the root tag for the hierarchy.
-     * Use the query parameter `sub-hierarchy-limit` to control how many levels below the root the response will contain.
+     * The optional query parameter `root-tag-id` specifies the root tag for the hierarchy. If omitted, the root tag of the plant will be used.
+     * Use the optional query parameter `sub-hierarchy-limit` to control how many levels below the root the response will contain. This is limited to values between 1 and 4.
      *
      * The data will be cached in the API and renewed on a daily basis.
      *
@@ -506,11 +506,10 @@ export class TagService {
         /**
          * The root tag for the hierarchy
          */
-        rootTagId: string,
+        rootTagId?: string,
         /**
          * Limit the response to a certain number of levels below the root tag.
          * If this parameter is omitted, a maximum of 4 sub levels will be included.
-         * Setting this parameter to 0 will output the full depth of the hierarchy tree.
          *
          */
         subHierarchyLimit?: number,

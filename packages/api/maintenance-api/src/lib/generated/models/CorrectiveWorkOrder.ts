@@ -5,10 +5,10 @@
 
 import type { CorrectiveWorkOrderBasic } from './CorrectiveWorkOrderBasic';
 import type { CorrectiveWorkOrderOperation } from './CorrectiveWorkOrderOperation';
-import type { CorrectiveWorkOrderServiceOperation } from './CorrectiveWorkOrderServiceOperation';
 import type { EstimatedCosts } from './EstimatedCosts';
 import type { MaintenanceRecordMinimalWithActiveStatusIds } from './MaintenanceRecordMinimalWithActiveStatusIds';
 import type { Measurement } from './Measurement';
+import type { ServiceOperation } from './ServiceOperation';
 import type { Status } from './Status';
 import type { TagBasic } from './TagBasic';
 import type { TagRelatedToWorkOrder } from './TagRelatedToWorkOrder';
@@ -16,7 +16,7 @@ import type { WorkOrderAttachment } from './WorkOrderAttachment';
 
 export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
     operations?: Array<CorrectiveWorkOrderOperation>;
-    serviceOperations?: Array<CorrectiveWorkOrderServiceOperation>;
+    serviceOperations?: Array<ServiceOperation>;
     /**
      * All statuses possible with information about activation
      */

@@ -66,8 +66,10 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     * ### Update release 1.33.0
+     * Added `changedDateTime` to the response.
+     *
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
      *
      * @returns TechnicalInformationUpdateRequest Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -81,6 +83,7 @@ export class TechnicalInformationUpdateRequestsService {
         includeTagDetails = false,
         includePersonResponsible = false,
         includeCreatedByDetails = false,
+        includeTaskResponsibleDetails = false,
     }: {
         /**
          * The recordId of the technical information update request
@@ -110,6 +113,10 @@ export class TechnicalInformationUpdateRequestsService {
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
         includeCreatedByDetails?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<TechnicalInformationUpdateRequest | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -124,6 +131,7 @@ export class TechnicalInformationUpdateRequestsService {
                 'include-tag-details': includeTagDetails,
                 'include-person-responsible': includePersonResponsible,
                 'include-created-by-details': includeCreatedByDetails,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -450,7 +458,7 @@ export class TechnicalInformationUpdateRequestsService {
          */
         plannerGroupId?: string,
         /**
-         * Define how many days from the current day to include results for. 0 if only include for today
+         * Define how many days from the current day to include results for. 0 to only include results from today
          */
         maxDaysSinceActivation?: number,
         /**
@@ -544,9 +552,6 @@ export class TechnicalInformationUpdateRequestsService {
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordTask Success
@@ -646,6 +651,18 @@ export class TechnicalInformationUpdateRequestsService {
      *
      * When a task is created, it will have status `TSOS - Outstanding task` and `CRTE - Created`.
      * The status `TSRL - Task Released` can be set afterwards.
+     *
+     * Now it is possible to set following statuses:
+     * - TSRL Task Released
+     * - TSCO Task Completed
+     * - TSSC Task successful
+     * - TCMP WF when task completed
+     * - RIND Returned - Wait for info
+     * - CANC Cancelled
+     *
+     *
+     * ### Upcoming changes
+     * Enabled activation of user statuses like `TCMP - WF when task completed`, `RIND - Returned - Wait for info` and `CANC - Cancelled`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

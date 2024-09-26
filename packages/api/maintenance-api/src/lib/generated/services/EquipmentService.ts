@@ -13,6 +13,10 @@ import type { EquipmentListItem } from '../models/EquipmentListItem';
 import type { EquipmentSearchItem } from '../models/EquipmentSearchItem';
 import type { InstallEquipment } from '../models/InstallEquipment';
 import type { ProblemDetails } from '../models/ProblemDetails';
+import type { RawEquipmentChange } from '../models/RawEquipmentChange';
+import type { RawEquipmentChangeReturn } from '../models/RawEquipmentChangeReturn';
+import type { RawEquipmentCreate } from '../models/RawEquipmentCreate';
+import type { RawEquipmentCreateReturn } from '../models/RawEquipmentCreateReturn';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -31,7 +35,7 @@ export class EquipmentService {
      * For warehouse and logistics data of an equipment, use SCM Logistics API.
      *
      * ### Example usage
-     * `/equipment/11948620?include-maintenance-records=true&include-maintenance-record-types=failure-report&include-only-open-maintenance-records=true&include-work-orders=true&include-work-order-types=preventiveWorkOrders,subseaWorkOrders&include-only-open-work-orders=true&include-characteritics=true&include-status-details=true&api-version=v1` - Lookup equipment with status details and characteristics. Include open failure reports where the equipment is used as main reference. Include open subsea work orders and open preventive work orders where the equipment is either a material component or the main reference (`equipmentId` at work order header level).
+     * `/equipment/11948620?include-maintenance-records=true&include-maintenance-record-types=failure-report&include-only-open-maintenance-records=true&include-work-orders=true&include-work-order-types=preventiveWorkOrders,subseaWorkOrders&include-only-open-work-orders=true&include-characteristics=true&include-status-details=true&api-version=v1` - Lookup equipment with status details and characteristics. Include open failure reports where the equipment is used as main reference. Include open subsea work orders and open preventive work orders where the equipment is either a material component or the main reference (`equipmentId` at work order header level).
      *
      * ### Update release 1.4.0
      * `include-work-orders` now include work orders where the `equipmentId` is the main reference (`equipmentId` at work order header level).
@@ -319,7 +323,7 @@ export class EquipmentService {
      * ### Overview
      * Dismantle Equipment on a tag hierarchy.
      *
-     * An equipment can be either installed on a Tag, or an Equipment.
+     * An equipment can be dismantled from a tag, or an equipment.
      * The correct installation needs to be provided in the body to be successful.
      *
      * If `equipmentId` is provided in the body, the `equipmentId` from the path will be dismantled here.
@@ -343,7 +347,7 @@ export class EquipmentService {
          */
         equipmentId: string,
         /**
-         * Dismantle Equipment in a hierarchy.
+         * Dismantle equipment in a hierarchy.
          */
         requestBody: InstallEquipment,
         /**
@@ -897,6 +901,73 @@ export class EquipmentService {
             },
             errors: {
                 400: `Request is missing required parameters`,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Equipment - Create
+     * ### Overview
+     *
+     * Create equipment - special intended usage for machine-to-machine integration. Fields are kept in their raw form, and mirror the data model in SAP.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns RawEquipmentCreateReturn Created Equipment - return SAP BAPI structure
+     * @throws ApiError
+     */
+    public static rawEquipmentCreate({
+        requestBody,
+    }: {
+        /**
+         * Create equipment - raw SAP BAPI data input.
+         */
+        requestBody: RawEquipmentCreate,
+    }): CancelablePromise<ProblemDetails | RawEquipmentCreateReturn> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/raw/equipment',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - The resource provided in the body is not according to specification`,
+                403: `User does not have sufficient rights to create a equipment`,
+            },
+        });
+    }
+
+    /**
+     * Equipment - Change
+     * ### Overview
+     *
+     * Change equipment - special intended usage for machine-to-machine integration.. Fields are kept in their raw form, and mirror the data model in SAP.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns RawEquipmentChangeReturn Change equipment - return SAP BAPI structure
+     * @throws ApiError
+     */
+    public static rawEquipmentChange({
+        equipmentId,
+        requestBody,
+    }: {
+        /**
+         * Equipment number
+         */
+        equipmentId: string,
+        /**
+         * Change equipment - raw SAP BAPI data input.
+         */
+        requestBody: RawEquipmentChange,
+    }): CancelablePromise<ProblemDetails | RawEquipmentChangeReturn> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/raw/equipment/{equipment-id}',
+            path: {
+                'equipment-id': equipmentId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
                 404: `The specified resource was not found`,
             },
         });

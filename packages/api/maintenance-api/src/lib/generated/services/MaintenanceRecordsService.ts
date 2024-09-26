@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { MaintenanceRecordChangeLogs } from '../models/MaintenanceRecordChangeLogs';
 import type { MaintenanceRecordList } from '../models/MaintenanceRecordList';
+import type { MaintenanceRecordTypes } from '../models/MaintenanceRecordTypes';
 import type { ProblemDetails } from '../models/ProblemDetails';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -117,6 +118,32 @@ export class MaintenanceRecordsService {
             errors: {
                 400: `Bad request, for example if \`before-datetime\` is before \`changed-since-datetime\``,
                 404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Maintenance record - Types
+     * ### Overview
+     * Get type of a maintenance record based on the maintenance record id.
+     *
+     * @returns MaintenanceRecordTypes Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getMaintenanceRecordType({
+        maintenanceRecordIdsAnyOf,
+    }: {
+        /**
+         * The maintenance record ids as a comma separated list.
+         */
+        maintenanceRecordIdsAnyOf: string,
+    }): CancelablePromise<Array<MaintenanceRecordTypes> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/maintenance-record-types',
+            query: {
+                'maintenance-record-ids-any-of': maintenanceRecordIdsAnyOf,
             },
         });
     }

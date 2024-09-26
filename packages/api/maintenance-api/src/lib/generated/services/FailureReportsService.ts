@@ -104,8 +104,8 @@ export class FailureReportsService {
      *
      * Added a query parameter `include-task-list` and `taskList` in the response. When a work order is created based on this notification, operations from the `taskList` will be automatically copied into the work order.
      *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
+     * ### Update release 1.33.0
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
      *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -124,6 +124,7 @@ export class FailureReportsService {
         includeUrlReferences = false,
         includeMeasurements = false,
         includeTaskList = false,
+        includeTaskResponsibleDetails = false,
     }: {
         /**
          * The recordId of the failure report.
@@ -173,6 +174,10 @@ export class FailureReportsService {
          * Include task list with task list operations
          */
         includeTaskList?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<FailureReport | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -192,6 +197,7 @@ export class FailureReportsService {
                 'include-url-references': includeUrlReferences,
                 'include-measurements': includeMeasurements,
                 'include-task-list': includeTaskList,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location
@@ -243,6 +249,9 @@ export class FailureReportsService {
      *
      * ### Update release 1.32.0
      * Added ability to append text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info.
+     *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current text.
      *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -676,9 +685,6 @@ export class FailureReportsService {
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Upcoming changes
-     * Added `changedDateTime`, `taskResponsible` and `taskResponsibleEmail` for `tasks` in response.
-     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns MaintenanceRecordTask Created
      * @throws ApiError
@@ -778,7 +784,15 @@ export class FailureReportsService {
      * When a task is created, it will have status `TSOS - Outstanding task` and `CRTE - Created`.
      * The status `TSRL - Task Released` can be set afterwards.
      *
-     * ### Update release 1.33.0
+     * Now it is possible to set following statuses:
+     * - TSRL Task Released
+     * - TSCO Task Completed
+     * - TSSC Task successful
+     * - TCMP WF when task completed
+     * - RIND Returned - Wait for info
+     * - CANC Cancelled
+     *
+     * ### Upcoming changes
      * Enabled activation of user statuses like `TCMP - WF when task completed`, `RIND - Returned - Wait for info` and `CANC - Cancelled`
      *
      * @returns ProblemDetails Response for other HTTP status codes

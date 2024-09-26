@@ -173,6 +173,9 @@ export class MasterDataForPlantsService {
      * ### Update version 1.20.0
      * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
      *
+     * ### Upcoming change
+     * Added `include-responsible-persons` to the response. Added `responsiblePersons` to the response.
+     *
      * @returns Plant Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -189,6 +192,7 @@ export class MasterDataForPlantsService {
         includeRevisions = false,
         includeSystems = false,
         includeBaselinePlans = false,
+        includeResponsiblePersons = false,
     }: {
         plantId: string,
         /**
@@ -232,6 +236,10 @@ export class MasterDataForPlantsService {
          * Include open baseline plans for the planning plant of this plant
          */
         includeBaselinePlans?: boolean,
+        /**
+         * Include persons that are already responsible for objects on this plant
+         */
+        includeResponsiblePersons?: boolean,
     }): CancelablePromise<Plant | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -250,6 +258,7 @@ export class MasterDataForPlantsService {
                 'include-revisions': includeRevisions,
                 'include-systems': includeSystems,
                 'include-baseline-plans': includeBaselinePlans,
+                'include-responsible-persons': includeResponsiblePersons,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -280,7 +289,7 @@ export class MasterDataForPlantsService {
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * ### Update in an upcoming release
+     * ### Update release 1.33.0
      * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
      * @returns PlanningPlantRevision Success
@@ -363,7 +372,7 @@ export class MasterDataForPlantsService {
      *
      * Split parts of `location` on `materials` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * ### Update in an upcoming release
+     * ### Update release 1.33.0
      * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
      * @returns RevisionWorkOrderOperation Success
@@ -442,6 +451,9 @@ export class MasterDataForPlantsService {
      * ### Update version 1.20.0
      * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
      *
+     * ### Upcoming change
+     * Added `include-responsible-persons` to the response. Added `responsiblePersons` to the response.
+     *
      * @returns Plant Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -457,6 +469,7 @@ export class MasterDataForPlantsService {
         includeEquipmentCatalogProfiles = false,
         includeSurfaceDegradationFactors = false,
         includeBaselinePlans = false,
+        includeResponsiblePersons = false,
     }: {
         /**
          * Filter to limit plants by
@@ -498,6 +511,10 @@ export class MasterDataForPlantsService {
          * Include open baseline plans for the planning plant of this plant
          */
         includeBaselinePlans?: boolean,
+        /**
+         * Include persons that are already responsible for objects on this plant
+         */
+        includeResponsiblePersons?: boolean,
     }): CancelablePromise<Array<Plant> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -513,6 +530,7 @@ export class MasterDataForPlantsService {
                 'include-equipment-catalog-profiles': includeEquipmentCatalogProfiles,
                 'include-surface-degradation-factors': includeSurfaceDegradationFactors,
                 'include-baseline-plans': includeBaselinePlans,
+                'include-responsible-persons': includeResponsiblePersons,
             },
             errors: {
                 400: `Request is missing required parameters`,

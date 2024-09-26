@@ -6,6 +6,7 @@ import type { ProblemDetails } from '../models/ProblemDetails';
 import type { WorkOrderChangeLogs } from '../models/WorkOrderChangeLogs';
 import type { WorkOrderInPlan } from '../models/WorkOrderInPlan';
 import type { WorkOrderOptimizedForQuery } from '../models/WorkOrderOptimizedForQuery';
+import type { WorkOrderTypes } from '../models/WorkOrderTypes';
 import type { WorkOrderWithOperationList } from '../models/WorkOrderWithOperationList';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -35,6 +36,11 @@ export class WorkOrdersService {
      * - location-id-any-of (optional)
      * - revision-id-any-of (optional)
      * - work-center-id-any-of (optional, supports * wildcard at the end)
+     * - main-work-center-id-any-of (optional, supports * wildcard at the end)
+     * - status-any-of (optional)
+     * - status-not (optional)
+     * - operation-notes-any-of (optional)
+     * - person-responsible-id (optional)
      *
      * Example of usage:
      * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start-date=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
@@ -48,6 +54,13 @@ export class WorkOrdersService {
      * - plan-period-start-date (optional)
      * - plan-period-duration (optional)
      * - person-responsible-email (value should be URL encoded) (optional)
+     * - location-id-any-of (optional)
+     * - revision-id-any-of (optional)
+     * - work-center-id-any-of (optional, supports * wildcard at the end)
+     * - main-work-center-id-any-of (optional, supports * wildcard at the end)
+     * - status-any-of (optional)
+     * - status-not (optional)
+     * - operation-notes-any-of (optional)
      *
      * Example of usage:
      * - `/work-order-plan/{planning-plant-id}?filter=by-person-responsible&person-responsible-email=shortname@equinor.com&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
@@ -57,6 +70,17 @@ export class WorkOrdersService {
      *
      * ### Update release 1.29.0
      * Added properties `cmrIndicator` and `maintenanceRecordId`.
+     *
+     * ### Upcoming changes
+     * Added following filter options:
+     * - `main-work-center-id-any-of`
+     * - `status-any-of`
+     * - `status-not`
+     * - `operation-notes-any-of`
+     *
+     * Added following fields to the response:
+     * - `personResponsible`
+     * - `mainWorkCenterId`
      *
      * @returns WorkOrderInPlan Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -72,8 +96,12 @@ export class WorkOrdersService {
         includePersonResponsible = false,
         workOrderTypesAnyOf,
         workCenterIdAnyOf,
+        mainWorkCenterIdAnyOf,
         revisionIdAnyOf,
         locationIdAnyOf,
+        statusAnyOf,
+        statusNot,
+        operationNotesAnyOf,
     }: {
         /**
          * Planning plant to retrieve work order plan for
@@ -112,6 +140,10 @@ export class WorkOrdersService {
          */
         workCenterIdAnyOf?: string,
         /**
+         * Comma-separated list of main-work-center-id
+         */
+        mainWorkCenterIdAnyOf?: string,
+        /**
          * Comma-separated list of revision-id
          */
         revisionIdAnyOf?: string,
@@ -119,6 +151,18 @@ export class WorkOrdersService {
          * Comma-separated list of location-id
          */
         locationIdAnyOf?: string,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusAnyOf?: Array<'STRT' | 'RDOP' | 'TECO' | 'REL' | 'CRTD'>,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusNot?: Array<'STRT' | 'RDOP' | 'TECO' | 'REL' | 'CRTD'>,
+        /**
+         * Query based on operation planNotes
+         */
+        operationNotesAnyOf?: string,
     }): CancelablePromise<Array<WorkOrderInPlan> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -135,8 +179,12 @@ export class WorkOrdersService {
                 'include-person-responsible': includePersonResponsible,
                 'work-order-types-any-of': workOrderTypesAnyOf,
                 'work-center-id-any-of': workCenterIdAnyOf,
+                'main-work-center-id-any-of': mainWorkCenterIdAnyOf,
                 'revision-id-any-of': revisionIdAnyOf,
                 'location-id-any-of': locationIdAnyOf,
+                'status-any-of': statusAnyOf,
+                'status-not': statusNot,
+                'operation-notes-any-of': operationNotesAnyOf,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -313,6 +361,32 @@ export class WorkOrdersService {
                 'external-partner-work-order-id': externalPartnerWorkOrderId,
                 'cost-wbs-id': costWbsId,
                 'cost-network-id': costNetworkId,
+            },
+        });
+    }
+
+    /**
+     * Work orders - Types
+     * ### Overview
+     * Get type of a work order based on the work order id.
+     *
+     * @returns WorkOrderTypes Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getWorkOrderType({
+        workOrderIdsAnyOf,
+    }: {
+        /**
+         * The work orders as a comma separated list.
+         */
+        workOrderIdsAnyOf: string,
+    }): CancelablePromise<Array<WorkOrderTypes> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/work-order-types',
+            query: {
+                'work-order-ids-any-of': workOrderIdsAnyOf,
             },
         });
     }

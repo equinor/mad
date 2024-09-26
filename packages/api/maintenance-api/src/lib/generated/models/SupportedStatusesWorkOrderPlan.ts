@@ -3,8 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type CommunicationBasic = {
-    reservationId?: string;
-    collaborationText: string;
-};
-
+export type SupportedStatusesWorkOrderPlan = Array<'STRT' | 'RDOP' | 'TECO' | 'REL' | 'CRTD'>;

@@ -6,11 +6,14 @@
 import type { PreventiveWorkOrderSimple } from './PreventiveWorkOrderSimple';
 
 export type PreventiveWorkOrderBasic = (PreventiveWorkOrderSimple & {
+    text: string;
     /**
      * The type of work order it is an instance of
-    */
-   workOrderTypeId: 'preventiveWorkOrder';
-   plannerGroup: string;
-   workCenter: string;
-   text: string;
+     */
+    workOrderTypeId: 'preventiveWorkOrder';
+    plannerGroup: string;
+    workCenter: string;
+    isProductionCritical?: string;
+    isHSECritical?: string;
 });
+

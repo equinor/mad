@@ -15,7 +15,7 @@ export type MaintenanceRecordTask = {
     title: string;
     text: string;
     /**
-     * Active statuses for the Failure report with space as separating character
+     * Active statuses for the Maintenance record with space as separating character
      */
     activeStatusIds: string;
     /**
@@ -34,18 +34,6 @@ export type MaintenanceRecordTask = {
      * Value is dependent on taskResponsibleType
      */
     taskResponsibleId: string;
-    /**
-     * The full name of the person who is responsible for the task.
-     */
-    taskResponsible?: string;
-    /**
-     * The email address of the person who is responsible for the task.
-     */
-    taskResponsibleEmail?: string;
-    /**
-     * Date and time of when the the task was last changed.
-     */
-    changedDateTime?: string | null;
     plannedStartDateTime: string | null;
     plannedEndDateTime: string | null;
     createdDateTime: string | null;

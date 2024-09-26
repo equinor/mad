@@ -57,6 +57,9 @@ export class TechnicalClarificationsService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
+     * ### update release 1.33.0
+     * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
+     *
      * @returns TechnicalClarification Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -69,6 +72,7 @@ export class TechnicalClarificationsService {
         includeTagDetails = false,
         includePersonResponsible = false,
         includeCreatedByDetails = false,
+        includeTaskResponsibleDetails = false,
     }: {
         /**
          * The recordId of the technical clarification
@@ -98,6 +102,10 @@ export class TechnicalClarificationsService {
          * Include name and email of user represented in `createdById`. If not supplied, `createdBy` and `createdByEmail` will have null value.
          */
         includeCreatedByDetails?: boolean,
+        /**
+         * Include task responsible details. Can have a slight performance impact.
+         */
+        includeTaskResponsibleDetails?: boolean,
     }): CancelablePromise<TechnicalClarification | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -112,6 +120,7 @@ export class TechnicalClarificationsService {
                 'include-tag-details': includeTagDetails,
                 'include-person-responsible': includePersonResponsible,
                 'include-created-by-details': includeCreatedByDetails,
+                'include-task-responsible-details': includeTaskResponsibleDetails,
             },
             errors: {
                 301: `The specified resource exists in another location

@@ -93,7 +93,7 @@ const getUrl = (config: OpenAPIConfig, options: ApiRequestOptions): string => {
             return substring;
         });
 
-    const url = `${config.BASE}${path}` + (path.endsWith('/') ? '' : '/');
+    const url = `${config.BASE}${path}`;
 
     if (options.query) {
         return `${url}${getQueryString(options.query)}`;

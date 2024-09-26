@@ -14,8 +14,11 @@ export type ActivityReportJsonPatch = {
      * Operation `append` is suitable for the following properties:
      * - `/text`
      *
+     * Operation `prepend` is suitable for the following properties:
+     * - `/text`
+     *
      */
-    op: 'replace' | 'append';
+    op: 'replace' | 'append' | 'prepend';
     /**
      * Path indicating the property to be impacted by the operation
      */

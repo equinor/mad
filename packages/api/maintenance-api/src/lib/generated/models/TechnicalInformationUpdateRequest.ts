@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 import type { Attachment } from './Attachment';
-import type { MaintenanceRecordTask } from './MaintenanceRecordTask';
+import type { MaintenanceRecordTaskWithResponsibleDetails } from './MaintenanceRecordTaskWithResponsibleDetails';
 import type { Status } from './Status';
 import type { TagBasic } from './TagBasic';
 import type { TechnicalInformationUpdateRequestBasic } from './TechnicalInformationUpdateRequestBasic';
@@ -39,6 +39,6 @@ export type TechnicalInformationUpdateRequest = (TechnicalInformationUpdateReque
     /**
      * Tasks for this technical information update request
      */
-    tasks?: Array<MaintenanceRecordTask>;
+    tasks?: Array<MaintenanceRecordTaskWithResponsibleDetails>;
 });
 

@@ -142,7 +142,7 @@ export class PreventiveWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
-     * ### Update in an upcoming release
+     * ### Update release 1.33.0
      * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
      * @returns PreventiveWorkOrder Success
@@ -297,6 +297,9 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.21.0
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.33.0
+     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current work order text.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

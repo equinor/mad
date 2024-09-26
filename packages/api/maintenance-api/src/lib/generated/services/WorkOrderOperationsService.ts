@@ -250,8 +250,8 @@ export class WorkOrderOperationsService {
      * ### Update release 1.31.0
      * Split parts of `location` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * ### Update in an upcoming release
-     * Added support for new properties `supplierId`, `vendorsMaterialNumber`, `deliveryTimeInDays`, `requisitionerId`, `holdDeliveryOnshore`, and `text`.
+     * ### Update release 1.33.0
+     * Added support for new properties `supplierId`, `vendorsMaterialNumber`, `deliveryTimeInDays`, `requisitionerId`, `holdDeliveryOnshore`, `text`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns any Created
@@ -330,7 +330,7 @@ export class WorkOrderOperationsService {
      *
      * The ´reservation-id´ parameter to use in the url can be found using the include-materials query parameter to work order lookup.
      *
-     * ### Update in an upcoming release
+     * ### Update release 1.33.0
      * Added support for the same properties which can be used for material creation.
      *
      * @returns ProblemDetails Response for other HTTP status codes
