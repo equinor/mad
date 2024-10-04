@@ -91,12 +91,18 @@ export const WorkOrderPropertyList = ({
                         label={label}
                         value={value}
                         textColor={textColor}
+                        selectable
                     />
                 );
             })}
 
             {additionalPropertyRows.map((item, index) => (
-                <PropertyRow key={`additional-${index}`} label={item.label} value={item.value} />
+                <PropertyRow
+                    key={`additional-${index}`}
+                    label={item.label}
+                    value={item.value}
+                    selectable
+                />
             ))}
         </>
     );
