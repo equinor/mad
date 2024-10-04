@@ -58,7 +58,11 @@ export const getStatusIconsAndLabels = (
         });
     }
 
-    if (!activeStatuses?.includes("STRT")) {
+    if (
+        !activeStatuses?.includes("STRT") &&
+        !activeStatuses?.includes("RDOP") &&
+        !activeStatuses?.includes("TECO")
+    ) {
         iconsAndLabels.push({
             icon: "circle-outline",
             label: "Not started",
