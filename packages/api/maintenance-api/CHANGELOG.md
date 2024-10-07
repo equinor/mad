@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.34.0
+
+### Minor Changes
+
+-   05a1434: Update to mAPI version 1.34.0 (pre-release version)
+
 ## 1.33.0
 
 ### Minor Changes
