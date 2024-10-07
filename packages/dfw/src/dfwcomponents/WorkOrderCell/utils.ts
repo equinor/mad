@@ -64,7 +64,7 @@ export const getStatusIconsAndLabels = (
         iconsAndLabels.push(getStatusIconConfig("productionCritical")!);
     }
 
-    if (activeStatuses.includes("RDOP") && activeStatuses.includes("TECO")) {
+    if (activeStatuses.includes("RDOP") || activeStatuses.includes("TECO")) {
         iconsAndLabels.push(getStatusIconConfig("finished")!);
     } else if (activeStatuses.includes("STRT")) {
         iconsAndLabels.push(getStatusIconConfig("started")!);
