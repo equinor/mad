@@ -15,7 +15,7 @@ const getStatusIconConfig = (status: string): StatusConfig | undefined => {
             iconColor: "textPrimary",
         },
         finished: {
-            icon: "circle",
+            icon: "check-circle",
             label: "Finished",
             textColor: "textTertiary",
             iconColor: "textPrimary",
