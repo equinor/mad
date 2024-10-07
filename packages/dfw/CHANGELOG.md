@@ -1,5 +1,11 @@
 # @equinor/mad-dfw
 
+## 0.5.4
+
+### Patch Changes
+
+-   455b6ee: Changed the finished icon in the `WorkOrderCell` from `circle` to `check-circle`
+
 ## 0.5.3
 
 ### Patch Changes
