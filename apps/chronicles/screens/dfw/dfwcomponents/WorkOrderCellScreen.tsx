@@ -30,7 +30,7 @@ export const WorkOrderCellScreen = () => {
                     maintenanceType: "Surface monitoring",
                     tagId: "TAG-123456",
                     equipmentId: "EQUIP-123456",
-                    activeStatusIds: "STRT",
+                    activeStatusIds: "RDOP TECO",
                     basicStartDate: "2023-04-07",
                     basicEndDate: "2023-09-12",
                     requiredEndDate: "2024-04-23",
@@ -109,6 +109,7 @@ export const WorkOrderCellScreen = () => {
                     workOrder={{
                         title: "With required end date in the past",
                         workOrderType: "PM02",
+                        activeStatusIds: "STRT",
                         workOrderId: "25282760",
                         requiredEndDate: "2022-04-23",
                     }}
@@ -176,7 +177,7 @@ export const WorkOrderCellScreen = () => {
                     workOrderId: "25282760",
                     workOrderType: "PM02",
                     tagId: "TAG-123456",
-                    activeStatusIds: "STRT",
+                    activeStatusIds: "RDOP TECO",
                     basicStartDate: "2023-02-07",
                     basicEndDate: "2023-04-07",
                     workCenterId: "POMISP",

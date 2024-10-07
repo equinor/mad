@@ -1,23 +1,46 @@
 import { StatusConfig } from "./types";
 
-export const getStatusIconConfig = (status: string): StatusConfig | undefined => {
-    switch (status) {
-        case "STRT":
-            return {
-                icon: "circle-half-full",
-                label: "Started",
-                textColor: "textTertiary",
-                iconColor: "textPrimary",
-            };
-        case "RDOP":
-            return {
-                icon: "circle",
-                label: "Ready for operation",
-                textColor: "textTertiary",
-                iconColor: "textPrimary",
-            };
-    }
-    return undefined;
+const getStatusIconConfig = (status: string): StatusConfig | undefined => {
+    const statusMap: Record<string, StatusConfig> = {
+        notStarted: {
+            icon: "circle-outline",
+            label: "Not started",
+            textColor: "textTertiary",
+            iconColor: "textPrimary",
+        },
+        started: {
+            icon: "circle-half-full",
+            label: "Started",
+            textColor: "textTertiary",
+            iconColor: "textPrimary",
+        },
+        finished: {
+            icon: "circle",
+            label: "Finished",
+            textColor: "textTertiary",
+            iconColor: "textPrimary",
+        },
+        requiredEndOverdue: {
+            icon: "alarm",
+            label: "Required end overdue",
+            textColor: "textTertiary",
+            iconColor: "danger",
+        },
+        hseCritical: {
+            icon: "alert-outline",
+            label: "HSE critical",
+            textColor: "textTertiary",
+            iconColor: "danger",
+        },
+        productionCritical: {
+            icon: "water-outline",
+            label: "Production critical",
+            textColor: "textTertiary",
+            iconColor: "danger",
+        },
+    };
+
+    return statusMap[status];
 };
 
 export const getStatusIconsAndLabels = (
@@ -26,57 +49,28 @@ export const getStatusIconsAndLabels = (
     hseCritical?: boolean,
     productionCritical?: boolean,
 ): StatusConfig[] => {
-    const requiredEnd = requiredEndDate ? new Date(requiredEndDate) : null;
-    const activeStatuses = activeStatusIds?.split(" ");
     const today = new Date();
     const iconsAndLabels: StatusConfig[] = [];
+    const activeStatuses = activeStatusIds?.split(" ") ?? [];
 
-    if (requiredEnd && today > requiredEnd) {
-        iconsAndLabels.push({
-            icon: "alarm",
-            label: "Required end overdue",
-            textColor: "textTertiary",
-            iconColor: "danger",
-        });
+    if (requiredEndDate && today > new Date(requiredEndDate)) {
+        iconsAndLabels.push(getStatusIconConfig("requiredEndOverdue")!);
     }
 
     if (hseCritical) {
-        iconsAndLabels.push({
-            icon: "alert-outline",
-            label: "HSE critical",
-            textColor: "textTertiary",
-            iconColor: "danger",
-        });
+        iconsAndLabels.push(getStatusIconConfig("hseCritical")!);
     }
-
     if (productionCritical) {
-        iconsAndLabels.push({
-            icon: "water-outline",
-            label: "Production critical",
-            textColor: "textTertiary",
-            iconColor: "danger",
-        });
+        iconsAndLabels.push(getStatusIconConfig("productionCritical")!);
     }
 
-    if (
-        !activeStatuses?.includes("STRT") &&
-        !activeStatuses?.includes("RDOP") &&
-        !activeStatuses?.includes("TECO")
-    ) {
-        iconsAndLabels.push({
-            icon: "circle-outline",
-            label: "Not started",
-            textColor: "textTertiary",
-            iconColor: "textPrimary",
-        });
+    if (activeStatuses.includes("RDOP") && activeStatuses.includes("TECO")) {
+        iconsAndLabels.push(getStatusIconConfig("finished")!);
+    } else if (activeStatuses.includes("STRT")) {
+        iconsAndLabels.push(getStatusIconConfig("started")!);
+    } else {
+        iconsAndLabels.push(getStatusIconConfig("notStarted")!);
     }
-
-    activeStatuses?.forEach(status => {
-        const statusConfig = getStatusIconConfig(status);
-        if (statusConfig) {
-            iconsAndLabels.push(statusConfig);
-        }
-    });
 
     return iconsAndLabels;
 };
