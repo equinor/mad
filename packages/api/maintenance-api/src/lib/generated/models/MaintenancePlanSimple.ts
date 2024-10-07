@@ -11,5 +11,11 @@ export type MaintenancePlanSimple = {
      * The maintenance plan is active if it is not deactivated or deleted
      */
     isActive: boolean;
+    callNumber: number;
+    /**
+     * The last work order called
+     */
+    previousCall: string;
+    completionDate: string | null;
 };
 

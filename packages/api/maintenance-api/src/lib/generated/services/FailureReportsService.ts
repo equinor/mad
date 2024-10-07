@@ -451,12 +451,12 @@ export class FailureReportsService {
     /**
      * Failure report - Search
      * ### Overview
-     * Search for failure reports through predefined filters.
+     * Search for Failure reports through predefined filters.
      * Each filter has a defined action and a set of parameters as described below.
      *
      * ### Response
      * The response does not include status details for each failure report.
-     * This can be found by subsequent call to lookup failure-reports
+     * This can be found by performing a subsequent request to Lookup failure-reports.
      *
      *
      * ### Filter: recent-status-activations
@@ -468,7 +468,7 @@ export class FailureReportsService {
      * - work-center-ids (optional)
      *
      * ### Filter: open-by-plant
-     * Find open failure reports by plant
+     * Find open Failure reports by plant
      * Parameters:
      * - plant-id
      * - location-id (optional)

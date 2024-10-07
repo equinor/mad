@@ -4,13 +4,14 @@
 /* eslint-disable */
 
 import type { SASChangeWorkOrderSimple } from './SASChangeWorkOrderSimple';
-import type { WorkOrderOperationSimple } from './WorkOrderOperationSimple';
+import type { WorkOrderOperationSimpleForSearch } from './WorkOrderOperationSimpleForSearch';
 
 export type SASChangeWorkOrderWithOperationSelf = (SASChangeWorkOrderSimple & {
     text?: string | null;
+    requiredEndDate: string | null;
     _links: {
         self?: string;
     };
-    operations: Array<WorkOrderOperationSimple>;
+    operations: Array<WorkOrderOperationSimpleForSearch> | null;
 });
 

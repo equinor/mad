@@ -106,6 +106,11 @@ export class EquipmentService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
+     * ### Update release 1.34.0
+     * Added property `linkedEquipment`, which can be included in the response by using the new query parameter `include-linked-equipment`.
+     *
+     * Added boolean property `hasLinkageToEquipment` that will be true if the equipment has any linked equipment.
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -128,6 +133,7 @@ export class EquipmentService {
         includePersonResponsible = false,
         includeSubEquipment = false,
         includeStatusDetails = false,
+        includeLinkedEquipment = false,
     }: {
         /**
          * The unique equipmentId in Equinor's system
@@ -186,7 +192,7 @@ export class EquipmentService {
          */
         includeLastMeasurement?: boolean,
         /**
-         * Include person responsible information in response
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
         includePersonResponsible?: boolean,
         /**
@@ -199,6 +205,10 @@ export class EquipmentService {
          * Include detailed information for statuses (both active and non-active)
          */
         includeStatusDetails?: boolean,
+        /**
+         * Include list of equipment that are physically linked to this equipment.
+         */
+        includeLinkedEquipment?: boolean,
     }): CancelablePromise<Equipment | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -223,6 +233,7 @@ export class EquipmentService {
                 'include-person-responsible': includePersonResponsible,
                 'include-sub-equipment': includeSubEquipment,
                 'include-status-details': includeStatusDetails,
+                'include-linked-equipment': includeLinkedEquipment,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -672,6 +683,11 @@ export class EquipmentService {
      *
      * Added query parameter `technical-identification-number-any-of` to allow searching based on `technicalIdentificationNumber`.
      *
+     * ### Update release 1.34.0
+     * Added property `linkedEquipment`, which can be included in each equipment in the response by using the new query parameter `include-linked-equipment`.
+     *
+     * Added boolean property `hasLinkageToEquipment` that will be true if the equipment has any linked equipment.
+     *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -699,6 +715,7 @@ export class EquipmentService {
         includeWorkOrderTypes,
         includeOnlyOpenWorkOrders = false,
         includeCharacteristics = false,
+        includeLinkedEquipment = false,
         perPage = 20,
         page = 1,
     }: {
@@ -759,7 +776,7 @@ export class EquipmentService {
          */
         includeWorkOrders?: boolean,
         /**
-         * Include person responsible information in response
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
         includePersonResponsible?: boolean,
         /**
@@ -792,6 +809,10 @@ export class EquipmentService {
          * Include equipment characteristics such as 'Kontrollkort gyldig til' and 'Equipment group'
          */
         includeCharacteristics?: boolean,
+        /**
+         * Include list of equipment that are physically linked to this equipment.
+         */
+        includeLinkedEquipment?: boolean,
         /**
          * Results to return pr page
          */
@@ -827,6 +848,7 @@ export class EquipmentService {
                 'include-work-order-types': includeWorkOrderTypes,
                 'include-only-open-work-orders': includeOnlyOpenWorkOrders,
                 'include-characteristics': includeCharacteristics,
+                'include-linked-equipment': includeLinkedEquipment,
                 'per-page': perPage,
                 'page': page,
             },
@@ -907,7 +929,7 @@ export class EquipmentService {
     }
 
     /**
-     * Equipment - Create
+     * Equipment - Create (raw)
      * ### Overview
      *
      * Create equipment - special intended usage for machine-to-machine integration. Fields are kept in their raw form, and mirror the data model in SAP.
@@ -937,10 +959,10 @@ export class EquipmentService {
     }
 
     /**
-     * Equipment - Change
+     * Equipment - Change (raw)
      * ### Overview
      *
-     * Change equipment - special intended usage for machine-to-machine integration.. Fields are kept in their raw form, and mirror the data model in SAP.
+     * Change equipment - special intended usage for machine-to-machine integration. Fields are kept in their raw form, and mirror the data model in SAP.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns RawEquipmentChangeReturn Change equipment - return SAP BAPI structure

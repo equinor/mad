@@ -106,7 +106,7 @@ export class TechnicalInformationUpdateRequestsService {
          */
         includeTagDetails?: boolean,
         /**
-         * Include person responsible information in response
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
         includePersonResponsible?: boolean,
         /**
@@ -429,7 +429,7 @@ export class TechnicalInformationUpdateRequestsService {
          */
         filter: 'recent-status-activations' | 'open-by-plant' | 'by-tag' | 'by-person-responsible',
         /**
-         * Include person responsible information in response
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
         includePersonResponsible?: boolean,
         /**
@@ -659,10 +659,14 @@ export class TechnicalInformationUpdateRequestsService {
      * - TCMP WF when task completed
      * - RIND Returned - Wait for info
      * - CANC Cancelled
+     * - PRCR - Product Created
      *
      *
      * ### Upcoming changes
      * Enabled activation of user statuses like `TCMP - WF when task completed`, `RIND - Returned - Wait for info` and `CANC - Cancelled`
+     *
+     *
+     * Enabled activation of user statuses related to products, such as `PRCR - Product Created`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

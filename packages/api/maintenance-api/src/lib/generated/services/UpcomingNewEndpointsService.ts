@@ -15,7 +15,7 @@ import { request as __request } from '../core/request';
 export class UpcomingNewEndpointsService {
 
     /**
-     * Equipment - Create
+     * Equipment - Create (raw)
      * ### Overview
      *
      * Create equipment - special intended usage for machine-to-machine integration. Fields are kept in their raw form, and mirror the data model in SAP.
@@ -45,10 +45,10 @@ export class UpcomingNewEndpointsService {
     }
 
     /**
-     * Equipment - Change
+     * Equipment - Change (raw)
      * ### Overview
      *
-     * Change equipment - special intended usage for machine-to-machine integration.. Fields are kept in their raw form, and mirror the data model in SAP.
+     * Change equipment - special intended usage for machine-to-machine integration. Fields are kept in their raw form, and mirror the data model in SAP.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns RawEquipmentChangeReturn Change equipment - return SAP BAPI structure

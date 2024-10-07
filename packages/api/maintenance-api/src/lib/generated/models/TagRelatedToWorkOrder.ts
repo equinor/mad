@@ -23,5 +23,6 @@ export type TagRelatedToWorkOrder = (TagMinimal & {
      *
      */
     sourceId: string;
+    relatedOperations?: Array<any>;
 });
 

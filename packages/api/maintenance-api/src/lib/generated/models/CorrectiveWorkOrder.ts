@@ -26,7 +26,7 @@ export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
      */
     tagsRelated?: Array<TagRelatedToWorkOrder>;
     /**
-     * Related tags
+     * Related maintenance records
      */
     maintenanceRecords?: Array<MaintenanceRecordMinimalWithActiveStatusIds>;
     tagDetails?: TagBasic;
@@ -42,5 +42,7 @@ export type CorrectiveWorkOrder = (CorrectiveWorkOrderBasic & {
      * Estimated Costs
      */
     estimatedCosts?: Array<EstimatedCosts>;
+    isProductionCritical: string;
+    isHSECritical: string;
 });
 

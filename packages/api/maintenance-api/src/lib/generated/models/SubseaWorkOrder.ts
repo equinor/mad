@@ -33,5 +33,10 @@ export type SubseaWorkOrder = (SubseaWorkOrderBasic & {
      * Related equipment
      */
     tagsRelated?: Array<TagRelatedToWorkOrder>;
+    additionalCostWBSId: string;
+    additionalCostWBS: string;
+    costWBS: string;
+    isProductionCritical: string;
+    isHSECritical: string;
 });
 

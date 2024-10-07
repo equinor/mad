@@ -65,6 +65,13 @@ export class SubseaWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
+     * ### Update release 1.33.1
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
+     * ### Update release 1.34.0
+     * Added properties `additionalCostWBSId`, `additionalCostWBS`, `costWBS`, `isHSECritical` and `isProductionCritical` to the response.
+     *
      * @returns SubseaWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -74,6 +81,7 @@ export class SubseaWorkOrdersService {
         includeOperations = true,
         includeServiceOperations = true,
         includeMaterials = true,
+        includeCostDataForMaterials = false,
         includeAttachments = false,
         includePersonResponsible = false,
         includeStatusDetails = false,
@@ -94,11 +102,15 @@ export class SubseaWorkOrdersService {
          */
         includeMaterials?: boolean,
         /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
+        /**
          * Include Work order attachments (on header and for operation)
          */
         includeAttachments?: boolean,
         /**
-         * Include person responsible information in response
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
         includePersonResponsible?: boolean,
         /**
@@ -124,6 +136,7 @@ export class SubseaWorkOrdersService {
                 'include-operations': includeOperations,
                 'include-service-operations': includeServiceOperations,
                 'include-materials': includeMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-attachments': includeAttachments,
                 'include-person-responsible': includePersonResponsible,
                 'include-status-details': includeStatusDetails,

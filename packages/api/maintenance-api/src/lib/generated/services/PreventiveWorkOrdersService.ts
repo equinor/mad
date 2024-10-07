@@ -84,10 +84,10 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.11.0
      * Added the following properties:
      *
-     * * personResponsibleId and personResponsibleEmail
-     * * isProductionCritical and isHSECritical
-     * * workCenter
-     * * plannerGroup
+     * * `personResponsibleId` and `personResponsibleEmail`
+     * * `isProductionCritical` and `isHSECritical`
+     * * `workCenter`
+     * * `plannerGroup`
      *
      * ### Update release 1.12.0
      * Added new query parameter `include-technical-feedback`. It returns related technical feedback required to be completed as part of work order execution.
@@ -145,6 +145,18 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.33.0
      * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
+     * ### Update release 1.33.1
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
+     * ### Update release 1.34.0
+     * Added new properties `callNumber`, `previousCall`, and `completionDate` to `maintenancePlan`.
+     *
+     * Added new property `relatedOperations` to `maintenanceRecords` and `tagsRelated`.
+     * Also added query parameter `include-related-operations` to include the property `relatedOperations`.
+     *
+     * Added properties `additionalCostWBSId`, `additionalCostWBS`, `costWBS`, `costWBSId` and `requiredEndDate` to the response.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -155,6 +167,7 @@ export class PreventiveWorkOrdersService {
         includeServiceOperations = true,
         includeTechnicalFeedback = false,
         includeMaterials = false,
+        includeCostDataForMaterials = false,
         includeMaintenanceRecords = false,
         includeMaintenancePlanDetails = false,
         includeAttachments = false,
@@ -165,6 +178,7 @@ export class PreventiveWorkOrdersService {
         includeLastMeasurement = false,
         includeMeasurements = false,
         includeSafetyMeasures = false,
+        includeRelatedOperations = false,
     }: {
         workOrderId: string,
         /**
@@ -183,6 +197,10 @@ export class PreventiveWorkOrdersService {
          * Include materials for Work order operations
          */
         includeMaterials?: boolean,
+        /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
         /**
          * Include related maintenance records (from object list and technical feedback)
          */
@@ -223,6 +241,10 @@ export class PreventiveWorkOrdersService {
          * Include safety-measures in work order operations
          */
         includeSafetyMeasures?: boolean,
+        /**
+         * Includes the property `relatedOperations` in the response to expose operations that are related to an object in the objectlist (only relevant for related tags and related maintenance records).
+         */
+        includeRelatedOperations?: boolean,
     }): CancelablePromise<PreventiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -235,6 +257,7 @@ export class PreventiveWorkOrdersService {
                 'include-service-operations': includeServiceOperations,
                 'include-technical-feedback': includeTechnicalFeedback,
                 'include-materials': includeMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-maintenance-records': includeMaintenanceRecords,
                 'include-maintenance-plan-details': includeMaintenancePlanDetails,
                 'include-attachments': includeAttachments,
@@ -245,6 +268,7 @@ export class PreventiveWorkOrdersService {
                 'include-last-measurement': includeLastMeasurement,
                 'include-measurements': includeMeasurements,
                 'include-safety-measures': includeSafetyMeasures,
+                'include-related-operations': includeRelatedOperations,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -607,50 +631,50 @@ export class PreventiveWorkOrdersService {
     /**
      * Preventive Work order - Search
      * ### Overview
-     * Search for preventive Work orders through predefined filters.
+     * Search for Preventive Work orders through predefined filters.
      * Each filter has a defined action and a set of parameters as described below.
      *
      * ### Response
      * The response does not include all details for each preventive work order.
-     * This can be found by subsequent call to lookup preventive-work-order
+     * This can be found by performing a subsequent request to lookup preventive-work-order.
      *
      *
      * ### Filter: maintenance-plan-history
-     * Based on the maintenance plan of the Preventive Work order provided, find other instances sorted by start date
+     * Based on the maintenance plan of the Preventive Work order provided, find other instances sorted by start date.
      * Parameters:
-     * - work-order-id
-     * - earliest-date (optional)
-     * - max-work-orders (optional)
+     * - `work-order-id`
+     * - `earliest-date` (optional)
+     * - `max-work-orders` (optional)
      *
      * ### Filter: recent-status-activations
-     * Preventive work orders based on recent status activations for the work order.
+     * Find Preventive work orders based on recent status activations for the work order.
      * Parameters:
-     * - status-id
-     * - plant-id
-     * - max-days-since-activation
+     * - `status-id`
+     * - `plant-id`
+     * - `max-days-since-activation`
      *
      * ### Filter: before-planned-date
-     * Find open Preventive work orders before the before-planned-date
+     * Find open Preventive work orders before the `before-planned-date`.
      * Parameters:
-     * - plant-id
-     * - planned-date
-     * - location-id (optional)
-     * - system-id (optional)
+     * - `plant-id`
+     * - `planned-date`
+     * - `location-id` (optional)
+     * - `system-id` (optional)
      *
      * ### Filter: by-maintenance-type-id
-     * Find preventive work orders by maintenance type. Response will only include open work orders.
+     * Find open Preventive work orders by `maintenance-type-id`.
      * Parameters:
-     * - plant-id
-     * - maintenance-type-id
+     * - `plant-id`
+     * - `maintenance-type-id`
      *
      * ### Update release 0.9.0
      * Added filter by-maintenance-type-id.
      *
      * ### Update release 0.11.0
-     * Added system-id as optional parameter til filter before-planned-date.
+     * Added `system-id` as optional parameter for filter `before-planned-date`.
      *
      * ### Update release 1.5.0
-     * Added revisionId and revision to work order response (represents shutdown or campaign work).
+     * Added `revisionId` and `revision` to work order response (represents shutdown or campaign work).
      *
      * ### Update release 1.21.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a

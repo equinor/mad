@@ -4,13 +4,14 @@
 /* eslint-disable */
 
 import type { SubseaWorkOrderSimple } from './SubseaWorkOrderSimple';
-import type { WorkOrderOperationSimple } from './WorkOrderOperationSimple';
+import type { WorkOrderOperationSimpleForSearch } from './WorkOrderOperationSimpleForSearch';
 
 export type SubseaWorkOrderWithOperationSelf = (SubseaWorkOrderSimple & {
     text?: string | null;
+    requiredEndDate: string | null;
     _links: {
         self?: string;
     };
-    operations: Array<WorkOrderOperationSimple>;
+    operations: Array<WorkOrderOperationSimpleForSearch> | null;
 });
 
