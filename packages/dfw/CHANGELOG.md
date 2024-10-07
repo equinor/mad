@@ -1,5 +1,13 @@
 # @equinor/mad-dfw
 
+## 0.5.3
+
+### Patch Changes
+
+-   f73c165: Make the text values in the `WorkOrderCell` component selectable
+-   f73c165: Fixed validation for when the `not started` icon should be visible in the
+    `WorkOrderCell` component
+
 ## 0.5.2
 
 ### Patch Changes
