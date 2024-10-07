@@ -16,7 +16,7 @@ export type WorkOrderInPlan = {
     /**
      * The recordId of related maintenance record (typically activity-report or failure-report)
      */
-    maintenanceRecordId?: string | null;
+    maintenanceRecordId: string | null;
     productionCritical: boolean;
     hseCritical: boolean;
     /**
@@ -28,7 +28,7 @@ export type WorkOrderInPlan = {
      * - has received a "Hidden failure" code.
      *
      */
-    cmrIndicator?: boolean;
+    cmrIndicator: boolean;
     /**
      * Work center id from the operation
      */
@@ -37,7 +37,7 @@ export type WorkOrderInPlan = {
     /**
      * Main work center id on the header level
      */
-    mainWorkCenterId?: string;
+    mainWorkCenterId: string;
     /**
      * Structured location within the plant where the tag is located
      */
@@ -78,7 +78,7 @@ export type WorkOrderInPlan = {
     /**
      * Value only returned if include-person-responsible=true. The name of the person responsible.
      */
-    personResponsible?: string | null;
+    personResponsible: string | null;
     /**
      * Value only returned if include-person-responsible=true. The email of the person responsible for the processing of the technical clarification. This is the preferred way of identifying the person as it's consistent across systems.
      */

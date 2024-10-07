@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MaintenanceRecordMinimal } from './MaintenanceRecordMinimal';
+import type { WorkOrderObjectMaintenanceRecordMinimal } from './WorkOrderObjectMaintenanceRecordMinimal';
 
-export type MaintenanceRecordMinimalWithActiveStatusIds = (MaintenanceRecordMinimal & {
+export type MaintenanceRecordMinimalWithActiveStatusIds = (WorkOrderObjectMaintenanceRecordMinimal & {
     /**
      * Active statuses for the maintenance record with space as separating character
      */

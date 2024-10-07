@@ -95,7 +95,7 @@ export class TechnicalClarificationsService {
          */
         includeTagDetails?: boolean,
         /**
-         * Include person responsible information in response
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
         includePersonResponsible?: boolean,
         /**
@@ -301,7 +301,7 @@ export class TechnicalClarificationsService {
          */
         filter: 'recent-status-activations' | 'open-by-plant' | 'by-tag' | 'by-person-responsible',
         /**
-         * Include person responsible information in response
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
         includePersonResponsible?: boolean,
         /**

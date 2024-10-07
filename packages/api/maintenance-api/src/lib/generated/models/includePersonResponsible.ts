@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Include person responsible information in response
+ * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
  */
 export type includePersonResponsible = boolean;

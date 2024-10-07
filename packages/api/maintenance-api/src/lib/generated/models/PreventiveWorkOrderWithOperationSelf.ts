@@ -4,13 +4,14 @@
 /* eslint-disable */
 
 import type { PreventiveWorkOrderSimple } from './PreventiveWorkOrderSimple';
-import type { WorkOrderOperationSimple } from './WorkOrderOperationSimple';
+import type { WorkOrderOperationSimpleForSearch } from './WorkOrderOperationSimpleForSearch';
 
 export type PreventiveWorkOrderWithOperationSelf = (PreventiveWorkOrderSimple & {
     text?: string | null;
+    requiredEndDate: string | null;
     _links: {
         self?: string;
     };
-    operations: Array<WorkOrderOperationSimple>;
+    operations: Array<WorkOrderOperationSimpleForSearch> | null;
 });
 

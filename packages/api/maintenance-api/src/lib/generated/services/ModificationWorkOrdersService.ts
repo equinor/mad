@@ -164,6 +164,16 @@ export class ModificationWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
+     * ### Update release 1.33.1
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
+     * ### Update release 1.34.0
+     * Added new property `relatedOperations` to `maintenanceRecords` and `tagsRelated`.
+     * Also added query parameter `include-related-operations` to include the property `relatedOperations`.
+     *
+     * Added property `requiredEndDate`, `isHSECritical` and `isProductionCritical` to the response.
+     *
      * @returns ModificationWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -173,12 +183,14 @@ export class ModificationWorkOrdersService {
         includeOperations = true,
         includeServiceOperations = true,
         includeMaterials = true,
+        includeCostDataForMaterials = false,
         includeMaintenanceRecords = false,
         includeAttachments = false,
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
         includeSafetyMeasures = false,
+        includeRelatedOperations = false,
     }: {
         workOrderId: string,
         /**
@@ -193,6 +205,10 @@ export class ModificationWorkOrdersService {
          * Include materials for Work order operations
          */
         includeMaterials?: boolean,
+        /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
         /**
          * Include related maintenance records (from object list)
          */
@@ -217,6 +233,10 @@ export class ModificationWorkOrdersService {
          * Include safety-measures in work order operations
          */
         includeSafetyMeasures?: boolean,
+        /**
+         * Includes the property `relatedOperations` in the response to expose operations that are related to an object in the objectlist (only relevant for related tags and related maintenance records).
+         */
+        includeRelatedOperations?: boolean,
     }): CancelablePromise<ModificationWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -228,12 +248,14 @@ export class ModificationWorkOrdersService {
                 'include-operations': includeOperations,
                 'include-service-operations': includeServiceOperations,
                 'include-materials': includeMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-maintenance-records': includeMaintenanceRecords,
                 'include-attachments': includeAttachments,
                 'include-status-details': includeStatusDetails,
                 'include-tag-details': includeTagDetails,
                 'include-related-tags': includeRelatedTags,
                 'include-safety-measures': includeSafetyMeasures,
+                'include-related-operations': includeRelatedOperations,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`modificationWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.

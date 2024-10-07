@@ -56,6 +56,8 @@ export type Tag = (TagBasic & {
      * Material for the asset
      */
     material?: string;
+    isProductionCritical?: string;
+    isHSECritical?: string;
     characteristics?: Array<TagCharacteristic>;
     maintenanceRecords?: SimpleMaintenanceRecordsList;
     workOrders?: {

@@ -110,6 +110,16 @@ export class SasChangeWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
+     * ### Update release 1.33.1
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
+     * ### Update release 1.34.0
+     * Added new property `relatedOperations` to `maintenanceRecords` and `tagsRelated`.
+     * Also added query parameter `include-related-operations` to include the property `relatedOperations`.
+     *
+     * Added properties `additionalCostWBSId`, `additionalCostWBS`, `requiredEndDate`, `isHSECritical` and `isProductionCritical` to the response.
+     *
      * @returns SASChangeWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -119,12 +129,14 @@ export class SasChangeWorkOrdersService {
         includeOperations = true,
         includeServiceOperations = true,
         includeMaterials = true,
+        includeCostDataForMaterials = false,
         includeMaintenanceRecords = false,
         includeAttachments = false,
         includeStatusDetails = false,
         includeTagDetails = false,
         includeRelatedTags = false,
         includeSafetyMeasures = false,
+        includeRelatedOperations = false,
     }: {
         workOrderId: string,
         /**
@@ -139,6 +151,10 @@ export class SasChangeWorkOrdersService {
          * Include materials for Work order operations
          */
         includeMaterials?: boolean,
+        /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
         /**
          * Include related maintenance records (from object list)
          */
@@ -163,6 +179,10 @@ export class SasChangeWorkOrdersService {
          * Include safety-measures in work order operations
          */
         includeSafetyMeasures?: boolean,
+        /**
+         * Includes the property `relatedOperations` in the response to expose operations that are related to an object in the objectlist (only relevant for related tags and related maintenance records).
+         */
+        includeRelatedOperations?: boolean,
     }): CancelablePromise<SASChangeWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -174,12 +194,14 @@ export class SasChangeWorkOrdersService {
                 'include-operations': includeOperations,
                 'include-service-operations': includeServiceOperations,
                 'include-materials': includeMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-maintenance-records': includeMaintenanceRecords,
                 'include-attachments': includeAttachments,
                 'include-status-details': includeStatusDetails,
                 'include-tag-details': includeTagDetails,
                 'include-related-tags': includeRelatedTags,
                 'include-safety-measures': includeSafetyMeasures,
+                'include-related-operations': includeRelatedOperations,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`sasChangeWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -319,33 +341,33 @@ export class SasChangeWorkOrdersService {
      *
      * ### Response
      * The response does not include all details for each SAS Change Work order.
-     * This can be found by subsequent call to lookup sas-change-work-orders
+     * This can be found by performing a subsequent request to Lookup sas-change-work-orders.
      *
      * ### Filter: open-by-plant
-     * Find open SAS Change Work orders by plant
+     * Find open SAS Change Work orders by plant.
      * Parameters:
-     * - plant-id
-     * - location-id (optional)
-     * - system-id (optional)
+     * - `plant-id`
+     * - `location-id` (optional)
+     * - `system-id` (optional)
      *
      * ### Filter: recent-status-activations
      * SAS Change Work orders based on recent status activations for the work orders.
      * Parameters:
-     * - status-id
-     * - plant-id
-     * - max-days-since-activation
+     * - `status-id`
+     * - `plant-id`
+     * - `max-days-since-activation`
      *
      * ### Filter: by-cost-network
-     * Project work orders based on cost network id.
+     * Find SAS Change work orders based on Cost Network Id.
      * Parameters:
-     * - cost-network-id
-     * - plant-id (optional)
+     * - `cost-network-id`
+     * - `plant-id` (optional)
      *
      * ### Filter: by-cost-wbs
-     * Project work orders based on cost WBS id.
+     * Find SAS Change Work orders based on Cost WBS Id.
      * Parameters:
-     * - cost-wbs-id
-     * - plant-id (optional)
+     * - `cost-wbs-id`
+     * - `plant-id` (optional)
      *
      * ### Update release 1.4.0
      * Added location-id and system-id to filter `open-by-plant`.

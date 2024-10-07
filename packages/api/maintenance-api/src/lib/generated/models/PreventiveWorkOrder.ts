@@ -26,7 +26,7 @@ export type PreventiveWorkOrder = (PreventiveWorkOrderBasic & {
      */
     tagsRelated?: Array<TagRelatedToWorkOrder>;
     /**
-     * Related tags
+     * Related maintenance records
      */
     maintenanceRecords?: Array<MaintenanceRecordMinimalWithActiveStatusIds>;
     maintenancePlan?: MaintenancePlanSimple;
@@ -39,5 +39,10 @@ export type PreventiveWorkOrder = (PreventiveWorkOrderBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
+    additionalCostWBSId: string;
+    additionalCostWBS: string;
+    costWBSId: string;
+    costWBS: string;
+    requiredEndDate: string | null;
 });
 

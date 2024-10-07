@@ -123,9 +123,9 @@ export class CorrectiveWorkOrdersService {
      * Work orders now include the property 'isOpen'
      *
      * ### Update release 1.28.0
-     * Added new query parameter `include-safety-measure`.
+     * Added new query parameter `include-safety-measure`
      *
-     * Added new query parameter `include-estimated-costs`.
+     * Added new query parameter `include-estimated-costs`
      *
      * Added `tag` and `title` to `maintenanceRecords` expand.
      *
@@ -137,11 +137,21 @@ export class CorrectiveWorkOrdersService {
      *
      * Split parts of `location` on `operations.materials` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
+     * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`
      *
      *
      * ### Update release 1.33.0
-     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials` .
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`
+     *
+     * ### Update release 1.33.1
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
+     * ### Update release 1.34.0
+     * Added new property `relatedOperations` to `maintenanceRecords` and `tagsRelated`.
+     * Also added query parameter `include-related-operations` to include the property `relatedOperations`.
+     *
+     * Added new properties `isHSECritical` and `isProductionCritical` to the response.
      *
      * @returns CorrectiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -153,6 +163,7 @@ export class CorrectiveWorkOrdersService {
         includeServiceOperations = true,
         includeTechnicalFeedback = false,
         includeMaterials = true,
+        includeCostDataForMaterials = false,
         includeMaintenanceRecords = false,
         includeAttachments = false,
         includeStatusDetails = false,
@@ -163,6 +174,7 @@ export class CorrectiveWorkOrdersService {
         includeMeasurements = false,
         includeSafetyMeasures = false,
         includeEstimatedCosts = false,
+        includeRelatedOperations = false,
     }: {
         workOrderId: string,
         /**
@@ -181,6 +193,10 @@ export class CorrectiveWorkOrdersService {
          * Include materials for Work order operations
          */
         includeMaterials?: boolean,
+        /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
         /**
          * Include related maintenance records (from object list)
          */
@@ -221,6 +237,10 @@ export class CorrectiveWorkOrdersService {
          * Include estimated costs
          */
         includeEstimatedCosts?: boolean,
+        /**
+         * Includes the property `relatedOperations` in the response to expose operations that are related to an object in the objectlist (only relevant for related tags and related maintenance records).
+         */
+        includeRelatedOperations?: boolean,
     }): CancelablePromise<CorrectiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -233,6 +253,7 @@ export class CorrectiveWorkOrdersService {
                 'include-service-operations': includeServiceOperations,
                 'include-technical-feedback': includeTechnicalFeedback,
                 'include-materials': includeMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-maintenance-records': includeMaintenanceRecords,
                 'include-attachments': includeAttachments,
                 'include-status-details': includeStatusDetails,
@@ -243,6 +264,7 @@ export class CorrectiveWorkOrdersService {
                 'include-measurements': includeMeasurements,
                 'include-safety-measures': includeSafetyMeasures,
                 'include-estimated-costs': includeEstimatedCosts,
+                'include-related-operations': includeRelatedOperations,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`correctiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -696,37 +718,37 @@ export class CorrectiveWorkOrdersService {
      *
      * ### Response
      * The response does not include all details for each corrective work order.
-     * This can be found by subsequent call to lookup corrective-work-order
+     * This can be found by performing a subsequent request to Lookup corrective-work-order.
      *
      * ### Filter: recent-status-activations
-     * Corrective work orders based on recent status activations for the work orders.
+     * Find Corrective work orders based on recent status activations for the work orders.
      * Parameters:
-     * - status-id
-     * - plant-id
-     * - max-days-since-activation
+     * - `status-id`
+     * - `plant-id`
+     * - `max-days-since-activation`
      *
      * ### Filter: before-required-end-date
-     * Find open Corrective work orders before the required-end-date
+     * Find open Corrective work orders before the `required-end-date`.
      * Parameters:
-     * - plant-id
-     * - required-end-date
-     * - location-id (optional)
-     * - system-id (optional)
+     * - `plant-id`
+     * - `required-end-date`
+     * - `location-id` (optional)
+     * - `system-id` (optional)
      *
      * ### Filter: by-maintenance-type-id
-     * Find preventive work orders by maintenance type. Response will only include open work orders.
+     * Find open Corrective work orders by `maintenance-type-id`.
      * Parameters:
-     * - plant-id
-     * - maintenance-type-id
+     * - `plant-id`
+     * - `maintenance-type-id`
      *
      * ### Update release 0.9.0
-     * Added filter by-maintenance-type-id.
+     * Added filter `by-maintenance-type-id`.
      *
      * ### Update release 0.11.0
-     * Added system-id as optional parameter til filter before-required-end-date.
+     * Added `system-id` as optional parameter for filter `before-required-end-date`.
      *
      * ### Update release 1.5.0
-     * Added revisionId and revision to work order response (represents shutdown or campaign work).
+     * Added `revisionId` and `revision` to work order response (represents shutdown or campaign work).
      *
      * ### Update release 1.21.0
      * Added properties `costs` and `costsCurrency`.

@@ -292,6 +292,10 @@ export class MasterDataForPlantsService {
      * ### Update release 1.33.0
      * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
+     * ### Update release 1.33.1
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -303,6 +307,7 @@ export class MasterDataForPlantsService {
         includeWorkOrderOperations = false,
         includeOnlyWorkOrderOperationsWithMaterials = false,
         includeTextItemMaterials = false,
+        includeCostDataForMaterials = false,
     }: {
         plantId: string,
         /**
@@ -325,6 +330,10 @@ export class MasterDataForPlantsService {
          * Include text item materials
          */
         includeTextItemMaterials?: boolean,
+        /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
     }): CancelablePromise<Array<PlanningPlantRevision> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -338,6 +347,7 @@ export class MasterDataForPlantsService {
                 'include-work-order-operations': includeWorkOrderOperations,
                 'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
                 'include-text-item-materials': includeTextItemMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -375,6 +385,10 @@ export class MasterDataForPlantsService {
      * ### Update release 1.33.0
      * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
+     * ### Update release 1.33.1
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -384,6 +398,7 @@ export class MasterDataForPlantsService {
         revisionId,
         includeOnlyWorkOrderOperationsWithMaterials = false,
         includeTextItemMaterials = false,
+        includeCostDataForMaterials = false,
         perPage,
         page,
     }: {
@@ -397,6 +412,10 @@ export class MasterDataForPlantsService {
          * Include text item materials
          */
         includeTextItemMaterials?: boolean,
+        /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
         /**
          * Results to return pr page
          */
@@ -416,6 +435,7 @@ export class MasterDataForPlantsService {
             query: {
                 'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
                 'include-text-item-materials': includeTextItemMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'per-page': perPage,
                 'page': page,
             },
