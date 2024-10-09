@@ -71,11 +71,13 @@ const propertyRowConfig: PropertyRowConfig = [
 type WorkOrderPropertyListProps = {
     workOrder: WorkOrder;
     additionalPropertyRows?: AdditionalPropertyRow[];
+    wrapValues?: boolean;
 };
 
 export const WorkOrderPropertyList = ({
     workOrder,
     additionalPropertyRows = [],
+    wrapValues,
 }: WorkOrderPropertyListProps) => {
     return (
         <>
@@ -91,6 +93,7 @@ export const WorkOrderPropertyList = ({
                         label={label}
                         value={value}
                         textColor={textColor}
+                        wrapValues={wrapValues}
                         selectable
                     />
                 );
@@ -101,6 +104,7 @@ export const WorkOrderPropertyList = ({
                     key={`additional-${index}`}
                     label={item.label}
                     value={item.value}
+                    wrapValues={wrapValues}
                     selectable
                 />
             ))}

@@ -27,6 +27,7 @@ export const WorkOrderCellNavigation = ({
     leftSwipeGroup,
     rightSwipeGroup,
     additionalPropertyRows = [],
+    wrapValues = false,
     onPress,
     ...rest
 }: WorkOrderCellNavigationProps) => {
@@ -64,7 +65,8 @@ export const WorkOrderCellNavigation = ({
                         <WorkOrderPropertyList
                             workOrder={workOrder}
                             additionalPropertyRows={additionalPropertyRows}
-                        />{" "}
+                            wrapValues={wrapValues}
+                        />
                     </View>
                 </View>
                 {showSymbols && (

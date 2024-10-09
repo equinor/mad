@@ -67,6 +67,10 @@ export type WorkOrderCellProps = {
      * Additional property rows to be displayed under the work order data
      */
     additionalPropertyRows?: AdditionalPropertyRow[];
+    /**
+     * Boolean value indicating whether or not the values of the work order properties should wrap.
+     */
+    wrapValues?: boolean;
 } & Omit<ViewProps, "children">;
 
 export type StatusConfig = {

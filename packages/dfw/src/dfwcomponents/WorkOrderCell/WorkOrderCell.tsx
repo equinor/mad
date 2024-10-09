@@ -21,6 +21,7 @@ export const WorkOrderCell = ({
     tecoButton,
     workOrder,
     additionalPropertyRows = [],
+    wrapValues = false,
     ...rest
 }: WorkOrderCellProps) => {
     const breakpoint = useBreakpoint();
@@ -69,6 +70,7 @@ export const WorkOrderCell = ({
                 <WorkOrderPropertyList
                     workOrder={workOrder}
                     additionalPropertyRows={additionalPropertyRows}
+                    wrapValues={wrapValues}
                 />
             </View>
             {shouldShowActions && (
