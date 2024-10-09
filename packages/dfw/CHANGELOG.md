@@ -1,5 +1,12 @@
 # @equinor/mad-dfw
 
+## 0.5.5
+
+### Patch Changes
+
+-   32f5bc9: New prop, `wrapValues`, that wraps the text values in the `WorkOrderCell` and
+    `WorkOrderCell.Navigation`.
+
 ## 0.5.4
 
 ### Patch Changes
