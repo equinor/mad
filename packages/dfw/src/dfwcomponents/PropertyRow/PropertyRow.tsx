@@ -19,6 +19,7 @@ export type PropertyRowProps = {
     iconName?: IconName;
     textColor?: Color;
     selectable?: boolean;
+    wrapValues?: boolean;
 } & ViewProps;
 export const PropertyRow = ({
     label,
@@ -26,6 +27,7 @@ export const PropertyRow = ({
     iconName,
     textColor = "textTertiary",
     selectable,
+    wrapValues,
     ...rest
 }: PropertyRowProps) => {
     const breakpoint = useBreakpoint();
@@ -52,7 +54,7 @@ export const PropertyRow = ({
                     group="paragraph"
                     variant="body_short"
                     color={textColor}
-                    numberOfLines={1}
+                    numberOfLines={wrapValues ? undefined : 1}
                     selectable={selectable}
                 >
                     {value}
