@@ -262,12 +262,12 @@ export class UpcomingModifiedEndpointsService {
      * ### Filter: by-plan-period
      * Provide the plan for a specific planning plant based on a defined plan period. This is the main usage of this endpoint.
      *
-     * **For this filter, `plan-period-start-date` is required.**
+     * **For this filter, `plan-period-start` is required.**
      * All other parameters are optional.
      *
      * Example of usage:
-     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start-date=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
-     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start-date=2023-03-02&plan-period-duration=P21D&work-center-id-any-of=C31*&include-completed-work-order-operations=false&api-version=v1`
+     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start=2023-03-02&plan-period-duration=P21D&work-center-id-any-of=C31*&include-completed-work-order-operations=false&api-version=v1`
      *
      * ### Filter: by-person-responsible
      * Get the work order plan for a specific planning plant, but only for work orders assigned to a specific user.
@@ -303,7 +303,7 @@ export class UpcomingModifiedEndpointsService {
     public static getWorkOrderPlan({
         planningPlantId,
         filter,
-        planPeriodStartDate,
+        planPeriodStart,
         planPeriodDuration,
         personResponsibleEmail,
         personResponsibleId,
@@ -329,7 +329,7 @@ export class UpcomingModifiedEndpointsService {
         /**
          * Start of plan period (`/plants/{plant-id}?include-baseline-plans=true` can be used as a reference). Required for `filter=by-plan-period`.
          */
-        planPeriodStartDate?: string,
+        planPeriodStart?: string,
         /**
          * Duration of plan period
          */
@@ -391,7 +391,7 @@ export class UpcomingModifiedEndpointsService {
             },
             query: {
                 'filter': filter,
-                'plan-period-start-date': planPeriodStartDate,
+                'plan-period-start': planPeriodStart,
                 'plan-period-duration': planPeriodDuration,
                 'person-responsible-email': personResponsibleEmail,
                 'person-responsible-id': personResponsibleId,

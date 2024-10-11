@@ -12,6 +12,6 @@ export type PreventiveWorkOrderWithOperationSelf = (PreventiveWorkOrderSimple & 
     _links: {
         self?: string;
     };
-    operations: Array<WorkOrderOperationSimpleForSearch> | null;
+    operations?: Array<WorkOrderOperationSimpleForSearch> | null;
 });
 

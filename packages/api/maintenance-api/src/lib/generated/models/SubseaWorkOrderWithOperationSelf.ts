@@ -12,6 +12,6 @@ export type SubseaWorkOrderWithOperationSelf = (SubseaWorkOrderSimple & {
     _links: {
         self?: string;
     };
-    operations: Array<WorkOrderOperationSimpleForSearch> | null;
+    operations?: Array<WorkOrderOperationSimpleForSearch> | null;
 });
 

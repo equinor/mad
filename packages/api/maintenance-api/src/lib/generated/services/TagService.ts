@@ -91,9 +91,6 @@ export class TagService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
-     * ### Update release 1.34.0
-     * Added properties `isHSECritical` and `isProductionCritical` to the response.
-     *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -647,9 +644,6 @@ export class TagService {
      *
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
-     *
-     * ### Update release 1.34.0
-     * Added properties `isHSECritical` and `isProductionCritical` to the response.
      *
      * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
