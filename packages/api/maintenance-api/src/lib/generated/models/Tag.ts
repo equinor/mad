@@ -45,10 +45,6 @@ export type Tag = (TagBasic & {
     endOfUseDate?: string | null;
     costWBSId?: string;
     /**
-     * Specific room for the asset
-     */
-    area: string;
-    /**
      * MaterialId for the asset
      */
     materialId?: string;
@@ -56,8 +52,6 @@ export type Tag = (TagBasic & {
      * Material for the asset
      */
     material?: string;
-    isProductionCritical?: string;
-    isHSECritical?: string;
     characteristics?: Array<TagCharacteristic>;
     maintenanceRecords?: SimpleMaintenanceRecordsList;
     workOrders?: {
