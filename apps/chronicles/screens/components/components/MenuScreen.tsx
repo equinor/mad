@@ -33,16 +33,18 @@ export const MenuScreen = () => {
                 <Spacer />
 
                 <Button
+                    testID="open-menu-button-1"
                     title="Open menu"
                     ref={firstButtonRef}
                     onPress={() => setFirstMenuOpen(!firstMenuOpen)}
                 />
                 <Menu
+                    testID="menu-1"
                     anchorEl={firstButtonRef}
                     open={firstMenuOpen}
                     onClose={() => setFirstMenuOpen(false)}
                 >
-                    <Menu.Item title="First option" />
+                    <Menu.Item testID="menu-1-option-1" title="First option" />
                     <Menu.Item title="Second option" />
                     <Menu.Item title="Third option" />
                 </Menu>
@@ -56,22 +58,32 @@ export const MenuScreen = () => {
                 </Typography>
                 <Spacer />
                 <Button
+                    testID="open-menu-button-2"
                     title="Inspire me!"
                     ref={secondButtonRef}
                     onPress={() => setSecondMenuOpen(!firstMenuOpen)}
                 />
                 <Spacer />
                 <Menu
+                    testID="menu-2"
                     anchorEl={secondButtonRef}
                     open={secondMenuOpen}
                     onClose={() => setSecondMenuOpen(false)}
                     placement="bottom-start"
                 >
-                    <Menu.Item title="First option of a left-aligned menu" />
-                    <Menu.Item title="This is disabled" disabled />
-                    <Menu.Item title="This item has an icon" iconName="face-man" />
-                    <Menu.Item title="This item is active" active />
                     <Menu.Item
+                        testID="menu-2-option-1"
+                        title="First option of a left-aligned menu"
+                    />
+                    <Menu.Item testID="menu-2-option-disabled" title="This is disabled" disabled />
+                    <Menu.Item
+                        testID="menu-2-option-3"
+                        title="This item has an icon"
+                        iconName="face-man"
+                    />
+                    <Menu.Item testID="menu-2-option-4" title="This item is active" active />
+                    <Menu.Item
+                        testID="menu-2-option-dont-close-menu"
                         title={
                             selectedToggleButton
                                 ? "That means you can do this"
