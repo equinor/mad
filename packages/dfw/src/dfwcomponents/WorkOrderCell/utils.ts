@@ -1,7 +1,13 @@
 import { StatusConfig } from "./types";
 
-const getStatusIconConfig = (status: string): StatusConfig | undefined => {
+const getStatusIconConfig = (status: string, isBookmarked?: boolean): StatusConfig | undefined => {
     const statusMap: Record<string, StatusConfig> = {
+        bookmarked: {
+            icon: isBookmarked ? "bookmark" : "bookmark-outline",
+            label: "Bookmarked",
+            textColor: "textTertiary",
+            iconColor: "primary",
+        },
         notStarted: {
             icon: "circle-outline",
             label: "Not started",
@@ -48,6 +54,7 @@ export const getStatusIconsAndLabels = (
     requiredEndDate?: string,
     hseCritical?: boolean,
     productionCritical?: boolean,
+    isBookmarked?: boolean,
 ): StatusConfig[] => {
     const today = new Date();
     const iconsAndLabels: StatusConfig[] = [];
@@ -72,6 +79,9 @@ export const getStatusIconsAndLabels = (
         iconsAndLabels.push(getStatusIconConfig("notStarted")!);
     }
 
+    if (isBookmarked !== undefined) {
+        iconsAndLabels.push(getStatusIconConfig("bookmarked", isBookmarked)!);
+    }
     return iconsAndLabels;
 };
 
