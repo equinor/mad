@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-components";
 import { WorkOrderCell } from "@equinor/mad-dfw";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { SwipeableMethods } from "@equinor/mad-components/dist/components/_internal/SwipeableWithContext";
 
 export const WorkOrderCellScreen = () => {
+    const [bookmarked, setBookmarked] = useState(false);
     const styles = useStyles(themeStyles);
 
     return (
@@ -172,6 +174,7 @@ export const WorkOrderCellScreen = () => {
             </View>
             <Spacer />
             <WorkOrderCell.Navigation
+                bookmarked={bookmarked}
                 workOrder={{
                     title: "Work Order Cell",
                     workOrderId: "25282760",
@@ -187,14 +190,24 @@ export const WorkOrderCellScreen = () => {
                 onPress={() => console.log("Pressed")}
                 leftSwipeGroup={[
                     {
-                        title: "Left side here",
-                        color: "success",
+                        title: "Add bookmark",
+                        iconName: "bookmark",
+                        color: "primary",
+                        onPress: (methods: SwipeableMethods) => {
+                            setBookmarked(true);
+                            methods.close();
+                        },
                     },
                 ]}
                 rightSwipeGroup={[
                     {
-                        title: "Right side here",
-                        color: "primary",
+                        title: "Remove bookmark",
+                        iconName: "bookmark-outline",
+                        color: "warning",
+                        onPress: (methods: SwipeableMethods) => {
+                            setBookmarked(false);
+                            methods.close();
+                        },
                     },
                 ]}
             />
