@@ -2,5 +2,5 @@
 "@equinor/mad-dfw": patch
 ---
 
-New prop for the `WorkOrderCell.Navigation` called `bookmarked`. Can be used to display the
+New prop for the `WorkOrderCell.Navigation` called `isBookmarked`. Can be used to display the
 `bookmark` and `bookmark-outline` icons.
