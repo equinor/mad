@@ -174,7 +174,7 @@ export const WorkOrderCellScreen = () => {
             </View>
             <Spacer />
             <WorkOrderCell.Navigation
-                bookmarked={bookmarked}
+                isBookmarked={bookmarked}
                 workOrder={{
                     title: "Work Order Cell",
                     workOrderId: "25282760",

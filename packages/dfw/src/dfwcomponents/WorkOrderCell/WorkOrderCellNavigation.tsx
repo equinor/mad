@@ -19,7 +19,7 @@ type WorkOrderCellNavigationProps = WorkOrderCellProps & {
     onPress: () => void;
     leftSwipeGroup?: SwipeGroup;
     rightSwipeGroup?: SwipeGroup;
-    bookmarked?: boolean;
+    isBookmarked?: boolean;
 };
 
 export const WorkOrderCellNavigation = ({
@@ -29,7 +29,7 @@ export const WorkOrderCellNavigation = ({
     rightSwipeGroup,
     additionalPropertyRows = [],
     wrapValues = false,
-    bookmarked,
+    isBookmarked,
     onPress,
     ...rest
 }: WorkOrderCellNavigationProps) => {
@@ -42,9 +42,9 @@ export const WorkOrderCellNavigation = ({
                 workOrder.requiredEndDate,
                 workOrder.isHseCritical,
                 workOrder.isProductionCritical,
-                bookmarked,
+                isBookmarked,
             ),
-        [bookmarked, workOrder],
+        [isBookmarked, workOrder],
     );
 
     return (
