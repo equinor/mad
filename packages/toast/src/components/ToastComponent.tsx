@@ -28,7 +28,7 @@ export const ToastComponent = ({ text, type, onPress }: ToastComponentProps) => 
         >
             <Paper elevation="raised" style={styles.background}>
                 <Icon name={iconName} color={textColor} />
-                <Typography color={textColor} numberOfLines={2} style={styles.text}>
+                <Typography color={textColor} numberOfLines={4} style={styles.text}>
                     {text}
                 </Typography>
             </Paper>
