@@ -193,7 +193,7 @@ export const WorkOrderCellScreen = () => {
                         title: "Add bookmark",
                         iconName: "bookmark",
                         color: "primary",
-                        onPress: (methods: SwipeableMethods) => {
+                        onPress: methods => {
                             setBookmarked(true);
                             methods.close();
                         },
@@ -204,7 +204,7 @@ export const WorkOrderCellScreen = () => {
                         title: "Remove bookmark",
                         iconName: "bookmark-outline",
                         color: "warning",
-                        onPress: (methods: SwipeableMethods) => {
+                        onPress: methods => {
                             setBookmarked(false);
                             methods.close();
                         },
