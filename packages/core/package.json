@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-core",
-    "version": "0.9.10",
+    "version": "0.9.11",
     "description": "Core library for the Mobile App Delivery team",
     "type": "module",
     "scripts": {
