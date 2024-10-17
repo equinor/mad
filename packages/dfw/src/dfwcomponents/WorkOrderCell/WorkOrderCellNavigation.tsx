@@ -4,6 +4,7 @@ import {
     EDSStyleSheet,
     Icon,
     Typography,
+    useBreakpoint,
     useStyles,
 } from "@equinor/mad-components";
 import React, { useMemo } from "react";
@@ -34,6 +35,7 @@ export const WorkOrderCellNavigation = ({
     ...rest
 }: WorkOrderCellNavigationProps) => {
     const styles = useStyles(themeStyles);
+    const isMobile = useBreakpoint() === "xs";
 
     const iconsAndLabels = useMemo(
         () =>
@@ -47,6 +49,14 @@ export const WorkOrderCellNavigation = ({
         [isBookmarked, workOrder],
     );
 
+    const renderIcons = () => (
+        <View style={isMobile ? styles.mobileIconList : styles.iconList}>
+            {iconsAndLabels.map((item, index) => (
+                <StatusIcon key={index} {...item} label={undefined} />
+            ))}
+        </View>
+    );
+
     return (
         <Cell
             {...rest}
@@ -56,9 +66,15 @@ export const WorkOrderCellNavigation = ({
         >
             <View style={styles.container}>
                 <View style={styles.contentContainer}>
-                    <Typography numberOfLines={1} variant="h5" bold style={styles.title}>
+                    <Typography
+                        numberOfLines={1}
+                        variant="h5"
+                        bold
+                        style={isMobile ? undefined : styles.title}
+                    >
                         {workOrder.title}
                     </Typography>
+                    {showSymbols && isMobile && renderIcons()}
                     <View style={styles.dataContainer}>
                         {workOrder.maintenanceType && (
                             <Typography group="paragraph" variant="body_short" color="textTertiary">
@@ -72,13 +88,7 @@ export const WorkOrderCellNavigation = ({
                         />
                     </View>
                 </View>
-                {showSymbols && (
-                    <View style={styles.iconListContainer}>
-                        {iconsAndLabels.map((item, index) => (
-                            <StatusIcon key={index} {...item} label={undefined} />
-                        ))}
-                    </View>
-                )}
+                {showSymbols && !isMobile && renderIcons()}
                 <Icon name="chevron-right" />
             </View>
         </Cell>
@@ -101,12 +111,19 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     dataContainer: {
         gap: theme.spacing.cell.group.titleBottomPadding,
     },
-    iconListContainer: {
+    iconList: {
         position: "absolute",
         top: 0,
         right: 0,
         flexDirection: "row",
         alignItems: "center",
         gap: theme.spacing.spacer.small,
+    },
+    mobileIconList: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        gap: theme.spacing.spacer.small,
+        paddingVertical: theme.spacing.container.paddingVertical,
     },
 }));
