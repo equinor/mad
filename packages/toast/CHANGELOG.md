@@ -1,5 +1,11 @@
 # @equinor/mad-toast
 
+## 0.1.6
+
+### Patch Changes
+
+-   569dc2d: Display max four lines of text in toasts
+
 ## 0.1.5
 
 ### Patch Changes
