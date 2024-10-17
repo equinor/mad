@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
     Button,
     Cell,
@@ -8,13 +7,14 @@ import {
     Typography,
     useStyles,
 } from "@equinor/mad-components";
-import { View, LayoutAnimation, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
-import { UserInfo } from "./UserInfo";
-import { useAccountOrDemoAccount } from "../../../hooks";
 import * as Device from "expo-device";
 import * as Localization from "expo-localization";
+import React, { useState } from "react";
+import { KeyboardAvoidingView, LayoutAnimation, Platform, ScrollView, View } from "react-native";
+import { useAccountOrDemoAccount } from "../../../hooks";
 import { useEnvironment, useServiceNow } from "../../../store/mad-config";
 import { createIncident, CreateIncidentResponse } from "./createIncident";
+import { UserInfo } from "./UserInfo";
 
 export const CreateIncidentScreen = () => {
     const [error, setError] = useState<string | CreateIncidentResponse | null>(null);
@@ -103,14 +103,15 @@ export const CreateIncidentScreen = () => {
                     <UserInfo infoType={"Locale"} infoValue={locale} />
                     {ticketNumber && (
                         <View style={[styles.popupBox, styles.popupSuccess]}>
-                            <Typography>{`Ticket number: ${ticketNumber}`}</Typography>
+                            <Typography>Ticket number: </Typography>
+                            <Typography selectable>{ticketNumber}</Typography>
                         </View>
                     )}
                     {error && (
                         <View style={[styles.popupBox, styles.popupDanger]}>
-                            <Typography>
-                                {/* eslint-disable-next-line @typescript-eslint/no-base-to-string,@typescript-eslint/restrict-template-expressions -- this rule sucks */}
-                                {`An error occurred creating your ticket: ${error}`}
+                            <Typography>An error occurred creating your ticket:</Typography>
+                            <Typography selectable>
+                                {error instanceof Error ? error.message : ""}
                             </Typography>
                         </View>
                     )}
@@ -169,6 +170,9 @@ const createIncidentStyles = EDSStyleSheet.create(theme => ({
         marginTop: 16,
         borderWidth: 2,
         borderRadius: 4,
+        flexDirection: "row",
+        gap: 8,
+        flexWrap: "wrap",
     },
     popupDanger: {
         borderColor: theme.colors.feedback.danger,
