@@ -172,6 +172,7 @@ const createIncidentStyles = EDSStyleSheet.create(theme => ({
         borderRadius: 4,
         flexDirection: "row",
         gap: 8,
+        flexWrap: "wrap",
     },
     popupDanger: {
         borderColor: theme.colors.feedback.danger,
