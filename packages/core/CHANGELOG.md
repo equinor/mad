@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.9.11
+
+### Patch Changes
+
+-   435986a: The ticket number is now copyable in the `CreateIncidentScreen`
+
 ## 0.9.10
 
 ### Patch Changes
