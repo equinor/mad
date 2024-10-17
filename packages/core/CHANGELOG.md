@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.9.10
+
+### Patch Changes
+
+-   716e0af: Prevent `Device` and `Device brand` from showing on web in the `CreateIncidentScreen`.
+
 ## 0.9.9
 
 ### Patch Changes

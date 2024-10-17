@@ -1,5 +1,11 @@
 # @equinor/mad-dfw
 
+## 0.5.7
+
+### Patch Changes
+
+-   91f3bcc: Icons in the `WorkOrderCell.Navigation` now shows on a new line on smaller devices.
+
 ## 0.5.6
 
 ### Patch Changes
