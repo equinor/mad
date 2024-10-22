@@ -173,7 +173,7 @@ export class MasterDataForPlantsService {
      * ### Update version 1.20.0
      * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
      *
-     * ### Upcoming change
+     * ### Update version 1.34.0
      * Added `include-responsible-persons` to the response. Added `responsiblePersons` to the response.
      *
      * @returns Plant Success

@@ -661,10 +661,8 @@ export class TechnicalInformationUpdateRequestsService {
      * - CANC Cancelled
      * - PRCR - Product Created
      *
-     *
      * ### Upcoming changes
      * Enabled activation of user statuses like `TCMP - WF when task completed`, `RIND - Returned - Wait for info` and `CANC - Cancelled`
-     *
      *
      * Enabled activation of user statuses related to products, such as `PRCR - Product Created`
      *
