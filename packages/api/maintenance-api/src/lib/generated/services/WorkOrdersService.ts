@@ -54,7 +54,7 @@ export class WorkOrdersService {
      * ### Update release 1.29.0
      * Added properties `cmrIndicator` and `maintenanceRecordId`.
      *
-     * ### Upcoming changes
+     * ### Update release 1.34.0
      * Added following filter options:
      * - `main-work-center-id-any-of`
      * - `status-any-of`
