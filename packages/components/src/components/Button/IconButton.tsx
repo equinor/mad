@@ -61,24 +61,22 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
         });
 
         return (
-            <View>
-                <View ref={ref} style={[styles.colorContainer, rest.style]}>
-                    <PressableHighlight
-                        id={rest.id}
-                        disabled={disabled}
-                        onPress={onPress}
-                        style={styles.pressableContainer}
-                    >
-                        {busy ? (
-                            <DotProgress
-                                color={disabled || variant !== "contained" ? "primary" : "neutral"}
-                                size={dotProgressSize}
-                            />
-                        ) : (
-                            <Icon name={name} size={iconSize} color={styles.textStyle.color} />
-                        )}
-                    </PressableHighlight>
-                </View>
+            <View ref={ref} style={[styles.colorContainer, rest.style]}>
+                <PressableHighlight
+                    id={rest.id}
+                    disabled={disabled}
+                    onPress={onPress}
+                    style={styles.pressableContainer}
+                >
+                    {busy ? (
+                        <DotProgress
+                            color={disabled || variant !== "contained" ? "primary" : "neutral"}
+                            size={dotProgressSize}
+                        />
+                    ) : (
+                        <Icon name={name} size={iconSize} color={styles.textStyle.color} />
+                    )}
+                </PressableHighlight>
             </View>
         );
     },
