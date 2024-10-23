@@ -5,6 +5,7 @@ import { EDSStyleSheet } from "../../styling";
 import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
 import { Icon, IconName } from "../Icon";
 import { PressableHighlight } from "../PressableHighlight";
+import { DotProgress } from "../ProgressIndicator";
 
 export type IconButtonProps = {
     /**
@@ -16,10 +17,6 @@ export type IconButtonProps = {
      */
     iconSize?: number;
     /**
-     * Callback method invoked when the user presses outside the child content.
-     */
-    onPress?: () => void;
-    /**
      * Color theme of the icon button.
      */
     color?: "primary" | "secondary" | "danger";
@@ -28,9 +25,17 @@ export type IconButtonProps = {
      */
     variant?: "contained" | "outlined" | "ghost";
     /**
+     * Boolean value indicating whether or not the button should be in its busy state.
+     */
+    busy?: boolean;
+    /**
      * Boolean value indicating whether or not the button should be in its disabled state.
      */
     disabled?: boolean;
+    /**
+     * Callback method invoked when the user presses outside the child content.
+     */
+    onPress?: () => void;
 };
 
 export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
@@ -40,12 +45,14 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
             iconSize = 22,
             color = "primary",
             variant = "contained",
-            onPress = () => null,
+            busy = false,
             disabled = false,
+            onPress = () => null,
             ...rest
         },
         ref,
     ) => {
+        const dotProgressSize = iconSize * 0.3;
         const styles = useStyles(themeStyles, {
             color,
             variant,
@@ -62,7 +69,14 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
                         onPress={onPress}
                         style={styles.pressableContainer}
                     >
-                        <Icon name={name} size={iconSize} color={styles.textStyle.color} />
+                        {busy ? (
+                            <DotProgress
+                                color={disabled || variant !== "contained" ? "primary" : "neutral"}
+                                size={dotProgressSize}
+                            />
+                        ) : (
+                            <Icon name={name} size={iconSize} color={styles.textStyle.color} />
+                        )}
                     </PressableHighlight>
                 </View>
             </View>
