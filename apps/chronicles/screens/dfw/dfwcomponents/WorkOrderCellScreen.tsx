@@ -37,6 +37,7 @@ export const WorkOrderCellScreen = () => {
                     basicEndDate: "2023-09-12",
                     requiredEndDate: "2024-04-23",
                     workCenterId: "POMISP",
+                    mainWorkCenterId: "POMISP",
                     isHseCritical: true,
                     isProductionCritical: true,
                 }}
@@ -76,6 +77,7 @@ export const WorkOrderCellScreen = () => {
                     basicEndDate: "2023-09-12",
                     requiredEndDate: "2024-04-23",
                     workCenterId: "POMISP",
+                    mainWorkCenterId: "POMISP",
                     isHseCritical: true,
                     isProductionCritical: true,
                 }}
@@ -163,6 +165,7 @@ export const WorkOrderCellScreen = () => {
                     basicStartDate: "2023-02-07",
                     basicEndDate: "2023-04-07",
                     workCenterId: "POMISP",
+                    mainWorkCenterId: "POMISP",
                     isHseCritical: true,
                     isProductionCritical: true,
                 }}
@@ -184,6 +187,7 @@ export const WorkOrderCellScreen = () => {
                     basicStartDate: "2023-02-07",
                     basicEndDate: "2023-04-07",
                     workCenterId: "POMISP",
+                    mainWorkCenterId: "POMISP",
                     isHseCritical: true,
                     isProductionCritical: true,
                 }}
