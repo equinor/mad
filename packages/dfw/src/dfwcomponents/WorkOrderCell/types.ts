@@ -31,6 +31,7 @@ export type WorkOrder = {
     basicEndDate?: string;
     requiredEndDate?: string;
     workCenterId?: string;
+    mainWorkCenterId?: string;
     isHseCritical?: boolean;
     isProductionCritical?: boolean;
 };
