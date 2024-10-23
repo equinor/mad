@@ -1,5 +1,11 @@
 # @equinor/mad-dfw
 
+## 0.5.8
+
+### Patch Changes
+
+-   e963324: Add main workcenter to WorkOrderCell
+
 ## 0.5.7
 
 ### Patch Changes
