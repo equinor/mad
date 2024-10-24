@@ -40,6 +40,8 @@ export const ButtonScreen = () => {
                 <Button.Icon name="cloud-outline" color="danger" />
                 <Button.Icon name="fingerprint" color="danger" variant="outlined" />
                 <Button.Icon name="fire" color="danger" variant="ghost" />
+                <Button.Icon name="fish" busy />
+                <Button.Icon name="flask" disabled busy />
             </View>
             <Spacer amount="large" />
 
