@@ -5,7 +5,7 @@ import { EDSStyleSheet } from "../../styling";
 import { getBackgroundColorForButton } from "../../utils/getBackgroundColorForButton";
 import { Icon, IconName } from "../Icon";
 import { PressableHighlight } from "../PressableHighlight";
-import { DotProgress } from "../ProgressIndicator";
+import { CircularProgress } from "../ProgressIndicator";
 
 export type IconButtonProps = {
     /**
@@ -52,7 +52,6 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
         },
         ref,
     ) => {
-        const dotProgressSize = iconSize * 0.3;
         const styles = useStyles(themeStyles, {
             color,
             variant,
@@ -69,9 +68,9 @@ export const IconButton = forwardRef<View, IconButtonProps & ViewProps>(
                     style={styles.pressableContainer}
                 >
                     {busy ? (
-                        <DotProgress
+                        <CircularProgress
                             color={disabled || variant !== "contained" ? "primary" : "neutral"}
-                            size={dotProgressSize}
+                            size={iconSize}
                         />
                     ) : (
                         <Icon name={name} size={iconSize} color={styles.textStyle.color} />
