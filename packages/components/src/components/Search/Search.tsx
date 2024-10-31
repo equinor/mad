@@ -121,10 +121,13 @@ export const Search = ({
                     readOnly={disabled}
                     ref={inputRef}
                     value={text}
+                    style={disabled && { pointerEvents: "none" }}
                     onChange={onChangeText}
                     onFocus={e => {
-                        setIsInputFocused(true);
-                        restProps.onFocus?.(e);
+                        if (!disabled) {
+                            setIsInputFocused(true);
+                            restProps.onFocus?.(e);
+                        }
                     }}
                     onBlur={e => {
                         if (Platform.OS === "web") {
