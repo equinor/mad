@@ -3,7 +3,6 @@ import { EDSStyleSheet, Spacer, Typography, useStyles } from "@equinor/mad-compo
 import { WorkOrderCell } from "@equinor/mad-dfw";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { SwipeableMethods } from "@equinor/mad-components/dist/components/_internal/SwipeableWithContext";
 
 export const WorkOrderCellScreen = () => {
     const [bookmarked, setBookmarked] = useState(false);

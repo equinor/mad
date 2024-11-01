@@ -1,15 +1,14 @@
-import React, { ReactNode, forwardRef, useContext } from "react";
+import React, { ReactNode, forwardRef, useContext, useMemo, useRef } from "react";
 import { View, ViewProps } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Swipeable, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 import { useStyles } from "../../hooks/useStyles";
 import { EDSStyleSheet } from "../../styling";
 import { useFadeAnimation } from "../../styling/animations";
 import { PressableHighlight } from "../PressableHighlight";
-import { SwipeableWithContext } from "../_internal/SwipeableWithContext";
 import { CellGroupContext, CellGroupContextType } from "./CellGroup";
 import { CellSwipeItem } from "./CellSwipeItem";
-import { CellSwipeItemProps } from "./types";
+import { CellSwipeItemProps, SwipeableMethods } from "./types";
 
 export type AdditionalSurfaceProps = {
     /**
@@ -72,8 +71,18 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         const { isFirstCell, isLastCell } = useContext(CellGroupContext);
         const { handlePressIn, handlePressOut, animatedStyle } = useFadeAnimation();
         const styles = useStyles(themeStyle, { isFirstCell, isLastCell });
-
+        const swipeableRef = useRef<Swipeable>(null);
         const swipeable = !!leftSwipeGroup || !!rightSwipeGroup;
+
+        const swipeableMethods: SwipeableMethods = useMemo(
+            () => ({
+                close: () => swipeableRef.current?.close(),
+                openLeft: () => swipeableRef.current?.openLeft(),
+                openRight: () => swipeableRef.current?.openRight(),
+                reset: () => swipeableRef.current?.reset(),
+            }),
+            [swipeableRef],
+        );
 
         const cellContent = () => (
             <>
@@ -135,7 +144,8 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
         );
 
         return swipeable ? (
-            <SwipeableWithContext
+            <Swipeable
+                ref={swipeableRef}
                 key={`${leftSwipeGroup?.length}-${rightSwipeGroup?.length}`}
                 overshootFriction={8}
                 containerStyle={{
@@ -143,17 +153,25 @@ export const Cell = forwardRef<View, React.PropsWithChildren<CellProps>>(
                 }}
                 renderLeftActions={() =>
                     leftSwipeGroup?.map((swipeItem, index) => (
-                        <CellSwipeItem key={`leftSwipeItem_${index}`} {...swipeItem} />
+                        <CellSwipeItem
+                            key={`leftSwipeItem_${index}`}
+                            swipeableMethods={swipeableMethods}
+                            {...swipeItem}
+                        />
                     ))
                 }
                 renderRightActions={() =>
                     rightSwipeGroup?.map((swipeItem, index) => (
-                        <CellSwipeItem key={`rightSwipeItem_${index}`} {...swipeItem} />
+                        <CellSwipeItem
+                            key={`rightSwipeItem_${index}`}
+                            swipeableMethods={swipeableMethods}
+                            {...swipeItem}
+                        />
                     ))
                 }
             >
                 {renderCell()}
-            </SwipeableWithContext>
+            </Swipeable>
         ) : (
             renderCell()
         );

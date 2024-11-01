@@ -1,6 +1,12 @@
-import { SwipeableMethods } from "../_internal/SwipeableWithContext";
 import { EDSColor } from "../../styling";
 import { IconName } from "../Icon";
+
+export type SwipeableMethods = {
+    close: () => void;
+    openLeft: () => void;
+    openRight: () => void;
+    reset: () => void;
+};
 
 type BaseCellSwipeItemProps = {
     /**
