@@ -4,6 +4,7 @@
 /* eslint-disable */
 
 import type { CorrectiveWorkOrderSimpleWithRelationship } from './CorrectiveWorkOrderSimpleWithRelationship';
+import type { EquipmentAttachment } from './EquipmentAttachment';
 import type { EquipmentBasicV2 } from './EquipmentBasicV2';
 import type { EquipmentCharacteristic } from './EquipmentCharacteristic';
 import type { LinkedEquipment } from './LinkedEquipment';
@@ -38,5 +39,6 @@ export type EquipmentSearchItem = (EquipmentBasicV2 & {
      */
     statuses?: Array<Status>;
     linkedEquipment?: Array<LinkedEquipment>;
+    attachments?: Array<EquipmentAttachment>;
 });
 

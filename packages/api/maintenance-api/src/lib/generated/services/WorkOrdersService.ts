@@ -240,7 +240,7 @@ export class WorkOrdersService {
      * Find Work orders based on their `workOrderId`.
      *
      * Parameters:
-     * - `work-order-id-any-of`
+     * - `work-order-ids-any-of`
      * - `plant-id` (optional)
      *
      * ### Update release 0.11.0
@@ -284,10 +284,10 @@ export class WorkOrdersService {
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * ### Upcoming changes
+     * ### Update release 1.35.0
      * Added filter `by-work-center-id` with the required parameter `work-center-id-any-of`. Can optionally be combined with the parameter `plant-id`
      *
-     * Added filter `by-work-order-id` with the required parameter `work-order-id-any-of`. Can optionally be combined with the parameter `plant-id`
+     * Added filter `by-work-order-id` with the required parameter `work-order-ids-any-of`. Can optionally be combined with the parameter `plant-id`
      *
      * Added option to not include operations for the Work Orders by setting the optional parameter `include-operations` to `false` (default is `true`). This can improve performance for the endpoint.
      *
@@ -314,7 +314,7 @@ export class WorkOrdersService {
         costWbsId,
         costNetworkId,
         workCenterIdAnyOf,
-        workOrderIdAnyOf,
+        workOrderIdsAnyOf,
     }: {
         /**
          * Filter to limit the work order by
@@ -375,7 +375,7 @@ export class WorkOrdersService {
         /**
          * Comma-separated list of `work-order-id`.
          */
-        workOrderIdAnyOf?: string,
+        workOrderIdsAnyOf?: string,
     }): CancelablePromise<WorkOrderWithOperationList | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -395,7 +395,7 @@ export class WorkOrdersService {
                 'cost-wbs-id': costWbsId,
                 'cost-network-id': costNetworkId,
                 'work-center-id-any-of': workCenterIdAnyOf,
-                'work-order-id-any-of': workOrderIdAnyOf,
+                'work-order-ids-any-of': workOrderIdsAnyOf,
             },
         });
     }
@@ -439,6 +439,8 @@ export class WorkOrdersService {
      *
      * The multi-line `text` property is not included by default, but can included by setting `include-text=true` in the request. This will influence performance significantly.
      *
+     * Pagination is supported for this endpoint by setting values for `page` and `per-page`. If these parameteres are omitted, the result will be returned without pagination.
+     *
      * ### Response
      * The response schema differs slightly from the other work order endpoints as a result of the optimization for speed.
      *
@@ -469,6 +471,9 @@ export class WorkOrdersService {
      * Added list of supported statuses for `status-all-of`, `status-any-of` and `status-not` query parameters. Status `REL` is now supported.
      *
      * Added property `hasStatusREL` to the response.
+     *
+     * ### Update release 1.35.0
+     * Added optional pagination support.
      *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -505,6 +510,8 @@ export class WorkOrdersService {
         includeText = false,
         includeMaintenanceRecord = false,
         maxResults,
+        perPage,
+        page,
     }: {
         /**
          * Query based on planningPlantIds (any-of)
@@ -626,6 +633,14 @@ export class WorkOrdersService {
          * Maximum number of results to include. Default is 1000.
          */
         maxResults?: number,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
     }): CancelablePromise<Array<WorkOrderOptimizedForQuery> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -661,6 +676,8 @@ export class WorkOrdersService {
                 'include-text': includeText,
                 'include-maintenance-record': includeMaintenanceRecord,
                 'max-results': maxResults,
+                'per-page': perPage,
+                'page': page,
             },
         });
     }

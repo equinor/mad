@@ -17,8 +17,8 @@ export type WorkOrderInPlan = {
      * The recordId of related maintenance record (typically activity-report or failure-report)
      */
     maintenanceRecordId: string | null;
-    productionCritical: boolean;
-    hseCritical: boolean;
+    productionCritical: string;
+    hseCritical: string;
     /**
      * Criteria used by Equinor in CMR (Critical Maintenance Report):
      * Corrective work orders where at least one item in the list or primary tag:

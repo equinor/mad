@@ -157,6 +157,9 @@ export class PreventiveWorkOrdersService {
      *
      * Added properties `additionalCostWBSId`, `additionalCostWBS`, `costWBS`, `costWBSId` and `requiredEndDate` to the response.
      *
+     * ### Update release 1.35.0
+     * Added new property `dueDate` to the response. Removed the property `requiredEndDate`.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

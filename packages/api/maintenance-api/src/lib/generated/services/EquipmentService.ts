@@ -688,6 +688,9 @@ export class EquipmentService {
      *
      * Added boolean property `hasLinkageToEquipment` that will be true if the equipment has any linked equipment.
      *
+     * ### Update release 1.35.0
+     * Added support for including attachments on equipments in the response by setting the new query parameter `include-attachments` to true.
+     *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -716,6 +719,7 @@ export class EquipmentService {
         includeOnlyOpenWorkOrders = false,
         includeCharacteristics = false,
         includeLinkedEquipment = false,
+        includeAttachments = false,
         perPage = 20,
         page = 1,
     }: {
@@ -814,6 +818,10 @@ export class EquipmentService {
          */
         includeLinkedEquipment?: boolean,
         /**
+         * Include equipment or tag attachments
+         */
+        includeAttachments?: boolean,
+        /**
          * Results to return pr page
          */
         perPage?: number,
@@ -849,6 +857,7 @@ export class EquipmentService {
                 'include-only-open-work-orders': includeOnlyOpenWorkOrders,
                 'include-characteristics': includeCharacteristics,
                 'include-linked-equipment': includeLinkedEquipment,
+                'include-attachments': includeAttachments,
                 'per-page': perPage,
                 'page': page,
             },
