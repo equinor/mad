@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-components",
-    "version": "0.15.1",
+    "version": "0.15.2",
     "description": "A React Native component library implementing the Equinor Design System.",
     "type": "module",
     "scripts": {
