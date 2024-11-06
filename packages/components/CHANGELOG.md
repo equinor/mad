@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.15.2
+
+### Patch Changes
+
+-   c0aea8c: New `busy` prop in the `Button.Icon` component that shows a loading indicator.
+
 ## 0.15.1
 
 ### Patch Changes

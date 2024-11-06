@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.34.4
+
+### Patch Changes
+
+-   beb5f9c: Update maintenance api wrapper
+
 ## 1.34.3
 
 ### Patch Changes
