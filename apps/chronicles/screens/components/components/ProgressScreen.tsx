@@ -135,13 +135,17 @@ export const ProgressScreen = () => {
             <Progress title="Upload animal images">
                 <Progress.Item
                     title="Upload images of cats"
-                    description="uploading cats with hats"
+                    description={(completedTasks, totalTasks) =>
+                        `Uploading cats with hats (${completedTasks}/${totalTasks})`
+                    }
                     tasks={catTasks}
                     onRetryButtonPress={() => void handleRetryCatUpload()}
                 />
                 <Progress.Item
                     title="Upload images of dogs throwing logs"
-                    description="uploading dogs throwing logs"
+                    description={(completedTasks, totalTasks) =>
+                        `Uploading dogs throwing logs (${completedTasks}/${totalTasks})`
+                    }
                     tasks={dogTasks}
                 />
             </Progress>

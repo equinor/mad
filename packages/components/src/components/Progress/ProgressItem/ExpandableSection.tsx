@@ -1,38 +1,37 @@
-import React, { ReactNode } from "react";
-import { LayoutChangeEvent, View } from "react-native";
+import React, { PropsWithChildren } from "react";
+import { LayoutChangeEvent, View, ViewProps } from "react-native";
 import Animated, {
     useAnimatedStyle,
     useDerivedValue,
     useSharedValue,
     withTiming,
 } from "react-native-reanimated";
-import { useStyles } from "../../hooks/useStyles";
-import { useToken } from "../../hooks/useToken";
-import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../../hooks/useStyles";
+import { useToken } from "../../../hooks/useToken";
+import { EDSStyleSheet } from "../../../styling";
 
-type ProgressExpandableSectionProps = {
-    children: ReactNode;
-    expanded: boolean;
-};
+type ExpandableSectionProps = {
+    isExpanded: boolean;
+} & ViewProps;
 
-export const ProgressExpandableSection = ({
+export const ExpandableSection = ({
+    isExpanded,
     children,
-    expanded,
-}: ProgressExpandableSectionProps) => {
+}: PropsWithChildren<ExpandableSectionProps>) => {
     const styles = useStyles(themeStyles);
     const token = useToken();
 
     const height = useSharedValue(0);
 
     const derivedHeight = useDerivedValue(() =>
-        withTiming(height.value * Number(expanded), {
+        withTiming(height.value * Number(isExpanded), {
             duration: token.timing.animation.slow,
         }),
     );
 
     const bodyStyle = useAnimatedStyle(() => ({
         height: derivedHeight.value,
-        opacity: withTiming(expanded ? 1 : 0, {
+        opacity: withTiming(isExpanded ? 1 : 0, {
             duration: token.timing.animation.slow,
         }),
     }));
@@ -57,7 +56,6 @@ const themeStyles = EDSStyleSheet.create(() => ({
         overflow: "hidden",
     },
     wrapper: {
-        width: "100%",
         position: "absolute",
     },
 }));

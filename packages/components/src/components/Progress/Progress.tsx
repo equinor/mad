@@ -1,7 +1,11 @@
-import React from "react";
+import React, { Children } from "react";
+import { useValidChildren } from "../../hooks/useValidChildren";
 import { StrictChildrenReactNode } from "../../utils/types";
 import { Cell } from "../Cell";
-import { ProgressItemProps } from "./ProgressItem";
+import { ProgressItemProps } from "./ProgressItem/ProgressItem";
+import { View } from "react-native";
+import { EDSStyleSheet } from "../../styling";
+import { useStyles } from "../../hooks/useStyles";
 
 export type ProgressProps = {
     /**
@@ -18,5 +22,20 @@ export type ProgressProps = {
 };
 
 export const Progress = ({ title, children }: ProgressProps) => {
-    return <Cell.Group title={title}>{children}</Cell.Group>;
+    const styles = useStyles(tokenStyles);
+    const validChildren = useValidChildren(children);
+    return validChildren.map((child, index) => (
+        <>
+            {child}
+            {index < validChildren.length - 1 && <View style={styles.divider} />}
+        </>
+    ));
 };
+
+const tokenStyles = EDSStyleSheet.create(token => ({
+    divider: {
+        marginHorizontal: token.spacing.container.paddingHorizontal,
+        height: token.geometry.border.borderWidth,
+        backgroundColor: token.colors.border.medium,
+    },
+}));

@@ -21,6 +21,7 @@ export const statusToColor = (
 ) => {
     switch (status) {
         case "inProgress":
+            return token.colors.interactive.primary;
         case "success":
             return token.colors.feedback.success;
         case "error":

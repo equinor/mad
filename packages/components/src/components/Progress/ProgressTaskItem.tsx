@@ -3,30 +3,28 @@ import { View } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { useToken } from "../../hooks/useToken";
 import { EDSStyleSheet } from "../../styling";
+import { Button } from "../Button";
 import { Icon } from "../Icon";
 import { CircularProgress } from "../ProgressIndicator";
 import { Typography } from "../Typography";
 import { statusToColor, statusToIconName } from "./progressUtils";
-import { ProgressStatus, ProgressTask, ProgressTaskError } from "./types";
-import { Button } from "../Button";
+import { ProgressTask, ProgressTaskError } from "./types";
 
 type ProgressTaskProps = {
     task: ProgressTask;
-    status: ProgressStatus;
     onCopyTextButtonPress?: (message: ProgressTaskError) => void;
     onRetryButtonPress?: (task: ProgressTask) => void;
 };
 
 export const ProgressTaskItem = ({
     task,
-    status,
     onCopyTextButtonPress,
     onRetryButtonPress,
 }: ProgressTaskProps) => {
     const styles = useStyles(themeStyles);
     const token = useToken();
 
-    const taskInProgress = status === "inProgress";
+    const taskInProgress = task.status === "inProgress";
     const showErrorDetails = task.status === "error" && task.error;
 
     const taskHasError = task.status === "error";
@@ -82,7 +80,7 @@ export const ProgressTaskItem = ({
                         group="paragraph"
                         variant="body_short"
                         bold={task.status === "error" || task.status === "inProgress"}
-                        color={status === "notStarted" ? "textTertiary" : "textPrimary"}
+                        color={task.status === "notStarted" ? "textTertiary" : "textPrimary"}
                     >
                         {task.title}
                     </Typography>
