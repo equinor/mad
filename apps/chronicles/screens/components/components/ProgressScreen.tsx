@@ -60,120 +60,126 @@ export const ProgressScreen = () => {
             contentContainerStyle={styles.contentContainer}
         >
             <View style={styles.textContainer}>
-                <Typography group="basic" variant="h2">
-                    Progress
-                </Typography>
-
                 <Typography>
                     The Progress component can be used for tracking and displaying the progress of
-                    tasks or processes, such as «create folder» or «upload images».
+                    tasks or processes such as «create folder» or «upload images».
                 </Typography>
-                <Typography>
-                    Progress can be used with one or multiple Progress Items, and one Progress Item
-                    can contain one single task or multiple tasks.
-                </Typography>
-            </View>
 
-            <Spacer amount="small" />
+                <Spacer />
 
-            <View style={styles.textContainer}>
-                <Typography>
-                    Tasks have different statuses that is based on the overall progress.
-                </Typography>
-                <Typography> Status can either be:</Typography>
-                <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-                    <Typography color="primary">inProgress</Typography>
-                    <CircularProgress size={18} value={0.7} />
-                    <Typography color="textTertiary">, notStarted, </Typography>
-                    <Typography color="success">sucess</Typography>
-                    <Typography>or</Typography>
-                    <Typography color="danger">error</Typography>
-                </View>
-            </View>
+                <Typography variant="h3">Progress and Progress.Item</Typography>
 
-            <Spacer amount="small" />
-
-            <View style={styles.textContainer}>
-                <UploadSimulator
-                    onUploadSuccess={() => void handleUploadSuccess()}
-                    onUploadFailed={() => void handleUploadFailed()}
-                />
-            </View>
-
-            <Spacer />
-
-            <View style={styles.textContainer}>
-                <Typography>Progress with one single task: </Typography>
-            </View>
-
-            <Spacer amount="small" />
-            <Progress title="Create folder">
-                <Progress.Item
-                    title="Creating cat images folder"
-                    description="This folder contains cat images"
-                    status="success"
-                />
-            </Progress>
-
-            <Spacer />
-
-            <View style={styles.textContainer}>
-                <Typography>
-                    If some of the tasks fail, you can either retry uploading the task or copy the
-                    error message.
-                </Typography>
-                <Typography>
-                    The retry button can be shown on the specific task item that failed or at the
-                    bottom of the Progress.Item.
-                </Typography>
                 <Spacer amount="small" />
-                <Typography>Progress with multiple tasks: </Typography>
+
+                <Typography>
+                    The root Progress component is a container for progress items. It automatically
+                    separates the items with a separator. The progress items each describe a single
+                    process, and are provided with a summarizing status prop to indicate its
+                    progress:
+                </Typography>
             </View>
 
-            <Spacer amount="small" />
-
-            <Progress title="Upload animal images">
-                <Progress.Item
-                    title="Upload images of cats"
-                    description={(completedTasks, totalTasks) =>
-                        `Uploading cats with hats (${completedTasks}/${totalTasks})`
-                    }
-                    tasks={catTasks}
-                    onRetryButtonPress={() => void handleRetryCatUpload()}
-                />
-                <Progress.Item
-                    title="Upload images of dogs throwing logs"
-                    description={(completedTasks, totalTasks) =>
-                        `Uploading dogs throwing logs (${completedTasks}/${totalTasks})`
-                    }
-                    tasks={dogTasks}
-                />
+            <Progress>
+                <Progress.Item title="Waiting to be started" status="notStarted" />
+                <Progress.Item title="Item in progress" status="inProgress" />
+                <Progress.Item title="Errorneous item" status="error" />
+                <Progress.Item title="Successful item" status="success" />
             </Progress>
 
             <Spacer />
 
             <View style={styles.textContainer}>
-                <Typography>Progress with multiple progress items:</Typography>
+                <Typography variant="h3">Progress item tasks</Typography>
+                <Spacer amount="small" />
+                <Typography>
+                    Each progress item can expand its progress into multiple tasks. This allows for
+                    a flexible way to display a progress in multiple levels of granularity to users.
+                    When tasks are provided to the progress item, it automatically calculates the
+                    correct summarized status without having to explicitly provide this.
+                </Typography>
             </View>
 
-            <Spacer amount="small" />
-
-            <Progress title="Multiple progress items">
-                <Progress.Item title="Preparing cat hats" status="notStarted" />
-                <Progress.Item title="Training cats to wear hats" status="inProgress" />
-                <Progress.Item title="Cats refusing to wear hats" status="error" />
+            <Progress>
                 <Progress.Item
-                    title="Uploading images of cats with hats"
-                    description="uploading cats with hats"
-                    status="success"
+                    title="Performing tasks"
+                    tasks={[
+                        {
+                            title: "Task 1",
+                            status: "success",
+                        },
+                        {
+                            title: "Task 2",
+                            status: "success",
+                        },
+                        {
+                            title: "Task 3",
+                            status: "error",
+                        },
+                        {
+                            title: "Task with an icon",
+                            status: "notStarted",
+                            icon: "message-processing-outline",
+                        },
+                    ]}
                 />
             </Progress>
+
+            <Spacer />
+            <View style={styles.simulatorContainer}>
+                <View style={styles.textContainer}>
+                    <UploadSimulator
+                        onUploadSuccess={() => void handleUploadSuccess()}
+                        onUploadFailed={() => void handleUploadFailed()}
+                    />
+                </View>
+
+                <Spacer />
+
+                <View style={styles.textContainer}>
+                    <Typography>
+                        If some of the tasks fail, you can either retry uploading the task or copy
+                        the error message.
+                    </Typography>
+                    <Typography>
+                        The retry button can be shown on the specific task item that failed or at
+                        the bottom of the Progress.Item.
+                    </Typography>
+                    <Spacer amount="small" />
+                    <Typography>Progress with multiple tasks: </Typography>
+                </View>
+
+                <Spacer amount="small" />
+
+                <Progress title="Upload animal images">
+                    <Progress.Item
+                        title="Upload images of cats"
+                        description={(completedTasks, totalTasks) =>
+                            `Uploading cats with hats (${completedTasks}/${totalTasks})`
+                        }
+                        tasks={catTasks}
+                        onRetryButtonPress={() => void handleRetryCatUpload()}
+                    />
+                    <Progress.Item
+                        title="Upload images of dogs throwing logs"
+                        description={(completedTasks, totalTasks) =>
+                            `Uploading dogs throwing logs (${completedTasks}/${totalTasks})`
+                        }
+                        tasks={dogTasks}
+                    />
+                </Progress>
+            </View>
+
             <Spacer />
         </ScrollView>
     );
 };
 
 const themeStyles = EDSStyleSheet.create(theme => ({
+    simulatorContainer: {
+        borderColor: theme.colors.interactive.primary,
+        borderWidth: theme.geometry.border.focusedBorderWidth,
+        borderStyle: "dashed",
+    },
     contentContainer: {
         paddingVertical: theme.spacing.container.paddingVertical,
     },
