@@ -73,7 +73,7 @@ const WrappedProgressItem = ({
     description,
     tasks = [],
     onRetryButtonPress,
-    status: inputStatus,
+    status: _,
     ...viewProps
 }: ProgressItemProps) => {
     const styles = useStyles(themeStyles);

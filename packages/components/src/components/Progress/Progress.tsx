@@ -1,17 +1,12 @@
-import React, { Children } from "react";
-import { useValidChildren } from "../../hooks/useValidChildren";
-import { StrictChildrenReactNode } from "../../utils/types";
-import { Cell } from "../Cell";
-import { ProgressItemProps } from "./ProgressItem/ProgressItem";
+import React, { Fragment } from "react";
 import { View } from "react-native";
-import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
+import { useValidChildren } from "../../hooks/useValidChildren";
+import { EDSStyleSheet } from "../../styling";
+import { StrictChildrenReactNode } from "../../utils/types";
+import { ProgressItemProps } from "./ProgressItem/ProgressItem";
 
 export type ProgressProps = {
-    /**
-     * Optional title for the progress group. This title can be used to provide a heading or context for the set of progress items contained within.
-     */
-    title?: string;
     /**
      * Children elements of the Progress component, which should be one or more `ProgressItem` components. The `Progress` component acts as a container that groups these items together.
      * This allows for structured display of multiple progress-tracking elements, each representing a distinct task or process.
@@ -21,14 +16,14 @@ export type ProgressProps = {
         | StrictChildrenReactNode<ProgressItemProps>[];
 };
 
-export const Progress = ({ title, children }: ProgressProps) => {
+export const Progress = ({ children }: ProgressProps) => {
     const styles = useStyles(tokenStyles);
     const validChildren = useValidChildren(children);
     return validChildren.map((child, index) => (
-        <>
+        <Fragment key={`progress-item-${index}`}>
             {child}
             {index < validChildren.length - 1 && <View style={styles.divider} />}
-        </>
+        </Fragment>
     ));
 };
 
