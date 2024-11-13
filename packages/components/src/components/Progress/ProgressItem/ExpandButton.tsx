@@ -2,7 +2,11 @@ import React from "react";
 import { Button } from "../../Button";
 import { useProgressItemContext } from "./ProgressItemContext";
 
-export const ExpandButton = () => {
+type ExpandButtonProps = {
+    variant: "outlined" | "ghost";
+};
+
+export const ExpandButton = ({ variant }: ExpandButtonProps) => {
     const { status, numTotalTasks, isExpanded, setIsExpanded } = useProgressItemContext();
     return (
         status !== "notStarted" &&
@@ -12,7 +16,7 @@ export const ExpandButton = () => {
                 title={isExpanded ? "Show less" : "Show more"}
                 iconPosition="trailing"
                 onPress={() => setIsExpanded(!isExpanded)}
-                variant="outlined"
+                variant={variant}
             />
         )
     );

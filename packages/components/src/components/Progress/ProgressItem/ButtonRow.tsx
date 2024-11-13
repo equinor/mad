@@ -5,6 +5,7 @@ import { EDSStyleSheet } from "../../../styling";
 import { Button } from "../../Button";
 import { ProgressTask } from "../types";
 import { ExpandButton } from "./ExpandButton";
+import { useBreakpoint } from "../../../hooks/useBreakpoint";
 
 type ButtonRowProps = {
     onRetryButtonPress?: (task: ProgressTask) => void;
@@ -18,9 +19,10 @@ export const ButtonRow = ({
     handleRetryButtonPress,
 }: ButtonRowProps) => {
     const styles = useStyles(tokenStyles);
+    const breakpoint = useBreakpoint();
     return (
         <View style={styles.buttonsRow}>
-            <ExpandButton />
+            {breakpoint === "xs" && <ExpandButton variant="outlined" />}
             {onRetryButtonPress && taskHasError ? (
                 <Button iconName="restart" title="Retry" onPress={handleRetryButtonPress} />
             ) : null}
@@ -28,7 +30,7 @@ export const ButtonRow = ({
     );
 };
 
-const tokenStyles = EDSStyleSheet.create(token => ({
+const tokenStyles = EDSStyleSheet.create(() => ({
     buttonsRow: {
         flexDirection: "row",
         alignItems: "center",

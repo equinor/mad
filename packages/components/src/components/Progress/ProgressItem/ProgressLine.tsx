@@ -1,10 +1,10 @@
 import React from "react";
 import { View, ViewProps } from "react-native";
 import { useStyles } from "../../../hooks/useStyles";
-import { Color, EDSStyleSheet } from "../../../styling";
+import { EDSStyleSheet } from "../../../styling";
+import { statusToColor } from "../progressUtils";
 import { ProgressStatus } from "../types";
 import { useProgressItemContext } from "./ProgressItemContext";
-import { statusToColor } from "../progressUtils";
 
 export const ProgressLine = ({ ...viewProps }: ViewProps) => {
     const { status } = useProgressItemContext();

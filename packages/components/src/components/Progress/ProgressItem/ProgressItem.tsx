@@ -8,8 +8,10 @@ import { ProgressStatus, ProgressTask } from "../types";
 import { ButtonRow } from "./ButtonRow";
 import { ExpandableSection } from "./ExpandableSection";
 import { ProgressItemProvider, useProgressItemContext } from "./ProgressItemContext";
-import { ProgressLine } from "./Sidebar";
+import { ProgressLine } from "./ProgressLine";
 import { TitleAndDescription } from "./TitleAndDescription";
+import { useBreakpoint } from "../../../hooks/useBreakpoint";
+import { ExpandButton } from "./ExpandButton";
 
 type ProgressItemPropsOptions =
     | {
@@ -75,6 +77,7 @@ const WrappedProgressItem = ({
     ...viewProps
 }: ProgressItemProps) => {
     const styles = useStyles(themeStyles);
+    const breakpoint = useBreakpoint();
     const { failedTask, isExpanded } = useProgressItemContext();
 
     const handleRetryButtonPress = () => {
@@ -87,9 +90,10 @@ const WrappedProgressItem = ({
             <View style={styles.row}>
                 <ProgressStatusIndicator
                     size={ICON_SIZE}
-                    style={[styles.leftCol, { alignItems: "center", justifyContent: "center" }]}
+                    style={[styles.leftCol, styles.centered]}
                 />
                 <TitleAndDescription title={title} description={description} />
+                {breakpoint !== "xs" && <ExpandButton variant="ghost" />}
             </View>
 
             <View style={styles.row}>
@@ -136,5 +140,9 @@ const themeStyles = EDSStyleSheet.create(token => ({
     leftCol: {
         width: ICON_SIZE,
         marginRight: token.spacing.element.paddingHorizontal,
+    },
+    centered: {
+        alignItems: "center",
+        justifyContent: "center",
     },
 }));
