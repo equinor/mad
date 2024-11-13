@@ -37,16 +37,18 @@ export const ExpandableSection = ({
     }));
 
     return (
-        <Animated.View style={[styles.animatedView, bodyStyle]}>
-            <View
-                style={styles.wrapper}
-                onLayout={(event: LayoutChangeEvent) => {
-                    height.value = event.nativeEvent.layout.height;
-                }}
-            >
-                {children}
-            </View>
-        </Animated.View>
+        <View style={{ flex: 1 }}>
+            <Animated.View style={[styles.animatedView, bodyStyle]}>
+                <View
+                    style={styles.wrapper}
+                    onLayout={(event: LayoutChangeEvent) => {
+                        height.value = event.nativeEvent.layout.height;
+                    }}
+                >
+                    {children}
+                </View>
+            </Animated.View>
+        </View>
     );
 };
 
@@ -56,6 +58,7 @@ const themeStyles = EDSStyleSheet.create(() => ({
         overflow: "hidden",
     },
     wrapper: {
+        width: "100%",
         position: "absolute",
     },
 }));

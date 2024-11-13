@@ -1,17 +1,21 @@
 import React from "react";
+import { View, ViewProps } from "react-native";
 import { useToken } from "../../hooks/useToken";
 import { Icon } from "../Icon";
 import { CircularProgress } from "../ProgressIndicator";
-import { useProgressItemContext } from "./ProgressItem/ProgressItemContext";
 import { statusToColor, statusToIconName } from "./progressUtils";
-import { View, ViewProps } from "react-native";
+import { ProgressStatus } from "./types";
 
 export type ProgressStatusIndicatorProps = {
     size: number;
+    status: ProgressStatus;
 } & ViewProps;
 
-export const ProgressStatusIndicator = ({ size, ...viewProps }: ProgressStatusIndicatorProps) => {
-    const { status } = useProgressItemContext();
+export const ProgressStatusIndicator = ({
+    status,
+    size,
+    ...viewProps
+}: ProgressStatusIndicatorProps) => {
     const token = useToken();
 
     return (

@@ -2,15 +2,18 @@ import React from "react";
 import { View } from "react-native";
 import { Typography } from "../../Typography";
 import { useProgressItemContext } from "./ProgressItemContext";
+import { EDSStyleSheet } from "../../../styling";
+import { useStyles } from "../../../hooks/useStyles";
 
 type TitleAndDescriptionProps = {
     title: string;
     description?: string | ((completeTasks: number, totalTasks: number) => string);
 };
 export const TitleAndDescription = ({ title, description }: TitleAndDescriptionProps) => {
+    const styles = useStyles(tokenStyles);
     const { numCompletedTasks, numTotalTasks, status } = useProgressItemContext();
     return (
-        <View style={{ flex: 1, justifyContent: "center" }}>
+        <View style={styles.container}>
             <Typography
                 numberOfLines={1}
                 bold={status !== "success"}
@@ -34,3 +37,11 @@ export const TitleAndDescription = ({ title, description }: TitleAndDescriptionP
         </View>
     );
 };
+
+const tokenStyles = EDSStyleSheet.create(token => ({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        gap: token.spacing.cell.content.titleDescriptionGap,
+    },
+}));

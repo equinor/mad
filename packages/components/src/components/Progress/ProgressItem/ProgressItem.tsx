@@ -3,7 +3,7 @@ import { View, ViewProps } from "react-native";
 import { useStyles } from "../../../hooks/useStyles";
 import { EDSStyleSheet } from "../../../styling";
 import { ProgressStatusIndicator } from "../ProgressStatusInducator";
-import { ProgressTaskItem } from "../ProgressTaskItem";
+import { ProgressItemTask } from "../ProgressItemTask/ProgressItemTask";
 import { ProgressStatus, ProgressTask } from "../types";
 import { ButtonRow } from "./ButtonRow";
 import { ExpandableSection } from "./ExpandableSection";
@@ -73,12 +73,12 @@ const WrappedProgressItem = ({
     description,
     tasks = [],
     onRetryButtonPress,
-    status,
+    status: inputStatus,
     ...viewProps
 }: ProgressItemProps) => {
     const styles = useStyles(themeStyles);
     const breakpoint = useBreakpoint();
-    const { failedTask, isExpanded } = useProgressItemContext();
+    const { failedTask, isExpanded, status } = useProgressItemContext();
 
     const handleRetryButtonPress = () => {
         if (failedTask) {
@@ -90,6 +90,7 @@ const WrappedProgressItem = ({
             <View style={styles.row}>
                 <ProgressStatusIndicator
                     size={ICON_SIZE}
+                    status={status}
                     style={[styles.leftCol, styles.centered]}
                 />
                 <TitleAndDescription title={title} description={description} />
@@ -101,12 +102,7 @@ const WrappedProgressItem = ({
                 <ExpandableSection isExpanded={isExpanded}>
                     <View style={styles.progressTaskItemContainer}>
                         {tasks.map((task, index) => (
-                            <ProgressTaskItem
-                                key={index}
-                                task={task}
-                                onCopyTextButtonPress={task.onCopyTextButtonPress}
-                                onRetryButtonPress={task.onRetryButtonPress}
-                            />
+                            <ProgressItemTask key={index} task={task} />
                         ))}
                     </View>
                 </ExpandableSection>
