@@ -150,7 +150,7 @@ export const ProgressScreen = () => {
 
                 <Spacer amount="small" />
 
-                <Progress title="Upload animal images">
+                <Progress>
                     <Progress.Item
                         title="Upload images of cats"
                         description={(completedTasks, totalTasks) =>
