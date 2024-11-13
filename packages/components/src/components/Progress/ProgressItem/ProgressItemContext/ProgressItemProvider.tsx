@@ -43,10 +43,6 @@ export const ProgressItemProvider = ({
     useEffect(() => {
         if (failedTask) {
             setIsExpanded(true);
-            console.error(
-                `Error in task ${failedTask.title}: ${failedTask.error?.message}`,
-                failedTask.error,
-            );
         }
     }, [failedTask]);
 
