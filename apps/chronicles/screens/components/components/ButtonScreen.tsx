@@ -56,8 +56,8 @@ export const ButtonScreen = () => {
 
             <Typography variant="h2">fullWidth</Typography>
             <Typography>
-                With use of the fullWidth prop icon floats to the edges of the button whil the ext
-                stay centered
+                With use of the fullWidth prop icon floats to the edges of the button while the text
+                stay centered:
             </Typography>
             <View style={{ gap: 12 }}>
                 <Button title="With fullwidth" iconName="dog" iconPosition="leading" fullWidth />
