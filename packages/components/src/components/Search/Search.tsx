@@ -121,7 +121,7 @@ export const Search = ({
                     readOnly={disabled}
                     ref={inputRef}
                     value={text}
-                    style={disabled && { pointerEvents: "none" }}
+                    style={[restProps.style, disabled && { pointerEvents: "none" }]}
                     onChange={onChangeText}
                     onFocus={e => {
                         if (!disabled) {
