@@ -27,6 +27,7 @@
     },
     "homepage": "https://github.com/equinor/mad/",
     "devDependencies": {
+        "eslint": "^8",
         "openapi-typescript-codegen": "^0.25.0"
     },
     "files": [
