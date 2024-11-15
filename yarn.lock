@@ -3511,10 +3511,12 @@ __metadata:
     "@shopify/react-native-skia": "npm:1.5.0"
     "@types/react": "npm:~18.2.45"
     eslint: "npm:^8"
+    react-native-gesture-handler: "npm:~2.20.2"
   peerDependencies:
     "@shopify/react-native-skia": 1.5.0
     react: ">=18.0"
     react-native: ">=0.70"
+    react-native-gesture-handler: ~2.20.2
   languageName: unknown
   linkType: soft
 

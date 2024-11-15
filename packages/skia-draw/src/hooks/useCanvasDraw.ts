@@ -1,5 +1,5 @@
-import { SkiaDomView, useTouchHandler } from "@shopify/react-native-skia";
-import { ForwardedRef, RefObject, useRef } from "react";
+import { SkiaDomView } from "@shopify/react-native-skia";
+import { ForwardedRef, RefObject, useMemo, useRef } from "react";
 import { useRerender } from "./useRerender";
 import { useCanvasControlHandle } from "./useDrawHandle";
 import { CanvasData, PenData, TextData } from "../Canvas/types";
@@ -22,24 +22,25 @@ export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
 
     useCanvasControlHandle(ref, skiaCanvasRef, canvasHistory);
 
-    const touchHandler = useTouchHandler(
-        createTouchHandlers(toolType, {
-            canvasHistory,
-            currentPenPaths,
-            draggingText,
-            toolColor,
-            strokeWeight,
-            text,
-            font,
-            rerender,
-        }),
-        [toolType, strokeWeight, toolColor, font, text],
+    const panHandler = useMemo(
+        () =>
+            createTouchHandlers(toolType, {
+                canvasHistory,
+                currentPenPaths,
+                draggingText,
+                toolColor,
+                strokeWeight,
+                text,
+                font,
+                rerender,
+            }),
+        [toolType, strokeWeight, toolColor, font, text, rerender],
     );
 
     return {
         currentPenPaths,
         canvasHistory,
         draggingText,
-        touchHandler,
+        panHandler,
     };
 };

@@ -1,9 +1,10 @@
-import { Color, SkFont, Skia, TouchHandlers } from "@shopify/react-native-skia";
+import { Color, SkFont, Skia } from "@shopify/react-native-skia";
 import { CanvasData, CanvasTool, PenData, TextData } from "./types";
 import { MutableRefObject } from "react";
 import { isInPaddedTextBoundingBox, measureText } from "../utility/boundingTextBox";
+import { Gesture, PanGesture } from "react-native-gesture-handler";
 
-type TouchHandlerData = {
+type PanHandlerData = {
     canvasHistory: MutableRefObject<CanvasData[]>;
     currentPenPaths: MutableRefObject<Record<number, PenData>>;
     draggingText: MutableRefObject<TextData | undefined>;
@@ -14,15 +15,15 @@ type TouchHandlerData = {
     rerender: () => void;
 };
 
-function createPenTouchHandlers({
+function createPenPanHandlers({
     canvasHistory,
     currentPenPaths,
     toolColor,
     strokeWeight,
     rerender,
-}: TouchHandlerData): TouchHandlers {
-    return {
-        onStart: ({ x, y, id }) => {
+}: PanHandlerData): PanGesture {
+    return Gesture.Pan()
+        .onStart(({ x, y }) => {
             const newPath = Skia.Path.Make();
             newPath.moveTo(x, y);
             const newData: PenData = {
@@ -33,48 +34,49 @@ function createPenTouchHandlers({
             };
             currentPenPaths.current = {
                 ...currentPenPaths.current,
-                [id]: newData,
+                [0]: newData,
             };
             rerender();
-        },
-        onActive: ({ x, y, id }) => {
+        })
+        .onChange(({ x, y }) => {
             currentPenPaths.current = {
                 ...currentPenPaths.current,
-                [id]: {
-                    ...currentPenPaths.current[id],
-                    path: currentPenPaths.current[id].path.lineTo(x, y),
+                [0]: {
+                    ...currentPenPaths.current[0],
+                    path: currentPenPaths.current[0].path.lineTo(x, y),
                 },
             };
-        },
-        onEnd: ({ id }) => {
-            canvasHistory.current = [...canvasHistory.current, currentPenPaths.current[id]];
+        })
+        .onEnd(p => {
+            canvasHistory.current = [...canvasHistory.current, currentPenPaths.current[0]];
             const currentPathCopy = { ...currentPenPaths.current };
-            delete currentPathCopy[id];
+            delete currentPathCopy[p.handlerTag];
             currentPenPaths.current = currentPathCopy;
             rerender();
-        },
-    };
+        });
 }
 
-function createTextTouchHandlers({
+function createTextPanHandlers({
     canvasHistory,
     draggingText,
     toolColor,
     text,
     font,
     rerender,
-}: TouchHandlerData): TouchHandlers {
-    return {
-        onStart: ({ x, y }) => {
-            const pressedTextIndex = canvasHistory.current
-                .findIndex(item => {
-                    return item.type === "text" && isInPaddedTextBoundingBox({
+}: PanHandlerData): PanGesture {
+    return Gesture.Pan()
+        .onStart(({ x, y }) => {
+            const pressedTextIndex = canvasHistory.current.findIndex(item => {
+                return (
+                    item.type === "text" &&
+                    isInPaddedTextBoundingBox({
                         text: item.text,
                         textPosition: item.position,
                         pointPosition: { x, y },
                         font,
-                    });
-                });
+                    })
+                );
+            });
 
             if (pressedTextIndex !== -1) {
                 draggingText.current = canvasHistory.current.at(pressedTextIndex) as TextData;
@@ -97,8 +99,8 @@ function createTextTouchHandlers({
             };
             canvasHistory.current = [...canvasHistory.current, newText];
             rerender();
-        },
-        onActive: ({ x, y }) => {
+        })
+        .onChange(({ x, y }) => {
             if (!draggingText.current) {
                 return;
             }
@@ -112,23 +114,22 @@ function createTextTouchHandlers({
                 },
             };
             rerender();
-        },
-        onEnd: () => {
+        })
+        .onEnd(() => {
             if (!draggingText.current) {
                 return;
             }
             canvasHistory.current = [...canvasHistory.current, draggingText.current];
             draggingText.current = undefined;
             rerender();
-        },
-    };
+        });
 }
 
-export function createTouchHandlers(tool: CanvasTool, data: TouchHandlerData): TouchHandlers {
+export function createTouchHandlers(tool: CanvasTool, data: PanHandlerData): PanGesture {
     switch (tool) {
         case "pen":
-            return createPenTouchHandlers(data);
+            return createPenPanHandlers(data);
         case "text":
-            return createTextTouchHandlers(data);
+            return createTextPanHandlers(data);
     }
 }
