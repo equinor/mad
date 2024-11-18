@@ -4,7 +4,6 @@
     "devDependencies": {
         "@changesets/cli": "^2.27.7",
         "@equinor/mad-tsconfig": "workspace:*",
-        "@types/jest": "^29.5.12",
         "@types/node": "^18.13.0",
         "@typescript-eslint/eslint-plugin": "^7.14.1",
         "@typescript-eslint/parser": "^7.14.1",
