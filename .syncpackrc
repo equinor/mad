@@ -1,0 +1,15 @@
+{
+    "versionGroups": [
+        {
+            "label": "Require workspace protocol for internal packages",
+            "dependencies": [
+                "$LOCAL"
+            ],
+            "dependencyTypes": [
+                "prod",
+                "dev"
+            ],
+            "pinVersion": "workspace:*"
+        }
+    ]
+}

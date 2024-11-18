@@ -1,8 +1,8 @@
 {
-    "name": "tsconfig",
-    "version": "0.0.0",
-    "private": true,
-    "files": [
-        "base.json"
-    ]
+  "name": "@equinor/mad-tsconfig",
+  "version": "0.0.0",
+  "files": [
+    "base.json"
+  ],
+  "private": true
 }
