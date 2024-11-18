@@ -101,22 +101,22 @@ export type MasterToken = {
         };
         toast: {
             error: {
-                background: ColorSchemeValues<Color>,
-                text: ColorSchemeValues<Color>
-            },
+                background: ColorSchemeValues<Color>;
+                text: ColorSchemeValues<Color>;
+            };
             info: {
-                background: ColorSchemeValues<Color>,
-                text: ColorSchemeValues<Color>
-            },
+                background: ColorSchemeValues<Color>;
+                text: ColorSchemeValues<Color>;
+            };
             warning: {
-                background: ColorSchemeValues<Color>,
-                text: ColorSchemeValues<Color>
-            },
+                background: ColorSchemeValues<Color>;
+                text: ColorSchemeValues<Color>;
+            };
             success: {
-                background: ColorSchemeValues<Color>,
-                text: ColorSchemeValues<Color>
-            }
-        }
+                background: ColorSchemeValues<Color>;
+                text: ColorSchemeValues<Color>;
+            };
+        };
         text: {
             primary: ColorSchemeValues<Color>;
             secondary: ColorSchemeValues<Color>;
@@ -253,4 +253,4 @@ export type WithoutThemeOptionValues<TToken> = {
         : TToken[K];
 };
 
-export type Theme = WithoutThemeOptionValues<MasterToken>;
+export type Token = WithoutThemeOptionValues<MasterToken>;

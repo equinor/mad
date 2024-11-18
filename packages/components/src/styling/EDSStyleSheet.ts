@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
-import type { Theme } from "./types";
+import type { Token } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- other typings seem to not work
 export type ThemeDependentStyles<TProps = undefined, TStyleSheet = StyleSheet.NamedStyles<any>> = (
     /**
      * The will-be resolved theme.
      */
-    context: Theme,
+    context: Token,
     /**
      * Additional props passed into the style sheet create object.
      */

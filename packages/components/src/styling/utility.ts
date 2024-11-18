@@ -5,7 +5,7 @@ import type {
     HexColorValue,
     RGBAColorValue,
     RGBColorValue,
-    Theme,
+    Token,
 } from "./types";
 
 export const isHexColorValue = (obj: string): obj is HexColorValue => obj.startsWith("#");
@@ -24,7 +24,7 @@ export const isTextColor = (obj: string): obj is EDSTextColor =>
  * @param theme The current theme of the application.
  * @returns A resolved color.
  */
-export function resolveColor(color: Color, theme: Theme): Color {
+export function resolveColor(color: Color, theme: Token): Color {
     if (isEDSColor(color)) return theme.colors.interactive[color];
     if (isTextColor(color)) {
         const textColorToThemeKeyMap = {

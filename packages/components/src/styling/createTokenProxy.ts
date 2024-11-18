@@ -4,7 +4,7 @@ import type {
     Density,
     DensityValues,
     MasterToken,
-    Theme,
+    Token,
 } from "./types";
 import { masterToken } from "./masterToken";
 
@@ -39,7 +39,7 @@ function isDensityValuesObject(obj: unknown): obj is DensityValues<unknown> {
  * @param density The density scheme of the application
  * @returns A proxied master token with all values resolved to the provided schemes.
  */
-export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {
+export function createTokenProxy(scheme: ColorScheme, density: Density): Token {
     const handler: ProxyHandler<object> = {
         get: function (target, property, receiver) {
             const value: unknown = Reflect.get(target, property, receiver);
@@ -56,5 +56,5 @@ export function createTokenProxy(scheme: ColorScheme, density: Density): Theme {
             return value;
         },
     };
-    return new Proxy<MasterToken>(masterToken, handler) as unknown as Theme;
+    return new Proxy<MasterToken>(masterToken, handler) as unknown as Token;
 }

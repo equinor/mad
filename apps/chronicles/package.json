@@ -19,6 +19,7 @@
         "use:prod": "sed -i \"s/currentEnvironment: \".*\"/currentEnvironment: \\\"prod\\\",/g\" mad.config.ts"
     },
     "dependencies": {
+        "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
         "@equinor/mad-auth": "workspace:*",
         "@equinor/mad-components": "workspace:*",
         "@equinor/mad-core": "workspace:*",

@@ -604,7 +604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-plugin-utils@npm:^7.25.9":
+"@babel/helper-plugin-utils@npm:^7.18.9, @babel/helper-plugin-utils@npm:^7.25.9":
   version: 7.25.9
   resolution: "@babel/helper-plugin-utils@npm:7.25.9"
   checksum: 10c0/483066a1ba36ff16c0116cd24f93de05de746a603a777cd695ac7a1b034928a65a4ecb35f255761ca56626435d7abdb73219eba196f9aa83b6c3c3169325599d
@@ -901,6 +901,18 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/6d7ca2d8179d97c38cbcc327129c70103b95797a048c6d244fa8f3eb35b8aebc8122957dc25f20d9923fe6e75f16e2a4d649f1d80a63a9fed2d8b9eda85bd650
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-proposal-export-namespace-from@npm:^7.18.9":
+  version: 7.18.9
+  resolution: "@babel/plugin-proposal-export-namespace-from@npm:7.18.9"
+  dependencies:
+    "@babel/helper-plugin-utils": "npm:^7.18.9"
+    "@babel/plugin-syntax-export-namespace-from": "npm:^7.8.3"
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 10c0/b90346bd3628ebd44138d0628a5aba1e6b11748893fb48e87008cac30f3bc7cd3161362e49433156737350318174164436357a66fbbfdbe952606b460bd8a0e4
   languageName: node
   linkType: hard
 
@@ -3276,6 +3288,7 @@ __metadata:
   resolution: "@equinor/mad-chronicles@workspace:apps/chronicles"
   dependencies:
     "@babel/core": "npm:^7.25.2"
+    "@babel/plugin-proposal-export-namespace-from": "npm:^7.18.9"
     "@config-plugins/detox": "npm:^8.0.0"
     "@equinor/eslint-config-mad": "npm:*"
     "@equinor/mad-auth": "workspace:*"
@@ -3508,10 +3521,8 @@ __metadata:
   dependencies:
     "@equinor/eslint-config-mad": "workspace:*"
     "@equinor/mad-components": "workspace:*"
-    "@shopify/react-native-skia": "npm:1.5.0"
     "@types/react": "npm:~18.2.45"
     eslint: "npm:^8"
-    react-native-gesture-handler: "npm:~2.20.2"
   peerDependencies:
     "@shopify/react-native-skia": 1.5.0
     react: ">=18.0"

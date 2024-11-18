@@ -31,10 +31,8 @@
     },
     "devDependencies": {
         "@equinor/eslint-config-mad": "workspace:*",
-        "@shopify/react-native-skia": "1.5.0",
         "@types/react": "~18.2.45",
-        "eslint": "^8",
-        "react-native-gesture-handler": "~2.20.2"
+        "eslint": "^8"
     },
     "peerDependencies": {
         "@shopify/react-native-skia": "1.5.0",
