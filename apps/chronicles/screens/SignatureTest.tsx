@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { Button, Typography } from "@equinor/mad-components";
 import { SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
-import { SignaturePad, CanvasImageControls  } from "@equinor/react-native-skia-draw";
+import { SignaturePad, CanvasImageControls } from "@equinor/react-native-skia-draw";
 import { Circle } from "@shopify/react-native-skia";
 
 type Dimensions = { width: number; height: number };

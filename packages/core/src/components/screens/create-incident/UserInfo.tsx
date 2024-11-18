@@ -1,12 +1,12 @@
 import React from "react";
-import {View} from "react-native";
-import {EDSStyleSheet, Typography, useStyles} from "@equinor/mad-components";
+import { View } from "react-native";
+import { EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
 
 type UserInfoProps = {
-    infoType: string,
-    infoValue: string | null | undefined
-}
-export function UserInfo({infoType, infoValue}: UserInfoProps) {
+    infoType: string;
+    infoValue: string | null | undefined;
+};
+export function UserInfo({ infoType, infoValue }: UserInfoProps) {
     const styles = useStyles(UserInfoStyles);
 
     return (
@@ -18,7 +18,7 @@ export function UserInfo({infoType, infoValue}: UserInfoProps) {
                 <Typography>{infoValue}</Typography>
             </View>
         </View>
-    )
+    );
 }
 
 const UserInfoStyles = EDSStyleSheet.create(theme => ({

@@ -1,48 +1,49 @@
 {
-  "name": "@equinor/react-native-skia-draw",
-  "description": "A React Native drawing library running on SKIA",
-  "version": "0.4.3",
-  "author": {
-    "name": "Equinor Mobile App Delivery team (MAD)"
-  },
-  "bugs": "https://github.com/equinor/mad/issues",
-  "dependencies": {
-    "@equinor/mad-components": "workspace:*"
-  },
-  "devDependencies": {
-    "@equinor/eslint-config-mad": "workspace:*",
-    "@equinor/mad-tsconfig": "workspace:*",
-    "@types/react": "~18.3.12",
-    "eslint": "^8.46.0"
-  },
-  "files": [
-    "CODE_OF_CONDUCT.md",
-    "LICENSE",
-    "CHANGELOG.md",
-    "dist"
-  ],
-  "homepage": "https://github.com/equinor/mad/",
-  "keywords": [
-    "drawing",
-    "markup",
-    "react native",
-    "signature",
-    "typescript"
-  ],
-  "license": "MIT",
-  "main": "./dist/index.js",
-  "peerDependencies": {
-    "@shopify/react-native-skia": "1.5.0",
-    "react": "18.3.1",
-    "react-native": "0.76.2",
-    "react-native-gesture-handler": "~2.20.2"
-  },
-  "scripts": {
-    "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
-    "clean": "rm -rf node_modules dist .turbo",
-    "dev": "tsup-node --watch --clean=false",
-    "lint": "eslint src/"
-  },
-  "type": "module",
-  "types": "./dist/index.d.ts"
+    "name": "@equinor/react-native-skia-draw",
+    "description": "A React Native drawing library running on SKIA",
+    "version": "0.4.3",
+    "author": {
+        "name": "Equinor Mobile App Delivery team (MAD)"
+    },
+    "bugs": "https://github.com/equinor/mad/issues",
+    "dependencies": {
+        "@equinor/mad-components": "workspace:*"
+    },
+    "devDependencies": {
+        "@equinor/eslint-config-mad": "workspace:*",
+        "@equinor/mad-tsconfig": "workspace:*",
+        "@types/react": "~18.3.12",
+        "eslint": "^8.46.0",
+        "tsup": "^8.3.5"
+    },
+    "files": [
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "dist"
+    ],
+    "homepage": "https://github.com/equinor/mad/",
+    "keywords": [
+        "drawing",
+        "markup",
+        "react native",
+        "signature",
+        "typescript"
+    ],
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "peerDependencies": {
+        "@shopify/react-native-skia": "1.5.0",
+        "react": "18.3.1",
+        "react-native": "0.76.2",
+        "react-native-gesture-handler": "~2.20.2"
+    },
+    "scripts": {
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
+        "clean": "rm -rf node_modules dist .turbo",
+        "dev": "tsup-node --watch --clean=false",
+        "lint": "eslint src/"
+    },
+    "type": "module",
+    "types": "./dist/index.d.ts"
 }

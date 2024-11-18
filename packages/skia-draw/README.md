@@ -130,8 +130,10 @@ Note that React Native Skia has an own setup process for working on the web. Mak
 this when adding any solution from this packace to your React Native web project.
 
 ## Custom implementations
-In addition to the premades listed above, this library also lets you create your own design using your own components to control the canvas.
-Start by making sure that you wrap both your control panel and the canvas inside a `CanvasControlProvider`:
+
+In addition to the premades listed above, this library also lets you create your own design using
+your own components to control the canvas. Start by making sure that you wrap both your control
+panel and the canvas inside a `CanvasControlProvider`:
 
 ```tsx
 import { CanvasControlProvider, Canvas } from "@equinor/react-native-skia-draw";
@@ -141,10 +143,11 @@ export const MyCustomControlledCanvas = () => (
         <MyCustomControlPanel />
         <Canvas />
     </CanvasControlProvider>
-)
+);
 ```
 
-Then, in your custom control panel, tap into the canvas using the controls exported from the `useCanvasControl()` hook:
+Then, in your custom control panel, tap into the canvas using the controls exported from the
+`useCanvasControl()` hook:
 
 ```tsx
 import { useCanvasControl } from "@equinor/react-native-skia-draw";
@@ -163,11 +166,7 @@ export const MyCustomControlPanel = () => {
         undo,
         clear,
     } = useCanvasControl();
-    
-    return (
-        <>
-            {/* custom ui here */}
-        </>
-    )
-}
+
+    return <>{/* custom ui here */}</>;
+};
 ```

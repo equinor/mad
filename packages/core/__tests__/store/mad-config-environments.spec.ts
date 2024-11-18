@@ -56,9 +56,15 @@ describe("madConfig", () => {
         const { result } = renderHook(() => useMadConfig());
         const environmentContextualConfig = result.current;
         expect(environmentContextualConfig).toBeTruthy();
-        expect(environmentContextualConfig.appVersion).toEqual(mockConfig.appVersion[mockConfig.currentEnvironment]);
-        expect(environmentContextualConfig.authentication).toEqual(mockConfig.authentication[mockConfig.currentEnvironment]);
-        expect(environmentContextualConfig.applicationInsights).toEqual(mockConfig.applicationInsights[mockConfig.currentEnvironment]);
+        expect(environmentContextualConfig.appVersion).toEqual(
+            mockConfig.appVersion[mockConfig.currentEnvironment],
+        );
+        expect(environmentContextualConfig.authentication).toEqual(
+            mockConfig.authentication[mockConfig.currentEnvironment],
+        );
+        expect(environmentContextualConfig.applicationInsights).toEqual(
+            mockConfig.applicationInsights[mockConfig.currentEnvironment],
+        );
     });
 
     it("should always return the config value even if environment variables are not set for this value.", () => {
@@ -77,7 +83,7 @@ describe("madConfig", () => {
         act(() => {
             setConfig(mockConfig);
         });
-        const {result} = renderHook(() => useMadConfig());
+        const { result } = renderHook(() => useMadConfig());
         const environmentContextualConfig = result.current;
         expect(environmentContextualConfig).toBeTruthy();
         expect(environmentContextualConfig.appVersion).toEqual("1.0.1");
@@ -85,7 +91,7 @@ describe("madConfig", () => {
             setEnvironment("qa");
         });
         await act(async () => {
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise(resolve => setTimeout(resolve, 0));
             const newEnvironmentContextualConfig = result.current;
             expect(newEnvironmentContextualConfig).toBeTruthy();
             expect(newEnvironmentContextualConfig.appVersion).toEqual("1.0.0");

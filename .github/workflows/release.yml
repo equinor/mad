@@ -29,7 +29,7 @@ jobs:
 
             - name: Replace workspace dependencies
               run: |
-                find . -type d -name node_modules -prune -o -name "package.json" -type f -exec sed -i "" -e 's/workspace:\*/\*/g' {} +       
+                  find . -type d -name node_modules -prune -o -name "package.json" -type f -exec sed -i "" -e 's/workspace:\*/\*/g' {} +
 
             - name: 🦋 Create Release Pull Request
               id: changesets

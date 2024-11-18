@@ -21,4 +21,5 @@ export type TextData = GenericCanvasData<"text"> & {
 
 export type CanvasData = PenData | TextData;
 
-export const isPenData = (obj: unknown): obj is PenData => !!obj && typeof obj == "object" && "type" in obj && obj.type === "pen";
+export const isPenData = (obj: unknown): obj is PenData =>
+    !!obj && typeof obj == "object" && "type" in obj && obj.type === "pen";

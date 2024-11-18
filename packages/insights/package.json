@@ -1,52 +1,53 @@
 {
-  "name": "@equinor/mad-insights",
-  "description": "Application Insights implementation for the mad team",
-  "version": "0.1.4",
-  "author": {
-    "name": "Equinor Mobile App Delivery team (MAD)"
-  },
-  "bugs": "https://github.com/equinor/mad/issues",
-  "dependencies": {
-    "@microsoft/applicationinsights-react-js": "^17.0.0",
-    "@microsoft/applicationinsights-react-native": "^4.0.2",
-    "@microsoft/applicationinsights-web": "^3.0.2",
-    "crypto-js": "^4.1.1",
-    "history": "^5.3.0"
-  },
-  "devDependencies": {
-    "@equinor/eslint-config-mad": "workspace:*",
-    "@equinor/mad-tsconfig": "workspace:*",
-    "@types/crypto-js": "^4.1.2",
-    "eslint": "^8.46.0"
-  },
-  "files": [
-    "CODE_OF_CONDUCT.md",
-    "LICENSE",
-    "CHANGELOG.md",
-    "dist"
-  ],
-  "homepage": "https://github.com/equinor/mad/",
-  "keywords": [
-    "logging",
-    "react native",
-    "tracking",
-    "typescript"
-  ],
-  "license": "MIT",
-  "main": "./dist/index.js",
-  "peerDependencies": {
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-native": "0.76.2",
-    "react-native-device-info": "^10.9.0"
-  },
-  "scripts": {
-    "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
-    "clean": "rm -rf node_modules dist .turbo",
-    "dev": "tsup-node --watch --clean=false",
-    "lint": "eslint src/",
-    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js"
-  },
-  "type": "module",
-  "types": "./dist/index.d.ts"
+    "name": "@equinor/mad-insights",
+    "description": "Application Insights implementation for the mad team",
+    "version": "0.1.4",
+    "author": {
+        "name": "Equinor Mobile App Delivery team (MAD)"
+    },
+    "bugs": "https://github.com/equinor/mad/issues",
+    "dependencies": {
+        "@microsoft/applicationinsights-react-js": "^17.0.0",
+        "@microsoft/applicationinsights-react-native": "^4.0.2",
+        "@microsoft/applicationinsights-web": "^3.0.2",
+        "crypto-js": "^4.1.1",
+        "history": "^5.3.0"
+    },
+    "devDependencies": {
+        "@equinor/eslint-config-mad": "workspace:*",
+        "@equinor/mad-tsconfig": "workspace:*",
+        "@types/crypto-js": "^4.1.2",
+        "eslint": "^8.46.0",
+        "tsup": "^8.3.5"
+    },
+    "files": [
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "dist"
+    ],
+    "homepage": "https://github.com/equinor/mad/",
+    "keywords": [
+        "logging",
+        "react native",
+        "tracking",
+        "typescript"
+    ],
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "peerDependencies": {
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-native": "0.76.2",
+        "react-native-device-info": "^10.9.0"
+    },
+    "scripts": {
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
+        "clean": "rm -rf node_modules dist .turbo",
+        "dev": "tsup-node --watch --clean=false",
+        "lint": "eslint src/",
+        "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js"
+    },
+    "type": "module",
+    "types": "./dist/index.d.ts"
 }
