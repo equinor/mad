@@ -6,7 +6,7 @@ import { Gesture, PanGesture } from "react-native-gesture-handler";
 
 type PanHandlerData = {
     canvasHistory: MutableRefObject<CanvasData[]>;
-    currentPenPaths: MutableRefObject<Record<number, PenData>>;
+    currentPenPath: MutableRefObject<PenData | null>;
     draggingText: MutableRefObject<TextData | undefined>;
     font: SkFont;
     toolColor: Color;
@@ -17,12 +17,13 @@ type PanHandlerData = {
 
 function createPenPanHandlers({
     canvasHistory,
-    currentPenPaths,
+    currentPenPath,
     toolColor,
     strokeWeight,
     rerender,
 }: PanHandlerData): PanGesture {
     return Gesture.Pan()
+        .runOnJS(true)
         .onStart(({ x, y }) => {
             const newPath = Skia.Path.Make();
             newPath.moveTo(x, y);
@@ -32,26 +33,17 @@ function createPenPanHandlers({
                 color: toolColor,
                 strokeWidth: strokeWeight,
             };
-            currentPenPaths.current = {
-                ...currentPenPaths.current,
-                [0]: newData,
-            };
+            currentPenPath.current = newData;
             rerender();
         })
         .onChange(({ x, y }) => {
-            currentPenPaths.current = {
-                ...currentPenPaths.current,
-                [0]: {
-                    ...currentPenPaths.current[0],
-                    path: currentPenPaths.current[0].path.lineTo(x, y),
-                },
-            };
+            currentPenPath.current?.path.lineTo(x, y);
+            rerender();
         })
-        .onEnd(p => {
-            canvasHistory.current = [...canvasHistory.current, currentPenPaths.current[0]];
-            const currentPathCopy = { ...currentPenPaths.current };
-            delete currentPathCopy[p.handlerTag];
-            currentPenPaths.current = currentPathCopy;
+        .onEnd(() => {
+            if (!currentPenPath.current) return;
+            canvasHistory.current = [...canvasHistory.current, { ...currentPenPath.current }];
+            currentPenPath.current = null;
             rerender();
         });
 }
@@ -65,6 +57,7 @@ function createTextPanHandlers({
     rerender,
 }: PanHandlerData): PanGesture {
     return Gesture.Pan()
+        .runOnJS(true)
         .onStart(({ x, y }) => {
             const pressedTextIndex = canvasHistory.current.findIndex(item => {
                 return (

@@ -1,11 +1,11 @@
 import { SkiaDomView } from "@shopify/react-native-skia";
 import { ForwardedRef, RefObject, useMemo, useRef } from "react";
-import { useRerender } from "./useRerender";
-import { useCanvasControlHandle } from "./useCanvasControlHandle";
-import { CanvasData, PenData, TextData } from "../Canvas/types";
 import { createTouchHandlers } from "../Canvas/touchHandlers";
+import { CanvasData, PenData, TextData } from "../Canvas/types";
 import { CanvasControls } from "../CanvasControlProvider";
 import { useCanvasControl } from "./useCanvasControl";
+import { useCanvasControlHandle } from "./useCanvasControlHandle";
+import { useRerender } from "./useRerender";
 
 type CanvasSetup = {
     ref: ForwardedRef<CanvasControls>;
@@ -14,9 +14,9 @@ type CanvasSetup = {
 
 export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
     const { toolColor, strokeWeight, toolType, font, text } = useCanvasControl();
-    const currentPenPaths = useSharedValue<Record<number, PenData>>({});
-    const draggingText = useRef<TextData>();
+    const currentPenPath = useRef<PenData | null>(null);
     const canvasHistory = useRef<CanvasData[]>([]);
+    const draggingText = useRef<TextData>();
 
     const rerender = useRerender();
 
@@ -26,7 +26,7 @@ export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
         () =>
             createTouchHandlers(toolType, {
                 canvasHistory,
-                currentPenPaths,
+                currentPenPath,
                 draggingText,
                 toolColor,
                 strokeWeight,
@@ -34,11 +34,11 @@ export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
                 font,
                 rerender,
             }),
-        [toolType, strokeWeight, toolColor, font, text, rerender],
+        [toolType, canvasHistory, currentPenPath, toolColor, strokeWeight, text, font, rerender],
     );
 
     return {
-        currentPenPaths,
+        currentPenPath,
         canvasHistory,
         draggingText,
         panHandler,
