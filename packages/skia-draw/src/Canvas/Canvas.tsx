@@ -1,8 +1,7 @@
-import { Skia, Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
+import { Canvas as SkiaCanvas, useCanvasRef } from "@shopify/react-native-skia";
 
 import React, { forwardRef, ForwardRefRenderFunction, PropsWithChildren } from "react";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useSharedValue } from "react-native-reanimated";
+import { GestureDetector } from "react-native-gesture-handler";
 import { CanvasControls } from "../CanvasControlProvider";
 import { useCanvasDraw } from "../hooks/useCanvasDraw";
 import { CanvasProps } from "../types";
@@ -34,39 +33,6 @@ const CanvasComponent: ForwardRefRenderFunction<CanvasControls, PropsWithChildre
                     <CanvasElement key="textDrag" data={draggingText.current} isEditing={true} />
                 )}
                 {renderChildrenOnTop && children}
-            </SkiaCanvas>
-        </GestureDetector>
-    );
-};
-
-const DrawingCanvas: React.FC = () => {
-    const currentPath = useSharedValue(Skia.Path.Make().moveTo(0, 0));
-
-    const pan = Gesture.Pan()
-        .averageTouches(true)
-        .maxPointers(1)
-        .onBegin(e => {
-            currentPath.value.moveTo(e.x, e.y);
-            currentPath.value.lineTo(e.x, e.y);
-            //notifyChange(currentPath);
-        })
-        .onChange(e => {
-            currentPath.value.lineTo(e.x, e.y);
-            //notifyChange(currentPath);
-        });
-
-    return (
-        <GestureDetector gesture={pan}>
-            <SkiaCanvas style={{ flex: 1, backgroundColor: "black", width: "100%" }}>
-                <CanvasElement
-                    isEditing={false}
-                    data={{
-                        type: "pen",
-                        path: currentPath.value,
-                        color: "rgba(255, 255, 255, 0.5)",
-                        strokeWidth: 40,
-                    }}
-                />
             </SkiaCanvas>
         </GestureDetector>
     );

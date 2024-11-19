@@ -1,8 +1,10 @@
 import { Color, SkFont, Skia } from "@shopify/react-native-skia";
-import { CanvasData, CanvasTool, PenData, TextData } from "./types";
 import { MutableRefObject } from "react";
+import { ComposedGesture, Gesture, GestureType } from "react-native-gesture-handler";
 import { isInPaddedTextBoundingBox, measureText } from "../utility/boundingTextBox";
-import { Gesture, PanGesture } from "react-native-gesture-handler";
+import { CanvasData, CanvasTool, PenData, TextData } from "./types";
+
+type AnyGesture = GestureType | ComposedGesture;
 
 type PanHandlerData = {
     canvasHistory: MutableRefObject<CanvasData[]>;
@@ -21,7 +23,7 @@ function createPenPanHandlers({
     toolColor,
     strokeWeight,
     rerender,
-}: PanHandlerData): PanGesture {
+}: PanHandlerData): AnyGesture {
     return Gesture.Pan()
         .runOnJS(true)
         .onStart(({ x, y }) => {
@@ -55,42 +57,28 @@ function createTextPanHandlers({
     text,
     font,
     rerender,
-}: PanHandlerData): PanGesture {
-    return Gesture.Pan()
+}: PanHandlerData): AnyGesture {
+    const panGesture = Gesture.Pan()
         .runOnJS(true)
-        .onStart(({ x, y }) => {
+        .onStart(({ x, y, translationX, translationY }) => {
             const pressedTextIndex = canvasHistory.current.findIndex(item => {
                 return (
                     item.type === "text" &&
                     isInPaddedTextBoundingBox({
                         text: item.text,
                         textPosition: item.position,
-                        pointPosition: { x, y },
+                        pointPosition: { x: x - translationX, y: y - translationY },
                         font,
                     })
                 );
             });
 
-            if (pressedTextIndex !== -1) {
-                draggingText.current = canvasHistory.current.at(pressedTextIndex) as TextData;
-                canvasHistory.current = canvasHistory.current.filter(
-                    (_, index) => index !== pressedTextIndex,
-                );
-                rerender();
-                return;
-            }
-            if (!text) return;
-            const newText: TextData = {
-                type: "text",
-                font,
-                text,
-                position: {
-                    x,
-                    y,
-                },
-                color: toolColor,
-            };
-            canvasHistory.current = [...canvasHistory.current, newText];
+            if (pressedTextIndex === -1) return;
+
+            draggingText.current = canvasHistory.current.at(pressedTextIndex) as TextData;
+            canvasHistory.current = canvasHistory.current.filter(
+                (_, index) => index !== pressedTextIndex,
+            );
             rerender();
         })
         .onChange(({ x, y }) => {
@@ -112,13 +100,31 @@ function createTextPanHandlers({
             if (!draggingText.current) {
                 return;
             }
-            canvasHistory.current = [...canvasHistory.current, draggingText.current];
+            canvasHistory.current = [...canvasHistory.current, { ...draggingText.current }];
             draggingText.current = undefined;
             rerender();
         });
+    const tapGesture = Gesture.Tap()
+        .runOnJS(true)
+        .onStart(({ x, y }) => {
+            if (!text) return;
+            const newText: TextData = {
+                type: "text",
+                font,
+                text,
+                position: {
+                    x,
+                    y,
+                },
+                color: toolColor,
+            };
+            canvasHistory.current = [...canvasHistory.current, { ...newText }];
+            rerender();
+        });
+    return Gesture.Race(panGesture, tapGesture);
 }
 
-export function createTouchHandlers(tool: CanvasTool, data: PanHandlerData): PanGesture {
+export function createTouchHandlers(tool: CanvasTool, data: PanHandlerData): AnyGesture {
     switch (tool) {
         case "pen":
             return createPenPanHandlers(data);
