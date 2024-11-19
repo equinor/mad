@@ -8,8 +8,11 @@
     "bugs": "https://github.com/equinor/mad/issues",
     "devDependencies": {
         "@equinor/mad-tsconfig": "workspace:*",
+        "@types/jest": "^29.5.14",
         "eslint": "^8.46.0",
-        "openapi-typescript-codegen": "^0.25.0"
+        "jest": "^29.7.0",
+        "openapi-typescript-codegen": "^0.25.0",
+        "ts-jest": "^29.2.5"
     },
     "files": [
         "CODE_OF_CONDUCT.md",

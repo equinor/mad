@@ -1,7 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 import React from "react";
 import { Cell } from "../src/components/Cell/Cell";
 import { SwipeableMethods } from "../src/components/Cell/types";
+import { renderWithTheme } from "../test-utils";
+
 describe("Cell", () => {
     /**
      * Note: This test doesn't test if the methods are correct. That's an impossible task for a unit test. In fact, the methods log errors in this test.
@@ -47,7 +49,7 @@ describe("Cell", () => {
             />
         );
 
-        render(cell);
+        renderWithTheme(cell);
 
         const left = screen.getByText("LEFT BUTTON");
         const right = screen.getByText("RIGHT BUTTON");
