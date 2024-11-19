@@ -1,7 +1,7 @@
 import { SkiaDomView } from "@shopify/react-native-skia";
 import { ForwardedRef, RefObject, useMemo, useRef } from "react";
 import { useRerender } from "./useRerender";
-import { useCanvasControlHandle } from "./useDrawHandle";
+import { useCanvasControlHandle } from "./useCanvasControlHandle";
 import { CanvasData, PenData, TextData } from "../Canvas/types";
 import { createTouchHandlers } from "../Canvas/touchHandlers";
 import { CanvasControls } from "../CanvasControlProvider";
@@ -14,7 +14,7 @@ type CanvasSetup = {
 
 export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
     const { toolColor, strokeWeight, toolType, font, text } = useCanvasControl();
-    const currentPenPaths = useRef<Record<number, PenData>>({});
+    const currentPenPaths = useSharedValue<Record<number, PenData>>({});
     const draggingText = useRef<TextData>();
     const canvasHistory = useRef<CanvasData[]>([]);
 

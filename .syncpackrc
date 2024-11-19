@@ -10,6 +10,17 @@
                 "dev"
             ],
             "pinVersion": "workspace:*"
+        },
+        {
+            "label": "React Native MSAL is fetched from local github",
+            "dependencies": [
+                "react-native-msal"
+            ],
+            "dependencyTypes": [
+                "prod",
+                "dev"
+            ],
+            "specifierTypes": "hosted-git"
         }
     ]
 }

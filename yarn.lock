@@ -4001,7 +4001,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@equinor/eslint-config-mad@npm:*, @equinor/eslint-config-mad@workspace:*, @equinor/eslint-config-mad@workspace:packages/eslint-config-mad":
+"@equinor/eslint-config-mad@workspace:*, @equinor/eslint-config-mad@workspace:packages/eslint-config-mad":
   version: 0.0.0-use.local
   resolution: "@equinor/eslint-config-mad@workspace:packages/eslint-config-mad"
   dependencies:
@@ -4032,7 +4032,7 @@ __metadata:
     "@equinor/eslint-config-mad": "workspace:*"
     "@equinor/mad-components": "workspace:*"
     "@equinor/mad-tsconfig": "workspace:*"
-    "@react-native-async-storage/async-storage": "npm:2.1.0"
+    "@react-native-async-storage/async-storage": "npm:^2.1.0"
     "@testing-library/jest-native": "npm:^5.4.3"
     "@testing-library/react": "npm:^14.0.0"
     "@testing-library/react-native": "npm:^12.3.0"
@@ -4042,7 +4042,7 @@ __metadata:
     core-js: "npm:^3.37.0"
     eslint: "npm:^8.46.0"
     expo-secure-store: "npm:~12.3.1"
-    jest: "npm:^29.2.1"
+    jest: "npm:^29.7.0"
     jest-expo: "npm:~52.0.1"
     jwt-decode: "npm:^4.0.0"
     react-native-get-random-values: "npm:^1.11.0"
@@ -4066,7 +4066,7 @@ __metadata:
     "@babel/core": "npm:^7.25.2"
     "@babel/plugin-proposal-export-namespace-from": "npm:^7.18.9"
     "@config-plugins/detox": "npm:^8.0.0"
-    "@equinor/eslint-config-mad": "npm:*"
+    "@equinor/eslint-config-mad": "workspace:*"
     "@equinor/mad-auth": "workspace:*"
     "@equinor/mad-components": "workspace:*"
     "@equinor/mad-core": "workspace:*"
@@ -4075,7 +4075,7 @@ __metadata:
     "@equinor/react-native-skia-draw": "workspace:*"
     "@expo/metro-runtime": "npm:~4.0.0"
     "@expo/vector-icons": "npm:^14.0.2"
-    "@react-native-async-storage/async-storage": "npm:2.1.0"
+    "@react-native-async-storage/async-storage": "npm:^2.1.0"
     "@react-navigation/bottom-tabs": "npm:^6.6.0"
     "@react-navigation/native": "npm:^6.1.17"
     "@react-navigation/native-stack": "npm:^6.10.0"
@@ -4097,7 +4097,7 @@ __metadata:
     expo-status-bar: "npm:~2.0.0"
     expo-system-ui: "npm:~4.0.3"
     expo-web-browser: "npm:~14.0.1"
-    jest: "npm:^29.2.1"
+    jest: "npm:^29.7.0"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
     react-native: "npm:0.76.2"
@@ -4167,7 +4167,7 @@ __metadata:
     tsup: "npm:^8.3.5"
     zustand: "npm:^4.5.2"
   peerDependencies:
-    "@react-native-async-storage/async-storage": "*"
+    "@react-native-async-storage/async-storage": ^2.1.0
     "@react-navigation/native": ^6.1.17
     expo-device: ~7.0.1
     expo-localization: ~16.0.0
@@ -4341,6 +4341,7 @@ __metadata:
     react: 18.3.1
     react-native: 0.76.2
     react-native-gesture-handler: ~2.20.2
+    react-native-reanimated: ~3.16.1
   languageName: unknown
   linkType: soft
 
@@ -5808,7 +5809,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:2.1.0":
+"@react-native-async-storage/async-storage@npm:^2.1.0":
   version: 2.1.0
   resolution: "@react-native-async-storage/async-storage@npm:2.1.0"
   dependencies:
@@ -15176,7 +15177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.2.1, jest@npm:^29.7.0":
+"jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -15981,7 +15982,6 @@ __metadata:
   resolution: "mad@workspace:."
   dependencies:
     "@changesets/cli": "npm:^2.27.7"
-    "@equinor/mad-tsconfig": "workspace:*"
     "@types/node": "npm:^18.13.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
     "@typescript-eslint/parser": "npm:^7.14.1"

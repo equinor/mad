@@ -11,7 +11,7 @@
         "@equinor/react-native-skia-draw": "workspace:*",
         "@expo/metro-runtime": "~4.0.0",
         "@expo/vector-icons": "^14.0.2",
-        "@react-native-async-storage/async-storage": "2.1.0",
+        "@react-native-async-storage/async-storage": "^2.1.0",
         "@react-navigation/bottom-tabs": "^6.6.0",
         "@react-navigation/native": "^6.1.17",
         "@react-navigation/native-stack": "^6.10.0",
@@ -45,11 +45,11 @@
     "devDependencies": {
         "@babel/core": "^7.25.2",
         "@config-plugins/detox": "^8.0.0",
-        "@equinor/eslint-config-mad": "*",
+        "@equinor/eslint-config-mad": "workspace:*",
         "@types/react": "~18.3.12",
         "detox": "^20.23.0",
         "eslint": "^8.46.0",
-        "jest": "^29.2.1",
+        "jest": "^29.7.0",
         "react-test-renderer": "18.2.0",
         "typescript": "~5.3.3"
     },

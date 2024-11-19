@@ -3,7 +3,6 @@
     "version": "0.0.0",
     "devDependencies": {
         "@changesets/cli": "^2.27.7",
-        "@equinor/mad-tsconfig": "workspace:*",
         "@types/node": "^18.13.0",
         "@typescript-eslint/eslint-plugin": "^7.14.1",
         "@typescript-eslint/parser": "^7.14.1",
