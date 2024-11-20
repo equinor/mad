@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
--   75df020: Changed dependencies to requrie Expo 52 compatable versions
+-   75df020: Changed dependencies to require Expo 52 compatable versions
 
 ### Patch Changes
 
