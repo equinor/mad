@@ -1,9 +1,53 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Easing, View, ViewProps } from "react-native";
-import { EDSStyleSheet } from "../../styling";
+import React, { useEffect } from "react";
+import { View, ViewProps } from "react-native";
+import Animated, {
+    Easing,
+    Extrapolation,
+    interpolate,
+    SharedValue,
+    useAnimatedProps,
+    useSharedValue,
+    withRepeat,
+    withTiming,
+} from "react-native-reanimated";
+import { Circle, CircleProps, Svg } from "react-native-svg";
 import { useStyles } from "../../hooks/useStyles";
-import { Circle, Svg } from "react-native-svg";
 import { useToken } from "../../hooks/useToken";
+import { EDSStyleSheet } from "../../styling";
+
+type DotProps = {
+    radius: number;
+    count: number;
+    index: number;
+    progress: SharedValue<number>;
+} & CircleProps;
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
+const Dot = ({ radius: originalRadius, count, index, progress, ...circleProps }: DotProps) => {
+    const animatedProps = useAnimatedProps<CircleProps>(() => {
+        const parts = 2;
+        const wholeCount = count - 1 + 2 * parts;
+        const inputs = [
+            index / wholeCount,
+            (index + parts) / wholeCount,
+            (index + 2 * parts) / wholeCount,
+        ];
+        const radiusScale = interpolate(progress.value, inputs, [0.7, 1, 0.7], Extrapolation.CLAMP);
+        const opacityScale = interpolate(
+            progress.value,
+            inputs,
+            [0.3, 1, 0.3],
+            Extrapolation.CLAMP,
+        );
+        return {
+            r: originalRadius * radiusScale,
+            opacity: opacityScale,
+        };
+    });
+
+    return <AnimatedCircle animatedProps={animatedProps} fill="black" {...circleProps} />;
+};
 
 export type DotProgressProps = {
     /**
@@ -16,80 +60,54 @@ export type DotProgressProps = {
     color?: "neutral" | "primary";
 } & ViewProps;
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
 export const DotProgress = ({ color, size: optionalSize, ...rest }: DotProgressProps) => {
     const styles = useStyles(themeStyles, { color });
     const token = useToken();
 
+    const progress = useSharedValue(0);
+    useEffect(() => {
+        progress.value = withRepeat(
+            withTiming(1, {
+                duration: 1500,
+                easing: Easing.inOut(Easing.sin),
+            }),
+            0,
+        );
+    }, [progress]);
+
     const height = optionalSize ?? token.geometry.dimension.icon.size;
     const width = height * 4;
+    const radius = height / 2;
 
-    const bumpValue1 = useRef(new Animated.Value(0)).current;
-    const bumpValue2 = useRef(new Animated.Value(0)).current;
-    const bumpValue3 = useRef(new Animated.Value(0)).current;
-
-    const bumpAnimation = (val: Animated.Value) =>
-        Animated.timing(val, {
-            toValue: 1,
-            duration: 300,
-            easing: Easing.elastic(1),
-            useNativeDriver: true,
-        });
-
-    const swipeAnimation = Animated.loop(
-        Animated.sequence([
-            bumpAnimation(bumpValue1),
-            bumpAnimation(bumpValue2),
-            bumpAnimation(bumpValue3),
-        ]),
-    );
-
-    const opacity = (val: Animated.Value) =>
-        val.interpolate({
-            inputRange: [0, 0.25, 0.5, 0.75, 1],
-            outputRange: [0.16, 1, 1, 1, 0.16],
-            extrapolateRight: "clamp",
-        });
-    const radius = (val: Animated.Value) =>
-        val.interpolate({
-            inputRange: [0, 0.25, 0.5, 0.75, 1],
-            outputRange: [
-                (height / 2) * 0.8,
-                (height / 2) * 1.0,
-                (height / 2) * 1.0,
-                (height / 2) * 1.0,
-                (height / 2) * 0.8,
-            ],
-        });
-
-    useEffect(() => {
-        swipeAnimation.start();
-    }, [swipeAnimation]);
     return (
         <View {...rest} style={[{ width, height }, rest.style]}>
             <Svg height={height} width={width}>
-                <AnimatedCircle
-                    cx={height / 2}
+                <Dot
+                    progress={progress}
+                    radius={radius}
+                    index={0}
+                    count={3}
+                    cx={radius}
                     cy="50%"
-                    r={radius(bumpValue1)}
-                    opacity={opacity(bumpValue1)}
                     fill={styles.circle.color}
                 />
-                <AnimatedCircle
+                <Dot
+                    progress={progress}
+                    radius={radius}
+                    index={1}
+                    count={3}
                     cx="50%"
                     cy="50%"
-                    r={radius(bumpValue2)}
-                    opacity={opacity(bumpValue2)}
                     fill={styles.circle.color}
                 />
-                <AnimatedCircle
-                    cx={width - height / 2}
+                <Dot
+                    progress={progress}
+                    radius={radius}
+                    index={2}
+                    count={3}
+                    cx={width - radius}
                     cy="50%"
-                    r={radius(bumpValue3)}
-                    opacity={opacity(bumpValue3)}
                     fill={styles.circle.color}
-                    stroke="none"
                 />
             </Svg>
         </View>
