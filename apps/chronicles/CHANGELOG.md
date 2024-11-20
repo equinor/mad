@@ -1,5 +1,26 @@
 # @equinor/mad-chronicles
 
+## 1.2.0
+
+### Minor Changes
+
+-   75df020: Changed dependencies to requrie Expo 52 compatable versions
+
+### Patch Changes
+
+-   Updated dependencies [7ff2d25]
+-   Updated dependencies [75df020]
+-   Updated dependencies [75df020]
+-   Updated dependencies [2ce9392]
+-   Updated dependencies [75df020]
+-   Updated dependencies [75df020]
+    -   @equinor/mad-components@0.16.0
+    -   @equinor/react-native-skia-draw@0.5.0
+    -   @equinor/mad-navigation@0.4.0
+    -   @equinor/mad-core@0.10.0
+    -   @equinor/mad-auth@0.2.9
+    -   @equinor/mad-dfw@0.5.10
+
 ## 1.1.1
 
 ### Patch Changes

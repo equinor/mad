@@ -1,5 +1,20 @@
 # @equinor/react-native-mad-ocr
 
+## 0.1.0
+
+### Minor Changes
+
+-   75df020: Changed dependencies to requrie Expo 52 compatable versions
+
+### Patch Changes
+
+-   Updated dependencies [7ff2d25]
+-   Updated dependencies [75df020]
+-   Updated dependencies [75df020]
+-   Updated dependencies [2ce9392]
+-   Updated dependencies [75df020]
+    -   @equinor/mad-components@0.16.0
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @equinor/mad-navigation
 
+## 0.4.0
+
+### Minor Changes
+
+-   75df020: Changed dependencies to requrie Expo 52 compatable versions
+
 ## 0.3.2
 
 ### Patch Changes

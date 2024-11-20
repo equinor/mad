@@ -1,5 +1,20 @@
 # @equinor/mad-components
 
+## 0.16.0
+
+### Minor Changes
+
+-   75df020: - **BREAKING CHANGE**: Changed name of `Theme` typing to `Token`
+    -   `useToken` no longer calculates the correctly themed token on every mount. This should come
+        with some nice performance increases
+-   75df020: Changed dependencies to requrie Expo 52 compatable versions
+
+### Patch Changes
+
+-   7ff2d25: Prevent Cell errors by replacing `SwipeableWithContext` with `Swipeable.
+-   75df020: Reworked the animations for the DotProgress component. Should be much smoother now
+-   2ce9392: Prevent the `Search` component to appear active on web when it is disabled.
+
 ## 0.15.2
 
 ### Patch Changes
