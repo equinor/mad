@@ -116,5 +116,4 @@ export const colors = {
     toast_warning_background_dark: "#7F4600",
     toast_warning_text_light: "#7F4600",
     toast_warning_text_dark: "#FFE7D6",
-
 } as const;

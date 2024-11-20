@@ -8,7 +8,6 @@ export type PortalProps = {
     name: "root" | Omit<string, "root">;
 };
 
-
 export const Portal = ({ name, children }: PropsWithChildren<PortalProps>) => {
     const { registerHost, bindNode } = useContext(PortalContext);
     const nameAsString = name as string;

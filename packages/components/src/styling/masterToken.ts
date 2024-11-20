@@ -173,44 +173,44 @@ export const masterToken: MasterToken = {
             error: {
                 background: {
                     light: colors.toast_error_background_light,
-                    dark: colors.toast_error_background_dark
+                    dark: colors.toast_error_background_dark,
                 },
                 text: {
                     light: colors.toast_error_text_light,
-                    dark: colors.toast_error_text_dark
-                }
+                    dark: colors.toast_error_text_dark,
+                },
             },
             info: {
                 background: {
                     light: colors.toast_info_background_light,
-                    dark: colors.toast_info_background_dark
+                    dark: colors.toast_info_background_dark,
                 },
                 text: {
                     light: colors.toast_info_text_light,
-                    dark: colors.toast_info_text_dark
-                }
+                    dark: colors.toast_info_text_dark,
+                },
             },
             warning: {
                 background: {
                     light: colors.toast_warning_background_light,
-                    dark: colors.toast_warning_background_dark
+                    dark: colors.toast_warning_background_dark,
                 },
                 text: {
                     light: colors.toast_warning_text_light,
-                    dark: colors.toast_warning_text_dark
-                }
+                    dark: colors.toast_warning_text_dark,
+                },
             },
             success: {
                 background: {
                     light: colors.toast_success_background_light,
-                    dark: colors.toast_success_background_dark
+                    dark: colors.toast_success_background_dark,
                 },
                 text: {
                     light: colors.toast_success_text_light,
-                    dark: colors.toast_success_text_dark
-                }
-            }
-        }
+                    dark: colors.toast_success_text_dark,
+                },
+            },
+        },
     },
     geometry: {
         border: {

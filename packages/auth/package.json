@@ -1,42 +1,14 @@
 {
     "name": "@equinor/mad-auth",
-    "version": "0.2.8",
     "description": "A simple wrapper library for react-native-msal",
-    "type": "module",
-    "scripts": {
-        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
-        "test": "jest",
-        "dev": "tsup-node --watch --clean=false",
-        "lint": "eslint src/",
-        "clean": "rm -rf node_modules dist .turbo"
-    },
-    "keywords": [
-        "react native",
-        "authentication",
-        "typescript",
-        "msal"
-    ],
+    "version": "0.2.8",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/equinor/mad/issues"
-    },
-    "homepage": "https://github.com/equinor/mad/",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "peerDependencies": {
-        "expo-auth-session": ">=5.0",
-        "expo-crypto": ">=12.0",
-        "react": ">=18.0",
-        "react-dom": ">=18.0",
-        "react-native": ">=0.70",
-        "react-native-msal": "*"
-    },
+    "bugs": "https://github.com/equinor/mad/issues",
     "dependencies": {
         "@equinor/mad-components": "workspace:*",
-        "@react-native-async-storage/async-storage": "^1.23.1",
+        "@react-native-async-storage/async-storage": "^2.1.0",
         "@types/aes-js": "^3.1.4",
         "aes-js": "^3.1.2",
         "core-js": "^3.37.0",
@@ -46,20 +18,49 @@
         "zustand": "^4.5.2"
     },
     "devDependencies": {
-        "@babel/core": "^7.20.0",
+        "@babel/core": "^7.25.2",
         "@equinor/eslint-config-mad": "workspace:*",
+        "@equinor/mad-tsconfig": "workspace:*",
         "@testing-library/jest-native": "^5.4.3",
         "@testing-library/react": "^14.0.0",
         "@testing-library/react-native": "^12.3.0",
         "@types/showdown": "^2.0.0",
-        "jest": "^29.2.1",
-        "jest-expo": "~51.0.3",
-        "react-test-renderer": "18.2.0"
+        "eslint": "^8.46.0",
+        "jest": "^29.7.0",
+        "jest-expo": "~52.0.1",
+        "react-test-renderer": "18.2.0",
+        "tsup": "^8.3.5"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
         "LICENSE",
         "CHANGELOG.md",
         "dist"
-    ]
+    ],
+    "homepage": "https://github.com/equinor/mad/",
+    "keywords": [
+        "authentication",
+        "msal",
+        "react native",
+        "typescript"
+    ],
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "peerDependencies": {
+        "expo-auth-session": "~6.0.0",
+        "expo-crypto": "~14.0.1",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-native": "0.76.2",
+        "react-native-msal": "*"
+    },
+    "scripts": {
+        "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
+        "clean": "rm -rf node_modules dist .turbo",
+        "dev": "tsup-node --watch --clean=false",
+        "lint": "eslint src/",
+        "test": "jest"
+    },
+    "type": "module",
+    "types": "./dist/index.d.ts"
 }

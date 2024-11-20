@@ -5,7 +5,6 @@ import { PressableHighlight } from "../PressableHighlight";
 import { colors } from "../../styling";
 import { StyleSheet } from "react-native";
 
-
 export type RadioProps = {
     /**
      * Callback method invoked when the user presses the button.
@@ -37,7 +36,7 @@ export const Radio = ({
 }: RadioProps) => {
     return (
         <PressableHighlight
-            style={[styles.pressableHighlight, {borderRadius: size}]}
+            style={[styles.pressableHighlight, { borderRadius: size }]}
             onPress={() => {
                 onPress?.(disabled ? checked : !checked);
             }}
@@ -57,10 +56,10 @@ export const Radio = ({
 };
 
 const styles = StyleSheet.create({
-        pressableHighlight: {
-            padding: 7,
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-        },
+    pressableHighlight: {
+        padding: 7,
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+    },
 });

@@ -1,18 +1,6 @@
 {
     "name": "@equinor/eslint-config-mad",
     "version": "0.4.1",
-    "main": "index.js",
-    "scripts": {
-        "clean": "rm -rf node_modules dist .turbo"
-    },
-    "exports": {
-        ".": "./index.js",
-        "./base": "./rules/base.js",
-        "./react": "./rules/react.js",
-        "./react-hooks": "./rules/react-hooks.js",
-        "./typescript": "./rules/typescript.js"
-    },
-    "license": "MIT",
     "dependencies": {
         "eslint-config-prettier": "^9.1.0",
         "eslint-import-resolver-typescript": "^3.6.1",
@@ -22,10 +10,19 @@
         "eslint-plugin-react-hooks": "^4.6.2",
         "eslint-plugin-simple-import-sort": "^12.1.0"
     },
+    "exports": {
+        ".": "./index.js",
+        "./base": "./rules/base.js",
+        "./react": "./rules/react.js",
+        "./react-hooks": "./rules/react-hooks.js",
+        "./typescript": "./rules/typescript.js"
+    },
+    "license": "MIT",
+    "main": "index.js",
     "peerDependencies": {
         "@typescript-eslint/eslint-plugin": "^7.14.1",
         "@typescript-eslint/parser": "^7.14.1",
-        "eslint": "^8"
+        "eslint": "^8.46.0"
     },
     "peerDependenciesMeta": {
         "@typescript-eslint/eslint-plugin": {
@@ -37,5 +34,8 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "scripts": {
+        "clean": "rm -rf node_modules dist .turbo"
     }
 }

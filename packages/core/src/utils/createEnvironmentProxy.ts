@@ -1,7 +1,7 @@
-import {Environment, EnvironmentContextualConfig, EnvironmentValues, MadConfig} from "../types";
-import { getPureConfig} from "../store/mad-config";
+import { Environment, EnvironmentContextualConfig, EnvironmentValues, MadConfig } from "../types";
+import { getPureConfig } from "../store/mad-config";
 
-function isEnvironmentValuesObject(obj: unknown): obj is EnvironmentValues<unknown>{
+function isEnvironmentValuesObject(obj: unknown): obj is EnvironmentValues<unknown> {
     if (!obj) return false;
     const template = ["dev", "test", "qa", "prod"];
     const objectKeys = Object.keys(obj);

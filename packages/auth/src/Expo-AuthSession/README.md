@@ -57,5 +57,6 @@ useAccount(): MadAccount | null
 
 This API uses `expo-secure-store` to securely store an encryption key for the persisted token. As
 `expo-secure-store` is not working for Expo Web we have implemented a parallel API to
-`expo-auth-session` for web that uses `@azure/msal-browser` instead. This is all handled under the hood, so
-there is no need to do anything if you are developing for Expo Web in addition to iOS/Android.
+`expo-auth-session` for web that uses `@azure/msal-browser` instead. This is all handled under the
+hood, so there is no need to do anything if you are developing for Expo Web in addition to
+iOS/Android.

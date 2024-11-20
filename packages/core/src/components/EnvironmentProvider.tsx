@@ -4,5 +4,7 @@ import React, { PropsWithChildren } from "react";
 
 export function EnvironmentProvider(props: PropsWithChildren) {
     const environment = useEnvironment();
-    return <ProvideEnvironment currentEnvironment={environment}>{props.children}</ProvideEnvironment>;
+    return (
+        <ProvideEnvironment currentEnvironment={environment}>{props.children}</ProvideEnvironment>
+    );
 }

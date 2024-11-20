@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { Pressable, PressableProps, StyleSheet, View, ViewStyle } from "react-native";
+import { Pressable, PressableProps, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import { useFadeAnimation } from "../../styling/animations";
 import { DisabledPressable } from "./DisabledPressable";
@@ -13,7 +13,7 @@ export type PressableHightlightProps = {
      * The style to apply to this component.
      * Any stylings based on the state of the press is applied on top of this.
      */
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
 } & Omit<PressableProps, "children">;
 
 export const PressableHighlight = forwardRef<

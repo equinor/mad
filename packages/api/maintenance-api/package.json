@@ -2,32 +2,17 @@
     "name": "@equinor/mad-maintenance-api-ts-wrapper",
     "description": "Typescript wrapper for the Equinor Maintenance API",
     "version": "1.34.4",
-    "type": "module",
-    "scripts": {
-        "test": "node --experimental-vm-modules ../../../node_modules/jest/bin/jest.js",
-        "generate": "openapi -o ./src/lib/generated -c fetch --useUnionTypes --useOptions --exportCore false -i",
-        "build": "tsc --project tsconfig.lib.json",
-        "clean": "rm -rf node_modules dist .turbo"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/equinor/mad/"
-    },
-    "keywords": [
-        "API",
-        "TypeScript",
-        "wrapper"
-    ],
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/equinor/mad/issues"
-    },
-    "homepage": "https://github.com/equinor/mad/",
+    "bugs": "https://github.com/equinor/mad/issues",
     "devDependencies": {
-        "openapi-typescript-codegen": "^0.25.0"
+        "@equinor/mad-tsconfig": "workspace:*",
+        "@types/jest": "^29.5.14",
+        "eslint": "^8.46.0",
+        "jest": "^29.7.0",
+        "openapi-typescript-codegen": "^0.25.0",
+        "ts-jest": "^29.2.5"
     },
     "files": [
         "CODE_OF_CONDUCT.md",
@@ -35,6 +20,21 @@
         "CHANGELOG.md",
         "dist"
     ],
+    "homepage": "https://github.com/equinor/mad/",
+    "keywords": [
+        "API",
+        "TypeScript",
+        "wrapper"
+    ],
+    "license": "MIT",
     "main": "./dist/index.js",
+    "repository": "equinor/mad/",
+    "scripts": {
+        "build": "tsc --project tsconfig.lib.json",
+        "clean": "rm -rf node_modules dist .turbo",
+        "generate": "openapi -o ./src/lib/generated -c fetch --useUnionTypes --useOptions --exportCore false -i",
+        "test": "node --experimental-vm-modules ../../../node_modules/jest/bin/jest.js"
+    },
+    "type": "module",
     "typings": "./dist/index.d.ts"
 }
