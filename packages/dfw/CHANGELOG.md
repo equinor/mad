@@ -4,10 +4,6 @@
 
 ### Patch Changes
 
--   Updated dependencies [7ff2d25]
--   Updated dependencies [75df020]
--   Updated dependencies [75df020]
--   Updated dependencies [2ce9392]
 -   Updated dependencies [75df020]
     -   @equinor/mad-components@0.16.0
 
