@@ -7,7 +7,7 @@
 -   75df020: - **BREAKING CHANGE**: Changed name of `Theme` typing to `Token`
     -   `useToken` no longer calculates the correctly themed token on every mount. This should come
         with some nice performance increases
--   75df020: Changed dependencies to requrie Expo 52 compatable versions
+-   75df020: Changed dependencies to require Expo 52 compatable versions
 
 ### Patch Changes
 
