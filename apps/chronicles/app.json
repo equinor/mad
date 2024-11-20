@@ -3,7 +3,6 @@
         "name": "chronicles",
         "slug": "chronicles",
         "version": "1.0.0",
-        "newArchEnabled": false,
         "icon": "./assets/images/icon.png",
         "scheme": "chronicles",
         "userInterfaceStyle": "automatic",
