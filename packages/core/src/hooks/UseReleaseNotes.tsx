@@ -12,10 +12,7 @@ export const useReleaseNotes = () => {
     const [releaseNotes, setReleaseNotes] = useState<Release[] | null>(null);
     const [error, setError] = useState("");
     const [isFetching, setIsFetching] = useState(true);
-    const sortedReleaseNotes = useMemo(
-        () => releaseNotes?.sort(sortReleaseNotes),
-        [releaseNotes],
-    );
+    const sortedReleaseNotes = useMemo(() => releaseNotes?.sort(sortReleaseNotes), [releaseNotes]);
 
     useEffect(() => {
         if (demoMode.isEnabled) {

@@ -24,7 +24,6 @@ export const CanvasControlProvider = ({
     canvasRef,
     children,
 }: PropsWithChildren<CanvasControlProviderProps>) => {
-
     const [toolColor, setToolColor] = useState<Color>(initialToolColor);
     const [strokeWeight, setStrokeWeight] = useState<number>(initialStrokeWeight);
     const [toolType, setToolType] = useState<CanvasTool>(initialToolType);

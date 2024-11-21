@@ -4,6 +4,7 @@ module.exports = function (api) {
     return {
         presets: ["babel-preset-expo"],
         plugins: [
+            "@babel/plugin-proposal-export-namespace-from",
             // Reanimated has to be listed last!
             "react-native-reanimated/plugin",
         ],

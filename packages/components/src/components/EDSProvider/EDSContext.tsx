@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { ColorScheme, Density } from "../../styling";
+import { ColorScheme, Density, Token } from "../../styling";
 
 export type EDSContextType = {
     /**
@@ -13,11 +13,13 @@ export type EDSContextType = {
      * but an advised approach is to treat all screen widths below 576 as `phone`.
      */
     density: Density;
+
+    /**
+     * The current themed token for the app. This is automatically inferred from the color scheme and density values.
+     */
+    token: Token;
 };
 
-export const EDSContext = createContext<EDSContextType>({
-    colorScheme: "light",
-    density: "tablet",
-});
+export const EDSContext = createContext<EDSContextType | null>(null);
 
 EDSContext.displayName = "EDSContext";

@@ -1,11 +1,14 @@
-import { Color, SkFont, Skia, TouchHandlers } from "@shopify/react-native-skia";
-import { CanvasData, CanvasTool, PenData, TextData } from "./types";
+import { Color, SkFont, Skia } from "@shopify/react-native-skia";
 import { MutableRefObject } from "react";
+import { ComposedGesture, Gesture, GestureType } from "react-native-gesture-handler";
 import { isInPaddedTextBoundingBox, measureText } from "../utility/boundingTextBox";
+import { CanvasData, CanvasTool, PenData, TextData } from "./types";
 
-type TouchHandlerData = {
+type AnyGesture = GestureType | ComposedGesture;
+
+type PanHandlerData = {
     canvasHistory: MutableRefObject<CanvasData[]>;
-    currentPenPaths: MutableRefObject<Record<number, PenData>>;
+    currentPenPath: MutableRefObject<PenData | null>;
     draggingText: MutableRefObject<TextData | undefined>;
     font: SkFont;
     toolColor: Color;
@@ -14,15 +17,16 @@ type TouchHandlerData = {
     rerender: () => void;
 };
 
-function createPenTouchHandlers({
+function createPenPanHandlers({
     canvasHistory,
-    currentPenPaths,
+    currentPenPath,
     toolColor,
     strokeWeight,
     rerender,
-}: TouchHandlerData): TouchHandlers {
-    return {
-        onStart: ({ x, y, id }) => {
+}: PanHandlerData): AnyGesture {
+    return Gesture.Pan()
+        .runOnJS(true)
+        .onStart(({ x, y }) => {
             const newPath = Skia.Path.Make();
             newPath.moveTo(x, y);
             const newData: PenData = {
@@ -31,74 +35,53 @@ function createPenTouchHandlers({
                 color: toolColor,
                 strokeWidth: strokeWeight,
             };
-            currentPenPaths.current = {
-                ...currentPenPaths.current,
-                [id]: newData,
-            };
+            currentPenPath.current = newData;
             rerender();
-        },
-        onActive: ({ x, y, id }) => {
-            currentPenPaths.current = {
-                ...currentPenPaths.current,
-                [id]: {
-                    ...currentPenPaths.current[id],
-                    path: currentPenPaths.current[id].path.lineTo(x, y),
-                },
-            };
-        },
-        onEnd: ({ id }) => {
-            canvasHistory.current = [...canvasHistory.current, currentPenPaths.current[id]];
-            const currentPathCopy = { ...currentPenPaths.current };
-            delete currentPathCopy[id];
-            currentPenPaths.current = currentPathCopy;
+        })
+        .onChange(({ x, y }) => {
+            currentPenPath.current?.path.lineTo(x, y);
             rerender();
-        },
-    };
+        })
+        .onEnd(() => {
+            if (!currentPenPath.current) return;
+            canvasHistory.current = [...canvasHistory.current, { ...currentPenPath.current }];
+            currentPenPath.current = null;
+            rerender();
+        });
 }
 
-function createTextTouchHandlers({
+function createTextPanHandlers({
     canvasHistory,
     draggingText,
     toolColor,
     text,
     font,
     rerender,
-}: TouchHandlerData): TouchHandlers {
-    return {
-        onStart: ({ x, y }) => {
-            const pressedTextIndex = canvasHistory.current
-                .findIndex(item => {
-                    return item.type === "text" && isInPaddedTextBoundingBox({
+}: PanHandlerData): AnyGesture {
+    const panGesture = Gesture.Pan()
+        .runOnJS(true)
+        .onStart(({ x, y, translationX, translationY }) => {
+            const pressedTextIndex = canvasHistory.current.findIndex(item => {
+                return (
+                    item.type === "text" &&
+                    isInPaddedTextBoundingBox({
                         text: item.text,
                         textPosition: item.position,
-                        pointPosition: { x, y },
+                        pointPosition: { x: x - translationX, y: y - translationY },
                         font,
-                    });
-                });
-
-            if (pressedTextIndex !== -1) {
-                draggingText.current = canvasHistory.current.at(pressedTextIndex) as TextData;
-                canvasHistory.current = canvasHistory.current.filter(
-                    (_, index) => index !== pressedTextIndex,
+                    })
                 );
-                rerender();
-                return;
-            }
-            if (!text) return;
-            const newText: TextData = {
-                type: "text",
-                font,
-                text,
-                position: {
-                    x,
-                    y,
-                },
-                color: toolColor,
-            };
-            canvasHistory.current = [...canvasHistory.current, newText];
+            });
+
+            if (pressedTextIndex === -1) return;
+
+            draggingText.current = canvasHistory.current.at(pressedTextIndex) as TextData;
+            canvasHistory.current = canvasHistory.current.filter(
+                (_, index) => index !== pressedTextIndex,
+            );
             rerender();
-        },
-        onActive: ({ x, y }) => {
+        })
+        .onChange(({ x, y }) => {
             if (!draggingText.current) {
                 return;
             }
@@ -112,23 +95,40 @@ function createTextTouchHandlers({
                 },
             };
             rerender();
-        },
-        onEnd: () => {
+        })
+        .onEnd(() => {
             if (!draggingText.current) {
                 return;
             }
-            canvasHistory.current = [...canvasHistory.current, draggingText.current];
+            canvasHistory.current = [...canvasHistory.current, { ...draggingText.current }];
             draggingText.current = undefined;
             rerender();
-        },
-    };
+        });
+    const tapGesture = Gesture.Tap()
+        .runOnJS(true)
+        .onStart(({ x, y }) => {
+            if (!text) return;
+            const newText: TextData = {
+                type: "text",
+                font,
+                text,
+                position: {
+                    x,
+                    y,
+                },
+                color: toolColor,
+            };
+            canvasHistory.current = [...canvasHistory.current, { ...newText }];
+            rerender();
+        });
+    return Gesture.Race(panGesture, tapGesture);
 }
 
-export function createTouchHandlers(tool: CanvasTool, data: TouchHandlerData): TouchHandlers {
+export function createTouchHandlers(tool: CanvasTool, data: PanHandlerData): AnyGesture {
     switch (tool) {
         case "pen":
-            return createPenTouchHandlers(data);
+            return createPenPanHandlers(data);
         case "text":
-            return createTextTouchHandlers(data);
+            return createTextPanHandlers(data);
     }
 }

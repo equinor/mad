@@ -1,5 +1,5 @@
 {
-    "extends": "tsconfig/base.json",
+    "extends": "@equinor/mad-tsconfig/base",
     "compilerOptions": {
         "rootDir": "./src",
         "allowSyntheticDefaultImports": true,
@@ -11,11 +11,6 @@
         "noFallthroughCasesInSwitch": true,
         "outDir": "./dist"
     },
-    "include": [
-        "./src"
-    ],
-    "exclude": [
-        "./src/__tests__",
-        "dist"
-    ]
+    "include": ["./src"],
+    "exclude": ["./src/__tests__", "dist"]
 }

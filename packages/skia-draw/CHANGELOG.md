@@ -1,5 +1,18 @@
 # @equinor/react-native-skia-draw
 
+## 0.5.0
+
+### Minor Changes
+
+-   75df020: Changed dependencies to require Expo 52 compatable versions
+
+### Patch Changes
+
+-   75df020: Change underlying gesture engine to react native gesture handler + react native
+    reanimated
+-   Updated dependencies [75df020]
+    -   @equinor/mad-components@0.16.0
+
 ## 0.4.3
 
 ### Patch Changes

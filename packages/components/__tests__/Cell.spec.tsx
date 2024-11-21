@@ -1,7 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 import React from "react";
 import { Cell } from "../src/components/Cell/Cell";
-import { SwipeableMethods } from "../src/components/_internal/SwipeableWithContext";
+import { SwipeableMethods } from "../src/components/Cell/types";
+import { renderWithTheme } from "../test-utils";
+
 describe("Cell", () => {
     /**
      * Note: This test doesn't test if the methods are correct. That's an impossible task for a unit test. In fact, the methods log errors in this test.
@@ -47,21 +49,21 @@ describe("Cell", () => {
             />
         );
 
-        render(cell);
+        renderWithTheme(cell);
 
         const left = screen.getByText("LEFT BUTTON");
         const right = screen.getByText("RIGHT BUTTON");
 
         fireEvent(left, "press");
-        expect(close).toBeCalledTimes(1);
-        expect(openLeft).toBeCalledTimes(1);
-        expect(openRight).toBeCalledTimes(1);
-        expect(reset).toBeCalledTimes(1);
+        expect(close).toHaveBeenCalledTimes(1);
+        expect(openLeft).toHaveBeenCalledTimes(1);
+        expect(openRight).toHaveBeenCalledTimes(1);
+        expect(reset).toHaveBeenCalledTimes(1);
 
         fireEvent(right, "press");
-        expect(close).toBeCalledTimes(2);
-        expect(openLeft).toBeCalledTimes(2);
-        expect(openRight).toBeCalledTimes(2);
-        expect(reset).toBeCalledTimes(2);
+        expect(close).toHaveBeenCalledTimes(2);
+        expect(openLeft).toHaveBeenCalledTimes(2);
+        expect(openRight).toHaveBeenCalledTimes(2);
+        expect(reset).toHaveBeenCalledTimes(2);
     });
 });

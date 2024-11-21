@@ -9,7 +9,6 @@ This is a monorepo collecting many of the packages used in the Mobile Applicatio
 
 [![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/mad/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/mad/badge)
 
-
 ## 📦 Apps and packages:
 
 | App / Package                                      | Description                                                                                               | Status                                                                                                                                                         |
@@ -28,8 +27,8 @@ This is a monorepo collecting many of the packages used in the Mobile Applicatio
 
 ### ⏱️ Getting started
 
-This turborepo uses [yarn](https://classic.yarnpkg.com/) as a package manager. Start by cloning the repository
-and run
+This turborepo uses [yarn](https://classic.yarnpkg.com/) as a package manager. Start by cloning the
+repository and run
 
 ```
 npm install -g yarn

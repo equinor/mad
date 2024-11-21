@@ -1,6 +1,5 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import { EDSContext } from "../components/EDSProvider/EDSContext";
-import { createTokenProxy } from "../styling/createTokenProxy";
 
 /**
  * Resolves the current values from the master token directly.
@@ -10,8 +9,10 @@ import { createTokenProxy } from "../styling/createTokenProxy";
  */
 export function useToken() {
     const context = useContext(EDSContext);
-    const tokenProxy = useMemo(() => {
-        return createTokenProxy(context.colorScheme, context.density);
-    }, [context.colorScheme, context.density]);
-    return tokenProxy;
+    if (!context) {
+        throw new Error(
+            "useToken must be called within a EDSProvider. Did you forget to wrap your application in it?",
+        );
+    }
+    return context.token;
 }

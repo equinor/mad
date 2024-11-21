@@ -24,7 +24,7 @@ const mockConfig: MadConfig = {
     login: {
         title: "Chronicles",
         logo: "whatever doesn't matter in this test" as ImageSourcePropType,
-    }
+    },
 };
 
 const setSupportedLanguagesAndMaybeDefaultLanguageCode = (
