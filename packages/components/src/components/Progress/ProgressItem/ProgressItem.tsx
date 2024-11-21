@@ -12,6 +12,7 @@ import { ProgressLine } from "./ProgressLine";
 import { TitleAndDescription } from "./TitleAndDescription";
 import { useBreakpoint } from "../../../hooks/useBreakpoint";
 import { ExpandButton } from "./ExpandButton";
+import { Spacer } from "../../Spacer";
 
 type ProgressItemPropsOptions =
     | {
@@ -87,7 +88,7 @@ const WrappedProgressItem = ({
     };
     return (
         <View {...viewProps} style={[styles.container, viewProps.style]}>
-            <View style={styles.row}>
+            <View style={[styles.row, styles.centered]}>
                 <ProgressStatusIndicator
                     size={ICON_SIZE}
                     status={status}
@@ -107,7 +108,7 @@ const WrappedProgressItem = ({
                     </View>
                 </ExpandableSection>
             </View>
-            <View style={styles.row}>
+            <View style={[styles.row, styles.bottomRow]}>
                 <View style={styles.leftCol} />
                 <ButtonRow
                     onRetryButtonPress={onRetryButtonPress}
@@ -140,5 +141,8 @@ const themeStyles = EDSStyleSheet.create(token => ({
     centered: {
         alignItems: "center",
         justifyContent: "center",
+    },
+    bottomRow: {
+        paddingVertical: token.spacing.element.paddingHorizontal,
     },
 }));
