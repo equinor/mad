@@ -41,10 +41,10 @@ export const ProgressItemProvider = ({
     const failedTask = useMemo(() => tasks.find(task => task.status === "error"), [tasks]);
 
     useEffect(() => {
-        if (failedTask) {
+        if (status === "error") {
             setIsExpanded(true);
         }
-    }, [failedTask]);
+    }, [status]);
 
     return (
         <ProgressItemContext.Provider
