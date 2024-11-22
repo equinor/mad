@@ -100,17 +100,20 @@ const WrappedProgressItem = ({
 
             <View style={styles.row}>
                 <ProgressLine style={styles.leftCol} />
-                <ExpandableSection isExpanded={isExpanded}>
-                    <View style={styles.progressTaskItemContainer}>
-                        {tasks.map((task, index) => (
-                            <ProgressItemTask key={index} task={task} />
-                        ))}
-                    </View>
-                </ExpandableSection>
+                {tasks.length ? (
+                    <ExpandableSection isExpanded={isExpanded}>
+                        <View style={styles.progressTaskItemContainer}>
+                            {tasks.map((task, index) => (
+                                <ProgressItemTask key={index} task={task} />
+                            ))}
+                        </View>
+                    </ExpandableSection>
+                ) : null}
             </View>
-            <View style={[styles.row, styles.bottomRow]}>
+            <View style={styles.row}>
                 <View style={styles.leftCol} />
                 <ButtonRow
+                    style={styles.buttonRow}
                     onRetryButtonPress={onRetryButtonPress}
                     handleRetryButtonPress={handleRetryButtonPress}
                 />
@@ -142,7 +145,7 @@ const themeStyles = EDSStyleSheet.create(token => ({
         alignItems: "center",
         justifyContent: "center",
     },
-    bottomRow: {
-        paddingVertical: token.spacing.element.paddingHorizontal,
+    buttonRow: {
+        paddingTop: token.spacing.element.paddingVertical,
     },
 }));

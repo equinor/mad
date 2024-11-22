@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, ViewProps } from "react-native";
 import { useStyles } from "../../../hooks/useStyles";
 import { EDSStyleSheet } from "../../../styling";
 import { Button } from "../../Button";
@@ -11,17 +11,18 @@ type ButtonRowProps = {
     onRetryButtonPress?: (task: ProgressTask) => void;
     taskHasError?: boolean;
     handleRetryButtonPress?: () => void;
-};
+} & ViewProps;
 
 export const ButtonRow = ({
     onRetryButtonPress,
     taskHasError,
     handleRetryButtonPress,
+    ...viewProps
 }: ButtonRowProps) => {
     const styles = useStyles(tokenStyles);
     const breakpoint = useBreakpoint();
     return (
-        <View style={styles.buttonsRow}>
+        <View {...viewProps} style={[styles.buttonsRow, viewProps.style]}>
             {breakpoint === "xs" && <ExpandButton variant="outlined" />}
             {onRetryButtonPress && taskHasError ? (
                 <Button iconName="restart" title="Retry" onPress={handleRetryButtonPress} />

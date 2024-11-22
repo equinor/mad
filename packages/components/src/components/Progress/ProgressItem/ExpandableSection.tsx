@@ -35,7 +35,6 @@ export const ExpandableSection = ({
             duration: token.timing.animation.slow,
         }),
     }));
-
     return (
         <View style={{ flex: 1 }}>
             <Animated.View style={[styles.animatedView, bodyStyle]}>
