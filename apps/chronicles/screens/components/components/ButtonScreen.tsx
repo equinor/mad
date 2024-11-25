@@ -53,6 +53,19 @@ export const ButtonScreen = () => {
                 <Button title="Disabled" variant="ghost" disabled />
             </View>
             <Spacer />
+
+            <Typography variant="h2">fullWidth</Typography>
+            <Typography>
+                With use of the fullWidth prop icon floats to the edges of the button while the text
+                stay centered:
+            </Typography>
+            <View style={{ gap: 12 }}>
+                <Button title="With fullwidth" iconName="dog" iconPosition="leading" fullWidth />
+                <Button title="With fullwidth" iconName="cat" iconPosition="trailing" fullWidth />
+                <Button title="without fullwidth" iconName="bird" />
+            </View>
+            <Spacer />
+
             <View style={styles.buttonRow}>
                 <Button title="Loading" loading />
                 <Button title="Loading" loading disabled />
