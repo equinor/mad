@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.17.0
+
+### Minor Changes
+
+-   49c59fd: Added `fullWidth` prop to the `Button` component
+
 ## 0.16.0
 
 ### Minor Changes
