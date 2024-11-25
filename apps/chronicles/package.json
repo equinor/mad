@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-chronicles",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "dependencies": {
         "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
         "@equinor/mad-auth": "workspace:*",
