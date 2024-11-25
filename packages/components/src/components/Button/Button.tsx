@@ -32,6 +32,10 @@ export type ButtonSpecificProps = {
      */
     loading?: boolean;
     /**
+     * Boolean value that floats icon to the edges of the button while the text stay centered.
+     */
+    fullWidth?: boolean;
+    /**
      * Name of the icon to use with the title.
      */
     iconName?: IconName;
@@ -63,6 +67,7 @@ export const Button = forwardRef<View, ButtonProps>(
             variant = "contained",
             disabled = false,
             loading = false,
+            fullWidth = false,
             iconName,
             iconPosition = "leading",
             onPress = () => null,
@@ -83,18 +88,23 @@ export const Button = forwardRef<View, ButtonProps>(
             toggleStatus: isToggleButton ? toggleData.isSelected : false,
             groupData,
             disabled,
+            fullWidth,
         });
 
         const ButtonContent = () => (
             <>
                 {iconName && iconPosition === "leading" && (
-                    <Icon name={iconName} color={styles.textStyle.color} />
+                    <View style={styles.leadingIcon}>
+                        <Icon name={iconName} color={styles.textStyle.color} />
+                    </View>
                 )}
                 <Typography group="interactive" variant="button" style={styles.textStyle}>
                     {title}
                 </Typography>
                 {iconName && iconPosition === "trailing" && (
-                    <Icon name={iconName} color={styles.textStyle.color} />
+                    <View style={styles.trailingIcon}>
+                        <Icon name={iconName} color={styles.textStyle.color} />
+                    </View>
                 )}
             </>
         );
@@ -133,10 +143,11 @@ type ButtonStyleSheetProps = {
     color: "primary" | "secondary" | "danger";
     variant: "contained" | "outlined" | "ghost";
     disabled: boolean;
+    fullWidth: boolean;
 };
 
 const themeStyles = EDSStyleSheet.create((theme, props: ButtonStyleSheetProps) => {
-    const { color, isToggleButton, toggleStatus, groupData, disabled } = props;
+    const { color, isToggleButton, toggleStatus, groupData, disabled, fullWidth } = props;
     let { variant } = props;
 
     variant = isToggleButton ? (toggleStatus ? "contained" : "outlined") : variant;
@@ -175,8 +186,17 @@ const themeStyles = EDSStyleSheet.create((theme, props: ButtonStyleSheetProps) =
             justifyContent: "center",
             gap: theme.spacing.button.iconGap,
         },
+        trailingIcon: {
+            flex: fullWidth ? 1 : undefined,
+            alignItems: fullWidth ? "flex-end" : undefined,
+        },
+        leadingIcon: {
+            flex: fullWidth ? 1 : undefined,
+            alignItems: fullWidth ? "flex-start" : undefined,
+        },
         textStyle: {
             color: textColor,
+            position: fullWidth ? "absolute" : undefined,
         },
     };
 });

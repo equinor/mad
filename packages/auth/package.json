@@ -1,14 +1,14 @@
 {
     "name": "@equinor/mad-auth",
     "description": "A simple wrapper library for react-native-msal",
-    "version": "0.2.9",
+    "version": "0.2.10",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },
     "bugs": "https://github.com/equinor/mad/issues",
     "dependencies": {
         "@equinor/mad-components": "workspace:*",
-        "@react-native-async-storage/async-storage": "^2.1.0",
+        "@react-native-async-storage/async-storage": "1.23.1",
         "@types/aes-js": "^3.1.4",
         "aes-js": "^3.1.2",
         "core-js": "^3.37.0",
@@ -51,7 +51,7 @@
         "expo-crypto": "~14.0.1",
         "react": "18.3.1",
         "react-dom": "18.3.1",
-        "react-native": "0.76.2",
+        "react-native": "0.76.3",
         "react-native-msal": "*"
     },
     "scripts": {

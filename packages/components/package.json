@@ -1,7 +1,7 @@
 {
     "name": "@equinor/mad-components",
     "description": "A React Native component library implementing the Equinor Design System.",
-    "version": "0.16.0",
+    "version": "0.17.0",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },
@@ -40,7 +40,7 @@
         "expo-font": "~13.0.1",
         "react": "18.3.1",
         "react-dom": "18.3.1",
-        "react-native": "0.76.2",
+        "react-native": "0.76.3",
         "react-native-gesture-handler": "~2.20.2",
         "react-native-reanimated": "~3.16.1",
         "react-native-svg": "15.8.0"
