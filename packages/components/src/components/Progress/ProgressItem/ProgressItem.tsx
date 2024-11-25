@@ -1,18 +1,18 @@
 import React from "react";
 import { View, ViewProps } from "react-native";
+import { useBreakpoint } from "../../../hooks/useBreakpoint";
 import { useStyles } from "../../../hooks/useStyles";
 import { EDSStyleSheet } from "../../../styling";
-import { ProgressStatusIndicator } from "../ProgressStatusInducator";
 import { ProgressItemTask } from "../ProgressItemTask/ProgressItemTask";
+import { ProgressStatusIndicator } from "../ProgressStatusInducator";
 import { ProgressStatus, ProgressTask } from "../types";
 import { ButtonRow } from "./ButtonRow";
 import { ExpandableSection } from "./ExpandableSection";
+import { ExpandButton } from "./ExpandButton";
 import { ProgressItemProvider, useProgressItemContext } from "./ProgressItemContext";
 import { ProgressLine } from "./ProgressLine";
-import { TitleAndDescription } from "./TitleAndDescription";
-import { useBreakpoint } from "../../../hooks/useBreakpoint";
-import { ExpandButton } from "./ExpandButton";
-import { Spacer } from "../../Spacer";
+import { Description } from "./Description";
+import { Title } from "./Title";
 
 type ProgressItemPropsOptions =
     | {
@@ -94,7 +94,10 @@ const WrappedProgressItem = ({
                     status={status}
                     style={[styles.leftCol, styles.centered]}
                 />
-                <TitleAndDescription title={title} description={description} />
+                <View style={styles.titleAndDescription}>
+                    <Title title={title} />
+                    {description && <Description description={description} />}
+                </View>
                 {breakpoint !== "xs" && <ExpandButton variant="ghost" />}
             </View>
 
@@ -147,5 +150,10 @@ const themeStyles = EDSStyleSheet.create(token => ({
     },
     buttonRow: {
         paddingTop: token.spacing.element.paddingVertical,
+    },
+    titleAndDescription: {
+        flex: 1,
+        justifyContent: "center",
+        gap: token.spacing.cell.content.titleDescriptionGap,
     },
 }));

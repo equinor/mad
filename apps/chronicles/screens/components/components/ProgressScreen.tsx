@@ -102,6 +102,9 @@ export const ProgressScreen = () => {
             <Progress>
                 <Progress.Item
                     title="Performing tasks"
+                    description={
+                        "This is to the crazy ones, the misfits, the rebels and the troublemakers. The round pegs in the square holes. The ones who see things differently. They're not fond of rules and they have no respect for the status quo."
+                    }
                     tasks={[
                         {
                             title: "Task 1",
