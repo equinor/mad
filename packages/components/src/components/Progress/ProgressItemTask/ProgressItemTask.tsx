@@ -6,7 +6,7 @@ import { Icon } from "../../Icon";
 import { Typography } from "../../Typography";
 import { ProgressStatusIndicator } from "../ProgressStatusInducator";
 import { ProgressTask } from "../types";
-import { ButtonRow } from "./ButtonRow";
+import { ActionButtonsRow } from "../ActionButtonsRow";
 import { Error } from "./Error";
 
 type ProgressItemTaskProps = {
@@ -47,10 +47,9 @@ export const ProgressItemTask = ({ task }: ProgressItemTaskProps) => {
                 {task.icon && <Icon color={task.iconColor ?? "secondary"} name={task.icon} />}
             </View>
             {taskHasError && task.error && <Error error={task.error} />}
-            <ButtonRow
-                isError={taskHasError}
-                shouldShowCopyButton={!!task.onCopyTextButtonPress}
-                shouldShowRetryButton={!!task.onRetryButtonPress}
+            <ActionButtonsRow
+                shouldShowCopyTextButton={task.onCopyTextButtonPress !== undefined && taskHasError}
+                shouldShowRetryButton={task.onRetryButtonPress !== undefined && taskHasError}
                 handleCopyTextButtonPress={handleCopyTextButtonPress}
                 handleRetryButtonPress={handleRetryButtonPress}
             />

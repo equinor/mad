@@ -1,18 +1,19 @@
 import React from "react";
 import { View, ViewProps } from "react-native";
-import { useBreakpoint } from "../../../hooks/useBreakpoint";
+import { Breakpoint, useBreakpoint } from "../../../hooks/useBreakpoint";
 import { useStyles } from "../../../hooks/useStyles";
 import { EDSStyleSheet } from "../../../styling";
 import { ProgressItemTask } from "../ProgressItemTask/ProgressItemTask";
 import { ProgressStatusIndicator } from "../ProgressStatusInducator";
 import { ProgressStatus, ProgressTask } from "../types";
-import { ButtonRow } from "./ButtonRow";
+import { ActionButtonsRow } from "../ActionButtonsRow";
 import { ExpandableSection } from "./ExpandableSection";
 import { ExpandButton } from "./ExpandButton";
 import { ProgressItemProvider, useProgressItemContext } from "./ProgressItemContext";
 import { ProgressLine } from "./ProgressLine";
 import { Description } from "./Description";
 import { Title } from "./Title";
+import { Spacer } from "../../Spacer";
 
 type ProgressItemPropsOptions =
     | {
@@ -53,9 +54,18 @@ export type ProgressItemProps = {
     title: string;
     /**
      * Callback function that is invoked when the retry button is pressed, allowing the specific failed task to be retried.
+     * The placement of this button is below the progress item as a whole. If you want this to instead only show for the failing task,
+     * you can use the `onRetryButtonPress` callback on the individual task object instead.
      * @param task The task object that failed and needs to be retried.
      */
     onRetryButtonPress?: (task: ProgressTask) => void;
+    /**
+     * Callback function that is invoked when the copy button is pressed, allowing the error message to be copied to the clipboard.
+     * The placement of this button is below the progress item as a whole. If you want this to instead only show for the failing task,
+     * you can use the `onCopyButtonPress` callback on the individual task object instead.
+     * @param task The task object that contains the error message to be copied.
+     */
+    onCopyTextButtonPress?: (task: ProgressTask) => void;
 } & ProgressItemPropsOptions &
     ViewProps;
 
@@ -74,11 +84,12 @@ const WrappedProgressItem = ({
     description,
     tasks = [],
     onRetryButtonPress,
+    onCopyTextButtonPress,
     status: _,
     ...viewProps
 }: ProgressItemProps) => {
-    const styles = useStyles(themeStyles);
     const breakpoint = useBreakpoint();
+    const styles = useStyles(themeStyles, { breakpoint });
     const { failedTask, isExpanded, status } = useProgressItemContext();
 
     const handleRetryButtonPress = () => {
@@ -86,19 +97,26 @@ const WrappedProgressItem = ({
             onRetryButtonPress && onRetryButtonPress(failedTask);
         }
     };
+
+    const shouldPadBottomRow =
+        (breakpoint === "xs" && !isExpanded && tasks.length) ||
+        (status === "error" && (!!onRetryButtonPress || !!onCopyTextButtonPress));
+
     return (
         <View {...viewProps} style={[styles.container, viewProps.style]}>
-            <View style={[styles.row, styles.centered]}>
+            <View style={styles.row}>
                 <ProgressStatusIndicator
                     size={ICON_SIZE}
                     status={status}
                     style={[styles.leftCol, styles.centered]}
                 />
                 <View style={styles.titleAndDescription}>
-                    <Title title={title} />
+                    <View style={styles.titleRow}>
+                        <Title title={title} />
+                        {breakpoint !== "xs" && <ExpandButton variant="ghost" />}
+                    </View>
                     {description && <Description description={description} />}
                 </View>
-                {breakpoint !== "xs" && <ExpandButton variant="ghost" />}
             </View>
 
             <View style={styles.row}>
@@ -113,13 +131,20 @@ const WrappedProgressItem = ({
                     </ExpandableSection>
                 ) : null}
             </View>
+
+            {shouldPadBottomRow && <Spacer amount="small" />}
+
             <View style={styles.row}>
                 <View style={styles.leftCol} />
-                <ButtonRow
-                    style={styles.buttonRow}
-                    onRetryButtonPress={onRetryButtonPress}
-                    handleRetryButtonPress={handleRetryButtonPress}
-                />
+                <View style={styles.buttonRow}>
+                    {breakpoint === "xs" && <ExpandButton variant="outlined" />}
+                    <ActionButtonsRow
+                        shouldShowRetryButton={onRetryButtonPress !== undefined}
+                        shouldShowCopyTextButton={onCopyTextButtonPress !== undefined}
+                        handleRetryButtonPress={handleRetryButtonPress}
+                        handleCopyTextButtonPress={handleRetryButtonPress}
+                    />
+                </View>
             </View>
         </View>
     );
@@ -127,7 +152,11 @@ const WrappedProgressItem = ({
 
 ProgressItem.displayName = "Progress.Item";
 
-const themeStyles = EDSStyleSheet.create(token => ({
+type ProgressItemStyleProps = {
+    breakpoint: Breakpoint;
+};
+
+const themeStyles = EDSStyleSheet.create((token, props: ProgressItemStyleProps) => ({
     container: {
         paddingHorizontal: token.spacing.container.paddingHorizontal,
         paddingVertical: token.spacing.spacer.small,
@@ -149,11 +178,18 @@ const themeStyles = EDSStyleSheet.create(token => ({
         justifyContent: "center",
     },
     buttonRow: {
-        paddingTop: token.spacing.element.paddingVertical,
+        flexDirection: "row",
+        gap: token.spacing.spacer.medium,
+    },
+    titleRow: {
+        height: props.breakpoint !== "xs" ? token.geometry.dimension.button.minHeight : undefined,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
     },
     titleAndDescription: {
         flex: 1,
         justifyContent: "center",
-        gap: token.spacing.cell.content.titleDescriptionGap,
+        gap: props.breakpoint === "xs" ? token.spacing.element.paddingVertical : undefined,
     },
 }));
