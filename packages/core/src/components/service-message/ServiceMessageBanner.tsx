@@ -5,12 +5,12 @@ import {
     PressableHighlight,
     Typography,
     useStyles,
-    CellSwipeItem,
 } from "@equinor/mad-components";
 import { ExpansionToggle } from "./components/ExpansionToggle";
 import { DisableableSwipeable } from "./components/DisableableSwipeable";
 import { useServiceMessageState } from "./ServiceMessageProvider";
 import { resolveMessageFromServiceMessage } from "./utils/resolveMessageFromServiceMessage";
+import { SwipeItem } from "./components/SwipeItem";
 
 export const ServiceMessageBanner = () => {
     const styles = useStyles(theme);
@@ -37,7 +37,7 @@ export const ServiceMessageBanner = () => {
             <DisableableSwipeable
                 disabled={!dismissAndURLIsVisible}
                 renderRightActions={() => (
-                    <CellSwipeItem
+                    <SwipeItem
                         title="Remove"
                         iconName="close"
                         color="danger"
