@@ -11,7 +11,7 @@ better experience for developers.
 ### Docs
 
 For more detailed information about how to use the package, head to our
-[documentation page](https://equinor.github.io/mad/)
+[documentation page](https://equinor.github.io/mad/docs/mad-navigation/introduction)
 
 ### Development
 
