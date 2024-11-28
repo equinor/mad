@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.19.0
+
+### Minor Changes
+
+-   e643db4: `CellSwipeItem` is no longer exported from the library
+
 ## 0.18.0
 
 ### Minor Changes
