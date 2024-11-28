@@ -1,5 +1,17 @@
 # @equinor/mad-core
 
+## 0.10.3
+
+### Patch Changes
+
+-   e643db4: the "Remove" button on the service message now works again
+-   Updated dependencies [ac10e64]
+-   Updated dependencies [e643db4]
+    -   @equinor/mad-navigation@0.4.1
+    -   @equinor/mad-components@0.19.0
+    -   @equinor/mad-auth@0.2.12
+    -   @equinor/mad-toast@0.2.3
+
 ## 0.10.2
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
     "name": "@equinor/mad-dfw",
     "description": "A React Native component library for the Digital Field Worker applications.",
-    "version": "0.5.12",
+    "version": "0.5.13",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },

@@ -1,5 +1,11 @@
 # @equinor/mad-navigation
 
+## 0.4.1
+
+### Patch Changes
+
+-   ac10e64: Fix broken link
+
 ## 0.4.0
 
 ### Minor Changes
