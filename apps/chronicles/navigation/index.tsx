@@ -16,9 +16,9 @@ import { Color, Icon, IconName, useBreakpoint, useToken } from "@equinor/mad-com
 import {
     createBottomTabNavigator,
     createNativeStackNavigator,
-    createCoreStackNavigator,
     NavigationContainer,
     getDefaultScreenOptionsForLoginScreen,
+    createNativeStackCoreNavigator,
 } from "@equinor/mad-core";
 import { config } from "../mad.config";
 import { GoToSettingsButton } from "../components/GoToSettingsButton";
@@ -36,6 +36,7 @@ import { DFWComponentScreen } from "../screens/dfw/DFWComponentsScreen";
 import { DFWComponentName } from "../types/dfwcomponents";
 import { SampleLoginScreen } from "./LoginScreen";
 import { ToastScreen } from "../screens/ToastScreen";
+
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
@@ -58,7 +59,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     );
 }
 
-const CoreStack = createCoreStackNavigator<RootStackParamList>(config);
+const CoreStack = createNativeStackCoreNavigator<RootStackParamList>(config);
 function RootNavigator() {
     return (
         <CoreStack.Navigator>

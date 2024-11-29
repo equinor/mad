@@ -1,24 +1,35 @@
 ---
-sidebar_label: Use createCoreStackNavigator
-description: Learn how to use createCoreStackNavigator!
+sidebar_label: Use createStackCoreNavigator/createNativeStackCoreNavigator
+description: Learn how to use `createStackCoreNavigator`/`createNativeStackCoreNavigator`!
 ---
 
-# Use `createCoreStackNavigator`
+# Use `createStackCoreNavigator`/`createNativeStackCoreNavigator`
 
 Next step is replacing your topmost `createStackNavigator`/`createNativeStackNavigator` with
-`createCoreStackNavigator` from `@equinor/mad-core`. It takes one argument: The config you created
-in step 2. You use it the same way you would a normal `Stack`.
+`createStackCoreNavigator`/`createNativeStackCoreNavigator` from `@equinor/mad-core`. It takes one
+argument: The config you created in step 2. You use it the same way you would a normal `Stack`.
 
 ```tsx
-import { createCoreStackNavigator } from "@equinor/mad-core";
+import { createNativeStackCoreNavigator } from "@equinor/mad-core";
 import { config } from "path/to/mad.config.ts";
 import { RootStackParamList } from "path/to/paramList.ts";
 
-const RootStack = createCoreStackNavigator<RootStackParamList>(config);
+const RootStack = createNativeStackCoreNavigator<RootStackParamList>(config);
+```
+
+or
+
+```tsx
+import { createStackCoreNavigator } from "@equinor/mad-core";
+import { config } from "path/to/mad.config.ts";
+import { RootStackParamList } from "path/to/paramList.ts";
+
+const RootStack = createStackCoreNavigator<RootStackParamList>(config);
 ```
 
 If you have leftover screens from `mad-expo-core` in the stack, they should be removed.
-`createCoreStackNavigator` will add similar screens for you behind the scenes.
+`createStackCoreNavigator`/`createNativeStackCoreNavigator` will add similar screens for you behind
+the scenes.
 
 `SettingsScreen` also has to be added manually. This is because you most likely have app-specific
 settings you want to hook up to the settings screen.
@@ -30,7 +41,7 @@ suggest creating a wrapper component that passes in the props you need to `Setti
 Example stack:
 
 ```tsx
-const CoreStack = createCoreStackNavigator<RootStackParamList>(config);
+const CoreStack = createNativeStackCoreNavigator<RootStackParamList>(config);
 function RootNavigator() {
     return (
         <CoreStack.Navigator>

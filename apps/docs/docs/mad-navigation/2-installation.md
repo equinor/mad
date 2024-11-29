@@ -16,3 +16,4 @@ running a newer version of v6 and some features are missing, create an issue_
 | @react-navigation/bottom-tabs  | 6.5.7   |
 | @react-navigation/native       | 6.1.6   |
 | @react-navigation/native-stack | 6.9.12  |
+| @react-navigation/stack        | 6.4.1   |

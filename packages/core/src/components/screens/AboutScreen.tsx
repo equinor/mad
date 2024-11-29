@@ -8,6 +8,7 @@ import {
     useExperimentalFeatures,
 } from "../../store/mad-config";
 import { getMadCommonBaseUrl } from "../../utils/madCommonUtils";
+import { useCoreNavigatorType } from "../CoreNavigatorTypeProvider";
 
 export const AboutScreen = () => {
     const styles = useStyles(themeStyles);
@@ -15,6 +16,7 @@ export const AboutScreen = () => {
     const environmentName = environment.charAt(0).toUpperCase() + environment.slice(1);
     const appVersion = useAppVersion();
     const about = useAbout();
+    const coreNavigatorType = useCoreNavigatorType();
     const experimentalFeatures = useExperimentalFeatures();
     const authenticationMethod = experimentalFeatures?.useExpoAuthSession ? "Expo" : "MSAL";
     const endpoints = [getMadCommonBaseUrl(environment)].concat(about?.endpoints ?? []);
@@ -33,12 +35,14 @@ export const AboutScreen = () => {
                             <Typography>BuildNr</Typography>
                             <Typography>App version</Typography>
                             <Typography>Authentication</Typography>
+                            <Typography>Core navigator type</Typography>
                         </View>
                         <View style={styles.columnContainer}>
                             <Typography>{environmentName}</Typography>
                             <Typography>{about?.buildNumber}</Typography>
                             <Typography>{appVersion}</Typography>
                             <Typography>{authenticationMethod}</Typography>
+                            <Typography>{coreNavigatorType}</Typography>
                         </View>
                     </View>
                 </View>

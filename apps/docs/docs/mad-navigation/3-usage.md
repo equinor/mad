@@ -6,8 +6,8 @@ description: Learn how to use this package!
 # Usage
 
 If you want to add custom sub-headers to your navigation system, you first have to create custom
-navigator-creator functions. You can do so with `createBottomTabNavigatorFactory` and
-`createNativeStackNavigatorFactory`.
+navigator-creator functions. You can do so with `createBottomTabNavigatorFactory`,
+`createNativeStackNavigatorFactory` and `createStackNavigatorFactory`.
 
 Step 1: Create your custom sub-header:
 
@@ -22,11 +22,13 @@ Step 2: Create your new navigator-creator functions:
 import {
     createBottomTabNavigatorFactory,
     createNativeStackNavigatorFactory,
+    createStackNavigatorFactory,
 } from "@equinor/mad-navigation";
 import { CustomSubHeader } from "path/to/subHeader";
 
 export const createBottomTabNavigator = createBottomTabNavigatorFactory(CustomSubHeader);
 export const createNativeStackNavigator = createNativeStackNavigatorFactory(CustomSubHeader);
+export const createStackNavigator = createStackNavigatorFactory(CustomSubHeader);
 ```
 
 Follow [React Navigation’s documentation](https://reactnavigation.org/docs/getting-started/). When

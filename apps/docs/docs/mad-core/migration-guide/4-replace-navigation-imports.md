@@ -22,7 +22,7 @@ navigation tracking for you automatically, which is a nice feature to have!
 import {
     createBottomTabNavigator,
     createNativeStackNavigator,
-    createCoreStackNavigator,
+    createNativeStackCoreNavigator,
     NavigationContainer,
 } from "@equinor/mad-core";
 ```

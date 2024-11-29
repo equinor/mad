@@ -26,7 +26,7 @@ const useMadConfigStore = create<MadConfigState>()(
 );
 
 const MAD_CONFIG_NOT_FOUND_ERROR =
-    "Mad config has not been provided! Make sure you use 'createCoreStackNavigator' to provide your config";
+    "Mad config has not been provided! Make sure you use 'createNativeStackCoreNavigator'/'createStackCoreNavigator' to provide your config";
 
 export const useMadConfig = (): EnvironmentContextualConfig => {
     const config = useMadConfigStore().config;
