@@ -1,5 +1,14 @@
 # @equinor/mad-chronicles
 
+## 1.2.4
+
+### Patch Changes
+
+-   Updated dependencies [e340f08]
+-   Updated dependencies [e340f08]
+    -   @equinor/mad-core@0.11.0
+    -   @equinor/mad-navigation@0.5.0
+
 ## 1.2.3
 
 ### Patch Changes
