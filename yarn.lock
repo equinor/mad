@@ -4079,6 +4079,7 @@ __metadata:
     "@react-navigation/bottom-tabs": "npm:^6.6.0"
     "@react-navigation/native": "npm:^6.1.17"
     "@react-navigation/native-stack": "npm:^6.10.0"
+    "@react-navigation/stack": "npm:^6"
     "@shopify/react-native-skia": "npm:1.5.0"
     "@types/react": "npm:~18.3.12"
     detox: "npm:^20.23.0"
@@ -4244,11 +4245,13 @@ __metadata:
     jest: "npm:^29.7.0"
     ts-jest: "npm:^29.2.5"
     tsup: "npm:^8.3.5"
+    warn-once: "npm:^0.1.1"
   peerDependencies:
     "@react-navigation/bottom-tabs": ^6.6.0
     "@react-navigation/elements": 1.3.30
     "@react-navigation/native": ^6.1.17
     "@react-navigation/native-stack": ^6.10.0
+    "@react-navigation/stack": ^6.4.1
     react: 18.3.1
     react-dom: 18.3.1
     react-native: 0.76.3
@@ -6162,6 +6165,24 @@ __metadata:
   dependencies:
     nanoid: "npm:^3.1.23"
   checksum: 10c0/5b58014cf29bb71c7dc01201e271d55f0ecfe6d38d064179eeff0fc0b5cb739d4d9906eb133f100d25fc674c72c24aa65d5f6bfc3d036d79f7c5d1936391c605
+  languageName: node
+  linkType: hard
+
+"@react-navigation/stack@npm:^6":
+  version: 6.4.1
+  resolution: "@react-navigation/stack@npm:6.4.1"
+  dependencies:
+    "@react-navigation/elements": "npm:^1.3.31"
+    color: "npm:^4.2.3"
+    warn-once: "npm:^0.1.0"
+  peerDependencies:
+    "@react-navigation/native": ^6.0.0
+    react: "*"
+    react-native: "*"
+    react-native-gesture-handler: ">= 1.0.0"
+    react-native-safe-area-context: ">= 3.0.0"
+    react-native-screens: ">= 3.0.0"
+  checksum: 10c0/6bc28e5e4e99161a538c1cb9752d70727704ca7b4137e71a44992dfe2ff6e0a3028353184424af1457ec59a4ea6ef9757fc99203280fd7339f36e61b80c9050a
   languageName: node
   linkType: hard
 
@@ -23390,7 +23411,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"warn-once@npm:0.1.1, warn-once@npm:^0.1.0":
+"warn-once@npm:0.1.1, warn-once@npm:^0.1.0, warn-once@npm:^0.1.1":
   version: 0.1.1
   resolution: "warn-once@npm:0.1.1"
   checksum: 10c0/f531e7b2382124f51e6d8f97b8c865246db8ab6ff4e53257a2d274e0f02b97d7201eb35db481843dc155815e154ad7afb53b01c4d4db15fb5aa073562496aff7

@@ -1,6 +1,6 @@
-import { MadNativeStackNavigationOptions } from "@equinor/mad-navigation";
+import { MadNavigationOptions } from "@equinor/mad-navigation/dist/_internal/types";
 
-export const getDefaultScreenOptionsForLoginScreen = (): MadNativeStackNavigationOptions => ({
+export const getDefaultScreenOptionsForLoginScreen = (): MadNavigationOptions & {headerShown?: boolean} => ({
     headerShown: false,
     customSubHeaderShown: true,
     customSubHeaderFloat: true,
