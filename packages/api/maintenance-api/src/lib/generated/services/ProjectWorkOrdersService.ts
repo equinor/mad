@@ -124,6 +124,13 @@ export class ProjectWorkOrdersService {
      *
      * Added properties `additionalCostWBSId`, `additionalCostWBS`, `requiredEndDate`, `isHSECritical` and `isProductionCritical` to the response.
      *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * Added new properties `personResponsible`, `personResponsibleId` and `personResponsibleEmail` to `operations`.
+     *
+     * Added new property `requisitionerId` to `serviceOperations`.
+     *
      * @returns ProjectWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -302,7 +309,7 @@ export class ProjectWorkOrdersService {
      * 1. RDEX - Ready for execution
      * 2. CLSD - Business close
      *
-     * ### Update version 1.6.0
+     * ### Update release 1.6.0
      * Support for ActivatedDateTime for TECO status. It is an optional parameter which allows to overwrite the default reference date for TECO. If no value is provided, the value will be set to current timestamp.
      *
      * @returns ProblemDetails Response for other HTTP status codes

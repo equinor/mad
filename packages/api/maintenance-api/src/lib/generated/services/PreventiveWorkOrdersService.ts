@@ -160,6 +160,14 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.35.0
      * Added new property `dueDate` to the response. Removed the property `requiredEndDate`.
      *
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * Added new properties `personResponsible`, `personResponsibleId` and `personResponsibleEmail` to `operations`.
+     *
+     * Added new property `requisitionerId` to `serviceOperations`.
+     *
+     * Added new query parameter `include-estimated-costs`. Set to `true` to include `estimatedCosts` array in the response.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -182,6 +190,7 @@ export class PreventiveWorkOrdersService {
         includeMeasurements = false,
         includeSafetyMeasures = false,
         includeRelatedOperations = false,
+        includeEstimatedCosts = false,
     }: {
         workOrderId: string,
         /**
@@ -248,6 +257,10 @@ export class PreventiveWorkOrdersService {
          * Includes the property `relatedOperations` in the response to expose operations that are related to an object in the objectlist (only relevant for related tags and related maintenance records).
          */
         includeRelatedOperations?: boolean,
+        /**
+         * Include estimated costs
+         */
+        includeEstimatedCosts?: boolean,
     }): CancelablePromise<PreventiveWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -272,6 +285,7 @@ export class PreventiveWorkOrdersService {
                 'include-measurements': includeMeasurements,
                 'include-safety-measures': includeSafetyMeasures,
                 'include-related-operations': includeRelatedOperations,
+                'include-estimated-costs': includeEstimatedCosts,
             },
             errors: {
                 301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
@@ -590,13 +604,13 @@ export class PreventiveWorkOrdersService {
      * - PMSG - Purchasing Message
      * - MLTI - Multi discipline
      *
-     * ### Update version 0.9.0
+     * ### Update release 0.9.0
      * Support for releasing a work order by setting the REL status.
      *
-     * ### Update version 1.1.0
+     * ### Update release 1.1.0
      * Support for deactivating TECO status
      *
-     * ### Update version 1.6.0
+     * ### Update release 1.6.0
      * Support for ActivatedDateTime for TECO status. It is an optional parameter which allows to overwrite the default reference date for TECO. If no value is provided, the value will be set to current timestamp.
      *
      * @returns ProblemDetails Response for other HTTP status codes

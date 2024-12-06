@@ -52,6 +52,9 @@ export type Tag = (TagBasic & {
      * Material for the asset
      */
     material?: string;
+    maintenancePlantId?: string;
+    createdOnDate?: string | null;
+    changedOnDate?: string | null;
     characteristics?: Array<TagCharacteristic>;
     maintenanceRecords?: SimpleMaintenanceRecordsList;
     workOrders?: {

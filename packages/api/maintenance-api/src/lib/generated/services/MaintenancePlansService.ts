@@ -27,13 +27,13 @@ export class MaintenancePlansService {
      * Maintenance Plan - Lookup
      * Lookup single Maintenance Plan
      *
-     * ### Update version 1.8.0
+     * ### Update release 1.8.0
      * Added isActive property.
      *
-     * ### Update version 1.13.0
+     * ### Update release 1.13.0
      * Added uniqueKey in TaskListOperations.
      *
-     * ### Update version 1.14.0
+     * ### Update release 1.14.0
      * Removed `taskList` and `objectList` properties from the response schema. They were never included in the actual
      * response, so this change has no implication on the data received from the API.
      *
@@ -448,7 +448,7 @@ export class MaintenancePlansService {
      * ### Examples
      * `/maintenance-plans?filter=by-task-id&task-id=T-10012713-02&api-version=v1`.
      *
-     * ### Update version 1.8.0
+     * ### Update release 1.8.0
      * Added isActive property.
      *
      * @returns MaintenancePlanForSearchByTask Success

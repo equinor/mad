@@ -4,6 +4,7 @@
 /* eslint-disable */
 
 import type { failureImpactId } from './failureImpactId';
+import type { WorkOrderTypeId } from './WorkOrderTypeId';
 
 export type FailureReportBasic = {
     recordId: string;
@@ -60,6 +61,8 @@ export type FailureReportBasic = {
     codingGroupId: string | null;
     correctiveWorkOrderExist: boolean;
     correctiveWorkOrderId: string;
+    workOrderTypeId: WorkOrderTypeId;
+    workOrderId: string;
     /**
      * Active statuses for the Failure report with space as separating character
      */

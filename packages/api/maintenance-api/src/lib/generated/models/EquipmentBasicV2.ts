@@ -56,5 +56,10 @@ export type EquipmentBasicV2 = (EquipmentMinimal & {
     technicalIdentificationNumber?: string;
     objectWeight?: string;
     unitOfWeight?: string;
+    maintenancePlantId?: string;
+    equipmentCategoryId?: string;
+    maintenanceConceptId?: string;
+    createdOnDate?: string;
+    changedOnDate?: string;
 });
 

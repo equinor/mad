@@ -7,7 +7,7 @@ import type { FailureReport } from '../models/FailureReport';
 import type { FailureReportBasic } from '../models/FailureReportBasic';
 import type { FailureReportCreate } from '../models/FailureReportCreate';
 import type { FailureReportJsonPatch } from '../models/FailureReportJsonPatch';
-import type { FailureReportSimple } from '../models/FailureReportSimple';
+import type { FailureReportSimpleForSearch } from '../models/FailureReportSimpleForSearch';
 import type { MaintenanceRecordActivity } from '../models/MaintenanceRecordActivity';
 import type { MaintenanceRecordActivityCreate } from '../models/MaintenanceRecordActivityCreate';
 import type { MaintenanceRecordActivityJsonPatch } from '../models/MaintenanceRecordActivityJsonPatch';
@@ -106,6 +106,10 @@ export class FailureReportsService {
      *
      * ### Update release 1.33.0
      * Added `taskResponsible` and `taskResponsibleEmail` for `tasks` in response when the new query parameter `include-task-responsible-details` is set to true.
+     *
+     * ### Update release 1.35.0
+     * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
+     * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
      *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -252,6 +256,10 @@ export class FailureReportsService {
      *
      * ### Update release 1.33.0
      * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current text.
+     *
+     * ### Update release 1.35.0
+     * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
+     * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
      *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -486,7 +494,11 @@ export class FailureReportsService {
      *
      * Added property `workCenterId`
      *
-     * @returns FailureReportSimple Success
+     * ### Update release 1.35.0
+     * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
+     * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
+     *
+     * @returns FailureReportSimpleForSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
@@ -527,7 +539,7 @@ export class FailureReportsService {
          * Comma separated list of work center IDs to filter by
          */
         workCenterIds?: Array<string>,
-    }): CancelablePromise<Array<FailureReportSimple> | ProblemDetails> {
+    }): CancelablePromise<Array<FailureReportSimpleForSearch> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/maintenance-records/failure-reports',
@@ -592,6 +604,10 @@ export class FailureReportsService {
      *
      * ### Update release 1.31.0
      * Removed requirement for providing `reasonId` as part of the `technicalFeedbackParameters` when `source` is `TechnicalFeedback`.
+     *
+     * ### Update release 1.35.0
+     * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
+     * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns FailureReportBasic Created

@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Plant } from '../models/Plant';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { StatusUpdateJsonPatch } from '../models/StatusUpdateJsonPatch';
+import type { WorkOrderOperationJsonPatch } from '../models/WorkOrderOperationJsonPatch';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -13,115 +13,83 @@ import { request as __request } from '../core/request';
 export class UpcomingModifiedEndpointsService {
 
     /**
-     * Plants - Search
+     * Work order - Update operation
      * ### Overview
-     * Search for plants through predefined filters.
+     * Update the work order operation for all work order types.
+     * The `operation-id` parameter to use in the url can be found using the various lookup and search endpoints for work orders. `operation-id` consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
      *
-     * ### Filter: by-plant
-     * Search plant based on one or more `plant-id`
+     * The following fields are possible to update:
+     * - actualPercentageComplete
+     * - isCompleted
+     * - schedulingStartConstraintId - Value one of: `MSO` - Must start on, `SNET` - Start no earlier than or `SNLT` - Start no later than
+     * - schedulingStartConstraintDateTime
+     * - schedulingFinishConstraintId - Value one of: `MFO ` - Must finish on, `FNET` - Finish no earlier than or `FNLT` - Finish no later than
+     * - schedulingFinishConstraintDateTime
+     * - systemCondition
+     * - operationId
+     * - title
+     * - text
+     * - workCenterId
+     * - workCenterPlantId
+     * - standardTextTemplate
+     * - plannedWorkHours
+     * - plannedWorkDuration
+     * - capacityCount
+     * - calculationKey
      *
-     * Parameters:
-     * - plant-id (supports comma-separated list)
+     * Individual operations can be updated with relevant codes for `systemCondition` to describe required process conditions for each operation. Possible values for the `systemCondition`:
+     * - 0 - Unit shutdown
+     * - 1 – In operation
+     * - 2 – System shutdown
+     * - 3 – Partial production shutdown
+     * - 4 – Full production shutdown
+     * - 5 - Reset condition value
      *
-     * ### Filter: by-planning-plant
-     * Search plant based on one or more `planning-plant-id`
+     * ### Update release 1.19.0
+     * Added support for `operationId`, `title`, `text`, `workCenterId`, `workCenterPlantId`, `standardTextTemplate`, `plannedWorkHours`, `plannedWorkDuration`, `capacityCount`, `calculationKey`, `systemCondition,` and `isExcludedFromWorkOrderPlan`.
      *
-     * Parameters:
-     * - planning-plant-id (supports comma-separated list)
+     * ### Update release 1.21.0
+     * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
+     * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * ### Update version 1.13.0
-     * Added `include-equipment-catalog-profiles` query parameter.
+     * ### Update release 1.22.0
+     * Added support to reset `systemCondition` by passing in the value `5`.
      *
-     * ### Update version 1.17.0
-     * Added the  `allowSimplifiedTimeAndProgress` flag to represent is the plant is valid for Non-CATS time recording.
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * ### Update version 1.20.0
-     * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
+     * ### Update release 1.35.0
+     * Added support for updating the person responsible for the operation by using the path `personResponsibleEmail`. The value used for this path should be the equinor email of an employee with a SAP user.
      *
-     * ### Upcoming change
-     * Added `include-responsible-persons` to the response. Added `responsiblePersons` to the response.
+     * ### Upcoming changes
+     * Added support for updating property `isExcludedFromWorkOrderPlan`.
      *
-     * @returns Plant Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static searchPlant({
-        filter,
-        plantId,
-        planningPlantId,
-        includeLocations = false,
-        includeWorkCenters = false,
-        includePlannerGroups = false,
-        includeTagCatalogProfiles = false,
-        includeEquipmentCatalogProfiles = false,
-        includeSurfaceDegradationFactors = false,
-        includeBaselinePlans = false,
-        includeResponsiblePersons = false,
+    public static updateWorkOrderOperation({
+        operationId,
+        requestBody,
     }: {
+        operationId: string,
         /**
-         * Filter to limit plants by
+         * Update of Work order details
          */
-        filter: 'by-plant' | 'by-planning-plant',
-        /**
-         * Plant identifier
-         */
-        plantId?: string,
-        /**
-         * Plant used to plan the maintenance work. Usually same as `plantId`, but there are some cases were one `planningPlantId` is used across multiple `plantId`.
-         */
-        planningPlantId?: string,
-        /**
-         * Include location for plant
-         */
-        includeLocations?: boolean,
-        /**
-         * Include work centers for plant
-         */
-        includeWorkCenters?: boolean,
-        /**
-         * Include planner groups for plant
-         */
-        includePlannerGroups?: boolean,
-        /**
-         * Include tag catalog profiles in use for plant
-         */
-        includeTagCatalogProfiles?: boolean,
-        /**
-         * Include equipment catalog profiles in use for plant
-         */
-        includeEquipmentCatalogProfiles?: boolean,
-        /**
-         * Include surface degradations for plant
-         */
-        includeSurfaceDegradationFactors?: boolean,
-        /**
-         * Include open baseline plans for the planning plant of this plant
-         */
-        includeBaselinePlans?: boolean,
-        /**
-         * Include persons that are already responsible for objects on this plant
-         */
-        includeResponsiblePersons?: boolean,
-    }): CancelablePromise<Array<Plant> | ProblemDetails> {
+        requestBody: Array<WorkOrderOperationJsonPatch>,
+    }): CancelablePromise<ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants',
-            query: {
-                'filter': filter,
-                'plant-id': plantId,
-                'planning-plant-id': planningPlantId,
-                'include-locations': includeLocations,
-                'include-work-centers': includeWorkCenters,
-                'include-planner-groups': includePlannerGroups,
-                'include-tag-catalog-profiles': includeTagCatalogProfiles,
-                'include-equipment-catalog-profiles': includeEquipmentCatalogProfiles,
-                'include-surface-degradation-factors': includeSurfaceDegradationFactors,
-                'include-baseline-plans': includeBaselinePlans,
-                'include-responsible-persons': includeResponsiblePersons,
+            method: 'PATCH',
+            url: '/work-order-operations/{operation-id}',
+            path: {
+                'operation-id': operationId,
             },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to update operation`,
                 404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
             },
         });
     }

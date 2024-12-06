@@ -91,6 +91,9 @@ export class TagService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `createdOnDate` and `changedOnDate`.
+     *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -114,6 +117,9 @@ export class TagService {
         includeStatusDetails = false,
         includeLinearData = false,
     }: {
+        /**
+         * Plants or maintenance plants to include tags from.
+         */
         plantId: string,
         tagId: string,
         /**
@@ -645,6 +651,17 @@ export class TagService {
      * ### Update release 1.32.0
      * Added `changedDateTime` for attachments.
      *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `createdOnDate` and `changedOnDate`.
+     *
+     * Added new filters for use in combination with the `by-tag-prefix` and `by-tag-ids` filters:
+     * - `tag-category-id-any-of`
+     * - `maintenance-concept-id-any-of`
+     * - `created-before-date`
+     * - `created-after-date`
+     * - `changed-before-date`
+     * - `changed-after-date`
+     *
      * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -655,6 +672,12 @@ export class TagService {
         tagPrefix,
         tagIdsAnyOf,
         externalSystemReference,
+        tagCategoryIdAnyOf,
+        maintenanceConceptIdAnyOf,
+        createdBeforeDate,
+        createdAfterDate,
+        changedBeforeDate,
+        changedAfterDate,
         includeMaintenanceRecords = false,
         includeMaintenanceRecordTypes,
         includeWorkOrders = true,
@@ -673,6 +696,9 @@ export class TagService {
         perPage = 100,
         page = 1,
     }: {
+        /**
+         * Plant to include tags from.
+         */
         plantId: string,
         filter?: 'by-tag-ids' | 'by-tag-prefix' | 'by-external-system-reference' | null,
         /**
@@ -687,6 +713,30 @@ export class TagService {
          * Required if filter is `by-external-system-reference`
          */
         externalSystemReference?: string | null,
+        /**
+         * Optional comma separated string array of tag category ids to filter your result to one or more tag categories (`tagCategoryId`). Wildcards are not supported. May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
+         */
+        tagCategoryIdAnyOf?: Array<string> | null,
+        /**
+         * Optional comma separated string array of Maintenance Concept Ids (`maintenanceConceptId` in response model). Wildcards are not supported. May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
+         */
+        maintenanceConceptIdAnyOf?: Array<string>,
+        /**
+         * Latest `createdOnDate` date to include. Use together with `created-after-date` to get Tags created in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
+         */
+        createdBeforeDate?: string | null,
+        /**
+         * Earliest `createdOnDate` date to include. Use together with `created-before-date` to get Tags created in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
+         */
+        createdAfterDate?: string | null,
+        /**
+         * Latest `changedOnDate` date to include. Use together with `changed-after-date` to get Tags changed in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
+         */
+        changedBeforeDate?: string | null,
+        /**
+         * Earliest `changedOnDate` date to include. Use together with `changed-before-date` to get Tags changed in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
+         */
+        changedAfterDate?: string | null,
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
@@ -748,7 +798,7 @@ export class TagService {
          */
         includeLinearData?: boolean,
         /**
-         * Results to return pr page
+         * Results to return per page
          */
         perPage?: number,
         /**
@@ -767,6 +817,12 @@ export class TagService {
                 'tag-prefix': tagPrefix,
                 'tag-ids-any-of': tagIdsAnyOf,
                 'external-system-reference': externalSystemReference,
+                'tag-category-id-any-of': tagCategoryIdAnyOf,
+                'maintenance-concept-id-any-of': maintenanceConceptIdAnyOf,
+                'created-before-date': createdBeforeDate,
+                'created-after-date': createdAfterDate,
+                'changed-before-date': changedBeforeDate,
+                'changed-after-date': changedAfterDate,
                 'include-maintenance-records': includeMaintenanceRecords,
                 'include-maintenance-record-types': includeMaintenanceRecordTypes,
                 'include-work-orders': includeWorkOrders,

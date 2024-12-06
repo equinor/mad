@@ -19,5 +19,17 @@ export type WorkOrderOperation = (WorkOrderOperationSimple & {
      * Safety measures for the work order operation
      */
     safetyMeasures?: Array<SafetyMeasure> | null;
+    /**
+     * The internal id of the person assigned as responsible for the Work Order Operation. The id represents the employee id of the person.
+     */
+    personResponsibleId?: string | null;
+    /**
+     * The name of the person assigned as responsible for the Work Order Operation.
+     */
+    personResponsible?: string | null;
+    /**
+     * The email of the person assigned as responsible for the Work Order Operation. This is the preferred way of identifying the person as it's consistent across systems.
+     */
+    personResponsibleEmail?: string | null;
 });
 

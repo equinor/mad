@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { EstimatedCosts } from './EstimatedCosts';
 import type { MaintenancePlanSimple } from './MaintenancePlanSimple';
 import type { MaintenanceRecordMinimalWithActiveStatusIds } from './MaintenanceRecordMinimalWithActiveStatusIds';
 import type { Measurement } from './Measurement';
@@ -39,6 +40,10 @@ export type PreventiveWorkOrder = (PreventiveWorkOrderBasic & {
      * Related measurements
      */
     measurements?: Array<Measurement>;
+    /**
+     * Estimated Costs
+     */
+    estimatedCosts?: Array<EstimatedCosts>;
     additionalCostWBSId: string;
     additionalCostWBS: string;
     costWBSId: string;

@@ -5,10 +5,10 @@
 import type { AddSafetyMeasure } from '../models/AddSafetyMeasure';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { SafetyMeasure } from '../models/SafetyMeasure';
-import type { SubseaWorkOrderMaterial } from '../models/SubseaWorkOrderMaterial';
+import type { SubseaWorkOrderMaterialForAddMaterialRespone } from '../models/SubseaWorkOrderMaterialForAddMaterialRespone';
 import type { TechnicalFeedbackJsonPatch } from '../models/TechnicalFeedbackJsonPatch';
-import type { WorkOrderMaterial } from '../models/WorkOrderMaterial';
 import type { WorkOrderMaterialAdd } from '../models/WorkOrderMaterialAdd';
+import type { WorkOrderMaterialForAddMaterialRespone } from '../models/WorkOrderMaterialForAddMaterialRespone';
 import type { WorkOrderMaterialJsonPatch } from '../models/WorkOrderMaterialJsonPatch';
 import type { WorkOrderOperationJsonPatch } from '../models/WorkOrderOperationJsonPatch';
 import type { WorkOrderServiceOperationJsonPatch } from '../models/WorkOrderServiceOperationJsonPatch';
@@ -64,6 +64,12 @@ export class WorkOrderOperationsService {
      *
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * ### Update release 1.35.0
+     * Added support for updating the person responsible for the operation by using the path `personResponsibleEmail`. The value used for this path should be the equinor email of an employee with a SAP user.
+     *
+     * ### Upcoming changes
+     * Added support for updating property `isExcludedFromWorkOrderPlan`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -253,6 +259,9 @@ export class WorkOrderOperationsService {
      * ### Update release 1.33.0
      * Added support for new properties `supplierId`, `vendorsMaterialNumber`, `deliveryTimeInDays`, `requisitionerId`, `holdDeliveryOnshore`, `text`.
      *
+     * ### Update release 1.35.0
+     * Added new property `requisitionerId` to the response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns any Created
      * @throws ApiError
@@ -266,7 +275,7 @@ export class WorkOrderOperationsService {
          * Add material details
          */
         requestBody: Array<WorkOrderMaterialAdd>,
-    }): CancelablePromise<ProblemDetails | Array<(WorkOrderMaterial | SubseaWorkOrderMaterial)>> {
+    }): CancelablePromise<ProblemDetails | Array<(WorkOrderMaterialForAddMaterialRespone | SubseaWorkOrderMaterialForAddMaterialRespone)>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/work-order-operations/{operation-id}/materials',

@@ -3,4 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type WorkOrderTypeId = 'correctiveWorkOrder' | 'preventiveWorkOrder' | 'modificationWorkOrder' | 'sasChangeWorkOrder' | 'projectWorkOrder' | 'subseaWorkOrder' | 'unsupportedWorkOrder';
+export type WorkOrderTypeId = 'correctiveWorkOrder' | 'preventiveWorkOrder' | 'modificationWorkOrder' | 'sasChangeWorkOrder' | 'projectWorkOrder' | 'subseaWorkOrder' | 'unsupportedOrderType';
