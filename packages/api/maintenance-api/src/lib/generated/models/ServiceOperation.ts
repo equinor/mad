@@ -35,6 +35,7 @@ export type ServiceOperation = {
     scopeOfWork?: string;
     agreement?: string;
     agreementItem?: string;
+    requisitionerId?: string;
     services?: Array<Service>;
     materials?: Array<WorkOrderMaterial> | null;
 };

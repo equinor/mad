@@ -153,6 +153,13 @@ export class CorrectiveWorkOrdersService {
      *
      * Added new properties `isHSECritical` and `isProductionCritical` to the response.
      *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * Added new properties `personResponsible`, `personResponsibleId` and `personResponsibleEmail` to `operations`.
+     *
+     * Added new property `requisitionerId` to `serviceOperations`.
+     *
      * @returns CorrectiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -656,15 +663,15 @@ export class CorrectiveWorkOrdersService {
      * - PMSG - Purchasing Message
      * - MLTI - Multi discipline
      *
-     * ### Update version 0.9.0
+     * ### Update release 0.9.0
      * Support for releasing a work order by setting the REL status.
      *
      * Support for complete-outstanding-maintenance-records query parameter for TECO and CLSD statuses.
      *
-     * ### Update version 1.1.0
+     * ### Update release 1.1.0
      * Support for deactivating TECO status
      *
-     * ### Update version 1.6.0
+     * ### Update release 1.6.0
      * Support for ActivatedDateTime for TECO status. It is an optional parameter which allows to overwrite the default reference date for TECO. If no value is provided, the value will be set to current timestamp.
      *
      * Parameter complete-outstanding-maintenance-records set to true will close maintenance records which have a relationship to the work order via the `ObjectList`.

@@ -153,27 +153,27 @@ export class MasterDataForPlantsService {
      * ### Overview
      * Lookup a single plant with related information.
      *
-     * ### Update version 1.6.0
+     * ### Update release 1.6.0
      * Added `include-revisions` for reading master data on revisions for the `planningPlantId` of the provided `plantId`.
      *
-     * ### Update version 1.7.0
+     * ### Update release 1.7.0
      * Added `include-systems` query parameter.
      *
-     * ### Update version 1.13.0
+     * ### Update release 1.13.0
      * Added `include-equipment-catalog-profiles` query parameter.
      *
-     * ### Update version 1.14.0
+     * ### Update release 1.14.0
      * Added `include-only-default-tag-catalog-profiles` query parameter to limit the response from `include-tag-catalog-profiles` and/or `include-equipment-catalog-profiles`
      *
-     * ### Update version 1.17.0
+     * ### Update release 1.17.0
      * Added the  `allowSimplifiedTimeAndProgress` flag to represent is the plant is valid for Non-CATS time recording.
      *
      * Updated PlanningPlantRevision-model.
      *
-     * ### Update version 1.20.0
+     * ### Update release 1.20.0
      * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
      *
-     * ### Update version 1.34.0
+     * ### Update release 1.34.0
      * Added `include-responsible-persons` to the response. Added `responsiblePersons` to the response.
      *
      * @returns Plant Success
@@ -296,6 +296,9 @@ export class MasterDataForPlantsService {
      * Added `include-cost-data-for-materials` query parameter.
      * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
      *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -367,7 +370,7 @@ export class MasterDataForPlantsService {
      * ### Examples
      * `/plants/1310/revisions/PS01-23?include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&page=1&per-page=10&api-version=v1`
      *
-     * ### Update version 1.28.0
+     * ### Update release 1.28.0
      * Added `changedDateTime`,`changedById`, `changedBy`, `changedByEmail`.
      *
      * ### Update release 1.29.0
@@ -389,6 +392,9 @@ export class MasterDataForPlantsService {
      * Added `include-cost-data-for-materials` query parameter.
      * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
      *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -400,7 +406,7 @@ export class MasterDataForPlantsService {
         includeTextItemMaterials = false,
         includeCostDataForMaterials = false,
         perPage,
-        page,
+        page = 1,
     }: {
         plantId: string,
         revisionId: string,
@@ -462,16 +468,16 @@ export class MasterDataForPlantsService {
      * Parameters:
      * - planning-plant-id (supports comma-separated list)
      *
-     * ### Update version 1.13.0
+     * ### Update release 1.13.0
      * Added `include-equipment-catalog-profiles` query parameter.
      *
-     * ### Update version 1.17.0
+     * ### Update release 1.17.0
      * Added the  `allowSimplifiedTimeAndProgress` flag to represent is the plant is valid for Non-CATS time recording.
      *
-     * ### Update version 1.20.0
+     * ### Update release 1.20.0
      * Added query parameter `include-baseline-plans` related to `OM104.01.06 - Prepare Work order plan` and `work-order-plan/`.
      *
-     * ### Upcoming change
+     * ### Update release 1.34.0
      * Added `include-responsible-persons` to the response. Added `responsiblePersons` to the response.
      *
      * @returns Plant Success

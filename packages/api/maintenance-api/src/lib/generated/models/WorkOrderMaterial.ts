@@ -3,52 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type WorkOrderMaterial = {
-    reservationId: string;
-    materialId: string;
-    material: string;
-    quantity: number;
-    /**
-     * *This field is deprecated, use `quantityUnitId` instead.
-     * Typically is one of:
-     * - PC - Pieces
-     * - L - Liters
-     * - KG - Kilograms
-     * - M - Meters
-     *
-     * @deprecated
-     */
-    quantityUnit?: string;
-    /**
-     * Typically is any of:
-     * - PC - Pieces
-     * - L - Liters
-     * - KG - Kilograms
-     * - M - Meters
-     *
-     */
-    quantityUnitId: string;
-    location: string;
-    /**
-     * The final location of the material.
-     * Extracted from `location`.
-     *
-     */
-    finalLocation: string;
-    /**
-     * Temporary location of the material.
-     * Extracted from `location`.
-     *
-     */
-    temporaryLocation: string;
-    /**
-     * Flag to indicate the delivery should be held at supplying base instead of immediately being delivered to its destination
-     */
-    holdDeliveryOnshore: boolean;
-    /**
-     * Specifies the date and time for when the material is needed at its destination
-     */
-    requiredDatetime: string | null;
+import type { WorkOrderMaterialForAddMaterialRespone } from './WorkOrderMaterialForAddMaterialRespone';
+
+export type WorkOrderMaterial = (WorkOrderMaterialForAddMaterialRespone & {
     /**
      * Specifies the recipient for whom the material is destined
      */
@@ -63,5 +20,9 @@ export type WorkOrderMaterial = {
      * Key for a buyer or a group of buyers, who is/are responsible for certain purchasing activities
      */
     purchasingGroup?: string;
-};
+    /**
+     * Flag to indicate if the delivery is complete
+     */
+    deliveryComplete: boolean;
+});
 

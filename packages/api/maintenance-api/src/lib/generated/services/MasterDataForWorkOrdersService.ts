@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CostCategory } from '../models/CostCategory';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { SafetyMeasure } from '../models/SafetyMeasure';
 import type { StandardTextTemplate } from '../models/StandardTextTemplate';
@@ -79,6 +80,26 @@ export class MasterDataForWorkOrdersService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/work-orders/safety-measures',
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights`,
+            },
+        });
+    }
+
+    /**
+     * Work orders - Get cost categories
+     * ### Overview
+     * Get a list of cost categories. They can be added to a work order when it requires special cost tracking.
+     *
+     * @returns CostCategory Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static getCostCategories(): CancelablePromise<Array<CostCategory> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/work-orders/cost-categories',
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights`,

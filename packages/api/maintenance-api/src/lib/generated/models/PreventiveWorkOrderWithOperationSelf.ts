@@ -8,7 +8,6 @@ import type { WorkOrderOperationSimpleForSearch } from './WorkOrderOperationSimp
 
 export type PreventiveWorkOrderWithOperationSelf = (PreventiveWorkOrderSimple & {
     text?: string | null;
-    requiredEndDate: string | null;
     _links: {
         self?: string;
     };

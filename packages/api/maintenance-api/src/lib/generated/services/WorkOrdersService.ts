@@ -112,7 +112,7 @@ export class WorkOrdersService {
          */
         personResponsibleId?: string,
         /**
-         * Include completed work order operations
+         * Include Work Order Plans with completed work order operations
          */
         includeCompletedWorkOrderOperations?: boolean,
         /**
@@ -291,9 +291,9 @@ export class WorkOrdersService {
      *
      * Added option to not include operations for the Work Orders by setting the optional parameter `include-operations` to `false` (default is `true`). This can improve performance for the endpoint.
      *
-     * Added property `requiredEndDate` to the top level objects in the response.
+     * Added property `requiredEndDate` to the top level objects in the response (Not including preventive work orders).
      *
-     * Added property `confirmationId` to `operations`
+     * Added property `confirmationId`, `RemainingWork` and `RemainingWorkUnit` to `operations`
      *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -473,7 +473,7 @@ export class WorkOrdersService {
      * Added property `hasStatusREL` to the response.
      *
      * ### Update release 1.35.0
-     * Added optional pagination support.
+     * Added support for optional pagination.
      *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -511,7 +511,7 @@ export class WorkOrdersService {
         includeMaintenanceRecord = false,
         maxResults,
         perPage,
-        page,
+        page = 1,
     }: {
         /**
          * Query based on planningPlantIds (any-of)

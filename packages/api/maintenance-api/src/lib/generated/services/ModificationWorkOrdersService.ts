@@ -174,6 +174,13 @@ export class ModificationWorkOrdersService {
      *
      * Added property `requiredEndDate`, `isHSECritical` and `isProductionCritical` to the response.
      *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * Added new properties `personResponsible`, `personResponsibleId` and `personResponsibleEmail` to `operations`.
+     *
+     * Added new property `requisitionerId` to `serviceOperations`.
+     *
      * @returns ModificationWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

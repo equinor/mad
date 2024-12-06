@@ -111,6 +111,9 @@ export class EquipmentService {
      *
      * Added boolean property `hasLinkageToEquipment` that will be true if the equipment has any linked equipment.
      *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `createdOnDate` and `changedOnDate`.
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -565,7 +568,10 @@ export class EquipmentService {
      * Added properties `tagId` and `tagPlantId` to response body.
      *
      * ### Update release 1.31.0
-     * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight`to response body.
+     * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight` to response body.
+     *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` to response body.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns EquipmentBasicV2 Created
@@ -605,11 +611,13 @@ export class EquipmentService {
      * * `material-id-any-of`
      * * `characteristic-value-any-of`
      * * `equipment-any-of`
-     * * `technical-id-any-of`
+     * * `technical-identification-number-any-of`
+     * * `maintenance-concept-id-any-of`
+     * * `equipment-category-id-any-of`
      *
      * These parameters allow a comma-separated list of entries.
      *
-     * If more than one of these parameters are supplied in the same request, the equipment in the response will need to fulfill all parameters (ie. operator AND is used between the parameter).
+     * If more than one of these parameters are supplied in the same request, the equipment in the response will need to fulfill all parameters (the 'AND' operator will be used between the parameters).
      *
      * Query parameters `include-only-open-maintenance-records` and `include-only-open-work-orders` have a recommended value of `true` in order to improve performance (default value `false`).
      *
@@ -691,6 +699,10 @@ export class EquipmentService {
      * ### Update release 1.35.0
      * Added support for including attachments on equipments in the response by setting the new query parameter `include-attachments` to true.
      *
+     * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` to response body.
+     *
+     * Added new filters based on the new fields - `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate`.
+     *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -706,6 +718,12 @@ export class EquipmentService {
         technicalIdentificationNumberAnyOf,
         characteristicId,
         classId,
+        equipmentCategoryIdAnyOf,
+        maintenanceConceptIdAnyOf,
+        createdBeforeDate,
+        createdAfterDate,
+        changedBeforeDate,
+        changedAfterDate,
         includeMaintenanceRecords = false,
         includeMaintenanceRecordTypes,
         includeOnlyOpenMaintenanceRecords = false,
@@ -744,7 +762,7 @@ export class EquipmentService {
          */
         characteristicValueAnyOf?: string,
         /**
-         * Optional comma separated string array of plant-ids to filter your result to one or more plants. Wildcards are not supported. This query parameter can not be used on its own.
+         * Optional comma separated string array of plant-ids to filter your result to one or more plants (`plantId`) or maintenance plants (`maintenancePlantId`). Wildcards are not supported. This query parameter can not be used on its own.
          */
         plantIdAnyOf?: string,
         /**
@@ -763,6 +781,30 @@ export class EquipmentService {
          * Required field if `characteristic-value-any-of` is supplied.
          */
         classId?: string | null,
+        /**
+         * Optional comma separated string array of equipment category Id (`equipmentCategoryId` in response model). Wildcards are not supported.
+         */
+        equipmentCategoryIdAnyOf?: Array<string>,
+        /**
+         * Optional comma separated string array of Maintenance Concept Ids (`maintenanceConceptId` in response model). Wildcards are not supported.
+         */
+        maintenanceConceptIdAnyOf?: Array<string>,
+        /**
+         * Latest `createdOnDate` date to include. Use together with `created-after-date` to get Equipment created in the given time period.
+         */
+        createdBeforeDate?: string | null,
+        /**
+         * Earliest `createdOnDate` date to include. Use together with `created-before-date` to get Equipment created in the given time period.
+         */
+        createdAfterDate?: string | null,
+        /**
+         * Latest `changedOnDate` date to include. Use together with `changed-after-date` to get Equipment changed in the given time period.
+         */
+        changedBeforeDate?: string | null,
+        /**
+         * Earliest `changedOnDate` date to include. Use together with `changed-before-date` to get Equipment changed in the given time period.
+         */
+        changedAfterDate?: string | null,
         /**
          * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
          */
@@ -844,6 +886,12 @@ export class EquipmentService {
                 'technical-identification-number-any-of': technicalIdentificationNumberAnyOf,
                 'characteristic-id': characteristicId,
                 'class-id': classId,
+                'equipment-category-id-any-of': equipmentCategoryIdAnyOf,
+                'maintenance-concept-id-any-of': maintenanceConceptIdAnyOf,
+                'created-before-date': createdBeforeDate,
+                'created-after-date': createdAfterDate,
+                'changed-before-date': changedBeforeDate,
+                'changed-after-date': changedAfterDate,
                 'include-maintenance-records': includeMaintenanceRecords,
                 'include-maintenance-record-types': includeMaintenanceRecordTypes,
                 'include-only-open-maintenance-records': includeOnlyOpenMaintenanceRecords,

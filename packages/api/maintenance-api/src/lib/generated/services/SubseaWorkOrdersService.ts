@@ -72,6 +72,13 @@ export class SubseaWorkOrdersService {
      * ### Update release 1.34.0
      * Added properties `additionalCostWBSId`, `additionalCostWBS`, `costWBS`, `isHSECritical` and `isProductionCritical` to the response.
      *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * Added new properties `personResponsible`, `personResponsibleId` and `personResponsibleEmail` to `operations`.
+     *
+     * Added new property `requisitionerId` to `serviceOperations`.
+     *
      * @returns SubseaWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

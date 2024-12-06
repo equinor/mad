@@ -61,6 +61,10 @@ export class MaintenanceRecordsService {
      * ### Update release 1.16.0
      * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
+     * ### Update release 1.35.0
+     * Added `workOrderTypeId` and `workOrderId` to the response for failure reports. `workOrderId`
+     * includes the id of work orders, not constrained to only showing corrective work orders.
+     *
      * @returns MaintenanceRecordList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

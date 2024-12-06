@@ -11,7 +11,7 @@ export type WorkOrderOperationJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/isCompleted' | '/actualPercentageComplete' | '/schedulingStartConstraintId' | '/schedulingStartConstraintDateTime' | '/schedulingFinishConstraintId' | '/schedulingFinishConstraintDateTime' | '/systemCondition' | '/operationId' | '/title' | '/text' | '/workCenterId' | '/workCenterPlantId' | '/standardTextTemplate' | '/plannedWorkHours' | '/plannedWorkDuration' | '/capacityCount' | '/calculationKey';
+    path: '/isCompleted' | '/actualPercentageComplete' | '/schedulingStartConstraintId' | '/schedulingStartConstraintDateTime' | '/schedulingFinishConstraintId' | '/schedulingFinishConstraintDateTime' | '/systemCondition' | '/operationId' | '/title' | '/text' | '/workCenterId' | '/workCenterPlantId' | '/standardTextTemplate' | '/plannedWorkHours' | '/plannedWorkDuration' | '/capacityCount' | '/calculationKey' | '/isExcludedFromWorkOrderPlan' | '/personResponsibleEmail';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

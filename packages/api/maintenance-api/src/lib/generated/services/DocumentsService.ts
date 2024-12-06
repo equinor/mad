@@ -46,6 +46,9 @@ export class DocumentsService {
      *
      * Added properties `partNumber` & `manufacturer` to `material` in the response.
      *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
+     *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -221,6 +224,9 @@ export class DocumentsService {
      * Added properties `statusId` and `statusText` to the response.
      *
      * Added properties `partNumber` & `manufacturer` to `material` in the response.
+     *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
      *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes

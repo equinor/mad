@@ -10,10 +10,10 @@ export type CertificationReportBasic = (CertificationReportSimple & {
     /**
      * The point in time when the failure started
      */
-    failureStartDateTime: string;
+    failureStartDateTime: string | null;
     /**
      * The point in time when the failure was resolved
      */
-    failureEndDateTime: string;
+    failureEndDateTime: string | null;
 });
 

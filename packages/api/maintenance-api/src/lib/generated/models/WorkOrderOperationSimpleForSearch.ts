@@ -10,5 +10,7 @@ export type WorkOrderOperationSimpleForSearch = (WorkOrderOperationSimple & {
      * Id of the Confirmation (from 'Confirmation Data'). This Id does not change even if the operation (activity) number changes.
      */
     confirmationId: string | null;
+    remainingWork: number;
+    remainingWorkUnit: string;
 });
 
