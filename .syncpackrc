@@ -1,4 +1,43 @@
 {
+    "$schema": "./node_modules/syncpack/dist/schema.json",
+    "semverGroups": [
+        {
+            "label": "Core packages should have exact range",
+            "range": "",
+            "dependencyTypes": [
+                "prod",
+                "resolutions",
+                "overrides",
+                "pnpmOverrides",
+                "local"
+            ],
+            "dependencies": [
+                "react",
+                "react-dom",
+                "react-native",
+                "expo"
+            ],
+            "packages": [
+                "**"
+            ]
+        },
+        {
+            "label": "Peer deps of core packages should have patch range",
+            "dependencyTypes": [
+                "peer"
+            ],
+            "range": "~",
+            "dependencies": [
+                "react",
+                "react-dom",
+                "react-native",
+                "expo"
+            ],
+            "packages": [
+                "**"
+            ]
+        }
+    ],
     "versionGroups": [
         {
             "label": "Require workspace protocol for internal packages",

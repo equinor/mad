@@ -49,9 +49,9 @@
     "peerDependencies": {
         "expo-auth-session": "~6.0.0",
         "expo-crypto": "~14.0.1",
-        "react": "18.3.1",
-        "react-dom": "18.3.1",
-        "react-native": "0.76.3",
+        "react": "~18.3.1",
+        "react-dom": "~18.3.1",
+        "react-native": "~0.76.3",
         "react-native-msal": "*"
     },
     "scripts": {
