@@ -1,7 +1,7 @@
 {
     "name": "@equinor/mad-navigation",
     "description": "Navigation package built on top of React Navigation",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },
