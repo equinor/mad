@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.19.2
+
+### Patch Changes
+
+- 54bbc87: Add disabled prop to x button in search bar
+
 ## 0.19.1
 
 ### Patch Changes
