@@ -153,6 +153,7 @@ export const Search = ({
                                     color="primary"
                                     variant="ghost"
                                     onPress={handleClearText}
+                                    disabled={disabled}
                                 />
                             </View>
                         ) : null
