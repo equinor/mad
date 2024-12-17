@@ -1,7 +1,7 @@
 {
     "name": "@equinor/react-native-skia-draw",
     "description": "A React Native drawing library running on SKIA",
-    "version": "0.5.4",
+    "version": "0.5.5",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },
