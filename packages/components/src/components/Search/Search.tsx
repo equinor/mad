@@ -145,7 +145,7 @@ export const Search = ({
                         </View>
                     }
                     rightAdornments={
-                        text ? (
+                        text && disabled ? (
                             <View style={styles.adornmentIconContainer}>
                                 <Button.Icon
                                     id="search-clear-text-button"
@@ -153,7 +153,6 @@ export const Search = ({
                                     color="primary"
                                     variant="ghost"
                                     onPress={handleClearText}
-                                    disabled={disabled}
                                 />
                             </View>
                         ) : null
