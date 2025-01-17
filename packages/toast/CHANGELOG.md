@@ -1,5 +1,12 @@
 # @equinor/mad-toast
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [0a1a770]
+    - @equinor/mad-components@0.20.0
+
 ## 0.2.5
 
 ### Patch Changes
