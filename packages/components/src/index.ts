@@ -24,6 +24,7 @@ export * from "./components/SelectionControls";
 export * from "./components/Chip";
 export * from "./components/Tabs";
 export * from "./components/Select";
+export * from "./components/OfflineBanner";
 
 export * from "./styling/EDSStyleSheet";
 export * from "./styling/types";

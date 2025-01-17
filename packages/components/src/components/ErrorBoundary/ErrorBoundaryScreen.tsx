@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line import/named
 import { FallbackProps } from "react-error-boundary";
 import { View, SafeAreaView } from "react-native";
 import { Button } from "../Button";
