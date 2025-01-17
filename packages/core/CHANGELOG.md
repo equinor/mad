@@ -1,5 +1,18 @@
 # @equinor/mad-core
 
+## 0.12.0
+
+### Minor Changes
+
+- 0a1a770: Added an offline banner feature.
+
+### Patch Changes
+
+- Updated dependencies [0a1a770]
+    - @equinor/mad-components@0.20.0
+    - @equinor/mad-auth@0.2.15
+    - @equinor/mad-toast@0.2.6
+
 ## 0.11.2
 
 ### Patch Changes

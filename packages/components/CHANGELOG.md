@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.20.0
+
+### Minor Changes
+
+- 0a1a770: Added an offline banner feature.
+
 ## 0.19.2
 
 ### Patch Changes
