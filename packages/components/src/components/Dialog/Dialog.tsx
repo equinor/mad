@@ -33,6 +33,7 @@ const themeStyles = EDSStyleSheet.create(
     (theme, props: { style: StyleProp<ViewStyle>; dimensions: ScaledSize }) => ({
         dialog: StyleSheet.flatten({
             backgroundColor: theme.colors.container.elevation.aboveScrim,
+            maxHeight: "100%",
             borderRadius: theme.geometry.border.elementBorderRadius,
             minHeight: theme.geometry.dimension.dialog.minHeight,
             width: theme.geometry.dimension.dialog.defaultWidth,

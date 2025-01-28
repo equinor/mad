@@ -17,7 +17,7 @@ export const DialogHeader = (props: TextChildren) => {
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     header: {
-        height: theme.geometry.dimension.dialog.header.height - theme.geometry.border.borderWidth,
+        minHeight: theme.geometry.dimension.dialog.header.height - theme.geometry.border.borderWidth,
         width: "100%",
         borderBottomWidth: theme.geometry.border.borderWidth,
         borderBottomColor: theme.colors.border.medium,

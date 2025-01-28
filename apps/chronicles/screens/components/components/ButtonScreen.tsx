@@ -102,6 +102,8 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     buttonRow: {
         paddingVertical: 8,
         flexDirection: "row",
+        flexWrap: "wrap",
         justifyContent: "space-around",
+        gap: 12,
     },
 }));

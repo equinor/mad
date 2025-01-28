@@ -18,6 +18,7 @@ const themeStyles = EDSStyleSheet.create((theme, align: "left" | "right") => ({
     spacer: { flex: 1 },
     actionsContainer: {
         flexDirection: "row",
+        flexWrap: "wrap",
         gap: theme.spacing.dialog.gap,
         justifyContent: align === "left" ? "flex-start" : "flex-end",
         padding: theme.spacing.dialog.padding,
