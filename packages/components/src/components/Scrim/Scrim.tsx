@@ -34,6 +34,8 @@ const themeStyles = EDSStyleSheet.create(theme => ({
     scrim: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: theme.colors.container.scrim,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical
     },
     safeAreaView: {
         flex: 1,
