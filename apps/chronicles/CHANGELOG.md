@@ -1,5 +1,22 @@
 # @equinor/mad-chronicles
 
+## 1.3.0
+
+### Minor Changes
+
+- 0a1a770: Added an offline banner feature.
+
+### Patch Changes
+
+- 63ade9e: Wrap buttons in button screen
+- Updated dependencies [0a1a770]
+- Updated dependencies [63ade9e]
+    - @equinor/mad-components@0.20.0
+    - @equinor/mad-core@0.12.0
+    - @equinor/mad-auth@0.2.15
+    - @equinor/mad-dfw@0.5.16
+    - @equinor/react-native-skia-draw@0.5.6
+
 ## 1.2.6
 
 ### Patch Changes
