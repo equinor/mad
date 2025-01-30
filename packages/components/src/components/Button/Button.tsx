@@ -178,9 +178,9 @@ const themeStyles = EDSStyleSheet.create((theme, props: ButtonStyleSheetProps) =
             minHeight: theme.geometry.dimension.button.minHeight - outlinedHeightReduction,
             paddingHorizontal: theme.spacing.button.paddingHorizontal - outlinedPaddingReduction,
             paddingVertical: theme.spacing.button.paddingVertical - outlinedPaddingReduction,
+            justifyContent: "center"
         },
         labelContainer: {
-            flex: 1,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",

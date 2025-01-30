@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { LayoutAnimation, Pressable, StyleSheet } from "react-native";
+import { LayoutAnimation, Pressable, SafeAreaView, StyleSheet } from "react-native";
 import { Portal } from "../Portal";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -22,7 +22,9 @@ export const Scrim = ({ isOpen, onPress, children }: ScrimProps) => {
     return (
         <Portal name="scrim">
             <Pressable style={styles.scrim} onPress={onPress}>
-                {children}
+                <SafeAreaView style={styles.safeAreaView}>
+                    {children}
+                </SafeAreaView>
             </Pressable>
         </Portal>
     );
@@ -31,8 +33,13 @@ export const Scrim = ({ isOpen, onPress, children }: ScrimProps) => {
 const themeStyles = EDSStyleSheet.create(theme => ({
     scrim: {
         ...StyleSheet.absoluteFillObject,
-        justifyContent: "center",
-        alignItems: "center",
         backgroundColor: theme.colors.container.scrim,
+        paddingHorizontal: theme.spacing.container.paddingHorizontal,
+        paddingVertical: theme.spacing.container.paddingVertical
     },
+    safeAreaView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    }
 }));
