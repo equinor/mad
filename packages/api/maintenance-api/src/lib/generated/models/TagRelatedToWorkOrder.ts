@@ -9,6 +9,11 @@ export type TagRelatedToWorkOrder = (TagMinimal & {
     equipmentId: string;
     equipment: string;
     /**
+     * Structured location within the plant where the tag is located
+     */
+    locationId?: string;
+    location?: string;
+    /**
      * Defines the type of relationship to the work order
      */
     source: 'ObjectList';

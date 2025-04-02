@@ -195,7 +195,7 @@ export class TechnicalInformationUpdateRequestsService {
      * Technical information update request - Update status
      * Update status of technical information update request.
      *
-     * The statuses available for the failure report can be found by querying `/maintenance-records/technical-information-update-requests/{record-id}?include-status-details=true`.
+     * The statuses available for the technical information update requests can be found by querying `/maintenance-records/technical-information-update-requests/{record-id}?include-status-details=true`.
      *
      *
      * ### Important information
@@ -656,15 +656,16 @@ export class TechnicalInformationUpdateRequestsService {
      * - TSRL Task Released
      * - TSCO Task Completed
      * - TSSC Task successful
+     *
+     * It is possible to activate and deactivate following statuses:
      * - TCMP WF when task completed
-     * - RIND Returned - Wait for info
+     * - RTND Returned - Wait for info
      * - CANC Cancelled
      * - PRCR - Product Created
      *
-     * ### Upcoming changes
-     * Enabled activation of user statuses like `TCMP - WF when task completed`, `RIND - Returned - Wait for info` and `CANC - Cancelled`
-     *
-     * Enabled activation of user statuses related to products, such as `PRCR - Product Created`
+     * ### Update release 1.36.0
+     * Enabled activation and deactivation of user statuses like `TCMP - WF when task completed`, `RTND - Returned - Wait for info`, `CANC - Cancelled`
+     * and `PRCR - Product Created`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

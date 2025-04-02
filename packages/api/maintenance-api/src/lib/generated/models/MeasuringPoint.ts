@@ -3,14 +3,19 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Measurement } from './Measurement';
+import type { MeasurementFromMeasuringPointLookup } from './MeasurementFromMeasuringPointLookup';
 import type { MeasuringPointBasic } from './MeasuringPointBasic';
 import type { MeasuringPointCharacteristic } from './MeasuringPointCharacteristic';
 import type { QualitativeCode } from './QualitativeCode';
 
 export type MeasuringPoint = (MeasuringPointBasic & {
-    lastMeasurement?: Measurement | null;
-    measurements?: Array<Measurement> | null;
+    lastMeasurement?: (MeasurementFromMeasuringPointLookup & {
+        /**
+         * Long text for the measurement document
+         */
+        text?: string | null;
+    }) | null;
+    measurements?: Array<MeasurementFromMeasuringPointLookup> | null;
     qualitativeCodes?: Array<QualitativeCode> | null;
     characteristics?: Array<MeasuringPointCharacteristic> | null;
 });

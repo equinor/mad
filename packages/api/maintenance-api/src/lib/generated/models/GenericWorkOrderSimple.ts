@@ -51,6 +51,9 @@ export type GenericWorkOrderSimple = {
      * - has a "High" consequence classification for HSE or Production (one table for each) or
      * - has received a "Hidden failure" code.
      *
+     * Deprecated as of 21.01.2025. For more information, please see STRY0261073 in ServiceNow.
+     *
+     * @deprecated
      */
     cmrIndicator?: boolean;
     /**

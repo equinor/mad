@@ -3,4 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type SupportedStatusesWorkOrdersOptimizedForQuery = Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL'>;
+export type SupportedStatusesWorkOrdersOptimizedForQuery = Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>;

@@ -833,6 +833,48 @@ export class DocumentsService {
     }
 
     /**
+     * Document - Attachment upload
+     * Upload attachment to a B30 document.
+     *
+     * Limitations of Attachment upload endpoints:
+     * - No support for parallel calls (uploading multiple attachments at once).
+     * - Maximum file size is 60 MB. Files between 60.0MB - 99.9MB will give a 400 error. Files larger than 100MB will result in a `413 Request Entity Too Large' Error in HTML. This is due to constraints in the underlying system and is outside of our control.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static uploadDocumentAttachment({
+        documentId,
+        formData,
+    }: {
+        /**
+         * Can be found by sending a GET request to: `/document-relationships/{relationship-type}/{source-id}`
+         *
+         */
+        documentId: string,
+        formData?: {
+            files?: Array<Blob>;
+        },
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/documents/{document-id}/attachments',
+            path: {
+                'document-id': documentId,
+            },
+            formData: formData,
+            mediaType: 'multipart/form-data',
+            errors: {
+                403: `User does not have sufficient rights to upload attachment`,
+                404: `The specified resource was not found`,
+                413: `Request Entity Too Large.
+                This error occurs when the size of an attachment exceeds 100MB.
+                `,
+            },
+        });
+    }
+
+    /**
      * Document - Attachment download
      * ### Overview
      * Download a single attachment from a specific document.
@@ -872,7 +914,10 @@ export class DocumentsService {
      *
      * This endpoint returns no response data. Perform a lookup on the linked maintenance record to get updated information.
      *
-     * Currently, this endpoint only supports removing attachments from documents of type 'B30'.
+     * Currently, this endpoint only supports removing attachments from documents of type 'B30' & 'C05'.
+     *
+     * ### Update release 1.36.0
+     * Added support for removing attachments from documents of type 'C05'.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

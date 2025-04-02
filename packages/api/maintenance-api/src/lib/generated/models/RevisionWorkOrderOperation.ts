@@ -7,7 +7,7 @@ import type { WorkOrderMaterial } from './WorkOrderMaterial';
 
 export type RevisionWorkOrderOperation = {
     /**
-     * Internal id of operation
+     * Internal id of operation. Combination of 'RoutingNumberId'-'RoutingCounterId'.
      */
     operationId: string;
     /**
@@ -16,6 +16,10 @@ export type RevisionWorkOrderOperation = {
     operation: string;
     workOrderId?: string;
     title: string;
+    /**
+     * Superior routing counter. If filled out, this operation is a sub-operation of the RoutingCounterId specified here.
+     */
+    superiorRoutingCounterId?: string;
     workCenterId: string;
     workCenterPlantId: string;
     standardTextTemplate: string;

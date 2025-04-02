@@ -65,7 +65,7 @@ export class SubseaWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
-     * ### Update release 1.33.1
+     * ### Update release 1.32.0
      * Added `include-cost-data-for-materials` query parameter.
      * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
      *
@@ -78,6 +78,18 @@ export class SubseaWorkOrdersService {
      * Added new properties `personResponsible`, `personResponsibleId` and `personResponsibleEmail` to `operations`.
      *
      * Added new property `requisitionerId` to `serviceOperations`.
+     *
+     * ### Update release 1.36.0
+     * Added new property `planNotes` to `operations`.
+     *
+     * Added new properties `location` and `locationId` to `tagsRelated` and `maintenanceRecords`.
+     *
+     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
+     *
+     * ### Update release 1.37.0
+     * Added new properties `plannedWorkHours`, `actualWorkHours`, `capacityCount`, `plannedDuration`, `calculationKey`, `earliestStartDateTime`, `earliestFinishDateTime` and `safetyMeasures` to `serviceOperations`.
+     *
+     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
      * @returns SubseaWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes

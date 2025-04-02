@@ -5,6 +5,7 @@
 
 import type { CorrectiveWorkOrderWithOperationSelf } from './CorrectiveWorkOrderWithOperationSelf';
 import type { ModificationWorkOrderWithOperationSelf } from './ModificationWorkOrderWithOperationSelf';
+import type { OverheadMaintenanceWorkOrderWithOperationSelf } from './OverheadMaintenanceWorkOrderWithOperationSelf';
 import type { PreventiveWorkOrderWithOperationSelf } from './PreventiveWorkOrderWithOperationSelf';
 import type { ProjectWorkOrderWithOperationSelf } from './ProjectWorkOrderWithOperationSelf';
 import type { SASChangeWorkOrderWithOperationSelf } from './SASChangeWorkOrderWithOperationSelf';
@@ -17,5 +18,6 @@ export type WorkOrderWithOperationList = {
     sasChangeWorkOrders?: Array<SASChangeWorkOrderWithOperationSelf>;
     projectWorkOrders?: Array<ProjectWorkOrderWithOperationSelf>;
     subseaWorkOrders?: Array<SubseaWorkOrderWithOperationSelf>;
+    overheadMaintenanceWorkOrders?: Array<OverheadMaintenanceWorkOrderWithOperationSelf>;
 };
 

@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ModificationWorkOrderSimple = {
+export type OverheadMaintenanceWorkOrderSimple = {
     workOrderId: string;
     tagId: string | null;
     tagPlantId: string;
@@ -12,22 +12,20 @@ export type ModificationWorkOrderSimple = {
     workCenterId: string;
     workCenterPlantId: string;
     /**
-     * Maintenance record id which has initiated this work order
-     */
-    modificationProposalId: string;
-    /**
      * Structured location within the plant where the tag is located
      */
     locationId: string;
+    failureReportId: string;
     plantId: string;
     planningPlantId: string;
     plannerGroupId: string;
     /**
-     * Active statuses for the Failure report with space as separating character
+     * Active statuses for the overhead maintenance order with space as separating character
      */
     activeStatusIds: string;
     maintenanceTypeId: string;
     maintenanceType: string;
+    requiredEndDate: string | null;
     /**
      * An identifier to the revision (shutdown or campaign work) this work order is related to
      */
@@ -43,16 +41,20 @@ export type ModificationWorkOrderSimple = {
      * Date and time of when the Work order was changed
      */
     changedDateTime: string | null;
-    costWBSId: string;
-    /**
-     * The primary cost wbs is typically resolved from the provided tag, but for modification work orders it is required to have an additional cost wbs in place before the work order can be set to status `REL - Released`
-     */
-    additionalCostWBSId?: string;
-    projectId: string;
     /**
      * Field used to assist in grouping/sorting Work orders. Unstructured field used non-consistently between plants
      */
     sortField: string;
+    /**
+     * Priority of Work order
+     * * `L` - Low priority
+     * * `M` - Medi. priority
+     * * `H` - High priority
+     * * `U` - Unprioritized
+     * * null - No priority assigned
+     *
+     */
+    priorityId: 'L' | 'M' | 'H' | 'U' | null;
     /**
      * Indicates whether the Work Order is open or not.
      */

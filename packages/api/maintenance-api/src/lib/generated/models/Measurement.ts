@@ -11,6 +11,9 @@ export type Measurement = {
     maintenanceRecordId: string | null;
     measuringPointId: string;
     measurementDateTime: string;
+    /**
+     * Title of the measurement
+     */
     measurementTitle: string;
     quantitativeReading: number;
     quantitativeReadingUnitId: string;

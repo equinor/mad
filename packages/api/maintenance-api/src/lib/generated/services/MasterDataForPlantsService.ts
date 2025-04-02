@@ -289,15 +289,18 @@ export class MasterDataForPlantsService {
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * ### Update release 1.33.0
-     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
-     *
-     * ### Update release 1.33.1
+     * ### Update release 1.32.0
      * Added `include-cost-data-for-materials` query parameter.
      * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
      *
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
      * ### Update release 1.35.0
      * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * ### Update release 1.36.0
+     * Added `superiorRoutingCounterId` to `operations`.
      *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -385,15 +388,18 @@ export class MasterDataForPlantsService {
      *
      * Split parts of `location` on `materials` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * ### Update release 1.33.0
-     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
-     *
-     * ### Update release 1.33.1
+     * ### Update release 1.32.0
      * Added `include-cost-data-for-materials` query parameter.
      * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
      *
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
      * ### Update release 1.35.0
      * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * ### Update release 1.36.0
+     * Added `superiorRoutingCounterId` to response.
      *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes

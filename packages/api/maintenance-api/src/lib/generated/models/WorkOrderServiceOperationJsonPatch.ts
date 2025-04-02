@@ -13,15 +13,17 @@ export type WorkOrderServiceOperationJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/isServiceOperation' | '/isCompleted' | '/schedulingStartConstraintId' | '/schedulingStartConstraintDateTime' | '/schedulingFinishConstraintId' | '/schedulingFinishConstraintDateTime' | '/systemCondition' | '/operationId' | '/title' | '/text' | '/workCenterId' | '/workCenterPlantId' | '/standardTextTemplate' | '/scopeOfWork' | '/quantity' | '/unit' | '/materialGroup' | '/purchasingGroup' | '/purchasingOrganization' | '/purchaseOrderId' | '/purchaseOrderItemId' | '/service';
+    path: '/isServiceOperation' | '/isCompleted' | '/isExcludedFromWorkOrderPlan' | '/schedulingStartConstraintId' | '/schedulingStartConstraintDateTime' | '/schedulingFinishConstraintId' | '/schedulingFinishConstraintDateTime' | '/systemCondition' | '/operationId' | '/title' | '/text' | '/workCenterId' | '/workCenterPlantId' | '/standardTextTemplate' | '/scopeOfWork' | '/quantity' | '/unit' | '/materialGroup' | '/purchasingGroup' | '/purchasingOrganization' | '/purchaseOrderId' | '/purchaseOrderItemId' | '/service' | '/plannedWorkHours' | '/plannedWorkDuration' | '/capacityCount' | '/calculationKey';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *
+     * **To update either `schedulingStartConstraintId` or `schedulingStartConstraintDateTime`, both fields must be updated in the same request.**
      * /schedulingStartConstraintId allowed values:
      * - `MSO` - Must start on
      * - `SNET` - Start no earlier than
      * - `SNLT` - Start no later than
      *
+     * **To update either `schedulingFinishConstraintId` or `schedulingFinishConstraintDateTime`, both fields must be updated in the same request.**
      * /schedulingFinishConstraintId allowed values:
      * - `MFO ` - Must finish on
      * - `FNET` - Finish no earlier than

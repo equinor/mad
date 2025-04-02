@@ -5,10 +5,10 @@
 import type { AddSafetyMeasure } from '../models/AddSafetyMeasure';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { SafetyMeasure } from '../models/SafetyMeasure';
-import type { SubseaWorkOrderMaterialForAddMaterialRespone } from '../models/SubseaWorkOrderMaterialForAddMaterialRespone';
+import type { SubseaWorkOrderMaterialForAddMaterialResponse } from '../models/SubseaWorkOrderMaterialForAddMaterialResponse';
 import type { TechnicalFeedbackJsonPatch } from '../models/TechnicalFeedbackJsonPatch';
 import type { WorkOrderMaterialAdd } from '../models/WorkOrderMaterialAdd';
-import type { WorkOrderMaterialForAddMaterialRespone } from '../models/WorkOrderMaterialForAddMaterialRespone';
+import type { WorkOrderMaterialForAddMaterialResponse } from '../models/WorkOrderMaterialForAddMaterialResponse';
 import type { WorkOrderMaterialJsonPatch } from '../models/WorkOrderMaterialJsonPatch';
 import type { WorkOrderOperationJsonPatch } from '../models/WorkOrderOperationJsonPatch';
 import type { WorkOrderServiceOperationJsonPatch } from '../models/WorkOrderServiceOperationJsonPatch';
@@ -68,7 +68,7 @@ export class WorkOrderOperationsService {
      * ### Update release 1.35.0
      * Added support for updating the person responsible for the operation by using the path `personResponsibleEmail`. The value used for this path should be the equinor email of an employee with a SAP user.
      *
-     * ### Upcoming changes
+     * ### Update release 1.36.0
      * Added support for updating property `isExcludedFromWorkOrderPlan`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
@@ -141,8 +141,16 @@ export class WorkOrderOperationsService {
      * One service has to be created with the following data:
      * `lineId`, `quantity`, `unit`, `materialGroup`, `costElement`, and either a `title` (for a text item service) or `serviceId`.
      *
+     * Note: There is a known bug on the SAP side that prevents updating `standardTextTemplate` for service operations.
+     *
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * ### Update release 1.36.0
+     * Added support for updating property `isExcludedFromWorkOrderPlan`.
+     *
+     * ### Update release 1.37.0
+     * Added new properties `plannedWorkHours`, `actualWorkHours`, `capacityCount`, `plannedDuration`, `calculationKey`, `earliestStartDateTime`, `earliestFinishDateTime` and `safetyMeasures` to `serviceOperations`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -262,6 +270,9 @@ export class WorkOrderOperationsService {
      * ### Update release 1.35.0
      * Added new property `requisitionerId` to the response.
      *
+     * ### Update release 1.37.0
+     * Added property `unloadingPoint` to the response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns any Created
      * @throws ApiError
@@ -275,7 +286,7 @@ export class WorkOrderOperationsService {
          * Add material details
          */
         requestBody: Array<WorkOrderMaterialAdd>,
-    }): CancelablePromise<ProblemDetails | Array<(WorkOrderMaterialForAddMaterialRespone | SubseaWorkOrderMaterialForAddMaterialRespone)>> {
+    }): CancelablePromise<ProblemDetails | Array<(WorkOrderMaterialForAddMaterialResponse | SubseaWorkOrderMaterialForAddMaterialResponse)>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/work-order-operations/{operation-id}/materials',

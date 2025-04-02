@@ -5,10 +5,15 @@
 
 export type MaintenanceRecordMinimal = {
     recordId: string;
-    recordResource: 'maintenance-records/modification-proposals' | 'maintenance-records/failure-reports' | 'maintenance-records/activity-reports' | 'maintenance-records/technical-information-update-requests' | 'maintenance-records/technical-clarifications' | 'maintenance-records/certification-reports' | 'maintenance-records/unsupported-resource';
+    recordResource: 'maintenance-records/modification-proposals' | 'maintenance-records/failure-reports' | 'maintenance-records/activity-reports' | 'maintenance-records/technical-information-update-requests' | 'maintenance-records/technical-clarifications' | 'maintenance-records/certifications' | 'maintenance-records/unsupported-resource';
     tagId: string | null;
     tagPlantId: string;
     tag: string;
+    /**
+     * Structured location within the plant where the tag is located
+     */
+    locationId?: string;
+    location?: string;
     equipmentId?: string;
     equipment?: string;
     title: string;

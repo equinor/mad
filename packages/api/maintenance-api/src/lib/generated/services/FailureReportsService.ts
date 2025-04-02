@@ -111,6 +111,9 @@ export class FailureReportsService {
      * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
      * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
      *
+     * ### Update release 1.37.0
+     * Added support for new work order type `overheadMaintenanceWorkOrders` to `workOrderTypeId` enum of allowed types.
+     *
      * @returns FailureReport Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -260,6 +263,9 @@ export class FailureReportsService {
      * ### Update release 1.35.0
      * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
      * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
+     *
+     * ### Update release 1.37.0
+     * Added support for new work order type `overheadMaintenanceWorkOrders` to `workOrderTypeId` enum of allowed types.
      *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
@@ -498,6 +504,9 @@ export class FailureReportsService {
      * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
      * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
      *
+     * ### Update release 1.37.0
+     * Added support for new work order type `overheadMaintenanceWorkOrders` to `workOrderTypeId` enum of allowed types.
+     *
      * @returns FailureReportSimpleForSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -608,6 +617,9 @@ export class FailureReportsService {
      * ### Update release 1.35.0
      * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
      * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
+     *
+     * ### Update release 1.37.0
+     * Added support for `overheadMaintenanceWorkOrders`.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns FailureReportBasic Created
@@ -800,16 +812,18 @@ export class FailureReportsService {
      * When a task is created, it will have status `TSOS - Outstanding task` and `CRTE - Created`.
      * The status `TSRL - Task Released` can be set afterwards.
      *
-     * Now it is possible to set following statuses:
+     * Now it is possible to activate following statuses:
      * - TSRL Task Released
      * - TSCO Task Completed
      * - TSSC Task successful
+     *
+     * It is possible to activate and deactivate following statuses:
      * - TCMP WF when task completed
-     * - RIND Returned - Wait for info
+     * - RTND Returned - Wait for info
      * - CANC Cancelled
      *
-     * ### Upcoming changes
-     * Enabled activation of user statuses like `TCMP - WF when task completed`, `RIND - Returned - Wait for info` and `CANC - Cancelled`
+     * ### Update release 1.36.0
+     * Enabled activation and deactivation of user statuses like `TCMP - WF when task completed`, `RTND - Returned - Wait for info` and `CANC - Cancelled`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
