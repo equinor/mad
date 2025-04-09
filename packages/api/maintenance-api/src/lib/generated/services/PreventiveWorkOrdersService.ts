@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { EstimatedCostsJsonPatch } from '../models/EstimatedCostsJsonPatch';
 import type { PreventiveWorkOrder } from '../models/PreventiveWorkOrder';
 import type { PreventiveWorkOrderBasic } from '../models/PreventiveWorkOrderBasic';
 import type { PreventiveWorkOrderCreate } from '../models/PreventiveWorkOrderCreate';
@@ -142,12 +143,12 @@ export class PreventiveWorkOrdersService {
      *
      * Added `agreement` & `agreementItem` on `serviceOperations` and `grossPrice`, `netValue` & `currency` on `services`.
      *
-     * ### Update release 1.33.0
-     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
-     *
-     * ### Update release 1.33.1
+     * ### Update release 1.32.0
      * Added `include-cost-data-for-materials` query parameter.
      * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
      *
      * ### Update release 1.34.0
      * Added new properties `callNumber`, `previousCall`, and `completionDate` to `maintenancePlan`.
@@ -167,6 +168,23 @@ export class PreventiveWorkOrdersService {
      * Added new property `requisitionerId` to `serviceOperations`.
      *
      * Added new query parameter `include-estimated-costs`. Set to `true` to include `estimatedCosts` array in the response.
+     *
+     * ### Update release 1.36.0
+     * Added properties `costs` and `costsCurrency`.
+     *
+     * Added new property `planNotes` to `operations`.
+     *
+     * Added new properties `location` and `locationId` to `tagsRelated` and `maintenanceRecords`.
+     *
+     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
+     *
+     * ### Update release 1.37.0
+     * Added new properties `plannedWorkHours`, `actualWorkHours`, `capacityCount`, `plannedDuration`, `calculationKey`, `earliestStartDateTime`, `earliestFinishDateTime` and `safetyMeasures` to `serviceOperations`.
+     *
+     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
+     *
+     * ### Upcoming future release
+     * Added new property  `hasCommunication`
      *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -230,7 +248,7 @@ export class PreventiveWorkOrdersService {
          */
         includeStatusDetails?: boolean,
         /**
-         * Include detailed for the main tag of the Work order
+         * Include detailed information for the main tag of the Work order
          */
         includeTagDetails?: boolean,
         /**
@@ -366,6 +384,52 @@ export class PreventiveWorkOrdersService {
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights to update work order operation`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user`,
+            },
+        });
+    }
+
+    /**
+     * Preventive Work order - Update estimated costs
+     * ### Overview
+     * Update estimated costs for preventive work order. Cost needs to be provided in the currency of the work order.
+     * The Cost Category ID needs to be:
+     * - `COST_CUTBACK`
+     * - `COST_EXTERNAL_SERVICES`
+     * - `COST_INTERNAL_SERVICES`
+     * - `COST_INTERNAL_PERSONELL`
+     * - `COST_MATERIALS_OF_CONSUMPTION`
+     * - `COST_OTHER_EXPENCES`
+     * - `COST_REPAIR_AND_MAINTENANCE`
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static addPreventiveWoEstimatedCosts({
+        workOrderId,
+        costCategoryId,
+        requestBody,
+    }: {
+        workOrderId: string,
+        costCategoryId: string,
+        /**
+         * Estimated cost for cost category
+         */
+        requestBody: Array<EstimatedCostsJsonPatch>,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/work-orders/preventive-work-orders/{work-order-id}/estimated-costs/{cost-category-id}',
+            path: {
+                'work-order-id': workOrderId,
+                'cost-category-id': costCategoryId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `The request body is invalid`,
+                403: `User does not have sufficient rights to update estimated costs`,
                 404: `The specified resource was not found`,
                 409: `Work order is locked by other user`,
             },
@@ -703,6 +767,14 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
      *
+     * ### Update release 1.36.0
+     * Added properties `costs` and `costsCurrency`.
+     *
+     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
+     *
+     * ### Update release 1.37.0
+     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
+     *
      * @returns PreventiveWorkOrderSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -801,12 +873,21 @@ export class PreventiveWorkOrdersService {
      * To lookup the created preventive work order use endpoint `/work-orders/preventive-work-orders/{work-order-id}`
      *
      * ### Important information ###
-     * Endpoint will be removed as of 31.12.2024.
+     * There is an on-going initiative to prevent the possibility to create PM02 work orders in SAP (with the exception of MaintenancePlans). As of Release 1.36.0 on 21.01.2025, the usage of this endpoint is limited to applications with dispensation for usage, documented in disp.equinor.com.
      *
-     * There is an on-going initiative to prevent the possibility to create in SAP PM02 work orders outside of MaintenancePlans, hence the planned removal of this endpoint.
+     *
+     * To use this endpoint, your business process must be approved by O&M owners. To raise this request, please create a disp on disp.equinor.com, and raise this in O&M [Stryo board](https://equinor.service-now.com/rm_story.do?sys_id=-1&sysparm_stack=rm_story_list.do&sysparm_view=scrum&sysparm_query=rm_story.do%3Fsys_id%3D-1%26sysparm_query%3Dactive%3Dtrue%26sysparm_stack%3Drm_story_list.do%3Fsysparm_query%3Dactive%3Dtrue).
      *
      * ### Update release 1.27.0
      * Work orders now include the property 'isOpen'
+     *
+     * ### Update release 1.36.0
+     * Added properties `costs` and `costsCurrency` to the response.
+     *
+     * Endpoint is now limited.
+     *
+     * ### Update release 1.37.0
+     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns PreventiveWorkOrderBasic Created
@@ -827,7 +908,7 @@ export class PreventiveWorkOrdersService {
             mediaType: 'application/json',
             errors: {
                 400: `The request body is invalid`,
-                403: `User does not have sufficient rights to create a Project Work order`,
+                403: `Client is not allowed to access the endpoint. Please contact the APIphany-team to request access.`,
                 404: `The specified resource was not found`,
             },
         });

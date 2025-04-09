@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { EstimatedCostsJsonPatch } from '../models/EstimatedCostsJsonPatch';
 import type { OverheadMaintenanceWorkOrder } from '../models/OverheadMaintenanceWorkOrder';
 import type { ProblemDetails } from '../models/ProblemDetails';
 
@@ -10,53 +9,7 @@ import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class NewEndpointsService {
-
-    /**
-     * Preventive Work order - Update estimated costs
-     * ### Overview
-     * Update estimated costs for preventive work order. Cost needs to be provided in the currency of the work order.
-     * The Cost Category ID needs to be:
-     * - `COST_CUTBACK`
-     * - `COST_EXTERNAL_SERVICES`
-     * - `COST_INTERNAL_SERVICES`
-     * - `COST_INTERNAL_PERSONELL`
-     * - `COST_MATERIALS_OF_CONSUMPTION`
-     * - `COST_OTHER_EXPENCES`
-     * - `COST_REPAIR_AND_MAINTENANCE`
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static addPreventiveWoEstimatedCosts({
-        workOrderId,
-        costCategoryId,
-        requestBody,
-    }: {
-        workOrderId: string,
-        costCategoryId: string,
-        /**
-         * Estimated cost for cost category
-         */
-        requestBody: Array<EstimatedCostsJsonPatch>,
-    }): CancelablePromise<ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-orders/preventive-work-orders/{work-order-id}/estimated-costs/{cost-category-id}',
-            path: {
-                'work-order-id': workOrderId,
-                'cost-category-id': costCategoryId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to update estimated costs`,
-                404: `The specified resource was not found`,
-                409: `Work order is locked by other user`,
-            },
-        });
-    }
+export class OverheadMaintenanceWorkOrdersService {
 
     /**
      * @deprecated

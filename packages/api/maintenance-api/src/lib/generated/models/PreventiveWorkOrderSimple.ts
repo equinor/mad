@@ -54,16 +54,12 @@ export type PreventiveWorkOrderSimple = {
      * Value only returned if include-person-responsible=true. The email of the person responsible for the processing of the technical clarification. This is the preferred way of identifying the person as it's consistent across systems.
      */
     personResponsibleEmail?: string | null;
+    costs: number | null;
+    costsCurrency: string | null;
     /**
-     * Criteria used by Equinor in CMR (Critical Maintenance Report):
-     * Corrective work orders where at least one item in the list or primary tag:
-     *
-     * - has the error classification "Dead" or "Seriously ill" or
-     * - has a "High" consequence classification for HSE or Production (one table for each) or
-     * - has received a "Hidden failure" code.
-     *
+     * Indicates whether the Work Order has communication
      */
-    cmrIndicator: boolean;
+    hasCommunication?: boolean;
     /**
      * Indicates whether the Work Order is open or not.
      */

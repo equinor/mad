@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type WorkOrderMaterialForAddMaterialRespone = {
+export type WorkOrderMaterialForAddMaterialResponse = {
     reservationId: string;
     materialId: string;
     material: string;
@@ -53,5 +53,9 @@ export type WorkOrderMaterialForAddMaterialRespone = {
      * Indicates for whom the material is to be ordered
      */
     requisitionerId?: string;
+    /**
+     * Specifies the point at which the material is to be unloaded
+     */
+    unloadingPoint?: string;
 };
 

@@ -48,6 +48,9 @@ export class MeasuringPointsService {
      * ### Update release 1.21.0
      * Measuring points for equipment now include the `tagId` and `tagPlantId` of the tag the equipment is installed on.
      *
+     * ### Update release 1.37.0
+     * Added `include-measurement-text` query parameter to include measurement text in the response.
+     *
      * @returns MeasuringPoint Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -59,6 +62,7 @@ export class MeasuringPointsService {
         includeQualitativeCodeGroup = false,
         includeCharacteristics = false,
         includeCharacteristicsWithoutValue = false,
+        includeMeasurementText = false,
     }: {
         /**
          * Measuring point id
@@ -84,6 +88,10 @@ export class MeasuringPointsService {
          * Include all characteristics available for the measuring point regardless if they have a defined value or not. Use `include-characteristics` to only include characteristics with defined value for the measuring point.
          */
         includeCharacteristicsWithoutValue?: boolean,
+        /**
+         * Include measurement text in the response
+         */
+        includeMeasurementText?: boolean,
     }): CancelablePromise<MeasuringPoint | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -97,6 +105,7 @@ export class MeasuringPointsService {
                 'include-qualitative-code-group': includeQualitativeCodeGroup,
                 'include-characteristics': includeCharacteristics,
                 'include-characteristics-without-value': includeCharacteristicsWithoutValue,
+                'include-measurement-text': includeMeasurementText,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -197,6 +206,9 @@ export class MeasuringPointsService {
      * Added `characteristic-value-any-of`, `class-id` and `characteristic-id` query parameters.
      * Can be used to search for measuring points based on values of a characteristic.
      *
+     * ### Update future release
+     * Added `include-measurement-text` query parameter to include measurement text in the response.
+     *
      * @returns MeasuringPoint Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -219,6 +231,7 @@ export class MeasuringPointsService {
         characteristicId,
         classId,
         characteristicValueAnyOf,
+        includeMeasurementText = false,
     }: {
         /**
          * Filter to limit the measuring points by
@@ -288,6 +301,10 @@ export class MeasuringPointsService {
          * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id`. Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
          */
         characteristicValueAnyOf?: string,
+        /**
+         * Include measurement text in the response
+         */
+        includeMeasurementText?: boolean,
     }): CancelablePromise<Array<MeasuringPoint> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -310,6 +327,7 @@ export class MeasuringPointsService {
                 'characteristic-id': characteristicId,
                 'class-id': classId,
                 'characteristic-value-any-of': characteristicValueAnyOf,
+                'include-measurement-text': includeMeasurementText,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -370,6 +388,9 @@ export class MeasuringPointsService {
      * ### Update release 1.15.0
      * Added `workOrderId` to request and response.
      *
+     * ### Update release 1.37.0
+     * Add support for `text` in the request body and response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns Measurement Created
      * @throws ApiError
@@ -405,7 +426,10 @@ export class MeasuringPointsService {
     /**
      * Measurement - Update
      * Update a measurement for measuring point.
-     * The supported fields are: `measurementTitle` and `processingStatus`.
+     * The supported fields are: `measurementTitle` and `processingStatusId`.
+     *
+     * ### Update release 1.37.0
+     * Add support for `text` in the request body.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

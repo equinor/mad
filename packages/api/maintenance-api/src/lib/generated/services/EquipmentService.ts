@@ -114,6 +114,15 @@ export class EquipmentService {
      * ### Update release 1.35.0
      * Added new fields `maintenancePlantId`, `createdOnDate` and `changedOnDate`.
      *
+     * ### Update release 1.36.0
+     * Added properties `costs` and `costsCurrency` to preventive work orders.
+     *
+     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
+     *
+     * ### Update release 1.37.0
+     * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
+     * Added new work order type `overHeadMaintenanceWorkOrders` to response.
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -161,7 +170,7 @@ export class EquipmentService {
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
         /**
          * Limit include-work-orders to only open work order
          */
@@ -703,6 +712,15 @@ export class EquipmentService {
      *
      * Added new filters based on the new fields - `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate`.
      *
+     * ### Update release 1.36.0
+     * Added new properies `costs` and `costsCurrency` to preventive work orders.
+     *
+     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
+     *
+     * ### Update release 1.37.0
+     * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
+     * Added new work order type `overHeadMaintenanceWorkOrders` to response.
+     *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -846,7 +864,7 @@ export class EquipmentService {
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
         /**
          * Limit include-work-orders to only open work order
          */

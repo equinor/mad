@@ -6,15 +6,28 @@
 export type MeasurementUpdate = {
     /**
      * JSON Patch operation according to RFC6902
+     *
+     * Operation `replace` is suitable for the following properties:
+     * - `/measurementTitle`
+     * - `/processingStatusId`
+     * - `/text`
+     *
+     * Operation `append` is suitable for the following properties:
+     * - `/text`
+     *
+     * Operation `prepend` is suitable for the following properties:
+     * - `/text`
+     *
      */
-    op: 'replace';
+    op: 'replace' | 'append' | 'prepend';
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/measurementTitle' | '/processingStatusId';
+    path: '/measurementTitle' | '/processingStatusId' | '/text';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *
+     * "replace" supports following fields:
      * Path specific information:
      * - /measurementTitle - max-length 40 characters
      * - /processingStatusId

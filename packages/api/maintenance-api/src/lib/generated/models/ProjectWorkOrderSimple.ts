@@ -53,16 +53,6 @@ export type ProjectWorkOrderSimple = {
      */
     sortField: string;
     /**
-     * Criteria used by Equinor in CMR (Critical Maintenance Report):
-     * Corrective work orders where at least one item in the list or primary tag:
-     *
-     * - has the error classification "Dead" or "Seriously ill" or
-     * - has a "High" consequence classification for HSE or Production (one table for each) or
-     * - has received a "Hidden failure" code.
-     *
-     */
-    cmrIndicator: boolean;
-    /**
      * Indicates whether the Work Order is open or not.
      */
     isOpen: boolean;

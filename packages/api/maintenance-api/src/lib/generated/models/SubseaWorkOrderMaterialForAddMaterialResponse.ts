@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderMaterialForAddMaterialRespone } from './WorkOrderMaterialForAddMaterialRespone';
+import type { WorkOrderMaterialForAddMaterialResponse } from './WorkOrderMaterialForAddMaterialResponse';
 
-export type SubseaWorkOrderMaterialForAddMaterialRespone = (WorkOrderMaterialForAddMaterialRespone & {
+export type SubseaWorkOrderMaterialForAddMaterialResponse = (WorkOrderMaterialForAddMaterialResponse & {
     equipmentId: string;
     equipment: string;
     supplyingPlantId: string;

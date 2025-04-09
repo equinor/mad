@@ -65,6 +65,13 @@ export class WorkOrdersService {
      * - `personResponsible`
      * - `mainWorkCenterId`
      *
+     * ### Update release 1.36.0
+     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
+     *
+     * ### Update release 1.37.0
+     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
+     * Added `overheadMaintenanceWorkOrders` to `work-order-types-any-of` query parameter.
+     *
      * @returns WorkOrderInPlan Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -122,7 +129,7 @@ export class WorkOrdersService {
         /**
          * Limit to specific work order types (any-of). Default includes all types
          */
-        workOrderTypesAnyOf?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        workOrderTypesAnyOf?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
         /**
          * Comma-separated list of work-center-id
          */
@@ -295,6 +302,15 @@ export class WorkOrdersService {
      *
      * Added property `confirmationId`, `RemainingWork` and `RemainingWorkUnit` to `operations`
      *
+     * ### Update release 1.36.0
+     * Added properties `costs` and `costsCurrency` to preventive work orders.
+     *
+     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
+     *
+     * ### Update release 1.37.0
+     * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
+     * Added `overheadMaintenanceWorkOrders` to `include-work-order-types` filter in Parameters and to the response.
+     *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -343,7 +359,7 @@ export class WorkOrdersService {
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
         /**
          * Include operations for the Work orders in the response.
          */
@@ -405,6 +421,9 @@ export class WorkOrdersService {
      * ### Overview
      * Get type of a work order based on the work order id.
      *
+     * ### Update release 1.37.0
+     * Added support for new work order type `overheadMaintenanceWorkOrder`.
+     *
      * @returns WorkOrderTypes Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -442,7 +461,7 @@ export class WorkOrdersService {
      * Pagination is supported for this endpoint by setting values for `page` and `per-page`. If these parameteres are omitted, the result will be returned without pagination.
      *
      * ### Response
-     * The response schema differs slightly from the other work order endpoints as a result of the optimization for speed.
+     * The response schema has been optimized for speed, enabling the retrieval of work orders only from the past three years.
      *
      * ### Examples
      * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&tags-all-of=10B9` - Return work orders where tag is 10B9
@@ -475,6 +494,18 @@ export class WorkOrdersService {
      * ### Update release 1.35.0
      * Added support for optional pagination.
      *
+     * ### Update release 1.37.0
+     * Added query parameter `work-order-ids-any-of` & add support for SWNG in `status-all-of`, `status-any-of` and `status-not` query parameters.
+     *
+     * Deprecated query parameter `max-results` as the same functionality can be achieved with `per-page`.
+     *
+     * Added properties `tag`, `requiredEndDate`, `hseCritical` & `productionCritical`.
+     *
+     * Added query parameter `include-status-details` and the object `statuses`
+     *
+     * ### Upcoming future release
+     * Added `overheadMaintenanceWorkOrders` to `work-order-types` query parameter.
+     *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -506,9 +537,11 @@ export class WorkOrdersService {
         changedAfterDate,
         changedBeforeDate,
         workOrderTypes,
+        workOrderIdsAnyOf,
         sortBy,
         includeText = false,
         includeMaintenanceRecord = false,
+        includeStatusDetails = false,
         maxResults,
         perPage,
         page = 1,
@@ -584,15 +617,15 @@ export class WorkOrdersService {
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAllOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL'>,
+        statusAllOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusAnyOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL'>,
+        statusAnyOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
         /**
          * Query based on statusIds (not all statuses are supported)
          */
-        statusNot?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL'>,
+        statusNot?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
         /**
          * Include only open work orders or only closed work orders. By default, all work orders are included.
          */
@@ -618,6 +651,10 @@ export class WorkOrdersService {
          */
         workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
         /**
+         * Comma-separated list of `work-order-id`.
+         */
+        workOrderIdsAnyOf?: string,
+        /**
          * Property to sort the results by
          */
         sortBy?: Array<'createdDateTime desc' | 'createdDateTime asc' | 'workOrderId desc' | 'workOrderId asc' | 'systemId desc' | 'systemId asc' | 'locationId desc' | 'locationId asc' | 'sortField desc' | 'sortField asc' | 'title desc' | 'title asc'>,
@@ -630,7 +667,12 @@ export class WorkOrdersService {
          */
         includeMaintenanceRecord?: boolean,
         /**
+         * Include status details for the work orders
+         */
+        includeStatusDetails?: boolean,
+        /**
          * Maximum number of results to include. Default is 1000.
+         * @deprecated
          */
         maxResults?: number,
         /**
@@ -672,9 +714,11 @@ export class WorkOrdersService {
                 'changed-after-date': changedAfterDate,
                 'changed-before-date': changedBeforeDate,
                 'work-order-types': workOrderTypes,
+                'work-order-ids-any-of': workOrderIdsAnyOf,
                 'sort-by': sortBy,
                 'include-text': includeText,
                 'include-maintenance-record': includeMaintenanceRecord,
+                'include-status-details': includeStatusDetails,
                 'max-results': maxResults,
                 'per-page': perPage,
                 'page': page,
@@ -706,6 +750,9 @@ export class WorkOrdersService {
      * ### Important information
      * The response contains list of changes to work orders (not list of work orders changed). Therefore, an individual work order may be represented multiple times. Consumers can use changeDateTime to identify the last change.
      *
+     * ### Update release 1.37.0
+     * Added `overheadMaintenanceWorkOrders` to include-work-order-types filter in Parameters and `overheadMaintenanceWorkOrdersChanged` to response.
+     *
      * @returns WorkOrderChangeLogs Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -736,7 +783,7 @@ export class WorkOrdersService {
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
     }): CancelablePromise<WorkOrderChangeLogs | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',

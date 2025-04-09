@@ -31,5 +31,9 @@ export type WorkOrderOperation = (WorkOrderOperationSimple & {
      * The email of the person assigned as responsible for the Work Order Operation. This is the preferred way of identifying the person as it's consistent across systems.
      */
     personResponsibleEmail?: string | null;
+    /**
+     * Text-based information from the planner
+     */
+    planNotes: string;
 });
 

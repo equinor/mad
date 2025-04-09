@@ -22,7 +22,7 @@ export class CharacteristicsService {
      * | 002                   |  Equipment                      |
      * | 003                   |  Tags                           |
      * | 015                   |  Notification Item              |
-     * | 017                   |  Equipment                      |
+     * | 017                   |  Document                       |
      * | 037                   |  Measuring Point                |
      *
      * @returns CharacteristicForSearch Success

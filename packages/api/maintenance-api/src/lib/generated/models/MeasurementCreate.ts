@@ -27,5 +27,9 @@ export type MeasurementCreate = {
      * The workOrderId of the related work order
      */
     workOrderId?: string;
+    /**
+     * Long text for the measurement document
+     */
+    text?: string;
 };
 

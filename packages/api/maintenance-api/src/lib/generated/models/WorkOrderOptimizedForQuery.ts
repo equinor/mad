@@ -7,6 +7,7 @@ import type { ActivityReportSimpleSelf } from './ActivityReportSimpleSelf';
 import type { CertificationReportSimpleSelf } from './CertificationReportSimpleSelf';
 import type { FailureReportSimpleSelf } from './FailureReportSimpleSelf';
 import type { ModificationProposalSimpleSelf } from './ModificationProposalSimpleSelf';
+import type { StatusMinimal } from './StatusMinimal';
 import type { TechnicalClarificationSimpleSelf } from './TechnicalClarificationSimpleSelf';
 import type { TechnicalInformationUpdateRequestSimpleSelf } from './TechnicalInformationUpdateRequestSimpleSelf';
 import type { WorkOrderTypeId } from './WorkOrderTypeId';
@@ -16,6 +17,7 @@ export type WorkOrderOptimizedForQuery = {
     workOrderTypeId: WorkOrderTypeId;
     tagId: string | null;
     tagPlantId: string;
+    tag?: string;
     title: string;
     /**
      * Multi-line description of work order. Only included if include-text=true
@@ -55,6 +57,9 @@ export type WorkOrderOptimizedForQuery = {
      * @deprecated
      */
     revisionCodeId: string;
+    requiredEndDate?: string | null;
+    hseCritical?: string;
+    productionCritical?: string;
     /**
      * Work order is open
      */
@@ -92,9 +97,17 @@ export type WorkOrderOptimizedForQuery = {
      */
     hasStatusREL?: boolean;
     /**
+     * Has status SWING
+     */
+    hasStatusSWNG?: boolean;
+    /**
      * Main maintenance record
      */
     maintenanceRecord: (FailureReportSimpleSelf | ActivityReportSimpleSelf | CertificationReportSimpleSelf | ModificationProposalSimpleSelf | TechnicalInformationUpdateRequestSimpleSelf | TechnicalClarificationSimpleSelf) | null;
+    /**
+     * All active statuses on the WorkOrder
+     */
+    statuses?: Array<StatusMinimal>;
     _links: {
         related?: string;
     };

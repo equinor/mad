@@ -3,17 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WorkOrderMaterialForAddMaterialRespone } from './WorkOrderMaterialForAddMaterialRespone';
+import type { WorkOrderMaterialForAddMaterialResponse } from './WorkOrderMaterialForAddMaterialResponse';
 
-export type WorkOrderMaterial = (WorkOrderMaterialForAddMaterialRespone & {
+export type WorkOrderMaterial = (WorkOrderMaterialForAddMaterialResponse & {
     /**
      * Specifies the recipient for whom the material is destined
      */
     goodsRecipientId?: string;
-    /**
-     * Specifies the point at which the material is to be unloaded
-     */
-    unloadingPoint?: string;
     price?: number;
     priceCurrency?: string;
     /**

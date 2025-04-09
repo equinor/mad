@@ -12,5 +12,6 @@ export type WorkOrderChangeLogs = {
     sasChangeWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
     projectWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
     subseaWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
+    overheadMaintenanceWorkOrdersChanged?: Array<WorkOrderChangeLogBasicWithRelated>;
 };
 
