@@ -1,10 +1,10 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
-## 2.0.0
+## 1.36.0
 
-### Major Changes
+### Minor Changes
 
-- e27c83e: Update API wrapper to support api version 1.37.0
+- c406350: Update API wrapper to version 1.36.0
 
 ## 1.35.0
 
