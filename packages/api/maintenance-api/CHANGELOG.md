@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.37.0
+
+### Minor Changes
+
+- 4dcf64f: Upgrade maintanance api wrapper to support API 1.37.0
+
 ## 1.36.0
 
 ### Minor Changes
