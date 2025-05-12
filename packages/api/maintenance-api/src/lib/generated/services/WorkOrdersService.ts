@@ -27,26 +27,27 @@ export class WorkOrdersService {
      *
      * This endpoint returns only Work Order with status 'PLAN'. The field `requiredEndDate` is dependent on workOrderType.
      *
-     *
-     * ### Filter: by-plan-period
+     * ### Using `plan-period-start` and `plan-period-duration`
      * Provide the plan for a specific planning plant based on a defined plan period. This is the main usage of this endpoint.
      *
-     * **For this filter, `plan-period-start` is required.**
-     * All other parameters are optional.
-     *
      * Example of usage:
-     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
-     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start=2023-03-02&plan-period-duration=P21D&work-center-id-any-of=C31*&include-completed-work-order-operations=false&api-version=v1`
+     * - `/work-order-plan/{planning-plant-id}?plan-period-start=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     * - `/work-order-plan/{planning-plant-id}?plan-period-start=2023-03-02&plan-period-duration=P21D&work-center-id-any-of=C31*&include-completed-work-order-operations=false&api-version=v1`
      *
-     * ### Filter: by-person-responsible
+     * ### Using `person-responsible-*`
      * Get the work order plan for a specific planning plant, but only for work orders assigned to a specific user.
      * Normally, work orders will not be assigned directly to a user, but in some work processes (such as inspection), this occurs.
      *
-     * **For this filter, it is required to provide either `person-responsible-id` or `person-responsible-email` (but not both).**
-     * All other parameters are optional.
+     * Example of usage:
+     * - `/work-order-plan/{planning-plant-id}?person-responsible-email=shortname@equinor.com&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     *
+     * ### Combining all parameters
+     * It is possible to get all work order plans for a period which are assigned to user by combining all parameters.
      *
      * Example of usage:
-     * - `/work-order-plan/{planning-plant-id}?filter=by-person-responsible&person-responsible-email=shortname@equinor.com&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     *
+     * - `/work-order-plan/{planning-plant-id}?person-responsible-email=shortname@equinor.com&plan-period-start=2023-03-02&plan-period-duration=P21D&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     *
      *
      * ### Update release 1.26.0
      * Added query parameter `work-center-id-any-of`.
@@ -71,6 +72,11 @@ export class WorkOrdersService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      * Added `overheadMaintenanceWorkOrders` to `work-order-types-any-of` query parameter.
+     *
+     * ### Update release 1.38.0
+     * Deprecated the `filter` parameter. The endpoint will accept the parameter but ignore it. It is now possible to combine almost all
+     * query parameters. `person-responsible-email` and `person-responsible-id` will still be mutually exclusive.
+     * It is required to supply either `plan-period-start` or `person-responsible-*` in order to not cause issues in the underlying system.
      *
      * @returns WorkOrderInPlan Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -99,9 +105,10 @@ export class WorkOrdersService {
          */
         planningPlantId: string,
         /**
-         * Filter to limit the work order plan by
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
          */
-        filter: 'by-plan-period' | 'by-person-responsible',
+        filter?: 'by-plan-period' | 'by-person-responsible',
         /**
          * Start of plan period (`/plants/{plant-id}?include-baseline-plans=true` can be used as a reference). Required for `filter=by-plan-period`.
          */
@@ -199,13 +206,14 @@ export class WorkOrdersService {
      * The response can include most of the details for each work order.
      * If additional data is needed, it can be retrieved by using the endpoint represented in the `_links.self` property.
      *
+     * Pagination is supported for this endpoint by setting values for `page` and `per-page`. If these parameteres are omitted, the result will be returned without pagination.
      *
      * ### Filter: recently-changed
      * Find Work orders which have been recently changed (created or updated) for a given plant. Normally, clients will provide the parameters `changed-since-datetime` and `plant-id` to return any changed Work order from `changed-since-datetime` to now. It is also possible to add `before-datetime` query parameter - the endpoint will then return any work order changed between `changed-since-datetime` and `before-datetime`.
      *
      * Parameters:
-     * - `plant-id`
      * - `changed-since-datetime`
+     * - `plant-id` (optional)
      * - `before-datetime` (optional)
      *
      * ### Filter: before-basic-end-date
@@ -311,6 +319,10 @@ export class WorkOrdersService {
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
      * Added `overheadMaintenanceWorkOrders` to `include-work-order-types` filter in Parameters and to the response.
      *
+     * ### Update release 1.38.0
+     * Marked `plantId` as an optional parameter for filter `recently-changed`.
+     * Add pagination to this endpoint, see [Pagination](#section/Pagination) for more information.
+     *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -331,6 +343,8 @@ export class WorkOrdersService {
         costNetworkId,
         workCenterIdAnyOf,
         workOrderIdsAnyOf,
+        perPage,
+        page = 1,
     }: {
         /**
          * Filter to limit the work order by
@@ -341,7 +355,7 @@ export class WorkOrdersService {
          */
         plantId?: string,
         /**
-         * Earliest datetime to returned changed work orders for
+         * Earliest datetime to return changed work orders for
          */
         changedSinceDatetime?: string,
         /**
@@ -392,6 +406,14 @@ export class WorkOrdersService {
          * Comma-separated list of `work-order-id`.
          */
         workOrderIdsAnyOf?: string,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
     }): CancelablePromise<WorkOrderWithOperationList | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -412,6 +434,8 @@ export class WorkOrdersService {
                 'cost-network-id': costNetworkId,
                 'work-center-id-any-of': workCenterIdAnyOf,
                 'work-order-ids-any-of': workOrderIdsAnyOf,
+                'per-page': perPage,
+                'page': page,
             },
         });
     }
@@ -495,6 +519,10 @@ export class WorkOrdersService {
      * Added support for optional pagination.
      *
      * ### Update release 1.37.0
+     * Added query parameter `work-order-ids-any-of`
+     * Deprecated query parameter `max-results` as the same functionality can be achieved with `per-page``.
+     *
+     * ### Update release 1.37.0
      * Added query parameter `work-order-ids-any-of` & add support for SWNG in `status-all-of`, `status-any-of` and `status-not` query parameters.
      *
      * Deprecated query parameter `max-results` as the same functionality can be achieved with `per-page`.
@@ -503,7 +531,7 @@ export class WorkOrdersService {
      *
      * Added query parameter `include-status-details` and the object `statuses`
      *
-     * ### Upcoming future release
+     * ### Update release 1.38.0
      * Added `overheadMaintenanceWorkOrders` to `work-order-types` query parameter.
      *
      * @returns WorkOrderOptimizedForQuery Success
@@ -649,7 +677,7 @@ export class WorkOrdersService {
         /**
          * Limit to specific work order types (one-of)
          */
-        workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
+        workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
         /**
          * Comma-separated list of `work-order-id`.
          */
@@ -773,7 +801,7 @@ export class WorkOrdersService {
          */
         plantId?: string,
         /**
-         * Earliest datetime to returned changed work orders for
+         * Earliest datetime to return changed work orders for
          */
         changedSinceDatetime?: string,
         /**

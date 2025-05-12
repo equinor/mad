@@ -95,7 +95,7 @@ export class MaintenanceRecordsService {
          */
         plantId?: string,
         /**
-         * Earliest datetime to returned changed work orders for
+         * Earliest datetime to return changed work orders for
          */
         changedSinceDatetime?: string,
         /**

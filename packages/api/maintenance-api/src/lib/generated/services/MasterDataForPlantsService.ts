@@ -302,6 +302,9 @@ export class MasterDataForPlantsService {
      * ### Update release 1.36.0
      * Added `superiorRoutingCounterId` to `operations`.
      *
+     * ### Update release 1.38.0
+     * Added property `text` to `materials` in `workOrderOperations`.
+     *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -400,6 +403,9 @@ export class MasterDataForPlantsService {
      *
      * ### Update release 1.36.0
      * Added `superiorRoutingCounterId` to response.
+     *
+     * ### Update release 1.38.0
+     * Added property `text` in `materials`.
      *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes

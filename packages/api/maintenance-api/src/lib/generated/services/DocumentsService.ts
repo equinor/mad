@@ -49,6 +49,9 @@ export class DocumentsService {
      * ### Update release 1.35.0
      * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
      *
+     * ### Update release 1.38.0
+     * Added `tag` to the response of `equipment`.
+     *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -227,6 +230,9 @@ export class DocumentsService {
      *
      * ### Update release 1.35.0
      * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
+     *
+     * ### Update release 1.38.0
+     * Added `tag` to the response of `equipment`.
      *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes

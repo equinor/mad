@@ -183,6 +183,9 @@ export class PreventiveWorkOrdersService {
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
      * ### Upcoming future release
      * Added new property  `hasCommunication`
      *

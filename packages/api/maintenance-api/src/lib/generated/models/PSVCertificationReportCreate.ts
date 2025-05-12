@@ -5,6 +5,10 @@
 
 export type PSVCertificationReportCreate = {
     /**
+     * Operation ID for the certification report.
+     */
+    'operation-id': string;
+    /**
      * Cold design set point in Bar. From measuring point.
      */
     coldDesignSetPoint: number;
@@ -48,6 +52,10 @@ export type PSVCertificationReportCreate = {
      * Manufacturer serial number for pretest.
      */
     manufacturerSerialNumber?: string;
+    /**
+     * Manufacturer part number for pretest.
+     */
+    manufacturerPartNumber?: string;
     /**
      * Pretest opening pressure in Bar.
      */

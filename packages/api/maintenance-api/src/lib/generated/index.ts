@@ -394,7 +394,6 @@ export { MeasuringPointsService } from './services/MeasuringPointsService';
 export { ModificationProposalsService } from './services/ModificationProposalsService';
 export { ModificationWorkOrdersService } from './services/ModificationWorkOrdersService';
 export { ModifiedEndpointsService } from './services/ModifiedEndpointsService';
-export { NewEndpointsService } from './services/NewEndpointsService';
 export { OverheadMaintenanceWorkOrdersService } from './services/OverheadMaintenanceWorkOrdersService';
 export { PreventiveWorkOrdersService } from './services/PreventiveWorkOrdersService';
 export { ProjectWorkOrdersService } from './services/ProjectWorkOrdersService';

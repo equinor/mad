@@ -136,13 +136,8 @@ export class UpcomingNewEndpointsService {
      * @throws ApiError
      */
     public static createPsvCertificationReport({
-        operationId,
         requestBody,
     }: {
-        /**
-         * The operationId of the technical feedback
-         */
-        operationId: string,
         /**
          * PSV certification report to create
          */
@@ -150,10 +145,7 @@ export class UpcomingNewEndpointsService {
     }): CancelablePromise<ProblemDetails | CertificationReportBasic> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/maintenance-records/certification-reports/psv/{operation-id}',
-            path: {
-                'operation-id': operationId,
-            },
+            url: '/maintenance-records/certification-reports/psv',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

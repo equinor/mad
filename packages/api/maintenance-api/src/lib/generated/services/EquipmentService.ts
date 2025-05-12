@@ -123,6 +123,9 @@ export class EquipmentService {
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
      * Added new work order type `overHeadMaintenanceWorkOrders` to response.
      *
+     * ### Update release 1.38.0
+     * Added new property `tag` to the response.
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -582,6 +585,9 @@ export class EquipmentService {
      * ### Update release 1.35.0
      * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` to response body.
      *
+     * ### Update release 1.38.0
+     * Add field `tag` to the response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns EquipmentBasicV2 Created
      * @throws ApiError
@@ -720,6 +726,9 @@ export class EquipmentService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
      * Added new work order type `overHeadMaintenanceWorkOrders` to response.
+     *
+     * ### Update release 1.38.0
+     * Added `tag` to the response.
      *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -983,7 +992,7 @@ export class EquipmentService {
          */
         equipmentIds?: Array<string>,
         /**
-         * Earliest datetime to returned changed equipment for
+         * Earliest datetime to return changed equipment for
          */
         changedSinceDate?: string,
     }): CancelablePromise<EquipmentChangeLogs | ProblemDetails> {

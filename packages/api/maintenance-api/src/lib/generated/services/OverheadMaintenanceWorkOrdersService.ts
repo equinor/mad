@@ -23,6 +23,9 @@ export class OverheadMaintenanceWorkOrdersService {
      * ### Important information
      * By default `include-person-responsible` is false and then the fields `personResponsibleId` and `personResponsibleEmail` will always have null value.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
      * @returns OverheadMaintenanceWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

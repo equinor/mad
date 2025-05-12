@@ -16,9 +16,17 @@ export type EqHubAndSemiUsage = {
     objectTypeText?: string | null;
     objectDescription?: string | null;
     objectBom?: boolean | null;
-    createdOnDateTime?: string | null;
+    /**
+     * @deprecated
+     */
+    createdOnDateTime?: string;
+    createdOnDate?: string | null;
     createdById?: string | null;
-    changedOnDateTime?: string | null;
+    /**
+     * @deprecated
+     */
+    changedOnDateTime?: string;
+    changedOnDate?: string | null;
     changedById?: string | null;
     manufacturer?: string | null;
     model?: string | null;

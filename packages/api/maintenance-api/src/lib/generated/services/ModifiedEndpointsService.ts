@@ -3,44 +3,23 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CorrectiveWorkOrder } from '../models/CorrectiveWorkOrder';
-import type { CorrectiveWorkOrderBasic } from '../models/CorrectiveWorkOrderBasic';
-import type { CorrectiveWorkOrderCreate } from '../models/CorrectiveWorkOrderCreate';
-import type { CorrectiveWorkOrderSimple } from '../models/CorrectiveWorkOrderSimple';
+import type { Document } from '../models/Document';
+import type { EqHubAndSemiUsage } from '../models/EqHubAndSemiUsage';
 import type { Equipment } from '../models/Equipment';
+import type { EquipmentBasicV2 } from '../models/EquipmentBasicV2';
+import type { EquipmentCreate } from '../models/EquipmentCreate';
 import type { EquipmentSearchItem } from '../models/EquipmentSearchItem';
-import type { FailureReportBasic } from '../models/FailureReportBasic';
-import type { FailureReportCreate } from '../models/FailureReportCreate';
-import type { FailureReportSimpleForSearch } from '../models/FailureReportSimpleForSearch';
-import type { Measurement } from '../models/Measurement';
-import type { MeasurementCreate } from '../models/MeasurementCreate';
-import type { MeasurementUpdate } from '../models/MeasurementUpdate';
-import type { MeasuringPoint } from '../models/MeasuringPoint';
 import type { ModificationWorkOrder } from '../models/ModificationWorkOrder';
-import type { ModificationWorkOrderBasic } from '../models/ModificationWorkOrderBasic';
-import type { ModificationWorkOrderCreate } from '../models/ModificationWorkOrderCreate';
+import type { OverheadMaintenanceWorkOrder } from '../models/OverheadMaintenanceWorkOrder';
+import type { PlanningPlantRevision } from '../models/PlanningPlantRevision';
 import type { PreventiveWorkOrder } from '../models/PreventiveWorkOrder';
-import type { PreventiveWorkOrderBasic } from '../models/PreventiveWorkOrderBasic';
-import type { PreventiveWorkOrderCreate } from '../models/PreventiveWorkOrderCreate';
-import type { PreventiveWorkOrderSimple } from '../models/PreventiveWorkOrderSimple';
 import type { ProblemDetails } from '../models/ProblemDetails';
 import type { ProjectWorkOrder } from '../models/ProjectWorkOrder';
-import type { ProjectWorkOrderBasic } from '../models/ProjectWorkOrderBasic';
-import type { ProjectWorkOrderCreate } from '../models/ProjectWorkOrderCreate';
-import type { ProjectWorkOrderSimple } from '../models/ProjectWorkOrderSimple';
+import type { RevisionWorkOrderOperation } from '../models/RevisionWorkOrderOperation';
 import type { SASChangeWorkOrder } from '../models/SASChangeWorkOrder';
-import type { SASChangeWorkOrderBasic } from '../models/SASChangeWorkOrderBasic';
-import type { SASChangeWorkOrderCreate } from '../models/SASChangeWorkOrderCreate';
-import type { SASChangeWorkOrderSimple } from '../models/SASChangeWorkOrderSimple';
 import type { SubseaWorkOrder } from '../models/SubseaWorkOrder';
-import type { SubseaWorkOrderMaterialForAddMaterialResponse } from '../models/SubseaWorkOrderMaterialForAddMaterialResponse';
-import type { Tag } from '../models/Tag';
-import type { TagSearch } from '../models/TagSearch';
-import type { WorkOrderChangeLogs } from '../models/WorkOrderChangeLogs';
 import type { WorkOrderInPlan } from '../models/WorkOrderInPlan';
-import type { WorkOrderMaterialAdd } from '../models/WorkOrderMaterialAdd';
-import type { WorkOrderMaterialForAddMaterialResponse } from '../models/WorkOrderMaterialForAddMaterialResponse';
-import type { WorkOrderServiceOperationJsonPatch } from '../models/WorkOrderServiceOperationJsonPatch';
-import type { WorkOrderTypes } from '../models/WorkOrderTypes';
+import type { WorkOrderOptimizedForQuery } from '../models/WorkOrderOptimizedForQuery';
 import type { WorkOrderWithOperationList } from '../models/WorkOrderWithOperationList';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -48,211 +27,6 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class ModifiedEndpointsService {
-
-    /**
-     * Tag - Lookup
-     * ### Overview
-     * Lookup a single tag with related information
-     *
-     * ### Update release 0.9.0
-     * Added `include-measuring-points` and `include-last-measurement` query parameters.
-     *
-     * ### Update release 1.1.0
-     * Added additional characteristics with ids CRIT_MAIN_FUNCTION and CRIT_SUB_FUNCTION.
-     *
-     * Added certification-report, technical-information-update-requests and technical-clarifications for `include-maintenance-records` query parameter.
-     *
-     * Added `include-work-orders` to return work orders where the requested tag is the main reference. `include-work-order-types` can be used to limit to certain work order types.
-     *
-     * Added isOpen and completedDateTime properties for maintenance records if `include-maintenance-records` is true.
-     *
-     * Fixed bug for `include-installed-equipment`.
-     *
-     * ### Update release 1.3.0
-     * Added `workCenterId`, `workCenterPlantId`, `workCenter`, `planningPlantId`,`plannerGroupId` and `plannerGroup` properties.
-     *
-     * Added `include-bill-of-materials` query parameter.
-     *
-     * ### Update release 1.5.0
-     * Added `revisionId` and `revision` to related work orders (represents shutdown or campaign work).
-     *
-     * ### Update release 1.8.0
-     * Added properties `hasUnsafeFailureMode` and `unsafeFailureModeStatus` for failure reports.
-     *
-     * ### Update release 1.10.0
-     * Added property `maintenanceRecordId` to measurements of measuring points.
-     *
-     * ### Update release 1.11.0
-     * Added property `costWBSId`.
-     *
-     * ### Update release 1.15.0
-     * Added `workOrderId` to response.
-     *
-     * Added `include-linear-data` and `include-status-details` query parameters.
-     *
-     * Added properties `tagCategoryId`, `activeStatusIds`, `startUpDate` and `endOfUseDate`.
-     *
-     * Added `modification-proposal` as a maintenance record type to include with `include-maintenance-record-types` parameter.
-     *
-     * ### Update release 1.16.0
-     * Added property `classId` to characteristics.
-     *
-     * Added query parameters `include-attachments` and `include-url-references`.
-     *
-     * Added property `workCenterId`
-     *
-     * ### Update release 1.21.0
-     * Added property `area`.
-     *
-     * ### Update release 1.24.0
-     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
-     *
-     * Added property `cmrIndicator` for WorkOrders
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.28.0
-     * `billOfMaterials` now include the property `parentMaterialId`
-     *
-     * Added `materialId` and `material` to the response
-     *
-     * ### Update release 1.32.0
-     * Added `changedDateTime` for attachments.
-     *
-     * ### Update release 1.35.0
-     * Added new fields `maintenancePlantId`, `createdOnDate` and `changedOnDate`.
-     *
-     * ### Update release 1.36.0
-     * Added properties `costs` and `costsCurrency` to preventive work orders.
-     *
-     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
-     *
-     * ### Update future release
-     *
-     * Added new property `hasCommunication`
-     *
-     * @returns Tag Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static lookupTag({
-        plantId,
-        tagId,
-        includeMaintenanceRecords = false,
-        includeMaintenanceRecordTypes,
-        includeWorkOrders = true,
-        includeWorkOrderTypes,
-        includeInstalledEquipment = false,
-        includeCatalogProfileDetails = false,
-        includeMaintenancePlanItems = false,
-        includeMeasuringPoints = false,
-        includeLastMeasurement = false,
-        includeCharacteristics = false,
-        includeBillOfMaterials = false,
-        includeAttachments = false,
-        includeUrlReferences = false,
-        includeStatusDetails = false,
-        includeLinearData = false,
-    }: {
-        /**
-         * Plants or maintenance plants to include tags from.
-         */
-        plantId: string,
-        tagId: string,
-        /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
-         */
-        includeMaintenanceRecords?: boolean,
-        /**
-         * Include which types of maintenance records
-         */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
-        /**
-         * Include work orders. If include-work-order-types is not supplied, all supported types are returned.
-         */
-        includeWorkOrders?: boolean,
-        /**
-         * Include which types of work orders. Use comma-separated list of entries.
-         */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
-        /**
-         * Include installed equipment
-         */
-        includeInstalledEquipment?: boolean,
-        /**
-         * Include possible detection methods, failure modes and failure mechanisms
-         */
-        includeCatalogProfileDetails?: boolean,
-        /**
-         * Include Maintenance Plan items this functional location is part of
-         */
-        includeMaintenancePlanItems?: boolean,
-        /**
-         * Include measuring points for this tag
-         */
-        includeMeasuringPoints?: boolean,
-        /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include bill of materials (also known as structure list) for tag and installed equipment
-         */
-        includeBillOfMaterials?: boolean,
-        /**
-         * Include equipment or tag attachments
-         */
-        includeAttachments?: boolean,
-        /**
-         * Include URL references for object
-         */
-        includeUrlReferences?: boolean,
-        /**
-         * Include detailed information for statuses (both active and non-active)
-         */
-        includeStatusDetails?: boolean,
-        /**
-         * Include linear data
-         */
-        includeLinearData?: boolean,
-    }): CancelablePromise<Tag | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/plants/{plant-id}/tags/{tag-id}',
-            path: {
-                'plant-id': plantId,
-                'tag-id': tagId,
-            },
-            query: {
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
-                'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
-                'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
 
     /**
      * Equipment - Lookup
@@ -352,6 +126,9 @@ export class ModifiedEndpointsService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
      * Added new work order type `overHeadMaintenanceWorkOrders` to response.
+     *
+     * ### Update release 1.38.0
+     * Added new property `tag` to the response.
      *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -484,6 +261,54 @@ export class ModifiedEndpointsService {
     }
 
     /**
+     * Equipment - Create
+     * ### Overview
+     * Create equipment and possibly install at tag.
+     *
+     * ### Important information
+     * In the current version of the endpoint, it's only possible to create equipment with equipmentCategoryId `R` = Process Equipment.
+     *
+     * If the request includes `installedAtTag`, the equipment will inherit properties such as `planningPlantId`, `plannerGroupId`, `workCenterId`, `ABCId`, `systemId` and `locationId`from the tag.
+     *
+     * Access to the role `YO059 - Static Process Equipment Data Establisher (SAPP03)` is required.
+     *
+     * ### Update release 1.26.0
+     * Added properties `tagId` and `tagPlantId` to response body.
+     *
+     * ### Update release 1.31.0
+     * Added properties `manufacturerPartNumber`, `technicalIdentificationNumber`, `objectWeight` and `unitOfWeight` to response body.
+     *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` to response body.
+     *
+     * ### Update release 1.38.0
+     * Add field `tag` to the response.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns EquipmentBasicV2 Created
+     * @throws ApiError
+     */
+    public static createEquipment({
+        requestBody,
+    }: {
+        /**
+         * Equipment to create
+         */
+        requestBody: EquipmentCreate,
+    }): CancelablePromise<ProblemDetails | EquipmentBasicV2> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/equipment',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad request, for example if missing required properties, \`equipmentCategoryId\` is not \`R\` or if \`installedAtTag\` is invalid or is not in service.`,
+                403: `User does not have sufficient rights to create an equipment.`,
+            },
+        });
+    }
+
+    /**
      * Equipment - Search
      * ### Overview
      * Search for equipment and include related maintenance information.
@@ -597,6 +422,9 @@ export class ModifiedEndpointsService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
      * Added new work order type `overHeadMaintenanceWorkOrders` to response.
+     *
+     * ### Update release 1.38.0
+     * Added `tag` to the response.
      *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -812,92 +640,349 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Measuring point - Lookup
+     * Document - Search
      * ### Overview
-     * Lookup a single measuring point.
+     * Search documents and include related information such as characteristics, materials, equipment and attachments.
      *
-     * A measuring point represents the physical or virtual location at which process values, events or conditions are described. For instance a temperature reader, pressure sensor, or a spot on a pipe where thickness is measured.
      *
-     * Measuring points indicate where measurements (or derived/calculated values) occur.
+     * The client must in the request provide at least one of the following search parameters:
+     * * `document-type-any-of`
+     * * `document-number-any-of`
+     * * `characteristic-value-any-of`
      *
-     * A measuring point is normally connected to a tag or equipment, facilitating the monitoring of its state and performance.
+     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
+     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
      *
-     * ### Important information
-     * Measuring points support quantitative (example 3mm), qualitative (example YES) or combination of the two when creating measurements for the measuring point.
+     * ### Update release 1.31.0
+     * Added `include-inventory-count` query parameter to include `equipmentInventoryCount` and `materialInventoryCount` property in the response.
      *
-     * Quantitative measurements are defined by quantitativeCharacteristicId and have a unit of measure.
+     * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
      *
-     * Qualitative measurement codes are defined by qualitativeCodeGroupId.
+     * ### Update release 1.32.0
+     * Added `include-url-references` query parameter to include URL references in the response.
      *
-     * ### Update release 1.10.0
-     * Added property `maintenanceRecordId` to measurements.
+     * Added properties `statusId` and `statusText` to the response.
      *
-     * Added `include-characteristics` and `include-characteristics-without-value` query parameter.
+     * Added properties `partNumber` & `manufacturer` to `material` in the response.
      *
-     * ### Update release 1.15.0
-     * Added `workOrderId` to response.
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
      *
-     * ### Update release 1.21.0
-     * Measuring points for equipment now include the `tagId` and `tagPlantId` of the tag the equipment is installed on.
+     * ### Update release 1.38.0
+     * Added `tag` to the response of `equipment`.
      *
-     * ### Update release 1.37.0
-     * Added `include-measurement-text` query parameter to include measurement text in the response.
-     *
-     * @returns MeasuringPoint Success
+     * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupMeasuringPoint({
-        pointId,
-        includeLastMeasurement = false,
-        includeMeasurements = false,
-        includeQualitativeCodeGroup = false,
+    public static searchDocuments({
+        documentTypeAnyOf,
+        documentNumberAnyOf,
+        characteristicValueAnyOf,
+        characteristicId,
+        classId,
         includeCharacteristics = false,
-        includeCharacteristicsWithoutValue = false,
-        includeMeasurementText = false,
+        includeMaterial = false,
+        includeEquipment = false,
+        includeTags = false,
+        includeMaintenanceRecords = false,
+        includeMeasuringPoints = false,
+        includeAttachments = false,
+        includeInventoryCount = false,
+        includeUrlReferences = false,
+        perPage = 50,
+        page = 1,
     }: {
         /**
-         * Measuring point id
+         * Search based on `documentType`.
          */
-        pointId: string,
+        documentTypeAnyOf?: Array<string>,
         /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
+         * Search based on `documentNumber`.
          */
-        includeLastMeasurement?: boolean,
+        documentNumberAnyOf?: Array<string>,
         /**
-         * Include measurements of the measuring point
+         * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id` Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
          */
-        includeMeasurements?: boolean,
+        characteristicValueAnyOf?: string,
         /**
-         * Include possible codes for qualitative measurements if qualitativeCodeGroupId is set
+         * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids
          */
-        includeQualitativeCodeGroup?: boolean,
+        characteristicId?: string | null,
         /**
-         * Include characteristics with defined value for the measuring point. Use `include-characteristics-without-value` to retrieve all characteristics available for the measuring point.
+         * Required field if `characteristic-value-any-of` is supplied.
+         */
+        classId?: string | null,
+        /**
+         * Include characteristics'
          */
         includeCharacteristics?: boolean,
         /**
-         * Include all characteristics available for the measuring point regardless if they have a defined value or not. Use `include-characteristics` to only include characteristics with defined value for the measuring point.
+         * Include material related to the object
          */
-        includeCharacteristicsWithoutValue?: boolean,
+        includeMaterial?: boolean,
         /**
-         * Include measurement text in the response
+         * Include equipment related to the object
          */
-        includeMeasurementText?: boolean,
-    }): CancelablePromise<MeasuringPoint | ProblemDetails> {
+        includeEquipment?: boolean,
+        /**
+         * Include tags.
+         */
+        includeTags?: boolean,
+        /**
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
+         */
+        includeMaintenanceRecords?: boolean,
+        /**
+         * Include measuring points for this tag
+         */
+        includeMeasuringPoints?: boolean,
+        /**
+         * Include equipment or tag attachments
+         */
+        includeAttachments?: boolean,
+        includeInventoryCount?: boolean,
+        /**
+         * Include URL references for object
+         */
+        includeUrlReferences?: boolean,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<Document> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/measuring-points/{point-id}',
+            url: '/documents',
+            query: {
+                'document-type-any-of': documentTypeAnyOf,
+                'document-number-any-of': documentNumberAnyOf,
+                'characteristic-value-any-of': characteristicValueAnyOf,
+                'characteristic-id': characteristicId,
+                'class-id': classId,
+                'include-characteristics': includeCharacteristics,
+                'include-material': includeMaterial,
+                'include-equipment': includeEquipment,
+                'include-tags': includeTags,
+                'include-maintenance-records': includeMaintenanceRecords,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-attachments': includeAttachments,
+                'include-inventory-count': includeInventoryCount,
+                'include-url-references': includeUrlReferences,
+                'per-page': perPage,
+                'page': page,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to view document`,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Document - Lookup
+     * ### Overview
+     * Lookup document by id. Use the different include parameters to include additional information about the document.
+     * [POST document-relationships/{relationship-type}/{source-id}](#operation/AddRelationshipsToDocument) can be used to link the document to a business object.
+     *
+     * **N.B** The link in the attachment object is in the first iteration always routed via the equipment attachment endpoint.
+     * In a future release we will implement a general endpoint `documents/attachment/{attachment-id}` for downloading attachments which will be displayed here.
+     *
+     * ### Update release 1.31.0
+     * Added `include-inventory-count` query parameter to include `equipmentInventoryCount` and `materialInventoryCount` property in the response.
+     *
+     * Added support for including more business objects: `include-tags`, `include-measuring-points` and `include-maintenance-records`.
+     *
+     * ### Update release 1.32.0
+     * Added `include-url-references` query parameter to include URL references in the response.
+     *
+     * Added `changedDateTime` for attachments.
+     *
+     * Added properties `statusId` and `statusText` to the response.
+     *
+     * Added properties `partNumber` & `manufacturer` to `material` in the response.
+     *
+     * ### Update release 1.35.0
+     * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
+     *
+     * ### Update release 1.38.0
+     * Added `tag` to the response of `equipment`.
+     *
+     * @returns Document Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static lookupDocument({
+        documentId,
+        includeCharacteristics = false,
+        includeMaterial = false,
+        includeEquipment = false,
+        includeTags = false,
+        includeMaintenanceRecords = false,
+        includeMeasuringPoints = false,
+        includeAttachments = false,
+        includeInventoryCount = false,
+        includeUrlReferences = false,
+    }: {
+        /**
+         * Unique id for the document to be used against endpoints for the `/documents` resource
+         */
+        documentId: string,
+        /**
+         * Include characteristics'
+         */
+        includeCharacteristics?: boolean,
+        /**
+         * Include material related to the object
+         */
+        includeMaterial?: boolean,
+        /**
+         * Include equipment related to the object
+         */
+        includeEquipment?: boolean,
+        /**
+         * Include tags.
+         */
+        includeTags?: boolean,
+        /**
+         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
+         */
+        includeMaintenanceRecords?: boolean,
+        /**
+         * Include measuring points for this tag
+         */
+        includeMeasuringPoints?: boolean,
+        /**
+         * Include equipment or tag attachments
+         */
+        includeAttachments?: boolean,
+        includeInventoryCount?: boolean,
+        /**
+         * Include URL references for object
+         */
+        includeUrlReferences?: boolean,
+    }): CancelablePromise<Document | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/documents/{document-id}',
             path: {
-                'point-id': pointId,
+                'document-id': documentId,
             },
             query: {
-                'include-last-measurement': includeLastMeasurement,
-                'include-measurements': includeMeasurements,
-                'include-qualitative-code-group': includeQualitativeCodeGroup,
                 'include-characteristics': includeCharacteristics,
-                'include-characteristics-without-value': includeCharacteristicsWithoutValue,
-                'include-measurement-text': includeMeasurementText,
+                'include-material': includeMaterial,
+                'include-equipment': includeEquipment,
+                'include-tags': includeTags,
+                'include-maintenance-records': includeMaintenanceRecords,
+                'include-measuring-points': includeMeasuringPoints,
+                'include-attachments': includeAttachments,
+                'include-inventory-count': includeInventoryCount,
+                'include-url-references': includeUrlReferences,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to view document`,
+                404: `The specified resource was not found`,
+            },
+        });
+    }
+
+    /**
+     * Revisions - Search
+     * ### Overview
+     * Search revisions for a single plant with related information.
+     *
+     * ### Filter: by-revision-id
+     * Search by revision ids for a single plant
+     *
+     * Parameters:
+     * - revision-id-any-of
+     * - include-work-order-operations (default: false)
+     * - include-work-order-operation-text (default: false)
+     * - include-only-work-order-operations-with-materials (default: false)
+     *
+     * ### Examples
+     * `/plants/1310/revisions?filter=by-revision-id&revision-id-any-of=OFP,OFP%202022,&include-work-order-operations=true&include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&api-version=v1`
+     *
+     * ### Update release 1.19.0
+     * Added parameter `include-text-item-materials`.
+     *
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     *
+     * ### Update release 1.32.0
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
+     *
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * ### Update release 1.36.0
+     * Added `superiorRoutingCounterId` to `operations`.
+     *
+     * ### Update release 1.38.0
+     * Added property `text` to `materials` in `workOrderOperations`.
+     *
+     * @returns PlanningPlantRevision Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static searchRevisions({
+        plantId,
+        filter,
+        revisionIdAnyOf,
+        includeWorkOrderOperations = false,
+        includeOnlyWorkOrderOperationsWithMaterials = false,
+        includeTextItemMaterials = false,
+        includeCostDataForMaterials = false,
+    }: {
+        plantId: string,
+        /**
+         * Filter to limit revisions
+         */
+        filter: 'by-revision-id',
+        /**
+         * Comma-separated list of revision-id
+         */
+        revisionIdAnyOf?: string,
+        /**
+         * Include the work order operations
+         */
+        includeWorkOrderOperations?: boolean,
+        /**
+         * Limit the work order operations to only those which have material
+         */
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
+        /**
+         * Include text item materials
+         */
+        includeTextItemMaterials?: boolean,
+        /**
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
+         */
+        includeCostDataForMaterials?: boolean,
+    }): CancelablePromise<Array<PlanningPlantRevision> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/plants/{plant-id}/revisions',
+            path: {
+                'plant-id': plantId,
+            },
+            query: {
+                'filter': filter,
+                'revision-id-any-of': revisionIdAnyOf,
+                'include-work-order-operations': includeWorkOrderOperations,
+                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                'include-text-item-materials': includeTextItemMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -906,98 +991,100 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Measurement - Create
-     * Create new measurement for measuring point.
+     * Revisions Work Order Operations - Search
+     * ### Overview
+     * Search revision work order operations on a plant.
      *
-     * ### Important information
-     * Measuring points support quantitative (example 3mm), qualitative (example YES) or combination of the two when creating measurements for the measuring point.
+     * Parameters:
+     * - include-work-order-operation-text (default: false)
+     * - include-only-work-order-operations-with-materials (default: false)
      *
-     * Quantitative measurements are defined by quantitativeCharacteristicId property of the measuring point. Make sure the quantitativeReading is in the reading unit of the measuring point.
+     * ### Examples
+     * `/plants/1310/revisions/PS01-23?include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&page=1&per-page=10&api-version=v1`
      *
-     * Qualitative measurement codes are defined by qualitativeCodeGroupId property of the measuring point.
+     * ### Update release 1.28.0
+     * Added `changedDateTime`,`changedById`, `changedBy`, `changedByEmail`.
      *
-     * ### Update release 1.10.0
-     * Added `maintenanceRecordId` to request.
+     * ### Update release 1.29.0
+     * Added `progressChangedDateTime`, `progressChangedBy`, `progressChangedById` and `progressChangedByEmail` to response.  These values represent the last update datetime for technical feedback.
+     * Altered `changedDateTime`, `changedBy`, `changedById` and `changedByEmail` to only represent last update to the operation.
      *
-     * ### Update release 1.15.0
-     * Added `workOrderId` to request and response.
+     * ### Update release 1.30.1
+     * Added fields `confirmationDateTime`, `confirmationBy`, `confirmationByEmail` and `confirmationById`.
      *
-     * ### Update release 1.37.0
-     * Add support for `text` in the request body and response.
+     * ### Update release 1.31.0
+     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns Measurement Created
-     * @throws ApiError
-     */
-    public static createMeasurement({
-        pointId,
-        requestBody,
-    }: {
-        /**
-         * Measuring point id
-         */
-        pointId: string,
-        /**
-         * Measurement of measuring point to create
-         */
-        requestBody: MeasurementCreate,
-    }): CancelablePromise<ProblemDetails | Measurement> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/measuring-points/{point-id}/measurements',
-            path: {
-                'point-id': pointId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad request - Can occur if quantitative and qualitative measurements provided are not supported by measuring point`,
-                403: `User does not have sufficient rights to create a measurement of measuring point`,
-            },
-        });
-    }
-
-    /**
-     * Measurement - Update
-     * Update a measurement for measuring point.
-     * The supported fields are: `measurementTitle` and `processingStatusId`.
+     * Split parts of `location` on `materials` into `finalLocation` and `temporaryLocation` in the response.
      *
-     * ### Update release 1.37.0
-     * Add support for `text` in the request body.
+     * ### Update release 1.32.0
+     * Added `include-cost-data-for-materials` query parameter.
+     * When this parameter is set to `true`, the following properties will be included in `materials` expand: `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup`.
      *
+     * ### Update release 1.33.0
+     * Added new properties `goodsRecipientId`, `price`, `priceCurrency`, `unloadingPoint`, and `purchasingGroup` to `materials`.
+     *
+     * ### Update release 1.35.0
+     * Added new properties `requisitionerId` and `deliveryComplete` to `materials` in `operations`.
+     *
+     * ### Update release 1.36.0
+     * Added `superiorRoutingCounterId` to response.
+     *
+     * ### Update release 1.38.0
+     * Added property `text` in `materials`.
+     *
+     * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static updateMeasurement({
-        pointId,
-        measurementId,
-        requestBody,
+    public static searchRevisionWorkOrderOperations({
+        plantId,
+        revisionId,
+        includeOnlyWorkOrderOperationsWithMaterials = false,
+        includeTextItemMaterials = false,
+        includeCostDataForMaterials = false,
+        perPage,
+        page = 1,
     }: {
+        plantId: string,
+        revisionId: string,
         /**
-         * Measuring point id
+         * Limit the work order operations to only those which have material
          */
-        pointId: string,
+        includeOnlyWorkOrderOperationsWithMaterials?: boolean,
         /**
-         * Measurement id
+         * Include text item materials
          */
-        measurementId: string,
+        includeTextItemMaterials?: boolean,
         /**
-         * Fields in measuring point to update
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
          */
-        requestBody: Array<MeasurementUpdate>,
-    }): CancelablePromise<ProblemDetails> {
+        includeCostDataForMaterials?: boolean,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<RevisionWorkOrderOperation> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/measuring-points/{point-id}/measurements/{measurement-id}',
+            method: 'GET',
+            url: '/plants/{plant-id}/revisions/{revision-id}/work-order-operations',
             path: {
-                'point-id': pointId,
-                'measurement-id': measurementId,
+                'plant-id': plantId,
+                'revision-id': revisionId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            query: {
+                'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
+                'include-text-item-materials': includeTextItemMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
+                'per-page': perPage,
+                'page': page,
+            },
             errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update a measurement of measuring point`,
+                404: `The specified resource was not found`,
             },
         });
     }
@@ -1014,26 +1101,27 @@ export class ModifiedEndpointsService {
      *
      * This endpoint returns only Work Order with status 'PLAN'. The field `requiredEndDate` is dependent on workOrderType.
      *
-     *
-     * ### Filter: by-plan-period
+     * ### Using `plan-period-start` and `plan-period-duration`
      * Provide the plan for a specific planning plant based on a defined plan period. This is the main usage of this endpoint.
      *
-     * **For this filter, `plan-period-start` is required.**
-     * All other parameters are optional.
-     *
      * Example of usage:
-     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
-     * - `/work-order-plan/{planning-plant-id}?filter=by-plan-period&plan-period-start=2023-03-02&plan-period-duration=P21D&work-center-id-any-of=C31*&include-completed-work-order-operations=false&api-version=v1`
+     * - `/work-order-plan/{planning-plant-id}?plan-period-start=2023-03-02&plan-period-duration=P21D&location-id-any-of=CD00&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     * - `/work-order-plan/{planning-plant-id}?plan-period-start=2023-03-02&plan-period-duration=P21D&work-center-id-any-of=C31*&include-completed-work-order-operations=false&api-version=v1`
      *
-     * ### Filter: by-person-responsible
+     * ### Using `person-responsible-*`
      * Get the work order plan for a specific planning plant, but only for work orders assigned to a specific user.
      * Normally, work orders will not be assigned directly to a user, but in some work processes (such as inspection), this occurs.
      *
-     * **For this filter, it is required to provide either `person-responsible-id` or `person-responsible-email` (but not both).**
-     * All other parameters are optional.
+     * Example of usage:
+     * - `/work-order-plan/{planning-plant-id}?person-responsible-email=shortname@equinor.com&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     *
+     * ### Combining all parameters
+     * It is possible to get all work order plans for a period which are assigned to user by combining all parameters.
      *
      * Example of usage:
-     * - `/work-order-plan/{planning-plant-id}?filter=by-person-responsible&person-responsible-email=shortname@equinor.com&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     *
+     * - `/work-order-plan/{planning-plant-id}?person-responsible-email=shortname@equinor.com&plan-period-start=2023-03-02&plan-period-duration=P21D&include-completed-work-order-operations=false&work-order-types-any-of=preventiveWorkOrders,correctiveWorkOrders&api-version=v1`
+     *
      *
      * ### Update release 1.26.0
      * Added query parameter `work-center-id-any-of`.
@@ -1058,6 +1146,11 @@ export class ModifiedEndpointsService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      * Added `overheadMaintenanceWorkOrders` to `work-order-types-any-of` query parameter.
+     *
+     * ### Update release 1.38.0
+     * Deprecated the `filter` parameter. The endpoint will accept the parameter but ignore it. It is now possible to combine almost all
+     * query parameters. `person-responsible-email` and `person-responsible-id` will still be mutually exclusive.
+     * It is required to supply either `plan-period-start` or `person-responsible-*` in order to not cause issues in the underlying system.
      *
      * @returns WorkOrderInPlan Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -1086,9 +1179,10 @@ export class ModifiedEndpointsService {
          */
         planningPlantId: string,
         /**
-         * Filter to limit the work order plan by
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
          */
-        filter: 'by-plan-period' | 'by-person-responsible',
+        filter?: 'by-plan-period' | 'by-person-responsible',
         /**
          * Start of plan period (`/plants/{plant-id}?include-baseline-plans=true` can be used as a reference). Required for `filter=by-plan-period`.
          */
@@ -1339,6 +1433,9 @@ export class ModifiedEndpointsService {
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
      * ### Upcoming future release
      * Added new property  `hasCommunication`
      *
@@ -1464,211 +1561,6 @@ export class ModifiedEndpointsService {
             errors: {
                 301: `If work-order-id exist, but is not a \`preventiveWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
                 `,
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Preventive Work order - Search
-     * ### Overview
-     * Search for Preventive Work orders through predefined filters.
-     * Each filter has a defined action and a set of parameters as described below.
-     *
-     * ### Response
-     * The response does not include all details for each preventive work order.
-     * This can be found by performing a subsequent request to lookup preventive-work-order.
-     *
-     *
-     * ### Filter: maintenance-plan-history
-     * Based on the maintenance plan of the Preventive Work order provided, find other instances sorted by start date.
-     * Parameters:
-     * - `work-order-id`
-     * - `earliest-date` (optional)
-     * - `max-work-orders` (optional)
-     *
-     * ### Filter: recent-status-activations
-     * Find Preventive work orders based on recent status activations for the work order.
-     * Parameters:
-     * - `status-id`
-     * - `plant-id`
-     * - `max-days-since-activation`
-     *
-     * ### Filter: before-planned-date
-     * Find open Preventive work orders before the `before-planned-date`.
-     * Parameters:
-     * - `plant-id`
-     * - `planned-date`
-     * - `location-id` (optional)
-     * - `system-id` (optional)
-     *
-     * ### Filter: by-maintenance-type-id
-     * Find open Preventive work orders by `maintenance-type-id`.
-     * Parameters:
-     * - `plant-id`
-     * - `maintenance-type-id`
-     *
-     * ### Update release 0.9.0
-     * Added filter by-maintenance-type-id.
-     *
-     * ### Update release 0.11.0
-     * Added `system-id` as optional parameter for filter `before-planned-date`.
-     *
-     * ### Update release 1.5.0
-     * Added `revisionId` and `revision` to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.21.0
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.24.0
-     * Added property `cmrIndicator` in the response.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.36.0
-     * Added properties `costs` and `costsCurrency`.
-     *
-     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns PreventiveWorkOrderSimple Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchPreventiveWorkOrders({
-        filter,
-        statusId,
-        plantId,
-        maxDaysSinceActivation,
-        workOrderId,
-        earliestDate,
-        maxWorkOrders,
-        locationId,
-        plannedDate,
-        systemId,
-        maintenanceTypeId,
-    }: {
-        /**
-         * Filter to limit the failure reports by
-         */
-        filter: 'recent-status-activations' | 'before-planned-date' | 'by-maintenance-type-id' | 'maintenance-plan-history',
-        /**
-         * Status
-         */
-        statusId?: string,
-        /**
-         * Plant identifier
-         */
-        plantId?: string,
-        /**
-         * Define how many days from the current day to include results for. 0 if only include for today
-         */
-        maxDaysSinceActivation?: number,
-        /**
-         * Preventive Work order id
-         */
-        workOrderId?: string,
-        /**
-         * Earliest date to find maintenance plan history for (optional for filter)
-         */
-        earliestDate?: string,
-        /**
-         * Maximal numbers of results returned (optional for filter)
-         */
-        maxWorkOrders?: number,
-        /**
-         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
-         */
-        locationId?: string,
-        /**
-         * Earliest date to find maintenance plan history for (optional for filter)
-         */
-        plannedDate?: string,
-        /**
-         * system-id of the preventive work order
-         * @deprecated
-         */
-        systemId?: string,
-        /**
-         * Type of maintenance for the work order
-         */
-        maintenanceTypeId?: string,
-    }): CancelablePromise<Array<PreventiveWorkOrderSimple> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/preventive-work-orders',
-            query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'work-order-id': workOrderId,
-                'earliest-date': earliestDate,
-                'max-work-orders': maxWorkOrders,
-                'location-id': locationId,
-                'planned-date': plannedDate,
-                'system-id': systemId,
-                'maintenance-type-id': maintenanceTypeId,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * @deprecated
-     * Preventive Work order - Create
-     * ### Overview
-     * Create new Preventive Work order.
-     *
-     * In addition to the required fields, one also needs to supply either `equipmentId` or a Tag (`tagPlantId`-`tagId`)
-     *
-     * It's possible to supply operations in the add operations endpoint. If no operations are passed, a default operation will be created automatically.
-     *
-     * To lookup the created preventive work order use endpoint `/work-orders/preventive-work-orders/{work-order-id}`
-     *
-     * ### Important information ###
-     * There is an on-going initiative to prevent the possibility to create PM02 work orders in SAP (with the exception of MaintenancePlans). As of Release 1.36.0 on 21.01.2025, the usage of this endpoint is limited to applications with dispensation for usage, documented in disp.equinor.com.
-     *
-     *
-     * To use this endpoint, your business process must be approved by O&M owners. To raise this request, please create a disp on disp.equinor.com, and raise this in O&M [Stryo board](https://equinor.service-now.com/rm_story.do?sys_id=-1&sysparm_stack=rm_story_list.do&sysparm_view=scrum&sysparm_query=rm_story.do%3Fsys_id%3D-1%26sysparm_query%3Dactive%3Dtrue%26sysparm_stack%3Drm_story_list.do%3Fsysparm_query%3Dactive%3Dtrue).
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.36.0
-     * Added properties `costs` and `costsCurrency` to the response.
-     *
-     * Endpoint is now limited.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns PreventiveWorkOrderBasic Created
-     * @throws ApiError
-     */
-    public static createPreventiveWorkOrder({
-        requestBody,
-    }: {
-        /**
-         * Preventive Work order to create
-         */
-        requestBody: PreventiveWorkOrderCreate,
-    }): CancelablePromise<ProblemDetails | PreventiveWorkOrderBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/preventive-work-orders',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `Client is not allowed to access the endpoint. Please contact the APIphany-team to request access.`,
                 404: `The specified resource was not found`,
             },
         });
@@ -1825,6 +1717,9 @@ export class ModifiedEndpointsService {
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
      * ### Upcoming future release
      * Added new property  `hasCommunication`
      *
@@ -1950,220 +1845,6 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Corrective Work order - Search
-     * ### Overview
-     * Search for corrective Work orders through predefined filters.
-     * Each filter has a defined action and a set of parameters as described below.
-     *
-     * ### Response
-     * The response does not include all details for each corrective work order.
-     * This can be found by performing a subsequent request to Lookup corrective-work-order.
-     *
-     * ### Filter: recent-status-activations
-     * Find Corrective work orders based on recent status activations for the work orders.
-     * Parameters:
-     * - `status-id`
-     * - `plant-id`
-     * - `max-days-since-activation`
-     *
-     * ### Filter: before-required-end-date
-     * Find open Corrective work orders before the `required-end-date`.
-     * Parameters:
-     * - `plant-id`
-     * - `required-end-date`
-     * - `location-id` (optional)
-     * - `system-id` (optional)
-     *
-     * ### Filter: by-maintenance-type-id
-     * Find open Corrective work orders by `maintenance-type-id`.
-     * Parameters:
-     * - `plant-id`
-     * - `maintenance-type-id`
-     *
-     * ### Update release 0.9.0
-     * Added filter `by-maintenance-type-id`.
-     *
-     * ### Update release 0.11.0
-     * Added `system-id` as optional parameter for filter `before-required-end-date`.
-     *
-     * ### Update release 1.5.0
-     * Added `revisionId` and `revision` to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.21.0
-     * Added properties `costs` and `costsCurrency`.
-     *
-     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.24.0
-     * Added property `cmrIndicator` in the response.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.36.0
-     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns CorrectiveWorkOrderSimple Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchCorrectiveWorkOrder({
-        filter,
-        statusId,
-        plantId,
-        maxDaysSinceActivation,
-        maxWorkOrders,
-        locationId,
-        requiredEndDate,
-        systemId,
-        maintenanceTypeId,
-    }: {
-        /**
-         * Filter to limit the Corrective work order by
-         */
-        filter: 'recent-status-activations' | 'same-maintenance-plan' | 'before-required-end-date' | 'by-maintenance-type-id',
-        /**
-         * Status
-         */
-        statusId?: string,
-        /**
-         * Plant identifier
-         */
-        plantId?: string,
-        /**
-         * Define how many days from the current day to include results for. 0 if only include for today
-         */
-        maxDaysSinceActivation?: number,
-        /**
-         * Maximal numbers of results returned (optional for filter)
-         */
-        maxWorkOrders?: number,
-        /**
-         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
-         */
-        locationId?: string,
-        /**
-         * placeholder
-         */
-        requiredEndDate?: string,
-        /**
-         * system-id of the corrective work order
-         * @deprecated
-         */
-        systemId?: string,
-        /**
-         * Type of maintenance for the work order
-         */
-        maintenanceTypeId?: string,
-    }): CancelablePromise<Array<CorrectiveWorkOrderSimple> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/corrective-work-orders',
-            query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'max-work-orders': maxWorkOrders,
-                'location-id': locationId,
-                'required-end-date': requiredEndDate,
-                'system-id': systemId,
-                'maintenance-type-id': maintenanceTypeId,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Corrective Work order - Create
-     * ### Overview
-     * Create new Corrective Work order based on a supplied failure report.
-     *
-     * It's possible to supply operations in the create operation. If no operations are passed, a default operation will be created automatically.
-     *
-     * To lookup the created corrective work order use endpoint `/work-orders/corrective-work-orders/{work-order-id}`
-     *
-     * ### Important information
-     *
-     * Up until release 1.32.0, we have enabled creating operations with `operationId` `0010` through the API, allowing the user to customize this operation during creation.
-     *
-     * Starting from release 1.32.0, the API logic for creating operations has been aligned with the new logic enforced by the SAP backend system. The new logic adds operations from the task list of any failure report that the work order is created from.
-     *
-     * As a result, creating an operation with a reserved `operationId` is no longer allowed.
-     * This always affects operations with `operationId` equal to `0010`, but can also apply to other operations.
-     *
-     * To see which operations are already reserved, use `/maintenance-api/maintenance-records/failure-reports/{record-id}&include-task-list=true`
-     *
-     * ### Update release 1.1.0
-     * Added externalPartnerWorkOrderId property to be used as reference to work order in external partner system.
-     *
-     * ### Update release 1.5.0
-     * Added revisionId and revision to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.6.0
-     * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
-     *
-     * ### Update release 1.8.0
-     * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
-     *
-     * ### Update release 1.21.0
-     * Add property `IsExcludedFromWorkOrderPlan` to operations model.
-     *
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.24.0
-     * Added property `cmrIndicator` in the response.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.31.0
-     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
-     *
-     * ### Update release 1.32.0
-     * Restriction to create a work order with operationId `0010` and other reserved operationIds.
-     *
-     * To see which operationIds are already reserved, use `/maintenance-api/maintenance-records/failure-reports/{record-id}&include-task-list=true`
-     *
-     * ### Update release 1.36.0
-     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator` from the response. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns CorrectiveWorkOrderBasic Created
-     * @throws ApiError
-     */
-    public static createCorrectiveWorkOrder({
-        requestBody,
-    }: {
-        /**
-         * Corrective Work order to create
-         */
-        requestBody: CorrectiveWorkOrderCreate,
-    }): CancelablePromise<ProblemDetails | CorrectiveWorkOrderBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/corrective-work-orders',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to create a Project Work order`,
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
      * Project Work order - Lookup
      * ### Overview
      * Lookup single Project Work order with related information
@@ -2262,6 +1943,9 @@ export class ModifiedEndpointsService {
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
      * @returns ProjectWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -2348,239 +2032,6 @@ export class ModifiedEndpointsService {
             errors: {
                 301: `If work-order-id exist, but is not a \`projectWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
                 `,
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Project Work order - Search
-     * ### Overview
-     * Search for project Work orders through predefined filters.
-     * Each filter has a defined action and a set of parameters as described below.
-     *
-     * ### Response
-     * The response does not include all details for each project work order.
-     * This can be found by performing a subsequent request to Lookup project-work-order.
-     *
-     * ### Filter: open-by-plant
-     * Find open Project Work orders by `plant-id`.
-     * Parameters:
-     * - `plant-id`
-     * - `location-id` (optional)
-     * - `system-id` (optional)
-     *
-     * ### Filter: recent-status-activations
-     * Find Project work orders based on recent status activations for the work orders.
-     * Parameters:
-     * - `status-id`
-     * - `plant-id`
-     * - `max-days-since-activation`
-     *
-     * ### Filter: by-cost-network
-     * Find Project work orders based on Cost Network Id.
-     * Parameters:
-     * - `cost-network-id`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-cost-wbs
-     * Project work orders based on Cost WBS Id.
-     * Parameters:
-     * - `cost-wbs-id`
-     * - `plant-id` (optional)
-     *
-     * ### Update release 1.4.0
-     * Added location-id and system-id to filter `open-by-plant`.
-     *
-     * ### Update release 1.5.0
-     * Added revisionId and revision to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.21.0
-     * Added filter `by-cost-network`, with required parameter `cost-network-id` and optional parameter `plant-id`.
-     *
-     * ### Update release 1.24.0
-     * Added filter `by-cost-wbs`, with required parameter `cost-wbs-id`. Can be used in combination with optional parameter `plant-id`.
-     * This filter only includes work orders where the WBS is represented on the work order level.
-     * It does not include work orders where WBS is only represented in the settlement rules.
-     *
-     * Added property `cmrIndicator` in the response.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.36.0
-     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns ProjectWorkOrderSimple Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchProjectWorkOrders({
-        filter,
-        statusId,
-        plantId,
-        costNetworkId,
-        costWbsId,
-        locationId,
-        systemId,
-        maxDaysSinceActivation,
-    }: {
-        /**
-         * Filter to limit the Project work order by
-         */
-        filter: 'open-by-plant' | 'recent-status-activations' | 'by-cost-network' | 'by-cost-wbs',
-        /**
-         * Status
-         */
-        statusId?: string,
-        /**
-         * Plant identifier
-         */
-        plantId?: string,
-        /**
-         * Required parameter if `filter=by-cost-network`
-         */
-        costNetworkId?: string,
-        /**
-         * Required parameter if `filter=by-cost-wbs`
-         */
-        costWbsId?: string,
-        /**
-         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
-         */
-        locationId?: string,
-        /**
-         * System id to filter by
-         */
-        systemId?: string,
-        /**
-         * Define how many days from the current day to include results for. 0 if only include for today
-         */
-        maxDaysSinceActivation?: number,
-    }): CancelablePromise<Array<ProjectWorkOrderSimple> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/project-work-orders',
-            query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'cost-network-id': costNetworkId,
-                'cost-wbs-id': costWbsId,
-                'location-id': locationId,
-                'system-id': systemId,
-                'max-days-since-activation': maxDaysSinceActivation,
-            },
-            errors: {
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Project Work order - Create
-     * ### Overview
-     * Create new Project Work order
-     *
-     *
-     * ### Update release 1.4.0
-     * Fixed bug related to costNetworkId.
-     *
-     * ### Update release 1.5.0
-     * Added revisionId and revision to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.6.0
-     * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
-     *
-     * ### Update release 1.8.0
-     * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
-     *
-     * ### Update release 1.19.0
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.31.0
-     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator` to the response. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns ProjectWorkOrderBasic Created
-     * @throws ApiError
-     */
-    public static createProjectWorkOrder({
-        requestBody,
-    }: {
-        /**
-         * Project Work order to create
-         */
-        requestBody: ProjectWorkOrderCreate,
-    }): CancelablePromise<ProblemDetails | ProjectWorkOrderBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/project-work-orders',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to create a Project Work order`,
-                404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Modification Work order - Create
-     * ### Overview
-     * Create new Modification Work order based on a supplied failure report.
-     *
-     * It's possible to supply operations in the create operation. If no operations are passed, a default operation will be created automatically.
-     *
-     * To lookup the created corrective work order use endpoint `/work-orders/modification-work-orders/{work-order-id}`.
-     *
-     * ### Important information
-     * The primary cost wbs of a modification work order is typically resolved automatically from the provided tag. However, in order to later set the modification work order to status `REL - Release`, you need to provide an additional cost wbs (property `additionalCostWBSId`) on creation.
-     *
-     * ### Update release 1.19.0
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.31.0
-     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator` from the response. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns ModificationWorkOrderBasic Created
-     * @throws ApiError
-     */
-    public static createModificationWorkOrder({
-        requestBody,
-    }: {
-        /**
-         * Modification Work order to create
-         */
-        requestBody: ModificationWorkOrderCreate,
-    }): CancelablePromise<ProblemDetails | ModificationWorkOrderBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/modification-work-orders',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to create a Project Work order`,
                 404: `The specified resource was not found`,
             },
         });
@@ -2677,6 +2128,9 @@ export class ModifiedEndpointsService {
      * Added new properties `plannedWorkHours`, `actualWorkHours`, `capacityCount`, `plannedDuration`, `calculationKey`, `earliestStartDateTime`, `earliestFinishDateTime` and `safetyMeasures` to `serviceOperations`.
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
+     *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
      *
      * @returns ModificationWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -2849,6 +2303,9 @@ export class ModifiedEndpointsService {
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
      * @returns SubseaWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -2929,266 +2386,95 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * Tag - Search
-     * Search tags for a plant based on the first few characters of the tag.
+     * @deprecated
+     * Overhead Maintenance Work order - Lookup
+     * ### Deprecated
+     * This endpoint is marked as deprecated due to currently being unavailable. This endpoint is only a draft. Calling the endpoint until available will result in a `404- Not Found`. Deprecation will be removed when the endpoint is available.
      *
-     * The results include key information for a tag.
-     * Additional information for each tag can be retrieved by using the endpoint `/plants/{plant-id}/tags/{tag-id}`.
-     *
-     * If there are no tags found for the search, the response will be HTTP 200 with an empty array as content.
+     * ### Overview
+     * Lookup single Overhead Maintenance Work order related information.
      *
      * ### Important information
+     * By default `include-person-responsible` is false and then the fields `personResponsibleId` and `personResponsibleEmail` will always have null value.
      *
-     * The value of the tag-prefix parameter should be url-encoded in order to support special characters
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
      *
-     * ### Examples
-     * `/plants/1219/tags?tag-prefix=44&api-version=v1`
-     *
-     * `/plants/1100/tags?tag-prefix=02%22-EC-%202525-M&api-version=v1`
-     *
-     * ### Update 1.14.0
-     * Added support for filter `by-tag-ids` with accompanying parameter `tag-ids-any-of`
-     * Filter is not required and defaults to `by-tag-prefix` to keep backwards compatibility.
-     *
-     * Added options to include more data using the same data model as on `Tag - Lookup`, but all includes are defaulted
-     * to false.
-     *
-     * `by-tag-prefix` filter now supports wildcards (`*`) in the tag prefix
-     *
-     * Edited the response structure to support pagination if filter `by-tag-prefix` is set. Use the parameters `page` and `per-page` in the parameters to edit wanted response.
-     *
-     * ### Update release 1.15.0
-     * Added `include-linear-data` and `include-status-details` query parameters.
-     *
-     * Added properties `tagCategoryId`, `activeStatusIds`, `startUpDate` and `endOfUseDate`.
-     *
-     * ### Update release 1.16.0
-     * Added property `classId` to characteristics
-     *
-     * ### Update release 1.18.0
-     * Added new filter `by-external-system-reference`.
-     * Added new property `semiModelId`.
-     *
-     * ### Update release 1.21.0
-     * Added property `area`.
-     *
-     * ### Update release 1.24.0
-     * Added query parameters `include-attachments` and `include-url-references`.
-     * `urlReferences` and `attachments` now include the property `documentCreatedDate`
-     *
-     * Added property `cmrIndicator` for WorkOrders
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.28.0
-     * `billOfMaterials` now include the property `parentMaterialId`
-     *
-     * Added `materialId` and `material` to the response
-     *
-     * ### Update release 1.32.0
-     * Added `changedDateTime` for attachments.
-     *
-     * ### Update release 1.35.0
-     * Added new fields `maintenancePlantId`, `createdOnDate` and `changedOnDate`.
-     *
-     * Added new filters for use in combination with the `by-tag-prefix` and `by-tag-ids` filters:
-     * - `tag-category-id-any-of`
-     * - `maintenance-concept-id-any-of`
-     * - `created-before-date`
-     * - `created-after-date`
-     * - `changed-before-date`
-     * - `changed-after-date`
-     *
-     * ### Update release 1.36.0
-     * Added properties `costs` and `costsCurrency` to preventive work orders.
-     *
-     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns TagSearch Success
+     * @returns OverheadMaintenanceWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static searchTags({
-        plantId,
-        filter = 'by-tag-prefix',
-        tagPrefix,
-        tagIdsAnyOf,
-        externalSystemReference,
-        tagCategoryIdAnyOf,
-        maintenanceConceptIdAnyOf,
-        createdBeforeDate,
-        createdAfterDate,
-        changedBeforeDate,
-        changedAfterDate,
-        includeMaintenanceRecords = false,
-        includeMaintenanceRecordTypes,
-        includeWorkOrders = true,
-        includeWorkOrderTypes,
-        includeInstalledEquipment = false,
-        includeCatalogProfileDetails = false,
-        includeMaintenancePlanItems = false,
-        includeMeasuringPoints = false,
-        includeLastMeasurement = false,
-        includeCharacteristics = false,
-        includeBillOfMaterials = false,
+    public static lookupoverheadMaintenanceWorkOrders({
+        workOrderId,
+        includeOperations = true,
+        includeServiceOperations = true,
+        includeMaterials = true,
+        includeCostDataForMaterials = false,
         includeAttachments = false,
-        includeUrlReferences = false,
+        includePersonResponsible = false,
         includeStatusDetails = false,
-        includeLinearData = false,
-        perPage = 100,
-        page = 1,
+        includeRelatedTags = false,
+        includeSafetyMeasures = false,
     }: {
+        workOrderId: string,
         /**
-         * Plant to include tags from.
+         * Include Work order operations
          */
-        plantId: string,
-        filter?: 'by-tag-ids' | 'by-tag-prefix' | 'by-external-system-reference' | null,
+        includeOperations?: boolean,
         /**
-         * The first few characters of the tag, required if filter is empty or `by-tag-prefix`
+         * Include Work order service operations
          */
-        tagPrefix?: string | null,
+        includeServiceOperations?: boolean,
         /**
-         * The tagIds as a comma separated list, required if filter is `by-tag-ids`
+         * Include materials for Work order operations
          */
-        tagIdsAnyOf?: Array<string>,
+        includeMaterials?: boolean,
         /**
-         * Required if filter is `by-external-system-reference`
+         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
          */
-        externalSystemReference?: string | null,
+        includeCostDataForMaterials?: boolean,
         /**
-         * Optional comma separated string array of tag category ids to filter your result to one or more tag categories (`tagCategoryId`). Wildcards are not supported. May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
-         */
-        tagCategoryIdAnyOf?: Array<string> | null,
-        /**
-         * Optional comma separated string array of Maintenance Concept Ids (`maintenanceConceptId` in response model). Wildcards are not supported. May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
-         */
-        maintenanceConceptIdAnyOf?: Array<string>,
-        /**
-         * Latest `createdOnDate` date to include. Use together with `created-after-date` to get Tags created in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
-         */
-        createdBeforeDate?: string | null,
-        /**
-         * Earliest `createdOnDate` date to include. Use together with `created-before-date` to get Tags created in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
-         */
-        createdAfterDate?: string | null,
-        /**
-         * Latest `changedOnDate` date to include. Use together with `changed-after-date` to get Tags changed in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
-         */
-        changedBeforeDate?: string | null,
-        /**
-         * Earliest `changedOnDate` date to include. Use together with `changed-before-date` to get Tags changed in the given time period.  May only be used in combination with the `by-tag-prefix` and `by-tag-ids` filters.
-         */
-        changedAfterDate?: string | null,
-        /**
-         * Include maintenance records. If include-maintenance-record-types is not supplied, all supported types are returned
-         */
-        includeMaintenanceRecords?: boolean,
-        /**
-         * Include which types of maintenance records
-         */
-        includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
-        /**
-         * Include work orders. If include-work-order-types is not supplied, all supported types are returned.
-         */
-        includeWorkOrders?: boolean,
-        /**
-         * Include which types of work orders. Use comma-separated list of entries.
-         */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
-        /**
-         * Include installed equipment
-         */
-        includeInstalledEquipment?: boolean,
-        /**
-         * Include possible detection methods, failure modes and failure mechanisms
-         */
-        includeCatalogProfileDetails?: boolean,
-        /**
-         * Include Maintenance Plan items this functional location is part of
-         */
-        includeMaintenancePlanItems?: boolean,
-        /**
-         * Include measuring points for this tag
-         */
-        includeMeasuringPoints?: boolean,
-        /**
-         * Include last measurement for the measuring points (only relevant if include-measuring-points is true or if looking up measuring point)
-         */
-        includeLastMeasurement?: boolean,
-        /**
-         * Include tag characteristics such as 'Function Fail Consequence' and 'Safety Critical Element (SCE)'
-         */
-        includeCharacteristics?: boolean,
-        /**
-         * Include bill of materials (also known as structure list) for tag and installed equipment
-         */
-        includeBillOfMaterials?: boolean,
-        /**
-         * Include equipment or tag attachments
+         * Include Work order attachments (on header and for operation)
          */
         includeAttachments?: boolean,
         /**
-         * Include URL references for object
+         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
          */
-        includeUrlReferences?: boolean,
+        includePersonResponsible?: boolean,
         /**
          * Include detailed information for statuses (both active and non-active)
          */
         includeStatusDetails?: boolean,
         /**
-         * Include linear data
+         * Include related tags (from object list)
          */
-        includeLinearData?: boolean,
+        includeRelatedTags?: boolean,
         /**
-         * Results to return per page
+         * Include safety-measures in work order operations
          */
-        perPage?: number,
-        /**
-         * Page to fetch
-         */
-        page?: number,
-    }): CancelablePromise<Array<TagSearch> | ProblemDetails> {
+        includeSafetyMeasures?: boolean,
+    }): CancelablePromise<OverheadMaintenanceWorkOrder | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/plants/{plant-id}/tags',
+            url: '/work-orders/overhead-maintenance-work-orders/{work-order-id}',
             path: {
-                'plant-id': plantId,
+                'work-order-id': workOrderId,
             },
             query: {
-                'filter': filter,
-                'tag-prefix': tagPrefix,
-                'tag-ids-any-of': tagIdsAnyOf,
-                'external-system-reference': externalSystemReference,
-                'tag-category-id-any-of': tagCategoryIdAnyOf,
-                'maintenance-concept-id-any-of': maintenanceConceptIdAnyOf,
-                'created-before-date': createdBeforeDate,
-                'created-after-date': createdAfterDate,
-                'changed-before-date': changedBeforeDate,
-                'changed-after-date': changedAfterDate,
-                'include-maintenance-records': includeMaintenanceRecords,
-                'include-maintenance-record-types': includeMaintenanceRecordTypes,
-                'include-work-orders': includeWorkOrders,
-                'include-work-order-types': includeWorkOrderTypes,
-                'include-installed-equipment': includeInstalledEquipment,
-                'include-catalog-profile-details': includeCatalogProfileDetails,
-                'include-maintenance-plan-items': includeMaintenancePlanItems,
-                'include-measuring-points': includeMeasuringPoints,
-                'include-last-measurement': includeLastMeasurement,
-                'include-characteristics': includeCharacteristics,
-                'include-bill-of-materials': includeBillOfMaterials,
+                'include-operations': includeOperations,
+                'include-service-operations': includeServiceOperations,
+                'include-materials': includeMaterials,
+                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-attachments': includeAttachments,
-                'include-url-references': includeUrlReferences,
+                'include-person-responsible': includePersonResponsible,
                 'include-status-details': includeStatusDetails,
-                'include-linear-data': includeLinearData,
-                'per-page': perPage,
-                'page': page,
+                'include-related-tags': includeRelatedTags,
+                'include-safety-measures': includeSafetyMeasures,
             },
             errors: {
-                400: `Request is missing required parameters`,
+                301: `If work-order-id exist, but is not a \`OverheadMaintenanceWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
+                `,
+                404: `The specified resource was not found`,
             },
         });
     }
@@ -3288,6 +2574,9 @@ export class ModifiedEndpointsService {
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
      * @returns SASChangeWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -3380,183 +2669,6 @@ export class ModifiedEndpointsService {
     }
 
     /**
-     * SAS Change Work order - Search
-     * ### Overview
-     * Search for SAS Change Work orders through predefined filters.
-     * Each filter has a defined action and a set of parameters as described below.
-     *
-     * ### Response
-     * The response does not include all details for each SAS Change Work order.
-     * This can be found by performing a subsequent request to Lookup sas-change-work-orders.
-     *
-     * ### Filter: open-by-plant
-     * Find open SAS Change Work orders by plant.
-     * Parameters:
-     * - `plant-id`
-     * - `location-id` (optional)
-     * - `system-id` (optional)
-     *
-     * ### Filter: recent-status-activations
-     * SAS Change Work orders based on recent status activations for the work orders.
-     * Parameters:
-     * - `status-id`
-     * - `plant-id`
-     * - `max-days-since-activation`
-     *
-     * ### Filter: by-cost-network
-     * Find SAS Change work orders based on Cost Network Id.
-     * Parameters:
-     * - `cost-network-id`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-cost-wbs
-     * Find SAS Change Work orders based on Cost WBS Id.
-     * Parameters:
-     * - `cost-wbs-id`
-     * - `plant-id` (optional)
-     *
-     * ### Update release 1.4.0
-     * Added location-id and system-id to filter `open-by-plant`.
-     *
-     * ### Update release 1.5.0
-     * Added revisionId to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.19.0
-     * Added ability to read text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.24.0
-     * Added filter `by-cost-wbs`, with required parameter `cost-wbs-id`. Can be used in combination with optional parameter`plant-id`.
-     * This filter only includes work orders where the WBS is represented on the work order level. It does not include work orders where WBS is only represented in the settlement rules.
-     *
-     * Added filter `by-cost-network`, with required parameter `cost-network-id` and optional parameter `plant-id`.
-     *
-     * Added property `cmrIndicator` in the response.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.36.0
-     * Marked `cmrIndicator` as deprecated. See [Deprecation](#section/Deprecation) for more information.
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns SASChangeWorkOrderSimple Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchSasChangeWorkOrders({
-        filter,
-        statusId,
-        plantId,
-        locationId,
-        systemId,
-        maxDaysSinceActivation,
-        costWbsId,
-        costNetworkId,
-    }: {
-        /**
-         * Filter to limit the SAS Change work order by
-         */
-        filter: 'open-by-plant' | 'recent-status-activations' | 'by-cost-wbs' | 'by-cost-network',
-        /**
-         * Status
-         */
-        statusId?: string,
-        /**
-         * Plant identifier
-         */
-        plantId?: string,
-        /**
-         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
-         */
-        locationId?: string,
-        /**
-         * System id to filter by
-         */
-        systemId?: string,
-        /**
-         * Define how many days from the current day to include results for. 0 if only include for today
-         */
-        maxDaysSinceActivation?: number,
-        /**
-         * Required parameter if `filter=by-cost-wbs`
-         */
-        costWbsId?: string,
-        /**
-         * Required parameter if `filter=by-cost-network`
-         */
-        costNetworkId?: string,
-    }): CancelablePromise<Array<SASChangeWorkOrderSimple> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders/sas-change-work-orders',
-            query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'location-id': locationId,
-                'system-id': systemId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'cost-wbs-id': costWbsId,
-                'cost-network-id': costNetworkId,
-            },
-        });
-    }
-
-    /**
-     * SAS Change Work order - Create
-     * ### Overview
-     * Create new SAS Change Work order
-     *
-     *
-     * ### Update release 1.5.0
-     * Added revisionId and revision to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.6.0
-     * Added sortField and revisionId to create request. Use `/plants/{plant-id}?include-revisions=true&api-version=v1` to get a list of possible values for `revisionId`.
-     * ### Update release 1.8.0
-     * Added support for calculation key on operation level. It determines the relationship between plannedWorkDuration, plannedWorkHours, and capacityCount.
-     *
-     * ### Update release 1.19.0
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * ### Update release 1.27.0
-     * Work orders now include the property 'isOpen'
-     *
-     * ### Update release 1.31.0
-     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
-     *
-     * ### Update release 1.37.0
-     * Removed deprecated property `cmrIndicator` from the response. See STRY0261073 in ServiceNow for more details.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns SASChangeWorkOrderBasic Created
-     * @throws ApiError
-     */
-    public static createSasChangeWorkOrder({
-        requestBody,
-    }: {
-        /**
-         * SAS Change Work order to create
-         */
-        requestBody: SASChangeWorkOrderCreate,
-    }): CancelablePromise<ProblemDetails | SASChangeWorkOrderBasic> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-orders/sas-change-work-orders',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to create a SAS Change Work order`,
-            },
-        });
-    }
-
-    /**
      * Work orders - Search
      * ### Overview
      * Search for Work orders regardless of type through predefined filters.
@@ -3566,13 +2678,14 @@ export class ModifiedEndpointsService {
      * The response can include most of the details for each work order.
      * If additional data is needed, it can be retrieved by using the endpoint represented in the `_links.self` property.
      *
+     * Pagination is supported for this endpoint by setting values for `page` and `per-page`. If these parameteres are omitted, the result will be returned without pagination.
      *
      * ### Filter: recently-changed
      * Find Work orders which have been recently changed (created or updated) for a given plant. Normally, clients will provide the parameters `changed-since-datetime` and `plant-id` to return any changed Work order from `changed-since-datetime` to now. It is also possible to add `before-datetime` query parameter - the endpoint will then return any work order changed between `changed-since-datetime` and `before-datetime`.
      *
      * Parameters:
-     * - `plant-id`
      * - `changed-since-datetime`
+     * - `plant-id` (optional)
      * - `before-datetime` (optional)
      *
      * ### Filter: before-basic-end-date
@@ -3678,6 +2791,10 @@ export class ModifiedEndpointsService {
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
      * Added `overheadMaintenanceWorkOrders` to `include-work-order-types` filter in Parameters and to the response.
      *
+     * ### Update release 1.38.0
+     * Marked `plantId` as an optional parameter for filter `recently-changed`.
+     * Add pagination to this endpoint, see [Pagination](#section/Pagination) for more information.
+     *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -3698,6 +2815,8 @@ export class ModifiedEndpointsService {
         costNetworkId,
         workCenterIdAnyOf,
         workOrderIdsAnyOf,
+        perPage,
+        page = 1,
     }: {
         /**
          * Filter to limit the work order by
@@ -3708,7 +2827,7 @@ export class ModifiedEndpointsService {
          */
         plantId?: string,
         /**
-         * Earliest datetime to returned changed work orders for
+         * Earliest datetime to return changed work orders for
          */
         changedSinceDatetime?: string,
         /**
@@ -3759,6 +2878,14 @@ export class ModifiedEndpointsService {
          * Comma-separated list of `work-order-id`.
          */
         workOrderIdsAnyOf?: string,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
     }): CancelablePromise<WorkOrderWithOperationList | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -3779,407 +2906,368 @@ export class ModifiedEndpointsService {
                 'cost-network-id': costNetworkId,
                 'work-center-id-any-of': workCenterIdAnyOf,
                 'work-order-ids-any-of': workOrderIdsAnyOf,
+                'per-page': perPage,
+                'page': page,
             },
         });
     }
 
     /**
-     * Work orders - Types
+     * Work orders - Optimized for query
      * ### Overview
-     * Get type of a work order based on the work order id.
+     * Query work orders for potentially complicated patterns where speed is of the essence.
      *
-     * ### Update release 1.37.0
-     * Added support for new work order type `overheadMaintenanceWorkOrder`.
+     * `planning-plants` is the only mandatory fields, but clients should normally provide at least one more query criteria.
      *
-     * @returns WorkOrderTypes Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static getWorkOrderType({
-        workOrderIdsAnyOf,
-    }: {
-        /**
-         * The work orders as a comma separated list.
-         */
-        workOrderIdsAnyOf: string,
-    }): CancelablePromise<Array<WorkOrderTypes> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-order-types',
-            query: {
-                'work-order-ids-any-of': workOrderIdsAnyOf,
-            },
-        });
-    }
-
-    /**
-     * Work order - Update service operation
-     * ### Overview
-     * Convert an operation to a service operation.
-     * This will change the type of operation to `PM03 - service` and subsequently remove it from the operations list.
-     * Required fields must be supplied:  `materialGroup`, `purchasingGroup`, `purchasingOrganization`.
-     * One service has to be created with the following data:
-     * `lineId`, `quantity`, `unit`, `materialGroup`, `costElement`, and either a `title` (for a text item service) or `serviceId`.
+     * A normal use case would be to first provide an initial query criteria based on user input. Then allow the end-users based on the resulting data select unwanted results based on specific attributes. The unwanted results should then be added to the exclusion list (for example `keywords-not` or `work-centers-not)` and the API call repeated.
      *
-     * Note: There is a known bug on the SAP side that prevents updating `standardTextTemplate` for service operations.
+     * `max-results` have a default value of 1000 and is necessary to provide a quick response.
      *
-     * ### Update release 1.31.0
-     * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
+     * The multi-line `text` property is not included by default, but can included by setting `include-text=true` in the request. This will influence performance significantly.
      *
-     * ### Update release 1.36.0
-     * Added support for updating property `isExcludedFromWorkOrderPlan`.
-     *
-     * ### Update release 1.37.0
-     * Added new properties `plannedWorkHours`, `actualWorkHours`, `capacityCount`, `plannedDuration`, `calculationKey`, `earliestStartDateTime`, `earliestFinishDateTime` and `safetyMeasures` to `serviceOperations`.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static updateWorkOrderServiceOperation({
-        operationId,
-        requestBody,
-    }: {
-        operationId: string,
-        /**
-         * Update of Work order service operation details
-         */
-        requestBody: Array<WorkOrderServiceOperationJsonPatch>,
-    }): CancelablePromise<ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-order-service-operations/{operation-id}',
-            path: {
-                'operation-id': operationId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Request is missing required parameters`,
-                403: `User does not have sufficient rights to update operation`,
-                404: `The specified resource was not found`,
-                409: `Work order is locked by other user`,
-            },
-        });
-    }
-
-    /**
-     * Work order - Add materials
-     * ### Overview
-     * Add materials to a work order operation (of any work order type).
-     * The ´operation-id´ parameter to use in the url can be found using the various lookup and search endpoints for work orders. ´operation-id´ consists of two internal ids from the ERP system called routing number and counter separated by the `-` character.
-     *
-     * There are three types of materials which can be added to work orders:
-     * 1. Material identified by `materialId`
-     * 2. Material identified by `equipmentId` (only for Subsea work orders)
-     * 3. Material identified only by the `material` field (also known as text items).
-     *
-     * Each item in the request must include one of `materialId`, `equipmentId` or `material`.
-     *
-     * ### Update release 1.22.0
-     * Added possibility of adding materials without a materialId (also known as text items).
-     * In this case, the purchasing fields mentioned below need to be provided as input:
-     * - `material`
-     * - `price`
-     * - `priceUnitId`
-     * - `purchasingGroup`
-     * - `goodsRecipient`
-     * - `unloadingPoint`
-     * - `materialGroup`
-     *
-     * ### Update release 1.31.0
-     * Split parts of `location` into `finalLocation` and `temporaryLocation` in the response.
-     *
-     * ### Update release 1.33.0
-     * Added support for new properties `supplierId`, `vendorsMaterialNumber`, `deliveryTimeInDays`, `requisitionerId`, `holdDeliveryOnshore`, `text`.
-     *
-     * ### Update release 1.35.0
-     * Added new property `requisitionerId` to the response.
-     *
-     * ### Update release 1.37.0
-     * Added property `unloadingPoint` to the response.
-     *
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @returns any Created
-     * @throws ApiError
-     */
-    public static addMaterialToWorkOrderOperation({
-        operationId,
-        requestBody,
-    }: {
-        operationId: string,
-        /**
-         * Add material details
-         */
-        requestBody: Array<WorkOrderMaterialAdd>,
-    }): CancelablePromise<ProblemDetails | Array<(WorkOrderMaterialForAddMaterialResponse | SubseaWorkOrderMaterialForAddMaterialResponse)>> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/work-order-operations/{operation-id}/materials',
-            path: {
-                'operation-id': operationId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad request, for example if both \`materialId\` and \`material\` is supplied for the same item`,
-                403: `User does not have sufficient rights to update operation`,
-                404: `The specified resource was not found`,
-                409: `Work order is locked by other user`,
-                501: `(__Production environment only__) Not implemented yet`,
-            },
-        });
-    }
-
-    /**
-     * Work orders change log - Search
-     * ### Overview
-     * Search for Work orders changes done recently.
+     * Pagination is supported for this endpoint by setting values for `page` and `per-page`. If these parameteres are omitted, the result will be returned without pagination.
      *
      * ### Response
-     * The response contains only minimum information about the change made to the work orders.
-     * For more information about each individual work order, use the lookup end-point referenced in `_links.related`.
+     * The response schema has been optimized for speed, enabling the retrieval of work orders only from the past three years.
      *
-     * ### Important information
-     * This endpoint relies on change log being activated for the plant in question.
+     * ### Examples
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&tags-all-of=10B9` - Return work orders where tag is 10B9
      *
-     * ### Filter: recently-changed-property
-     * Find Work orders which have recently had a change in a specific property.
-     * Parameters:
-     * - plant-id
-     * - property-name - Values supported `basicStartDateTime` and `basicEndDateTime`
-     * - changed-since-datetime
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&tags-all-of=AA15*&tags-not=AA15002` - Return work orders where tag has pattern `AA15*` but is not AA15002
      *
-     * include-work-order-types is an optional parameter to define which work orders to return changes for.
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&keywords-all-of=heli,male` - Return work orders where the title contains both `heli` and `male`
      *
-     * ### Important information
-     * The response contains list of changes to work orders (not list of work orders changed). Therefore, an individual work order may be represented multiple times. Consumers can use changeDateTime to identify the last change.
+     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&status-any-of=PREP,RDEX&created-after-date=2021-06-01` - Return work orders with status PREP or RDEX and created after a certain date
      *
-     * ### Update release 1.37.0
-     * Added `overheadMaintenanceWorkOrders` to include-work-order-types filter in Parameters and `overheadMaintenanceWorkOrdersChanged` to response.
+     * ### Update release 1.5.0
+     * Added revisionId to work order response (represents shutdown or campaign work).
      *
-     * @returns WorkOrderChangeLogs Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static searchWorkOrderChangeLog({
-        filter,
-        plantId,
-        changedSinceDatetime,
-        propertyName,
-        includeWorkOrderTypes,
-    }: {
-        /**
-         * Filter to limit the work order by
-         */
-        filter: 'recently-changed-property',
-        /**
-         * Plant identifier
-         */
-        plantId?: string,
-        /**
-         * Earliest datetime to returned changed work orders for
-         */
-        changedSinceDatetime?: string,
-        /**
-         * The property which was recently changed
-         */
-        propertyName?: 'basicStartDateTime' | 'basicEndDateTime',
-        /**
-         * Include which types of work orders. Use comma-separated list of entries.
-         */
-        includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
-    }): CancelablePromise<WorkOrderChangeLogs | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders-change-log',
-            query: {
-                'filter': filter,
-                'plant-id': plantId,
-                'changed-since-datetime': changedSinceDatetime,
-                'property-name': propertyName,
-                'include-work-order-types': includeWorkOrderTypes,
-            },
-        });
-    }
-
-    /**
-     * Failure report - Search
-     * ### Overview
-     * Search for Failure reports through predefined filters.
-     * Each filter has a defined action and a set of parameters as described below.
-     *
-     * ### Response
-     * The response does not include status details for each failure report.
-     * This can be found by performing a subsequent request to Lookup failure-reports.
-     *
-     *
-     * ### Filter: recent-status-activations
-     * Failure reports based on recent status activations for the failure reports.
-     * Parameters:
-     * - status-id
-     * - plant-id
-     * - max-days-since-activation
-     * - work-center-ids (optional)
-     *
-     * ### Filter: open-by-plant
-     * Find open Failure reports by plant
-     * Parameters:
-     * - plant-id
-     * - location-id (optional)
-     * - system-id (optional)
-     * - work-center-ids (optional)
-     *
-     * ### Update release 1.1.0
-     * Added open-by-plant filter and properties systemId and locationId.
-     *
-     * ### Update release 1.8.0
-     * Added properties hasUnsafeFailureMode and unsafeFailureModeStatus.
+     * ### Update release 1.12.0
+     * Added query parameter `include-maintenance-record`.
      *
      * ### Update release 1.16.0
-     * Added property `work-center-ids` to filters `recent-status-activations` and `open-by-plant`
+     * Added property `workCenterId` to `maintenanceRecords.failureReports`
      *
-     * Added property `workCenterId`
+     * ### Update release 1.29.0
+     * Added properties `revision` and `changedDatetime`.
+     *
+     * Allow searching by `changedOnDay` when `is-open` is set. Search by using the new query parameters `changed-after-date` and `changed-before-date`.
+     *
+     * ### Update release 1.31.0
+     * Added list of supported statuses for `status-all-of`, `status-any-of` and `status-not` query parameters. Status `REL` is now supported.
+     *
+     * Added property `hasStatusREL` to the response.
      *
      * ### Update release 1.35.0
-     * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
-     * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
+     * Added support for optional pagination.
      *
      * ### Update release 1.37.0
-     * Added support for new work order type `overheadMaintenanceWorkOrders` to `workOrderTypeId` enum of allowed types.
+     * Added query parameter `work-order-ids-any-of`
+     * Deprecated query parameter `max-results` as the same functionality can be achieved with `per-page``.
      *
-     * @returns FailureReportSimpleForSearch Success
+     * ### Update release 1.37.0
+     * Added query parameter `work-order-ids-any-of` & add support for SWNG in `status-all-of`, `status-any-of` and `status-not` query parameters.
+     *
+     * Deprecated query parameter `max-results` as the same functionality can be achieved with `per-page`.
+     *
+     * Added properties `tag`, `requiredEndDate`, `hseCritical` & `productionCritical`.
+     *
+     * Added query parameter `include-status-details` and the object `statuses`
+     *
+     * ### Update release 1.38.0
+     * Added `overheadMaintenanceWorkOrders` to `work-order-types` query parameter.
+     *
+     * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static searchFailureReports({
-        filter,
-        statusId,
-        plantId,
-        locationId,
-        systemId,
-        maxDaysSinceActivation,
-        workCenterIds,
+    public static queryWorkOrdersOptimized({
+        planningPlants,
+        keywordsAllOf,
+        keywordsAnyOf,
+        keywordsNot,
+        tagsAllOf,
+        tagsAnyOf,
+        tagsNot,
+        workCentersAnyOf,
+        workCentersNot,
+        systemsAnyOf,
+        systemsNot,
+        locationsAnyOf,
+        locationsNot,
+        sortFieldAnyOf,
+        sortFieldNot,
+        revisionCodeAnyOf,
+        revisionCodeNot,
+        statusAllOf,
+        statusAnyOf,
+        statusNot,
+        isOpen,
+        createdAfterDate,
+        createdBeforeDate,
+        changedAfterDate,
+        changedBeforeDate,
+        workOrderTypes,
+        workOrderIdsAnyOf,
+        sortBy,
+        includeText = false,
+        includeMaintenanceRecord = false,
+        includeStatusDetails = false,
+        maxResults,
+        perPage,
+        page = 1,
     }: {
         /**
-         * Filter to limit the failure reports by
+         * Query based on planningPlantIds (any-of)
          */
-        filter: 'recent-status-activations' | 'open-by-plant',
+        planningPlants: Array<string>,
         /**
-         * Status
+         * Query based on keywords in title (case insensitive)
          */
-        statusId?: string,
+        keywordsAllOf?: Array<string>,
         /**
-         * Plant identifier
+         * Query based on keywords in title (case insensitive)
          */
-        plantId?: string,
+        keywordsAnyOf?: Array<string>,
         /**
-         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
+         * Query based on keywords in title (case insensitive)
          */
-        locationId?: string,
+        keywordsNot?: Array<string>,
         /**
-         * System id to filter by
+         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        systemId?: string,
+        tagsAllOf?: Array<string>,
         /**
-         * Define how many days from the current day to include results for. 0 if only include for today
+         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        maxDaysSinceActivation?: number,
+        tagsAnyOf?: Array<string>,
         /**
-         * Comma separated list of work center IDs to filter by
+         * Query based on tagIds. Expressions with wildcards can be used for example `AE55*`. Ensure the tagIds are url-encoded in order to handle special characters
          */
-        workCenterIds?: Array<string>,
-    }): CancelablePromise<Array<FailureReportSimpleForSearch> | ProblemDetails> {
+        tagsNot?: Array<string>,
+        /**
+         * Query based on workCenterIds
+         */
+        workCentersAnyOf?: Array<string>,
+        /**
+         * Query based on workCenterIds
+         */
+        workCentersNot?: Array<string>,
+        /**
+         * Query based on systemIds
+         */
+        systemsAnyOf?: Array<string>,
+        /**
+         * Query based on systemIds
+         */
+        systemsNot?: Array<string>,
+        /**
+         * Query based on locationIds
+         */
+        locationsAnyOf?: Array<string>,
+        /**
+         * Query based on locationIds
+         */
+        locationsNot?: Array<string>,
+        /**
+         * Query based on sortField ()used for grouping work orders)
+         */
+        sortFieldAnyOf?: Array<string>,
+        /**
+         * Query based on sortField (used for grouping work orders)
+         */
+        sortFieldNot?: Array<string>,
+        /**
+         * Query based on revisionCode
+         */
+        revisionCodeAnyOf?: Array<string>,
+        /**
+         * Query based on sortField (often used for revision codes)
+         */
+        revisionCodeNot?: Array<string>,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusAllOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusAnyOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
+        /**
+         * Query based on statusIds (not all statuses are supported)
+         */
+        statusNot?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
+        /**
+         * Include only open work orders or only closed work orders. By default, all work orders are included.
+         */
+        isOpen?: boolean,
+        /**
+         * Earliest creation date to include
+         */
+        createdAfterDate?: string,
+        /**
+         * Latest creation date to include
+         */
+        createdBeforeDate?: string,
+        /**
+         * Earliest `changedOnDay` date to include. Query parameter `is-open` must be set to `true` or `false` to use this parameter.
+         */
+        changedAfterDate?: string,
+        /**
+         * Latest `changedOnDay` date to include. Query parameter `is-open` must be set to `true` or `false` to use this parameter.
+         */
+        changedBeforeDate?: string,
+        /**
+         * Limit to specific work order types (one-of)
+         */
+        workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
+        /**
+         * Comma-separated list of `work-order-id`.
+         */
+        workOrderIdsAnyOf?: string,
+        /**
+         * Property to sort the results by
+         */
+        sortBy?: Array<'createdDateTime desc' | 'createdDateTime asc' | 'workOrderId desc' | 'workOrderId asc' | 'systemId desc' | 'systemId asc' | 'locationId desc' | 'locationId asc' | 'sortField desc' | 'sortField asc' | 'title desc' | 'title asc'>,
+        /**
+         * Include the multi-line text of the work order (will cause the endpoint to go significantly slower)
+         */
+        includeText?: boolean,
+        /**
+         * Include the main maintenance record linked to the work order (if any)
+         */
+        includeMaintenanceRecord?: boolean,
+        /**
+         * Include status details for the work orders
+         */
+        includeStatusDetails?: boolean,
+        /**
+         * Maximum number of results to include. Default is 1000.
+         * @deprecated
+         */
+        maxResults?: number,
+        /**
+         * Results to return pr page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<WorkOrderOptimizedForQuery> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/maintenance-records/failure-reports',
+            url: '/work-orders-optimized-for-query',
             query: {
-                'filter': filter,
-                'status-id': statusId,
-                'plant-id': plantId,
-                'location-id': locationId,
-                'system-id': systemId,
-                'max-days-since-activation': maxDaysSinceActivation,
-                'work-center-ids': workCenterIds,
+                'planning-plants': planningPlants,
+                'keywords-all-of': keywordsAllOf,
+                'keywords-any-of': keywordsAnyOf,
+                'keywords-not': keywordsNot,
+                'tags-all-of': tagsAllOf,
+                'tags-any-of': tagsAnyOf,
+                'tags-not': tagsNot,
+                'work-centers-any-of': workCentersAnyOf,
+                'work-centers-not': workCentersNot,
+                'systems-any-of': systemsAnyOf,
+                'systems-not': systemsNot,
+                'locations-any-of': locationsAnyOf,
+                'locations-not': locationsNot,
+                'sort-field-any-of': sortFieldAnyOf,
+                'sort-field-not': sortFieldNot,
+                'revision-code-any-of': revisionCodeAnyOf,
+                'revision-code-not': revisionCodeNot,
+                'status-all-of': statusAllOf,
+                'status-any-of': statusAnyOf,
+                'status-not': statusNot,
+                'is-open': isOpen,
+                'created-after-date': createdAfterDate,
+                'created-before-date': createdBeforeDate,
+                'changed-after-date': changedAfterDate,
+                'changed-before-date': changedBeforeDate,
+                'work-order-types': workOrderTypes,
+                'work-order-ids-any-of': workOrderIdsAnyOf,
+                'sort-by': sortBy,
+                'include-text': includeText,
+                'include-maintenance-record': includeMaintenanceRecord,
+                'include-status-details': includeStatusDetails,
+                'max-results': maxResults,
+                'per-page': perPage,
+                'page': page,
             },
         });
     }
 
     /**
-     * Failure report - Create
-     * Create new failure report.
+     * Report for EqHub and SEMI usage - Get
+     * ### Overview
      *
-     * The following endpoints can be used to find possible values for input:
-     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
-     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
-     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
-     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
-     * 1. `codingId` - [/catalogs/{catalog-id}/code-groups](#operation/SearchCodeGroup)
+     * Get the list of EqHub and SEMI usage. T-code in backend system `ZOMPM_SEMI_USAGE`.
      *
-     * ### Important information
-     * Equinor governing documents states that failure reports should be created at the lowest possible level in the tag hierarchy.
+     * ### Update release 1.38.0
+     * Added filter `changed-since-date` and `changed-before-date`.
      *
-     * It is possible to create failure report for either tagId or equipmentId.
-     *
-     * If `hasUnsafeFailureMode` is true after creation, operations supervisor must be contacted immediately in accordance with business process requirement `R-12137 - Give immediate warning of unsafe failure modes`
-     *
-     * ### Update release 0.9.0
-     * Added failureMechanismId,failureMechanismGroupId properties to additionalMetadata on creation.
-     *
-     * ### Update release 1.1.0
-     * Added hasUnsafeFailureMode and unsafeFailureModeStatus properties according to business process requirement `R-12137 - Give immediate warning of unsafe failure modes`.
-     *
-     * Added `relatedWorkOrder` to create endpoint. This will allow a relationship to be established on creation to either technical feedback or object list of a work order.
-     *
-     * ### Update release 1.2.0
-     * Added `externalPartnerId`.
-     *
-     * ### Update release 1.3.0
-     * Added `priorityId` to response.
-     *
-     * ### Update release 1.4.0
-     * Added `workCenter` and `equipment` to response. Fields include descriptions of workCenterId and equipmentId
-     *
-     * ### Update release 1.7.0
-     * Implemented create with property `equipmentId`.
-     *
-     * ### Update release 1.15.0
-     * Fixed issue with `relatedWorkOrder` `source` `ObjectList`.
-     *
-     * ### Update release 1.28.0
-     * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
-     * configuration switch, which will initially be disabled, and when appropriate, enabled.
-     *
-     * Added properties `codingGroupId` and `codingId`.
-     *
-     * ### Update release 1.31.0
-     * Removed requirement for providing `reasonId` as part of the `technicalFeedbackParameters` when `source` is `TechnicalFeedback`.
-     *
-     * ### Update release 1.35.0
-     * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
-     * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
-     *
-     * ### Update release 1.37.0
-     * Added support for `overheadMaintenanceWorkOrders`.
-     *
+     * @returns EqHubAndSemiUsage Success
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns FailureReportBasic Created
      * @throws ApiError
      */
-    public static createFailureReport({
-        requestBody,
+    public static getEqHubAndSemiUsage({
+        eqhubIdAnyOf,
+        semiIdAnyOf,
+        filter,
+        includeStatus = false,
+        changedSinceDate,
+        changedBeforeDate,
+        perPage = 100,
+        page = 1,
     }: {
         /**
-         * Failure report to create
+         * Comma-separated List of eqhub id's
          */
-        requestBody: FailureReportCreate,
-    }): CancelablePromise<ProblemDetails | FailureReportBasic> {
+        eqhubIdAnyOf?: string,
+        /**
+         * Comma-separated List of SEMI id's
+         */
+        semiIdAnyOf?: string,
+        /**
+         * Filter between eqhub or SEMI
+         */
+        filter?: 'eqhub' | 'SEMI',
+        /**
+         * Include status in response
+         */
+        includeStatus?: boolean,
+        /**
+         * Earliest date to return EqHub and SEMI usage for.
+         */
+        changedSinceDate?: string,
+        /**
+         * Latest date to return EqHub and SEMI usage for.
+         */
+        changedBeforeDate?: string,
+        /**
+         * Results to return per page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<EqHubAndSemiUsage> | ProblemDetails> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/maintenance-records/failure-reports',
-            body: requestBody,
-            mediaType: 'application/json',
+            method: 'GET',
+            url: '/reports/eqhub-and-semi-usage',
+            query: {
+                'eqhub-id-any-of': eqhubIdAnyOf,
+                'SEMI-id-any-of': semiIdAnyOf,
+                'filter': filter,
+                'include-status': includeStatus,
+                'changed-since-date': changedSinceDate,
+                'changed-before-date': changedBeforeDate,
+                'per-page': perPage,
+                'page': page,
+            },
             errors: {
-                403: `User does not have sufficient rights to create a failure report`,
+                403: `User does not have sufficient rights to use T-code ZOMPM_SEMI_USAGE`,
             },
         });
     }
