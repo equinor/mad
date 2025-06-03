@@ -9,6 +9,10 @@ import type { WorkOrderOperationSimpleForSearch } from './WorkOrderOperationSimp
 export type ProjectWorkOrderWithOperationSelf = (ProjectWorkOrderSimple & {
     text?: string | null;
     requiredEndDate: string | null;
+    /**
+     * Datetime of when the Work order was last changed (based on Changelog)
+     */
+    changeLogChangedDateTime?: string | null;
     _links: {
         self?: string;
     };

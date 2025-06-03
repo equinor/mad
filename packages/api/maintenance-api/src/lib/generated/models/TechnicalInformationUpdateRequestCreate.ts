@@ -45,5 +45,9 @@ export type TechnicalInformationUpdateRequestCreate = {
      * The email of the person responsible for the processing of the technical information update request. This is the preferred way of identifying the person as it's consistent across systems.
      */
     personResponsibleEmail?: string;
+    /**
+     * Defines a relationship to a specific part of a work order
+     */
+    relatedWorkOrder?: Record<string, any>;
 };
 

@@ -49,6 +49,12 @@ export class DocumentsService {
      * ### Update release 1.35.0
      * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
      *
+     * ### Update release 1.38.0
+     * Added `tag` to the response of `equipment`.
+     *
+     * ### Update release 1.39.0
+     * Added property `text` to the response.
+     *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -178,6 +184,9 @@ export class DocumentsService {
      *
      * Added properties `statusId` and `statusText` to the response.
      *
+     * ### Update release 1.39.0
+     * Added property `text` to the response, and to the request body to allow setting the Longtext field of a document during its creation.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns DocumentBasic Created
      * @throws ApiError
@@ -227,6 +236,12 @@ export class DocumentsService {
      *
      * ### Update release 1.35.0
      * Added new fields `maintenancePlantId`, `equipmentCategoryId`, `maintenanceConceptId`, `createdOnDate` and `changedOnDate` for `equipment`.
+     *
+     * ### Update release 1.38.0
+     * Added `tag` to the response of `equipment`.
+     *
+     * ### Update release 1.39.0
+     * Added property `text` to the response.
      *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -314,6 +329,10 @@ export class DocumentsService {
      *
      * Supports updating the following properties:
      * - `statusId`
+     * - `text`
+     *
+     * ### Update release 1.39.0
+     * Added property `text` to the request body schema to allow updating the Longtext field of a document.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

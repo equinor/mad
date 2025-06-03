@@ -44,6 +44,7 @@ export type EquipmentBasicV2 = (EquipmentMinimal & {
     sortField: string;
     tagId?: string | null;
     tagPlantId?: string | null;
+    tag?: string;
     plannerGroupId: string;
     plannerGroup: string;
     /**

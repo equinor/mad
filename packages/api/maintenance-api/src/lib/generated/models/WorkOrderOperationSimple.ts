@@ -12,6 +12,10 @@ export type WorkOrderOperationSimple = {
      * Id of operation user is familiar with
      */
     operation: string;
+    /**
+     * Internal id of the superior operation (if any)
+     */
+    superiorOperationId?: string | null;
     title: string;
     workCenterId: string;
     workCenterPlantId: string;

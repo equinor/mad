@@ -10,6 +10,7 @@ import type { TechnicalFeedbackJsonPatch } from '../models/TechnicalFeedbackJson
 import type { WorkOrderMaterialAdd } from '../models/WorkOrderMaterialAdd';
 import type { WorkOrderMaterialForAddMaterialResponse } from '../models/WorkOrderMaterialForAddMaterialResponse';
 import type { WorkOrderMaterialJsonPatch } from '../models/WorkOrderMaterialJsonPatch';
+import type { WorkOrderOperationForSearchFull } from '../models/WorkOrderOperationForSearchFull';
 import type { WorkOrderOperationJsonPatch } from '../models/WorkOrderOperationJsonPatch';
 import type { WorkOrderServiceOperationJsonPatch } from '../models/WorkOrderServiceOperationJsonPatch';
 
@@ -18,6 +19,117 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class WorkOrderOperationsService {
+
+    /**
+     * Work order operations - Search
+     * ### Overview
+     * Search for work order operations from any work order type.
+     *
+     * ### Query parameter filters
+     *
+     * The following query parameters are supported for filtering the work order operations.
+     * All the query parameters are optional, but at least one must be provided to get a response.
+     *
+     * Parameters:
+     * - `work-center-id-any-of`
+     * - `plant-id`
+     * - `changed-since-datetime`
+     * - `changed-before-datetime`
+     * - `status-changed-since-datetime`
+     * - `operation-id-any-of`
+     * - `work-order-ids-any-of`
+     *
+     * @returns WorkOrderOperationForSearchFull Success
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static searchWorkOrderOperations({
+        plantId,
+        changedSinceDatetime,
+        changedBeforeDatetime,
+        statusChangedSinceDatetime,
+        workCenterIdAnyOf,
+        workOrderIdsAnyOf,
+        operationIdAnyOf,
+        includeMaterials = false,
+        includeAttachments = false,
+        includeSafetyMeasures = false,
+        perPage = 100,
+        page = 1,
+    }: {
+        /**
+         * Plant identifier
+         */
+        plantId?: string,
+        /**
+         * Earliest `changedOnDate` to return work order operations for
+         */
+        changedSinceDatetime?: string,
+        /**
+         * Limit the response to only work order operations changed after `changed-since-datetime` but before this datetime
+         */
+        changedBeforeDatetime?: string,
+        /**
+         * Return work order operations that have had their status changed (e.g. `REL` added or removed) since the given datetime, at the earliest.
+         * The filter is based on the Operation's `Status Changelog` and operates on the property `statusChangedDateTime` (available in response).
+         *
+         */
+        statusChangedSinceDatetime?: string,
+        /**
+         * Comma-separated list of `work-center-id`. Wildcard endings are supported
+         */
+        workCenterIdAnyOf?: string,
+        /**
+         * Comma-separated list of `work-order-id`.
+         */
+        workOrderIdsAnyOf?: string,
+        /**
+         * Comma-separated list of `operation-id`.
+         */
+        operationIdAnyOf?: string,
+        /**
+         * Include materials for Work order operations
+         */
+        includeMaterials?: boolean,
+        /**
+         * Include attachments for Work order operations
+         */
+        includeAttachments?: boolean,
+        /**
+         * Include safety measures for Work order operations
+         */
+        includeSafetyMeasures?: boolean,
+        /**
+         * Results to return per page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<WorkOrderOperationForSearchFull> | ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/work-order-operations',
+            query: {
+                'plant-id': plantId,
+                'changed-since-datetime': changedSinceDatetime,
+                'changed-before-datetime': changedBeforeDatetime,
+                'status-changed-since-datetime': statusChangedSinceDatetime,
+                'work-center-id-any-of': workCenterIdAnyOf,
+                'work-order-ids-any-of': workOrderIdsAnyOf,
+                'operation-id-any-of': operationIdAnyOf,
+                'include-materials': includeMaterials,
+                'include-attachments': includeAttachments,
+                'include-safety-measures': includeSafetyMeasures,
+                'per-page': perPage,
+                'page': page,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+            },
+        });
+    }
 
     /**
      * Work order - Update operation
@@ -133,6 +245,7 @@ export class WorkOrderOperationsService {
     }
 
     /**
+     * @deprecated
      * Work order - Update service operation
      * ### Overview
      * Convert an operation to a service operation.
@@ -151,6 +264,9 @@ export class WorkOrderOperationsService {
      *
      * ### Update release 1.37.0
      * Added new properties `plannedWorkHours`, `actualWorkHours`, `capacityCount`, `plannedDuration`, `calculationKey`, `earliestStartDateTime`, `earliestFinishDateTime` and `safetyMeasures` to `serviceOperations`.
+     *
+     * ### Update release 1.39.0
+     * Added sunset header. Endpoint will be deprecated as of the August 2025 release. See [Deprecation](#section/Deprecation/Deprecation-policy) for more information.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

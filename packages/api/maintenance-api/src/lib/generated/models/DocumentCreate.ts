@@ -28,5 +28,9 @@ export type DocumentCreate = {
      * Id of the Document status
      */
     statusId?: string;
+    /**
+     * Longtext field of the document
+     */
+    text?: string;
 };
 

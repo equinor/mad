@@ -54,7 +54,7 @@ export type CorrectiveWorkOrderSimple = {
      * * `D` - Done
      *
      */
-    priorityId: 'L' | 'M' | 'H' | 'U' | 'D';
+    priorityId: 'L' | 'M' | 'H' | 'U' | 'D' | null;
     costs: number;
     costsCurrency: string;
     /**
@@ -65,9 +65,5 @@ export type CorrectiveWorkOrderSimple = {
     costWBS: string;
     additionalCostWBSId: string;
     additionalCostWBS: string;
-    /**
-     * Indicates whether the Work Order has communication
-     */
-    hasCommunication?: boolean;
 };
 

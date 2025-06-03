@@ -54,12 +54,18 @@ export type PreventiveWorkOrderSimple = {
      * Value only returned if include-person-responsible=true. The email of the person responsible for the processing of the technical clarification. This is the preferred way of identifying the person as it's consistent across systems.
      */
     personResponsibleEmail?: string | null;
+    /**
+     * Priority of Work order
+     * * `L` - Low <= 6 months
+     * * `M` - Medium <= 45 days
+     * * `H` - High <= 5 days
+     * * `U` - Unprior <= 12 months
+     * * `D` - Done
+     *
+     */
+    priorityId: 'L' | 'M' | 'H' | 'U' | 'D' | null;
     costs: number | null;
     costsCurrency: string | null;
-    /**
-     * Indicates whether the Work Order has communication
-     */
-    hasCommunication?: boolean;
     /**
      * Indicates whether the Work Order is open or not.
      */

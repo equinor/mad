@@ -514,6 +514,9 @@ export class TechnicalInformationUpdateRequestsService {
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
+     * ### Update release 1.XX.0
+     * Added `relatedWorkOrder`. This will allow a relationship to be established on creation to either technical feedback or object list of a work order.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns TechnicalInformationUpdateRequestBasic Created
      * @throws ApiError

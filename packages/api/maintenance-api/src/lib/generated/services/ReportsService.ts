@@ -57,6 +57,9 @@ export class ReportsService {
      *
      * Get the list of EqHub and SEMI usage. T-code in backend system `ZOMPM_SEMI_USAGE`.
      *
+     * ### Update release 1.38.0
+     * Added filter `changed-since-date` and `changed-before-date`.
+     *
      * @returns EqHubAndSemiUsage Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -66,6 +69,8 @@ export class ReportsService {
         semiIdAnyOf,
         filter,
         includeStatus = false,
+        changedSinceDate,
+        changedBeforeDate,
         perPage = 100,
         page = 1,
     }: {
@@ -86,6 +91,14 @@ export class ReportsService {
          */
         includeStatus?: boolean,
         /**
+         * Earliest date to return EqHub and SEMI usage for.
+         */
+        changedSinceDate?: string,
+        /**
+         * Latest date to return EqHub and SEMI usage for.
+         */
+        changedBeforeDate?: string,
+        /**
          * Results to return per page
          */
         perPage?: number,
@@ -102,6 +115,8 @@ export class ReportsService {
                 'SEMI-id-any-of': semiIdAnyOf,
                 'filter': filter,
                 'include-status': includeStatus,
+                'changed-since-date': changedSinceDate,
+                'changed-before-date': changedBeforeDate,
                 'per-page': perPage,
                 'page': page,
             },

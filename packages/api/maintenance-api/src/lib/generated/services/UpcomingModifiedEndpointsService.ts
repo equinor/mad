@@ -3,11 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { FailureReport } from '../models/FailureReport';
-import type { FailureReportBasic } from '../models/FailureReportBasic';
-import type { FailureReportJsonPatch } from '../models/FailureReportJsonPatch';
 import type { MeasuringPoint } from '../models/MeasuringPoint';
 import type { ProblemDetails } from '../models/ProblemDetails';
-import type { WorkOrderOptimizedForQuery } from '../models/WorkOrderOptimizedForQuery';
+import type { TechnicalInformationUpdateRequestBasic } from '../models/TechnicalInformationUpdateRequestBasic';
+import type { TechnicalInformationUpdateRequestCreate } from '../models/TechnicalInformationUpdateRequestCreate';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -192,287 +191,6 @@ export class UpcomingModifiedEndpointsService {
             },
             errors: {
                 404: `The specified resource was not found`,
-            },
-        });
-    }
-
-    /**
-     * Work orders - Optimized for query
-     * ### Overview
-     * Query work orders for potentially complicated patterns where speed is of the essence.
-     *
-     * `planning-plants` is the only mandatory fields, but clients should normally provide at least one more query criteria.
-     *
-     * A normal use case would be to first provide an initial query criteria based on user input. Then allow the end-users based on the resulting data select unwanted results based on specific attributes. The unwanted results should then be added to the exclusion list (for example `keywords-not` or `work-centers-not)` and the API call repeated.
-     *
-     * `max-results` have a default value of 1000 and is necessary to provide a quick response.
-     *
-     * The multi-line `text` property is not included by default, but can included by setting `include-text=true` in the request. This will influence performance significantly.
-     *
-     * Pagination is supported for this endpoint by setting values for `page` and `per-page`. If these parameteres are omitted, the result will be returned without pagination.
-     *
-     * ### Response
-     * The response schema has been optimized for speed, enabling the retrieval of work orders only from the past three years.
-     *
-     * ### Examples
-     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&tags-all-of=10B9` - Return work orders where tag is 10B9
-     *
-     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&tags-all-of=AA15*&tags-not=AA15002` - Return work orders where tag has pattern `AA15*` but is not AA15002
-     *
-     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&keywords-all-of=heli,male` - Return work orders where the title contains both `heli` and `male`
-     *
-     * `/work-orders-optimized-for-query?api-version=v1&planning-plants=1100,1101,1102&status-any-of=PREP,RDEX&created-after-date=2021-06-01` - Return work orders with status PREP or RDEX and created after a certain date
-     *
-     * ### Update release 1.5.0
-     * Added revisionId to work order response (represents shutdown or campaign work).
-     *
-     * ### Update release 1.12.0
-     * Added query parameter `include-maintenance-record`.
-     *
-     * ### Update release 1.16.0
-     * Added property `workCenterId` to `maintenanceRecords.failureReports`
-     *
-     * ### Update release 1.29.0
-     * Added properties `revision` and `changedDatetime`.
-     *
-     * Allow searching by `changedOnDay` when `is-open` is set. Search by using the new query parameters `changed-after-date` and `changed-before-date`.
-     *
-     * ### Update release 1.31.0
-     * Added list of supported statuses for `status-all-of`, `status-any-of` and `status-not` query parameters. Status `REL` is now supported.
-     *
-     * Added property `hasStatusREL` to the response.
-     *
-     * ### Update release 1.35.0
-     * Added support for optional pagination.
-     *
-     * ### Update release 1.37.0
-     * Added query parameter `work-order-ids-any-of` & add support for SWNG in `status-all-of`, `status-any-of` and `status-not` query parameters.
-     *
-     * Deprecated query parameter `max-results` as the same functionality can be achieved with `per-page`.
-     *
-     * Added properties `tag`, `requiredEndDate`, `hseCritical` & `productionCritical`.
-     *
-     * Added query parameter `include-status-details` and the object `statuses`
-     *
-     * ### Upcoming future release
-     * Added `overheadMaintenanceWorkOrders` to `work-order-types` query parameter.
-     *
-     * @returns WorkOrderOptimizedForQuery Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static queryWorkOrdersOptimized({
-        planningPlants,
-        keywordsAllOf,
-        keywordsAnyOf,
-        keywordsNot,
-        tagsAllOf,
-        tagsAnyOf,
-        tagsNot,
-        workCentersAnyOf,
-        workCentersNot,
-        systemsAnyOf,
-        systemsNot,
-        locationsAnyOf,
-        locationsNot,
-        sortFieldAnyOf,
-        sortFieldNot,
-        revisionCodeAnyOf,
-        revisionCodeNot,
-        statusAllOf,
-        statusAnyOf,
-        statusNot,
-        isOpen,
-        createdAfterDate,
-        createdBeforeDate,
-        changedAfterDate,
-        changedBeforeDate,
-        workOrderTypes,
-        workOrderIdsAnyOf,
-        sortBy,
-        includeText = false,
-        includeMaintenanceRecord = false,
-        includeStatusDetails = false,
-        maxResults,
-        perPage,
-        page = 1,
-    }: {
-        /**
-         * Query based on planningPlantIds (any-of)
-         */
-        planningPlants: Array<string>,
-        /**
-         * Query based on keywords in title (case insensitive)
-         */
-        keywordsAllOf?: Array<string>,
-        /**
-         * Query based on keywords in title (case insensitive)
-         */
-        keywordsAnyOf?: Array<string>,
-        /**
-         * Query based on keywords in title (case insensitive)
-         */
-        keywordsNot?: Array<string>,
-        /**
-         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
-         */
-        tagsAllOf?: Array<string>,
-        /**
-         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
-         */
-        tagsAnyOf?: Array<string>,
-        /**
-         * Query based on tagIds. Expressions with wildcards can be used for example `AE55*`. Ensure the tagIds are url-encoded in order to handle special characters
-         */
-        tagsNot?: Array<string>,
-        /**
-         * Query based on workCenterIds
-         */
-        workCentersAnyOf?: Array<string>,
-        /**
-         * Query based on workCenterIds
-         */
-        workCentersNot?: Array<string>,
-        /**
-         * Query based on systemIds
-         */
-        systemsAnyOf?: Array<string>,
-        /**
-         * Query based on systemIds
-         */
-        systemsNot?: Array<string>,
-        /**
-         * Query based on locationIds
-         */
-        locationsAnyOf?: Array<string>,
-        /**
-         * Query based on locationIds
-         */
-        locationsNot?: Array<string>,
-        /**
-         * Query based on sortField ()used for grouping work orders)
-         */
-        sortFieldAnyOf?: Array<string>,
-        /**
-         * Query based on sortField (used for grouping work orders)
-         */
-        sortFieldNot?: Array<string>,
-        /**
-         * Query based on revisionCode
-         */
-        revisionCodeAnyOf?: Array<string>,
-        /**
-         * Query based on sortField (often used for revision codes)
-         */
-        revisionCodeNot?: Array<string>,
-        /**
-         * Query based on statusIds (not all statuses are supported)
-         */
-        statusAllOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
-        /**
-         * Query based on statusIds (not all statuses are supported)
-         */
-        statusAnyOf?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
-        /**
-         * Query based on statusIds (not all statuses are supported)
-         */
-        statusNot?: Array<'PREP' | 'PRCO' | 'RDEX' | 'STRT' | 'CANC' | 'RDOP' | 'CRTD' | 'TECO' | 'REL' | 'SWNG'>,
-        /**
-         * Include only open work orders or only closed work orders. By default, all work orders are included.
-         */
-        isOpen?: boolean,
-        /**
-         * Earliest creation date to include
-         */
-        createdAfterDate?: string,
-        /**
-         * Latest creation date to include
-         */
-        createdBeforeDate?: string,
-        /**
-         * Earliest `changedOnDay` date to include. Query parameter `is-open` must be set to `true` or `false` to use this parameter.
-         */
-        changedAfterDate?: string,
-        /**
-         * Latest `changedOnDay` date to include. Query parameter `is-open` must be set to `true` or `false` to use this parameter.
-         */
-        changedBeforeDate?: string,
-        /**
-         * Limit to specific work order types (one-of)
-         */
-        workOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders'>,
-        /**
-         * Comma-separated list of `work-order-id`.
-         */
-        workOrderIdsAnyOf?: string,
-        /**
-         * Property to sort the results by
-         */
-        sortBy?: Array<'createdDateTime desc' | 'createdDateTime asc' | 'workOrderId desc' | 'workOrderId asc' | 'systemId desc' | 'systemId asc' | 'locationId desc' | 'locationId asc' | 'sortField desc' | 'sortField asc' | 'title desc' | 'title asc'>,
-        /**
-         * Include the multi-line text of the work order (will cause the endpoint to go significantly slower)
-         */
-        includeText?: boolean,
-        /**
-         * Include the main maintenance record linked to the work order (if any)
-         */
-        includeMaintenanceRecord?: boolean,
-        /**
-         * Include status details for the work orders
-         */
-        includeStatusDetails?: boolean,
-        /**
-         * Maximum number of results to include. Default is 1000.
-         * @deprecated
-         */
-        maxResults?: number,
-        /**
-         * Results to return pr page
-         */
-        perPage?: number,
-        /**
-         * Page to fetch
-         */
-        page?: number,
-    }): CancelablePromise<Array<WorkOrderOptimizedForQuery> | ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/work-orders-optimized-for-query',
-            query: {
-                'planning-plants': planningPlants,
-                'keywords-all-of': keywordsAllOf,
-                'keywords-any-of': keywordsAnyOf,
-                'keywords-not': keywordsNot,
-                'tags-all-of': tagsAllOf,
-                'tags-any-of': tagsAnyOf,
-                'tags-not': tagsNot,
-                'work-centers-any-of': workCentersAnyOf,
-                'work-centers-not': workCentersNot,
-                'systems-any-of': systemsAnyOf,
-                'systems-not': systemsNot,
-                'locations-any-of': locationsAnyOf,
-                'locations-not': locationsNot,
-                'sort-field-any-of': sortFieldAnyOf,
-                'sort-field-not': sortFieldNot,
-                'revision-code-any-of': revisionCodeAnyOf,
-                'revision-code-not': revisionCodeNot,
-                'status-all-of': statusAllOf,
-                'status-any-of': statusAnyOf,
-                'status-not': statusNot,
-                'is-open': isOpen,
-                'created-after-date': createdAfterDate,
-                'created-before-date': createdBeforeDate,
-                'changed-after-date': changedAfterDate,
-                'changed-before-date': changedBeforeDate,
-                'work-order-types': workOrderTypes,
-                'work-order-ids-any-of': workOrderIdsAnyOf,
-                'sort-by': sortBy,
-                'include-text': includeText,
-                'include-maintenance-record': includeMaintenanceRecord,
-                'include-status-details': includeStatusDetails,
-                'max-results': maxResults,
-                'per-page': perPage,
-                'page': page,
             },
         });
     }
@@ -666,83 +384,38 @@ export class UpcomingModifiedEndpointsService {
     }
 
     /**
-     * Failure report - Update
-     * ## Overview
-     * Update key fields of a failure report.
+     * Technical information update request - Create
+     * Create new technical information update requests
      *
-     * The following endpoints can be used to find possible values for input:
-     * 1. `workCenterId` - [/plants/{plant-id}?include-work-centers](#operation/LookupPlant)
-     * 1. `plannerGroupId` - [/plants/{plant-id}?include-planner-groups=true](#operation/LookupPlant)
-     * 1. `locationId` - [/plants/{plant-id}?include-locations=true](#operation/LookupPlant)
-     * 1. `detectionMethodId`, `failureMechanismId`, `failureModeId` - [/plants/{plant-id}/tags/{tag-id}?include-catalog-profile-details=true](#operation/LookupTag) or [/equipment/{equipment-id}?include-catalog-profile-details=true](#operation/LookupEquipment)
-     * 1. `codingId` - [/catalogs/{catalog-id}/code-groups](#operation/SearchCodeGroup)
-     *
-     *
-     * ## Important information
-     * To avoid accidentally overwriting the multi-line text property, the endpoint will reject any requests with an empty text property.
-     *
-     * ### Update release 1.0.0
-     * Added possibility to update plannerGroupId.
-     *
-     * ### Update release 1.1.0
-     * Added hasUnsafeFailureMode and unsafeFailureModeStatus properties to response according to business process requirement `R-12137 - Give immediate warning of unsafe failure modes`.
-     *
-     * ### Update release 1.3.0
-     * Added `priorityId` to response.
-     *
-     * ### Update release 1.4.0
-     * Added `workCenter` and `equipment` to response. Fields include descriptions of workCenterId and equipmentId
+     * ### Important information
+     * It is possible to create technical information update request for either tagId or equipmentId.
      *
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
-     * Added properties `codingGroupId` and `codingId`.
+     * ### Update release 1.XX.0
+     * Added `relatedWorkOrder`. This will allow a relationship to be established on creation to either technical feedback or object list of a work order.
      *
-     * ### Update release 1.29.0
-     * Deprecated update of the property `failureImpactId`. See [Deprecation](#section/Deprecation/Deprecation-policy) for more information.
-     *
-     * ### Update release 1.32.0
-     * Added ability to append text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info.
-     *
-     * ### Update release 1.33.0
-     * Added possibility to prepend text. Use the operation `prepend` in the request body to prepend text to the current text.
-     *
-     * ### Update release 1.35.0
-     * Added `workOrderTypeId` and `workOrderId` to the response. `workOrderId` includes the id of work orders, not constrained to only showing corrective work orders.
-     * `correctiveWorkOrderId` has been corrected to only show the work order id if it is a corrective work order.
-     *
-     * ### Update release 1.37.0
-     * Added support for new work order type `overheadMaintenanceWorkOrders` to `workOrderTypeId` enum of allowed types.
-     *
-     * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
+     * @returns TechnicalInformationUpdateRequestBasic Created
      * @throws ApiError
      */
-    public static updateFailureReport({
-        recordId,
+    public static createTechnicalInformationUpdateRequest({
         requestBody,
     }: {
         /**
-         * The recordId of the failure report.
+         * Technical information update request to create
          */
-        recordId: string,
-        /**
-         * Details on how to update the Failure Report
-         */
-        requestBody: Array<FailureReportJsonPatch>,
-    }): CancelablePromise<FailureReportBasic | ProblemDetails> {
+        requestBody: TechnicalInformationUpdateRequestCreate,
+    }): CancelablePromise<ProblemDetails | TechnicalInformationUpdateRequestBasic> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/maintenance-records/failure-reports/{record-id}',
-            path: {
-                'record-id': recordId,
-            },
+            method: 'POST',
+            url: '/maintenance-records/technical-information-update-requests',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
-                400: `Bad request. For example that an empty text property was supplied`,
-                403: `User does not have sufficient rights to update the failure report`,
+                403: `User does not have sufficient rights to create a failure report`,
             },
         });
     }

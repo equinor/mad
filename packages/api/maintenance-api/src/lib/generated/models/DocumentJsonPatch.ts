@@ -11,7 +11,7 @@ export type DocumentJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/statusId';
+    path: '/statusId' | '/text';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

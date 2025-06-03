@@ -21,7 +21,7 @@ export type OpenAPIConfig = {
 
 export const OpenAPI: OpenAPIConfig = {
     BASE: 'https://api-test.gateway.equinor.com/maintenance-api',
-    VERSION: '1.37.0',
+    VERSION: '1.39.0',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
     TOKEN: undefined,

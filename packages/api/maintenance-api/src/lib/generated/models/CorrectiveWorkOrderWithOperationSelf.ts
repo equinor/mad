@@ -9,9 +9,13 @@ import type { WorkOrderOperationSimpleForSearch } from './WorkOrderOperationSimp
 export type CorrectiveWorkOrderWithOperationSelf = (CorrectiveWorkOrderSimple & {
     text?: string | null;
     requiredEndDate: string | null;
+    /**
+     * Datetime of when the Work order was last changed (based on Changelog)
+     */
+    changeLogChangedDateTime: string | null;
     _links: {
         self?: string;
     };
-    operations?: Array<WorkOrderOperationSimpleForSearch> | null;
+    operations: Array<WorkOrderOperationSimpleForSearch> | null;
 });
 
