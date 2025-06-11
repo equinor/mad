@@ -302,6 +302,12 @@ export class MasterDataForPlantsService {
      * ### Update release 1.36.0
      * Added `superiorRoutingCounterId` to `operations`.
      *
+     * ### Update release 1.38.0
+     * Added property `text` to `materials` in `workOrderOperations`.
+     *
+     * ### Update release 1.39.0
+     * Added new property `hasCommunication` to `materials` expand of `workOrderOperations`.
+     *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -313,6 +319,8 @@ export class MasterDataForPlantsService {
         includeWorkOrderOperations = false,
         includeOnlyWorkOrderOperationsWithMaterials = false,
         includeTextItemMaterials = false,
+        perPage,
+        page,
         includeCostDataForMaterials = false,
     }: {
         plantId: string,
@@ -337,6 +345,14 @@ export class MasterDataForPlantsService {
          */
         includeTextItemMaterials?: boolean,
         /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number,
+        /**
          * Include cost data for materials. Additional authorization will be required to retrieve these fields.
          */
         includeCostDataForMaterials?: boolean,
@@ -353,6 +369,8 @@ export class MasterDataForPlantsService {
                 'include-work-order-operations': includeWorkOrderOperations,
                 'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
                 'include-text-item-materials': includeTextItemMaterials,
+                'per-page': perPage,
+                'page': page,
                 'include-cost-data-for-materials': includeCostDataForMaterials,
             },
             errors: {
@@ -400,6 +418,12 @@ export class MasterDataForPlantsService {
      *
      * ### Update release 1.36.0
      * Added `superiorRoutingCounterId` to response.
+     *
+     * ### Update release 1.38.0
+     * Added property `text` in `materials`.
+     *
+     * ### Update release 1.39.0
+     * Added new property `hasCommunication` to `materials` expand.
      *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes

@@ -12,22 +12,26 @@ import { request as __request } from '../core/request';
 export class OverheadMaintenanceWorkOrdersService {
 
     /**
-     * @deprecated
      * Overhead Maintenance Work order - Lookup
-     * ### Deprecated
-     * This endpoint is marked as deprecated due to currently being unavailable. This endpoint is only a draft. Calling the endpoint until available will result in a `404- Not Found`. Deprecation will be removed when the endpoint is available.
-     *
      * ### Overview
      * Lookup single Overhead Maintenance Work order related information.
      *
      * ### Important information
      * By default `include-person-responsible` is false and then the fields `personResponsibleId` and `personResponsibleEmail` will always have null value.
      *
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
+     * ### Update release 1.39.0
+     * Added new property `superiorOperationId` to `operations` and `serviceOperations`.
+     *
+     * Added new property `hasCommunication` to `serviceOperations`, and to `materials` expand in `operations` and `serviceOperations`.
+     *
      * @returns OverheadMaintenanceWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static lookupoverheadMaintenanceWorkOrders({
+    public static lookupOverheadMaintenanceWorkOrders({
         workOrderId,
         includeOperations = true,
         includeServiceOperations = true,

@@ -5,6 +5,10 @@
 
 export type PSVCertificationReportCreate = {
     /**
+     * Internal Technical Feedback ID for the work order to create an certification report. Can be found in the `Work order - Lookup` endpoints.
+     */
+    feedbackId: string;
+    /**
      * Cold design set point in Bar. From measuring point.
      */
     coldDesignSetPoint: number;
@@ -48,6 +52,10 @@ export type PSVCertificationReportCreate = {
      * Manufacturer serial number for pretest.
      */
     manufacturerSerialNumber?: string;
+    /**
+     * Manufacturer part number for pretest.
+     */
+    manufacturerPartNumber?: string;
     /**
      * Pretest opening pressure in Bar.
      */

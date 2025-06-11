@@ -12,6 +12,10 @@ export type WorkOrderOperationInPlan = {
      * Id of operation user is familiar with
      */
     operation: string;
+    /**
+     * Id of superior operation. If the operation is a top level operation, this field will be empty.
+     */
+    superiorOperationId?: string | null;
     title: string;
     /**
      * Text-based information from the planner

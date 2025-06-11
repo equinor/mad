@@ -183,8 +183,15 @@ export class PreventiveWorkOrdersService {
      *
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
-     * ### Upcoming future release
-     * Added new property  `hasCommunication`
+     * ### Update release 1.38.0
+     * Added new property `text` to `materials` in `operations` and `serviceOperations`.
+     *
+     * ### Update release 1.39.0
+     * Added new property `superiorOperationId` to `operations` and `serviceOperations`.
+     *
+     * Added new property `priorityId`.
+     *
+     * Added new property `hasCommunication` to `serviceOperations`, and to `materials` expand in `operations` and `serviceOperations`.
      *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -775,6 +782,9 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.39.0
+     * Added new property `priorityId` to the response.
+     *
      * @returns PreventiveWorkOrderSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -888,6 +898,9 @@ export class PreventiveWorkOrdersService {
      *
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
+     *
+     * ### Update release 1.39.0
+     * Added new property `priorityId` to the response.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns PreventiveWorkOrderBasic Created

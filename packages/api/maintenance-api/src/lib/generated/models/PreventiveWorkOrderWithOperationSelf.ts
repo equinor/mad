@@ -8,6 +8,10 @@ import type { WorkOrderOperationSimpleForSearch } from './WorkOrderOperationSimp
 
 export type PreventiveWorkOrderWithOperationSelf = (PreventiveWorkOrderSimple & {
     text?: string | null;
+    /**
+     * Datetime of when the Work order was last changed (based on Changelog)
+     */
+    changeLogChangedDateTime?: string | null;
     _links: {
         self?: string;
     };

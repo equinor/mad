@@ -33,6 +33,10 @@ export type DocumentBasic = {
      */
     documentCreatedDate?: string | null;
     /**
+     * Longtext field of the document
+     */
+    text?: string;
+    /**
      * Id of the Document status
      */
     statusId?: string;

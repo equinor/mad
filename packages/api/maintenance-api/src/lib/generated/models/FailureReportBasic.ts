@@ -28,7 +28,7 @@ export type FailureReportBasic = {
     systemId: string;
     failureImpactId: failureImpactId;
     failureImpact: string;
-    priorityId?: 'D' | 'H' | 'L' | 'M' | 'U' | null;
+    priorityId: 'D' | 'H' | 'L' | 'M' | 'U' | null;
     isBreakdown: boolean;
     /**
      * Unsafe failure mode identified for failure report ref `R-12137 - Give immediate warning of unsafe failure modes`

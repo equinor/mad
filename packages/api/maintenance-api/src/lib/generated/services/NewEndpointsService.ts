@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { EstimatedCostsJsonPatch } from '../models/EstimatedCostsJsonPatch';
-import type { OverheadMaintenanceWorkOrder } from '../models/OverheadMaintenanceWorkOrder';
+import type { CertificationReportBasic } from '../models/CertificationReportBasic';
 import type { ProblemDetails } from '../models/ProblemDetails';
+import type { PSVCertificationReportCreate } from '../models/PSVCertificationReportCreate';
+import type { WorkOrderOperationForSearchFull } from '../models/WorkOrderOperationForSearchFull';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -13,138 +14,145 @@ import { request as __request } from '../core/request';
 export class NewEndpointsService {
 
     /**
-     * Preventive Work order - Update estimated costs
+     * Work order operations - Search
      * ### Overview
-     * Update estimated costs for preventive work order. Cost needs to be provided in the currency of the work order.
-     * The Cost Category ID needs to be:
-     * - `COST_CUTBACK`
-     * - `COST_EXTERNAL_SERVICES`
-     * - `COST_INTERNAL_SERVICES`
-     * - `COST_INTERNAL_PERSONELL`
-     * - `COST_MATERIALS_OF_CONSUMPTION`
-     * - `COST_OTHER_EXPENCES`
-     * - `COST_REPAIR_AND_MAINTENANCE`
+     * Search for work order operations from any work order type.
      *
+     * ### Query parameter filters
+     *
+     * The following query parameters are supported for filtering the work order operations.
+     * All the query parameters are optional, but at least one must be provided to get a response.
+     *
+     * Parameters:
+     * - `work-center-id-any-of`
+     * - `plant-id`
+     * - `changed-since-datetime`
+     * - `changed-before-datetime`
+     * - `status-changed-since-datetime`
+     * - `operation-id-any-of`
+     * - `work-order-ids-any-of`
+     *
+     * @returns WorkOrderOperationForSearchFull Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static addPreventiveWoEstimatedCosts({
-        workOrderId,
-        costCategoryId,
-        requestBody,
-    }: {
-        workOrderId: string,
-        costCategoryId: string,
-        /**
-         * Estimated cost for cost category
-         */
-        requestBody: Array<EstimatedCostsJsonPatch>,
-    }): CancelablePromise<ProblemDetails> {
-        return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/work-orders/preventive-work-orders/{work-order-id}/estimated-costs/{cost-category-id}',
-            path: {
-                'work-order-id': workOrderId,
-                'cost-category-id': costCategoryId,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `The request body is invalid`,
-                403: `User does not have sufficient rights to update estimated costs`,
-                404: `The specified resource was not found`,
-                409: `Work order is locked by other user`,
-            },
-        });
-    }
-
-    /**
-     * @deprecated
-     * Overhead Maintenance Work order - Lookup
-     * ### Deprecated
-     * This endpoint is marked as deprecated due to currently being unavailable. This endpoint is only a draft. Calling the endpoint until available will result in a `404- Not Found`. Deprecation will be removed when the endpoint is available.
-     *
-     * ### Overview
-     * Lookup single Overhead Maintenance Work order related information.
-     *
-     * ### Important information
-     * By default `include-person-responsible` is false and then the fields `personResponsibleId` and `personResponsibleEmail` will always have null value.
-     *
-     * @returns OverheadMaintenanceWorkOrder Success
-     * @returns ProblemDetails Response for other HTTP status codes
-     * @throws ApiError
-     */
-    public static lookupoverheadMaintenanceWorkOrders({
-        workOrderId,
-        includeOperations = true,
-        includeServiceOperations = true,
-        includeMaterials = true,
-        includeCostDataForMaterials = false,
+    public static searchWorkOrderOperations({
+        plantId,
+        changedSinceDatetime,
+        changedBeforeDatetime,
+        statusChangedSinceDatetime,
+        workCenterIdAnyOf,
+        workOrderIdsAnyOf,
+        operationIdAnyOf,
+        includeMaterials = false,
         includeAttachments = false,
-        includePersonResponsible = false,
-        includeStatusDetails = false,
-        includeRelatedTags = false,
         includeSafetyMeasures = false,
+        perPage = 100,
+        page = 1,
     }: {
-        workOrderId: string,
         /**
-         * Include Work order operations
+         * Plant identifier
          */
-        includeOperations?: boolean,
+        plantId?: string,
         /**
-         * Include Work order service operations
+         * Earliest `changedOnDate` to return work order operations for
          */
-        includeServiceOperations?: boolean,
+        changedSinceDatetime?: string,
+        /**
+         * Limit the response to only work order operations changed after `changed-since-datetime` but before this datetime
+         */
+        changedBeforeDatetime?: string,
+        /**
+         * Return work order operations that have had their status changed (e.g. `REL` added or removed) since the given datetime, at the earliest.
+         * The filter is based on the Operation's `Status Changelog` and operates on the property `statusChangedDateTime` (available in response).
+         *
+         */
+        statusChangedSinceDatetime?: string,
+        /**
+         * Comma-separated list of `work-center-id`. Wildcard endings are supported
+         */
+        workCenterIdAnyOf?: string,
+        /**
+         * Comma-separated list of `work-order-id`.
+         */
+        workOrderIdsAnyOf?: string,
+        /**
+         * Comma-separated list of `operation-id`.
+         */
+        operationIdAnyOf?: string,
         /**
          * Include materials for Work order operations
          */
         includeMaterials?: boolean,
         /**
-         * Include cost data for materials. Additional authorization will be required to retrieve these fields.
-         */
-        includeCostDataForMaterials?: boolean,
-        /**
-         * Include Work order attachments (on header and for operation)
+         * Include attachments for Work order operations
          */
         includeAttachments?: boolean,
         /**
-         * Include person responsible information in response, for example the email or name of the person responsible. May have a slight performance impact.
-         */
-        includePersonResponsible?: boolean,
-        /**
-         * Include detailed information for statuses (both active and non-active)
-         */
-        includeStatusDetails?: boolean,
-        /**
-         * Include related tags (from object list)
-         */
-        includeRelatedTags?: boolean,
-        /**
-         * Include safety-measures in work order operations
+         * Include safety measures for Work order operations
          */
         includeSafetyMeasures?: boolean,
-    }): CancelablePromise<OverheadMaintenanceWorkOrder | ProblemDetails> {
+        /**
+         * Results to return per page
+         */
+        perPage?: number,
+        /**
+         * Page to fetch
+         */
+        page?: number,
+    }): CancelablePromise<Array<WorkOrderOperationForSearchFull> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/work-orders/overhead-maintenance-work-orders/{work-order-id}',
-            path: {
-                'work-order-id': workOrderId,
-            },
+            url: '/work-order-operations',
             query: {
-                'include-operations': includeOperations,
-                'include-service-operations': includeServiceOperations,
+                'plant-id': plantId,
+                'changed-since-datetime': changedSinceDatetime,
+                'changed-before-datetime': changedBeforeDatetime,
+                'status-changed-since-datetime': statusChangedSinceDatetime,
+                'work-center-id-any-of': workCenterIdAnyOf,
+                'work-order-ids-any-of': workOrderIdsAnyOf,
+                'operation-id-any-of': operationIdAnyOf,
                 'include-materials': includeMaterials,
-                'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-attachments': includeAttachments,
-                'include-person-responsible': includePersonResponsible,
-                'include-status-details': includeStatusDetails,
-                'include-related-tags': includeRelatedTags,
                 'include-safety-measures': includeSafetyMeasures,
+                'per-page': perPage,
+                'page': page,
             },
             errors: {
-                301: `If work-order-id exist, but is not a \`OverheadMaintenanceWorkOrder\`, the response is a HTTP 301 Moved Permanently with the url to the resource in the HTTP header Location.
-                `,
-                404: `The specified resource was not found`,
+                400: `Request is missing required parameters`,
+            },
+        });
+    }
+
+    /**
+     * Certification report - Create PSV Certification Report
+     * ### Overview
+     * Create new Certification report through Technical Feedback, also known as a PSV Certification.
+     *
+     * ### Important information
+     * This endpoint is only applicable if you have a valid work order. Using this endpoint will also set the status of a technical feedback to `Done`.
+     *
+     * This endpoint is restricted to only work with approved systems. Reach out to the APIphany team if you require access.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns CertificationReportBasic Created
+     * @throws ApiError
+     */
+    public static createPsvCertificationReport({
+        requestBody,
+    }: {
+        /**
+         * PSV certification report to create
+         */
+        requestBody: PSVCertificationReportCreate,
+    }): CancelablePromise<ProblemDetails | CertificationReportBasic> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/maintenance-records/certification-reports/psv',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                403: `User does not have sufficient rights to create a PSV certification report`,
             },
         });
     }

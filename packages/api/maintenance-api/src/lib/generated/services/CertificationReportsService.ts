@@ -7,6 +7,7 @@ import type { CertificationReportBasic } from '../models/CertificationReportBasi
 import type { CertificationReportCreate } from '../models/CertificationReportCreate';
 import type { CertificationReportSimple } from '../models/CertificationReportSimple';
 import type { ProblemDetails } from '../models/ProblemDetails';
+import type { PSVCertificationReportCreate } from '../models/PSVCertificationReportCreate';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -309,6 +310,39 @@ export class CertificationReportsService {
             mediaType: 'application/json',
             errors: {
                 403: `User does not have sufficient rights to create a failure report`,
+            },
+        });
+    }
+
+    /**
+     * Certification report - Create PSV Certification Report
+     * ### Overview
+     * Create new Certification report through Technical Feedback, also known as a PSV Certification.
+     *
+     * ### Important information
+     * This endpoint is only applicable if you have a valid work order. Using this endpoint will also set the status of a technical feedback to `Done`.
+     *
+     * This endpoint is restricted to only work with approved systems. Reach out to the APIphany team if you require access.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @returns CertificationReportBasic Created
+     * @throws ApiError
+     */
+    public static createPsvCertificationReport({
+        requestBody,
+    }: {
+        /**
+         * PSV certification report to create
+         */
+        requestBody: PSVCertificationReportCreate,
+    }): CancelablePromise<ProblemDetails | CertificationReportBasic> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/maintenance-records/certification-reports/psv',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                403: `User does not have sufficient rights to create a PSV certification report`,
             },
         });
     }

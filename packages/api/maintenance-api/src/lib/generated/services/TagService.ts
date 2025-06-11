@@ -102,9 +102,8 @@ export class TagService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
      *
-     * ### Update future release
-     *
-     * Added new property `hasCommunication`
+     * ### Update release 1.39.0
+     * Added new property `priorityId` to `preventiveWorkOrders`.
      *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -681,6 +680,9 @@ export class TagService {
      *
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator` from work orders. See STRY0261073 in ServiceNow for more details.
+     *
+     * ### Update release 1.39.0
+     * Added new property `priorityId` to `preventiveWorkOrders`.
      *
      * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes

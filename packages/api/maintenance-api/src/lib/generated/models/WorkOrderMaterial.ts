@@ -20,5 +20,10 @@ export type WorkOrderMaterial = (WorkOrderMaterialForAddMaterialResponse & {
      * Flag to indicate if the delivery is complete
      */
     deliveryComplete: boolean;
+    text?: string;
+    /**
+     * Indicates whether the object has communications or not.
+     */
+    hasCommunication: boolean;
 });
 

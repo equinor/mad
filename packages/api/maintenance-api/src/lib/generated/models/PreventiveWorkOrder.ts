@@ -49,7 +49,7 @@ export type PreventiveWorkOrder = (PreventiveWorkOrderBasic & {
     costWBSId: string;
     costWBS: string;
     /**
-     * The due date for the preventive work order, calculated based on the planned date of the maintenance plan.
+     * The due date for the preventive work order, calculated based on the planned date of the maintenance plan..
      */
     dueDate?: string | null;
 });
