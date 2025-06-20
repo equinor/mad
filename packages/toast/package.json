@@ -1,7 +1,7 @@
 {
     "name": "@equinor/mad-toast",
     "description": "Toast package built on top of `react-native-toast-message`",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },

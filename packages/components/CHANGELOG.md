@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.22.0
+
+### Minor Changes
+
+- 30521d3: Updated accordion item height to accomodate multiple lines
+
 ## 0.21.0
 
 ### Minor Changes
