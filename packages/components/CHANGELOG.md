@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.21.0
+
+### Minor Changes
+
+- 71ea825: Increased number of lines for accordion title and labels
+
 ## 0.20.0
 
 ### Minor Changes
