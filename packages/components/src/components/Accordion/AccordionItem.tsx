@@ -158,7 +158,7 @@ const themeStyles = EDSStyleSheet.create((theme, props: AccordionContextType) =>
             flexDirection: "row",
             alignItems: "center",
             gap: theme.spacing.cell.gapHorizontal,
-            height: theme.geometry.dimension.cell.accordion.height,
+            minHeight: theme.geometry.dimension.cell.accordion.height,
         },
         contentContainer: {
             backgroundColor: theme.colors.container.default,
