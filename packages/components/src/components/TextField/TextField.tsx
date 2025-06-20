@@ -44,7 +44,9 @@ export const TextField = forwardRef<TextInput, TextFieldProps>(
         const styles = useStyles(themeStyles, { variant: rest.variant });
         return (
             <View style={{ flexGrow: 1 }}>
-                {label && <Label style={styles.label} label={label} meta={meta} />}
+                {label && (
+                    <Label style={styles.label} label={label} meta={meta} numberOfLines={3} />
+                )}
                 <Input
                     ref={ref}
                     rightAdornments={

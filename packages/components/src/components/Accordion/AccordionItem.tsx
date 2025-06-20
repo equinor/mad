@@ -109,7 +109,7 @@ export const AccordionItem = ({
                         <Typography
                             variant="h6"
                             color={disabled ? "textTertiary" : expanded ? "primary" : "textPrimary"}
-                            numberOfLines={1}
+                            numberOfLines={3}
                         >
                             {title}
                         </Typography>
