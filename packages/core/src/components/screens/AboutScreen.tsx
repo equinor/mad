@@ -19,7 +19,9 @@ export const AboutScreen = () => {
     const coreNavigatorType = useCoreNavigatorType();
     const experimentalFeatures = useExperimentalFeatures();
     const authenticationMethod = experimentalFeatures?.useExpoAuthSession ? "Expo" : "MSAL";
-    const endpoints = [getMadCommonBaseUrl(environment)].concat(about?.endpoints ?? []);
+    const endpoints = Array.from(
+        new Set([getMadCommonBaseUrl(environment)].concat(about?.endpoints ?? [])),
+    );
 
     return (
         <ScrollView
