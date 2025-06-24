@@ -1,5 +1,11 @@
 # @equinor/mad-core
 
+## 0.13.0
+
+### Minor Changes
+
+- 0c7c214: removes duplicate link from the about section
+
 ## 0.12.2
 
 ### Patch Changes
