@@ -1,5 +1,12 @@
 # @equinor/mad-chronicles
 
+## 1.3.3
+
+### Patch Changes
+
+- Updated dependencies [0c7c214]
+    - @equinor/mad-core@0.13.0
+
 ## 1.3.2
 
 ### Patch Changes
