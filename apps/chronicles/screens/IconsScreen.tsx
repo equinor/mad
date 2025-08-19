@@ -1,5 +1,5 @@
 import React from "react";
-import { EDSStyleSheet, Typography, useStyles } from "@equinor/mad-components";
+import { EDSStyleSheet, Search, Typography, useStyles } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
 export default function IconsScreen() {
@@ -15,6 +15,7 @@ export default function IconsScreen() {
                     source of the icons in this library."
                     }
                 </Typography>
+                <Search />
             </View>
         </ScrollView>
     );

@@ -27,12 +27,12 @@ export const authenticateInteractively = (scopes?: string[]) =>
         ? authenticateInteractivelyWeb(scopes)
         : authenticateInteractivelyNative();
 
-export const initiateAuthenticationClient = (
+export const initiateAuthenticationClient = async (
     config: AuthRequestConfig,
     discovery: DiscoveryDocument,
 ) =>
     Platform.OS === "web"
-        ? initiateAuthenticationClientWeb({
+        ? await initiateAuthenticationClientWeb({
               clientId: config.clientId,
               redirectUri: config.redirectUri,
           })

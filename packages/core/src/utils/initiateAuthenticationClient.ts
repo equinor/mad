@@ -1,11 +1,9 @@
-import { initiateAuthenticationClient as madAuthInitiateAuthenticationClient } from "@equinor/mad-auth";
-import { getConfig } from "../store";
-import { getRedirectUriFromAuthConfig } from "./getRedirectUriFromAuthConfig";
+import { ExpoAuthSession } from "@equinor/mad-auth";
 
 export const initiateAuthenticationClient = () => {
-    const {
-        authentication: { clientId, redirectUri: redirectUriIos, redirectUriWeb },
-    } = getConfig();
-    const redirectUri = getRedirectUriFromAuthConfig(redirectUriIos, redirectUriWeb);
-    void madAuthInitiateAuthenticationClient({ clientId, redirectUri });
+    const discovery = ExpoAuthSession.getDiscovery();
+    const config = ExpoAuthSession.getConfig();
+    if (!(!discovery || !config)) {
+        void ExpoAuthSession.initiateAuthenticationClient(config, discovery);
+    }
 };

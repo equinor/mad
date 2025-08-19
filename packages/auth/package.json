@@ -27,7 +27,7 @@
         "@types/showdown": "^2.0.0",
         "eslint": "^8.46.0",
         "jest": "^29.7.0",
-        "jest-expo": "~52.0.1",
+        "jest-expo": "~53.0.9",
         "react-test-renderer": "18.2.0",
         "tsup": "^8.3.5"
     },
@@ -49,10 +49,9 @@
     "peerDependencies": {
         "expo-auth-session": "~6.0.0",
         "expo-crypto": "~14.0.1",
-        "react": "~18.3.1",
-        "react-dom": "~18.3.1",
-        "react-native": "~0.76.3",
-        "react-native-msal": "*"
+        "react": "19.0.0",
+        "react-dom": "19.0.0",
+        "react-native": "~0.79.5"
     },
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",

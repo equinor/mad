@@ -1,6 +1,6 @@
-import { authenticateSilently } from "@equinor/mad-auth";
 import { getMadCommonBaseUrl, getMadCommonScopes } from "../../../utils/madCommonUtils";
 import { Environment } from "../../../types";
+import { authenticateSilently } from "../../..";
 
 type IncidentData = {
     callerEmail: string | undefined;

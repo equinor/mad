@@ -3,7 +3,7 @@
     "compilerOptions": {
         "rootDir": "./src",
         "allowSyntheticDefaultImports": true,
-        "jsx": "react-native",
+        "jsx": "react-jsx",
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,

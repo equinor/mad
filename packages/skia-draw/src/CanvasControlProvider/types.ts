@@ -18,7 +18,7 @@ export type CanvasControlProviderProps = {
     /**
      * The ref to the canvas component.
      */
-    canvasRef: React.RefObject<CanvasControls>;
+    canvasRef: React.RefObject<CanvasControls | null> | null;
 };
 
 export type CanvasControlContextValues = {
@@ -57,7 +57,7 @@ export type CanvasControlContextValues = {
     /**
      * The ref to the canvas component.
      */
-    canvasRef: React.RefObject<CanvasControls> | null;
+    canvasRef: React.RefObject<CanvasControls | null> | null;
 };
 
 export type CanvasControls = {

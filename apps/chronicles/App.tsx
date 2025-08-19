@@ -2,7 +2,13 @@ import React, { useEffect, useMemo } from "react";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import { useBreakpoint, EDSProvider } from "@equinor/mad-components";
-import { Envelope, addTelemetryInitializer, trackCustom, ErrorBoundary, setOfflineBanner } from "@equinor/mad-core";
+import {
+    Envelope,
+    addTelemetryInitializer,
+    trackCustom,
+    ErrorBoundary,
+    setOfflineBanner,
+} from "@equinor/mad-core";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Navigation from "./navigation";
 import { StatusBar } from "react-native";

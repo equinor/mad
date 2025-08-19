@@ -17,8 +17,8 @@
         "@testing-library/react": "^14.0.0",
         "@testing-library/react-native": "^12.3.0",
         "eslint": "^8.46.0",
-        "jest-expo": "~52.0.1",
-        "react-native-reanimated": "~3.16.1",
+        "jest-expo": "~53.0.9",
+        "react-native-reanimated": "~3.17.4",
         "react-test-renderer": "18.2.0",
         "tsup": "^8.3.5"
     },
@@ -38,11 +38,11 @@
     "main": "./dist/index.js",
     "peerDependencies": {
         "expo-font": "~13.0.1",
-        "react": "~18.3.1",
-        "react-dom": "~18.3.1",
-        "react-native": "~0.76.3",
-        "react-native-gesture-handler": "~2.20.2",
-        "react-native-reanimated": "~3.16.1",
+        "react": "19.0.0",
+        "react-dom": "19.0.0",
+        "react-native": "~0.79.5",
+        "react-native-gesture-handler": "~2.24.0",
+        "react-native-reanimated": "~3.17.4",
         "react-native-svg": "15.8.0"
     },
     "scripts": {

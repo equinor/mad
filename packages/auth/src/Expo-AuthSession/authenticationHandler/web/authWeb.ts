@@ -34,7 +34,7 @@ export type InitiateAuthenticationClientConfig = {
  * Initiate the authentication client
  * @param {InitiateAuthenticationClientConfig} config
  */
-export function initiateAuthenticationClientWeb({
+export async function initiateAuthenticationClientWeb({
     clientId,
     redirectUri,
     authority = "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/",
@@ -49,7 +49,7 @@ export function initiateAuthenticationClientWeb({
         cache: { cacheLocation: "localStorage" },
     };
     pca = new PublicClientApplication(config);
-    pca.init();
+    await pca.init();
 }
 
 /**
@@ -99,7 +99,6 @@ export async function authenticateSilentlyWeb(
     }
 
     const msalAccount = await _getMsalAccount();
-
     if (msalAccount && scopes) {
         const params: MSALSilentParams = {
             account: msalAccount,

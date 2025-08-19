@@ -1,7 +1,6 @@
-import { MSALAccount, MSALResult } from "react-native-msal";
 import { getConfig } from "./mockConfig";
 
-const getAccount = (): MSALAccount => ({
+const getAccount = () => ({
     identifier: "mock-identifier",
     tenantId: "mock-tenantId",
     username: "mock-username",
@@ -10,7 +9,7 @@ const getAccount = (): MSALAccount => ({
     },
 });
 
-const getResult = (): MSALResult => ({
+const getResult = () => ({
     // file deepcode ignore HardcodedNonCryptoSecret: this is mock data used purely for testing
     accessToken: "mock-token",
     account: getAccount(),
