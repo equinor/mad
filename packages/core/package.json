@@ -47,16 +47,16 @@
     "license": "MIT",
     "main": "./dist/index.js",
     "peerDependencies": {
-        "@react-native-async-storage/async-storage": "1.23.1",
+        "@react-native-async-storage/async-storage": "2.1.2",
         "@react-native-community/netinfo": "^11.4.1",
         "@react-navigation/native": "^6.1.17",
-        "expo-device": "~7.0.1",
-        "expo-localization": "~16.0.0",
+        "expo-device": "7.1.4",
+        "expo-localization": "16.1.6",
         "react": "19.0.0",
         "react-dom": "19.0.0",
         "react-native": "0.79.5",
         "react-native-gesture-handler": "~2.24.0",
-        "react-native-safe-area-context": "4.12.0"
+        "react-native-safe-area-context": "5.4.0"
     },
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",

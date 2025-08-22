@@ -3440,13 +3440,13 @@ __metadata:
     react-test-renderer: "npm:18.2.0"
     tsup: "npm:^8.3.5"
   peerDependencies:
-    expo-font: ~13.0.1
+    expo-font: ~13.3.2
     react: 19.0.0
     react-dom: 19.0.0
     react-native: ~0.79.5
     react-native-gesture-handler: ~2.24.0
     react-native-reanimated: ~3.17.4
-    react-native-svg: 15.8.0
+    react-native-svg: 15.11.2
   languageName: unknown
   linkType: soft
 
@@ -3476,16 +3476,16 @@ __metadata:
     tsup: "npm:^8.3.5"
     zustand: "npm:^4.5.2"
   peerDependencies:
-    "@react-native-async-storage/async-storage": 1.23.1
+    "@react-native-async-storage/async-storage": 2.1.2
     "@react-native-community/netinfo": ^11.4.1
     "@react-navigation/native": ^6.1.17
-    expo-device: ~7.0.1
-    expo-localization: ~16.0.0
+    expo-device: 7.1.4
+    expo-localization: 16.1.6
     react: 19.0.0
     react-dom: 19.0.0
     react-native: 0.79.5
     react-native-gesture-handler: ~2.24.0
-    react-native-safe-area-context: 4.12.0
+    react-native-safe-area-context: 5.4.0
   languageName: unknown
   linkType: soft
 
@@ -3649,7 +3649,7 @@ __metadata:
     tsup: "npm:^8.3.5"
   peerDependencies:
     "@shopify/react-native-skia": v2.0.0-next.4
-    react: 19.1.0
+    react: 19.0.0
     react-native: 0.79.5
     react-native-gesture-handler: ~2.24.0
     react-native-reanimated: ~3.17.4
