@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-chronicles",
-    "version": "1.3.3",
+    "version": "1.4.0",
     "dependencies": {
         "@azure/msal-browser": "4.15.0",
         "@babel/plugin-proposal-export-namespace-from": "^7.18.9",

@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.23.0
+
+### Minor Changes
+
+- 7bf5e2b: React Native Architecture Upgrade -> Expo sdk upgraded to version 53
+
 ## 0.22.0
 
 ### Minor Changes
