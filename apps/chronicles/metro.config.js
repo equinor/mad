@@ -23,4 +23,5 @@ config.resolver.nodeModulesPaths = [
 
 config.resolver.unstable_conditionNames = ["browser", "require", "react-native"];
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 module.exports = wrapWithReanimatedMetroConfig(config);

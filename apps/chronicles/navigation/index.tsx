@@ -37,25 +37,6 @@ import { DFWComponentName } from "../types/dfwcomponents";
 import { SampleLoginScreen } from "./LoginScreen";
 import { ToastScreen } from "../screens/ToastScreen";
 
-import PropTypes from "prop-types";
-import { Component } from "react";
-
-const mapParamsToProps = ScreenComponent =>
-    class extends Component {
-        static navigationOptions = ScreenComponent.navigationOptions;
-        static propTypes = {
-            navigation: PropTypes.object.isRequired,
-        };
-        render() {
-            const { params } = this.props.route;
-            return <ScreenComponent {...this.props} {...params} />;
-        }
-    };
-
-const withUtilities = ScreenComponent => {
-    return mapParamsToProps(ScreenComponent);
-};
-
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
     const token = useToken();
     return (
@@ -203,7 +184,7 @@ function BottomTabNavigator() {
             />
             <BottomTab.Screen
                 name="IconsTab"
-                component={withUtilities(IconsScreen)}
+                component={IconsScreen}
                 options={{
                     title: "Icons",
                     tabBarIcon: ({ color }) => <TabBarIcon name="grid" color={color as Color} />,
