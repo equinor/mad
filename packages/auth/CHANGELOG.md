@@ -1,5 +1,16 @@
 # @equinor/mad-auth
 
+## 0.3.0
+
+### Minor Changes
+
+- 7bf5e2b: React Native Architecture Upgrade -> Expo sdk upgraded to version 53
+
+### Patch Changes
+
+- Updated dependencies [7bf5e2b]
+    - @equinor/mad-components@0.23.0
+
 ## 0.2.17
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @equinor/mad-insights
 
+## 0.2.0
+
+### Minor Changes
+
+- 7bf5e2b: React Native Architecture Upgrade -> Expo sdk upgraded to version 53
+
 ## 0.1.5
 
 ### Patch Changes
