@@ -1,20 +1,14 @@
 import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-components";
 import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
-import {
-    ExpoAuthSession,
-    LoginButtonProps,
-    LoginButton,
-    MadAuthenticationResult,
-    AuthenticationType,
-} from "@equinor/mad-auth";
+import { ExpoAuthSession, MadAuthenticationResult } from "@equinor/mad-auth";
 import { getConfig, useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
 
 export type LoginScreenProps = Partial<
-    Pick<LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
+    Pick<ExpoAuthSession.LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
 >;
 export const LoginScreen = ({
     onAuthenticationSuccessful,
@@ -30,7 +24,10 @@ export const LoginScreen = ({
     const resizeMode = Platform.OS === "web" ? "contain" : "cover";
     const loginButtonProps = {
         ...authConfig,
-        onAuthenticationSuccessful: (result: MadAuthenticationResult, type: AuthenticationType) => {
+        onAuthenticationSuccessful: (
+            result: MadAuthenticationResult,
+            type: ExpoAuthSession.AuthenticationType,
+        ) => {
             setUsername(result.account.username, result.account.identifier);
             if (type === "AUTOMATIC") {
                 void track(metricKeys.AUTHENTICATION_AUTOMATIC);
@@ -63,11 +60,11 @@ export const LoginScreen = ({
                     />
                 </View>
                 <View style={styles.buttonContainer}>
-                    {getConfig().experimental?.useExpoAuthSession ? (
-                        <ExpoAuthSession.LoginButton {...loginButtonProps} />
-                    ) : (
-                        <LoginButton {...loginButtonProps} />
-                    )}
+                    {/* {getConfig().experimental?.useExpoAuthSession ? ( */}
+                    <ExpoAuthSession.LoginButton {...loginButtonProps} />
+                    {/* ) : ( */}
+                    {/* <LoginButton {...loginButtonProps} /> */}
+                    {/* )} */}
                     {shouldDisplayDemoButton && (
                         <Button
                             testID="demo-button"

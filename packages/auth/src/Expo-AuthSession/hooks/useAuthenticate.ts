@@ -1,6 +1,5 @@
 import { AuthRequestConfig, useAutoDiscovery } from "expo-auth-session";
 import { MadAuthenticationResult } from "../../types";
-import { AuthenticationType } from "../../hooks";
 import { useEffect, useState } from "react";
 import {
     initiateAuthenticationClient,
@@ -15,6 +14,8 @@ type useExpoAuthenticateProps = {
     onAuthenticationFailed: (error: unknown) => void;
     enableAutomaticAuthentication?: boolean;
 };
+
+export type AuthenticationType = "AUTOMATIC" | "MANUAL";
 
 /**
  * initialize the authentication client, and authenticate the user
@@ -50,7 +51,7 @@ export const useAuthenticate = ({
 
     useEffect(() => {
         const initiateClientAndMaybeAuthenticateSilently = async () => {
-            initiateAuthenticationClient(config, discovery);
+            await initiateAuthenticationClient(config, discovery);
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
 
             if (enableAutomaticAuthentication)

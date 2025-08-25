@@ -1,13 +1,23 @@
 import React from "react";
-import { Button } from "@equinor/mad-components";
+import { Button, ButtonProps } from "@equinor/mad-components";
 import * as WebBrowser from "expo-web-browser";
-import { useAuthenticate } from "../hooks/useAuthenticate";
-import { LoginButtonProps } from "../../components";
+import { AuthenticationType, useAuthenticate } from "../hooks/useAuthenticate";
 import { ResponseType } from "expo-auth-session";
 import "core-js/stable/atob";
 import { View } from "react-native";
+import { MadAuthenticationResult } from "../../types";
 
 WebBrowser.maybeCompleteAuthSession();
+
+export type LoginButtonProps = Omit<ButtonProps, "onPress" | "loading" | "disabled" | "title"> & {
+    clientId: string;
+    redirectUri: string;
+    onAuthenticationSuccessful: (res: MadAuthenticationResult, type: AuthenticationType) => void;
+    onAuthenticationFailed: (error: unknown) => void;
+    title?: ButtonProps["title"];
+    scopes?: string[];
+    enableAutomaticAuthentication?: boolean;
+};
 
 export const LoginButton = ({
     clientId,

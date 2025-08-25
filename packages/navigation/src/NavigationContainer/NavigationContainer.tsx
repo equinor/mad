@@ -21,7 +21,7 @@ const NavigationContainerInner = <T extends object>(
     const navigationRef = useNavigationContainerRef<T>();
     if (typeof ref === "function") throw new Error("Don't use legacy refs on NavigationContainer");
     const finalRef = ref ?? navigationRef;
-    const routeNameRef = useRef<string | undefined>();
+    const routeNameRef = useRef<string | undefined>(undefined);
 
     const onReady = () => {
         if (props.onReady) props.onReady();

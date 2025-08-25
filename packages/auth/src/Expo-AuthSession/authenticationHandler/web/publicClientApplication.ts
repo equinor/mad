@@ -18,7 +18,8 @@ export class PublicClientApplication implements IPublicClientApplication {
         this._pca = new MSALPublicClientApplication(this.config);
     }
 
-    public init() {
+    public async init() {
+        await this._pca.initialize();
         return this;
     }
 

@@ -14,7 +14,7 @@
         "@equinor/mad-tsconfig": "workspace:*",
         "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
         "@shopify/react-native-skia": "1.5.0",
-        "@types/react": "~18.3.12",
+        "@types/react": "19.1.0",
         "eslint": "^8.46.0",
         "react-native-vision-camera": "^4.0.4",
         "react-native-worklets-core": "^1.3.3",
@@ -37,10 +37,10 @@
     "main": "./dist/index.js",
     "peerDependencies": {
         "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
-        "@shopify/react-native-skia": "1.5.0",
-        "react": "~18.3.1",
-        "react-native": "~0.76.3",
-        "react-native-gesture-handler": "~2.20.2",
+        "@shopify/react-native-skia": "2.1.1",
+        "react": "19.1.0",
+        "react-native": "0.79.5",
+        "react-native-gesture-handler": "~2.24.0",
         "react-native-vision-camera": "^4.0.4",
         "react-native-worklets-core": "^1.3.3"
     },

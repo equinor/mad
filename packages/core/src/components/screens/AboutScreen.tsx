@@ -17,8 +17,7 @@ export const AboutScreen = () => {
     const appVersion = useAppVersion();
     const about = useAbout();
     const coreNavigatorType = useCoreNavigatorType();
-    const experimentalFeatures = useExperimentalFeatures();
-    const authenticationMethod = experimentalFeatures?.useExpoAuthSession ? "Expo" : "MSAL";
+    const authenticationMethod = "Expo";
     const endpoints = Array.from(
         new Set([getMadCommonBaseUrl(environment)].concat(about?.endpoints ?? [])),
     );

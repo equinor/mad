@@ -1,4 +1,4 @@
-import * as exported from "../src/";
+import * as exported from "../src/Expo-AuthSession";
 
 describe("exports", () => {
     it("should not export _reset fn from auth.ts", () => {

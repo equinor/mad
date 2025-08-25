@@ -1,8 +1,7 @@
-import { authenticateSilently, ExpoAuthSession } from "@equinor/mad-auth";
+import { ExpoAuthSession } from "@equinor/mad-auth";
 import { getMadCommonBaseUrl, getMadCommonScopes } from "../../../utils/madCommonUtils";
 import { Release } from "./ChangeLog";
 import { Environment } from "../../../types";
-import { getConfig } from "../../../store";
 
 export const fetchReleaseNotes = async (
     env: Environment,
@@ -11,9 +10,7 @@ export const fetchReleaseNotes = async (
 ): Promise<Release> => {
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
-    const authenticationResponse = getConfig().experimental?.useExpoAuthSession
-        ? await ExpoAuthSession.authenticateSilently(scopes)
-        : await authenticateSilently(scopes);
+    const authenticationResponse = await ExpoAuthSession.authenticateSilently(scopes);
 
     if (!authenticationResponse) throw new Error("Unable to authenticate silently");
     const fetchResponse = await fetch(`${baseUrl}/ReleaseNote/${servicePortalName}/${appVersion}`, {
@@ -31,9 +28,7 @@ export const fetchAllReleaseNotes = async (
 ): Promise<Release[]> => {
     const scopes = getMadCommonScopes(env);
     const baseUrl = getMadCommonBaseUrl(env);
-    const authenticationResponse = getConfig().experimental?.useExpoAuthSession
-        ? await ExpoAuthSession.authenticateSilently(scopes)
-        : await authenticateSilently(scopes);
+    const authenticationResponse = await ExpoAuthSession.authenticateSilently(scopes);
     if (!authenticationResponse) throw new Error("Unable to authenticate silently");
     const fetchResponse = await fetch(`${baseUrl}/ReleaseNote/${servicePortalName}/`, {
         method: "GET",

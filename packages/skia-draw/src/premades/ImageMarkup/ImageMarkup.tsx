@@ -22,7 +22,7 @@ type Dimensions = {
 export const ImageMarkup = forwardRef<CanvasImageControls, ImageMarkupProps>((props, ref) => {
     const [contentDim, setContentDim] = useState<Dimensions>();
 
-    const canvasRef = useRef<CanvasControls>(null);
+    const canvasRef = useRef<CanvasControls | null>(null);
 
     useImperativeHandle(ref, () => ({
         makeImageSnapshot: (config?: ImageSnapshotConfig) =>

@@ -12,7 +12,7 @@ export type PopoverProps = {
     /**
      * A reference to the element that the popover should appear around.
      */
-    anchorEl: React.RefObject<View>;
+    anchorEl: React.RefObject<View | null>;
     /**
      * A boolean value indicating whether or not the popover should be open.
      */

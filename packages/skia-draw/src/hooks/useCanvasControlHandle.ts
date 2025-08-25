@@ -1,4 +1,4 @@
-import { ImageFormat, SkiaDomView } from "@shopify/react-native-skia";
+import { ImageFormat, CanvasRef } from "@shopify/react-native-skia";
 import { ForwardedRef, MutableRefObject, RefObject, useImperativeHandle } from "react";
 import { CanvasData } from "../Canvas/types";
 import { CanvasControls } from "../CanvasControlProvider";
@@ -17,7 +17,7 @@ const ImageFormatMimeTypeMap: Record<ImageFormat, string> = {
  */
 export const useCanvasControlHandle = (
     ref: ForwardedRef<CanvasControls>,
-    skiaCanvasRef: RefObject<SkiaDomView>,
+    skiaCanvasRef: RefObject<CanvasRef | null>,
     canvasHistory: MutableRefObject<CanvasData[]>,
 ) => {
     const rerender = useRerender();

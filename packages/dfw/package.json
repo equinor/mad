@@ -37,8 +37,8 @@
     "license": "MIT",
     "main": "./dist/index.js",
     "peerDependencies": {
-        "react": "~18.3.1",
-        "react-native": "~0.76.3"
+        "react": "19.0.0",
+        "react-native": "~0.79.5"
     },
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
