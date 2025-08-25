@@ -1,0 +1,4 @@
+exclude:
+    code:
+        - packages/auth/__mocks__/**
+        - packages/auth/__tests__/**
