@@ -20,12 +20,12 @@ import { AuthRequestConfig, DiscoveryDocument } from "expo-auth-session";
 export const signOut = () => (Platform.OS === "web" ? signOutWeb() : signOutNative());
 
 export const authenticateSilently = (scopes?: string[]) =>
-    Platform.OS === "web" ? authenticateSilentlyWeb(scopes) : authenticateSilentlyNative();
+    Platform.OS === "web" ? authenticateSilentlyWeb(scopes) : authenticateSilentlyNative(scopes);
 
 export const authenticateInteractively = (scopes?: string[]) =>
     Platform.OS === "web"
         ? authenticateInteractivelyWeb(scopes)
-        : authenticateInteractivelyNative();
+        : authenticateInteractivelyNative(scopes);
 
 export const initiateAuthenticationClient = async (
     config: AuthRequestConfig,

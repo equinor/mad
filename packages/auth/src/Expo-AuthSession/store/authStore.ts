@@ -13,7 +13,15 @@ export const useAuth = create<AuthState>()(
         persist(
             set => ({
                 setToken: (token: TokenResponse) => {
-                    set({ token });
+                    set(state => {
+                        const filteredTokens = state.token
+                            ? state.token.filter(t => t.scope !== token.scope)
+                            : [];
+                        return { token: filteredTokens ? [...filteredTokens, token] : [token] };
+                    });
+                },
+                setRefreshToken: (refreshToken: string) => {
+                    set({ refreshToken });
                 },
                 setUserData: (account: MadAccount) => {
                     set({ userData: account });
@@ -35,6 +43,9 @@ export const useAuth = create<AuthState>()(
                 },
                 resetConfig: () => {
                     set({ config: undefined });
+                },
+                resetRefreshToken: () => {
+                    set({ refreshToken: undefined });
                 },
             }),
             {
@@ -59,19 +70,39 @@ export const useAuth = create<AuthState>()(
 /**
  * We avoid using hooks for backwards compatibility so these are all methods to interact with the store without the use of hooks.
  */
-export const getToken = () => {
-    const tokenConfig = useAuth.getState().token;
-    return tokenConfig ? new TokenResponse(tokenConfig) : undefined;
+export const getToken = (scopes?: string[]) => {
+    const tokens = useAuth.getState().token;
+    const config = getConfig();
+    if (!scopes && !config) {
+        return tokens && tokens.length > 0 ? tokens[0] : null;
+    }
+    const currentScopes = scopes ? scopes : config?.scopes ? config.scopes : [];
+    const omittedScopes = ["openid", "profile", "offline_access"];
+    const tokenWithScope = tokens
+        ? tokens.find((t: TokenResponse) => {
+              if (!t.scope) return false;
+              const granted = t.scope.split(" ");
+              return currentScopes.every(
+                  (s: string) => omittedScopes.includes(s) || granted.includes(s),
+              );
+          })
+        : null;
+    return tokenWithScope ? new TokenResponse(tokenWithScope) : undefined;
 };
+export const getAllTokens = () => useAuth.getState().token;
 export const getUserData = () => useAuth.getState().userData;
 export const getDiscovery = () => useAuth.getState().discovery;
 export const getConfig = () => useAuth.getState().config;
+export const getRefreshToken = () => useAuth.getState().refreshToken;
 export const setToken = (token: TokenResponse) => useAuth.getState().setToken(token);
 export const setUserData = (userData: MadAccount) => useAuth.getState().setUserData(userData);
 export const setDiscovery = (discovery: DiscoveryDocument) =>
     useAuth.getState().setDiscovery(discovery);
 export const setConfig = (config: AuthRequestConfig) => useAuth.getState().setConfig(config);
+export const setRefreshToken = (refreshToken: string) =>
+    useAuth.getState().setRefreshToken(refreshToken);
 export const resetToken = () => useAuth.getState().resetToken();
 export const resetUserData = () => useAuth.getState().resetUserData();
 export const resetDiscovery = () => useAuth.getState().resetDiscovery();
 export const resetConfig = () => useAuth.getState().resetConfig();
+export const resetRefreshToken = () => useAuth.getState().resetRefreshToken();

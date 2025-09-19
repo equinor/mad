@@ -3,11 +3,13 @@ import {
     AuthRequestConfig,
     DiscoveryDocument,
     exchangeCodeAsync,
+    refreshAsync,
     TokenResponse,
 } from "expo-auth-session";
 import {
     getConfig,
     getDiscovery,
+    getRefreshToken,
     getToken,
     getUserData,
     resetConfig,
@@ -16,8 +18,10 @@ import {
     resetUserData,
     setConfig,
     setDiscovery,
+    setRefreshToken,
     setToken,
     setUserData,
+    useAuth,
 } from "../store/authStore";
 import { tokenRefresh } from "../utils/tokenRefresh";
 import { MadAccount, MadAuthenticationResult } from "../../types";
@@ -46,11 +50,15 @@ export function authenticationClientExists(): boolean {
  * user has it installed
  * @returns {MadAuthenticationResult | null} an object containing the access token and the account, or null
  */
-export const authenticateInteractively = async (): Promise<MadAuthenticationResult | null> => {
+export const authenticateInteractively = async (
+    scopes?: string[],
+): Promise<MadAuthenticationResult | null> => {
     const discovery = getDiscovery();
     const config = getConfig();
     if (!discovery || !config) return null;
-
+    if (scopes) {
+        config.scopes = scopes;
+    }
     const authRequest = new AuthRequest(config);
 
     const codeResponse = await authRequest.promptAsync(discovery);
@@ -68,6 +76,7 @@ export const authenticateInteractively = async (): Promise<MadAuthenticationResu
         if (!userData) return null;
         setUserData(userData);
         setToken(tokenResponse);
+        if (tokenResponse.refreshToken) setRefreshToken(tokenResponse.refreshToken);
         return { account: userData, accessToken: tokenResponse.accessToken };
     }
     return null;
@@ -77,21 +86,58 @@ export const authenticateInteractively = async (): Promise<MadAuthenticationResu
  * Authenticate silently.
  * @returns {MadAuthenticationResult | null} an object containing the access token and the account, or null
  */
-export const authenticateSilently = async (): Promise<MadAuthenticationResult | null> => {
+export const authenticateSilently = async (
+    scopes?: string[],
+): Promise<MadAuthenticationResult | null> => {
+    await useAuth.persist.rehydrate();
     const userData = getUserData();
-    const token = getToken();
-    if (!userData || !token) return null;
-
-    if (TokenResponse.isTokenFresh(token)) {
-        return { account: userData, accessToken: token.accessToken };
+    const token = getToken(scopes);
+    if (!userData) return null;
+    if (token) {
+        if (TokenResponse.isTokenFresh(token)) {
+            return {
+                account: userData,
+                accessToken: token.accessToken,
+            };
+        }
+        const newToken = await tokenRefresh(token, scopes);
+        if (newToken) {
+            setToken(newToken);
+            if (newToken.refreshToken) setRefreshToken(newToken.refreshToken);
+            return {
+                account: userData,
+                accessToken: newToken.accessToken,
+            };
+        }
+        const interactiveToken = await authenticateInteractively();
+        return interactiveToken;
+    } else {
+        const refreshToken = getRefreshToken();
+        const config = getConfig();
+        const discovery = getDiscovery();
+        if (!config || !discovery) return null;
+        if (refreshToken) {
+            try {
+                const refreshed = await refreshAsync(
+                    {
+                        clientId: config.clientId,
+                        refreshToken,
+                        scopes,
+                    },
+                    discovery,
+                );
+                setToken(refreshed);
+                if (refreshed.refreshToken) setRefreshToken(refreshed.refreshToken);
+                return {
+                    account: userData,
+                    accessToken: refreshed.accessToken,
+                };
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
     }
-
-    const newToken = await tokenRefresh(token);
-    if (newToken) {
-        setToken(newToken);
-        return { account: userData, accessToken: newToken.accessToken };
-    }
-    return null;
 };
 
 export function getAccount(): MadAccount | null {
