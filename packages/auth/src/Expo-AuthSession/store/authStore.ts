@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import { MadAccount } from "../../types";
 import { getItem, removeItem, setItem } from "./encryption";
+import { InitiateAuthenticationClientConfig } from "../authenticationHandler/web";
 
 /**
  * Creates a zustand store with all the relevant values for authentication handling. Token and user info is persisted
@@ -32,6 +33,9 @@ export const useAuth = create<AuthState>()(
                 setConfig: (config: AuthRequestConfig) => {
                     set({ config });
                 },
+                setWebConfig: (webConfig: InitiateAuthenticationClientConfig) => {
+                    set({ webConfig });
+                },
                 resetToken: () => {
                     set({ token: undefined });
                 },
@@ -47,12 +51,15 @@ export const useAuth = create<AuthState>()(
                 resetRefreshToken: () => {
                     set({ refreshToken: undefined });
                 },
+                resetWebConfig: () => {
+                    set({ webConfig: undefined });
+                },
             }),
             {
                 partialize: state =>
                     Object.fromEntries(
                         Object.entries(state).filter(([key]) =>
-                            ["token", "userData"].includes(key),
+                            ["token", "userData", "webConfig", "refreshToken"].includes(key),
                         ),
                     ),
                 name: "storage",
@@ -93,16 +100,20 @@ export const getAllTokens = () => useAuth.getState().token;
 export const getUserData = () => useAuth.getState().userData;
 export const getDiscovery = () => useAuth.getState().discovery;
 export const getConfig = () => useAuth.getState().config;
+export const getWebConfig = () => useAuth.getState().webConfig;
 export const getRefreshToken = () => useAuth.getState().refreshToken;
 export const setToken = (token: TokenResponse) => useAuth.getState().setToken(token);
 export const setUserData = (userData: MadAccount) => useAuth.getState().setUserData(userData);
 export const setDiscovery = (discovery: DiscoveryDocument) =>
     useAuth.getState().setDiscovery(discovery);
 export const setConfig = (config: AuthRequestConfig) => useAuth.getState().setConfig(config);
+export const setWebConfig = (webConfig: InitiateAuthenticationClientConfig) =>
+    useAuth.getState().setWebConfig(webConfig);
 export const setRefreshToken = (refreshToken: string) =>
     useAuth.getState().setRefreshToken(refreshToken);
 export const resetToken = () => useAuth.getState().resetToken();
 export const resetUserData = () => useAuth.getState().resetUserData();
 export const resetDiscovery = () => useAuth.getState().resetDiscovery();
 export const resetConfig = () => useAuth.getState().resetConfig();
+export const resetWebConfig = () => useAuth.getState().resetWebConfig();
 export const resetRefreshToken = () => useAuth.getState().resetRefreshToken();

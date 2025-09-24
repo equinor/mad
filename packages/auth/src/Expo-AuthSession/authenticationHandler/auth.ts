@@ -92,6 +92,7 @@ export const authenticateSilently = async (
     await useAuth.persist.rehydrate();
     const userData = getUserData();
     const token = getToken(scopes);
+    console.log("**userData", userData, scopes);
     if (!userData) return null;
     if (token) {
         if (TokenResponse.isTokenFresh(token)) {
@@ -115,6 +116,7 @@ export const authenticateSilently = async (
         const refreshToken = getRefreshToken();
         const config = getConfig();
         const discovery = getDiscovery();
+        console.log("***Refresh token", refreshToken, config, discovery);
         if (!config || !discovery) return null;
         if (refreshToken) {
             try {
@@ -133,9 +135,11 @@ export const authenticateSilently = async (
                     accessToken: refreshed.accessToken,
                 };
             } catch (e) {
+                console.log("**error caught", e);
                 return null;
             }
         }
+        console.log("**outside refresh token too", refreshToken);
         return null;
     }
 };

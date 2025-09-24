@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 import * as aesjs from "aes-js";
 import "react-native-get-random-values";
+import { Platform } from "react-native";
 
 /**
  * As Expo's SecureStore does not support values larger than 2048
@@ -36,12 +37,16 @@ const decrypt = async (key: string, value: string) => {
 };
 
 export const getItem = async (key: string) => {
-    const encrypted = await AsyncStorage.getItem(key);
-    if (!encrypted) {
-        return encrypted;
-    }
+    if (Platform.OS === "web") {
+        return await AsyncStorage.getItem(key);
+    } else {
+        const encrypted = await AsyncStorage.getItem(key);
+        if (!encrypted) {
+            return encrypted;
+        }
 
-    return await decrypt(key, encrypted);
+        return await decrypt(key, encrypted);
+    }
 };
 
 export const removeItem = async (key: string) => {
@@ -50,7 +55,11 @@ export const removeItem = async (key: string) => {
 };
 
 export const setItem = async (key: string, value: string) => {
-    const encrypted = await encrypt(key, value);
+    if (Platform.OS === "web") {
+        await AsyncStorage.setItem(key, value);
+    } else {
+        const encrypted = await encrypt(key, value);
 
-    await AsyncStorage.setItem(key, encrypted);
+        await AsyncStorage.setItem(key, encrypted);
+    }
 };

@@ -2,7 +2,7 @@
     "name": "@equinor/mad-chronicles",
     "version": "1.4.0",
     "dependencies": {
-        "@azure/msal-browser": "4.15.0",
+        "@azure/msal-browser": "3.30.0",
         "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
         "@equinor/mad-auth": "workspace:*",
         "@equinor/mad-components": "workspace:*",
