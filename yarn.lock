@@ -3304,7 +3304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@equinor/eslint-config-mad@npm:0.4.1, @equinor/eslint-config-mad@workspace:*, @equinor/eslint-config-mad@workspace:packages/eslint-config-mad":
+"@equinor/eslint-config-mad@workspace:*, @equinor/eslint-config-mad@workspace:packages/eslint-config-mad":
   version: 0.0.0-use.local
   resolution: "@equinor/eslint-config-mad@workspace:packages/eslint-config-mad"
   dependencies:
@@ -3327,38 +3327,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@equinor/mad-auth@file:/Users/SUBBH/Desktop/Projects/Mad/mad/packages/auth/equinor-mad-auth-0.3.0.tgz::locator=%40equinor%2Fmad-core%40workspace%3Apackages%2Fcore":
-  version: 0.3.0
-  resolution: "@equinor/mad-auth@file:/Users/SUBBH/Desktop/Projects/Mad/mad/packages/auth/equinor-mad-auth-0.3.0.tgz#/Users/SUBBH/Desktop/Projects/Mad/mad/packages/auth/equinor-mad-auth-0.3.0.tgz::hash=ef684f&locator=%40equinor%2Fmad-core%40workspace%3Apackages%2Fcore"
-  dependencies:
-    "@equinor/mad-components": "npm:0.23.0"
-    "@react-native-async-storage/async-storage": "npm:1.23.1"
-    "@types/aes-js": "npm:^3.1.4"
-    aes-js: "npm:^3.1.2"
-    core-js: "npm:^3.37.0"
-    expo-secure-store: "npm:~12.3.1"
-    jwt-decode: "npm:^4.0.0"
-    react-native-get-random-values: "npm:^1.11.0"
-    zustand: "npm:^4.5.2"
-  peerDependencies:
-    "@azure/msal-browser": 3.30.0
-    expo-auth-session: ~6.0.0
-    expo-crypto: ~14.0.1
-    react: 19.0.0
-    react-dom: 19.0.0
-    react-native: ~0.79.5
-  checksum: 10c0/60b0f00654eab903f798b8bef86ddad2c2b764291f025e3890dfc5278396370231e0bdb9ae57e534f26dc966efedc80ae464cb680475f84abf11508823bbf0a2
-  languageName: node
-  linkType: hard
-
 "@equinor/mad-auth@workspace:*, @equinor/mad-auth@workspace:packages/auth":
   version: 0.0.0-use.local
   resolution: "@equinor/mad-auth@workspace:packages/auth"
   dependencies:
     "@babel/core": "npm:^7.25.2"
-    "@equinor/eslint-config-mad": "npm:0.4.1"
-    "@equinor/mad-components": "npm:0.23.0"
-    "@equinor/mad-tsconfig": "npm:0.0.0"
+    "@equinor/eslint-config-mad": "workspace:*"
+    "@equinor/mad-components": "workspace:*"
+    "@equinor/mad-tsconfig": "workspace:*"
     "@react-native-async-storage/async-storage": "npm:1.23.1"
     "@testing-library/jest-native": "npm:^5.4.3"
     "@testing-library/react": "npm:^14.0.0"
@@ -3448,7 +3424,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@equinor/mad-components@npm:0.23.0, @equinor/mad-components@workspace:*, @equinor/mad-components@workspace:packages/components":
+"@equinor/mad-components@workspace:*, @equinor/mad-components@workspace:packages/components":
   version: 0.0.0-use.local
   resolution: "@equinor/mad-components@workspace:packages/components"
   dependencies:
@@ -3480,13 +3456,13 @@ __metadata:
   resolution: "@equinor/mad-core@workspace:packages/core"
   dependencies:
     "@babel/core": "npm:^7.25.2"
-    "@equinor/eslint-config-mad": "npm:0.4.1"
-    "@equinor/mad-auth": /Users/SUBBH/Desktop/Projects/Mad/mad/packages/auth/equinor-mad-auth-0.3.0.tgz
-    "@equinor/mad-components": "npm:0.23.0"
-    "@equinor/mad-insights": "npm:0.2.0"
-    "@equinor/mad-navigation": "npm:0.6.0"
-    "@equinor/mad-toast": "npm:0.3.0"
-    "@equinor/mad-tsconfig": "npm:0.0.0"
+    "@equinor/eslint-config-mad": "workspace:*"
+    "@equinor/mad-auth": "workspace:*"
+    "@equinor/mad-components": "workspace:*"
+    "@equinor/mad-insights": "workspace:*"
+    "@equinor/mad-navigation": "workspace:*"
+    "@equinor/mad-toast": "workspace:*"
+    "@equinor/mad-tsconfig": "workspace:*"
     "@react-navigation/elements": "npm:1.3.30"
     "@testing-library/jest-native": "npm:^5.4.3"
     "@testing-library/react": "npm:^14.0.0"
@@ -3532,7 +3508,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@equinor/mad-insights@npm:0.2.0, @equinor/mad-insights@workspace:packages/insights":
+"@equinor/mad-insights@workspace:*, @equinor/mad-insights@workspace:packages/insights":
   version: 0.0.0-use.local
   resolution: "@equinor/mad-insights@workspace:packages/insights"
   dependencies:
@@ -3567,7 +3543,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@equinor/mad-navigation@npm:0.6.0, @equinor/mad-navigation@workspace:*, @equinor/mad-navigation@workspace:packages/navigation":
+"@equinor/mad-navigation@workspace:*, @equinor/mad-navigation@workspace:packages/navigation":
   version: 0.0.0-use.local
   resolution: "@equinor/mad-navigation@workspace:packages/navigation"
   dependencies:
@@ -3611,7 +3587,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@equinor/mad-toast@npm:0.3.0, @equinor/mad-toast@workspace:packages/toast":
+"@equinor/mad-toast@workspace:*, @equinor/mad-toast@workspace:packages/toast":
   version: 0.0.0-use.local
   resolution: "@equinor/mad-toast@workspace:packages/toast"
   dependencies:
@@ -3631,7 +3607,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@equinor/mad-tsconfig@npm:0.0.0, @equinor/mad-tsconfig@workspace:*, @equinor/mad-tsconfig@workspace:packages/tsconfig":
+"@equinor/mad-tsconfig@workspace:*, @equinor/mad-tsconfig@workspace:packages/tsconfig":
   version: 0.0.0-use.local
   resolution: "@equinor/mad-tsconfig@workspace:packages/tsconfig"
   languageName: unknown
