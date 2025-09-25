@@ -1,5 +1,16 @@
 # @equinor/mad-core
 
+## 0.15.0
+
+### Minor Changes
+
+- 07f0174: Authentication package fix to accept scope after migration to expo auth session
+
+### Patch Changes
+
+- Updated dependencies [07f0174]
+    - @equinor/mad-auth@0.4.0
+
 ## 0.14.0
 
 ### Minor Changes
