@@ -1,13 +1,9 @@
-import {
-    AuthRequestConfig,
-    DiscoveryDocument,
-    TokenResponse,
-    TokenResponseConfig,
-} from "expo-auth-session";
+import { AuthRequestConfig, DiscoveryDocument, TokenResponse } from "expo-auth-session";
 import { MadAccount } from "../types";
+import { InitiateAuthenticationClientConfig, MSALAccount } from "./authenticationHandler/web";
 
 export type AuthState = {
-    token?: TokenResponseConfig;
+    token?: TokenResponse[];
     setToken: (token: TokenResponse) => void;
     resetToken: () => void;
     userData?: MadAccount;
@@ -19,4 +15,10 @@ export type AuthState = {
     config?: AuthRequestConfig;
     setConfig: (config: AuthRequestConfig) => void;
     resetConfig: () => void;
+    refreshToken?: string;
+    setRefreshToken: (refreshToken: string) => void;
+    resetRefreshToken: () => void;
+    webConfig?: InitiateAuthenticationClientConfig;
+    setWebConfig: (webConfig: InitiateAuthenticationClientConfig) => void;
+    resetWebConfig: () => void;
 };

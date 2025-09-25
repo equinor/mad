@@ -60,11 +60,7 @@ export const LoginScreen = ({
                     />
                 </View>
                 <View style={styles.buttonContainer}>
-                    {/* {getConfig().experimental?.useExpoAuthSession ? ( */}
                     <ExpoAuthSession.LoginButton {...loginButtonProps} />
-                    {/* ) : ( */}
-                    {/* <LoginButton {...loginButtonProps} /> */}
-                    {/* )} */}
                     {shouldDisplayDemoButton && (
                         <Button
                             testID="demo-button"

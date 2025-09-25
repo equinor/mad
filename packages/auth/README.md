@@ -1,32 +1,11 @@
 # MAD AUTH
 
-A simple authentication package used by the mad-team. It uses MSAL under the hood, and requires you
-to set up an app registration in azure.
+A simple authentication package used by the mad-team. It uses expo-auth-session and
+@azure/msal-browser under the hood, and requires you to set up an app registration in azure.
 
 # Usage
 
-You have to install `react-native-msal` in your app in order to make this work. `react-native-msal`
-is an archived package no longer maintained, but we have created a fork which you can find
-[here](https://github.com/equinor/react-native-msal). Install the newest commit by putting this in
-your `package.json`:
-
-```json
-{
-    "dependencies": {
-        "react-native-msal": "git+https://github.com/equinor/react-native-msal.git#COMMIT_HASH"
-    }
-}
-```
-
-PS: you might need `yarn` installed on your computer for it to work.
-
-After installing it, follow
-[this guide if you use expo](https://github.com/equinor/react-native-msal/blob/main/docs/expo_setup.md),
-or
-[this guide for iOS setup in a bare react native project](https://github.com/equinor/react-native-msal/blob/main/docs/ios_setup.md).
-Our fork of `react-native-msal` will not work for Android.
-
-Next, add our provided `LoginButton` to your application:
+Add our provided `LoginButton` to your application:
 
 ```tsx
 export const LoginScreen = () => {

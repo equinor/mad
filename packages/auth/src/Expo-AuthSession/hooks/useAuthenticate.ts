@@ -51,7 +51,7 @@ export const useAuthenticate = ({
 
     useEffect(() => {
         const initiateClientAndMaybeAuthenticateSilently = async () => {
-            await initiateAuthenticationClient(config, discovery);
+            initiateAuthenticationClient(config, discovery);
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
 
             if (enableAutomaticAuthentication)

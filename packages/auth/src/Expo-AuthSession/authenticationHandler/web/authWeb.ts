@@ -2,8 +2,11 @@ import { MSALAccount, MSALConfiguration, MSALResult, MSALSilentParams } from "./
 import { PublicClientApplication } from "./publicClientApplication";
 import { getMadAccount, getMadAuthenticationResult } from "../../../_internal/translationLayer";
 import { MadAccount, MadAuthenticationResult } from "../../../types";
+import { getWebConfig, setWebConfig, useAuth } from "../../store/authStore";
 
 let pca: PublicClientApplication | null = null;
+
+let initPca: Promise<PublicClientApplication> | null = null;
 
 async function _getMsalAccount(): Promise<MSALAccount | null> {
     if (!pca) {
@@ -34,7 +37,7 @@ export type InitiateAuthenticationClientConfig = {
  * Initiate the authentication client
  * @param {InitiateAuthenticationClientConfig} config
  */
-export async function initiateAuthenticationClientWeb({
+export function initiateAuthenticationClientWeb({
     clientId,
     redirectUri,
     authority = "https://login.microsoftonline.com/statoilsrm.onmicrosoft.com/",
@@ -49,7 +52,17 @@ export async function initiateAuthenticationClientWeb({
         cache: { cacheLocation: "localStorage" },
     };
     pca = new PublicClientApplication(config);
-    await pca.init();
+    setWebConfig({ clientId, redirectUri, authority });
+}
+
+export function ensurePcaInitialized(): Promise<PublicClientApplication> | null {
+    if (!pca) {
+        throw new Error("Unable to authenticate, authentication client does not exist");
+    }
+    if (!initPca) {
+        initPca = pca.init();
+    }
+    return initPca;
 }
 
 /**
@@ -75,6 +88,7 @@ export async function authenticateInteractivelyWeb(
     if (!scopes) {
         throw new Error("Unable to authenticate, scopes are not defined");
     }
+    await ensurePcaInitialized();
     const result: MSALResult | undefined = await pca.acquireToken({
         scopes,
     });
@@ -94,29 +108,41 @@ export async function getAccountWeb(): Promise<MadAccount | null> {
 export async function authenticateSilentlyWeb(
     scopes?: string[],
 ): Promise<MadAuthenticationResult | null> {
+    await useAuth.persist.rehydrate();
+    const webConfig = getWebConfig();
     if (!pca) {
+        if (webConfig) {
+            initiateAuthenticationClientWeb(webConfig);
+        } else {
+            throw new Error("Unable to authenticate, authentication client does not exist");
+        }
+    }
+
+    if (pca) {
+        await ensurePcaInitialized();
+        const msalAccount = await _getMsalAccount();
+
+        if (msalAccount && scopes) {
+            const params: MSALSilentParams = {
+                account: msalAccount,
+                scopes,
+                forceRefresh: false,
+            };
+            const result: MSALResult | undefined | void = await pca
+                .acquireTokenSilent(params)
+                .catch(e => {
+                    console.log("Error while fetching token silently", e);
+                })
+                .then(res => res);
+            if (!result) return null;
+
+            return getMadAuthenticationResult(result);
+        }
+
+        throw new Error("Unable to authenticate, authentication client does not exist");
+    } else {
         throw new Error("Unable to authenticate, authentication client does not exist");
     }
-
-    const msalAccount = await _getMsalAccount();
-    if (msalAccount && scopes) {
-        const params: MSALSilentParams = {
-            account: msalAccount,
-            scopes,
-            forceRefresh: false,
-        };
-        const result: MSALResult | undefined | void = await pca
-            .acquireTokenSilent(params)
-            .catch(e => {
-                console.log("Error while fetching token silently", e);
-            })
-            .then(res => res);
-        if (!result) return null;
-
-        return getMadAuthenticationResult(result);
-    }
-
-    return null;
 }
 
 /**

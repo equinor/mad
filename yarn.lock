@@ -243,19 +243,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-browser@npm:4.15.0":
-  version: 4.15.0
-  resolution: "@azure/msal-browser@npm:4.15.0"
+"@azure/msal-browser@npm:3.30.0":
+  version: 3.30.0
+  resolution: "@azure/msal-browser@npm:3.30.0"
   dependencies:
-    "@azure/msal-common": "npm:15.8.1"
-  checksum: 10c0/ec4552f0b34e48595406a1ada1ccafd194f17c05ab973e7d27469d572b9339b64b2b1d5d5f50183aa533bd9b5632c715312f2e6064ff0f7401d5030166c97711
+    "@azure/msal-common": "npm:14.16.1"
+  checksum: 10c0/43e975b9a82f8dcf4ac45da8a99fe795b8113c639426798fa3cd974e66f75fe53a9638e3b35b8449532f9c16c09b234787242a94782bf86d19b2be074c8be879
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.8.1":
-  version: 15.8.1
-  resolution: "@azure/msal-common@npm:15.8.1"
-  checksum: 10c0/f98c1398a1b2a2686336cc73e76941ebcc1dd4f6295c22d4b4fe3d7310102ad9a543ac6259dbccfb965d6c4d54746167531156d4441d4eb1eaef12e57fef8d46
+"@azure/msal-common@npm:14.16.1":
+  version: 14.16.1
+  resolution: "@azure/msal-common@npm:14.16.1"
+  checksum: 10c0/10f7369cac5735204e190f8d92b8e5f2db66f20a99da55f2febd3b2ece56419c5dde0877dd9af492d8c35efa1b2952808cc18f34b47a8e9da9ef0497cdf3c7be
   languageName: node
   linkType: hard
 
@@ -3353,6 +3353,7 @@ __metadata:
     tsup: "npm:^8.3.5"
     zustand: "npm:^4.5.2"
   peerDependencies:
+    "@azure/msal-browser": 3.30.0
     expo-auth-session: ~6.0.0
     expo-crypto: ~14.0.1
     react: 19.0.0
@@ -3365,7 +3366,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@equinor/mad-chronicles@workspace:apps/chronicles"
   dependencies:
-    "@azure/msal-browser": "npm:4.15.0"
+    "@azure/msal-browser": "npm:3.30.0"
     "@babel/core": "npm:^7.25.2"
     "@babel/plugin-proposal-export-namespace-from": "npm:^7.18.9"
     "@config-plugins/detox": "npm:^8.0.0"
