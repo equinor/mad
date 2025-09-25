@@ -1,5 +1,11 @@
 # @equinor/mad-platform-docs
 
+## 0.6.0
+
+### Minor Changes
+
+- 07f0174: Authentication package fix to accept scope after migration to expo auth session
+
 ## 0.5.0
 
 ### Minor Changes
