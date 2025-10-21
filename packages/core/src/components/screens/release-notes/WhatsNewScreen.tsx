@@ -17,6 +17,7 @@ import { ScrollView, View } from "react-native";
 import { getShortDate } from "../../../utils/dateUtils";
 import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 import { useNavigateFromWhatsNewScreen } from "../../../hooks/useNavigateFromWhatsNewScreen";
+import { useIsFocused } from "@react-navigation/native";
 
 /**
  * This screen will display the latest releasenotes
@@ -28,6 +29,7 @@ export const WhatsNewScreen = () => {
     const releaseNotesVersion = useReleaseNotesVersion();
     const servicePortalName = useServicePortalName();
     const navigate = useNavigateFromWhatsNewScreen();
+    const isFocused = useIsFocused();
     const demoMode = useDemoMode();
     const appVersion = useAppVersion();
     const [release, setRelease] = useState<Release | null>(null);
@@ -49,7 +51,7 @@ export const WhatsNewScreen = () => {
         }
     }, [demoMode.isEnabled, environment, servicePortalName, appVersion]);
 
-    if (error || (!isFetching && !release)) {
+    if ((error || (!isFetching && !release)) && isFocused) {
         navigate();
     }
 
