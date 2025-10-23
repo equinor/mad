@@ -51,7 +51,7 @@ export const WhatsNewScreen = () => {
         }
     }, [demoMode.isEnabled, environment, servicePortalName, appVersion]);
 
-    if ((error || (!isFetching && !release)) && isFocused) {
+    if (isFocused && (error || (!isFetching && !release))) {
         navigate();
     }
 
