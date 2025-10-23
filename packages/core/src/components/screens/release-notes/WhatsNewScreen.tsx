@@ -13,7 +13,7 @@ import {
 } from "@equinor/mad-components";
 import { useDemoMode } from "../../../store/demo-mode";
 import { fetchReleaseNotes } from "./fetchReleaseNotes";
-import { ScrollView, View } from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
 import { getShortDate } from "../../../utils/dateUtils";
 import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 import { useNavigateFromWhatsNewScreen } from "../../../hooks/useNavigateFromWhatsNewScreen";
@@ -64,7 +64,7 @@ export const WhatsNewScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Cell style={styles.scrollContainer}>
                     <Typography style={styles.versionHeader}>{release.version}</Typography>
@@ -85,7 +85,7 @@ export const WhatsNewScreen = () => {
                     style={{ width: 81 }}
                 />
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
