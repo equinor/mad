@@ -13,10 +13,11 @@ import {
 } from "@equinor/mad-components";
 import { useDemoMode } from "../../../store/demo-mode";
 import { fetchReleaseNotes } from "./fetchReleaseNotes";
-import { ScrollView, View } from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
 import { getShortDate } from "../../../utils/dateUtils";
 import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 import { useNavigateFromWhatsNewScreen } from "../../../hooks/useNavigateFromWhatsNewScreen";
+import { useIsFocused } from "@react-navigation/native";
 
 /**
  * This screen will display the latest releasenotes
@@ -28,6 +29,7 @@ export const WhatsNewScreen = () => {
     const releaseNotesVersion = useReleaseNotesVersion();
     const servicePortalName = useServicePortalName();
     const navigate = useNavigateFromWhatsNewScreen();
+    const isFocused = useIsFocused();
     const demoMode = useDemoMode();
     const appVersion = useAppVersion();
     const [release, setRelease] = useState<Release | null>(null);
@@ -49,7 +51,7 @@ export const WhatsNewScreen = () => {
         }
     }, [demoMode.isEnabled, environment, servicePortalName, appVersion]);
 
-    if (error || (!isFetching && !release)) {
+    if (isFocused && (error || (!isFetching && !release))) {
         navigate();
     }
 
@@ -62,7 +64,7 @@ export const WhatsNewScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Cell style={styles.scrollContainer}>
                     <Typography style={styles.versionHeader}>{release.version}</Typography>
@@ -83,7 +85,7 @@ export const WhatsNewScreen = () => {
                     style={{ width: 81 }}
                 />
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -15,7 +15,7 @@ export const useAuth = create<AuthState>()(
             set => ({
                 setToken: (token: TokenResponse) => {
                     set(state => {
-                        const filteredTokens = state.token
+                        const filteredTokens = Array.isArray(state.token)
                             ? state.token.filter(t => t.scope !== token.scope)
                             : [];
                         return { token: filteredTokens ? [...filteredTokens, token] : [token] };
