@@ -1,5 +1,16 @@
 # @equinor/mad-auth
 
+## 0.5.0
+
+### Minor Changes
+
+- 6264746: re-rendering and ok button issue fix
+
+### Patch Changes
+
+- Updated dependencies [6264746]
+    - @equinor/mad-components@0.24.0
+
 ## 0.4.0
 
 ### Minor Changes

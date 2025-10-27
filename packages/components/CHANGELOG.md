@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.24.0
+
+### Minor Changes
+
+- 6264746: re-rendering and ok button issue fix
+
 ## 0.23.0
 
 ### Minor Changes
