@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.24.1
+
+### Patch Changes
+
+- 7b2da29: peer dependencies patched to allow patch version upgrades
+
 ## 0.24.0
 
 ### Minor Changes
