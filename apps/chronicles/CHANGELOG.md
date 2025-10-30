@@ -1,5 +1,18 @@
 # @equinor/mad-chronicles
 
+## 1.5.2
+
+### Patch Changes
+
+- 7b2da29: peer dependencies patched to allow patch version upgrades
+- Updated dependencies [7b2da29]
+    - @equinor/mad-components@0.24.1
+    - @equinor/mad-navigation@0.6.1
+    - @equinor/react-native-skia-draw@0.6.2
+    - @equinor/mad-auth@0.5.1
+    - @equinor/mad-core@0.16.1
+    - @equinor/mad-dfw@0.6.2
+
 ## 1.5.1
 
 ### Patch Changes

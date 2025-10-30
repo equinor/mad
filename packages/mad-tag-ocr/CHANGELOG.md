@@ -1,5 +1,13 @@
 # @equinor/react-native-mad-ocr
 
+## 0.2.2
+
+### Patch Changes
+
+- 7b2da29: peer dependencies patched to allow patch version upgrades
+- Updated dependencies [7b2da29]
+    - @equinor/mad-components@0.24.1
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @equinor/mad-core
 
+## 0.16.1
+
+### Patch Changes
+
+- 7b2da29: peer dependencies patched to allow patch version upgrades
+- Updated dependencies [7b2da29]
+    - @equinor/mad-components@0.24.1
+    - @equinor/mad-navigation@0.6.1
+    - @equinor/mad-insights@0.2.1
+    - @equinor/mad-toast@0.3.2
+    - @equinor/mad-auth@0.5.1
+
 ## 0.16.0
 
 ### Minor Changes
