@@ -38,12 +38,12 @@
     "main": "./dist/index.js",
     "peerDependencies": {
         "expo-font": "~13.3.2",
-        "react": "19.0.0",
-        "react-dom": "19.0.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
         "react-native": "~0.79.5",
         "react-native-gesture-handler": "~2.24.0",
         "react-native-reanimated": "~3.17.4",
-        "react-native-svg": "15.11.2"
+        "react-native-svg": "^15.11.2"
     },
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
