@@ -11,7 +11,7 @@ export const EnvironmentBanner = () => {
     const currentEnvironment = useContext(EnvironmentContext);
     const styles = useStyles(themeStyles, { currentEnvironment });
 
-    if (currentEnvironment === "prod") return null;
+    if (currentEnvironment === "prod" || currentEnvironment === "q87") return null;
 
     return (
         <View style={styles.container}>
@@ -23,7 +23,7 @@ export const EnvironmentBanner = () => {
 const themeStyles = EDSStyleSheet.create((theme, props: EnvironmentStyleProps) => {
     const { currentEnvironment } = props;
     let backgroundColor = "#00000000";
-    if (currentEnvironment !== "prod") {
+    if (!(currentEnvironment === "prod" || currentEnvironment === "q87")) {
         backgroundColor = theme.colors.environment[currentEnvironment];
     }
 
