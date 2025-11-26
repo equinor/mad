@@ -3,7 +3,7 @@ import { getPureConfig } from "../store/mad-config";
 
 function isEnvironmentValuesObject(obj: unknown): obj is EnvironmentValues<unknown> {
     if (!obj) return false;
-    const template = ["dev", "test", "qa", "prod"];
+    const template = ["dev", "test", "qa", "prod", "q87"];
     const objectKeys = Object.keys(obj);
     return objectKeys.every(key => template.includes(key));
 }

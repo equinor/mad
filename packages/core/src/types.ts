@@ -119,7 +119,7 @@ export type CoreStackParamListBase = {
     NotFound: undefined;
 };
 
-export type Environment = "dev" | "test" | "qa" | "prod";
+export type Environment = "dev" | "test" | "qa" | "prod" | "q87";
 
 export type EnvironmentValues<T> = Partial<Record<Environment, T>> | T;
 

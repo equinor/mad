@@ -1,1 +1,1 @@
-export type EnvironmentName = "dev" | "test" | "qa" | "prod";
+export type EnvironmentName = "dev" | "test" | "qa" | "prod" | "q87";
