@@ -1,7 +1,7 @@
 {
     "name": "@equinor/mad-auth",
     "description": "An authentication library that uses expo-auth-session (mobile) and @azure/msal-browser (web) under the hood",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "author": {
         "name": "Equinor Mobile App Delivery team (MAD)"
     },

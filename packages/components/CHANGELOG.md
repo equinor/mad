@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.24.2
+
+### Patch Changes
+
+- 5a9f2d9: Updated environment and release notes to support Q87 env
+
 ## 0.24.1
 
 ### Patch Changes

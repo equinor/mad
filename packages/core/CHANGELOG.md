@@ -1,5 +1,15 @@
 # @equinor/mad-core
 
+## 0.16.2
+
+### Patch Changes
+
+- 5a9f2d9: Updated environment and release notes to support Q87 env
+- Updated dependencies [5a9f2d9]
+    - @equinor/mad-components@0.24.2
+    - @equinor/mad-auth@0.5.2
+    - @equinor/mad-toast@0.3.3
+
 ## 0.16.1
 
 ### Patch Changes
