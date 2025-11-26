@@ -1,5 +1,16 @@
 # @equinor/mad-chronicles
 
+## 1.5.3
+
+### Patch Changes
+
+- Updated dependencies [5a9f2d9]
+    - @equinor/mad-components@0.24.2
+    - @equinor/mad-core@0.16.2
+    - @equinor/mad-auth@0.5.2
+    - @equinor/mad-dfw@0.6.3
+    - @equinor/react-native-skia-draw@0.6.3
+
 ## 1.5.2
 
 ### Patch Changes
