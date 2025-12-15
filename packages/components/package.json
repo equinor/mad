@@ -17,7 +17,7 @@
         "@testing-library/react": "^14.0.0",
         "@testing-library/react-native": "^12.3.0",
         "eslint": "^8.46.0",
-        "jest-expo": "~53.0.9",
+        "jest-expo": "~53.0.11",
         "react-native-reanimated": "~3.17.4",
         "react-test-renderer": "19.0.0",
         "tsup": "^8.3.5"
