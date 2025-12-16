@@ -1,5 +1,16 @@
 # @equinor/mad-dfw
 
+## 0.7.0
+
+### Minor Changes
+
+- dce3c28: workorder cell text overflow fix
+
+### Patch Changes
+
+- Updated dependencies [8768cae]
+    - @equinor/mad-components@0.24.3
+
 ## 0.6.3
 
 ### Patch Changes
