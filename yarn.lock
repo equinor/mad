@@ -3346,7 +3346,7 @@ __metadata:
     eslint: "npm:^8.46.0"
     expo-secure-store: "npm:~12.3.1"
     jest: "npm:^29.7.0"
-    jest-expo: "npm:~53.0.9"
+    jest-expo: "npm:~53.0.11"
     jwt-decode: "npm:^4.0.0"
     react-native-get-random-values: "npm:^1.11.0"
     react-test-renderer: "npm:19.0.0"
@@ -3435,7 +3435,7 @@ __metadata:
     "@testing-library/react": "npm:^14.0.0"
     "@testing-library/react-native": "npm:^12.3.0"
     eslint: "npm:^8.46.0"
-    jest-expo: "npm:~53.0.9"
+    jest-expo: "npm:~53.0.11"
     react-error-boundary: "npm:^4.0.11"
     react-native-reanimated: "npm:~3.17.4"
     react-test-renderer: "npm:19.0.0"
@@ -7214,15 +7214,6 @@ __metadata:
   peerDependencies:
     acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
   checksum: 10c0/4c54868fbef3b8d58927d5e33f0a4de35f59012fe7b12cf9dfbb345fb8f46607709e1c4431be869a23fb63c151033d84c4198fa9f79385cec34fcb1dd53974c1
-  languageName: node
-  linkType: hard
-
-"acorn-loose@npm:^8.3.0":
-  version: 8.5.2
-  resolution: "acorn-loose@npm:8.5.2"
-  dependencies:
-    acorn: "npm:^8.15.0"
-  checksum: 10c0/169a85ad2df888586fe6eda2af9ff8fbcca7174ce83d00632cea5fffa73476218012af91be0cd6b68e4df6183baffa463506fd2ab54800903378140e679302fd
   languageName: node
   linkType: hard
 
@@ -14116,11 +14107,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-expo@npm:~53.0.9":
-  version: 53.0.9
-  resolution: "jest-expo@npm:53.0.9"
+"jest-expo@npm:~53.0.11":
+  version: 53.0.11
+  resolution: "jest-expo@npm:53.0.11"
   dependencies:
-    "@expo/config": "npm:~11.0.12"
+    "@expo/config": "npm:~11.0.13"
     "@expo/json-file": "npm:^9.1.5"
     "@jest/create-cache-key-function": "npm:^29.2.1"
     "@jest/globals": "npm:^29.2.1"
@@ -14132,16 +14123,19 @@ __metadata:
     jest-watch-typeahead: "npm:2.2.1"
     json5: "npm:^2.2.3"
     lodash: "npm:^4.17.19"
-    react-server-dom-webpack: "npm:~19.0.0"
     react-test-renderer: "npm:19.0.0"
     server-only: "npm:^0.0.1"
     stacktrace-js: "npm:^2.0.2"
   peerDependencies:
     expo: "*"
     react-native: "*"
+    react-server-dom-webpack: ~19.0.1 || ~19.1.2 || ~19.2.1
+  peerDependenciesMeta:
+    react-server-dom-webpack:
+      optional: true
   bin:
     jest: bin/jest.js
-  checksum: 10c0/74d1fdb664f08c5616db89f5825b1f431841dc2c8a81f2c6e4c421b735a30ba02bc80d4a51c8ee4a4a0efaf039369235b70f76d1d7f56c9478cb51db274f9002
+  checksum: 10c0/be929dcbf7d141edb1ca73ca91384df466cdfc9488e019314072d4da3373d555e6d3fc60dd0fa1b63a4b908a5e1fa51da72aeaf04d06229c1514b0b16d5afecf
   languageName: node
   linkType: hard
 
@@ -16817,7 +16811,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"neo-async@npm:^2.6.1, neo-async@npm:^2.6.2":
+"neo-async@npm:^2.6.2":
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
   checksum: 10c0/c2f5a604a54a8ec5438a342e1f356dff4bc33ccccdb6dc668d94fe8e5eccfc9d2c2eea6064b0967a767ba63b33763f51ccf2cd2441b461a7322656c1f06b3f5d
@@ -19575,21 +19569,6 @@ __metadata:
   peerDependencies:
     react: ">=15"
   checksum: 10c0/e15c00dfef199249b4c6e6d98e5e76cc352ce66f3270f13df37cc069ddf7c05e43281e8c308fc407e4435d72924373baef1d2890e0f6b0b1eb423cf47315a053
-  languageName: node
-  linkType: hard
-
-"react-server-dom-webpack@npm:~19.0.0":
-  version: 19.0.0
-  resolution: "react-server-dom-webpack@npm:19.0.0"
-  dependencies:
-    acorn-loose: "npm:^8.3.0"
-    neo-async: "npm:^2.6.1"
-    webpack-sources: "npm:^3.2.0"
-  peerDependencies:
-    react: ^19.0.0
-    react-dom: ^19.0.0
-    webpack: ^5.59.0
-  checksum: 10c0/08f15b5c21f4ec46ebf7578c1c6e8e080270274e81e969dea958d33938970d56dedbc7d598a9588bbc76ad37c1c7c0f61f8caff8ac8fb6725c94de0a9dc488fd
   languageName: node
   linkType: hard
 
@@ -23078,7 +23057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^3.2.0, webpack-sources@npm:^3.3.3":
+"webpack-sources@npm:^3.3.3":
   version: 3.3.3
   resolution: "webpack-sources@npm:3.3.3"
   checksum: 10c0/ab732f6933b513ba4d505130418995ddef6df988421fccf3289e53583c6a39e205c4a0739cee98950964552d3006604912679c736031337fb4a9d78d8576ed40
