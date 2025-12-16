@@ -54,6 +54,7 @@ export const PropertyRow = ({
                     group="paragraph"
                     variant="body_short"
                     color={textColor}
+                    style={styles.valueText}
                     numberOfLines={wrapValues ? undefined : 1}
                     selectable={selectable}
                 >
@@ -74,6 +75,9 @@ const themeStyles = EDSStyleSheet.create((_, { breakpoint }: PropertyRowStylePro
     labelStyle: {
         flexDirection: "row",
         minWidth: breakpoint !== "xs" ? 232 : 0,
+    },
+    valueText: {
+        maxWidth: breakpoint === "xs" ? "auto" : 400,
     },
     textContainer: {
         flexDirection: breakpoint === "xs" ? "column" : "row",

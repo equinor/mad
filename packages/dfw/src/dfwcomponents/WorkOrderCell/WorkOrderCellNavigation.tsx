@@ -21,6 +21,7 @@ type WorkOrderCellNavigationProps = WorkOrderCellProps & {
     leftSwipeGroup?: SwipeGroup;
     rightSwipeGroup?: SwipeGroup;
     isBookmarked?: boolean;
+    wrapValues?: boolean;
 };
 
 export const WorkOrderCellNavigation = ({
