@@ -1,9 +1,6 @@
 name: "Validate PR"
 
 permissions:
-    contents: read
-
-permissions:
   contents: read
   pull-requests: write
 
