@@ -65,5 +65,8 @@
         "apps/*",
         "packages/*",
         "packages/**/*"
-    ]
+    ],
+    "resolutions": {
+        "qs": "6.14.1"
+    }
 }
