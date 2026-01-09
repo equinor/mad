@@ -1,5 +1,13 @@
 # @equinor/mad-auth
 
+## 0.5.3
+
+### Patch Changes
+
+- 8768cae: security fix for next js vulnerability
+- Updated dependencies [8768cae]
+    - @equinor/mad-components@0.24.3
+
 ## 0.5.2
 
 ### Patch Changes
