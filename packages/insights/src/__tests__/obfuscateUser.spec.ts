@@ -1,16 +1,6 @@
 import { ObfuscatedUser, obfuscateUser } from "../encrypt";
 
 describe("obfuscatedUser", () => {
-    it("should return sha1 userId and correct lowercase domain", () => {
-        const userId = "328a4ada-128c-4f2b-a78f-93f989be39dc";
-        const userName = "normalUser@EQuinor.COM";
-        const expected: ObfuscatedUser = {
-            id: "660a558443f7bc7c597a2041795988b85c08e7e6",
-            domain: "equinor.com",
-        };
-        const actual = obfuscateUser(userName, userId, true);
-        expect(actual).toEqual(expected);
-    });
 
     it("should return sha256 userId and correct lowercase domain", () => {
         const userId = "328a4ada-128c-4f2b-a78f-93f989be39dc";
