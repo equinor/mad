@@ -110,6 +110,7 @@ export const AccordionItem = ({
                             variant="h6"
                             color={disabled ? "textTertiary" : expanded ? "primary" : "textPrimary"}
                             numberOfLines={3}
+                            style={{ flex: 1 }}
                         >
                             {title}
                         </Typography>
