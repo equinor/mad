@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.24.3
+
+### Patch Changes
+
+- 8768cae: security fix for next js vulnerability
+- 123d141: Prevent accordion adornment from being pushed out of screen by long titles
+
 ## 0.24.2
 
 ### Patch Changes
