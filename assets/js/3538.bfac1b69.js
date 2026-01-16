@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunk_equinor_mad_platform_docs=globalThis.webpackChunk_equinor_mad_platform_docs||[]).push([[3538],{3538(o){o.exports={}}}]);

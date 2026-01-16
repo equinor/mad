@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_equinor_mad_platform_docs=self.webpackChunk_equinor_mad_platform_docs||[]).push([[9647],{3531:(e,r,s)=>{s.r(r),s.d(r,{default:()=>t});s(4041);var a=s(4357),u=s(7473),c=s(8582),o=s(8150),d=s(6270),n=s(1085);function t(e){return(0,n.jsx)(c.e3,{className:(0,a.A)(u.G.wrapper.docsPages),children:(0,n.jsx)(d.A,{children:(0,o.v)(e.route.routes)})})}}}]);
