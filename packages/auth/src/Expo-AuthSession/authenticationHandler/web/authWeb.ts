@@ -108,7 +108,6 @@ export async function getAccountWeb(): Promise<MadAccount | null> {
 export async function authenticateSilentlyWeb(
     scopes?: string[],
 ): Promise<MadAuthenticationResult | null> {
-    await useAuth.persist.rehydrate();
     const webConfig = getWebConfig();
     if (!pca) {
         if (webConfig) {

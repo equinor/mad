@@ -89,7 +89,6 @@ export const authenticateInteractively = async (
 export const authenticateSilently = async (
     scopes?: string[],
 ): Promise<MadAuthenticationResult | null> => {
-    await useAuth.persist.rehydrate();
     const userData = getUserData();
     const token = getToken(scopes);
     if (!userData) return null;
