@@ -21,7 +21,6 @@ import {
     setRefreshToken,
     setToken,
     setUserData,
-    useAuth,
 } from "../store/authStore";
 import { tokenRefresh } from "../utils/tokenRefresh";
 import { MadAccount, MadAuthenticationResult } from "../../types";
