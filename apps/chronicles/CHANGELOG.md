@@ -1,5 +1,13 @@
 # @equinor/mad-chronicles
 
+## 1.5.5
+
+### Patch Changes
+
+- Updated dependencies [6afc567]
+    - @equinor/mad-auth@0.5.4
+    - @equinor/mad-core@0.16.4
+
 ## 1.5.4
 
 ### Patch Changes
