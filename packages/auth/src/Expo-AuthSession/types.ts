@@ -1,6 +1,6 @@
 import { AuthRequestConfig, DiscoveryDocument, TokenResponse } from "expo-auth-session";
 import { MadAccount } from "../types";
-import { InitiateAuthenticationClientConfig, MSALAccount } from "./authenticationHandler/web";
+import { InitiateAuthenticationClientConfig } from "./authenticationHandler/web";
 
 export type AuthState = {
     token?: TokenResponse[];
