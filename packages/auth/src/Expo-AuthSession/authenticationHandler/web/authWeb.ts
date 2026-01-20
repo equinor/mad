@@ -2,7 +2,7 @@ import { MSALAccount, MSALConfiguration, MSALResult, MSALSilentParams } from "./
 import { PublicClientApplication } from "./publicClientApplication";
 import { getMadAccount, getMadAuthenticationResult } from "../../../_internal/translationLayer";
 import { MadAccount, MadAuthenticationResult } from "../../../types";
-import { getWebConfig, setWebConfig, useAuth } from "../../store/authStore";
+import { getWebConfig, setWebConfig } from "../../store/authStore";
 
 let pca: PublicClientApplication | null = null;
 
@@ -108,7 +108,6 @@ export async function getAccountWeb(): Promise<MadAccount | null> {
 export async function authenticateSilentlyWeb(
     scopes?: string[],
 ): Promise<MadAuthenticationResult | null> {
-    await useAuth.persist.rehydrate();
     const webConfig = getWebConfig();
     if (!pca) {
         if (webConfig) {
