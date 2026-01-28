@@ -25,6 +25,7 @@ export class PublicClientApplication implements IPublicClientApplication {
 
     public async acquireToken(params: MSALInteractiveParams): Promise<MSALResult | undefined> {
         const { promptType, ...paramsWithoutPromptType } = params;
+        sessionStorage.removeItem("msal.interaction.status");
         const { accessToken, account, expiresOn, idToken, idTokenClaims, scopes, tenantId } =
             await this._pca.acquireTokenPopup(
                 promptType
