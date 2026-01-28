@@ -1,5 +1,11 @@
 # @equinor/mad-auth
 
+## 0.5.5
+
+### Patch Changes
+
+- 28f8b1e: Unresponsive login button issue fix
+
 ## 0.5.4
 
 ### Patch Changes
