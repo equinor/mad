@@ -12,6 +12,7 @@ import type { ProblemDetails } from '../models/ProblemDetails';
 import type { StatusUpdate } from '../models/StatusUpdate';
 import type { WorkOrderOperationCreate } from '../models/WorkOrderOperationCreate';
 import type { WorkOrderOperationJsonPatchDeprecated } from '../models/WorkOrderOperationJsonPatchDeprecated';
+import type { WorkOrderOperationSimple } from '../models/WorkOrderOperationSimple';
 import type { WorkOrderOperationTimeTicketAdd } from '../models/WorkOrderOperationTimeTicketAdd';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -193,6 +194,14 @@ export class PreventiveWorkOrdersService {
      *
      * Added new property `hasCommunication` to `serviceOperations`, and to `materials` expand in `operations` and `serviceOperations`.
      *
+     * ### Update release 1.42.0
+     * Added `superiorOperation` to `operations` response.
+     *
+     * ### Update release 1.43.0
+     * Removed property `hasCommunication` from `serviceOperations`, and from `materials` expand in `operations` and `serviceOperations`.
+     * Added query parameter `include-deleted-operations` to include deleted operations or service-operations in the response. Default is `false`.
+     * Added property `isDeleted` to `operations` and `serviceOperations` to indicate if the operation/service-operation is deleted.
+     *
      * @returns PreventiveWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -201,6 +210,7 @@ export class PreventiveWorkOrdersService {
         workOrderId,
         includeOperations = true,
         includeServiceOperations = true,
+        includeDeletedOperations = false,
         includeTechnicalFeedback = false,
         includeMaterials = false,
         includeCostDataForMaterials = false,
@@ -226,6 +236,10 @@ export class PreventiveWorkOrdersService {
          * Include Work order service operations
          */
         includeServiceOperations?: boolean,
+        /**
+         * Include deleted `operations` or `service-operations`
+         */
+        includeDeletedOperations?: boolean,
         /**
          * Include technical feedback required to be completed as part of work order execution.
          */
@@ -296,6 +310,7 @@ export class PreventiveWorkOrdersService {
             query: {
                 'include-operations': includeOperations,
                 'include-service-operations': includeServiceOperations,
+                'include-deleted-operations': includeDeletedOperations,
                 'include-technical-feedback': includeTechnicalFeedback,
                 'include-materials': includeMaterials,
                 'include-cost-data-for-materials': includeCostDataForMaterials,
@@ -459,8 +474,12 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.31.0
      * Fixed enum values for `schedulingStartConstraintId` and `schedulingFinishConstraintId`
      *
+     * ### Update release 1.42.0
+     * When adding operations to a Preventive Work order through this endpoint, the operation is now included in the response.
+     * Added `superiorOperation` to response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns string Created - No body available for response. Use lookup from location header
+     * @returns WorkOrderOperationSimple Created
      * @throws ApiError
      */
     public static addPreventiveWorkOrderOperations({
@@ -472,7 +491,7 @@ export class PreventiveWorkOrdersService {
          * Operations to add to existing Work order
          */
         requestBody: Array<WorkOrderOperationCreate>,
-    }): CancelablePromise<ProblemDetails | string> {
+    }): CancelablePromise<ProblemDetails | Array<WorkOrderOperationSimple>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/work-orders/preventive-work-orders/{work-order-id}/operations',
@@ -481,7 +500,6 @@ export class PreventiveWorkOrdersService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            responseHeader: 'Location',
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add operations to work order`,
@@ -748,12 +766,16 @@ export class PreventiveWorkOrdersService {
      * - `planned-date`
      * - `location-id` (optional)
      * - `system-id` (optional)
+     * - `page` (optional)
+     * - `per-page` (optional)
      *
      * ### Filter: by-maintenance-type-id
      * Find open Preventive work orders by `maintenance-type-id`.
      * Parameters:
      * - `plant-id`
      * - `maintenance-type-id`
+     * - `page` (optional)
+     * - `per-page` (optional)
      *
      * ### Update release 0.9.0
      * Added filter by-maintenance-type-id.
@@ -785,6 +807,9 @@ export class PreventiveWorkOrdersService {
      * ### Update release 1.39.0
      * Added new property `priorityId` to the response.
      *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
      * @returns PreventiveWorkOrderSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -801,6 +826,8 @@ export class PreventiveWorkOrdersService {
         plannedDate,
         systemId,
         maintenanceTypeId,
+        page,
+        perPage,
     }: {
         /**
          * Filter to limit the failure reports by
@@ -831,7 +858,7 @@ export class PreventiveWorkOrdersService {
          */
         maxWorkOrders?: number,
         /**
-         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
+         * Structured location within the plant. Use endpoint `/plants/{plant-id}/locations` for possible values
          */
         locationId?: string,
         /**
@@ -847,6 +874,14 @@ export class PreventiveWorkOrdersService {
          * Type of maintenance for the work order
          */
         maintenanceTypeId?: string,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<PreventiveWorkOrderSimple> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -863,6 +898,8 @@ export class PreventiveWorkOrdersService {
                 'planned-date': plannedDate,
                 'system-id': systemId,
                 'maintenance-type-id': maintenanceTypeId,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 404: `The specified resource was not found`,

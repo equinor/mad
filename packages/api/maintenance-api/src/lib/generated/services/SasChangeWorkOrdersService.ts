@@ -10,6 +10,7 @@ import type { SASChangeWorkOrderCreate } from '../models/SASChangeWorkOrderCreat
 import type { SASChangeWorkOrderSimple } from '../models/SASChangeWorkOrderSimple';
 import type { StatusUpdate } from '../models/StatusUpdate';
 import type { WorkOrderOperationCreate } from '../models/WorkOrderOperationCreate';
+import type { WorkOrderOperationSimple } from '../models/WorkOrderOperationSimple';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -147,6 +148,14 @@ export class SasChangeWorkOrdersService {
      *
      * Added new property `hasCommunication` to `serviceOperations`, and to `materials` expand in `operations` and `serviceOperations`.
      *
+     * ### Update release 1.42.0
+     * Added `superiorOperation` to `operations` response.
+     *
+     * ### Update release 1.43.0
+     * Removed property `hasCommunication` from `serviceOperations`, and from `materials` expand in `operations` and `serviceOperations`.
+     * Added query parameter `include-deleted-operations` to include deleted operations or service-operations in the response. Default is `false`.
+     * Added property `isDeleted` to `operations` and `serviceOperations` to indicate if the operation/service-operation is deleted.
+     *
      * @returns SASChangeWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -155,6 +164,7 @@ export class SasChangeWorkOrdersService {
         workOrderId,
         includeOperations = true,
         includeServiceOperations = true,
+        includeDeletedOperations = false,
         includeMaterials = true,
         includeCostDataForMaterials = false,
         includeMaintenanceRecords = false,
@@ -174,6 +184,10 @@ export class SasChangeWorkOrdersService {
          * Include Work order service operations
          */
         includeServiceOperations?: boolean,
+        /**
+         * Include deleted `operations` or `service-operations`
+         */
+        includeDeletedOperations?: boolean,
         /**
          * Include materials for Work order operations
          */
@@ -220,6 +234,7 @@ export class SasChangeWorkOrdersService {
             query: {
                 'include-operations': includeOperations,
                 'include-service-operations': includeServiceOperations,
+                'include-deleted-operations': includeDeletedOperations,
                 'include-materials': includeMaterials,
                 'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-maintenance-records': includeMaintenanceRecords,
@@ -370,31 +385,29 @@ export class SasChangeWorkOrdersService {
      * The response does not include all details for each SAS Change Work order.
      * This can be found by performing a subsequent request to Lookup sas-change-work-orders.
      *
-     * ### Filter: open-by-plant
-     * Find open SAS Change Work orders by plant.
-     * Parameters:
-     * - `plant-id`
-     * - `location-id` (optional)
-     * - `system-id` (optional)
-     *
      * ### Filter: recent-status-activations
-     * SAS Change Work orders based on recent status activations for the work orders.
+     * Find Project work orders based on recent status activations for the given `staus-id`.
      * Parameters:
-     * - `status-id`
+     * - `status-id` (required)
+     * - `plant-id` (required)
+     * - `max-days-since-activation` (optional)
+     *
+     * ### Other filters
+     * As of release 1.41.0, **filters other than `recent-status-activations` are all interchangeable** in practice -
+     * they all allow the use of the same query parameters to filter the response.
+     * **It is still required to include a filter in the request** to ensure backwards compatibility..
+     *
+     * All parameters below are optionally combinable with each other for filters `open-by-plant`, `by-cost-network` and `by-cost-wbs`.
+     * **It is required to provide at least one of the parameters.**
+     *
+     * Parameters:
      * - `plant-id`
-     * - `max-days-since-activation`
-     *
-     * ### Filter: by-cost-network
-     * Find SAS Change work orders based on Cost Network Id.
-     * Parameters:
      * - `cost-network-id`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-cost-wbs
-     * Find SAS Change Work orders based on Cost WBS Id.
-     * Parameters:
      * - `cost-wbs-id`
-     * - `plant-id` (optional)
+     * - `location-id`
+     * - `system-id`
+     * - `page` (optional)
+     * - `per-page` (optional)
      *
      * ### Update release 1.4.0
      * Added location-id and system-id to filter `open-by-plant`.
@@ -423,6 +436,17 @@ export class SasChangeWorkOrdersService {
      * ### Update release 1.37.0
      * Removed deprecated property `cmrIndicator`. See STRY0261073 in ServiceNow for more details.
      *
+     * ### Update release 1.41.0
+     * As of this release, the filters `open-by-plant`, `by-cost-network` and `by-cost-wbs` are interchangeable in practice -
+     * they all allow the use of the same query parameters to filter the response by. You can now combine the query parameters
+     * for these filters freely. Filter `recent-status-activations` is still a separate filter, with the same required query parameters as before.
+     *
+     * This removes the artificial restrictions that were previously in place for the search/filter capabilities on this endpoint.
+     * See updated endpoint description above for more details.
+     *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
      * @returns SASChangeWorkOrderSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -436,13 +460,15 @@ export class SasChangeWorkOrdersService {
         maxDaysSinceActivation,
         costWbsId,
         costNetworkId,
+        page,
+        perPage,
     }: {
         /**
          * Filter to limit the SAS Change work order by
          */
-        filter: 'open-by-plant' | 'recent-status-activations' | 'by-cost-wbs' | 'by-cost-network',
+        filter: 'recent-status-activations' | 'open-by-plant' | 'by-cost-wbs' | 'by-cost-network',
         /**
-         * Status
+         * Status Id to base your `recent-status-activations` Search on.
          */
         statusId?: string,
         /**
@@ -450,7 +476,7 @@ export class SasChangeWorkOrdersService {
          */
         plantId?: string,
         /**
-         * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
+         * Structured location within the plant. Use endpoint `/plants/{plant-id}/locations` for possible values
          */
         locationId?: string,
         /**
@@ -458,17 +484,25 @@ export class SasChangeWorkOrdersService {
          */
         systemId?: string,
         /**
-         * Define how many days from the current day to include results for. 0 if only include for today
+         * Define how many days from the current day to include results for. Set to `0` to only include statuses that were activated today. Only usable for `recent-status-activations` filter.
          */
         maxDaysSinceActivation?: number,
         /**
-         * Required parameter if `filter=by-cost-wbs`
+         * Filter by Cost WBS Id
          */
         costWbsId?: string,
         /**
-         * Required parameter if `filter=by-cost-network`
+         * Filter by Cost network Id
          */
         costNetworkId?: string,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<SASChangeWorkOrderSimple> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -482,6 +516,8 @@ export class SasChangeWorkOrdersService {
                 'max-days-since-activation': maxDaysSinceActivation,
                 'cost-wbs-id': costWbsId,
                 'cost-network-id': costNetworkId,
+                'page': page,
+                'per-page': perPage,
             },
         });
     }
@@ -550,8 +586,12 @@ export class SasChangeWorkOrdersService {
      * Added ability to update text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
      *
+     * ### Update release 1.42.0
+     * When adding operations to a SAS Change Work order, the operation is now included in the response..
+     * Added `superiorOperation` to response.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
-     * @returns string Created - No body available for response. Use lookup from location header
+     * @returns WorkOrderOperationSimple Created
      * @throws ApiError
      */
     public static addSasChangeWorkOrderOperations({
@@ -563,7 +603,7 @@ export class SasChangeWorkOrdersService {
          * Operations to add to existing Work order
          */
         requestBody: Array<WorkOrderOperationCreate>,
-    }): CancelablePromise<ProblemDetails | string> {
+    }): CancelablePromise<ProblemDetails | Array<WorkOrderOperationSimple>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/work-orders/sas-change-work-orders/{work-order-id}/operations',
@@ -572,7 +612,6 @@ export class SasChangeWorkOrdersService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            responseHeader: 'Location',
             errors: {
                 400: `The request body is invalid`,
                 403: `User does not have sufficient rights to add operations to work order`,

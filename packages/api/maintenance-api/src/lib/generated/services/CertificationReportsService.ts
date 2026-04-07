@@ -215,6 +215,8 @@ export class CertificationReportsService {
      * - tag-id
      * - include-completed (optional)
      * - created-after-datetime (optional)
+     * - page (optional)
+     * - per-page (optional)
      *
      * Example request: `/maintenance-records/certification-reports?api-version=v1&filter=by-tag&plant-id=1100&tag-id=DV50100&created-after-datetime=2020-11-01T00%3A00%3A00Z&include-completed=true`
      *
@@ -224,8 +226,13 @@ export class CertificationReportsService {
      * - equipment-id
      * - include-completed (optional)
      * - created-after-datetime (optional)
+     * - page (optional)
+     * - per-page (optional)
      *
      * Example request: `/maintenance-records/certification-reports?api-version=v1&filter=by-equipment&equipment-id=10255408&include-completed=false`
+     *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
      *
      * @returns CertificationReportSimple Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -238,6 +245,8 @@ export class CertificationReportsService {
         maxDaysSinceActivation,
         createdAfterDatetime,
         includeCompleted = false,
+        page,
+        perPage,
     }: {
         /**
          * Filter to limit the certification reports by
@@ -256,13 +265,21 @@ export class CertificationReportsService {
          */
         maxDaysSinceActivation?: number,
         /**
-         * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
+         * Optional parameter to limit the response to only work orders changed after `changed-since-datetime` but before this datetime
          */
         createdAfterDatetime?: string,
         /**
          * Filter based on if it's completed or open
          */
         includeCompleted?: boolean,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<CertificationReportSimple> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -274,6 +291,8 @@ export class CertificationReportsService {
                 'max-days-since-activation': maxDaysSinceActivation,
                 'created-after-datetime': createdAfterDatetime,
                 'include-completed': includeCompleted,
+                'page': page,
+                'per-page': perPage,
             },
         });
     }
@@ -323,6 +342,9 @@ export class CertificationReportsService {
      * This endpoint is only applicable if you have a valid work order. Using this endpoint will also set the status of a technical feedback to `Done`.
      *
      * This endpoint is restricted to only work with approved systems. Reach out to the APIphany team if you require access.
+     *
+     * ### Update release 1.42.0
+     * Breaking change, changed enum values for  `overhaulWorkScope` to L1, L2 and L3.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns CertificationReportBasic Created

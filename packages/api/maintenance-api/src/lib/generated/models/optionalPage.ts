@@ -6,4 +6,4 @@
 /**
  * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
  */
-export type pageOptional = number;
+export type optionalPage = number | null;

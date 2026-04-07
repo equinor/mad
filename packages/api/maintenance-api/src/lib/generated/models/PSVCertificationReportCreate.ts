@@ -105,23 +105,28 @@ export type PSVCertificationReportCreate = {
      */
     pretestAdditionalInformation?: string;
     /**
-     * Overhaul work scope. Only required if `pretestValveChanged` equals `False`
+     * Overhaul work scope.
+     * Allowed values for `/overhaulWorkScope`:
+     * - `L1` - Functional Test
+     * - `L2` - Functional Test
+     * - `L3` - Full overhaul
+     *
      */
-    overhaulWorkScope?: 'Functional Test' | 'Full overhaul';
+    overhaulWorkScope?: 'L1' | 'L2' | 'L3';
     /**
-     * Overhaul parts condition. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `Full overhaul`
+     * Overhaul parts condition. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `L3` - Full overhaul
      */
     overhaulPartsCondition?: 'Ok' | 'Not ok';
     /**
-     * Overhaul parts condition description. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `Full overhaul` & `overhaulPartsCondition` equals `Not ok`
+     * Overhaul parts condition description. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `L3` - Full overhaul & `overhaulPartsCondition` equals `Not ok`
      */
     overhaulPartsConditionDescription?: string;
     /**
-     * Overhaul internal pollution. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `Full overhaul`
+     * Overhaul internal pollution. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `L3` - Full overhaul
      */
     overhaulInternalPollution?: 'Ok' | 'Not ok';
     /**
-     * Overhaul internal pollution description. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `Full overhaul` & `overhaulInternalPollution` equals `Not ok`
+     * Overhaul internal pollution description. Only required if `pretestValveChanged` equals `False` & `overhaulWorkScope` equals `L3` - Full overhaul & `overhaulInternalPollution` equals `Not ok`
      */
     overhaulInternalPollutionDescription?: string;
     /**

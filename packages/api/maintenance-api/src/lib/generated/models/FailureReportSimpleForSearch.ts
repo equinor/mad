@@ -7,7 +7,8 @@ import type { FailureReportSimple } from './FailureReportSimple';
 import type { WorkOrderTypeId } from './WorkOrderTypeId';
 
 export type FailureReportSimpleForSearch = (FailureReportSimple & {
-    workOrderTypeId?: WorkOrderTypeId;
-    workOrderId?: string;
+    workOrderTypeId: WorkOrderTypeId;
+    workOrderId: string;
+    planningPlantId: string | null;
 });
 

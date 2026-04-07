@@ -6,4 +6,4 @@
 /**
  * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
  */
-export type perPageOptional = number;
+export type optionalPerPage = number | null;

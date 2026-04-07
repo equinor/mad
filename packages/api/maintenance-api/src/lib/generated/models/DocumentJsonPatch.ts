@@ -11,12 +11,13 @@ export type DocumentJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/statusId' | '/text';
+    path: '/statusId' | '/text' | '/title';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *
      * Path specific information:
      * - /statusId - The status of the document. Possible values: `CA` = Canceled, `CV` = Current Version, `WO` = Working.
+     * - /title - The title of the document. If you enter a long text describing the document, the first 40 characters of the two texts are kept consistent.
      *
      */
     value: string;

@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Filter by Cost network Id
+ * The planning plant id
  */
-export type costNetworkQuery = string;
+export type planningPlantIdPath = string;

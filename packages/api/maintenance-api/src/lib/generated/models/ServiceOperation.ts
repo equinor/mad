@@ -22,6 +22,7 @@ export type ServiceOperation = {
     text?: string | null;
     standardTextTemplate?: string;
     isCompleted?: boolean;
+    isDeleted?: boolean;
     isExcludedFromWorkOrderPlan?: boolean;
     /**
      * Required process conditions for each operation
@@ -61,9 +62,13 @@ export type ServiceOperation = {
      */
     calculationKey?: 'CALC_KEY_MANUAL' | 'CALC_KEY_DURATION' | 'CALC_KEY_PLANNED_HOURS' | 'CALC_KEY_CAPACITY' | null;
     /**
-     * Indicates whether the object has communications or not.
+     * Internal id of the superior operation (if any)
      */
-    hasCommunication?: boolean;
+    superiorOperationId?: string | null;
+    /**
+     * External id of the superior operation
+     */
+    superiorOperation?: string | null;
     services?: Array<Service>;
     materials?: Array<WorkOrderMaterial> | null;
 };

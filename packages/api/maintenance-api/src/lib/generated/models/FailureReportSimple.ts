@@ -60,5 +60,7 @@ export type FailureReportSimple = {
      */
     failureEndDateTime: string | null;
     workCenterId: string | null;
+    plannerGroupId: string;
+    plannerGroup: string;
 };
 

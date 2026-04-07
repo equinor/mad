@@ -47,6 +47,7 @@ export type FailureReportJsonPatch = {
      * Path specific information:
      * - /title - max-length 40 characters
      * - /plannerGroupId - Must exist in for the planningPlantId of the maintenance record
+     * - /workCenterId must be updated together with /workCenterPlantId
      *
      */
     value: string;

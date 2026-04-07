@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Filter by Cost network Id
+ * Include partner overview for this equipment.
  */
-export type costNetworkQuery = string;
+export type includeEquipmentPartners = boolean;

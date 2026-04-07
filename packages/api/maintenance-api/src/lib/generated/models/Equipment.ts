@@ -8,6 +8,7 @@ import type { CorrectiveWorkOrderSimpleWithRelationship } from './CorrectiveWork
 import type { EquipmentAttachment } from './EquipmentAttachment';
 import type { EquipmentBasicV2 } from './EquipmentBasicV2';
 import type { EquipmentCharacteristic } from './EquipmentCharacteristic';
+import type { EquipmentPartners } from './EquipmentPartners';
 import type { LinkedEquipment } from './LinkedEquipment';
 import type { MeasuringPointFromTagLookup } from './MeasuringPointFromTagLookup';
 import type { ModificationWorkOrderSimpleWithRelationship } from './ModificationWorkOrderSimpleWithRelationship';
@@ -64,5 +65,6 @@ export type Equipment = (EquipmentBasicV2 & {
     measuringPoints?: Array<MeasuringPointFromTagLookup>;
     subEquipment?: Array<EquipmentBasicV2>;
     linkedEquipment?: Array<LinkedEquipment>;
+    equipmentPartners?: Array<EquipmentPartners>;
 });
 

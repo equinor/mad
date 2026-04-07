@@ -21,9 +21,5 @@ export type WorkOrderMaterial = (WorkOrderMaterialForAddMaterialResponse & {
      */
     deliveryComplete: boolean;
     text?: string;
-    /**
-     * Indicates whether the object has communications or not.
-     */
-    hasCommunication: boolean;
 });
 

@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Filter by Cost network Id
+ * Query based on revisionCode
  */
-export type costNetworkQuery = string;
+export type revisionCodeAnyOf = Array<string>;

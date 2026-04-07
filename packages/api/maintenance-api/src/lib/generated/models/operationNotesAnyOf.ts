@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Filter by Cost network Id
+ * Query based on `planNotes` in operations
  */
-export type costNetworkQuery = string;
+export type operationNotesAnyOf = string;

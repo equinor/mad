@@ -129,6 +129,13 @@ export class EquipmentService {
      * ### Update release 1.39.0
      * Added new property `priorityId` to `preventiveWorkOrders`.
      *
+     * ### Update release 1.41.0
+     * Added new property `materialSerialNumber` to top level Equipment object, to `subEquipment` and to `linkedEquipment`.
+     * Added new expand `equipmentPartners` with the `partnerId` and `partnerName` of an Equipment partner. The expand can be included in response by setting the new query parameter `include-equipment-partners` to `true`.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns Equipment Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -152,6 +159,7 @@ export class EquipmentService {
         includeSubEquipment = false,
         includeStatusDetails = false,
         includeLinkedEquipment = false,
+        includeEquipmentPartners = false,
     }: {
         /**
          * The unique equipmentId in Equinor's system
@@ -227,6 +235,10 @@ export class EquipmentService {
          * Include list of equipment that are physically linked to this equipment.
          */
         includeLinkedEquipment?: boolean,
+        /**
+         * Include partner overview for this equipment.
+         */
+        includeEquipmentPartners?: boolean,
     }): CancelablePromise<Equipment | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -252,6 +264,7 @@ export class EquipmentService {
                 'include-sub-equipment': includeSubEquipment,
                 'include-status-details': includeStatusDetails,
                 'include-linked-equipment': includeLinkedEquipment,
+                'include-equipment-partners': includeEquipmentPartners,
             },
             errors: {
                 404: `The specified resource was not found`,
@@ -269,6 +282,9 @@ export class EquipmentService {
      *
      * ### Update release 1.27.0
      * Allow for update of `materialId`
+     *
+     * ### Update release 1.42.0
+     * Allow for update of `technicalIdentificationNumber`
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -501,6 +517,9 @@ export class EquipmentService {
      * ### Important information
      * The endpoint returns a significant amount of data as it returns all equipment for the specified plant.  The data will be cached in the API and renewed on a daily basis.
      *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns EquipmentListItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -591,6 +610,9 @@ export class EquipmentService {
      * ### Update release 1.38.0
      * Add field `tag` to the response.
      *
+     * ### Update release 1.41.0
+     * Added new property `materialSerialNumber` to response body.
+     *
      * @returns ProblemDetails Response for other HTTP status codes
      * @returns EquipmentBasicV2 Created
      * @throws ApiError
@@ -633,7 +655,7 @@ export class EquipmentService {
      * * `maintenance-concept-id-any-of`
      * * `equipment-category-id-any-of`
      *
-     * These parameters allow a comma-separated list of entries.
+     * These parameters allow a comma-separated list of entries. If a value itself contains a comma, escape it with a backslash (`\,`).
      *
      * If more than one of these parameters are supplied in the same request, the equipment in the response will need to fulfill all parameters (the 'AND' operator will be used between the parameters).
      *
@@ -736,6 +758,12 @@ export class EquipmentService {
      * ### Update release 1.39.0
      * Added new property `priorityId` to `preventiveWorkOrders`.
      *
+     * ### Update release 1.41.0
+     * Added new property `materialSerialNumber` to top level Equipment object, to `subEquipment` and to `linkedEquipment`.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns EquipmentSearchItem Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -795,7 +823,7 @@ export class EquipmentService {
          */
         characteristicValueAnyOf?: string,
         /**
-         * Optional comma separated string array of plant-ids to filter your result to one or more plants (`plantId`) or maintenance plants (`maintenancePlantId`). Wildcards are not supported. This query parameter can not be used on its own.
+         * Comma-separated string array of plant-ids to filter your result to one or more plants. Wildcards are not supported.
          */
         plantIdAnyOf?: string,
         /**
@@ -974,6 +1002,9 @@ export class EquipmentService {
      * Parameters:
      * - equipment-ids  (supports comma-separated list)
      * - changed-since-date (includes the provided date in the check)
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns EquipmentChangeLogs Success
      * @returns ProblemDetails Response for other HTTP status codes

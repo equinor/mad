@@ -38,6 +38,16 @@ export class WorkOrderOperationsService {
      * - `status-changed-since-datetime`
      * - `operation-id-any-of`
      * - `work-order-ids-any-of`
+     * - `page` and `per-page`
+     *
+     * ### Update release 1.40.0
+     * Added new property `companyCode` to Work order objects in the response
+     *
+     * ### Update release 1.42.0
+     * Added `superiorOperation` to response.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns WorkOrderOperationForSearchFull Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -76,7 +86,7 @@ export class WorkOrderOperationsService {
          */
         statusChangedSinceDatetime?: string,
         /**
-         * Comma-separated list of `work-center-id`. Wildcard endings are supported
+         * Comma-separated list of work-center-id
          */
         workCenterIdAnyOf?: string,
         /**

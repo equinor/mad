@@ -31,20 +31,37 @@ export class MasterDataForCatalogsService {
      * ### Update release 1.28.0
      * Added catalog for coding to be used for general classification of maintenance records.
      *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
      * @returns CodeGroup Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchCodeGroup({
         catalogId,
+        page,
+        perPage,
     }: {
         catalogId: '1' | '2' | '5' | 'C' | 'D' | 'V',
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<CodeGroup> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/catalogs/{catalog-id}/code-groups',
             path: {
                 'catalog-id': catalogId,
+            },
+            query: {
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -63,6 +80,12 @@ export class MasterDataForCatalogsService {
      *
      * These are not included by default due to their detrimental effect on the performance of this endpoint.
      *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns any Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -70,6 +93,8 @@ export class MasterDataForCatalogsService {
     public static searchCatalogProfiles({
         catalogProfileId,
         includeText = false,
+        page,
+        perPage,
     }: {
         /**
          * List of `catalog-profile-id`s to search for
@@ -79,6 +104,14 @@ export class MasterDataForCatalogsService {
          * Include helpText properties for failureModes, detectionMethods and failureMechanisms in the response. Affects performance.
          */
         includeText?: boolean,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<(CatalogProfile | CatalogProfileWithText)> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -86,6 +119,8 @@ export class MasterDataForCatalogsService {
             query: {
                 'catalog-profile-id': catalogProfileId,
                 'include-text': includeText,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 400: `The request was malformed or contained invalid parameters.`,

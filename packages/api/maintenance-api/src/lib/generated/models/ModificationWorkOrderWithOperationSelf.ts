@@ -13,6 +13,7 @@ export type ModificationWorkOrderWithOperationSelf = (GenericWorkOrderSimple & {
      * Datetime of when the Work order was last changed (based on Changelog)
      */
     changeLogChangedDateTime?: string | null;
+    companyCode?: string;
     _links: {
         self?: string;
     };

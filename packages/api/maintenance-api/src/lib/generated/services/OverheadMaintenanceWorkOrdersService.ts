@@ -27,6 +27,12 @@ export class OverheadMaintenanceWorkOrdersService {
      *
      * Added new property `hasCommunication` to `serviceOperations`, and to `materials` expand in `operations` and `serviceOperations`.
      *
+     * ### Update release 1.42.0
+     * Added `superiorOperation` to `operations` response.
+     *
+     * ### Update release 1.43.0
+     * Removed property `hasCommunication` from `serviceOperations`, and from `materials` expand in `operations` and `serviceOperations`.
+     *
      * @returns OverheadMaintenanceWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
