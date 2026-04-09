@@ -14,6 +14,7 @@ import {
     getUserData,
     resetConfig,
     resetDiscovery,
+    resetRefreshToken,
     resetToken,
     resetUserData,
     setConfig,
@@ -131,7 +132,8 @@ export const authenticateSilently = async (
                     accessToken: refreshed.accessToken,
                 };
             } catch (e) {
-                return null;
+                const authResp = await authenticateInteractively();
+                return authResp;
             }
         }
         return null;
@@ -153,6 +155,7 @@ export function signOut() {
     }
     resetUserData();
     resetToken();
+    resetRefreshToken();
     return true;
 }
 

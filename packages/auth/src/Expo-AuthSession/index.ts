@@ -1,4 +1,5 @@
 export * from "./components/LoginButton";
+export * from "./components/CorruptRefreshTokenButton";
 export * from "./hooks/useAuthenticate";
 export * from "./store/authStore";
 export * from "./authenticationHandler/";
