@@ -1,5 +1,11 @@
 # @equinor/mad-auth
 
+## 0.5.6
+
+### Patch Changes
+
+- fafc79b: Refresh Token expiry bug fix
+
 ## 0.5.5
 
 ### Patch Changes
