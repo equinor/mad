@@ -11,7 +11,7 @@ export type EquipmentJsonPatch = {
     /**
      * Path indicating the property to be impacted by the operation
      */
-    path: '/warrantyStartDate' | '/warrantyEndDate' | '/materialId';
+    path: '/warrantyStartDate' | '/warrantyEndDate' | '/materialId' | '/technicalIdentificationNumber';
     /**
      * Value to be assigned to a resource property based on the operation and path.
      *

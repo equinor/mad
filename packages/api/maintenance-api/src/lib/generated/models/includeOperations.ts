@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Filter by Cost network Id
+ * Include Work order operations
  */
-export type costNetworkQuery = string;
+export type includeOperations = boolean;

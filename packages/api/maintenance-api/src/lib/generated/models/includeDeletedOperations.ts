@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Filter by Cost network Id
+ * Include deleted `operations` or `service-operations`
  */
-export type costNetworkQuery = string;
+export type includeDeletedOperations = boolean;

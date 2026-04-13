@@ -55,6 +55,12 @@ export class DocumentsService {
      * ### Update release 1.39.0
      * Added property `text` to the response.
      *
+     * ### Update release 1.41.0
+     * Added new property `materialSerialNumber` to `equipment` expand.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -243,6 +249,9 @@ export class DocumentsService {
      * ### Update release 1.39.0
      * Added property `text` to the response.
      *
+     * ### Update release 1.41.0
+     * Added new property `materialSerialNumber` to `equipment` expand.
+     *
      * @returns Document Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -330,9 +339,13 @@ export class DocumentsService {
      * Supports updating the following properties:
      * - `statusId`
      * - `text`
+     * - `title`
      *
      * ### Update release 1.39.0
      * Added property `text` to the request body schema to allow updating the Longtext field of a document.
+     *
+     * ### Update release 1.41.0
+     * Added property `title` to the request body schema to allow updating the Title field of a document.
      *
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError

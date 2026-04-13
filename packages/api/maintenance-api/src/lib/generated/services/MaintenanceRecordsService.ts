@@ -21,27 +21,32 @@ export class MaintenanceRecordsService {
      *
      * ### Response
      * The response does not include all details for each Maintenance record.
-     * This can be found by subsequent call to lookup for the respective maintenance record resource type
+     * This can be found by subsequent call to lookup for the respective maintenance record resource type.
      *
-     * ### Filter: by-external-partner-record-id
-     * Find open Maintenance records for an id in an external partner system. Note: In theory different external system could have the same `external-partner-record-id` but it's very unlikely. Clients are recommended to filter the response based on the plants they are interested in to avoid any issues.
+     * ### Parameters
+     * The following parameters are available for all filters:
      *
      * Parameters:
-     * - external-partner-record-id
+     * - `plant-id` - Return Maintenance records for a specific plant
+     * - `changed-since-datetime` - Return maintenance records that were changed after `changed-since-datetime`
+     * - `before-datetime` - Return maintenance records that were changed before `before-datetime`
+     * - `created-after-datetime` - Return only maintenance records created after this datetime
+     * - `external-partner-record-id` - Return Maintenance records that have the given record id in an external partner system
+     * - `include-maintenance-record-types` - The maintenance record types to include in the response. If not specified, all types are included.
      *
      * ### Filter: my-recent-maintenance-records
-     * Find maintenance record created by the logged in user.
+     * Find maintenance record created by the logged in user. All parameters are optional and freely combinable when using this filter.
+     * See list of parameters above.
      *
-     * Parameters:
-     * - created-after-datetime (optional)
+     * Note: `include-maintenance-record-types` is automatically set to only include `failure-report` and `activity-report` for this filter.
      *
-     * ### Filter: recently-changed
-     * Find maintenance records which have been recently changed (created or updated) for a given plant. Normally, clients will provide parameters changed-since-datetime and plant-id and in this case the endpoint will return any changed maintenance record from changed-since-datetime and to now. It is also possible to add before-datetime query parameter and the endpoint will then return any changed maintenance between changed-since-datetime and before-datetime.
+     * ### Other filters
+     * All parameters (see list of parameters above) are optionally combinable with each other for filters `recently-changed` and `by-external-partner-record-id`.
+     * **It is required to provide at least one of the parameters.**
      *
-     * Parameters:
-     * - plant-id
-     * - changed-since-datetime
-     * - before-datetime (optional)
+     * As of release 1.41.0, **filters `by-external-partner-record-id` and `recently-changed` are interchangeable** in practice -
+     * they both allow the use of the same query parameters to filter the response.
+     * **It is still required to include a filter in the request** to ensure backwards compatibility.
      *
      * ### Update release 1.2.0
      * Added filter `my-recent-maintenance-records`.
@@ -65,6 +70,27 @@ export class MaintenanceRecordsService {
      * Added `workOrderTypeId` and `workOrderId` to the response for failure reports. `workOrderId`
      * includes the id of work orders, not constrained to only showing corrective work orders.
      *
+     * ### Update release 1.40.0
+     * Added properties `plannerGroup` and `plannerGroupId` to `failureReports`.
+     *
+     * ### Update release 1.41.0
+     * As of this release, the filters `recently-changed` and `by-external-partner-record-id` are interchangeable in practice -
+     * they both allow the use of the same query parameters to filter the response by. You can now combine the query parameters
+     * for these filters as you see fit. It is required to use at least one query parameter for these filters.
+     *
+     * Filter `my-recent-maintenance-records` is still available and allows you to filter by the logged in user. You may now
+     * use and combine any of the available query parameters for this filter, but as before, using this filter
+     * will only return maintenance records made by the logged in user.
+     *
+     * This removes the artificial restrictions that were previously in place for the search/filter capabilities on this endpoint.
+     * See updated endpoint description above for more details.
+     *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns MaintenanceRecordList Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -77,6 +103,8 @@ export class MaintenanceRecordsService {
         changedSinceDatetime,
         beforeDatetime,
         includeMaintenanceRecordTypes,
+        page,
+        perPage,
     }: {
         /**
          * Filter to limit the failure reports by
@@ -87,7 +115,7 @@ export class MaintenanceRecordsService {
          */
         externalPartnerRecordId?: string,
         /**
-         * Optional parameter to limit the response to only maintenance records changed after changed-since-datetime but before this datetime
+         * Optional parameter to limit the response to only maintenance records created after this datetime
          */
         createdAfterDatetime?: string,
         /**
@@ -95,17 +123,25 @@ export class MaintenanceRecordsService {
          */
         plantId?: string,
         /**
-         * Earliest datetime to return changed work orders for
+         * Return maintenance records that were changed after `changed-since-datetime`
          */
         changedSinceDatetime?: string,
         /**
-         * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
+         * Return maintenance records that were changed before `before-datetime`
          */
         beforeDatetime?: string,
         /**
          * Include which types of maintenance records
          */
         includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<MaintenanceRecordList | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -118,6 +154,8 @@ export class MaintenanceRecordsService {
                 'changed-since-datetime': changedSinceDatetime,
                 'before-datetime': beforeDatetime,
                 'include-maintenance-record-types': includeMaintenanceRecordTypes,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 400: `Bad request, for example if \`before-datetime\` is before \`changed-since-datetime\``,
@@ -131,6 +169,9 @@ export class MaintenanceRecordsService {
      * ### Overview
      * Get type of a maintenance record based on the maintenance record id.
      *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns MaintenanceRecordTypes Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -139,7 +180,7 @@ export class MaintenanceRecordsService {
         maintenanceRecordIdsAnyOf,
     }: {
         /**
-         * The maintenance record ids as a comma separated list.
+         * The maintenance record ids as a comma separated list. If a value contains a comma, escape it with a backslash (`\,`).
          */
         maintenanceRecordIdsAnyOf: string,
     }): CancelablePromise<Array<MaintenanceRecordTypes> | ProblemDetails> {
@@ -155,58 +196,76 @@ export class MaintenanceRecordsService {
     /**
      * Maintenance records change log - Search
      * ### Overview
-     * Search for recent Maintenance records changes.
+     * Search for records in the Maintenance record Change log where there have been recent changes to specific tracked properties like `statuses` or `task/statuses`.
+     *
+     * ### Important information
+     * The response contains a list of changes to maintenance records, not a list of maintenance records changed. Therefore, an individual maintenance record may be represented multiple times. Consumers can use `changeDateTime` to identify the last change.
+     *
+     * Avoid using this endpoint to retrieve a large amount of changes for a longer time period. `changed-since-duration` should typically not be more than 1 day from today's date (`P1D`).
+     * Response will be `400 Bad request` if `changed-since-duration` is more than 7 days (`P7D`).
+     *
+     * ### Parameters
+     * Available parameters:
+     * - `property-name-any-of` (required) - Values supported `statuses` and `task/statuses`
+     * - `changed-since-duration` (required) - A duration (in ISO 8601 format) to get changes for up to a week in the past. For example `PT10M` for changes the last ten minutes
+     * - `plant-id-any-of` - Comma-separated list of plant-ids to filter your result to one or more plants. Wildcards are not supported.
+     * - `include-maintenance-record-types` - Optional parameter to define which maintenance record types to include in the response.
      *
      * ### Response
      * The response contains only minimum information about the change made to the maintenance records
      * For more information about each individual maintenance record, use the lookup end-point referenced in `_links.related`.
      *
-     * ### Filter: recently-changed-property
-     * Find Work orders which have recently had a change in a specific property.
-     * Parameters:
-     * - plant-id-any-of
-     * - property-name-any-of - Values supported `statuses` and `tasks/statuses`
-     * - changed-since-duration - For example `PT10M` for changes the last ten minutes
+     * ### Update release 1.41.0
+     * Deprecated 'filter' query parameter. The endpoint will accept the parameter but ignore it. Providing `property-name-any-of` and `changed-since-duration` is required as before.
      *
-     * include-maintenance-record-types is an optional parameter to define which maintenance records to return changes for.
+     * ### Update release 1.42.0
+     * Added optional pagination support.
      *
-     * ### Important information
-     * The response contains list of changes to maintenance records (not list of maintenance records changed). Therefore, an individual maintenance record may be represented multiple times. Consumers can use changeDateTime to identify the last change.
-     *
-     * Avoid using this endpoint for retrieving a large amount of changes for a longer time period. `changed-since-duration` should typically not be more than 1 day from today's date.
-     * Response will be `400 Bad request` if `changed-since-duration` is more than 7 days (`P7D`).
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns MaintenanceRecordChangeLogs Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchMaintenanceRecordChangeLog({
-        filter,
-        plantIdAnyOf,
         changedSinceDuration,
         propertyNameAnyOf,
+        filter,
+        plantIdAnyOf,
         includeMaintenanceRecordTypes,
+        page,
+        perPage,
     }: {
         /**
-         * Filter to limit the maintenance record change log by
+         * Duration from the current datetime to fetch changes for. Maximum value is 7 days (`P7D`).
          */
-        filter: 'recently-changed-property',
+        changedSinceDuration: string,
+        /**
+         * Comma-separated string of the properties which were recently changed
+         */
+        propertyNameAnyOf: 'statuses' | 'task/statuses',
+        /**
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
+         */
+        filter?: 'recently-changed-property',
         /**
          * Comma-separated string array of plant-ids to filter your result to one or more plants. Wildcards are not supported.
          */
         plantIdAnyOf?: string,
         /**
-         * Duration from the current datetime to fetch changes for. Maximum value is 7 days
-         */
-        changedSinceDuration?: string,
-        /**
-         * Comma-separated string of the properties which were recently changed
-         */
-        propertyNameAnyOf?: 'statuses' | 'tasks/statuses',
-        /**
          * Include which types of maintenance records
          */
         includeMaintenanceRecordTypes?: Array<'failure-report' | 'activity-report' | 'certification-report' | 'technical-information-update-request' | 'technical-clarification' | 'modification-proposal'>,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<MaintenanceRecordChangeLogs | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -217,6 +276,8 @@ export class MaintenanceRecordsService {
                 'changed-since-duration': changedSinceDuration,
                 'property-name-any-of': propertyNameAnyOf,
                 'include-maintenance-record-types': includeMaintenanceRecordTypes,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 400: `Request is missing required parameters or changed-since-duration is more than 7 days`,

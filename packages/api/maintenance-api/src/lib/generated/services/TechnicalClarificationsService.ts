@@ -245,6 +245,8 @@ export class TechnicalClarificationsService {
      * - created-after-datetime (optional)
      * - planning-plant-id (optional)
      * - planner-group-id (optional)
+     * - page (optional)
+     * - per-page (optional)
      *
      * Example request: `/maintenance-records/technical-clarifications?api-version=v1&filter=open-by-plant&plant-id=1100&has-person-responsible=false`
      *
@@ -255,6 +257,8 @@ export class TechnicalClarificationsService {
      * - tag-id
      * - include-completed (optional)
      * - created-after-datetime (optional)
+     * - page (optional)
+     * - per-page (optional)
      *
      * Example request: `/maintenance-records/technical-clarifications?api-version=v1&filter=by-tag&plant-id=1100&tag-id=DV50100&include-completed=true`
      *
@@ -263,6 +267,8 @@ export class TechnicalClarificationsService {
      * Parameters:
      * - person-responsible-email  (value should be urlencoded)
      * - include-completed (optional, default false)
+     * - page (optional)
+     * - per-page (optional)
      *
      * Example request: `/maintenance-records/technical-clarifications?api-version=v1&filter=by-person-responsible&person-responsible-email=shortname%40equinor.com&include-completed=false&include-person-responsible=true`
      *
@@ -276,6 +282,9 @@ export class TechnicalClarificationsService {
      * ### Update release 1.28.0
      * Added ability to create text with advanced formatting. See the heading [Resource text](#section/Modelling-of-resources/Resource-text) in the description for more info. This feature is controlled by a
      * configuration switch, which will initially be disabled, and when appropriate, enabled.
+     *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
      *
      * @returns TechnicalClarificationBasic Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -295,6 +304,8 @@ export class TechnicalClarificationsService {
         createdAfterDatetime,
         includeCompleted = false,
         personResponsibleEmail,
+        page,
+        perPage,
     }: {
         /**
          * Filter to limit the technical clarifications by
@@ -337,7 +348,7 @@ export class TechnicalClarificationsService {
          */
         hasPersonResponsible?: boolean,
         /**
-         * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
+         * Optional parameter to limit the response to only work orders changed after `changed-since-datetime` but before this datetime
          */
         createdAfterDatetime?: string,
         /**
@@ -348,6 +359,14 @@ export class TechnicalClarificationsService {
          * Email of the person responsible in urlencoded format
          */
         personResponsibleEmail?: string,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<TechnicalClarificationBasic> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -366,6 +385,8 @@ export class TechnicalClarificationsService {
                 'created-after-datetime': createdAfterDatetime,
                 'include-completed': includeCompleted,
                 'person-responsible-email': personResponsibleEmail,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 400: `Request is missing required parameters`,

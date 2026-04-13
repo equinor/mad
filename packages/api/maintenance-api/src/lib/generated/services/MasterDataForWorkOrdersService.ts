@@ -21,20 +21,18 @@ export class MasterDataForWorkOrdersService {
      *
      * For preventive maintenance, the standard text template can be assigned to work order operations in the maintenance programme (see [Maintenance Plan Item - Update operation](#operation/UpdateOperationForMaintenancePlanItem))
      *
-     * ### Filter: by-plant
-     * Find standard text templates by plant.
-     * Parameters:
-     * - plant-id
-     *
-     * ### Filter: all
-     * Find all standard text templates.
-     * Parameters:
-     * - None
+     * Use `plant-id` query parameter to filter by plant, or leave the parameter out to get all standard text templates.
      *
      * ### Examples
-     * `/work-orders/standard-text-templates?filter=by-plant&plantId=1100&api-version=v1` - Get all standard text templates specific for plant 1100.
+     * `/work-orders/standard-text-templates?plant-id=1100&api-version=v1` - Get all standard text templates specific for plant 1100.
      *
-     * `/work-orders/standard-text-templates?filter=all&api-version=v1` - Get all standard text templates
+     * `/work-orders/standard-text-templates?api-version=v1` - Get all standard text templates
+     *
+     * ### Update release 1.40.0
+     * Deprecated `filter=by-plant` and `filter=all`. The endpoint will accept the parameter but ignore it. Use `plant-id` query parameter to filter by plant, or leave the parameter out to get all standard text templates.
+     *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
      *
      * @returns StandardTextTemplate Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -43,15 +41,26 @@ export class MasterDataForWorkOrdersService {
     public static getWorkOrderStandardTextTemplates({
         filter,
         plantId,
+        page,
+        perPage,
     }: {
         /**
-         * Filter to limit the failure reports by
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
          */
-        filter: 'by-plant' | 'all',
+        filter?: 'by-plant' | 'all',
         /**
          * Plant identifier
          */
         plantId?: string,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<StandardTextTemplate> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -59,6 +68,8 @@ export class MasterDataForWorkOrdersService {
             query: {
                 'filter': filter,
                 'plant-id': plantId,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -72,14 +83,33 @@ export class MasterDataForWorkOrdersService {
      * ### Overview
      * Get a list of safety measures. They can be added to a work order operation when it requires special safety practices or risk management
      *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
      * @returns SafetyMeasure Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static getSafetyMeasures(): CancelablePromise<Array<SafetyMeasure> | ProblemDetails> {
+    public static getSafetyMeasures({
+        page,
+        perPage,
+    }: {
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
+    }): CancelablePromise<Array<SafetyMeasure> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/work-orders/safety-measures',
+            query: {
+                'page': page,
+                'per-page': perPage,
+            },
             errors: {
                 400: `Request is missing required parameters`,
                 403: `User does not have sufficient rights`,
@@ -116,14 +146,33 @@ export class MasterDataForWorkOrdersService {
      *
      * `POST` [/work-order-operations/{operation-id}/technical-feedback/{technical-feedback-id}](#operation/UpdateTechnicalFeedback)
      *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
      * @returns TechnicalFeedbackStatus Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
-    public static getTechnicalFeedbackMasterData(): CancelablePromise<Array<TechnicalFeedbackStatus> | ProblemDetails> {
+    public static getTechnicalFeedbackMasterData({
+        page,
+        perPage,
+    }: {
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
+    }): CancelablePromise<Array<TechnicalFeedbackStatus> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/work-orders/technical-feedback-master-data',
+            query: {
+                'page': page,
+                'per-page': perPage,
+            },
         });
     }
 

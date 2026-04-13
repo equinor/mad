@@ -204,6 +204,14 @@ export class ModificationWorkOrdersService {
      *
      * Added new property `hasCommunication` to `serviceOperations`, and to `materials` expand in `operations` and `serviceOperations`.
      *
+     * ### Update release 1.42.0
+     * Added `superiorOperation` to `operations` response.
+     *
+     * ### Update release 1.43.0
+     * Removed property `hasCommunication` from `serviceOperations`, and from `materials` expand in `operations` and `serviceOperations`.
+     * Added query parameter `include-deleted-operations` to include deleted operations or service-operations in the response. Default is `false`.
+     * Added property `isDeleted` to `operations` and `serviceOperations` to indicate if the operation/service-operation is deleted.
+     *
      * @returns ModificationWorkOrder Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -212,6 +220,7 @@ export class ModificationWorkOrdersService {
         workOrderId,
         includeOperations = true,
         includeServiceOperations = true,
+        includeDeletedOperations = false,
         includeMaterials = true,
         includeCostDataForMaterials = false,
         includeMaintenanceRecords = false,
@@ -231,6 +240,10 @@ export class ModificationWorkOrdersService {
          * Include Work order service operations
          */
         includeServiceOperations?: boolean,
+        /**
+         * Include deleted `operations` or `service-operations`
+         */
+        includeDeletedOperations?: boolean,
         /**
          * Include materials for Work order operations
          */
@@ -277,6 +290,7 @@ export class ModificationWorkOrdersService {
             query: {
                 'include-operations': includeOperations,
                 'include-service-operations': includeServiceOperations,
+                'include-deleted-operations': includeDeletedOperations,
                 'include-materials': includeMaterials,
                 'include-cost-data-for-materials': includeCostDataForMaterials,
                 'include-maintenance-records': includeMaintenanceRecords,

@@ -267,6 +267,9 @@ export class FailureReportsService {
      * ### Update release 1.37.0
      * Added support for new work order type `overheadMaintenanceWorkOrders` to `workOrderTypeId` enum of allowed types.
      *
+     * ### Update release 1.43.0
+     * Breaking change. When the tag is modified for Failure report M2, `failureModeId` and `failureModeGroupId` must be applied in the same request. See STRY0274047 in ServiceNow for more details.
+     *
      * @returns FailureReportBasic Success, the failure report has been updated
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -465,29 +468,27 @@ export class FailureReportsService {
     /**
      * Failure report - Search
      * ### Overview
-     * Search for Failure reports through predefined filters.
-     * Each filter has a defined action and a set of parameters as described below.
+     * Search for Failure reports with a set of given search criteria.
      *
      * ### Response
      * The response does not include status details for each failure report.
      * This can be found by performing a subsequent request to Lookup failure-reports.
      *
+     * ### Query parameters
+     * Use as many parameters as possible to get the result that is needed. At least one query parameter must be used, or paging parameters.
+     * See below for more descriptions on each query parameter.
+     * When `status-id` is supplied, `plant-id` must also be supplied. `status-id` is not compatible with paging, but will instead be limited by the  `max-days-since-activation` parameter.
      *
-     * ### Filter: recent-status-activations
-     * Failure reports based on recent status activations for the failure reports.
-     * Parameters:
-     * - status-id
+     * - status-id (dependent on plant-id)
      * - plant-id
+     * - planning-plant-id
      * - max-days-since-activation
-     * - work-center-ids (optional)
-     *
-     * ### Filter: open-by-plant
-     * Find open Failure reports by plant
-     * Parameters:
-     * - plant-id
-     * - location-id (optional)
-     * - system-id (optional)
-     * - work-center-ids (optional)
+     * - work-center-ids
+     * - location-id
+     * - system-id
+     * - is-open
+     * - page
+     * - per-page
      *
      * ### Update release 1.1.0
      * Added open-by-plant filter and properties systemId and locationId.
@@ -507,6 +508,16 @@ export class FailureReportsService {
      * ### Update release 1.37.0
      * Added support for new work order type `overheadMaintenanceWorkOrders` to `workOrderTypeId` enum of allowed types.
      *
+     * ### Update release 1.40.0
+     * Deprecated the `filter` parameter. It is still accepted but will not affect the query.
+     *
+     * Added the query parameter `planning-plant-id`.
+     *
+     * Added properties `planningPlantId`, `plannerGroup` and `plannerGroupId` to response.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns FailureReportSimpleForSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -515,23 +526,32 @@ export class FailureReportsService {
         filter,
         statusId,
         plantId,
+        planningPlantId,
         locationId,
         systemId,
         maxDaysSinceActivation,
         workCenterIds,
+        includeOnlyOpen = true,
+        page,
+        perPage,
     }: {
         /**
-         * Filter to limit the failure reports by
+         * Accepted query parameter but has no effect
+         * @deprecated
          */
-        filter: 'recent-status-activations' | 'open-by-plant',
+        filter?: 'recent-status-activations' | 'open-by-plant',
         /**
-         * Status
+         * Filter by an active status id on the failure reports
          */
         statusId?: string,
         /**
          * Plant identifier
          */
         plantId?: string,
+        /**
+         * Search by which planning plant is set on the failure report
+         */
+        planningPlantId?: string,
         /**
          * Structured location within the plant. Use /plants/{plant-id}/locations for possible values
          */
@@ -545,9 +565,21 @@ export class FailureReportsService {
          */
         maxDaysSinceActivation?: number,
         /**
-         * Comma separated list of work center IDs to filter by
+         * Comma separated list of work center ids to filter by
          */
         workCenterIds?: Array<string>,
+        /**
+         * Parameter to control if only to inlude only open failure reports. Defaults to true to not break backward compatibility with the deprecated filter, but does not affect the status-id parameter.
+         */
+        includeOnlyOpen?: boolean,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<FailureReportSimpleForSearch> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -556,10 +588,14 @@ export class FailureReportsService {
                 'filter': filter,
                 'status-id': statusId,
                 'plant-id': plantId,
+                'planning-plant-id': planningPlantId,
                 'location-id': locationId,
                 'system-id': systemId,
                 'max-days-since-activation': maxDaysSinceActivation,
                 'work-center-ids': workCenterIds,
+                'include-only-open': includeOnlyOpen,
+                'page': page,
+                'per-page': perPage,
             },
         });
     }

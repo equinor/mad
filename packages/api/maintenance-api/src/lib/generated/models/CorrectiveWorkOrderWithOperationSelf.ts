@@ -17,5 +17,6 @@ export type CorrectiveWorkOrderWithOperationSelf = (CorrectiveWorkOrderSimple & 
         self?: string;
     };
     operations: Array<WorkOrderOperationSimpleForSearch> | null;
+    companyCode?: string;
 });
 

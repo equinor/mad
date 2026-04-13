@@ -82,12 +82,21 @@ export class WorkOrdersService {
      * Added new property `superiorOperationId` to `operations`.
      * Added ability to use `revision-id-any-of` without filter.
      *
+     * ### Update release 1.44.0
+     * Added new query parameter `plant-id-any-of` to be able to filter on multiple plants.
+     *
      * @returns WorkOrderInPlan Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static getWorkOrderPlan({
         planningPlantId,
+        plantIdAnyOf,
+        workCenterIdAnyOf,
+        mainWorkCenterIdAnyOf,
+        revisionIdAnyOf,
+        locationIdAnyOf,
+        operationNotesAnyOf,
         filter,
         planPeriodStart,
         planPeriodDuration,
@@ -96,18 +105,37 @@ export class WorkOrdersService {
         includeCompletedWorkOrderOperations = false,
         includePersonResponsible = false,
         workOrderTypesAnyOf,
-        workCenterIdAnyOf,
-        mainWorkCenterIdAnyOf,
-        revisionIdAnyOf,
-        locationIdAnyOf,
         statusAnyOf,
         statusNot,
-        operationNotesAnyOf,
     }: {
         /**
-         * Planning plant to retrieve work order plan for
+         * The planning plant id
          */
         planningPlantId: string,
+        /**
+         * Comma-separated string array of plant-ids to filter your result to one or more plants. Wildcards are not supported.
+         */
+        plantIdAnyOf?: string,
+        /**
+         * Comma-separated list of work-center-id
+         */
+        workCenterIdAnyOf?: string,
+        /**
+         * Comma-separated list of main work-center-id
+         */
+        mainWorkCenterIdAnyOf?: string,
+        /**
+         * Comma-separated string array of revision-ids to filter your result to one or more revisions. Wildcards are not supported.
+         */
+        revisionIdAnyOf?: string,
+        /**
+         * Comma-separated string array of location-ids to filter your result to one or more locations. Wildcards are not supported.
+         */
+        locationIdAnyOf?: string,
+        /**
+         * Query based on `planNotes` in operations
+         */
+        operationNotesAnyOf?: string,
         /**
          * Deprecated parameter that is ignored but accepted. Has no effect.
          * @deprecated
@@ -142,22 +170,6 @@ export class WorkOrdersService {
          */
         workOrderTypesAnyOf?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
         /**
-         * Comma-separated list of work-center-id
-         */
-        workCenterIdAnyOf?: string,
-        /**
-         * Comma-separated list of main-work-center-id
-         */
-        mainWorkCenterIdAnyOf?: string,
-        /**
-         * Comma-separated list of revision-id
-         */
-        revisionIdAnyOf?: string,
-        /**
-         * Comma-separated list of location-id
-         */
-        locationIdAnyOf?: string,
-        /**
          * Query based on statusIds (not all statuses are supported)
          */
         statusAnyOf?: Array<'STRT' | 'RDOP' | 'TECO' | 'REL' | 'CRTD'>,
@@ -165,10 +177,6 @@ export class WorkOrdersService {
          * Query based on statusIds (not all statuses are supported)
          */
         statusNot?: Array<'STRT' | 'RDOP' | 'TECO' | 'REL' | 'CRTD'>,
-        /**
-         * Query based on `planNotes` in operations
-         */
-        operationNotesAnyOf?: string,
     }): CancelablePromise<Array<WorkOrderInPlan> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -177,6 +185,12 @@ export class WorkOrdersService {
                 'planning-plant-id': planningPlantId,
             },
             query: {
+                'plant-id-any-of': plantIdAnyOf,
+                'work-center-id-any-of': workCenterIdAnyOf,
+                'main-work-center-id-any-of': mainWorkCenterIdAnyOf,
+                'revision-id-any-of': revisionIdAnyOf,
+                'location-id-any-of': locationIdAnyOf,
+                'operation-notes-any-of': operationNotesAnyOf,
                 'filter': filter,
                 'plan-period-start': planPeriodStart,
                 'plan-period-duration': planPeriodDuration,
@@ -185,13 +199,8 @@ export class WorkOrdersService {
                 'include-completed-work-order-operations': includeCompletedWorkOrderOperations,
                 'include-person-responsible': includePersonResponsible,
                 'work-order-types-any-of': workOrderTypesAnyOf,
-                'work-center-id-any-of': workCenterIdAnyOf,
-                'main-work-center-id-any-of': mainWorkCenterIdAnyOf,
-                'revision-id-any-of': revisionIdAnyOf,
-                'location-id-any-of': locationIdAnyOf,
                 'status-any-of': statusAnyOf,
                 'status-not': statusNot,
-                'operation-notes-any-of': operationNotesAnyOf,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -203,91 +212,52 @@ export class WorkOrdersService {
     /**
      * Work orders - Search
      * ### Overview
-     * Search for Work orders regardless of type through given search properties.
-     * All properties are combinable with each other. It is recommended to limit results as much as possible by the use of these query parameters.
+     * Search for Work orders regardless of type through given search parameters.
+     * All parameters are combinable with each other. It is recommended to limit results as much as possible by the use of these query parameters.
+     * At least one search criteria or pagination parameter must be supplied.
      *
      * ### Response
      * The response can include most of the details for each work order.
      * If additional data is needed, it can be retrieved by using the endpoint represented in the `_links.self` property.
      *
-     * Pagination is supported for this endpoint by setting values for `page` and `per-page`. If these parameters are omitted, the result will be returned without pagination.
+     * ### Parameters
      *
-     * ### Filter: recently-changed
-     * Find Work orders which have been recently changed (created or updated) for a given plant. Normally, clients will provide the parameters `changed-since-datetime` and `plant-id` to return any changed Work order from `changed-since-datetime` to now. It is also possible to add `before-datetime` query parameter - the endpoint will then return any work order changed between `changed-since-datetime` and `before-datetime`.
+     * - `change-log-changed-since-datetime`
+     * Find Work orders based on the earliest datetime the Changelog of a workorder was changed.
+     * This is more reliable than filtering on the value of the `changed-since-datetime` parameter of the work order, as this value is not always updated when the work order is changed.
      *
-     * Parameters:
      * - `changed-since-datetime`
-     * - `plant-id` (optional)
-     * - `before-datetime` (optional)
+     * Find Work orders which have been recently changed (created or updated) for a given plant. Normally, clients will provide the parameters `changed-since-datetime` and `plant-id`
+     * to return any changed Work order from `changed-since-datetime` to now.
+     * It is also possible to add `before-datetime` query parameter - the endpoint will then return any work order changed between `changed-since-datetime` and `before-datetime`.
      *
-     * ### Filter: before-basic-end-date
-     * Parameters:
-     * - `changed-since-datetime`
-     * - `plant-id` (optional)
-     * - `before-datetime` (optional)
-     *
-     * ### Filter: before-basic-end-date
+     * - `basic-end-date`
      * Find open Work orders before the `basic-end-date`. `basic-end-date` should be a date in the future so that already finished work orders will not be presented.
      *
-     * Parameters:
-     * - `plant-id`
-     * - `basic-end-date`
-     * - `location-id` (optional)
+     * - `external-partner-id`
+     * Find Work orders for a 'work-order-id' in an external partner system. Note: In theory, different external systems could have the same `external-partner-id` but this is very unlikely.
+     * Clients are recommended to filter the response based on the plants they are interested in to avoid any issues.
      *
-     * ### Filter: by-external-partner-work-order-id
-     * Find Work orders for a 'work-order-id' in an external partner system. Note: In theory, different external systems could have the same `external-partner-id` but this is very unlikely. Clients are recommended to filter the response based on the plants they are interested in to avoid any issues.
-     * Parameters:
-     * - `plant-id`
-     * - `basic-end-date`
-     * - `location-id` (optional)
-     *
-     * ### Filter: by-external-partner-work-order-id
-     * Find Work orders for a 'work-order-id' in an external partner system. Note: In theory, different external systems could have the same `external-partner-id` but this is very unlikely. Clients are recommended to filter the response based on the plants they are interested in to avoid any issues.
-     *
-     * Parameters:
-     * - `external-partner-work-order-id`
-     *
-     * ### Filter: by-cost-network
-     * Parameters:
-     * - `external-partner-work-order-id`
-     *
-     * ### Filter: by-cost-network
+     * - `cost-network-id`
      * Find Work orders based on Cost Network Id.
      *
-     * Parameters:
-     * - `cost-network-id`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-cost-wbs
-     * Parameters:
-     * - `cost-network-id`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-cost-wbs
+     * - `cost-wbs-id`
      * Find Work orders based on Cost WBS Id.
      *
-     * Parameters:
-     * - `cost-wbs-id`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-work-center-id
-     * Parameters:
-     * - `cost-wbs-id`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-work-center-id
+     * - `work-center-id-any-of`
      * Find Work orders based on their `workCenterId`.
      *
-     * Parameters:
-     * - `work-center-id-any-of`
-     * - `plant-id` (optional)
-     *
-     * ### Filter: by-work-order-id
+     * - `work-order-ids-any-of`
      * Find Work orders based on their `workOrderId`.
      *
-     * Parameters:
-     * - `work-order-ids-any-of`
-     * - `plant-id` (optional)
+     * - `revision-id-any-of`
+     * Find Work orders based on their `revisionId`.
+     *
+     * ### Update release 0.11.0
+     * Work order operation actualPercentageComplete now represents progress reported through technical feedback.
+     * If the Work order operation is completed, the value of actualPercentageComplete will always be 100.
+     *
+     * Filter by-external-partner-work-order-id added.
      *
      * ### Update release 1.3.0
      * Bugfix related to plantId source.
@@ -355,9 +325,26 @@ export class WorkOrdersService {
      *
      * Added new property `priorityId` to `preventiveWorkOrders`.
      *
-     * ### Upcoming release
+     * ### Update release 1.40.0
      * The `filter` property is deprecated. It is still accepted but will not affect the query.
-     * Added new property `changeLogChangedDateTime` to work order objects in the response.
+     * Added new properties `changeLogChangedDateTime` and `companyCode` to work order objects in the response.
+     *
+     * Deprecated the pagination functionality.
+     *
+     * ### Update release 1.41.0
+     * Added field `dueDate` to preventive work orders.
+     *
+     * ### Update release 1.42.0
+     * Added `revision-id-any-of` query parameter to allow for filtering Work Orders by their `revisionId`. Can be used in combination with other query parameters.
+     * Added `superiorOperation` to `operations` response.
+     *
+     * ### Update release 1.43.0
+     * Added new property `isDeleted` to `operations`.
+     * Added query parameter `include-deleted-operations` to include deleted operations in the response. Default is `false`.
+     * Removed pagination information.
+     *
+     * ### Update release 1.44.0
+     * Added new parameter `change-log-changed-before-datetime`.
      *
      * @returns WorkOrderWithOperationList Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -368,10 +355,13 @@ export class WorkOrdersService {
         plantId,
         changedSinceDatetime,
         beforeDatetime,
+        changeLogChangedSinceDatetime,
+        changeLogChangedBeforeDatetime,
         includeWorkOrderText,
         includeWorkOrderOperationText,
         includeWorkOrderTypes,
         includeOperations = true,
+        includeDeletedOperations = false,
         basicEndDate,
         locationId,
         externalPartnerWorkOrderId,
@@ -379,13 +369,15 @@ export class WorkOrdersService {
         costNetworkId,
         workCenterIdAnyOf,
         workOrderIdsAnyOf,
+        revisionIdAnyOf,
         perPage,
         page = 1,
     }: {
         /**
          * Filter to limit the work order by
+         * @deprecated
          */
-        filter: 'recently-changed' | 'before-basic-end-date' | 'by-external-partner-work-order-id' | 'by-cost-network' | 'by-cost-wbs' | 'by-work-center-id' | 'by-work-order-id',
+        filter?: 'recently-changed' | 'before-basic-end-date' | 'by-external-partner-work-order-id' | 'by-cost-network' | 'by-cost-wbs' | 'by-work-center-id' | 'by-work-order-id',
         /**
          * Plant identifier
          */
@@ -395,10 +387,22 @@ export class WorkOrdersService {
          */
         changedSinceDatetime?: string,
         /**
-         * Optional parameter to limit the response to only work orders changed after changed-since-datetime but before this datetime
+         * Optional parameter to limit the response to only work orders changed after `changed-since-datetime` but before this datetime
          *
          */
         beforeDatetime?: string,
+        /**
+         * Return Work Orders that have had their changelog changed since the given datetime, at the earliest.
+         * This filter operates on the property `changeLogChangedDateTime`. Required for filter `by-change-log-changed-date`.
+         *
+         */
+        changeLogChangedSinceDatetime?: string,
+        /**
+         * Return Work Orders that have had their changelog changed before the given datetime, at the latest.
+         * This filter operates on the property `changeLogChangedDateTime`. The parameter `change-log-changed-since-datetime` is required if this parameter is used, to protect system performance.
+         *
+         */
+        changeLogChangedBeforeDatetime?: string,
         /**
          * The text of the Work order is time-consuming to retrieve. Set to false to avoid returning it
          */
@@ -412,9 +416,13 @@ export class WorkOrdersService {
          */
         includeWorkOrderTypes?: Array<'correctiveWorkOrders' | 'preventiveWorkOrders' | 'modificationWorkOrders' | 'sasChangeWorkOrders' | 'projectWorkOrders' | 'subseaWorkOrders' | 'overheadMaintenanceWorkOrders'>,
         /**
-         * Include operations for the Work orders in the response.
+         * Include Work order operations
          */
         includeOperations?: boolean,
+        /**
+         * Include deleted `operations` or `service-operations`
+         */
+        includeDeletedOperations?: boolean,
         /**
          * Earliest date to find maintenance plan history for (optional for filter)
          */
@@ -428,15 +436,15 @@ export class WorkOrdersService {
          */
         externalPartnerWorkOrderId?: string,
         /**
-         * Required parameter if `filter=by-cost-wbs`
+         * Filter by Cost WBS Id
          */
         costWbsId?: string,
         /**
-         * Required parameter if `filter=by-cost-network`
+         * Filter by Cost network Id
          */
         costNetworkId?: string,
         /**
-         * Comma-separated list of `work-center-id`.
+         * Comma-separated list of work-center-id
          */
         workCenterIdAnyOf?: string,
         /**
@@ -444,11 +452,17 @@ export class WorkOrdersService {
          */
         workOrderIdsAnyOf?: string,
         /**
+         * Comma-separated string array of revision-ids to filter your result to one or more revisions. Wildcards are not supported.
+         */
+        revisionIdAnyOf?: string,
+        /**
          * Results to return pr page
+         * @deprecated
          */
         perPage?: number,
         /**
          * Page to fetch
+         * @deprecated
          */
         page?: number,
     }): CancelablePromise<WorkOrderWithOperationList | ProblemDetails> {
@@ -460,10 +474,13 @@ export class WorkOrdersService {
                 'plant-id': plantId,
                 'changed-since-datetime': changedSinceDatetime,
                 'before-datetime': beforeDatetime,
+                'change-log-changed-since-datetime': changeLogChangedSinceDatetime,
+                'change-log-changed-before-datetime': changeLogChangedBeforeDatetime,
                 'include-work-order-text': includeWorkOrderText,
                 'include-work-order-operation-text': includeWorkOrderOperationText,
                 'include-work-order-types': includeWorkOrderTypes,
                 'include-operations': includeOperations,
+                'include-deleted-operations': includeDeletedOperations,
                 'basic-end-date': basicEndDate,
                 'location-id': locationId,
                 'external-partner-work-order-id': externalPartnerWorkOrderId,
@@ -471,6 +488,7 @@ export class WorkOrdersService {
                 'cost-network-id': costNetworkId,
                 'work-center-id-any-of': workCenterIdAnyOf,
                 'work-order-ids-any-of': workOrderIdsAnyOf,
+                'revision-id-any-of': revisionIdAnyOf,
                 'per-page': perPage,
                 'page': page,
             },
@@ -484,6 +502,9 @@ export class WorkOrdersService {
      *
      * ### Update release 1.37.0
      * Added support for new work order type `overheadMaintenanceWorkOrder`.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns WorkOrderTypes Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -573,6 +594,12 @@ export class WorkOrdersService {
      * ### Update release 1.38.0
      * Added `overheadMaintenanceWorkOrders` to `work-order-types` query parameter.
      *
+     * ### Update release 1.40.0
+     * Added properties `plannerGroup` and `plannerGroupId` to `failureReports`.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters such as `tags-all-of`, `tags-any-of`, and `tags-not`. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns WorkOrderOptimizedForQuery Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -630,15 +657,15 @@ export class WorkOrdersService {
          */
         keywordsNot?: Array<string>,
         /**
-         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
+         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters. If a tagId contains a comma, escape it with a backslash (`\,`)
          */
         tagsAllOf?: Array<string>,
         /**
-         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters
+         * Query based on tagIds. Expressions with wildcards can be used for example `1A*-6A`. Ensure the tagIds are url-encoded in order to handle special characters. If a tagId contains a comma, escape it with a backslash (`\,`)
          */
         tagsAnyOf?: Array<string>,
         /**
-         * Query based on tagIds. Expressions with wildcards can be used for example `AE55*`. Ensure the tagIds are url-encoded in order to handle special characters
+         * Query based on tagIds. Expressions with wildcards can be used for example `AE55*`. Ensure the tagIds are url-encoded in order to handle special characters. If a tagId contains a comma, escape it with a backslash (`\,`)
          */
         tagsNot?: Array<string>,
         /**
@@ -796,57 +823,60 @@ export class WorkOrdersService {
     /**
      * Work orders change log - Search
      * ### Overview
-     * Search for Work orders changes done recently.
+     * Search for records in the Work order Changelog where there have been recent changes to specific tracked properties like `basicStartDateTime` or `basicEndDateTime`.
+     *
+     * **Important:**
+     * This endpoint requires Change Log to be activated for the plant. The response contains a list of change events to work orders, not a list of work orders changed - the same work order may appear multiple times if it has had multiple changes to the property selected with query param `property-name`.
+     * Consumers can use `changeDateTime` to identify the last change.
+     *
+     * ### Parameters
+     * - `plant-id` (required) - The plant to search for changes in work orders
+     * - `property-name` (required) - Supports using one of `basicStartDateTime` or `basicEndDateTime`
+     * - `changed-since-datetime`(required) - Earliest datetime to return changed work orders for
+     *
+     * `include-work-order-types` is an optional parameter to define which work orders to return changes for.
      *
      * ### Response
      * The response contains only minimum information about the change made to the work orders.
-     * For more information about each individual work order, use the lookup end-point referenced in `_links.related`.
-     *
-     * ### Important information
-     * This endpoint relies on change log being activated for the plant in question.
-     *
-     * ### Filter: recently-changed-property
-     * Find Work orders which have recently had a change in a specific property.
-     * Parameters:
-     * - plant-id
-     * - property-name - Values supported `basicStartDateTime` and `basicEndDateTime`
-     * - changed-since-datetime
-     *
-     * include-work-order-types is an optional parameter to define which work orders to return changes for.
-     *
-     * ### Important information
-     * The response contains list of changes to work orders (not list of work orders changed). Therefore, an individual work order may be represented multiple times. Consumers can use changeDateTime to identify the last change.
+     * For more information about each individual work order, use the lookup endpoint referenced in `_links.related`.
      *
      * ### Update release 1.37.0
      * Added `overheadMaintenanceWorkOrders` to include-work-order-types filter in Parameters and `overheadMaintenanceWorkOrdersChanged` to response.
+     *
+     * ### Update release 1.41.0
+     * Deprecated 'filter' query parameter. The endpoint will accept the parameter but ignore it. Providing `plant-id`, `property-name` and `changed-since-datetime` is required as before.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns WorkOrderChangeLogs Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchWorkOrderChangeLog({
-        filter,
         plantId,
         changedSinceDatetime,
         propertyName,
+        filter,
         includeWorkOrderTypes,
     }: {
         /**
-         * Filter to limit the work order by
-         */
-        filter: 'recently-changed-property',
-        /**
          * Plant identifier
          */
-        plantId?: string,
+        plantId: string,
         /**
          * Earliest datetime to return changed work orders for
          */
-        changedSinceDatetime?: string,
+        changedSinceDatetime: string,
         /**
          * The property which was recently changed
          */
-        propertyName?: 'basicStartDateTime' | 'basicEndDateTime',
+        propertyName: 'basicStartDateTime' | 'basicEndDateTime',
+        /**
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
+         */
+        filter?: 'recently-changed-property',
         /**
          * Include which types of work orders. Use comma-separated list of entries.
          */

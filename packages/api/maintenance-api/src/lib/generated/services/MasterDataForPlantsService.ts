@@ -271,17 +271,15 @@ export class MasterDataForPlantsService {
      * ### Overview
      * Search revisions for a single plant with related information.
      *
-     * ### Filter: by-revision-id
-     * Search by revision ids for a single plant
-     *
      * Parameters:
-     * - revision-id-any-of
+     * - `plant-id` (required)
+     * - `revision-id-any-of` (required): Comma-separated list of revision-ids to search for.
      * - include-work-order-operations (default: false)
      * - include-work-order-operation-text (default: false)
      * - include-only-work-order-operations-with-materials (default: false)
      *
      * ### Examples
-     * `/plants/1310/revisions?filter=by-revision-id&revision-id-any-of=OFP,OFP%202022,&include-work-order-operations=true&include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&api-version=v1`
+     * `/plants/1310/revisions?revision-id-any-of=OFP,OFP%202022,&include-work-order-operations=true&include-only-work-order-operations-with-materials=true&include-work-order-operation-text=true&api-version=v1`
      *
      * ### Update release 1.19.0
      * Added parameter `include-text-item-materials`.
@@ -308,6 +306,19 @@ export class MasterDataForPlantsService {
      * ### Update release 1.39.0
      * Added new property `hasCommunication` to `materials` expand of `workOrderOperations`.
      *
+     * ### Update release 1.40.0
+     * Deprecated 'filter' query parameter. The endpoint will accept the parameter but ignore it.
+     * Providing `plant-id` and `revision-id-any-of` is still required.
+     *
+     * ### Update release 1.42.0
+     * Removed property `hasCommunication` from `materials` expand of `workOrderOperations`.
+     *
+     * ### Update release 1.43.0
+     * Removed optional pagination parameters `page` and `per-page` as these were not implemented in the API.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns PlanningPlantRevision Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -319,17 +330,16 @@ export class MasterDataForPlantsService {
         includeWorkOrderOperations = false,
         includeOnlyWorkOrderOperationsWithMaterials = false,
         includeTextItemMaterials = false,
-        perPage,
-        page,
         includeCostDataForMaterials = false,
     }: {
         plantId: string,
         /**
-         * Filter to limit revisions
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
          */
-        filter: 'by-revision-id',
+        filter?: 'by-revision-id',
         /**
-         * Comma-separated list of revision-id
+         * Comma-separated string array of revision-ids to filter your result to one or more revisions. Wildcards are not supported.
          */
         revisionIdAnyOf?: string,
         /**
@@ -344,14 +354,6 @@ export class MasterDataForPlantsService {
          * Include text item materials
          */
         includeTextItemMaterials?: boolean,
-        /**
-         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
-         */
-        perPage?: number,
-        /**
-         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
-         */
-        page?: number,
         /**
          * Include cost data for materials. Additional authorization will be required to retrieve these fields.
          */
@@ -369,8 +371,6 @@ export class MasterDataForPlantsService {
                 'include-work-order-operations': includeWorkOrderOperations,
                 'include-only-work-order-operations-with-materials': includeOnlyWorkOrderOperationsWithMaterials,
                 'include-text-item-materials': includeTextItemMaterials,
-                'per-page': perPage,
-                'page': page,
                 'include-cost-data-for-materials': includeCostDataForMaterials,
             },
             errors: {
@@ -424,6 +424,9 @@ export class MasterDataForPlantsService {
      *
      * ### Update release 1.39.0
      * Added new property `hasCommunication` to `materials` expand.
+     *
+     * ### Update release 1.42.0
+     * Removed property `hasCommunication` from `materials` expand.
      *
      * @returns RevisionWorkOrderOperation Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -484,18 +487,11 @@ export class MasterDataForPlantsService {
     /**
      * Plants - Search
      * ### Overview
-     * Search for plants through predefined filters.
-     *
-     * ### Filter: by-plant
-     * Search plant based on one or more `plant-id`
+     * Search for plants, using one of the query parameters below to narrow down the results.
+     * It is required to provide at least one of them in the request.
      *
      * Parameters:
      * - plant-id (supports comma-separated list)
-     *
-     * ### Filter: by-planning-plant
-     * Search plant based on one or more `planning-plant-id`
-     *
-     * Parameters:
      * - planning-plant-id (supports comma-separated list)
      *
      * ### Update release 1.13.0
@@ -509,6 +505,15 @@ export class MasterDataForPlantsService {
      *
      * ### Update release 1.34.0
      * Added `include-responsible-persons` to the response. Added `responsiblePersons` to the response.
+     *
+     * ### Update release 1.40.0
+     * Deprecated 'filter' query parameter. The endpoint will accept the parameter but ignore it. Providing either `plant-id` or `planning-plant-id` is required.
+     *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns Plant Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -526,11 +531,14 @@ export class MasterDataForPlantsService {
         includeSurfaceDegradationFactors = false,
         includeBaselinePlans = false,
         includeResponsiblePersons = false,
+        page,
+        perPage,
     }: {
         /**
-         * Filter to limit plants by
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
          */
-        filter: 'by-plant' | 'by-planning-plant',
+        filter?: 'by-plant' | 'by-planning-plant',
         /**
          * Plant identifier
          */
@@ -571,6 +579,14 @@ export class MasterDataForPlantsService {
          * Include persons that are already responsible for objects on this plant
          */
         includeResponsiblePersons?: boolean,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<Plant> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -587,6 +603,8 @@ export class MasterDataForPlantsService {
                 'include-surface-degradation-factors': includeSurfaceDegradationFactors,
                 'include-baseline-plans': includeBaselinePlans,
                 'include-responsible-persons': includeResponsiblePersons,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 400: `Request is missing required parameters`,
@@ -600,20 +618,37 @@ export class MasterDataForPlantsService {
      * Get the surface degradation factors defined for a plant.
      * This information can be used to understand how paint degrades over time.
      *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
      * @returns SurfaceDegradationFactor Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static getSurfaceDegradationFactors({
         plantId,
+        page,
+        perPage,
     }: {
         plantId: string,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<SurfaceDegradationFactor> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/plants/{plant-id}/surface-degradation-factors',
             path: {
                 'plant-id': plantId,
+            },
+            query: {
+                'page': page,
+                'per-page': perPage,
             },
         });
     }
@@ -674,23 +709,41 @@ export class MasterDataForPlantsService {
      * - `M5N`
      * - `M1N`
      *
+     * ### Update release 1.42.0
+     * Added optional pagination support.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns TextTemplate Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchTextTemplates({
         templateNameAnyOf = 'M2_Task,-M2-X',
+        page,
+        perPage,
     }: {
         /**
          * Comma-separated list of text templates to return
          */
         templateNameAnyOf?: string,
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<TextTemplate> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/text-templates',
             query: {
                 'template-name-any-of': templateNameAnyOf,
+                'page': page,
+                'per-page': perPage,
             },
         });
     }

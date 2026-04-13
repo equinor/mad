@@ -105,6 +105,15 @@ export class TagService {
      * ### Update release 1.39.0
      * Added new property `priorityId` to `preventiveWorkOrders`.
      *
+     * ### Update release 1.40.0
+     * Added properties `plannerGroup` and `plannerGroupId` to `failureReports`.
+     *
+     * ### Update release 1.41.0
+     * Added property `priorityId` to `maintenancePlanItems`
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns Tag Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -389,6 +398,9 @@ export class TagService {
      * Endpoint is deprecated as of 11.2022 in order to improve consistency in API.
      * Use `/plants/{plant-id}/tag-hierarchy` instead.
      *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns TagHierachyItemDeprecated Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -437,13 +449,13 @@ export class TagService {
      * Get the entire tag hierarchy for a plant.
      * For each tag you will be provided with catalog profile and the parent tag.
      *
-     * ### Filter: by-root-tags
-     * Limits the response to the sub-trees defined by the provided root tags.
      * Parameters:
-     * - root-tag-id-any-of
+     * - `root-tag-id-any-of` - Limits the response to the tag sub-trees defined by the provided comma-seperated list of root tag id's.
+     * - `sub-hierarchy-limit` - Limit the response to a certain number of levels below the root tag. If this parameter is omitted, a maximum of 4 sub levels will be included.
      *
      * ### Important information
      * This returns a significant amount of data as it returns all tags for a plant (which may be up to 250 000).
+     * Improve the performance by using available query parameters to limit the response.
      *
      * The data will be cached in the API and renewed on a daily basis.
      *
@@ -451,6 +463,12 @@ export class TagService {
      * Added property `tag` to the response.
      *
      * Added query parameter `sub-hierarchy-limit` which controls how many levels below the root the response will contain.
+     *
+     * ### Update release 1.41.0
+     * Deprecated 'filter' query parameter. The endpoint will accept the parameter but ignore it. Providing `plant-id` is required as before.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns TagHierachyItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -464,7 +482,8 @@ export class TagService {
     }: {
         plantId: string,
         /**
-         * Filter to limit the tag hierachy by
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
          */
         filter?: 'by-root-tags',
         /**
@@ -684,6 +703,15 @@ export class TagService {
      * ### Update release 1.39.0
      * Added new property `priorityId` to `preventiveWorkOrders`.
      *
+     * ### Update release 1.40.0
+     * Added properties `plannerGroup` and `plannerGroupId` to `failureReports`.
+     *
+     * ### Update release 1.41.0
+     * Added property `priorityId` to `maintenancePlanItems`
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters such as `tag-ids-any-of`. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
+     *
      * @returns TagSearch Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -728,7 +756,7 @@ export class TagService {
          */
         tagPrefix?: string | null,
         /**
-         * The tagIds as a comma separated list, required if filter is `by-tag-ids`
+         * The tagIds as a comma separated list, required if filter is `by-tag-ids`. If a tagId contains a comma, escape it with a backslash (`\,`)
          */
         tagIdsAnyOf?: Array<string>,
         /**

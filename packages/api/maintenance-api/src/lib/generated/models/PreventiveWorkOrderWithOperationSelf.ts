@@ -12,9 +12,14 @@ export type PreventiveWorkOrderWithOperationSelf = (PreventiveWorkOrderSimple & 
      * Datetime of when the Work order was last changed (based on Changelog)
      */
     changeLogChangedDateTime?: string | null;
+    companyCode?: string;
     _links: {
         self?: string;
     };
+    /**
+     * The due date for the preventive work order, calculated based on the planned date of the maintenance plan.
+     */
+    dueDate?: string | null;
     operations?: Array<WorkOrderOperationSimpleForSearch> | null;
 });
 

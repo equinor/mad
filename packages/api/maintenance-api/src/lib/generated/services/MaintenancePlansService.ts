@@ -37,6 +37,9 @@ export class MaintenancePlansService {
      * Removed `taskList` and `objectList` properties from the response schema. They were never included in the actual
      * response, so this change has no implication on the data received from the API.
      *
+     * ### Update release 1.41.0
+     * Added property `priorityId` to `items`.
+     *
      * @returns MaintenancePlan Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
@@ -73,7 +76,7 @@ export class MaintenancePlansService {
     }
 
     /**
-     * Maintenance Plan Item- Lookup
+     * Maintenance Plan Item - Lookup
      * ### Overview
      * Lookup single maintenance plan item
      *
@@ -108,6 +111,9 @@ export class MaintenancePlansService {
      *
      * ### Update release 1.31.0
      * Added the property `systemCondition`
+     *
+     * ### Update release 1.41.0
+     * Added property `priorityId` to top level object.
      *
      * @returns MaintenancePlanItem Success
      * @returns ProblemDetails Response for other HTTP status codes
@@ -442,31 +448,47 @@ export class MaintenancePlansService {
      *
      * This endpoint can be used to identify affected maintenance plans and maintenance plan items if an operation or a material in a task list will be updated or deleted.
      *
-     * ### Filter: by-task-id
-     * Find maintenance plans and maintenance plan items which are affected by changes in a task list operation.
-     *
      * ### Examples
-     * `/maintenance-plans?filter=by-task-id&task-id=T-10012713-02&api-version=v1`.
+     * `/maintenance-plans?task-id=T-10012713-02&api-version=v1`.
      *
      * ### Update release 1.8.0
      * Added isActive property.
+     *
+     * ### Update release 1.40.0
+     * Deprecated 'filter' query parameter. The endpoint will accept the parameter but ignore it. Providing `task-id` is required.
+     *
+     * Added optional pagination to the endpoint.
+     *
+     * ### Update release 1.41.0
+     * Added property `priorityId` to `items`.
      *
      * @returns MaintenancePlanForSearchByTask Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchMaintenancePlan({
-        filter,
         taskId,
+        filter,
+        page,
+        perPage,
     }: {
-        /**
-         * Filter to limit maintenance plans by
-         */
-        filter: 'by-task-id',
         /**
          * The id of the task within the maintenance plant item
          */
         taskId: string,
+        /**
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
+         */
+        filter?: 'by-task-id',
+        /**
+         * Page to fetch. If this optional parameter is used together with perPage, paging will be applied for the endpoint.
+         */
+        page?: number | null,
+        /**
+         * Results to return per page. If this optional parameter is used, paging will be applied for the endpoint.
+         */
+        perPage?: number | null,
     }): CancelablePromise<Array<MaintenancePlanForSearchByTask> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -474,6 +496,8 @@ export class MaintenancePlansService {
             query: {
                 'filter': filter,
                 'task-id': taskId,
+                'page': page,
+                'per-page': perPage,
             },
             errors: {
                 404: `The specified resource was not found`,

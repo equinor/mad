@@ -12,5 +12,6 @@ export type WorkOrderOperationSimpleForSearch = (WorkOrderOperationSimple & {
     confirmationId: string | null;
     remainingWork: number;
     remainingWorkUnit: string;
+    companyCode: string;
 });
 

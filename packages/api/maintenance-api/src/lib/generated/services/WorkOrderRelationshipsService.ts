@@ -238,4 +238,43 @@ export class WorkOrderRelationshipsService {
         });
     }
 
+    /**
+     * Work order relationships - Remove related equipment
+     * ### Overview
+     * Remove an existing relationship between a work order and an equipment.
+     * Internally in the ERP system, this relationship will be removed from the object list of the work order.
+     * This endpoint returns no response data. Perform a lookup request for the specific work order type to get updated information.
+     *
+     * @returns ProblemDetails Response for other HTTP status codes
+     * @throws ApiError
+     */
+    public static removeRelationshipFromWorkOrderToEquipment({
+        workOrderId,
+        equipmentId,
+    }: {
+        /**
+         * Id of the work order (can be any type)
+         */
+        workOrderId: string,
+        /**
+         * Id of the equipment
+         */
+        equipmentId: string,
+    }): CancelablePromise<ProblemDetails> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/work-order-relationships/{work-order-id}/related-equipment/{equipment-id}',
+            path: {
+                'work-order-id': workOrderId,
+                'equipment-id': equipmentId,
+            },
+            errors: {
+                400: `Request is missing required parameters`,
+                403: `User does not have sufficient rights to work order`,
+                404: `The specified resource was not found`,
+                409: `Work order is locked by other user or it is not possible to remove the relationship`,
+            },
+        });
+    }
+
 }

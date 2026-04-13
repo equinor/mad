@@ -16,12 +16,17 @@ export type WorkOrderOperationSimple = {
      * Internal id of the superior operation (if any)
      */
     superiorOperationId?: string | null;
+    /**
+     * External id of the superior operation
+     */
+    superiorOperation?: string | null;
     title: string;
     workCenterId: string;
     workCenterPlantId: string;
     text: string | null;
     standardTextTemplate: string;
     isCompleted: boolean;
+    isDeleted?: boolean;
     isExcludedFromWorkOrderPlan: boolean;
     /**
      * Required process conditions for each operation

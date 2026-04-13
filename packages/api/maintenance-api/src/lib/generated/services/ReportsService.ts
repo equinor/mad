@@ -15,7 +15,6 @@ export class ReportsService {
     /**
      * Concept activities - Get
      * ### Overview
-     *
      * Get the list of Maintenance Items implemented to a tag.
      *
      * @returns ConceptActivities Success
@@ -59,6 +58,9 @@ export class ReportsService {
      *
      * ### Update release 1.38.0
      * Added filter `changed-since-date` and `changed-before-date`.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns EqHubAndSemiUsage Success
      * @returns ProblemDetails Response for other HTTP status codes

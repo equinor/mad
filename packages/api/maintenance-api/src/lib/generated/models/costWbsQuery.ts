@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Required parameter if `filter=by-cost-wbs`
+ * Filter by Cost WBS Id
  */
 export type costWbsQuery = string;

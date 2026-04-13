@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * Filter by Cost network Id
+ * Comma-separated list of work-center-id
  */
-export type costNetworkQuery = string;
+export type workCenterIdAnyOf = string;

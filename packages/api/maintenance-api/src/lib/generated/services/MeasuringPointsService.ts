@@ -157,27 +157,27 @@ export class MeasuringPointsService {
     /**
      * Measuring points - Search
      * ### Overview
-     * Search measuring points.
+     * Search measuring points based on plant and at least one other property of the measuring point.
      *
-     * ### Filter: by-plant
-     * Search measuring points based on plant and one other property of the measuring point.
      * Parameters:
-     * - plant-id
+     * - `plant-id` (required)
      *
-     * At least one of the following parameters is required:
+     * Must be combined with at least one of the following parameters:
      *
      * - `tag-prefix`
      * - `measuring-position`
      * - `quantitative-characteristic`
      * - `qualitative-code-group`
      * - `measuring-point-name`
-     * - `characteristic-value-any-of`
+     * - `characteristic-value-any-of` (also requires `class-id` and `characteristic-id`)
+     *
      *
      * ### Examples
-     * `/measuring-points?filter=by-plant&plant-id=1180&tag-prefix=18HV10&api-version=v1`
-     * `/measuring-points?filter=by-plant&plant-id=1102&quantitative-characteristic=SURFACE_MAINTEANC&api-version=v1`
+     * `/measuring-points?plant-id=1180&tag-prefix=18HV10&api-version=v1`
      *
-     * `/measuring-points?filter=by-plant&plant-id=1180&tag-prefix=18HV10&position=VALVE%20STATUS&include-last-measurement=true&api-version=v1`
+     * `/measuring-points?plant-id=1102&quantitative-characteristic=SURFACE_MAINTEANC&api-version=v1`
+     *
+     * `/measuring-points?plant-id=1180&tag-prefix=18HV10&position=VALVE%20STATUS&include-last-measurement=true&api-version=v1`
      *
      *
      * When using the `characteristic-value-any-of` it is important to URI Encode the input data especially when there are special characters as part of the input:
@@ -206,41 +206,48 @@ export class MeasuringPointsService {
      * Added `characteristic-value-any-of`, `class-id` and `characteristic-id` query parameters.
      * Can be used to search for measuring points based on values of a characteristic.
      *
+     * ### Update release 1.40.0
+     * Deprecated 'filter' query parameter. The endpoint will accept the parameter but ignore it. Providing `plant-id` is required.
+     *
      * ### Update future release
      * Added `include-measurement-text` query parameter to include measurement text in the response.
+     *
+     * ### Update release 1.44.0
+     * Added support for escaping commas in comma-separated query parameters. Use a backslash before the comma (`\,`) to include a literal comma in a value. See [Comma-separated query parameters](#section/Comma-separated-query-parameters) for more details.
      *
      * @returns MeasuringPoint Success
      * @returns ProblemDetails Response for other HTTP status codes
      * @throws ApiError
      */
     public static searchMeasuringPoints({
-        filter,
         plantId,
+        filter,
         tagPrefix,
         measuringPosition,
         quantitativeCharacteristic,
         qualitativeCodeGroup,
         measuringPointName,
+        characteristicValueAnyOf,
+        characteristicId,
+        classId,
         includeLastMeasurement = false,
         includeMeasurements = false,
         includeQualitativeCodeGroup = false,
         includeCharacteristics = false,
         includeCharacteristicsWithoutValue = false,
+        includeMeasurementText = false,
         perPage = 50,
         page = 1,
-        characteristicId,
-        classId,
-        characteristicValueAnyOf,
-        includeMeasurementText = false,
     }: {
-        /**
-         * Filter to limit the measuring points by
-         */
-        filter: 'by-plant',
         /**
          * Plant the tag-prefix belongs to
          */
-        plantId?: string,
+        plantId: string,
+        /**
+         * Deprecated parameter that is ignored but accepted. Has no effect.
+         * @deprecated
+         */
+        filter?: 'by-plant',
         /**
          * The first few characters of the tag
          */
@@ -262,6 +269,18 @@ export class MeasuringPointsService {
          */
         measuringPointName?: string,
         /**
+         * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id`. Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
+         */
+        characteristicValueAnyOf?: string,
+        /**
+         * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids.
+         */
+        characteristicId?: string | null,
+        /**
+         * Required field if `characteristic-value-any-of` is supplied.
+         */
+        classId?: string | null,
+        /**
          * Include the last measurement of the measuring points
          */
         includeLastMeasurement?: boolean,
@@ -282,6 +301,10 @@ export class MeasuringPointsService {
          */
         includeCharacteristicsWithoutValue?: boolean,
         /**
+         * Include measurement text in the response
+         */
+        includeMeasurementText?: boolean,
+        /**
          * Results to return pr page
          */
         perPage?: number,
@@ -289,22 +312,6 @@ export class MeasuringPointsService {
          * Page to fetch
          */
         page?: number,
-        /**
-         * Required field if `characteristic-value-any-of` is supplied. Endpoint [/characteristics/{class-id}](#operation/LookupClass) can be used to find characteristic ids.
-         */
-        characteristicId?: string | null,
-        /**
-         * Required field if `characteristic-value-any-of` is supplied.
-         */
-        classId?: string | null,
-        /**
-         * Search based on characteristic values. Must be used in combination with `class-id` and `characteristic-id`. Wildcards are not supported. Make sure to encode the parameters if they contain special characters.
-         */
-        characteristicValueAnyOf?: string,
-        /**
-         * Include measurement text in the response
-         */
-        includeMeasurementText?: boolean,
     }): CancelablePromise<Array<MeasuringPoint> | ProblemDetails> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -317,17 +324,17 @@ export class MeasuringPointsService {
                 'quantitative-characteristic': quantitativeCharacteristic,
                 'qualitative-code-group': qualitativeCodeGroup,
                 'measuring-point-name': measuringPointName,
+                'characteristic-value-any-of': characteristicValueAnyOf,
+                'characteristic-id': characteristicId,
+                'class-id': classId,
                 'include-last-measurement': includeLastMeasurement,
                 'include-measurements': includeMeasurements,
                 'include-qualitative-code-group': includeQualitativeCodeGroup,
                 'include-characteristics': includeCharacteristics,
                 'include-characteristics-without-value': includeCharacteristicsWithoutValue,
+                'include-measurement-text': includeMeasurementText,
                 'per-page': perPage,
                 'page': page,
-                'characteristic-id': characteristicId,
-                'class-id': classId,
-                'characteristic-value-any-of': characteristicValueAnyOf,
-                'include-measurement-text': includeMeasurementText,
             },
             errors: {
                 404: `The specified resource was not found`,
