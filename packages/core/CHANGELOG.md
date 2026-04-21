@@ -1,5 +1,13 @@
 # @equinor/mad-core
 
+## 0.16.7
+
+### Patch Changes
+
+- b2bf467: get account web function bug fix
+- Updated dependencies [b2bf467]
+    - @equinor/mad-auth@0.5.7
+
 ## 0.16.6
 
 ### Patch Changes
