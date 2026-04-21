@@ -1,5 +1,11 @@
 # @equinor/mad-auth
 
+## 0.5.7
+
+### Patch Changes
+
+- b2bf467: get account web function bug fix
+
 ## 0.5.6
 
 ### Patch Changes
