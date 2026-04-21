@@ -5,6 +5,7 @@ import {
     authenticateSilentlyWeb,
     initiateAuthenticationClientWeb,
     authenticationClientExistsWeb,
+    getAccountWeb,
 } from "./web";
 export { getAccountWeb, MSALAccount, MSALResult } from "./web";
 import {
@@ -13,8 +14,8 @@ import {
     authenticateInteractively as authenticateInteractivelyNative,
     initiateAuthenticationClient as initiateAuthenticationClientNative,
     authenticationClientExists as authenticationClientExistsNative,
+    getAccount as getAccountNative
 } from "./auth";
-export { getAccount } from "./auth";
 import { AuthRequestConfig, DiscoveryDocument } from "expo-auth-session";
 
 export const signOut = () => (Platform.OS === "web" ? signOutWeb() : signOutNative());
@@ -33,10 +34,13 @@ export const initiateAuthenticationClient = (
 ) =>
     Platform.OS === "web"
         ? initiateAuthenticationClientWeb({
-              clientId: config.clientId,
-              redirectUri: config.redirectUri,
-          })
+            clientId: config.clientId,
+            redirectUri: config.redirectUri,
+        })
         : initiateAuthenticationClientNative(config, discovery);
 
 export const authenticationClientExists = () =>
     Platform.OS === "web" ? authenticationClientExistsWeb() : authenticationClientExistsNative();
+
+export const getAccount = () =>
+    Platform.OS === "web" ? getAccountWeb() : Promise.resolve(getAccountNative());
