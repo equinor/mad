@@ -28,8 +28,8 @@ export const authenticateSilently = (scopes: string[]) =>
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but
  * getAcount() from expo-auth-session is not inherently async
  */
-export const getAccount = async (): Promise<MadAccount | null> =>
-    Promise.resolve(ExpoAuthSession.getAccount());
+export const getAccount = (): Promise<MadAccount | null> =>
+    ExpoAuthSession.getAccount();
 
 /**
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but
