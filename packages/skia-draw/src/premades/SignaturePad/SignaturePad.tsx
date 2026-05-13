@@ -25,7 +25,7 @@ export const SignaturePad = forwardRef<CanvasImageControls, SignaturePadProps>((
         >
             <View style={styles.container}>
                 <View style={styles.canvasContainer}>
-                    <Canvas ref={canvasRef} style={canvasStyle} onLayout={props.onLayout}>
+                    <Canvas ref={canvasRef} style={canvasStyle} onSize={props.onSize}>
                         {props.children}
                     </Canvas>
                     {props.withLabel && <Text style={styles.signatureLabel}>Signature</Text>}

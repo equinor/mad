@@ -4,6 +4,7 @@ import { Button, Typography } from "@equinor/mad-components";
 import { SkiaDrawSnapshot } from "@equinor/react-native-skia-draw/dist/types";
 import { SignaturePad, CanvasImageControls } from "@equinor/react-native-skia-draw";
 import { Circle } from "@shopify/react-native-skia";
+import { useSharedValue } from "react-native-reanimated";
 
 type Dimensions = { width: number; height: number };
 export const SignatureScreen = () => {
@@ -12,10 +13,8 @@ export const SignatureScreen = () => {
         width: 0,
         height: 0,
     });
-    const [canvasDimensions, setCanvasDimensions] = useState<Dimensions>({
-        width: 0,
-        height: 0,
-    });
+    const size = useSharedValue({ width: 0, height: 0 });
+
     useEffect(() => {
         if (!image) return;
         Image.getSize(image.uri, (newWidth, newHeight) => {
@@ -42,12 +41,7 @@ export const SignatureScreen = () => {
                         ref={drawRef}
                         withLabel
                         height={200}
-                        onLayout={e => {
-                            setCanvasDimensions({
-                                height: e.nativeEvent.layout.height,
-                                width: e.nativeEvent.layout.width,
-                            });
-                        }}
+                        onSize={size}
                     >
                         <Circle cx={128} cy={128} r={128} color="lightblue" />
                     </SignaturePad>
@@ -61,8 +55,8 @@ export const SignatureScreen = () => {
                         }
                     />
                 </View>
-                <Typography>{canvasDimensions.height}</Typography>
-                <Typography>{canvasDimensions.width}</Typography>
+                <Typography>{size.value.height}</Typography>
+                <Typography>{size.value.width}</Typography>
             </View>
         </View>
     );

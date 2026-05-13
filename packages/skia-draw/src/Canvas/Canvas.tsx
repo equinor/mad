@@ -8,7 +8,7 @@ import { CanvasProps } from "../types";
 import { CanvasElement } from "./CanvasElement/CanvasElement";
 
 const CanvasComponent: ForwardRefRenderFunction<CanvasControls, PropsWithChildren<CanvasProps>> = (
-    { children, renderChildrenOnTop, style, onLayout },
+    { children, renderChildrenOnTop, style, onSize },
     ref,
 ) => {
     const skiaCanvasRef = useCanvasRef();
@@ -21,7 +21,7 @@ const CanvasComponent: ForwardRefRenderFunction<CanvasControls, PropsWithChildre
             <SkiaCanvas
                 ref={skiaCanvasRef}
                 style={[{ flex: 1, backgroundColor: "black", width: "100%" }, style]}
-                onLayout={onLayout}
+                onSize={onSize}
             >
                 {!renderChildrenOnTop && children}
                 {canvasHistory.current

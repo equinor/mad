@@ -1,6 +1,7 @@
-import { StyleProp, ViewProps, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { PropsWithChildren } from "react";
-import { ImageFormat, SkRect } from "@shopify/react-native-skia";
+import { ImageFormat, SkRect, SkSize } from "@shopify/react-native-skia";
+import { SharedValue } from "react-native-reanimated";
 
 export type SkiaDrawSnapshot = {
     /**
@@ -24,7 +25,7 @@ export type SkiaDrawSnapshot = {
 export type SignaturePadProps = PropsWithChildren<{
     height?: number;
     withLabel?: boolean;
-    onLayout?: CanvasProps["onLayout"];
+    onSize?: CanvasProps["onSize"];
 }>;
 
 export type CanvasProps = {
@@ -34,7 +35,7 @@ export type CanvasProps = {
     renderChildrenOnTop?: boolean;
 
     style?: StyleProp<ViewStyle>;
-    onLayout?: ViewProps["onLayout"];
+    onSize?: SharedValue<SkSize>;
 };
 
 /**
