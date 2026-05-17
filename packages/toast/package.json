@@ -37,7 +37,7 @@
     "peerDependencies": {
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
-        "react-native": "~0.86.3"
+        "react-native": "~0.83.6"
     },
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",

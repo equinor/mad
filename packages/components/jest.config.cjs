@@ -4,4 +4,7 @@ module.exports = {
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
     setupFilesAfterEnv: ["./jest-setup.ts"],
     testPathIgnorePatterns: ["dist"],
+    transformIgnorePatterns: [
+        "node_modules/(?!(jest-)?react-native|@react-native|@react-native-community|react-native-reanimated|react-native-worklets)/",
+    ],
 };
