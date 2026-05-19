@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     extends: ["@equinor/mad"],
-    ignorePatterns: [".eslintrc.cjs", "babel.config.js", "e2e/**"],
+    ignorePatterns: [".eslintrc.cjs", "babel.config.js", "e2e/**", "metro.config.js"],
     parserOptions: {
         project: ["./tsconfig.json"],
         tsconfigRootDir: __dirname,

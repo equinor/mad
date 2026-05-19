@@ -1,11 +1,11 @@
 import React, { ReactNode, forwardRef, useState } from "react";
 import {
-    NativeSyntheticEvent,
     Platform,
     TextInput,
-    TextInputFocusEventData,
     TextInputProps,
     View,
+    FocusEvent,
+    BlurEvent
 } from "react-native";
 import { useStyles } from "../../hooks/useStyles";
 import { inputTokenStyles } from "./inputStyle";
@@ -59,12 +59,12 @@ export const Input = forwardRef<TextInput, InputProps>(
         const [isSelected, setIsSelected] = useState<boolean>(false);
         const styles = useStyles(inputTokenStyles, { isSelected, variant, readOnly });
 
-        const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        const onFocus = (e: FocusEvent) => {
             setIsSelected(true);
             rest.onFocus && rest.onFocus(e);
         };
 
-        const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        const onBlur = (e: BlurEvent) => {
             setIsSelected(false);
             rest.onBlur && rest.onBlur(e);
         };

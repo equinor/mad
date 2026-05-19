@@ -1,10 +1,9 @@
 import React, { FocusEvent, useEffect, useRef, useState } from "react";
 import {
+    BlurEvent,
     LayoutChangeEvent,
-    NativeSyntheticEvent,
     Platform,
     TextInput,
-    TextInputFocusEventData,
     View,
 } from "react-native";
 import Animated, {
@@ -108,7 +107,7 @@ export const Search = ({
         }
     };
 
-    const handleOnBlurNative = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const handleOnBlurNative = (e: BlurEvent) => {
         setIsInputFocused(false);
         restProps.onBlur?.(e);
     };

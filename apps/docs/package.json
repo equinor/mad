@@ -19,13 +19,13 @@
         "@mdx-js/react": "^3.1.0",
         "clsx": "^2.1.1",
         "prism-react-renderer": "^2.4.1",
-        "react": "19.0.0",
-        "react-dom": "19.0.0"
+        "react": "19.2.0",
+        "react-dom": "19.2.0"
     },
     "devDependencies": {
-        "@docusaurus/module-type-aliases": "3.6.1",
-        "@docusaurus/tsconfig": "3.6.1",
-        "@docusaurus/types": "3.6.1",
+        "@docusaurus/module-type-aliases": "3.8.1",
+        "@docusaurus/tsconfig": "3.8.1",
+        "@docusaurus/types": "3.8.1",
         "docusaurus-plugin-react-docgen-typescript": "~1.1.0",
         "react-docgen-typescript": "^2.2.2",
         "typescript": "~5.3.3"
