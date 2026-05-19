@@ -1,5 +1,16 @@
 # @equinor/mad-insights
 
+## 0.3.0
+
+### Minor Changes
+
+- 7ef5dfb: Expo Upgraded. Skia draw upgraded and will not support onLayout any longer. Instead, the
+  onSize prop is to be used
+
+### Patch Changes
+
+- 85f9531: GHAS vulnerability fixes added
+
 ## 0.2.1
 
 ### Patch Changes

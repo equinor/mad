@@ -1,5 +1,24 @@
 # @equinor/mad-chronicles
 
+## 1.6.0
+
+### Minor Changes
+
+- 7ef5dfb: Expo Upgraded. Skia draw upgraded and will not support onLayout any longer. Instead, the
+  onSize prop is to be used
+
+### Patch Changes
+
+- 85f9531: GHAS vulnerability fixes added
+- Updated dependencies [85f9531]
+- Updated dependencies [7ef5dfb]
+    - @equinor/mad-components@0.25.0
+    - @equinor/mad-navigation@0.7.0
+    - @equinor/react-native-skia-draw@0.7.0
+    - @equinor/mad-auth@0.6.0
+    - @equinor/mad-core@0.17.0
+    - @equinor/mad-dfw@0.7.1
+
 ## 1.5.8
 
 ### Patch Changes
