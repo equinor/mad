@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunk_equinor_mad_platform_docs=globalThis.webpackChunk_equinor_mad_platform_docs||[]).push([[2358],{2414(a){a.exports=JSON.parse('{"metadata":{"permalink":"/mad/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":0,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
