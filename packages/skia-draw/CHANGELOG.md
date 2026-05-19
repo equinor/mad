@@ -1,5 +1,19 @@
 # @equinor/react-native-skia-draw
 
+## 0.7.0
+
+### Minor Changes
+
+- 7ef5dfb: Expo Upgraded. Skia draw upgraded and will not support onLayout any longer. Instead, the
+  onSize prop is to be used
+
+### Patch Changes
+
+- 85f9531: GHAS vulnerability fixes added
+- Updated dependencies [85f9531]
+- Updated dependencies [7ef5dfb]
+    - @equinor/mad-components@0.25.0
+
 ## 0.6.4
 
 ### Patch Changes
