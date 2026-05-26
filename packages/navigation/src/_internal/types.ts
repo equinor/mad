@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { RouteProp, ParamListBase } from "@react-navigation/native";
+import { RouteProp, ParamListBase, Theme } from "@react-navigation/native";
 
 export type MadDescriptorsBase = Record<string, MadDescriptorBase>;
 

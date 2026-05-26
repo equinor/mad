@@ -33,7 +33,7 @@
     "license": "MIT",
     "main": "./dist/index.js",
     "peerDependencies": {
-        "@shopify/react-native-skia": "^v2.0.0-next.4",
+        "@shopify/react-native-skia": "2.4.18",
         "react": "^19.2.0",
         "react-native": "~0.83.6",
         "react-native-gesture-handler": "^2.30.0",

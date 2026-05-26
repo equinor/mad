@@ -8,21 +8,18 @@ import { LoginScreen } from "../components/screens/LoginScreen";
 import { ReleaseNotesScreen } from "../components/screens/release-notes/ReleaseNotesScreen";
 import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScreen";
 import { useMadConfig } from "../store";
-import { CoreStackParamListBase } from "../types";
 import { getDefaultScreenOptionsForLoginScreen } from "./getDefaultScreenOptionsForLoginScreen";
 import { MadCoreProviders } from "./MadCoreProviders";
 
-export const createMadCoreNativeStackNavigator = <T extends CoreStackParamListBase>(
-    Stack: ReturnType<typeof createNativeStackNavigator<T>>
+export const createMadCoreNativeStackNavigator = (
+    Stack: ReturnType<typeof createNativeStackNavigator>
 ) => {
-    //@ts-expect-error this works
     type Props = Parameters<typeof Stack.Navigator>[0]
-    function MadCoreNavigator(props: Omit<Props, "initialRouteName">) {
+    function MadCoreNavigator(props: Omit<Props, "initialRouteName"> & { children?: React.ReactNode }) {
         const config = useMadConfig();
         if (!config) return null;
         return (
             <MadCoreProviders config={config} type={"native-stack"}>
-                {/*@ts-expect-error this works */}
                 <Stack.Navigator {...props} initialRouteName={CoreRoutes.LOGIN}>
                     {config.login.addScreenManually !== true && (
                         <Stack.Screen
@@ -60,17 +57,15 @@ export const createMadCoreNativeStackNavigator = <T extends CoreStackParamListBa
     return MadCoreNavigator;
 };
 
-export const createMadCoreStackNavigator = <T extends CoreStackParamListBase>(
-    Stack: ReturnType<typeof createStackNavigator<T>>
+export const createMadCoreStackNavigator = (
+    Stack: ReturnType<typeof createStackNavigator>
 ) => {
-    //@ts-expect-error this works
     type Props = Parameters<typeof Stack.Navigator>[0]
-    function MadCoreNavigator(props: Omit<Props, "initialRouteName">) {
+    function MadCoreNavigator(props: Omit<Props, "initialRouteName"> & { children?: React.ReactNode }) {
         const config = useMadConfig();
         if (!config) return null;
         return (
             <MadCoreProviders config={config} type={"stack"}>
-                {/*@ts-expect-error this works */}
                 <Stack.Navigator {...props} initialRouteName={CoreRoutes.LOGIN}>
                     {config.login.addScreenManually !== true && (
                         <Stack.Screen

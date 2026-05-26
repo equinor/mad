@@ -3,6 +3,7 @@ import type {
     StackNavigationState,
     StackRouterOptions,
     DefaultNavigatorOptions,
+    StackActionHelpers,
 } from "@react-navigation/native";
 import type {
     NativeStackNavigationOptions,
@@ -12,9 +13,11 @@ import { MadCustomFactoryProps, MadNavigationOptions } from "../_internal/types"
 
 export type NativeStackNavigatorProps = DefaultNavigatorOptions<
     ParamListBase,
+    string | undefined,
     StackNavigationState<ParamListBase>,
     MadNativeStackNavigationOptions,
-    NativeStackNavigationEventMap
+    NativeStackNavigationEventMap,
+    StackActionHelpers<ParamListBase>
 > &
     StackRouterOptions &
     NativeStackNavigationConfig &

@@ -1,5 +1,6 @@
 import React from "react";
-import { LayoutAnimation, Linking, SafeAreaView, View } from "react-native";
+import { LayoutAnimation, Linking, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
     EDSStyleSheet,
     PressableHighlight,

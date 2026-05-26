@@ -1,7 +1,8 @@
 import React from "react";
 // eslint-disable-next-line import/named
 import { FallbackProps } from "react-error-boundary";
-import { View, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 import { Button } from "../Button";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";

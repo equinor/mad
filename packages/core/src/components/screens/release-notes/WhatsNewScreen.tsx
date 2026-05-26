@@ -13,7 +13,8 @@ import {
 } from "@equinor/mad-components";
 import { useDemoMode } from "../../../store/demo-mode";
 import { fetchReleaseNotes } from "./fetchReleaseNotes";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { getShortDate } from "../../../utils/dateUtils";
 import { useScreenTitleFromDictionary } from "../../../hooks/useScreenTitleFromDictionary";
 import { useNavigateFromWhatsNewScreen } from "../../../hooks/useNavigateFromWhatsNewScreen";

@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { OfflineBanner as ImportedOfflineBanner } from "@equinor/mad-components";
 import { getIsOfflineBannerEnabled } from "../store";
 import { useNetInfo } from "@react-native-community/netinfo";
@@ -12,7 +12,7 @@ export const OfflineBanner = () => {
     return (
         <SafeAreaView>
             {isOfflineBannerEnabled &&
-                <ImportedOfflineBanner isConnected={isConnected}/>
+                <ImportedOfflineBanner isConnected={isConnected} />
             }
         </SafeAreaView>
     )
