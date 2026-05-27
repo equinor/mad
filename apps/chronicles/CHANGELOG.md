@@ -1,5 +1,18 @@
 # @equinor/mad-chronicles
 
+## 1.6.1
+
+### Patch Changes
+
+- 1967046: dependency and other bug fixes after upgrading to Expo 55
+- Updated dependencies [1967046]
+    - @equinor/mad-components@0.25.1
+    - @equinor/mad-navigation@0.7.1
+    - @equinor/react-native-skia-draw@0.7.1
+    - @equinor/mad-auth@0.6.1
+    - @equinor/mad-core@0.17.1
+    - @equinor/mad-dfw@0.7.2
+
 ## 1.6.0
 
 ### Minor Changes
