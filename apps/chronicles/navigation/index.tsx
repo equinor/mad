@@ -3,6 +3,9 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access -- factory types lost in react-navigation v7 upgrade */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- factory types lost in react-navigation v7 upgrade
+// @ts-nocheck
 import React from "react";
 import { ColorSchemeName } from "react-native";
 

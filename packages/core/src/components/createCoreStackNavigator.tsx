@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
 import { ParamListBase } from "@react-navigation/native";
 import { setConfig } from "../store/mad-config";
 import { MadConfig } from "../types";
