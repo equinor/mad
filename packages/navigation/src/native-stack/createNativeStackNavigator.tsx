@@ -19,6 +19,7 @@ import type { NativeStackNavigationEventMap } from "@react-navigation/native-sta
 import { NativeStackView } from "@react-navigation/native-stack";
 import { createMadDescriptors } from "../_internal/createMadDescriptors";
 import type { MadNativeStackNavigationOptions, NativeStackNavigatorProps } from "./types";
+import { UnresolvedScreenOptions } from "../_internal/types";
 
 function NativeStackNavigator({
     id,
@@ -29,7 +30,7 @@ function NativeStackNavigator({
     customSubHeader,
     ...rest
 }: NativeStackNavigatorProps) {
-    const { state, descriptors, navigation, NavigationContent } = useNavigationBuilder<
+    const { state, descriptors, navigation, NavigationContent, describe } = useNavigationBuilder<
         StackNavigationState<ParamListBase>,
         StackRouterOptions,
         StackActionHelpers<ParamListBase>,
@@ -70,7 +71,7 @@ function NativeStackNavigator({
         [navigation, state.index, state.key],
     );
 
-    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions, customSubHeader);
+    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions as UnresolvedScreenOptions<MadNativeStackNavigationOptions>, customSubHeader);
 
     return (
         <NavigationContent>
@@ -79,15 +80,11 @@ function NativeStackNavigator({
                 state={state}
                 navigation={navigation}
                 descriptors={modifiedDescriptors}
+                describe={describe}
             />
         </NavigationContent>
     );
 }
 
 export const createNativeStackNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
-    createNavigatorFactory<
-        StackNavigationState<ParamListBase>,
-        MadNativeStackNavigationOptions,
-        NativeStackNavigationEventMap,
-        typeof NativeStackNavigator
-    >(props => <NativeStackNavigator {...props} customSubHeader={customSubHeader} />);
+    createNavigatorFactory(props => <NativeStackNavigator {...props} customSubHeader={customSubHeader} />);

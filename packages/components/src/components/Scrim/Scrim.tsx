@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from "react";
-import { LayoutAnimation, Pressable, SafeAreaView, StyleSheet } from "react-native";
+import { LayoutAnimation, Pressable, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Portal } from "../Portal";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";

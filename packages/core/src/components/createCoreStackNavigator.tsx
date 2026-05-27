@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
 import { ParamListBase } from "@react-navigation/native";
 import { setConfig } from "../store/mad-config";
-import { CoreStackParamListBase, MadConfig } from "../types";
+import { MadConfig } from "../types";
 import { createMadCoreStackNavigator, createMadCoreNativeStackNavigator } from "../utils/createMadCoreNavigator";
 import { initiateAuthenticationClient } from "../utils/initiateAuthenticationClient";
 import { createNativeStackNavigator, createStackNavigator } from "./navigation";
@@ -8,16 +9,16 @@ import { createNativeStackNavigator, createStackNavigator } from "./navigation";
 export const createStackCoreNavigator = <T extends ParamListBase>(config: MadConfig<T>) => {
     setConfig(config as MadConfig);
     initiateAuthenticationClient();
-    const Stack = createStackNavigator<CoreStackParamListBase & T>();
+    const Stack = createStackNavigator();
     const Navigator = createMadCoreStackNavigator(Stack);
-    return { ...Stack, Navigator }; 
+    return { ...Stack, Navigator };
 }
 export const createNativeStackCoreNavigator = <T extends ParamListBase>(config: MadConfig<T>) => {
     setConfig(config as MadConfig);
     initiateAuthenticationClient();
-    const Stack = createNativeStackNavigator<CoreStackParamListBase & T>();
+    const Stack = createNativeStackNavigator();
     const Navigator = createMadCoreNativeStackNavigator(Stack);
-    return { ...Stack, Navigator }; 
+    return { ...Stack, Navigator };
 }
 
 /**

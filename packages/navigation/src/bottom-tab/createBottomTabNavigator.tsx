@@ -22,9 +22,11 @@ import { MadCustomFactoryProps } from "../_internal/types";
 
 type Props = DefaultNavigatorOptions<
     ParamListBase,
+    string | undefined,
     TabNavigationState<ParamListBase>,
     MadBottomTabNavigationOptions,
-    BottomTabNavigationEventMap
+    BottomTabNavigationEventMap,
+    TabActionHelpers<ParamListBase>
 > &
     TabRouterOptions &
     BottomTabNavigationConfig &
@@ -56,7 +58,7 @@ function BottomTabNavigator({
         screenOptions,
     });
 
-    const modifiedDescriptors = createMadDescriptors(descriptors, screenOptions, customSubHeader);
+    const modifiedDescriptors = createMadDescriptors(descriptors, { ...screenOptions, sceneContainerStyle, }, customSubHeader);
 
     return (
         <NavigationContent>
@@ -65,16 +67,10 @@ function BottomTabNavigator({
                 state={state}
                 navigation={navigation}
                 descriptors={modifiedDescriptors}
-                sceneContainerStyle={sceneContainerStyle}
             />
         </NavigationContent>
     );
 }
 
 export const createBottomTabNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
-    createNavigatorFactory<
-        TabNavigationState<ParamListBase>,
-        MadBottomTabNavigationOptions,
-        BottomTabNavigationEventMap,
-        typeof BottomTabNavigator
-    >(props => <BottomTabNavigator {...props} customSubHeader={customSubHeader} />);
+    createNavigatorFactory(props => <BottomTabNavigator {...props} customSubHeader={customSubHeader} />);

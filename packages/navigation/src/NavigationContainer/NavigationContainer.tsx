@@ -1,4 +1,5 @@
 import {
+    DefaultTheme,
     NavigationContainerRef,
     NavigationContainer as ReactNavigationNavigationContainer,
     useNavigationContainerRef,
@@ -51,6 +52,7 @@ const NavigationContainerInner = <T extends object>(
         <ReactNavigationNavigationContainer<T>
             {...props}
             ref={finalRef}
+            theme={props.theme ? { ...props.theme, fonts: props.theme.fonts ?? DefaultTheme.fonts } : undefined}
             onReady={onReady}
             onStateChange={onStateChange}
         />

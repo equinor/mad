@@ -8,11 +8,11 @@
     "bugs": "https://github.com/equinor/mad/issues",
     "dependencies": {
         "@equinor/mad-components": "workspace:*",
-        "@react-native-async-storage/async-storage": "1.23.1",
+        "@react-native-async-storage/async-storage": "2.2.0",
         "@types/aes-js": "^3.1.4",
         "aes-js": "^3.1.2",
         "core-js": "^3.37.0",
-        "expo-secure-store": "~12.3.1",
+        "expo-secure-store": "~55.0.14",
         "jwt-decode": "^4.0.0",
         "react-native-get-random-values": "^1.11.0",
         "zustand": "^4.5.2"
@@ -48,8 +48,8 @@
     "main": "./dist/index.js",
     "peerDependencies": {
         "@azure/msal-browser": "^3.30.0",
-        "expo-auth-session": "~6.0.0",
-        "expo-crypto": "~14.0.1",
+        "expo-auth-session": "~55.0.15",
+        "expo-crypto": "~55.0.14",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "react-native": "~0.83.6"
