@@ -1,5 +1,11 @@
 # @equinor/mad-insights
 
+## 0.3.1
+
+### Patch Changes
+
+- 1967046: dependency and other bug fixes after upgrading to Expo 55
+
 ## 0.3.0
 
 ### Minor Changes

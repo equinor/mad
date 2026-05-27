@@ -1,5 +1,11 @@
 # @equinor/mad-navigation
 
+## 0.7.1
+
+### Patch Changes
+
+- 1967046: dependency and other bug fixes after upgrading to Expo 55
+
 ## 0.7.0
 
 ### Minor Changes

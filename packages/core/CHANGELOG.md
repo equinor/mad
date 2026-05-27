@@ -1,5 +1,17 @@
 # @equinor/mad-core
 
+## 0.17.1
+
+### Patch Changes
+
+- 1967046: dependency and other bug fixes after upgrading to Expo 55
+- Updated dependencies [1967046]
+    - @equinor/mad-components@0.25.1
+    - @equinor/mad-navigation@0.7.1
+    - @equinor/mad-insights@0.3.1
+    - @equinor/mad-toast@0.4.1
+    - @equinor/mad-auth@0.6.1
+
 ## 0.17.0
 
 ### Minor Changes

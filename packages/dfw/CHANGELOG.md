@@ -1,5 +1,13 @@
 # @equinor/mad-dfw
 
+## 0.7.2
+
+### Patch Changes
+
+- 1967046: dependency and other bug fixes after upgrading to Expo 55
+- Updated dependencies [1967046]
+    - @equinor/mad-components@0.25.1
+
 ## 0.7.1
 
 ### Patch Changes
