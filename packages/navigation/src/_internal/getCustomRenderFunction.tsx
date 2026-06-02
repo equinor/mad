@@ -1,6 +1,8 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 import { MadBaseOptions } from "./types";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 /**
  * Custom render function that displays a custom sub-header
  * @param originalRender the original render function, found in the descriptor
@@ -17,6 +19,8 @@ export const getCustomRenderFunction = <T extends MadBaseOptions>(
         <WithCustomSubHeader
             CustomSubHeader={CustomSubHeader}
             shouldFloat={options.customSubHeaderFloat}
+            headerShown={options.headerShown !== false}
+
         >
             <View style={{ flex: 1 }}>{originalRender()}</View>
         </WithCustomSubHeader>
@@ -27,22 +31,34 @@ export const getCustomRenderFunction = <T extends MadBaseOptions>(
 type WithCustomSubHeaderProps = PropsWithChildren<{
     CustomSubHeader?: () => ReactNode;
     shouldFloat?: boolean;
+    headerShown: boolean
 }>;
 const WithCustomSubHeader = ({
     CustomSubHeader,
     shouldFloat,
+    headerShown,
     children,
-}: WithCustomSubHeaderProps) => (
-    <>
-        {CustomSubHeader && !shouldFloat && <CustomSubHeader />}
-        {children}
-        {CustomSubHeader && shouldFloat && (
-            <View style={styles.floatContainer}>
-                <CustomSubHeader />
-            </View>
-        )}
-    </>
-);
+}: WithCustomSubHeaderProps) => {
+
+    const { top } = useSafeAreaInsets();
+    const paddingTop = headerShown ? 0 : top;
+
+    return (
+        <>
+            {CustomSubHeader && !shouldFloat && (
+                <View style={{ paddingTop }}>
+                    <CustomSubHeader />
+                </View>
+            )}
+            {children}
+            {CustomSubHeader && shouldFloat && (
+                <View style={[styles.floatContainer, { paddingTop }]}>
+                    <CustomSubHeader />
+                </View>
+            )}
+        </>
+    );
+};
 
 const styles = StyleSheet.create({
     floatContainer: {

@@ -1,6 +1,5 @@
 import React from "react";
 import { LayoutAnimation, Linking, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
     EDSStyleSheet,
     PressableHighlight,
@@ -34,62 +33,60 @@ export const ServiceMessageBanner = () => {
     if (!serviceMessage) return null;
     const { message, url } = resolveMessageFromServiceMessage(serviceMessage, isError);
     return (
-        <SafeAreaView>
-            <DisableableSwipeable
-                disabled={!dismissAndURLIsVisible}
-                renderRightActions={() => (
-                    <SwipeItem
-                        title="Remove"
-                        iconName="close"
-                        color="danger"
-                        onPress={() => setIsDismissed(true)}
-                    />
-                )}
+        <DisableableSwipeable
+            disabled={!dismissAndURLIsVisible}
+            renderRightActions={() => (
+                <SwipeItem
+                    title="Remove"
+                    iconName="close"
+                    color="danger"
+                    onPress={() => setIsDismissed(true)}
+                />
+            )}
+        >
+            <PressableHighlight
+                style={styles.container}
+                onPress={onPressServiceMessage}
+                disabled={!expansionEnabled}
             >
-                <PressableHighlight
-                    style={styles.container}
-                    onPress={onPressServiceMessage}
-                    disabled={!expansionEnabled}
-                >
-                    <View style={{ flex: 1 }}>
-                        <Typography
-                            color={styles.text.color}
-                            numberOfLines={expansionEnabled && !isExpanded ? 2 : 0}
-                            onTextLayout={e => {
-                                if (e.nativeEvent.lines.length > 2) {
-                                    setExpansionEnabled(true);
-                                }
-                            }}
-                        >
-                            {message}
-                        </Typography>
-                        {dismissAndURLIsVisible && (
-                            <>
-                                {url && (
-                                    <Typography
-                                        group="interactive"
-                                        variant="link"
-                                        style={styles.text}
-                                        onPress={() => void Linking.openURL(url)}
-                                    >
-                                        {url}
-                                    </Typography>
-                                )}
+                <View style={{ flex: 1 }}>
+                    <Typography
+                        color={styles.text.color}
+                        numberOfLines={expansionEnabled && !isExpanded ? 2 : 0}
+                        onTextLayout={e => {
+                            if (e.nativeEvent.lines.length > 2) {
+                                setExpansionEnabled(true);
+                            }
+                        }}
+                    >
+                        {message}
+                    </Typography>
+                    {dismissAndURLIsVisible && (
+                        <>
+                            {url && (
                                 <Typography
-                                    variant="label"
-                                    bold
-                                    color={styles.text.color}
-                                    style={{ marginTop: 8 }}
+                                    group="interactive"
+                                    variant="link"
+                                    style={styles.text}
+                                    onPress={() => void Linking.openURL(url)}
                                 >
-                                    Swipe left to remove
+                                    {url}
                                 </Typography>
-                            </>
-                        )}
-                    </View>
-                    {expansionEnabled && <ExpansionToggle isExpanded={isExpanded} />}
-                </PressableHighlight>
-            </DisableableSwipeable>
-        </SafeAreaView>
+                            )}
+                            <Typography
+                                variant="label"
+                                bold
+                                color={styles.text.color}
+                                style={{ marginTop: 8 }}
+                            >
+                                Swipe left to remove
+                            </Typography>
+                        </>
+                    )}
+                </View>
+                {expansionEnabled && <ExpansionToggle isExpanded={isExpanded} />}
+            </PressableHighlight>
+        </DisableableSwipeable>
     );
 };
 

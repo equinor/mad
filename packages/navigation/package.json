@@ -38,7 +38,8 @@
         "@react-navigation/stack": "^7.9.2",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
-        "react-native": "~0.83.6"
+        "react-native": "~0.83.6",
+        "react-native-safe-area-context": "^5.6.2"
     },
     "scripts": {
         "build": "tsup-node && echo '\n ⚙️ Generating typescript declarations..' && tsc --project tsconfig.json --emitDeclarationOnly --declaration",
