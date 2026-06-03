@@ -1,7 +1,6 @@
 import React from "react";
 // eslint-disable-next-line import/named
 import { FallbackProps } from "react-error-boundary";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { View } from "react-native";
 import { Button } from "../Button";
 import { EDSStyleSheet } from "../../styling";
@@ -11,7 +10,7 @@ import { Typography } from "../Typography";
 export const ErrorBoundaryScreen = ({ resetErrorBoundary }: FallbackProps) => {
     const styles = useStyles(theme);
     return (
-        <SafeAreaView style={styles.safeAreaContainer}>
+        <View style={styles.safeAreaContainer}>
             <View style={styles.container}>
                 <Typography color={styles.title_color.color} group="paragraph" variant="body_short">
                     Error
@@ -24,7 +23,7 @@ export const ErrorBoundaryScreen = ({ resetErrorBoundary }: FallbackProps) => {
                 </Typography>
                 <Button title="Restart app" onPress={resetErrorBoundary} />
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

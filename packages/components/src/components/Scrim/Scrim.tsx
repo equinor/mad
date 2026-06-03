@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { LayoutAnimation, Pressable, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { LayoutAnimation, Pressable, StyleSheet, View } from "react-native";
 import { Portal } from "../Portal";
 import { EDSStyleSheet } from "../../styling";
 import { useStyles } from "../../hooks/useStyles";
@@ -23,9 +22,9 @@ export const Scrim = ({ isOpen, onPress, children }: ScrimProps) => {
     return (
         <Portal name="scrim">
             <Pressable style={styles.scrim} onPress={onPress}>
-                <SafeAreaView style={styles.safeAreaView}>
+                <View style={styles.safeAreaView}>
                     {children}
-                </SafeAreaView>
+                </View>
             </Pressable>
         </Portal>
     );
