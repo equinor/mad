@@ -1,5 +1,11 @@
 # @equinor/mad-insights
 
+## 0.3.2
+
+### Patch Changes
+
+- a6263b0: Minor UI bug fixes - SafeAreaView adding additional padding with banners
+
 ## 0.3.1
 
 ### Patch Changes

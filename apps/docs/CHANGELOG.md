@@ -1,5 +1,11 @@
 # @equinor/mad-platform-docs
 
+## 0.7.2
+
+### Patch Changes
+
+- a6263b0: Minor UI bug fixes - SafeAreaView adding additional padding with banners
+
 ## 0.7.1
 
 ### Patch Changes

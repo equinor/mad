@@ -1,5 +1,17 @@
 # @equinor/mad-core
 
+## 0.17.2
+
+### Patch Changes
+
+- a6263b0: Minor UI bug fixes - SafeAreaView adding additional padding with banners
+- Updated dependencies [a6263b0]
+    - @equinor/mad-components@0.25.2
+    - @equinor/mad-navigation@0.7.2
+    - @equinor/mad-insights@0.3.2
+    - @equinor/mad-toast@0.4.2
+    - @equinor/mad-auth@0.6.2
+
 ## 0.17.1
 
 ### Patch Changes

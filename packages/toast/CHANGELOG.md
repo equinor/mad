@@ -1,5 +1,13 @@
 # @equinor/mad-toast
 
+## 0.4.2
+
+### Patch Changes
+
+- a6263b0: Minor UI bug fixes - SafeAreaView adding additional padding with banners
+- Updated dependencies [a6263b0]
+    - @equinor/mad-components@0.25.2
+
 ## 0.4.1
 
 ### Patch Changes
