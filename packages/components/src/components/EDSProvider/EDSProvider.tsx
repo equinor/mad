@@ -7,6 +7,7 @@ import { ScrimProvider } from "../_internal/ScrimProvider";
 import { EDSContext } from "./EDSContext";
 import { createTokenProxy } from "../../styling/createTokenProxy";
 import type { ColorSchemeName } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export type EDSProviderProps = {
     /**
@@ -33,16 +34,18 @@ export const EDSProvider = (props: PropsWithChildren<EDSProviderProps>) => {
         <EDSContext.Provider
             value={{ colorScheme: colorScheme, density: props.density, token }}
         >
-            <GestureHandlerRootView style={{ flex: 1 }}>
-                <PortalProvider>
-                    <ScrimProvider>
-                        <Portal.Host style={{ flex: 1 }} name="root">
-                            {props.children}
-                            <DialogServiceProvider />
-                        </Portal.Host>
-                    </ScrimProvider>
-                </PortalProvider>
-            </GestureHandlerRootView>
+            <SafeAreaProvider>
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                    <PortalProvider>
+                        <ScrimProvider>
+                            <Portal.Host style={{ flex: 1 }} name="root">
+                                {props.children}
+                                <DialogServiceProvider />
+                            </Portal.Host>
+                        </ScrimProvider>
+                    </PortalProvider>
+                </GestureHandlerRootView>
+            </SafeAreaProvider>
         </EDSContext.Provider>
     );
 };
