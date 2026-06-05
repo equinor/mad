@@ -1,5 +1,18 @@
 # @equinor/mad-chronicles
 
+## 1.6.2
+
+### Patch Changes
+
+- a6263b0: Minor UI bug fixes - SafeAreaView adding additional padding with banners
+- Updated dependencies [a6263b0]
+    - @equinor/mad-components@0.25.2
+    - @equinor/mad-navigation@0.7.2
+    - @equinor/react-native-skia-draw@0.7.2
+    - @equinor/mad-auth@0.6.2
+    - @equinor/mad-core@0.17.2
+    - @equinor/mad-dfw@0.7.3
+
 ## 1.6.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @equinor/mad-dfw
 
+## 0.7.3
+
+### Patch Changes
+
+- a6263b0: Minor UI bug fixes - SafeAreaView adding additional padding with banners
+- Updated dependencies [a6263b0]
+    - @equinor/mad-components@0.25.2
+
 ## 0.7.2
 
 ### Patch Changes
