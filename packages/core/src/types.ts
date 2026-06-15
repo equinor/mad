@@ -80,9 +80,10 @@ export type MadConfig<ParamList extends ParamListBase | void = void> = {
         addScreenManually?: boolean;
     }>;
     /**
-     * App insights config used for initializing application insights service(s)
+     * App insights config used for initializing application insights service(s).
+     * Omit this field to opt out of Application Insights tracking (e.g. if you initialize it yourself).
      */
-    applicationInsights: EnvironmentValues<AppInsightsInitConfig>;
+    applicationInsights?: EnvironmentValues<AppInsightsInitConfig>;
     about?: EnvironmentValues<{
         /**
          * Endpoints used by the app

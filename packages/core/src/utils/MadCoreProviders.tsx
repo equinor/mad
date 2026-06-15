@@ -19,16 +19,22 @@ export const MadCoreProviders = <T extends ParamListBase | void>({
     type,
     children,
 }: MadCoreProvidersProps<T>) => {
+    const content = (
+        <CoreNavigatorTypeProvider type={type}>
+            <EnvironmentProvider>
+                <ServiceMessageProvider>
+                    {children}
+                    <ToastEmitter />
+                </ServiceMessageProvider>
+            </EnvironmentProvider>
+        </CoreNavigatorTypeProvider>
+    );
+
+    if (!config.applicationInsights) return content;
+
     return (
         <AppInsightsInitializer config={config.applicationInsights}>
-            <CoreNavigatorTypeProvider type={type}>
-                <EnvironmentProvider>
-                    <ServiceMessageProvider>
-                        {children}
-                        <ToastEmitter />
-                    </ServiceMessageProvider>
-                </EnvironmentProvider>
-            </CoreNavigatorTypeProvider>
+            {content}
         </AppInsightsInitializer>
     );
 };

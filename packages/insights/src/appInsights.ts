@@ -104,7 +104,7 @@ export const validateAppInsightsInit = () => {
 };
 
 export const setUsername = (username: string, userIdentifier: string | undefined) => {
-    validateAppInsightsInit();
+    if (!hasBeenInitialized) return;
     appInsightsMain.setAuthenticatedUserContext(username, userIdentifier, true);
     if (appInsightsLongTermLog) {
         const obfuscatedUserName = obfuscateUser(userIdentifier ?? "", username, useSHA1).id;
