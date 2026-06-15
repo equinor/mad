@@ -3,4 +3,4 @@
 "@equinor/mad-core": patch
 ---
 
-Add opt-out option for app insights logging thorught @equinor/mad-core
+Add opt-out option for App Insights logging through @equinor/mad-core
