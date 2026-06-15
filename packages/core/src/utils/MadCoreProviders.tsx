@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import { ParamListBase } from "@react-navigation/native";
 import { MadConfig, WithoutEnvironmentOptionValues } from "../types";
-import { AppInsightsInitializer } from "@equinor/mad-insights";
+import { AppInsightsInitializer, disableInsights } from "@equinor/mad-insights";
 import { ToastEmitter } from "@equinor/mad-toast";
 import { ServiceMessageProvider } from "../components/service-message/ServiceMessageProvider";
 import { EnvironmentProvider } from "../components/EnvironmentProvider";
@@ -19,6 +19,12 @@ export const MadCoreProviders = <T extends ParamListBase | void>({
     type,
     children,
 }: MadCoreProvidersProps<T>) => {
+    const insightsConfig = config.applicationInsights;
+
+    useEffect(() => {
+        if (!insightsConfig) disableInsights();
+    }, [insightsConfig]);
+
     const content = (
         <CoreNavigatorTypeProvider type={type}>
             <EnvironmentProvider>
@@ -30,11 +36,7 @@ export const MadCoreProviders = <T extends ParamListBase | void>({
         </CoreNavigatorTypeProvider>
     );
 
-    if (!config.applicationInsights) return content;
+    if (!insightsConfig) return content;
 
-    return (
-        <AppInsightsInitializer config={config.applicationInsights}>
-            {content}
-        </AppInsightsInitializer>
-    );
+    return <AppInsightsInitializer config={insightsConfig}>{content}</AppInsightsInitializer>;
 };

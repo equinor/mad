@@ -14,6 +14,7 @@ import { AppInsightsInitConfig, Envelope, TrackEventPayload } from "./types";
 let appInsightsMain: ApplicationInsights;
 let appInsightsLongTermLog: ApplicationInsights | undefined;
 let hasBeenInitialized = false;
+let isDisabled = false;
 let reactPluginWeb: ReactPlugin;
 let useSHA1: boolean;
 const envelopeBacklog: Envelope[] = [];
@@ -30,6 +31,7 @@ const trackLongTermBacklog: TrackEventPayload[] = [];
 export const appInsightsInit = (config: AppInsightsInitConfig) => {
     const { connectionString, instrumentationKey } = config;
     useSHA1 = config.longTermLog?.useSHA1 ?? false;
+    isDisabled = false;
     if (hasBeenInitialized) return;
     hasBeenInitialized = true;
 
@@ -95,6 +97,18 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
 
 export const appInsightsHasBeenInitialized = () => hasBeenInitialized;
 
+/**
+ * Disable AppInsights tracking. Tracking helpers become no-ops and any queued
+ * (backlogged) events are cleared. Use this when you want to opt out of
+ * AppInsights, so events are not buffered indefinitely while uninitialized.
+ */
+export const disableInsights = () => {
+    isDisabled = true;
+    envelopeBacklog.length = 0;
+    trackShortTermBacklog.length = 0;
+    trackLongTermBacklog.length = 0;
+};
+
 export const validateAppInsightsInit = () => {
     if (!appInsightsMain) {
         throw new Error(
@@ -118,6 +132,7 @@ export const setUsername = (username: string, userIdentifier: string | undefined
 };
 
 const trackEvent = (event: IEventTelemetry, customProperties?: ICustomProperties | undefined) => {
+    if (isDisabled) return;
     if (!appInsightsMain) {
         trackShortTermBacklog.push({ event, customProperties });
         return;
@@ -129,6 +144,7 @@ const trackEventLongTerm = (
     event: IEventTelemetry,
     customProperties?: ICustomProperties | undefined,
 ) => {
+    if (isDisabled) return;
     if (!appInsightsLongTermLog) {
         trackLongTermBacklog.push({ event, customProperties });
         return;
@@ -158,6 +174,7 @@ export const track = (
 };
 
 export const addTelemetryInitializer = (envelope: Envelope) => {
+    if (isDisabled) return;
     if (!hasBeenInitialized) {
         envelopeBacklog.push(envelope);
         return;
