@@ -30,9 +30,8 @@ const trackLongTermBacklog: TrackEventPayload[] = [];
  */
 export const appInsightsInit = (config: AppInsightsInitConfig) => {
     const { connectionString, instrumentationKey } = config;
+    if (hasBeenInitialized || isDisabled) return;
     useSHA1 = config.longTermLog?.useSHA1 ?? false;
-    isDisabled = false;
-    if (hasBeenInitialized) return;
     hasBeenInitialized = true;
 
     if (Platform.OS === "web") {
@@ -97,11 +96,6 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
 
 export const appInsightsHasBeenInitialized = () => hasBeenInitialized;
 
-/**
- * Disable AppInsights tracking. Tracking helpers become no-ops and any queued
- * (backlogged) events are cleared. Use this when you want to opt out of
- * AppInsights, so events are not buffered indefinitely while uninitialized.
- */
 export const disableInsights = () => {
     isDisabled = true;
     envelopeBacklog.length = 0;

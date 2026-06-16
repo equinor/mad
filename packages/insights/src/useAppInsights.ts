@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { appInsightsHasBeenInitialized, appInsightsInit } from "./appInsights";
+import { appInsightsInit } from "./appInsights";
+import { AppInsightsInitConfig } from "./types";
 
-export const useAppInsights = (...args: Parameters<typeof appInsightsInit>) => {
+export const useAppInsights = (config: AppInsightsInitConfig) => {
     useEffect(() => {
-        if (appInsightsHasBeenInitialized()) return;
-        appInsightsInit(...args);
-    }, [args]);
+        appInsightsInit(config);
+    }, [config]);
 };
