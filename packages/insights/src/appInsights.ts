@@ -179,7 +179,7 @@ export const track = (
 
 export const addTelemetryInitializer = (envelope: Envelope) => {
     if (isDisabled) return;
-    if (!hasBeenInitialized) {
+    if (!appInsightsMain) {
         envelopeBacklog.push(envelope);
         return;
     }
