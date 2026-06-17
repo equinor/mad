@@ -30,7 +30,8 @@ const trackLongTermBacklog: TrackEventPayload[] = [];
  */
 export const appInsightsInit = (config: AppInsightsInitConfig) => {
     const { connectionString, instrumentationKey } = config;
-    if (hasBeenInitialized || isDisabled) return;
+    if (hasBeenInitialized) return;
+    isDisabled = false;
     useSHA1 = config.longTermLog?.useSHA1 ?? false;
     hasBeenInitialized = true;
 
