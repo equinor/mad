@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useLayoutEffect } from "react";
 import { ParamListBase } from "@react-navigation/native";
 import { MadConfig, WithoutEnvironmentOptionValues } from "../types";
 import {
@@ -31,7 +31,9 @@ export const MadCoreProviders = <T extends ParamListBase | void>({
     const insightsConfig = config.applicationInsights;
     const hasInsightsConfig = !!insightsConfig;
 
-    if (!hasInsightsConfig) disableInsights();
+    useLayoutEffect(() => {
+        if (!hasInsightsConfig) disableInsights();
+    }, [hasInsightsConfig]);
 
     return (
         <>
