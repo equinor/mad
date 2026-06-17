@@ -113,6 +113,7 @@ export const validateAppInsightsInit = () => {
 };
 
 export const setUsername = (username: string, userIdentifier: string | undefined) => {
+    if (isDisabled) return;
     if (!appInsightsMain) return;
     appInsightsMain.setAuthenticatedUserContext(username, userIdentifier, true);
     if (appInsightsLongTermLog) {
