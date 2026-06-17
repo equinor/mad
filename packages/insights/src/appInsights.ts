@@ -30,7 +30,7 @@ const trackLongTermBacklog: TrackEventPayload[] = [];
  */
 export const appInsightsInit = (config: AppInsightsInitConfig) => {
     const { connectionString, instrumentationKey } = config;
-    isDisabled = false;
+    enableInsights();
     if (hasBeenInitialized) return;
     useSHA1 = config.longTermLog?.useSHA1 ?? false;
     hasBeenInitialized = true;
@@ -97,8 +97,16 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
 
 export const appInsightsHasBeenInitialized = () => hasBeenInitialized;
 
+export const enableInsights = () => {
+    isDisabled = false;
+    if (appInsightsMain) appInsightsMain.config.disableTelemetry = false;
+    if (appInsightsLongTermLog) appInsightsLongTermLog.config.disableTelemetry = false;
+};
+
 export const disableInsights = () => {
     isDisabled = true;
+    if (appInsightsMain) appInsightsMain.config.disableTelemetry = true;
+    if (appInsightsLongTermLog) appInsightsLongTermLog.config.disableTelemetry = true;
     envelopeBacklog.length = 0;
     trackShortTermBacklog.length = 0;
     trackLongTermBacklog.length = 0;
