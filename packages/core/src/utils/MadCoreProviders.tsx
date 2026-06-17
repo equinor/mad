@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useMemo } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import { ParamListBase } from "@react-navigation/native";
 import { MadConfig, WithoutEnvironmentOptionValues } from "../types";
 import { AppInsightsInitializer, disableInsights } from "@equinor/mad-insights";
@@ -19,22 +19,12 @@ export const MadCoreProviders = <T extends ParamListBase | void>({
     type,
     children,
 }: MadCoreProvidersProps<T>) => {
-    const applicationInsights = config.applicationInsights;
-    const insightsConfig = useMemo(
-        () => applicationInsights,
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- `applicationInsights` is an environment proxy with an unstable reference; depend on its primitive fields instead.
-        [
-            applicationInsights?.connectionString,
-            applicationInsights?.instrumentationKey,
-            applicationInsights?.longTermLog?.connectionString,
-            applicationInsights?.longTermLog?.instrumentationKey,
-            applicationInsights?.longTermLog?.useSHA1,
-        ],
-    );
+    const insightsConfig = config.applicationInsights;
+    const hasInsightsConfig = !!insightsConfig;
 
     useEffect(() => {
-        if (!insightsConfig) disableInsights();
-    }, [insightsConfig]);
+        if (!hasInsightsConfig) disableInsights();
+    }, [hasInsightsConfig]);
 
     const content = (
         <CoreNavigatorTypeProvider type={type}>
