@@ -89,8 +89,11 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
         appInsightsMain.loadAppInsights();
     }
 
-    if (pendingSetUsername)
-        setUsername(pendingSetUsername.username, pendingSetUsername.userIdentifier);
+    if (pendingSetUsername) {
+        const { username, userIdentifier } = pendingSetUsername;
+        pendingSetUsername = undefined;
+        setUsername(username, userIdentifier);
+    }
     envelopeBacklog.forEach(addTelemetryInitializer);
     trackShortTermBacklog.forEach(item => trackEvent(item.event, item.customProperties));
     trackLongTermBacklog.forEach(item => trackEventLongTerm(item.event, item.customProperties));
