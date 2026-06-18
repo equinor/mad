@@ -20,6 +20,7 @@ let useSHA1: boolean;
 const envelopeBacklog: Envelope[] = [];
 const trackShortTermBacklog: TrackEventPayload[] = [];
 const trackLongTermBacklog: TrackEventPayload[] = [];
+let pendingSetUsername: { username: string; userIdentifier: string | undefined } | undefined;
 
 /**
  * Initialize appInsights. This should be called at app startup (useEffect inside App.tsx might be a good place to put it).
@@ -88,6 +89,8 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
         appInsightsMain.loadAppInsights();
     }
 
+    if (pendingSetUsername)
+        setUsername(pendingSetUsername.username, pendingSetUsername.userIdentifier);
     envelopeBacklog.forEach(addTelemetryInitializer);
     trackShortTermBacklog.forEach(item => trackEvent(item.event, item.customProperties));
     trackLongTermBacklog.forEach(item => trackEventLongTerm(item.event, item.customProperties));
@@ -110,6 +113,7 @@ export const disableInsights = () => {
     envelopeBacklog.length = 0;
     trackShortTermBacklog.length = 0;
     trackLongTermBacklog.length = 0;
+    pendingSetUsername = undefined;
 };
 
 export const validateAppInsightsInit = () => {
@@ -122,7 +126,10 @@ export const validateAppInsightsInit = () => {
 
 export const setUsername = (username: string, userIdentifier: string | undefined) => {
     if (isDisabled) return;
-    if (!appInsightsMain) return;
+    if (!appInsightsMain) {
+        pendingSetUsername = { username, userIdentifier };
+        return;
+    }
     appInsightsMain.setAuthenticatedUserContext(username, userIdentifier, true);
     if (appInsightsLongTermLog) {
         const obfuscatedUserName = obfuscateUser(userIdentifier ?? "", username, useSHA1).id;
