@@ -1,9 +1,16 @@
 import { useEffect } from "react";
-import { appInsightsHasBeenInitialized, appInsightsInit } from "./appInsights";
+import { appInsightsInit } from "./appInsights";
+import { AppInsightsInitConfig } from "./types";
 
-export const useAppInsights = (...args: Parameters<typeof appInsightsInit>) => {
+export const useAppInsights = (config: AppInsightsInitConfig) => {
     useEffect(() => {
-        if (appInsightsHasBeenInitialized()) return;
-        appInsightsInit(...args);
-    }, [args]);
+        appInsightsInit(config);
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- `config` may be an environment proxy with an unstable reference; depend on its primitive fields instead.
+    }, [
+        config.connectionString,
+        config.instrumentationKey,
+        config.longTermLog?.connectionString,
+        config.longTermLog?.instrumentationKey,
+        config.longTermLog?.useSHA1,
+    ]);
 };

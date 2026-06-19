@@ -90,7 +90,7 @@ Pull requests into main should as a rule of thumb ALWAYS contain a changeset (se
 yarn changeset
 ```
 
-and follow the promts. This way, changelogs and version bumps are automatically handeled. Also note
+and follow the prompts. This way, changelogs and version bumps are automatically handled. Also note
 that we use
 [semantic](https://gist.githubusercontent.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716/raw/e75b1b9536ee5ee82e2ec0ba8948d8f8238488c3/semantic-commit-messages.md)
 pull request titles. These are verified automatically during PR linting.
@@ -122,17 +122,17 @@ removed in a future update. Here are the rules that are followed for deprecated 
 
 Learn more about the power of Turborepo:
 
--   [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
--   [Caching](https://turbo.build/repo/docs/core-concepts/caching)
--   [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
--   [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
--   [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
--   [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
+- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
+- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
+- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
+- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
+- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
 
 ### 🛠️ Repository tools
 
 Check out the docs for some of the tools we use throughout the repository:
 
--   [Changesets](https://github.com/changesets/changesets) - Versioning
--   [Jest](https://jestjs.io) - Testing
--   [tsup](https://tsup.egoist.dev) - Building
+- [Changesets](https://github.com/changesets/changesets) - Versioning
+- [Jest](https://jestjs.io) - Testing
+- [tsup](https://tsup.egoist.dev) - Building

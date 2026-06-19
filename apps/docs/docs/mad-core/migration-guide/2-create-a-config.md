@@ -110,7 +110,7 @@ export const config: MadConfig<RootStackParamList> = {
 | `language`            | true      | language config. See [language](#language-config)                                                                                                                                                   |
 | `authentication`      | true      | authentication config. See [authentication](#authentication-config)                                                                                                                                 |
 | `login`               | true      | login screen config. See [login](#login-config)                                                                                                                                                     |
-| `applicationInsights` | true      | application insights config. See [application insights](#application-insights-config)                                                                                                               |
+| `applicationInsights` | false     | application insights config. If not provided, application insights logging is disabled. See [application insights](#application-insights-config)                                                    |
 | `serviceNow`          | false     | Configuration item in Service Now. Used for create incident screen. If not provided, we won't add create incident screen to the stack                                                               |
 | `about`               | false     | about screen config. If not provided, we won't add about screen to the stack. See [about](#about-config)                                                                                            |
 
@@ -140,6 +140,9 @@ export const config: MadConfig<RootStackParamList> = {
 | `addScreenManually` | false     | Set this to true if you want to add the login screen manually to the stack, just like you do with SettingsScreen. This way you can access LoginScreen's props: `onAuthenticationSuccessful` and `onAuthenticationFailed`. When adding `LoginScreen` to the stack, use `getDefaultScreenOptionsForLoginScreen` to use the same options as we do when adding the screen automatically. |
 
 ###### Application Insights config
+
+`applicationInsights` is optional. If you omit it, application insights logging is disabled. The
+fields below are required only when you choose to provide the config.
 
 | key                                        | required? | explanation                                                                                       |
 | ------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------- |

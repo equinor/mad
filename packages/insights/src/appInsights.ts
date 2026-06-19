@@ -14,11 +14,13 @@ import { AppInsightsInitConfig, Envelope, TrackEventPayload } from "./types";
 let appInsightsMain: ApplicationInsights;
 let appInsightsLongTermLog: ApplicationInsights | undefined;
 let hasBeenInitialized = false;
+let isDisabled = false;
 let reactPluginWeb: ReactPlugin;
 let useSHA1: boolean;
 const envelopeBacklog: Envelope[] = [];
 const trackShortTermBacklog: TrackEventPayload[] = [];
 const trackLongTermBacklog: TrackEventPayload[] = [];
+let pendingSetUsername: { username: string; userIdentifier: string | undefined } | undefined;
 
 /**
  * Initialize appInsights. This should be called at app startup (useEffect inside App.tsx might be a good place to put it).
@@ -29,8 +31,9 @@ const trackLongTermBacklog: TrackEventPayload[] = [];
  */
 export const appInsightsInit = (config: AppInsightsInitConfig) => {
     const { connectionString, instrumentationKey } = config;
-    useSHA1 = config.longTermLog?.useSHA1 ?? false;
+    enableInsights();
     if (hasBeenInitialized) return;
+    useSHA1 = config.longTermLog?.useSHA1 ?? false;
     hasBeenInitialized = true;
 
     if (Platform.OS === "web") {
@@ -86,6 +89,11 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
         appInsightsMain.loadAppInsights();
     }
 
+    if (pendingSetUsername) {
+        const { username, userIdentifier } = pendingSetUsername;
+        pendingSetUsername = undefined;
+        setUsername(username, userIdentifier);
+    }
     envelopeBacklog.forEach(addTelemetryInitializer);
     trackShortTermBacklog.forEach(item => trackEvent(item.event, item.customProperties));
     trackLongTermBacklog.forEach(item => trackEventLongTerm(item.event, item.customProperties));
@@ -94,6 +102,22 @@ export const appInsightsInit = (config: AppInsightsInitConfig) => {
 };
 
 export const appInsightsHasBeenInitialized = () => hasBeenInitialized;
+
+export const enableInsights = () => {
+    isDisabled = false;
+    if (appInsightsMain) appInsightsMain.config.disableTelemetry = false;
+    if (appInsightsLongTermLog) appInsightsLongTermLog.config.disableTelemetry = false;
+};
+
+export const disableInsights = () => {
+    isDisabled = true;
+    if (appInsightsMain) appInsightsMain.config.disableTelemetry = true;
+    if (appInsightsLongTermLog) appInsightsLongTermLog.config.disableTelemetry = true;
+    envelopeBacklog.length = 0;
+    trackShortTermBacklog.length = 0;
+    trackLongTermBacklog.length = 0;
+    pendingSetUsername = undefined;
+};
 
 export const validateAppInsightsInit = () => {
     if (!appInsightsMain) {
@@ -104,7 +128,11 @@ export const validateAppInsightsInit = () => {
 };
 
 export const setUsername = (username: string, userIdentifier: string | undefined) => {
-    validateAppInsightsInit();
+    if (isDisabled) return;
+    if (!appInsightsMain) {
+        pendingSetUsername = { username, userIdentifier };
+        return;
+    }
     appInsightsMain.setAuthenticatedUserContext(username, userIdentifier, true);
     if (appInsightsLongTermLog) {
         const obfuscatedUserName = obfuscateUser(userIdentifier ?? "", username, useSHA1).id;
@@ -118,6 +146,7 @@ export const setUsername = (username: string, userIdentifier: string | undefined
 };
 
 const trackEvent = (event: IEventTelemetry, customProperties?: ICustomProperties | undefined) => {
+    if (isDisabled) return;
     if (!appInsightsMain) {
         trackShortTermBacklog.push({ event, customProperties });
         return;
@@ -129,6 +158,7 @@ const trackEventLongTerm = (
     event: IEventTelemetry,
     customProperties?: ICustomProperties | undefined,
 ) => {
+    if (isDisabled) return;
     if (!appInsightsLongTermLog) {
         trackLongTermBacklog.push({ event, customProperties });
         return;
@@ -158,7 +188,8 @@ export const track = (
 };
 
 export const addTelemetryInitializer = (envelope: Envelope) => {
-    if (!hasBeenInitialized) {
+    if (isDisabled) return;
+    if (!appInsightsMain) {
         envelopeBacklog.push(envelope);
         return;
     }
