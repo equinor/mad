@@ -1,5 +1,11 @@
 # @equinor/mad-platform-docs
 
+## 0.7.3
+
+### Patch Changes
+
+- 411860f: Toast message bug fix along with other minor fixes
+
 ## 0.7.2
 
 ### Patch Changes

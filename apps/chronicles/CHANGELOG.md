@@ -1,5 +1,19 @@
 # @equinor/mad-chronicles
 
+## 1.6.3
+
+### Patch Changes
+
+- 411860f: Toast message bug fix along with other minor fixes
+- Updated dependencies [2b06c85]
+- Updated dependencies [411860f]
+    - @equinor/mad-core@0.18.0
+    - @equinor/mad-components@0.25.3
+    - @equinor/mad-navigation@0.7.3
+    - @equinor/react-native-skia-draw@0.7.3
+    - @equinor/mad-auth@0.6.3
+    - @equinor/mad-dfw@0.7.4
+
 ## 1.6.2
 
 ### Patch Changes

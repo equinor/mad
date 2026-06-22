@@ -1,5 +1,22 @@
 # @equinor/mad-core
 
+## 0.18.0
+
+### Minor Changes
+
+- 411860f: Toast message bug fix along with other minor fixes
+
+### Patch Changes
+
+- 2b06c85: Add opt-out option for App Insights logging through @equinor/mad-core
+- Updated dependencies [2b06c85]
+- Updated dependencies [411860f]
+    - @equinor/mad-insights@0.3.3
+    - @equinor/mad-components@0.25.3
+    - @equinor/mad-navigation@0.7.3
+    - @equinor/mad-toast@0.4.3
+    - @equinor/mad-auth@0.6.3
+
 ## 0.17.2
 
 ### Patch Changes
