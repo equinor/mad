@@ -1,5 +1,13 @@
 # @equinor/react-native-mad-ocr
 
+## 0.3.3
+
+### Patch Changes
+
+- 411860f: Toast message bug fix along with other minor fixes
+- Updated dependencies [411860f]
+    - @equinor/mad-components@0.25.3
+
 ## 0.3.2
 
 ### Patch Changes
