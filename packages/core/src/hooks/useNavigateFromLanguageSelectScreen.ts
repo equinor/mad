@@ -9,6 +9,6 @@ export const useNavigateFromLanguageSelectScreen = () => {
     const navigateToMainRoute = useNavigateToMainRoute();
     const isOnboarding = coreRoute.name === CoreRoutes.SELECT_LANGUAGE_ONBOARDING;
     const route = getNavigationRouteForSelectLanguageScreen(isOnboarding);
-    if (route) return () => navigation.navigate(route);
+    if (route) return () => navigation.goBack();
     return navigateToMainRoute;
 };

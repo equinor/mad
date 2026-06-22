@@ -42,7 +42,9 @@ export const MadCoreProviders = <T extends ParamListBase | void>({
                 <EnvironmentProvider>
                     <ServiceMessageProvider>
                         {children}
-                        <ToastEmitter />
+                        {type === "native-stack" &&
+                            <ToastEmitter />
+                        }
                     </ServiceMessageProvider>
                 </EnvironmentProvider>
             </CoreNavigatorTypeProvider>
