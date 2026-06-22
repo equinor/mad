@@ -10,5 +10,7 @@ const scopesRecord: Record<Environment, string[]> = {
 
 export const getMadCommonScopes = (env: Environment) => scopesRecord[env];
 
-export const getMadCommonBaseUrl = (env: Environment) =>
-    `https://api-mad-api-${env.toLowerCase()}.radix.equinor.com/api/v1.1`;
+export const getMadCommonBaseUrl = (env: Environment) => {
+    const actualEnv: Environment = env === "q87" ? "qa" : env;
+    return `https://api-mad-api-${actualEnv.toLowerCase()}.radix.equinor.com/api/v1.1`;
+}

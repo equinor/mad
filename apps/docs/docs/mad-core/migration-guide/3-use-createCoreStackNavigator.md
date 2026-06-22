@@ -27,6 +27,10 @@ import { RootStackParamList } from "path/to/paramList.ts";
 const RootStack = createStackCoreNavigator<RootStackParamList>(config);
 ```
 
+If you are using `createStackCoreNavigator`, import `ToastEmitter` from `@equinor/mad-core` and add
+it in your App.tsx file outside your Navigation Container. Ensure to add it within the `EDSProvider`
+though.
+
 If you have leftover screens from `mad-expo-core` in the stack, they should be removed.
 `createStackCoreNavigator`/`createNativeStackCoreNavigator` will add similar screens for you behind
 the scenes.
