@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.25.4
+
+### Patch Changes
+
+- 481f3aa: Ok button issue fix. Moved OK button in scrollview
+
 ## 0.25.3
 
 ### Patch Changes

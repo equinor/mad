@@ -1,5 +1,17 @@
 # @equinor/mad-core
 
+## 0.18.1
+
+### Patch Changes
+
+- 481f3aa: Ok button issue fix. Moved OK button in scrollview
+- Updated dependencies [481f3aa]
+    - @equinor/mad-components@0.25.4
+    - @equinor/mad-navigation@0.7.4
+    - @equinor/mad-insights@0.3.4
+    - @equinor/mad-toast@0.4.4
+    - @equinor/mad-auth@0.6.4
+
 ## 0.18.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @equinor/react-native-skia-draw
 
+## 0.7.4
+
+### Patch Changes
+
+- 481f3aa: Ok button issue fix. Moved OK button in scrollview
+- Updated dependencies [481f3aa]
+    - @equinor/mad-components@0.25.4
+
 ## 0.7.3
 
 ### Patch Changes
