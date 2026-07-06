@@ -73,18 +73,18 @@ export const WhatsNewScreen = () => {
                     </Typography>
                     <ChangeLog release={release} />
                 </Cell>
+                <View style={styles.footer}>
+                    <Button
+                        title="OK"
+                        onPress={() => {
+                            if (!demoMode.isEnabled)
+                                releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
+                            navigate();
+                        }}
+                        style={{ width: 81 }}
+                    />
+                </View>
             </ScrollView>
-            <View style={styles.footer}>
-                <Button
-                    title="OK"
-                    onPress={() => {
-                        if (!demoMode.isEnabled)
-                            releaseNotesVersion.setLastDisplayedReleaseNotesVersion(appVersion);
-                        navigate();
-                    }}
-                    style={{ width: 81 }}
-                />
-            </View>
         </View>
     );
 };
@@ -98,7 +98,6 @@ const whatsNewStyles = EDSStyleSheet.create(theme => ({
     container: {
         flex: 1,
         paddingTop: theme.geometry.dimension.cell.minHeight,
-        justifyContent: "space-between",
     },
     scrollContainer: {
         justifyContent: "center",
