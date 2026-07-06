@@ -1,5 +1,18 @@
 # @equinor/mad-chronicles
 
+## 1.6.4
+
+### Patch Changes
+
+- 481f3aa: Ok button issue fix. Moved OK button in scrollview
+- Updated dependencies [481f3aa]
+    - @equinor/mad-components@0.25.4
+    - @equinor/mad-navigation@0.7.4
+    - @equinor/react-native-skia-draw@0.7.4
+    - @equinor/mad-auth@0.6.4
+    - @equinor/mad-core@0.18.1
+    - @equinor/mad-dfw@0.7.5
+
 ## 1.6.3
 
 ### Patch Changes
