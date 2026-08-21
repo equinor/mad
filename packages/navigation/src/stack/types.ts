@@ -1,5 +1,7 @@
 import {
     DefaultNavigatorOptions,
+    NavigationListBase,
+    NavigatorTypeBagBase,
     ParamListBase,
     StackActionHelpers,
     StackNavigationState,
@@ -18,6 +20,29 @@ export type StackNavigatorProps = DefaultNavigatorOptions<
 > &
     StackRouterOptions &
     StackNavigationConfig & MadCustomFactoryProps;
+
+export type MadStackNavigatorProps<ParamList extends ParamListBase = ParamListBase> =
+    DefaultNavigatorOptions<
+        ParamList,
+        string | undefined,
+        StackNavigationState<ParamList>,
+        MadStackNavigationOptions,
+        StackNavigationEventMap,
+        unknown
+    > & {
+        customSubHeader?: () => React.ReactNode;
+    };
+
+export type MadStackNavigatorTypeBag<ParamList extends ParamListBase> = NavigatorTypeBagBase & {
+    ParamList: ParamList;
+    NavigatorID: string | undefined;
+    State: StackNavigationState<ParamList>;
+    ScreenOptions: MadStackNavigationOptions;
+    EventMap: StackNavigationEventMap;
+    ActionHelpers: unknown;
+    NavigationList: NavigationListBase<ParamList>;
+    Navigator: (props: MadStackNavigatorProps<ParamList>) => React.ReactElement | null;
+};
 
 export type StackNavigationConfig = {
     /**

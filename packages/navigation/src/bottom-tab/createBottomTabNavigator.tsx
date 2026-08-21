@@ -10,6 +10,7 @@ import {
     TabNavigationState,
     TabRouter,
     TabRouterOptions,
+    TypedNavigator,
     useNavigationBuilder,
 } from "@react-navigation/native";
 import * as React from "react";
@@ -17,7 +18,7 @@ import * as React from "react";
 import type { BottomTabNavigationEventMap } from "@react-navigation/bottom-tabs";
 import { BottomTabView } from "@react-navigation/bottom-tabs";
 import { createMadDescriptors } from "../_internal/createMadDescriptors";
-import type { BottomTabNavigationConfig, MadBottomTabNavigationOptions } from "./types";
+import type { BottomTabNavigationConfig, MadBottomTabNavigationOptions, MadBottomTabNavigatorProps, MadBottomTabNavigatorTypeBag } from "./types";
 import { MadCustomFactoryProps } from "../_internal/types";
 
 type Props = DefaultNavigatorOptions<
@@ -72,5 +73,22 @@ function BottomTabNavigator({
     );
 }
 
-export const createBottomTabNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
-    createNavigatorFactory(props => <BottomTabNavigator {...props} customSubHeader={customSubHeader} />);
+export const createBottomTabNavigatorFactory = (customSubHeader?: () => React.ReactNode) => {
+    return function <ParamList extends ParamListBase = ParamListBase>(): TypedNavigator<
+        MadBottomTabNavigatorTypeBag<ParamList>
+    > {
+
+        // Define the custom navigator layout wrapper
+        const CustomBottomTabNavigator = (props: MadBottomTabNavigatorProps<ParamList>) => {
+            // Cast the base navigator safely using the correct Bottom Tab interfaces
+            const TargetTab = BottomTabNavigator as React.ComponentType<MadBottomTabNavigatorProps<ParamList>>;
+
+            return <TargetTab {...props} customSubHeader={customSubHeader} />;
+        };
+
+        // Instantiate and return via the factory cleanly
+        const factory = createNavigatorFactory(CustomBottomTabNavigator);
+
+        return factory() as unknown as TypedNavigator<MadBottomTabNavigatorTypeBag<ParamList>>;
+    };
+};

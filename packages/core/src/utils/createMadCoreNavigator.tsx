@@ -10,11 +10,12 @@ import { WhatsNewScreen } from "../components/screens/release-notes/WhatsNewScre
 import { useMadConfig } from "../store";
 import { getDefaultScreenOptionsForLoginScreen } from "./getDefaultScreenOptionsForLoginScreen";
 import { MadCoreProviders } from "./MadCoreProviders";
+import { CoreStackParamListBase } from "../types";
 
-export const createMadCoreNativeStackNavigator = (
-    Stack: ReturnType<typeof createNativeStackNavigator>
+export const createMadCoreNativeStackNavigator = <T extends CoreStackParamListBase>(
+    Stack: ReturnType<typeof createNativeStackNavigator<T & CoreStackParamListBase>>
 ) => {
-    type Props = Parameters<typeof Stack.Navigator>[0]
+    type Props = React.ComponentProps<typeof Stack.Navigator>;
     function MadCoreNavigator(props: Omit<Props, "initialRouteName"> & { children?: React.ReactNode }) {
         const config = useMadConfig();
         if (!config) return null;
@@ -57,10 +58,10 @@ export const createMadCoreNativeStackNavigator = (
     return MadCoreNavigator;
 };
 
-export const createMadCoreStackNavigator = (
-    Stack: ReturnType<typeof createStackNavigator>
+export const createMadCoreStackNavigator = <T extends CoreStackParamListBase>(
+    Stack: ReturnType<typeof createStackNavigator<T & CoreStackParamListBase>>
 ) => {
-    type Props = Parameters<typeof Stack.Navigator>[0]
+    type Props = React.ComponentProps<typeof Stack.Navigator>;
     function MadCoreNavigator(props: Omit<Props, "initialRouteName"> & { children?: React.ReactNode }) {
         const config = useMadConfig();
         if (!config) return null;
