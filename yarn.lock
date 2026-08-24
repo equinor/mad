@@ -3565,7 +3565,6 @@ __metadata:
     "@expo/metro-runtime": "npm:~55.0.10"
     "@expo/vector-icons": "npm:^15.0.2"
     "@react-native-async-storage/async-storage": "npm:2.2.0"
-    "@react-native-community/netinfo": "npm:^11.4.1"
     "@react-navigation/bottom-tabs": "npm:^7.16.1"
     "@react-navigation/native": "npm:^7.2.5"
     "@react-navigation/native-stack": "npm:^7.15.1"
@@ -3589,6 +3588,7 @@ __metadata:
     expo-image-picker: "npm:~55.0.19"
     expo-linking: "npm:~55.0.14"
     expo-localization: "npm:~55.0.13"
+    expo-network: "npm:~55.0.16"
     expo-splash-screen: "npm:~55.0.19"
     expo-status-bar: "npm:~55.0.5"
     expo-system-ui: "npm:~55.0.16"
@@ -3666,10 +3666,10 @@ __metadata:
     zustand: "npm:^4.5.2"
   peerDependencies:
     "@react-native-async-storage/async-storage": ^2.1.2
-    "@react-native-community/netinfo": ^11.4.1
     "@react-navigation/native": ^7.2.5
     expo-device: ~55.0.15
     expo-localization: ~55.0.13
+    expo-network: ~55.0.16
     react: ^19.2.0
     react-dom: ^19.2.0
     react-native: ~0.83.6
@@ -5775,16 +5775,6 @@ __metadata:
   peerDependencies:
     react-native: ^0.0.0-0 || >=0.65 <1.0
   checksum: 10c0/84900eba46a40225c4ac9bf5eb58885200dc1e789d873ecda46a2a213870cc7110536ed1fd7a74b873071f3603c093958fbd84c635d6f6d4f94bfbb616ffa0ef
-  languageName: node
-  linkType: hard
-
-"@react-native-community/netinfo@npm:^11.4.1":
-  version: 11.5.2
-  resolution: "@react-native-community/netinfo@npm:11.5.2"
-  peerDependencies:
-    react: "*"
-    react-native: ">=0.59"
-  checksum: 10c0/d5301d7d8b363753b6980f5d17dc47ad4933fc46e4010aceb937c0f673b35a6648f259df930b2b48d99344a90ff7a187344486100c4874462d88545f1647bef5
   languageName: node
   linkType: hard
 
@@ -12188,6 +12178,16 @@ __metadata:
     react-native-worklets:
       optional: true
   checksum: 10c0/f3ae7e51e42d1ef54a879279beb86a01246ed54762001ca7864da70a84b9c63922ef2040fae2a54951a333de696c4976fe2649d3f316bc7241475f5821039251
+  languageName: node
+  linkType: hard
+
+"expo-network@npm:~55.0.16":
+  version: 55.0.16
+  resolution: "expo-network@npm:55.0.16"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+  checksum: 10c0/2217b5ca90f3c276edee6d112b1fc1db8b60939ae2cb36d3dcbf5d099a7d5dafbdc3b642056f1cfc733ccf6460797c8ac6a1aa2c47c992e65d91ecb46893620f
   languageName: node
   linkType: hard
 

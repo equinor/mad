@@ -48,10 +48,10 @@
     "main": "./dist/index.js",
     "peerDependencies": {
         "@react-native-async-storage/async-storage": "^2.1.2",
-        "@react-native-community/netinfo": "^11.4.1",
         "@react-navigation/native": "^7.2.5",
         "expo-device": "~55.0.15",
         "expo-localization": "~55.0.13",
+        "expo-network": "~55.0.16",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "react-native": "~0.83.6",
