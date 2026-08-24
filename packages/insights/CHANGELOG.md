@@ -1,5 +1,11 @@
 # @equinor/mad-insights
 
+## 0.3.5
+
+### Patch Changes
+
+- bb939ed: Type support added back for navigation factories
+
 ## 0.3.4
 
 ### Patch Changes

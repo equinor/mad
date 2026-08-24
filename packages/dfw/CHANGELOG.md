@@ -1,5 +1,13 @@
 # @equinor/mad-dfw
 
+## 0.7.6
+
+### Patch Changes
+
+- bb939ed: Type support added back for navigation factories
+- Updated dependencies [bb939ed]
+    - @equinor/mad-components@0.25.5
+
 ## 0.7.5
 
 ### Patch Changes

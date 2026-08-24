@@ -1,6 +1,6 @@
 {
     "name": "@equinor/mad-platform-docs",
-    "version": "0.7.4",
+    "version": "0.7.5",
     "browserslist": {
         "production": [
             ">0.5%",

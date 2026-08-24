@@ -1,5 +1,11 @@
 # @equinor/mad-platform-docs
 
+## 0.7.5
+
+### Patch Changes
+
+- bb939ed: Type support added back for navigation factories
+
 ## 0.7.4
 
 ### Patch Changes

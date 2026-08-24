@@ -1,5 +1,13 @@
 # @equinor/mad-auth
 
+## 0.6.5
+
+### Patch Changes
+
+- bb939ed: Type support added back for navigation factories
+- Updated dependencies [bb939ed]
+    - @equinor/mad-components@0.25.5
+
 ## 0.6.4
 
 ### Patch Changes
