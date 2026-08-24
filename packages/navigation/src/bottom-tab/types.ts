@@ -1,4 +1,6 @@
-import type { BottomTabBarProps, BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
+
+import type { ParamListBase, DefaultNavigatorOptions, TabNavigationState, NavigatorTypeBagBase, TabActionHelpers, NavigationListBase } from "@react-navigation/native";
+import type { BottomTabBarProps, BottomTabNavigationEventMap, BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { StyleProp, ViewStyle } from "react-native";
 import { MadNavigationOptions } from "../_internal/types";
 
@@ -27,6 +29,29 @@ export type BottomTabNavigationConfig = {
      * Style object for the component wrapping the screen content.
      */
     sceneContainerStyle?: StyleProp<ViewStyle>;
+};
+
+export type MadBottomTabNavigatorProps<ParamList extends ParamListBase = ParamListBase> =
+    DefaultNavigatorOptions<
+        ParamList,
+        string | undefined,
+        TabNavigationState<ParamList>,
+        MadBottomTabNavigationOptions,
+        BottomTabNavigationEventMap,
+        unknown
+    > & {
+        customSubHeader?: () => React.ReactNode;
+    };
+
+export type MadBottomTabNavigatorTypeBag<ParamList extends ParamListBase> = NavigatorTypeBagBase & {
+    ParamList: ParamList;
+    NavigatorID: string | undefined;
+    State: TabNavigationState<ParamList>;
+    ScreenOptions: MadBottomTabNavigationOptions;
+    EventMap: BottomTabNavigationEventMap;
+    ActionHelpers: TabActionHelpers<ParamList>;
+    NavigationList: NavigationListBase<ParamList>;
+    Navigator: (props: MadBottomTabNavigatorProps<ParamList>) => React.ReactElement | null;
 };
 
 export type MadBottomTabNavigationOptions = BottomTabNavigationOptions & MadNavigationOptions;

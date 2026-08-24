@@ -11,6 +11,7 @@ import {
     StackNavigationState,
     StackRouter,
     StackRouterOptions,
+    TypedNavigator,
     useNavigationBuilder,
 } from "@react-navigation/native";
 import React, { useEffect } from "react";
@@ -18,7 +19,7 @@ import React, { useEffect } from "react";
 import type { NativeStackNavigationEventMap } from "@react-navigation/native-stack";
 import { NativeStackView } from "@react-navigation/native-stack";
 import { createMadDescriptors } from "../_internal/createMadDescriptors";
-import type { MadNativeStackNavigationOptions, NativeStackNavigatorProps } from "./types";
+import type { MadNativeStackNavigationOptions, MadNativeStackNavigatorProps, MadNativeStackNavigatorTypeBag, NativeStackNavigatorProps } from "./types";
 import { UnresolvedScreenOptions } from "../_internal/types";
 
 function NativeStackNavigator({
@@ -86,5 +87,17 @@ function NativeStackNavigator({
     );
 }
 
-export const createNativeStackNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
-    createNavigatorFactory(props => <NativeStackNavigator {...props} customSubHeader={customSubHeader} />);
+
+export const createNativeStackNavigatorFactory = (customSubHeader?: () => React.ReactNode) => {
+    return function <ParamList extends ParamListBase = ParamListBase>(): TypedNavigator<
+        MadNativeStackNavigatorTypeBag<ParamList>
+    > {
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- can figure out how to deal with this ts error later
+        return createNavigatorFactory((props: MadNativeStackNavigatorProps<ParamList>) => {
+            const TargetStack = NativeStackNavigator as React.ComponentType<MadNativeStackNavigatorProps<ParamList>>;
+            return <TargetStack {...props} customSubHeader={customSubHeader} />;
+        })();
+
+    };
+};

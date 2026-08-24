@@ -3,8 +3,8 @@
 /* eslint @typescript-eslint/no-unsafe-call: 0 -- this file is mostly copied from react-navigation. They have different rules than us */
 
 
-import { createNavigatorFactory, EventArg, ParamListBase, StackActionHelpers, StackActions, StackNavigationState, StackRouter, StackRouterOptions, useNavigationBuilder } from "@react-navigation/native";
-import { MadStackNavigationOptions, StackHeaderMode, StackNavigatorProps } from "./types";
+import { createNavigatorFactory, EventArg, ParamListBase, StackActionHelpers, StackActions, StackNavigationState, StackRouter, StackRouterOptions, TypedNavigator, useNavigationBuilder } from "@react-navigation/native";
+import { MadStackNavigationOptions, MadStackNavigatorProps, MadStackNavigatorTypeBag, StackHeaderMode, StackNavigatorProps } from "./types";
 import { StackNavigationEventMap, StackNavigationOptions, StackView } from "@react-navigation/stack";
 import React from "react";
 import warnOnce from "warn-once";
@@ -115,5 +115,15 @@ function StackNavigator({
   );
 }
 
-export const createStackNavigatorFactory = (customSubHeader?: () => React.ReactNode) =>
-  createNavigatorFactory(props => <StackNavigator {...props} customSubHeader={customSubHeader} />);
+export const createStackNavigatorFactory = (customSubHeader?: () => React.ReactNode) => {
+  return function <ParamList extends ParamListBase = ParamListBase>(): TypedNavigator<
+    MadStackNavigatorTypeBag<ParamList>
+  > {
+
+    return createNavigatorFactory((props: MadStackNavigatorProps<ParamList>) => {
+      const TargetStack = StackNavigator as React.ComponentType<MadStackNavigatorProps<ParamList>>;
+      return <TargetStack {...props} customSubHeader={customSubHeader} />;
+    })();
+
+  };
+};
