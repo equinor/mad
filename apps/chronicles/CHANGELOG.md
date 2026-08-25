@@ -1,5 +1,19 @@
 # @equinor/mad-chronicles
 
+## 1.6.5
+
+### Patch Changes
+
+- bb939ed: Type support added back for navigation factories
+- Updated dependencies [bb939ed]
+- Updated dependencies [28be313]
+    - @equinor/mad-components@0.25.5
+    - @equinor/mad-navigation@0.7.5
+    - @equinor/react-native-skia-draw@0.7.5
+    - @equinor/mad-auth@0.6.5
+    - @equinor/mad-core@0.19.0
+    - @equinor/mad-dfw@0.7.6
+
 ## 1.6.4
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @equinor/mad-core
 
+## 0.19.0
+
+### Minor Changes
+
+- 28be313: Replace `@react-native-community/netinfo` peer dependency with `expo-network`. The
+  `OfflineBanner` component now uses `expo-network`'s `useNetworkState()` hook instead of
+  `useNetInfo()`.
+
+    **Migration:** Replace `@react-native-community/netinfo` with `expo-network` in your app's
+    dependencies.
+
+### Patch Changes
+
+- bb939ed: Type support added back for navigation factories
+- Updated dependencies [bb939ed]
+    - @equinor/mad-components@0.25.5
+    - @equinor/mad-navigation@0.7.5
+    - @equinor/mad-insights@0.3.5
+    - @equinor/mad-toast@0.4.5
+    - @equinor/mad-auth@0.6.5
+
 ## 0.18.1
 
 ### Patch Changes

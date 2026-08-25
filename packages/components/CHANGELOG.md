@@ -1,5 +1,11 @@
 # @equinor/mad-components
 
+## 0.25.5
+
+### Patch Changes
+
+- bb939ed: Type support added back for navigation factories
+
 ## 0.25.4
 
 ### Patch Changes
