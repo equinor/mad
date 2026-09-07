@@ -55,10 +55,11 @@ export const useAuthenticate = ({
             if (authenticationClientExists()) setAuthenticationClientInitialized(true);
 
             if (enableAutomaticAuthentication)
-                await withAuthenticationPromiseHandler(
-                    () => authenticateSilently(config.scopes),
-                    "AUTOMATIC",
-                );
+                console.log("Automatic authentication enabled, attempting silent authentication");
+            await withAuthenticationPromiseHandler(
+                () => authenticateSilently(config.scopes),
+                "AUTOMATIC",
+            );
         };
 
         void initiateClientAndMaybeAuthenticateSilently();

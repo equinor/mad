@@ -14,7 +14,7 @@ import {
     authenticateInteractively as authenticateInteractivelyNative,
     initiateAuthenticationClient as initiateAuthenticationClientNative,
     authenticationClientExists as authenticationClientExistsNative,
-    getAccount as getAccountNative
+    getAccount as getAccountNative,
 } from "./auth";
 import { AuthRequestConfig, DiscoveryDocument } from "expo-auth-session";
 
@@ -28,15 +28,20 @@ export const authenticateInteractively = (scopes?: string[]) =>
         ? authenticateInteractivelyWeb(scopes)
         : authenticateInteractivelyNative(scopes);
 
+export const authenticate = async (scopes?: string[]) => {
+    const silentResult = await authenticateSilently(scopes);
+    return silentResult ?? authenticateInteractively(scopes);
+};
+
 export const initiateAuthenticationClient = (
     config: AuthRequestConfig,
     discovery: DiscoveryDocument,
 ) =>
     Platform.OS === "web"
         ? initiateAuthenticationClientWeb({
-            clientId: config.clientId,
-            redirectUri: config.redirectUri,
-        })
+              clientId: config.clientId,
+              redirectUri: config.redirectUri,
+          })
         : initiateAuthenticationClientNative(config, discovery);
 
 export const authenticationClientExists = () =>

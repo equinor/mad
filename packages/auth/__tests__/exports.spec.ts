@@ -7,6 +7,7 @@ describe("exports", () => {
 
     it("should have the following exports", () => {
         expect(exported.initiateAuthenticationClient).toBeTruthy();
+        expect(exported.authenticate).toBeTruthy();
         expect(exported.authenticateInteractively).toBeTruthy();
         expect(exported.authenticateSilently).toBeTruthy();
         expect(exported.authenticationClientExists).toBeTruthy();
