@@ -92,6 +92,36 @@ describe("authenticateSilently with an expired access token", () => {
         expect(MockedAuthRequest).not.toHaveBeenCalled();
         expect(result).toBeNull();
     });
+
+    it("does not persist or return an expired refreshed token", async () => {
+        const refreshedToken = {
+            accessToken: "still-stale",
+            refreshToken: "rotated-refresh-token",
+        } as TokenResponse;
+        mockedTokenRefresh.mockResolvedValue(refreshedToken);
+
+        const result = await auth.authenticateSilently(["scope"]);
+
+        expect(mockedIsTokenFresh).toHaveBeenCalledWith(refreshedToken);
+        expect(store.setToken).not.toHaveBeenCalled();
+        expect(store.setRefreshToken).not.toHaveBeenCalled();
+        expect(result).toBeNull();
+    });
+
+    it("persists and returns a fresh refreshed token", async () => {
+        const refreshedToken = {
+            accessToken: "fresh",
+            refreshToken: "rotated-refresh-token",
+        } as TokenResponse;
+        mockedTokenRefresh.mockResolvedValue(refreshedToken);
+        mockedIsTokenFresh.mockReturnValueOnce(false).mockReturnValueOnce(true);
+
+        const result = await auth.authenticateSilently(["scope"]);
+
+        expect(store.setToken).toHaveBeenCalledWith(refreshedToken);
+        expect(store.setRefreshToken).toHaveBeenCalledWith("rotated-refresh-token");
+        expect(result).toEqual({ account: mockAccount, accessToken: "fresh" });
+    });
 });
 
 describe("authenticateSilently with only a corrupted refresh token", () => {
@@ -122,6 +152,41 @@ describe("authenticateSilently with only a corrupted refresh token", () => {
 
         expect(store.resetRefreshToken).not.toHaveBeenCalled();
         expect(result).toBeNull();
+    });
+
+    it("does not persist or return an expired refreshed token", async () => {
+        const refreshedToken = {
+            accessToken: "still-stale",
+            refreshToken: "rotated-refresh-token",
+        } as TokenResponse;
+        store.getToken.mockReturnValue(undefined);
+        store.getRefreshToken.mockReturnValue("refresh-token");
+        mockedRefreshAsync.mockResolvedValue(refreshedToken);
+        mockedIsTokenFresh.mockReturnValue(false);
+
+        const result = await auth.authenticateSilently(["scope"]);
+
+        expect(mockedIsTokenFresh).toHaveBeenCalledWith(refreshedToken);
+        expect(store.setToken).not.toHaveBeenCalled();
+        expect(store.setRefreshToken).not.toHaveBeenCalled();
+        expect(result).toBeNull();
+    });
+
+    it("persists and returns a fresh refreshed token", async () => {
+        const refreshedToken = {
+            accessToken: "fresh",
+            refreshToken: "rotated-refresh-token",
+        } as TokenResponse;
+        store.getToken.mockReturnValue(undefined);
+        store.getRefreshToken.mockReturnValue("refresh-token");
+        mockedRefreshAsync.mockResolvedValue(refreshedToken);
+        mockedIsTokenFresh.mockReturnValue(true);
+
+        const result = await auth.authenticateSilently(["scope"]);
+
+        expect(store.setToken).toHaveBeenCalledWith(refreshedToken);
+        expect(store.setRefreshToken).toHaveBeenCalledWith("rotated-refresh-token");
+        expect(result).toEqual({ account: mockAccount, accessToken: "fresh" });
     });
 });
 

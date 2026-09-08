@@ -174,7 +174,7 @@ export const authenticateSilently = async (
         }
         try {
             const newToken = await tokenRefresh(token, scopes);
-            if (newToken) {
+            if (newToken && TokenResponse.isTokenFresh(newToken)) {
                 setToken(newToken);
                 if (newToken.refreshToken) setRefreshToken(newToken.refreshToken);
                 return {
@@ -202,12 +202,14 @@ export const authenticateSilently = async (
                     },
                     discovery,
                 );
-                setToken(refreshed);
-                if (refreshed.refreshToken) setRefreshToken(refreshed.refreshToken);
-                return {
-                    account: userData,
-                    accessToken: refreshed.accessToken,
-                };
+                if (TokenResponse.isTokenFresh(refreshed)) {
+                    setToken(refreshed);
+                    if (refreshed.refreshToken) setRefreshToken(refreshed.refreshToken);
+                    return {
+                        account: userData,
+                        accessToken: refreshed.accessToken,
+                    };
+                }
             } catch {
                 resetRefreshTokenIfCurrent(refreshToken);
                 return null;
