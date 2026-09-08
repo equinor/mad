@@ -6,16 +6,18 @@ import { decodeToken } from "../src/Expo-AuthSession/utils/decodeToken";
 import { tokenRefresh } from "../src/Expo-AuthSession/utils/tokenRefresh";
 import { MadAccount } from "../src/types";
 
+const mockPromptAsync = jest.fn().mockResolvedValue({
+    type: "success",
+    params: { code: "mock-code" },
+});
+
 jest.mock("../src/Expo-AuthSession/store/authStore");
 jest.mock("../src/Expo-AuthSession/utils/tokenRefresh");
 jest.mock("../src/Expo-AuthSession/utils/decodeToken");
 jest.mock("expo-auth-session", () => ({
     AuthRequest: jest.fn().mockImplementation(() => ({
         codeVerifier: "mock-verifier",
-        promptAsync: jest.fn().mockResolvedValue({
-            type: "success",
-            params: { code: "mock-code" },
-        }),
+        promptAsync: mockPromptAsync,
     })),
     exchangeCodeAsync: jest.fn().mockResolvedValue({
         accessToken: "interactive-access-token",
@@ -42,6 +44,10 @@ const mockedIsTokenFresh = TokenResponse.isTokenFresh as jest.Mock;
 
 beforeEach(() => {
     jest.clearAllMocks();
+    mockPromptAsync.mockResolvedValue({
+        type: "success",
+        params: { code: "mock-code" },
+    });
     store.getUserData.mockReturnValue(mockAccount);
     store.getConfig.mockReturnValue({
         clientId: "client",
@@ -120,6 +126,67 @@ describe("authenticateSilently with only a corrupted refresh token", () => {
 });
 
 describe("authenticate", () => {
+    it.each(["cancel", "dismiss"])(
+        "reports %s when interactive fallback is cancelled",
+        async responseType => {
+            store.getToken.mockReturnValue(undefined);
+            store.getRefreshToken.mockReturnValue(undefined);
+            mockPromptAsync.mockResolvedValueOnce({ type: responseType });
+            const onAuthenticationCancelled = jest.fn();
+
+            const result = await authenticationHandler.authenticate(["scope"], {
+                onAuthenticationCancelled,
+            });
+
+            expect(result).toBeNull();
+            expect(onAuthenticationCancelled).toHaveBeenCalledTimes(1);
+        },
+    );
+
+    it.each(["access_denied"])("reports OAuth %s responses as cancellation", async error => {
+        store.getToken.mockReturnValue(undefined);
+        store.getRefreshToken.mockReturnValue(undefined);
+        mockPromptAsync.mockResolvedValueOnce({
+            type: "error",
+            params: { error },
+            error: { code: error },
+        });
+        const onAuthenticationCancelled = jest.fn();
+
+        const result = await authenticationHandler.authenticate(["scope"], {
+            onAuthenticationCancelled,
+        });
+
+        expect(result).toBeNull();
+        expect(onAuthenticationCancelled).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not report other interactive failures as cancellation", async () => {
+        store.getToken.mockReturnValue(undefined);
+        store.getRefreshToken.mockReturnValue(undefined);
+        mockPromptAsync.mockResolvedValueOnce({
+            type: "error",
+            params: { error: "server_error" },
+            error: { code: "server_error" },
+        });
+        const onAuthenticationCancelled = jest.fn();
+
+        const result = await authenticationHandler.authenticate(["scope"], {
+            onAuthenticationCancelled,
+        });
+
+        expect(result).toBeNull();
+        expect(onAuthenticationCancelled).not.toHaveBeenCalled();
+    });
+
+    it("keeps interactive authentication cancellation backward compatible", async () => {
+        store.getToken.mockReturnValue(undefined);
+        store.getRefreshToken.mockReturnValue(undefined);
+        mockPromptAsync.mockResolvedValueOnce({ type: "cancel" });
+
+        await expect(auth.authenticateInteractively(["scope"])).resolves.toBeNull();
+    });
+
     it("falls back to correctly scoped interactive auth for a corrupted refresh token", async () => {
         store.getToken.mockReturnValue(undefined);
         store.getRefreshToken.mockReturnValue("CORRUPTED TOKEN");

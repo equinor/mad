@@ -8,3 +8,7 @@ export type MadAuthenticationResult = {
     account: MadAccount;
     accessToken: string;
 };
+
+export type AuthenticateOptions = {
+    onAuthenticationCancelled?: () => void | Promise<void>;
+};

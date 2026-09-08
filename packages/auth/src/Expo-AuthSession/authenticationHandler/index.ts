@@ -17,6 +17,7 @@ import {
     getAccount as getAccountNative,
 } from "./auth";
 import { AuthRequestConfig, DiscoveryDocument } from "expo-auth-session";
+import { AuthenticateOptions } from "../../types";
 
 export const signOut = () => (Platform.OS === "web" ? signOutWeb() : signOutNative());
 
@@ -28,9 +29,12 @@ export const authenticateInteractively = (scopes?: string[]) =>
         ? authenticateInteractivelyWeb(scopes)
         : authenticateInteractivelyNative(scopes);
 
-export const authenticate = async (scopes?: string[]) => {
+export const authenticate = async (scopes?: string[], options?: AuthenticateOptions) => {
     const silentResult = await authenticateSilently(scopes);
-    return silentResult ?? authenticateInteractively(scopes);
+    if (silentResult) return silentResult;
+    return Platform.OS === "web"
+        ? authenticateInteractivelyWeb(scopes)
+        : authenticateInteractivelyNative(scopes, options);
 };
 
 export const initiateAuthenticationClient = (

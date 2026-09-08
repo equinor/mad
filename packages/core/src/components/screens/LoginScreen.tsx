@@ -2,10 +2,11 @@ import { Button, EDSProvider, EDSStyleSheet, useStyles } from "@equinor/mad-comp
 import React, { useState } from "react";
 import { Image, Platform, Pressable, View } from "react-native";
 import { ExpoAuthSession, MadAuthenticationResult } from "@equinor/mad-auth";
-import { getConfig, useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
+import { useAuthConfig, useLoginScreenConfig } from "../../store/mad-config";
 import { metricKeys, metricStatus, setUsername, track } from "@equinor/mad-insights";
 import { useDictionary } from "../../language/useDictionary";
 import { useNavigateFromLoginScreen } from "../../hooks/useNavigateFromLoginScreen";
+import { rearmAuthSession } from "../../store/auth-session";
 
 export type LoginScreenProps = Partial<
     Pick<ExpoAuthSession.LoginButtonProps, "onAuthenticationSuccessful" | "onAuthenticationFailed">
@@ -28,6 +29,7 @@ export const LoginScreen = ({
             result: MadAuthenticationResult,
             type: ExpoAuthSession.AuthenticationType,
         ) => {
+            rearmAuthSession();
             setUsername(result.account.username, result.account.identifier);
             if (type === "AUTOMATIC") {
                 void track(metricKeys.AUTHENTICATION_AUTOMATIC);

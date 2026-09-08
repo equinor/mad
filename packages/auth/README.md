@@ -43,11 +43,16 @@ throughout the app.
 For authenticated API requests that may prompt the user when silent authentication fails, use:
 
 ```ts
-authenticate(scopes: string[]): Promise<MadAuthenticationResult | null>
+authenticate(
+    scopes: string[],
+    options?: { onAuthenticationCancelled?: () => void | Promise<void> },
+): Promise<MadAuthenticationResult | null>
 ```
 
 Interactive fallback requests the supplied API scopes together with the OIDC scopes required to
-maintain the authenticated session.
+maintain the authenticated session. On native platforms, the optional callback runs when the user
+cancels or dismisses that interactive fallback, including through the authorization provider's
+user-cancellation response. Authentication still resolves to `null`.
 
 The lower-level functions below are intended for flows that explicitly require only one
 authentication mode.

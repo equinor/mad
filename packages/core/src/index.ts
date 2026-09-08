@@ -15,6 +15,7 @@ export { addToast, ToastTypes, ToastType } from "@equinor/mad-toast";
 export * from "./hooks";
 export * from "./store";
 export * from "./utils/getDefaultScreenOptionsForLoginScreen";
+export { authenticate } from "./authenticate";
 export { MadAccount, MadAuthenticationResult } from "@equinor/mad-auth";
 import { MadAccount, ExpoAuthSession } from "@equinor/mad-auth";
 
@@ -42,5 +43,3 @@ export const signOut = async () => ExpoAuthSession.signOut();
  */
 export const authenticateInteractively = (scopes: string[]) =>
     ExpoAuthSession.authenticateInteractively(scopes);
-
-export const authenticate = (scopes: string[]) => ExpoAuthSession.authenticate(scopes);
