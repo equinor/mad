@@ -6,6 +6,7 @@ import { ResponseType } from "expo-auth-session";
 import "core-js/stable/atob";
 import { View } from "react-native";
 import { MadAuthenticationResult } from "../../types";
+import { withRequiredAuthenticationScopes } from "../utils/scopes";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -31,7 +32,7 @@ export const LoginButton = ({
 }: LoginButtonProps) => {
     const config = {
         clientId,
-        scopes: [...scopes, "openid", "profile", "offline_access"],
+        scopes: withRequiredAuthenticationScopes(scopes),
         redirectUri,
         responseType: ResponseType.Code,
     };

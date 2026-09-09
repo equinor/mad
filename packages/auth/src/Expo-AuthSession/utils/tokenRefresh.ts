@@ -7,8 +7,6 @@ export const tokenRefresh = async (token: TokenResponse, scopes?: string[]) => {
     if (!discovery || !config) {
         return;
     }
-    if (scopes) {
-        config.scopes = scopes;
-    }
-    return await token.refreshAsync(config, discovery);
+    const requestConfig = scopes ? { ...config, scopes } : config;
+    return await token.refreshAsync(requestConfig, discovery);
 };

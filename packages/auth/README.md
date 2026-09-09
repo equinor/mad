@@ -38,7 +38,24 @@ you need some inspiration. Alternatively, you can create the login flow logic fr
 provided functions below.
 
 This package provides a few basic functions you can use to either make your own login button, or use
-throughout the app:
+throughout the app.
+
+For authenticated API requests that may prompt the user when silent authentication fails, use:
+
+```ts
+authenticate(
+    scopes: string[],
+    options?: { onAuthenticationCancelled?: () => void | Promise<void> },
+): Promise<MadAuthenticationResult | null>
+```
+
+Interactive fallback requests the supplied API scopes together with the OIDC scopes required to
+maintain the authenticated session. On native platforms, the optional callback runs when the user
+cancels or dismisses that interactive fallback, including through the authorization provider's
+user-cancellation response. Authentication still resolves to `null`.
+
+The lower-level functions below are intended for flows that explicitly require only one
+authentication mode.
 
 If you are not using our login button, nor `useAuthenticate`, use this function to initate the
 authentication client:
@@ -53,13 +70,13 @@ To check if the authentication client exists, use this function:
 authenticationClientExists(): boolean
 ```
 
-To authenticate interactively, use this function:
+To explicitly open interactive authentication, use this function:
 
 ```ts
 authenticateInteractively(scope: string[]): Promise<MadAuthenticationResult | null>
 ```
 
-To authenticate silently, use this function:
+To authenticate without opening interactive UI, use this function:
 
 ```ts
 authenticateSilently(scope: string[]): Promise<MadAuthenticationResult | null>

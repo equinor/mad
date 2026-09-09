@@ -15,6 +15,7 @@ export { addToast, ToastTypes, ToastType } from "@equinor/mad-toast";
 export * from "./hooks";
 export * from "./store";
 export * from "./utils/getDefaultScreenOptionsForLoginScreen";
+export { authenticate } from "./authenticate";
 export { MadAccount, MadAuthenticationResult } from "@equinor/mad-auth";
 import { MadAccount, ExpoAuthSession } from "@equinor/mad-auth";
 
@@ -28,15 +29,13 @@ export const authenticateSilently = (scopes: string[]) =>
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but
  * getAcount() from expo-auth-session is not inherently async
  */
-export const getAccount = (): Promise<MadAccount | null> =>
-    ExpoAuthSession.getAccount();
+export const getAccount = (): Promise<MadAccount | null> => ExpoAuthSession.getAccount();
 
 /**
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but
  * signOut() from expo-auth-session is not inherently async
  */
-export const signOut = async () =>
-    ExpoAuthSession.signOut();
+export const signOut = async () => ExpoAuthSession.signOut();
 
 /**
  * @JSDocs This export will depend on whether you have opted in to use expo-auth-session. They will function the same, but
