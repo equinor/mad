@@ -10,7 +10,7 @@ export const useFetchServiceMessage = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isError, setIsError] = useState(false);
 
-    const lastInterval = useRef<number | undefined>(undefined);
+    const lastInterval = useRef<NodeJS.Timeout | undefined>(undefined);
 
     useEffect(() => {
         function fetchServiceMessage() {
