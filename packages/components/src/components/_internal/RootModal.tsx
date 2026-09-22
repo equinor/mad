@@ -14,12 +14,12 @@ export const RootModal = ({ onBackdropPress, children }: PropsWithChildren<RootM
         {onBackdropPress ? (
             <Pressable
                 onPress={onBackdropPress}
-                style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}
+                style={{ ...StyleSheet.absoluteFill, zIndex: 1 }}
             >
                 {children}
             </Pressable>
         ) : (
-            <View pointerEvents="box-none" style={{ ...StyleSheet.absoluteFillObject, zIndex: 1 }}>
+            <View pointerEvents="box-none" style={{ ...StyleSheet.absoluteFill, zIndex: 1 }}>
                 {children}
             </View>
         )}
