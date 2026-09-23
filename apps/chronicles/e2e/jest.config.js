@@ -1,6 +1,6 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-    preset: "ts-jest",
+    preset: "jest-expo",
     rootDir: "..",
     testMatch: ["<rootDir>/e2e/**/*.test.js"],
     testTimeout: 120000,

@@ -1,58 +1,54 @@
 {
-  "expo": {
-    "name": "chronicles",
-    "slug": "chronicles",
-    "version": "1.0.0",
-    "icon": "./assets/images/icon.png",
-    "scheme": "chronicles",
-    "userInterfaceStyle": "automatic",
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "buildNumber": "20231224.1",
-      "bundleIdentifier": "com.vello-subhayu.chronicles"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
-    },
-    "plugins": [
-      "@config-plugins/detox",
-      [
-        "expo-image-picker",
-        {
-          "photosPermissions": "The app needs access to your photos library in order to process them."
+    "expo": {
+        "name": "chronicles",
+        "slug": "chronicles",
+        "version": "1.0.0",
+        "icon": "./assets/images/icon.png",
+        "scheme": "chronicles",
+        "userInterfaceStyle": "automatic",
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true,
+            "buildNumber": "20231224.1",
+            "bundleIdentifier": "com.equinor.mad.chronicles"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/images/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "permissions": ["android.permission.RECORD_AUDIO"]
+        },
+        "plugins": [
+            "@config-plugins/detox",
+            [
+                "expo-image-picker",
+                {
+                    "photosPermissions": "The app needs access to your photos library in order to process them."
+                }
+            ],
+            "expo-asset",
+            "expo-font",
+            "expo-localization",
+            "expo-web-browser",
+            [
+                "expo-splash-screen",
+                {
+                    "image": "./assets/images/splash.png",
+                    "resizeMode": "cover",
+                    "backgroundColor": "#E6FAEC",
+                    "imageWidth": 600
+                }
+            ],
+            "expo-status-bar"
+        ],
+        "web": {
+            "favicon": "./assets/images/favicon.png",
+            "bundler": "metro",
+            "buildNumber": "20231224.2"
         }
-      ],
-      "expo-asset",
-      "expo-font",
-      "expo-localization",
-      "expo-web-browser",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash.png",
-          "resizeMode": "cover",
-          "backgroundColor": "#E6FAEC",
-          "imageWidth": 600
-        }
-      ],
-      "expo-status-bar"
-    ],
-    "web": {
-      "favicon": "./assets/images/favicon.png",
-      "bundler": "metro",
-      "buildNumber": "20231224.2"
     }
-  }
 }

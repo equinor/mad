@@ -14,6 +14,7 @@
         "@equinor/eslint-config-mad": "workspace:*",
         "@equinor/mad-tsconfig": "workspace:*",
         "@expo/vector-icons": "^15.0.2",
+        "@react-native/jest-preset": "~0.86.3",
         "@testing-library/jest-native": "^5.4.3",
         "@testing-library/react": "^14.0.0",
         "@testing-library/react-native": "^12.3.0",
