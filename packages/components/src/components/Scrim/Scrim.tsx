@@ -32,7 +32,7 @@ export const Scrim = ({ isOpen, onPress, children }: ScrimProps) => {
 
 const themeStyles = EDSStyleSheet.create(theme => ({
     scrim: {
-        ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFill,
         backgroundColor: theme.colors.container.scrim,
         paddingHorizontal: theme.spacing.container.paddingHorizontal,
         paddingVertical: theme.spacing.container.paddingVertical

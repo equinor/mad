@@ -26,14 +26,14 @@ export const RootModal = ({
         {onBackdropPress ? (
             <Pressable
                 onPress={onBackdropPress}
-                style={StyleSheet.absoluteFillObject}
+                style={StyleSheet.absoluteFill}
             >
-                <Pressable style={StyleSheet.absoluteFillObject} pointerEvents="box-none">
+                <Pressable style={StyleSheet.absoluteFill} pointerEvents="box-none">
                     {children}
                 </Pressable>
             </Pressable>
         ) : (
-            <View pointerEvents="box-none" style={StyleSheet.absoluteFillObject}>
+            <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
                 {children}
             </View>
         )}
