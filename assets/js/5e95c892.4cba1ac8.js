@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunk_equinor_mad_platform_docs||=[]).push([[9647],{3216(e,r,s){s.r(r),s.d(r,{default:()=>l});s(6540);var a=s(4357),u=s(194),c=s(8669),o=s(2831),t=s(5489),d=s(4848);function l(e){return(0,d.jsx)(c.e3,{className:(0,a.A)(u.G.wrapper.docsPages),children:(0,d.jsx)(t.A,{children:(0,o.v)(e.route.routes)})})}}}]);
