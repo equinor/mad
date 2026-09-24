@@ -1,5 +1,12 @@
 # @equinor/mad-platform-docs
 
+## 0.7.6
+
+### Patch Changes
+
+- 030b1d0: Packages upgraded to support expo 57
+- fd0806d: Root Modal component updated
+
 ## 0.7.5
 
 ### Patch Changes
