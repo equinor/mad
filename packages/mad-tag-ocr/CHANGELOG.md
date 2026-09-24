@@ -1,5 +1,22 @@
 # @equinor/react-native-mad-ocr
 
+## 0.4.0
+
+### Minor Changes
+
+- 6a0179e: Updating minor versions since we are upgrading to Expo 57
+
+### Patch Changes
+
+- 030b1d0: jest plugin preset updated
+- 030b1d0: Packages upgraded to support expo 57
+- fd0806d: Root Modal component updated
+- Updated dependencies [030b1d0]
+- Updated dependencies [030b1d0]
+- Updated dependencies [fd0806d]
+- Updated dependencies [6a0179e]
+    - @equinor/mad-components@0.26.0
+
 ## 0.3.5
 
 ### Patch Changes

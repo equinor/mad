@@ -1,5 +1,15 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.45.0
+
+### Minor Changes
+
+- 6a0179e: Updating minor versions since we are upgrading to Expo 57
+
+### Patch Changes
+
+- 030b1d0: jest plugin preset updated
+
 ## 1.44.0
 
 ### Minor Changes
