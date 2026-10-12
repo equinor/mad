@@ -1,5 +1,11 @@
 # @equinor/mad-maintenance-api-ts-wrapper
 
+## 1.45.1
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+
 ## 1.45.0
 
 ### Minor Changes

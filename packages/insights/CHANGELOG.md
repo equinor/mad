@@ -1,5 +1,11 @@
 # @equinor/mad-insights
 
+## 0.4.1
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+
 ## 0.4.0
 
 ### Minor Changes

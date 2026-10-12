@@ -1,5 +1,13 @@
 # @equinor/react-native-mad-ocr
 
+## 0.4.1
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+- Updated dependencies [a3dc592]
+    - @equinor/mad-components@0.26.1
+
 ## 0.4.0
 
 ### Minor Changes
