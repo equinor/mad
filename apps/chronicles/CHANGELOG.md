@@ -1,5 +1,18 @@
 # @equinor/mad-chronicles
 
+## 1.7.1
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+- Updated dependencies [a3dc592]
+    - @equinor/mad-components@0.26.1
+    - @equinor/mad-navigation@0.8.1
+    - @equinor/react-native-skia-draw@0.8.1
+    - @equinor/mad-auth@0.8.1
+    - @equinor/mad-core@0.21.1
+    - @equinor/mad-dfw@0.8.1
+
 ## 1.7.0
 
 ### Minor Changes

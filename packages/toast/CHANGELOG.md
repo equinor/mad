@@ -1,5 +1,13 @@
 # @equinor/mad-toast
 
+## 0.5.1
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+- Updated dependencies [a3dc592]
+    - @equinor/mad-components@0.26.1
+
 ## 0.5.0
 
 ### Minor Changes
