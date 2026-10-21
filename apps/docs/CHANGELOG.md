@@ -1,5 +1,11 @@
 # @equinor/mad-platform-docs
 
+## 0.7.7
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+
 ## 0.7.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @equinor/mad-navigation
 
+## 0.8.1
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+
 ## 0.8.0
 
 ### Minor Changes

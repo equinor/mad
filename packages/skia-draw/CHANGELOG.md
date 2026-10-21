@@ -1,5 +1,13 @@
 # @equinor/react-native-skia-draw
 
+## 0.8.1
+
+### Patch Changes
+
+- a3dc592: Skia Draw Peer dependencies updated
+- Updated dependencies [a3dc592]
+    - @equinor/mad-components@0.26.1
+
 ## 0.8.0
 
 ### Minor Changes
