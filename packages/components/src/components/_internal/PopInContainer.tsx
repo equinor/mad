@@ -24,13 +24,14 @@ export const PopInContainer = forwardRef<View, PropsWithChildren & ViewProps>(
                 {...rest}
                 style={[
                     {
-                        transform: [{ scale }],
-                        maxHeight: "100%",
-                        maxWidth: "100%"
+                        transform: [
+                            { scaleX: scale },
+                            { scaleY: scale }
+                        ]
                     },
-                    rest.style,
+                    rest.style
                 ]}
-                >
+            >
                 {children}
             </Animated.View>
         );
