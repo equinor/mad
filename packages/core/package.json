@@ -13,8 +13,7 @@
         "@equinor/mad-navigation": "workspace:*",
         "@equinor/mad-toast": "workspace:*",
         "@react-navigation/elements": "^2.9.19",
-        "markdown-it": "^14.0.0",
-        "react-native-markdown-display": "^7.0.2",
+        "react-native-enriched-markdown": "~1.1.1",
         "zustand": "^4.5.2"
     },
     "devDependencies": {
@@ -35,6 +34,18 @@
         "react-test-renderer": "19.2.0",
         "ts-jest": "^29.2.5",
         "tsup": "^8.3.5"
+    },
+    "enriched-markdown": {
+        "enableCodeHighlight": true,
+        "enableMath": false,
+        "enableVideo": false,
+        "codeHighlightLanguages": [
+            "javascript",
+            "typescript",
+            "python",
+            "swift",
+            "kotlin"
+        ]
     },
     "files": [
         "CODE_OF_CONDUCT.md",
