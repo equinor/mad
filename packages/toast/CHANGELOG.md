@@ -1,5 +1,15 @@
 # @equinor/mad-toast
 
+## 0.5.2
+
+### Patch Changes
+
+- 8b4b42a: Fixed an intermittent bug causing a blur UI on Menus and similar components. The issue
+  was primarily reported on iOS 27 and seemed to be caused by the way Animation was implemented in
+  the PopinContainer component. Made modifications to the animation scaling to fix the bug
+- Updated dependencies [8b4b42a]
+    - @equinor/mad-components@0.26.2
+
 ## 0.5.1
 
 ### Patch Changes
