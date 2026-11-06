@@ -25,6 +25,14 @@
         "plugins": [
             "@config-plugins/detox",
             [
+                "expo-build-properties",
+                {
+                    "ios": {
+                        "enableSceneSupport": true
+                    }
+                }
+            ],
+            [
                 "expo-image-picker",
                 {
                     "photosPermissions": "The app needs access to your photos library in order to process them."
