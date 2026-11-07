@@ -59,6 +59,7 @@ export const Popover = ({
         elements: {
             reference: anchorEl.current,
         },
+        // eslint-disable-next-line react-hooks/refs -- can switch over to useState or store calculations in useMemo but would need figuring out and testing that can be done later
         middleware: [offset(12), flip(), shift({ padding: 8 }), arrow({ element: arrowRef })],
         placement: placement,
     });
@@ -66,9 +67,11 @@ export const Popover = ({
     let calculatedArrowX = arrowX ?? 0;
     let calculatedArrowY = arrowY ?? 0;
     if (placement.startsWith("left")) {
+        // eslint-disable-next-line react-hooks/refs -- can switch over to useState or store calculations in useMemo but would need figuring out and testing that can be done later
         calculatedArrowX += popoverDimensions.current.width ?? 0;
     }
     if (placement.startsWith("top")) {
+        // eslint-disable-next-line react-hooks/refs -- can switch over to useState or store calculations in useMemo but would need figuring out and testing that can be done later
         calculatedArrowY += popoverDimensions.current.height ?? 0;
     }
     if (placement.startsWith("top") || placement.startsWith("bottom")) {

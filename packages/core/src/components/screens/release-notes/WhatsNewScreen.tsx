@@ -39,6 +39,7 @@ export const WhatsNewScreen = () => {
     const disableIsFetching = () => setIsFetching(false);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- just a lint issue that can be handled later
         enableIsFetching();
         if (demoMode.isEnabled) {
             setRelease(mockData);

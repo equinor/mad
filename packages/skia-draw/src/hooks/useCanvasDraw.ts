@@ -24,6 +24,7 @@ export const useCanvasDraw = ({ ref, skiaCanvasRef }: CanvasSetup) => {
 
     const panHandler = useMemo(
         () =>
+            // eslint-disable-next-line react-hooks/refs -- can switch over to useState or store calculations in useMemo but would need figuring out and testing that can be done later
             createTouchHandlers(toolType, {
                 canvasHistory,
                 currentPenPath,

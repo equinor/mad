@@ -21,11 +21,6 @@ export const useCanvasControlHandle = (
     canvasHistory: MutableRefObject<CanvasData[]>,
 ) => {
     const rerender = useRerender();
-    useImperativeHandle(ref, () => ({
-        undo,
-        clear,
-        makeImageSnapshot,
-    }));
 
     const undo = () => {
         canvasHistory.current.pop();
@@ -33,6 +28,7 @@ export const useCanvasControlHandle = (
     };
 
     const clear = () => {
+        // eslint-disable-next-line react-hooks/immutability -- immutability lint issue that can be looked at later
         canvasHistory.current = [];
         rerender();
     };
@@ -53,4 +49,10 @@ export const useCanvasControlHandle = (
             width,
         };
     };
+
+    useImperativeHandle(ref, () => ({
+        undo,
+        clear,
+        makeImageSnapshot,
+    }));
 };

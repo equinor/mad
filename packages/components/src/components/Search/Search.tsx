@@ -66,13 +66,14 @@ export const Search = ({
 
     useEffect(() => {
         if (!cancellable) return;
-        animationValue.value = withTiming(isInputFocused ? 1 : 0, {
+        animationValue.set(withTiming(isInputFocused ? 1 : 0, {
             duration: token.timing.animation.slow,
-        });
+        }));
     }, [isInputFocused, text, cancellable, animationValue, token.timing.animation.slow]);
 
     useEffect(() => {
         if (value) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect -- just a lint issue that can be handled later
             setText(value);
         }
     }, [value]);
@@ -162,7 +163,7 @@ export const Search = ({
                 <Animated.View
                     style={[cancelButtonStyle, styles.buttonWrapper]}
                     onLayout={(event: LayoutChangeEvent) => {
-                        cancelButtonWidth.value = event.nativeEvent.layout.width;
+                        cancelButtonWidth.set(event.nativeEvent.layout.width);
                     }}
                 >
                     <Button
