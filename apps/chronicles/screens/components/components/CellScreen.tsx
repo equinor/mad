@@ -10,6 +10,27 @@ import {
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
+type MyCustomCellProps = {
+    title: string;
+    activeToggleIndex: number;
+    setActiveToggleIndex: (index: number) => void;
+}
+
+const MyCustomCell = ({ title, activeToggleIndex, setActiveToggleIndex }: MyCustomCellProps) => (
+    <Cell
+        rightAdornment={
+            <Button.Toggle activeIndex={activeToggleIndex}>
+                <Button title="1" onPress={() => setActiveToggleIndex(0)} />
+                <Button title="2" onPress={() => setActiveToggleIndex(1)} />
+            </Button.Toggle>
+        }
+    >
+        <View style={{ flex: 1, justifyContent: "center" }}>
+            <Typography>{title}</Typography>
+        </View>
+    </Cell>
+);
+
 export const CellScreen = () => {
     const styles = useStyles(themeStyles);
     const [activeToggleIndex, setActiveToggleIndex] = useState<number>(0);
@@ -21,21 +42,6 @@ export const CellScreen = () => {
         setIsCheckedRadio2(newState);
         setIsCheckedRadio1(!newState);
     };
-
-    const MyCustomCell = (customCellProps: { title: string }) => (
-        <Cell
-            rightAdornment={
-                <Button.Toggle activeIndex={activeToggleIndex}>
-                    <Button title="1" onPress={() => setActiveToggleIndex(0)} />
-                    <Button title="2" onPress={() => setActiveToggleIndex(1)} />
-                </Button.Toggle>
-            }
-        >
-            <View style={{ flex: 1, justifyContent: "center" }}>
-                <Typography>{customCellProps.title}</Typography>
-            </View>
-        </Cell>
-    );
 
     return (
         <ScrollView
@@ -87,7 +93,7 @@ export const CellScreen = () => {
                     iconName="navigation-outline"
                     onPress={() => null}
                 />
-                <MyCustomCell title="And this is a custom cell" />
+                <MyCustomCell title="And this is a custom cell" activeToggleIndex={activeToggleIndex} setActiveToggleIndex={setActiveToggleIndex} />
             </Cell.Group>
             <Spacer />
             <View style={styles.readableContent}>
