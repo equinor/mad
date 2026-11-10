@@ -6,9 +6,7 @@ sidebar_position: 3
 
 # Breakpoints
 
-Screens come in different sizes, and our component library is made to be viewed on both large and
-small. You might therefore often find yourself having to style or render compoents conditionally
-based on screen size. This is where breakpoints and the `useBreakpoint` hook comes in.
+Screens come in different sizes, and our component library is designed to be viewed on both large and small screens. You might therefore often find yourself needing to style or render components conditionally based on screen size. This is where breakpoints and the `useBreakpoint` hook come in.
 
 ## Using the `useBreakpoint` hook
 
