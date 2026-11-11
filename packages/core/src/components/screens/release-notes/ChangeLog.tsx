@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
-import Markdown from "react-native-markdown-display";
+import { EnrichedMarkdownText } from 'react-native-enriched-markdown';
 
 export type Release = {
     app: string;
@@ -19,30 +19,28 @@ export const ChangeLog = ({ release }: ChangeLogProps) => {
     const styles = useStyles(changeLogStyles);
     return (
         <View>
-            <Markdown style={styles}>{release.releaseNote}</Markdown>
+            <EnrichedMarkdownText
+                markdownStyle={styles}
+                markdown={release.releaseNote}
+            />
         </View>
     );
 };
 
 const changeLogStyles = EDSStyleSheet.create(theme => ({
-    text: {
+    paragraph: {
         ...theme.typography.basic.p,
         color: theme.colors.text.primary,
     },
-    bullet_list: {
-        display: "flex",
-        alignItems: "flex-start",
+
+    list: {
+        ...theme.typography.basic.p,
+        color: theme.colors.text.primary,
+
+        bulletSize: 48,
+        bulletColor: theme.colors.text.primary,
+        marginStart: theme.spacing.textField.paddingHorizontal,
+        gapWidth: 12,
         marginVertical: theme.spacing.textField.paddingVertical,
-        listStyleType: "square",
-    },
-    list_item: {
-        marginHorizontal: theme.spacing.textField.paddingHorizontal,
-        paddingBottom: theme.spacing.textField.paddingVertical,
-    },
-    bullet_list_icon: {
-        ...theme.typography.basic.p,
-        fontSize: 48,
-        lineHeight: 40,
-        color: theme.colors.text.primary,
     },
 }));

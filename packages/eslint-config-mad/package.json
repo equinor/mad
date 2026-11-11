@@ -2,13 +2,14 @@
     "name": "@equinor/eslint-config-mad",
     "version": "0.4.1",
     "dependencies": {
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-import-resolver-typescript": "^3.6.1",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-import-resolver-typescript": "^4.4.5",
         "eslint-plugin-eslint-comments": "^3.2.0",
-        "eslint-plugin-import": "^2.29.1",
-        "eslint-plugin-react": "7.34.3",
-        "eslint-plugin-react-hooks": "^4.6.2",
-        "eslint-plugin-simple-import-sort": "^12.1.0"
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^7.1.1",
+        "eslint-plugin-simple-import-sort": "^14.0.0",
+        "minimatch": "~11.0.1"
     },
     "exports": {
         ".": "./index.js",
