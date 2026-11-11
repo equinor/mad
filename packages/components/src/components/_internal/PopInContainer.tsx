@@ -27,7 +27,9 @@ export const PopInContainer = forwardRef<View, PropsWithChildren & ViewProps>(
                         transform: [
                             { scaleX: scale },
                             { scaleY: scale }
-                        ]
+                        ],
+                        maxHeight: "100%",
+                        maxWidth: "100%"
                     },
                     rest.style
                 ]}
