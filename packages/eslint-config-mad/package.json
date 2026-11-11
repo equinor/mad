@@ -1,6 +1,6 @@
 {
     "name": "@equinor/eslint-config-mad",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "dependencies": {
         "eslint-config-prettier": "^10.1.8",
         "eslint-import-resolver-typescript": "^4.4.5",
