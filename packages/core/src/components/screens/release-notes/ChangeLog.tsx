@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View } from "react-native";
-import { EDSStyleSheet, useStyles } from "@equinor/mad-components";
-import { EnrichedMarkdownText } from 'react-native-enriched-markdown';
+import { Token, useToken } from "@equinor/mad-components";
+import { EnrichedMarkdownText, type MarkdownStyle } from "react-native-enriched-markdown";
 
 export type Release = {
     app: string;
@@ -16,31 +16,46 @@ type ChangeLogProps = {
 };
 
 export const ChangeLog = ({ release }: ChangeLogProps) => {
-    const styles = useStyles(changeLogStyles);
+    const token = useToken();
+    const markdownStyle = useMemo(() => createMarkdownStyle(token), [token]);
     return (
         <View>
-            <EnrichedMarkdownText
-                markdownStyle={styles}
-                markdown={release.releaseNote}
-            />
+            <EnrichedMarkdownText markdownStyle={markdownStyle} markdown={release.releaseNote} />
         </View>
     );
 };
 
-const changeLogStyles = EDSStyleSheet.create(theme => ({
-    paragraph: {
-        ...theme.typography.basic.p,
-        color: theme.colors.text.primary,
-    },
+/**
+ * Diameter of the unordered-list bullet, in points. The library draws a filled
+ * shape of this size, so it must stay small relative to the font size.
+ */
+const BULLET_SIZE = 6;
 
-    list: {
-        ...theme.typography.basic.p,
-        color: theme.colors.text.primary,
+// Built against the `MarkdownStyle` type (not an RN StyleSheet) so invalid or
+// misinterpreted style keys fail at compile time.
+const createMarkdownStyle = (theme: Token): MarkdownStyle => {
+    const { fontFamily, fontSize, lineHeight } = theme.typography.basic.p;
+    const textColor = theme.colors.text.primary;
+    const body = { fontFamily, fontSize, lineHeight, color: textColor };
 
-        bulletSize: 48,
-        bulletColor: theme.colors.text.primary,
-        marginStart: theme.spacing.textField.paddingHorizontal,
-        gapWidth: 12,
-        marginVertical: theme.spacing.textField.paddingVertical,
-    },
-}));
+    return {
+        paragraph: body,
+        list: {
+            ...body,
+            bulletSize: BULLET_SIZE,
+            bulletColor: textColor,
+            markerColor: textColor,
+            gapWidth: theme.spacing.textField.paddingHorizontal,
+            marginLeft: theme.spacing.textField.paddingHorizontal,
+            marginTop: theme.spacing.textField.paddingVertical,
+            marginBottom: theme.spacing.textField.paddingVertical,
+        },
+        blockquote: {
+            ...body,
+            color: theme.colors.text.secondary,
+            borderColor: theme.colors.border.medium,
+            borderWidth: theme.geometry.border.borderWidth,
+            gapWidth: theme.spacing.textField.paddingHorizontal,
+        },
+    };
+};
