@@ -59,6 +59,7 @@ export const Menu = ({
     return (
         open && (
             <RootModal onBackdropPress={onClose}>
+                {/* eslint-disable-next-line react-hooks/refs -- can switch over to useState or store calculations in useMemo but would need figuring out and testing that can be done later */}
                 <View ref={refs.setFloating} style={floatingStyles}>
                     <PopInContainer>
                         <Paper style={styles.paperStyle} elevation="temporaryNav">

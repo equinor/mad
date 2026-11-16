@@ -17,6 +17,7 @@ export const useSignOut = () => {
             navigation.navigate(CoreRoutes.LOGIN);
         } catch (_) {
             alert("Error", "Unable to sign out", [
+                // eslint-disable-next-line react-hooks/immutability -- just a lint issue that can be handled later
                 { text: "Try again", isPreferred: true, onPress: () => void signOutFn() },
                 { text: "Cancel", onPress: () => undefined },
             ]);

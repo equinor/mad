@@ -55,6 +55,12 @@ export const OCRCamera = ({
         setCameraHeight(event.nativeEvent.layout.height);
     };
 
+    const confirmSelection = (text: string) => {
+        if (onSelectTag) onSelectTag(text);
+        setShowDialog(false);
+    };
+
+
     const setScannedTagOnJS = useRunOnJS(
         (text: string) => {
             if (!enableDialogShared.value) confirmSelection(text);
@@ -68,11 +74,6 @@ export const OCRCamera = ({
 
     const clearSelection = () => {
         setClickedText("");
-        setShowDialog(false);
-    };
-
-    const confirmSelection = (text: string) => {
-        if (onSelectTag) onSelectTag(text);
         setShowDialog(false);
     };
 
@@ -135,6 +136,7 @@ export const OCRCamera = ({
                         }
                     }
                 }
+                // eslint-disable-next-line react-hooks/immutability -- immutability lint issue that can be looked at later
                 clickedPointShared.value = undefined;
             } catch (error) {
                 console.error(error);
@@ -144,6 +146,7 @@ export const OCRCamera = ({
     );
 
     const onTap = (event: GestureResponderEvent) => {
+        // eslint-disable-next-line react-hooks/immutability -- immutability lint issue that can be looked at later
         clickedPointShared.value = {
             x: event.nativeEvent.locationX,
             y: event.nativeEvent.locationY,

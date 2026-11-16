@@ -52,6 +52,7 @@ export const AccordionItem = ({
     const token = useToken();
 
     const [contentHeight, setContentHeight] = useState<number>();
+    // eslint-disable-next-line react-hooks/refs -- can switch over to useState or store calculations in useMemo but would need figuring out and testing that can be done later
     const animatedController = useRef(new Animated.Value(0)).current;
 
     const _expandAnimation = Animated.timing(animatedController, {
@@ -66,6 +67,7 @@ export const AccordionItem = ({
         useNativeDriver: false,
     });
 
+    // eslint-disable-next-line react-hooks/refs -- can switch over to useState or store calculations in useMemo but would need figuring out and testing that can be done later
     const bodyHeight = animatedController.interpolate({
         inputRange: [0, 1],
         outputRange: [0, contentHeight ?? 0],

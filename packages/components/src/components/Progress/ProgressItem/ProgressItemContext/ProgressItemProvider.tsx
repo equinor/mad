@@ -42,6 +42,7 @@ export const ProgressItemProvider = ({
 
     useEffect(() => {
         if (status === "error" && tasks.length) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect -- just a lint issue that can be handled later
             setIsExpanded(true);
         }
     }, [status, tasks.length]);

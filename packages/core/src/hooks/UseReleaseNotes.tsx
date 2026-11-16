@@ -16,6 +16,7 @@ export const useReleaseNotes = () => {
 
     useEffect(() => {
         if (demoMode.isEnabled) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect -- just a lint issue that can be handled later
             setReleaseNotes([mockData]);
             setIsFetching(false);
         } else {

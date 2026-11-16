@@ -9,24 +9,24 @@ import {
 } from "@equinor/mad-components";
 import { ScrollView, View } from "react-native";
 
+const PaperSquare = ({ elevation }: { elevation: Elevation }) => (
+    <Paper
+        elevation={elevation}
+        style={{
+            width: 100,
+            height: 75,
+            justifyContent: "center",
+            alignItems: "center",
+        }}
+    >
+        <Typography group="ui" variant="tooltip">
+            {elevation}
+        </Typography>
+    </Paper>
+);
+
 export const PaperScreen = () => {
     const style = useStyles(themeStyles);
-
-    const PaperSquare = ({ elevation }: { elevation: Elevation }) => (
-        <Paper
-            elevation={elevation}
-            style={{
-                width: 100,
-                height: 75,
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            <Typography group="ui" variant="tooltip">
-                {elevation}
-            </Typography>
-        </Paper>
-    );
 
     return (
         <ScrollView

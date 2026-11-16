@@ -78,6 +78,7 @@ const finishDialog = () => {
 };
 
 export const _useDialogService = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks -- igoring the rule hook right now due to the naming convention this file uses, ideally all hooks must start with use but this starts with an _
     const dialogContent = useSyncExternalStore(_subscribe, _getSnapshot);
     return { dialogContent, finishDialog };
 };

@@ -1,5 +1,34 @@
 # @equinor/mad-core
 
+## 0.21.3
+
+### Patch Changes
+
+- a668a87: Fixed oversized list markers on the Release notes and What's new screens (#912). After
+  the move to `react-native-enriched-markdown` in 0.21.2, the bullet size was carried over from the
+  old font-size-based styling, producing 48pt markers that overlapped the item text. Bullets are now
+  correctly sized, ordered-list numbers use the theme text color, and blockquotes are styled with
+  theme borders. The markdown style is now built against the library's `MarkdownStyle` type so
+  invalid style keys are caught at compile time.
+
+## 0.21.2
+
+### Patch Changes
+
+- 9c0ac83: Migrated from react-native-markdown-display to react-native-enriched-markdown since the
+  former is not maintained any longer and includes vulnerabilities. Upgraded eslint libraries to fix
+  vulnerabilities as well.
+- 8b4b42a: Fixed an intermittent bug causing a blur UI on Menus and similar components. The issue
+  was primarily reported on iOS 27 and seemed to be caused by the way Animation was implemented in
+  the PopinContainer component. Made modifications to the animation scaling to fix the bug
+- Updated dependencies [9c0ac83]
+- Updated dependencies [8b4b42a]
+    - @equinor/mad-components@0.26.2
+    - @equinor/mad-navigation@0.8.2
+    - @equinor/mad-insights@0.4.2
+    - @equinor/mad-toast@0.5.2
+    - @equinor/mad-auth@0.8.2
+
 ## 0.21.1
 
 ### Patch Changes

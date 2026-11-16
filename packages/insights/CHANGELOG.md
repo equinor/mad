@@ -1,5 +1,16 @@
 # @equinor/mad-insights
 
+## 0.4.2
+
+### Patch Changes
+
+- 9c0ac83: Migrated from react-native-markdown-display to react-native-enriched-markdown since the
+  former is not maintained any longer and includes vulnerabilities. Upgraded eslint libraries to fix
+  vulnerabilities as well.
+- 8b4b42a: Fixed an intermittent bug causing a blur UI on Menus and similar components. The issue
+  was primarily reported on iOS 27 and seemed to be caused by the way Animation was implemented in
+  the PopinContainer component. Made modifications to the animation scaling to fix the bug
+
 ## 0.4.1
 
 ### Patch Changes
