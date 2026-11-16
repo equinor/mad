@@ -40,7 +40,9 @@ const OopsieButton = () => {
                 title="Press this button to trigger an oopsie"
                 onPress={() => setErrorIsEnabled(true)}
             />
-            {errorIsEnabled && "Rendering strings outside of a Text component is a bad idea"}
+            {errorIsEnabled && (
+                <Typography>Rendering strings outside of a Text component is a bad idea</Typography>
+            )}
         </>
     );
 };
