@@ -6,7 +6,7 @@ import {
     AppInsightsInitConfig,
     disableInsights,
 } from "@equinor/mad-insights";
-import { ToastEmitter } from "@equinor/mad-toast";
+import { ToastEmitter } from "../components/ToastEmitter";
 import { ServiceMessageProvider } from "../components/service-message/ServiceMessageProvider";
 import { EnvironmentProvider } from "../components/EnvironmentProvider";
 import {
