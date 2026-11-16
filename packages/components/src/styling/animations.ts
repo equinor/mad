@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
     useSharedValue,
     withTiming,
@@ -11,11 +12,13 @@ type DurationKey = "none" | "fast" | "normal" | "slow";
 type FadeAnimationOptions = {
     fadeInDuration?: DurationKey;
     fadeOutDuration?: DurationKey;
+    disabled?: boolean;
 };
 
 export const useFadeAnimation = ({
     fadeInDuration = "none",
     fadeOutDuration = "normal",
+    disabled = false,
 }: FadeAnimationOptions = {}) => {
     const token = useToken();
     const fadeAnimation = useSharedValue(0);
@@ -38,6 +41,10 @@ export const useFadeAnimation = ({
             duration: durationMapping[fadeOutDuration],
         });
     };
+
+    useEffect(() => {
+        if (disabled) fadeAnimation.value = 0;
+    }, [disabled, fadeAnimation]);
 
     const animatedStyle = useAnimatedStyle(() => {
         return {
