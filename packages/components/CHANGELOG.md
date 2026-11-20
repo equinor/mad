@@ -1,5 +1,12 @@
 # @equinor/mad-components
 
+## 0.26.3
+
+### Patch Changes
+
+- 552edef: Buttons that are quickly disabled after being pressed freeze their visual on press state.
+  Made changes in the Pressable Component to resolve this issue.
+
 ## 0.26.2
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @equinor/mad-chronicles
 
+## 1.7.5
+
+### Patch Changes
+
+- 552edef: Buttons that are quickly disabled after being pressed freeze their visual on press state.
+  Made changes in the Pressable Component to resolve this issue.
+- Updated dependencies [552edef]
+    - @equinor/mad-components@0.26.3
+    - @equinor/mad-auth@0.8.3
+    - @equinor/mad-core@0.21.5
+    - @equinor/mad-dfw@0.8.3
+    - @equinor/react-native-skia-draw@0.8.3
+
 ## 1.7.4
 
 ### Patch Changes
