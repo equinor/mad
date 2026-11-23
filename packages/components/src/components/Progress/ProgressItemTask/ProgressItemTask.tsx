@@ -20,13 +20,13 @@ export const ProgressItemTask = ({ task }: ProgressItemTaskProps) => {
 
     const handleRetryButtonPress = () => {
         if (taskHasError) {
-            task.onRetryButtonPress && task.onRetryButtonPress(task);
+            task.onRetryButtonPress?.(task);
         }
     };
 
     const handleCopyTextButtonPress = () => {
         if (task?.error) {
-            task.onCopyTextButtonPress && task.onCopyTextButtonPress(task?.error);
+            task.onCopyTextButtonPress?.(task?.error);
         }
     };
 

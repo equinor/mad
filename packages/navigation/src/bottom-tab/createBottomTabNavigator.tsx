@@ -89,6 +89,7 @@ export const createBottomTabNavigatorFactory = (customSubHeader?: () => React.Re
         // Instantiate and return via the factory cleanly
         const factory = createNavigatorFactory(CustomBottomTabNavigator);
 
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion --  Disabling this for the time being ensure corect type assertion
         return factory() as unknown as TypedNavigator<MadBottomTabNavigatorTypeBag<ParamList>>;
     };
 };

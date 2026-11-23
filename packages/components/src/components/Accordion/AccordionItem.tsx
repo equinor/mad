@@ -74,6 +74,7 @@ export const AccordionItem = ({
     });
 
     useEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- disabling eslint for now since the below line needs an expression
         expanded ? _expandAnimation.start() : _retractAnimation.start();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- adding animations to deps cause infinite loop glitch
     }, [expanded]);

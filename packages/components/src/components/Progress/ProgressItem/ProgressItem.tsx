@@ -17,35 +17,35 @@ import { Spacer } from "../../Spacer";
 
 type ProgressItemPropsOptions =
     | {
-          /**
-           * An array of tasks to be tracked by the progress item. Each task represents a unit of work whose progress or status can be monitored.
-           * Specifying `tasks` will automatically determine the overall status of the progress item based on the individual statuses of these tasks.
-           */
-          tasks: ProgressTask[];
-          /**
-           * The `status` prop should not be used when `tasks` is provided. The overall status is computed based on the progress of the individual tasks.
-           */
-          status?: never;
-          /**
-           * Optional description to show under the progress task title. Can either be a string or a function that receives the number of completed tasks and the total number of tasks and returns a string.
-           */
-          description?: string | ((completedTasks: number, totalTasks: number) => string);
-      }
+        /**
+         * An array of tasks to be tracked by the progress item. Each task represents a unit of work whose progress or status can be monitored.
+         * Specifying `tasks` will automatically determine the overall status of the progress item based on the individual statuses of these tasks.
+         */
+        tasks: ProgressTask[];
+        /**
+         * The `status` prop should not be used when `tasks` is provided. The overall status is computed based on the progress of the individual tasks.
+         */
+        status?: never;
+        /**
+         * Optional description to show under the progress task title. Can either be a string or a function that receives the number of completed tasks and the total number of tasks and returns a string.
+         */
+        description?: string | ((completedTasks: number, totalTasks: number) => string);
+    }
     | {
-          /**
-           * When `tasks` is not provided, the `status` prop can be used to manually set the overall status of the progress item.
-           * This is useful for simpler use cases where there is a single task or the progress does not need to be broken down into individual tasks.
-           */
-          tasks?: never;
-          /**
-           * Manually set the overall status of the progress item. Valid statuses; 'notStarted', 'inProgress', 'success', 'removed' or 'error'.
-           */
-          status: ProgressStatus;
-          /**
-           * Optional description to show under the progress task title.
-           */
-          description?: string;
-      };
+        /**
+         * When `tasks` is not provided, the `status` prop can be used to manually set the overall status of the progress item.
+         * This is useful for simpler use cases where there is a single task or the progress does not need to be broken down into individual tasks.
+         */
+        tasks?: never;
+        /**
+         * Manually set the overall status of the progress item. Valid statuses; 'notStarted', 'inProgress', 'success', 'removed' or 'error'.
+         */
+        status: ProgressStatus;
+        /**
+         * Optional description to show under the progress task title.
+         */
+        description?: string;
+    };
 
 export type ProgressItemProps = {
     /**
@@ -94,7 +94,7 @@ const WrappedProgressItem = ({
 
     const handleRetryButtonPress = () => {
         if (failedTask) {
-            onRetryButtonPress && onRetryButtonPress(failedTask);
+            onRetryButtonPress?.(failedTask);
         }
     };
 

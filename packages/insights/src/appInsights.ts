@@ -145,7 +145,7 @@ export const setUsername = (username: string, userIdentifier: string | undefined
     }
 };
 
-const trackEvent = (event: IEventTelemetry, customProperties?: ICustomProperties | undefined) => {
+const trackEvent = (event: IEventTelemetry, customProperties?: ICustomProperties) => {
     if (isDisabled) return;
     if (!appInsightsMain) {
         trackShortTermBacklog.push({ event, customProperties });
@@ -156,7 +156,7 @@ const trackEvent = (event: IEventTelemetry, customProperties?: ICustomProperties
 
 const trackEventLongTerm = (
     event: IEventTelemetry,
-    customProperties?: ICustomProperties | undefined,
+    customProperties?: ICustomProperties,
 ) => {
     if (isDisabled) return;
     if (!appInsightsLongTermLog) {

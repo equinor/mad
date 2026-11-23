@@ -46,7 +46,7 @@ export const Radio = ({
                 name={
                     (checked
                         ? "radiobox-marked"
-                        : "radiobox-blank") as keyof typeof MaterialCommunityIcons.glyphMap
+                        : "radiobox-blank")
                 }
                 size={size}
                 color={disabled ? colors.interactive_disabled_light_text : color}

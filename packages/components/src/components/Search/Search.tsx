@@ -100,7 +100,7 @@ export const Search = ({
     };
 
     const handleOnBlurWeb = (e: FocusEvent<HTMLInputElement>) => {
-        if (e.relatedTarget && e.relatedTarget.id === "search-clear-text-button") {
+        if (e.relatedTarget?.id === "search-clear-text-button") {
             e.target.focus();
             setIsInputFocused(true);
         } else {

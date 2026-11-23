@@ -48,6 +48,7 @@ export const MenuItem = ({
     const styles = useStyles(themeStyles, { active, disabled });
 
     const onPressItem = () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- disabling for the time being
         closeMenuOnClick && !disabled && menuContext.close();
         onPress();
     };
