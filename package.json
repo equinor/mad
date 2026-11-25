@@ -47,7 +47,7 @@
         "format:all": "prettier --write .",
         "generate:maintenance-api": "turbo run generate --filter @equinor/mad-maintenance-api-ts-wrapper --",
         "lint:all": "turbo run lint --continue --",
-        "publish:all": "turbo run build && changeset version && changeset publish && yarn fetch:tags && git tag -f PROD  && yarn push:tags",
+        "publish:all": "turbo run build && changeset version && YARN_NPM_AUTH_TOKEN=$NPM_TOKEN yarn workspaces foreach --all --no-private --topological npm publish --tolerate-republish && changeset tag && yarn fetch:tags && git tag -f PROD && yarn push:tags",
         "push:tags": "git push origin --tags -f && echo Check status: https://console.radix.equinor.com/applications/chronicles/jobs",
         "test:all": "turbo run test",
         "test:auth": "turbo run test --filter @equinor/mad-auth",
