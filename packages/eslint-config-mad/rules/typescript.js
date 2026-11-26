@@ -9,6 +9,7 @@ module.exports = {
         "import/resolver": {
             typescript: true,
             node: true,
+            [require.resolve("eslint-import-resolver-typescript")]: {},
         },
     },
     rules: {

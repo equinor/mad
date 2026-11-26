@@ -53,6 +53,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 export type RootTabParamList = {
     Components: NavigatorScreenParams<ComponentsStackParamList>;
+    //ComponentsStackParamList has been used intentially to not break typing
     DFW: NavigatorScreenParams<ComponentsStackParamList>;
     IconsTab: NavigatorScreenParams<IconsStackParamList>;
     ToastTab: undefined;
