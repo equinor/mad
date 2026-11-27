@@ -7,8 +7,8 @@ module.exports = {
     plugins: ["@typescript-eslint"],
     settings: {
         "import/resolver": {
-            node: true,
             [require.resolve("eslint-import-resolver-typescript")]: {},
+            node: true,
         },
     },
     rules: {
