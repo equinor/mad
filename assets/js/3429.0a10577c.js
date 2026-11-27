@@ -1,0 +1,1 @@
+"use strict";(Array.isArray(globalThis.webpackChunk_equinor_mad_platform_docs)?globalThis.webpackChunk_equinor_mad_platform_docs:globalThis.webpackChunk_equinor_mad_platform_docs=[]).push([[3429],{3429(a){a.exports={}}}]);

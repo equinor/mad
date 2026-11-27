@@ -1,0 +1,1 @@
+"use strict";(Array.isArray(globalThis.webpackChunk_equinor_mad_platform_docs)?globalThis.webpackChunk_equinor_mad_platform_docs:globalThis.webpackChunk_equinor_mad_platform_docs=[]).push([[7472],{5513(a){a.exports=JSON.parse('{"title":"Recent posts","items":[]}')}}]);

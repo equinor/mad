@@ -1,0 +1,1 @@
+"use strict";(Array.isArray(globalThis.webpackChunk_equinor_mad_platform_docs)?globalThis.webpackChunk_equinor_mad_platform_docs:globalThis.webpackChunk_equinor_mad_platform_docs=[]).push([[1235],{8552(a){a.exports=JSON.parse('{"name":"docusaurus-plugin-content-pages","id":"default"}')}}]);
