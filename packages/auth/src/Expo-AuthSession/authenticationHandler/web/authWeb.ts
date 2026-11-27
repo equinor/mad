@@ -59,9 +59,7 @@ export function ensurePcaInitialized(): Promise<PublicClientApplication> | null 
     if (!pca) {
         throw new Error("Unable to authenticate, authentication client does not exist");
     }
-    if (!initPca) {
-        initPca = pca.init();
-    }
+    initPca ??= pca.init();
     return initPca;
 }
 

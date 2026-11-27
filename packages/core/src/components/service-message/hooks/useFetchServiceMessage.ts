@@ -19,7 +19,7 @@ export const useFetchServiceMessage = () => {
                 .then(res =>
                     res.json().then((data: ServiceMessage) => {
                         if (!data.message) return;
-                        if (!serviceMessage || data.alertName !== serviceMessage.alertName) {
+                        if (data.alertName !== serviceMessage?.alertName) {
                             setServiceMessage(data);
                             setIsDismissed(false);
                             setExpansionEnabled(false);

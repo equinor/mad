@@ -37,6 +37,9 @@ export type DFWStackParamList = {
         screenOptions?: Partial<NativeStackNavigationOptions>;
     };
 };
+export type IconsStackParamList = {
+    Icons: undefined
+}
 
 export type DFWStackScreenProps<Screen extends keyof DFWStackParamList> = NativeStackScreenProps<
     DFWStackParamList,
@@ -49,9 +52,10 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 >;
 
 export type RootTabParamList = {
-    Components: undefined;
-    DFW: undefined;
-    IconsTab: undefined;
+    Components: NavigatorScreenParams<ComponentsStackParamList>;
+    //ComponentsStackParamList has been used intentially to not break typing
+    DFW: NavigatorScreenParams<ComponentsStackParamList>;
+    IconsTab: NavigatorScreenParams<IconsStackParamList>;
     ToastTab: undefined;
     DrawTab: undefined;
     SignTab: undefined;

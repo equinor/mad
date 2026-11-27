@@ -49,7 +49,7 @@ export type MadNativeStackNavigatorTypeBag<ParamList extends ParamListBase> = Na
 };
 
 
-// eslint-disable-next-line @typescript-eslint/ban-types -- those fuckers don't export this useless type. If they export it in the future, please import it from native-stack and remove it from here. Yes it is intended to be empty. https://github.com/react-navigation/react-navigation/blob/main/packages/native-stack/src/types.tsx
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- this type is not imported. To be replaced with Native type if the library devs ever choose to export
 export type NativeStackNavigationConfig = {};
 
 export type MadNativeStackNavigationOptions = NativeStackNavigationOptions & MadNavigationOptions;

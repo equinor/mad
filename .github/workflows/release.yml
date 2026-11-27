@@ -4,8 +4,8 @@ on:
         branches:
             - main
 permissions:
-  contents: write
-  pull-requests: write
+    contents: write
+    pull-requests: write
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
@@ -28,10 +28,6 @@ jobs:
 
             - name: 📦 Install Dependencies
               run: yarn install --immutable
-
-            - name: Replace workspace dependencies
-              run: |
-                  find . -type d -name node_modules -prune -o -name "package.json" -type f -exec sed -i "" -e 's/workspace:\*/\*/g' {} +
 
             - name: 🦋 Create Release Pull Request
               id: changesets

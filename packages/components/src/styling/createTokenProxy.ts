@@ -18,16 +18,16 @@ function keyEquality(obj1: unknown, obj2: unknown) {
 
 function isColorSchemeValuesObject(obj: unknown): obj is ColorSchemeValues<unknown> {
     const template: ColorSchemeValues<unknown> = {
-        light: undefined as unknown,
-        dark: undefined as unknown,
+        light: undefined,
+        dark: undefined,
     };
     return keyEquality(obj, template);
 }
 
 function isDensityValuesObject(obj: unknown): obj is DensityValues<unknown> {
     const template: DensityValues<unknown> = {
-        tablet: undefined as unknown,
-        phone: undefined as unknown,
+        tablet: undefined,
+        phone: undefined,
     };
     return keyEquality(obj, template);
 }

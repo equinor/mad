@@ -7,7 +7,7 @@ module.exports = {
     plugins: ["@typescript-eslint"],
     settings: {
         "import/resolver": {
-            typescript: true,
+            [require.resolve("eslint-import-resolver-typescript")]: {},
             node: true,
         },
     },

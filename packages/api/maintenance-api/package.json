@@ -7,7 +7,7 @@
     },
     "bugs": "https://github.com/equinor/mad/issues",
     "devDependencies": {
-        "@equinor/mad-tsconfig": "workspace:*",
+        "@equinor/mad-tsconfig": "workspace:~",
         "@react-native/jest-preset": "~0.86.3",
         "@types/jest": "^29.5.14",
         "eslint": "^8.46.0",

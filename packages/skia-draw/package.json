@@ -7,11 +7,11 @@
     },
     "bugs": "https://github.com/equinor/mad/issues",
     "dependencies": {
-        "@equinor/mad-components": "workspace:*"
+        "@equinor/mad-components": "workspace:~"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "workspace:*",
-        "@equinor/mad-tsconfig": "workspace:*",
+        "@equinor/eslint-config-mad": "workspace:~",
+        "@equinor/mad-tsconfig": "workspace:~",
         "@shopify/react-native-skia": "2.6.2",
         "@types/react": "19.2.3",
         "eslint": "^8.46.0",

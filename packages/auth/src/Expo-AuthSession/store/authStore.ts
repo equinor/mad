@@ -83,16 +83,16 @@ export const getToken = (scopes?: string[]) => {
     if (!scopes && !config) {
         return tokens && tokens.length > 0 ? tokens[0] : null;
     }
-    const currentScopes = scopes ? scopes : config?.scopes ? config.scopes : [];
+    const currentScopes = scopes ?? (config?.scopes ?? []);
     const omittedScopes = ["openid", "profile", "offline_access"];
     const tokenWithScope = tokens
         ? tokens.find((t: TokenResponse) => {
-              if (!t.scope) return false;
-              const granted = t.scope.split(" ");
-              return currentScopes.every(
-                  (s: string) => omittedScopes.includes(s) || granted.includes(s),
-              );
-          })
+            if (!t.scope) return false;
+            const granted = t.scope.split(" ");
+            return currentScopes.every(
+                (s: string) => omittedScopes.includes(s) || granted.includes(s),
+            );
+        })
         : null;
     return tokenWithScope ? new TokenResponse(tokenWithScope) : undefined;
 };

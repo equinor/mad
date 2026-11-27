@@ -61,12 +61,12 @@ export const Input = forwardRef<TextInput, InputProps>(
 
         const onFocus = (e: FocusEvent) => {
             setIsSelected(true);
-            rest.onFocus && rest.onFocus(e);
+            rest.onFocus?.(e);
         };
 
         const onBlur = (e: BlurEvent) => {
             setIsSelected(false);
-            rest.onBlur && rest.onBlur(e);
+            rest.onBlur?.(e);
         };
 
         return (

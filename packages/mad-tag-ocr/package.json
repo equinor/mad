@@ -7,11 +7,11 @@
     },
     "bugs": "https://github.com/equinor/mad/issues",
     "dependencies": {
-        "@equinor/mad-components": "workspace:*"
+        "@equinor/mad-components": "workspace:~"
     },
     "devDependencies": {
-        "@equinor/eslint-config-mad": "workspace:*",
-        "@equinor/mad-tsconfig": "workspace:*",
+        "@equinor/eslint-config-mad": "workspace:~",
+        "@equinor/mad-tsconfig": "workspace:~",
         "@ismaelmoreiraa/vision-camera-ocr": "^3.0.1",
         "@react-native/jest-preset": "~0.86.3",
         "@shopify/react-native-skia": "2.6.2",

@@ -171,9 +171,7 @@ export type MasterToken = {
                 minWidth: DensityValues<number>;
             };
         };
-        shadow: {
-            [TElev in Elevation]: ShadowStyle;
-        };
+        shadow: Record<Elevation, ShadowStyle>;
     };
     spacing: {
         container: {
@@ -230,9 +228,7 @@ export type MasterToken = {
         };
     };
     typography: {
-        [TGroup in TypographyGroup]: {
-            [TKey in TypographyVariant<TGroup>]: TypographyStyle;
-        };
+        [TGroup in TypographyGroup]: Record<TypographyVariant<TGroup>, TypographyStyle>;
     };
     timing: {
         animation: {
@@ -245,12 +241,12 @@ export type MasterToken = {
 
 export type WithoutThemeOptionValues<TToken> = {
     [K in keyof TToken]: TToken[K] extends ColorSchemeValues<infer U>
-        ? U
-        : TToken[K] extends DensityValues<infer V>
-        ? V
-        : TToken[K] extends object
-        ? WithoutThemeOptionValues<TToken[K]>
-        : TToken[K];
+    ? U
+    : TToken[K] extends DensityValues<infer V>
+    ? V
+    : TToken[K] extends object
+    ? WithoutThemeOptionValues<TToken[K]>
+    : TToken[K];
 };
 
 export type Token = WithoutThemeOptionValues<MasterToken>;
