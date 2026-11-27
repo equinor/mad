@@ -14,6 +14,7 @@
 "@equinor/mad-platform-docs": patch
 ---
 
-eslint peer deps updated to allow apps to use later versions of eslint plugin. Rmoved replace
+eslint peer deps updated to allow apps to use later versions of eslint plugin. Removed replace
 workspace:\* script from release workflow to ensure packages are locked to existing versions to
-maintain backward compatibility
+maintain backward compatibility. Also changed workspace:\* to workspace:~ which will not pin
+packages and instead allow patch upgrades. v7 and v8 typescript will be supported going forward
